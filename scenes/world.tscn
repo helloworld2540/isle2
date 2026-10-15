@@ -1,0 +1,37 @@
+[gd_scene format=4 uid="uid://bh2n6d6b7sr6l"]
+
+[ext_resource type="Texture2D" uid="uid://cskg4dcpojnlw" path="res://sprites/wm_tileset.png" id="1_nnsk1"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rwgxs"]
+texture = ExtResource("1_nnsk1")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_nmirg"]
+tile_size = Vector2i(128, 128)
+sources/1 = SubResource("TileSetAtlasSource_rwgxs")
+
+[node name="World" type="Node2D" unique_id=1506450269]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=322476326]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=769039610]
+tile_map_data = PackedByteArray("AAD/////AQAAAAAAAAAAAP//AQABAAAAAAD//wAAAQAAAAEAAAD//wEAAQAAAAIAAAAAAAEAAQABAAIAAAABAAEAAQABAAIAAAACAAEAAQABAAIAAAADAAEAAQABAAIAAAAEAAEAAQABAAIAAAAFAAEAAQACAAIAAAAAAAAAAQABAAEAAAABAAAAAQABAAEAAAACAAAAAQABAAEAAAADAAAAAQABAAEAAAAEAAAAAQABAAEAAAAFAAAAAQACAAEAAAAFAP//AQACAAEAAAAEAP//AQABAAEAAAAEAP7/AQABAAEAAAAEAP3/AQABAAEAAAAEAPz/AQABAAEAAAABAP//AQABAAAAAAACAP//AQABAAAAAAADAP//AQAFAAIAAAADAP7/AQAAAAEAAAADAP3/AQAAAAEAAAAFAP7/AQACAAEAAAAFAP3/AQACAAEAAAAFAPz/AQACAAEAAAADAPz/AQAAAAEAAAADAPv/AQAAAAAAAAAEAPv/AQABAAAAAAAFAPv/AQACAAAAAAA=")
+tile_set = SubResource("TileSet_nmirg")
