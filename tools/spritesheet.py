@@ -37,8 +37,8 @@ def combine(input_paths: list[str], output_path: str):
 
     # TODO: find a smarter way to calculate rows*columns,
     #       maybe approximate square?
-    columns = 5
-    rows = ((len(images) - 1) // columns)
+    columns = 1
+    rows = max(((len(images) - 1) // columns), 0) + 1
 
     width = columns * gx
     height = rows * gy
