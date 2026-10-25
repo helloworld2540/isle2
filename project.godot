@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 MCPGameBridge="res://addons/godot-mcp/runtime_bridge.gd"
 MCPRuntimeProbe="*res://addons/godot-mcp/runtime_bridge.gd"
+SaveManager="*res://scripts/save_manager.gd"
 
 [display]
 

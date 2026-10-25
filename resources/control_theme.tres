@@ -1,0 +1,7 @@
+[gd_resource type="Theme" format=3 uid="uid://bug5wlu7yvs7w"]
+
+[ext_resource type="FontFile" uid="uid://bn456fi4evecw" path="res://fonts/FontdinerSwanky-Regular.ttf" id="1_eeg01"]
+
+[resource]
+Button/fonts/font = ExtResource("1_eeg01")
+Label/fonts/font = ExtResource("1_eeg01")
