@@ -14,6 +14,15 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_script")
 
+[node name="ColorRect" type="ColorRect" parent="." unique_id=2031952553]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.27656338, 0.56510365, 0.76041085, 1)
+
 [node name="Label" type="Label" parent="." unique_id=1987671865]
 layout_mode = 1
 anchors_preset = -1
@@ -25,22 +34,22 @@ offset_left = -109.5
 offset_right = 109.5
 offset_bottom = 137.0
 grow_horizontal = 2
-text = "isle2"
+text = "Trash Island 2"
 label_settings = SubResource("LabelSettings_nmirg")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="StartButton" type="Button" parent="." unique_id=875779407]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -109.5
-offset_top = -35.0
-offset_right = 109.5
-offset_bottom = 35.0
+anchors_preset = -1
+anchor_left = 0.40500003
+anchor_top = 0.549
+anchor_right = 0.595
+anchor_bottom = 0.70500004
+offset_left = -0.060028076
+offset_top = -0.008026123
+offset_right = 0.059936523
+offset_bottom = 0.0079956055
 grow_horizontal = 2
 grow_vertical = 2
-text = "Start Game"
+text = "PLAY"
