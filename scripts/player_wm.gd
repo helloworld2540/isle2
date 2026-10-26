@@ -9,10 +9,28 @@ var is_moving := false
 var path: PackedVector2Array = []
 var current_dir := Vector2.DOWN
 var global_target_pos: Vector2
+var _path_highlight: Node2D
 
 func _ready() -> void:
 	add_to_group("player")
 	global_target_pos = global_position
+	_path_highlight = Node2D.new()
+	_path_highlight.top_level = true
+	_path_highlight.z_index = -1
+	add_child(_path_highlight)
+
+func _clear_highlight() -> void:
+	for c in _path_highlight.get_children():
+		c.queue_free()
+
+func _refresh_highlight() -> void:
+	_clear_highlight()
+	for world_pos in path:
+		var tile := ColorRect.new()
+		tile.color = Color(1.0, 1.0, 1.0, 0.114)
+		tile.size = Vector2(world_map.tile_set.tile_size) if world_map.tile_set else Vector2(128, 128)
+		tile.global_position = world_pos - (tile.size * 0.5)
+		_path_highlight.add_child(tile)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
@@ -25,11 +43,17 @@ func _calculate_path_to(world_pos: Vector2) -> void:
 	var starting_pos := global_target_pos if is_moving else global_position
 	var start_cell := world_map.local_to_map(world_map.to_local(starting_pos))
 	var end_cell := world_map.local_to_map(world_map.to_local(world_pos))
-	
+
+	# If the clicked tile is not walkable, fall back to the nearest walkable one.
+	if not _is_walkable(end_cell):
+		end_cell = _nearest_walkable_cell(end_cell, 8)
+
 	var route := _bfs(start_cell, end_cell)
 
 	for cell in route:
 		path.append(world_map.to_global(world_map.map_to_local(cell)))
+	
+	_refresh_highlight()
 
 func _physics_process(_delta: float) -> void:
 	# Update pathfinding tile
@@ -52,6 +76,7 @@ func _move_to_target() -> void:
 
 func _on_move_finished() -> void:
 	is_moving = false
+	_refresh_highlight()
 
 func _update_animation(dir: Vector2) -> void:
 	if absf(dir.x) >= absf(dir.y):
@@ -91,7 +116,16 @@ func _bfs(start: Vector2i, goal: Vector2i) -> Array[Vector2i]:
 				queue.append(neighbor)
 				
 	if not came_from.has(goal):
-		return []
+		var best_cell: Vector2i = start
+		var best_dist: float = INF
+		for visited in came_from.keys():
+			var d: float = visited.distance_to(goal)
+			if d < best_dist:
+				best_dist = d
+				best_cell = visited
+		if best_cell == start:
+			return []
+		goal = best_cell
 
 	var route: Array[Vector2i] = []
 	var step := goal
@@ -102,8 +136,19 @@ func _bfs(start: Vector2i, goal: Vector2i) -> Array[Vector2i]:
 		
 	route.reverse()
 	print("[bfs] start, end:", start, goal)
-	print("[bfs]", route)
+	print("[bfs] route:", route)
 	return route
+
+func _nearest_walkable_cell(target: Vector2i, max_radius: int) -> Vector2i:
+	for r in range(1, max_radius + 1):
+		for sx in range(-r, r + 1):
+			for sy in range(-r, r + 1):
+				if abs(sx) != r and abs(sy) != r:
+					continue
+				var c := target + Vector2i(sx, sy)
+				if _is_walkable(c):
+					return c
+	return target
 
 func _get_walkable_neighbors(cell: Vector2i) -> Array[Vector2i]:
 	var neighbors: Array[Vector2i] = []

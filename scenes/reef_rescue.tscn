@@ -1,0 +1,77 @@
+[gd_scene format=3 uid="uid://bcx24d56s64oq"]
+
+[ext_resource type="Script" uid="uid://cvsq0ssl6il4b" path="res://scripts/reef_rescue.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://bkpw6kp688eb3" path="res://sprites/rr_bg.png" id="2_bg"]
+[ext_resource type="Texture2D" uid="uid://b1704yjyhcgu5" path="res://sprites/player_wm_walk.png" id="3_vg2hp"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_drone"]
+radius = 50.08992
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r047m"]
+atlas = ExtResource("3_vg2hp")
+region = Rect2(768, 0, 256, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p4s01"]
+atlas = ExtResource("3_vg2hp")
+region = Rect2(768, 384, 256, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_npteu"]
+atlas = ExtResource("3_vg2hp")
+region = Rect2(768, 768, 256, 384)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nmirg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r047m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p4s01")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_npteu")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SystemFont" id="SystemFont_aq0s6"]
+
+[node name="ReefRescue" type="Node2D" unique_id=1000]
+script = ExtResource("1_script")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="." unique_id=1001]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground" unique_id=1002]
+motion_mirroring = Vector2(2732, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer" unique_id=1003]
+texture = ExtResource("2_bg")
+centered = false
+
+[node name="Drone" type="CharacterBody2D" parent="." unique_id=1004]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Drone" unique_id=1006]
+shape = SubResource("CircleShape2D_drone")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Drone" unique_id=20214421]
+scale = Vector2(0.47265625, 0.47265625)
+sprite_frames = SubResource("SpriteFrames_nmirg")
+autoplay = "default"
+frame_progress = 0.7469389
+
+[node name="Items" type="Node2D" parent="." unique_id=1007]
+
+[node name="SpawnTimer" type="Timer" parent="." unique_id=1008]
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1009]
+
+[node name="ScoreLabel" type="Label" parent="UI" unique_id=1010]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 600.0
+offset_bottom = 60.0
+theme_override_fonts/font = SubResource("SystemFont_aq0s6")
+theme_override_font_sizes/font_size = 24
+text = "Score: 0"
