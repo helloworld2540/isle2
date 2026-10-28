@@ -2,7 +2,21 @@
 
 [ext_resource type="Script" uid="uid://cseoerxg1vwmu" path="res://scripts/upcycle.gd" id="1_up"]
 [ext_resource type="Texture2D" uid="uid://b1704yjyhcgu5" path="res://sprites/player_wm_walk.png" id="2_7koka"]
+[ext_resource type="Texture2D" uid="uid://dopynkg6f8gds" path="res://sprites/upcycle/fire.png" id="3_1tuwn"]
 [ext_resource type="PackedScene" uid="uid://da0cx3ko11vpg" path="res://scenes/u_bin.tscn" id="3_cggsw"]
+[ext_resource type="Theme" uid="uid://bug5wlu7yvs7w" path="res://resources/control_theme.tres" id="4_1tuwn"]
+
+[sub_resource type="Curve2D" id="Curve2D_cggsw"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 57, 57, 0, 0, 0, 0, 59, 550)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_pnio1"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 51, 57, 0, 0, 0, 0, 362, 56, 0, 0, 0, 0, 365, 551)
+}
+point_count = 3
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cggsw"]
 atlas = ExtResource("2_7koka")
@@ -34,10 +48,34 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nmirg"]
-size = Vector2(372, 187)
+size = Vector2(253, 354.3075)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_usdmw"]
+atlas = ExtResource("3_1tuwn")
+region = Rect2(0, 0, 256, 384)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5oq85"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_usdmw")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="Upcycle" type="Node2D" unique_id=218072149]
 script = ExtResource("1_up")
+
+[node name="Conveyor" type="Node2D" parent="." unique_id=1208625145]
+
+[node name="Conveyor1" type="Path2D" parent="Conveyor" unique_id=562047709]
+curve = SubResource("Curve2D_cggsw")
+
+[node name="Conveyor2" type="Path2D" parent="Conveyor" unique_id=1529687781]
+position = Vector2(-28, 9)
+curve = SubResource("Curve2D_pnio1")
 
 [node name="Player" type="CharacterBody2D" parent="." unique_id=836588523]
 position = Vector2(908, 260)
@@ -46,28 +84,34 @@ position = Vector2(908, 260)
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_nmirg")
 
-[node name="Conveyor" type="Node2D" parent="." unique_id=1815201309]
-
 [node name="Fire" type="Area2D" parent="." unique_id=872353914]
-position = Vector2(40, 600)
+position = Vector2(199.99998, 660)
+scale = Vector2(1.592, 1.6)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Fire" unique_id=2036253270]
-position = Vector2(145, -48.5)
+position = Vector2(0, 13.153778)
 shape = SubResource("RectangleShape2D_nmirg")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Fire" unique_id=1464133025]
+sprite_frames = SubResource("SpriteFrames_5oq85")
 
 [node name="Bins" type="Node2D" parent="." unique_id=358018576]
 
 [node name="Polyethylene" parent="Bins" unique_id=1654979840 instance=ExtResource("3_cggsw")]
-position = Vector2(457, 551)
+modulate = Color(0, 1, 0.45000005, 1)
+position = Vector2(613, 573)
 
 [node name="Glass" parent="Bins" unique_id=344425009 instance=ExtResource("3_cggsw")]
-position = Vector2(637, 552)
+modulate = Color(0.69, 0.253, 0, 1)
+position = Vector2(766, 571)
 
 [node name="Polypropylene" parent="Bins" unique_id=335785607 instance=ExtResource("3_cggsw")]
-position = Vector2(816, 552)
+modulate = Color(0.9333369, 1, 0, 1)
+position = Vector2(919, 571)
 
 [node name="Nylon" parent="Bins" unique_id=52178698 instance=ExtResource("3_cggsw")]
-position = Vector2(993, 554)
+modulate = Color(0.61868674, 0.58951896, 0.5600941, 1)
+position = Vector2(1071, 571)
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=411811438]
 
@@ -78,3 +122,49 @@ offset_top = 20.0
 [node name="HeldLabel" type="Label" parent="UI" unique_id=1135639387]
 offset_left = 20.0
 offset_top = 50.0
+
+[node name="Label" type="Label" parent="UI" unique_id=442108003]
+offset_left = 541.0
+offset_top = 443.0
+offset_right = 692.0
+offset_bottom = 492.0
+theme = ExtResource("4_1tuwn")
+theme_override_colors/font_color = Color(1, 1, 1, 0.342)
+text = "Plastic Bag
+(PE)"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="UI" unique_id=1347553029]
+offset_left = 694.0
+offset_top = 442.0
+offset_right = 842.0
+offset_bottom = 491.0
+theme = ExtResource("4_1tuwn")
+theme_override_colors/font_color = Color(1, 1, 1, 0.342)
+text = "Bottle 
+(Glass)"
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="UI" unique_id=1313478920]
+offset_left = 849.0
+offset_top = 443.0
+offset_right = 998.0
+offset_bottom = 492.0
+theme = ExtResource("4_1tuwn")
+theme_override_colors/font_color = Color(1, 1, 1, 0.342)
+text = "Plastic Straw
+(PP)"
+horizontal_alignment = 1
+
+[node name="Label4" type="Label" parent="UI" unique_id=289744003]
+offset_left = 1003.0
+offset_top = 440.0
+offset_right = 1151.0
+offset_bottom = 489.0
+theme = ExtResource("4_1tuwn")
+theme_override_colors/font_color = Color(1, 1, 1, 0.342)
+text = "Fishing Net 
+(Synthetic Fibre)"
+horizontal_alignment = 1
+
+[connection signal="body_entered" from="Fire" to="." method="_on_fire_body_entered"]

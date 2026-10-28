@@ -18,7 +18,7 @@ func init(texture: String) -> void:
 	mat = entry[0]
 	size = entry[1]
 	sprite.texture = load("res://sprites/rr/" + texture)
-	
+	set_meta("material", mat)
 	scale = Vector2(log(size) / log(100) / 3, log(size) / log(100) / 3)
 	
 func _ready() -> void:
