@@ -2,9 +2,9 @@
 
 [ext_resource type="Texture2D" uid="uid://cskg4dcpojnlw" path="res://sprites/wm_tileset.png" id="1_nnsk1"]
 [ext_resource type="Texture2D" uid="uid://b1704yjyhcgu5" path="res://sprites/player_wm_walk.png" id="1_rwgxs"]
-[ext_resource type="Script" uid="uid://drpgnbd3j42qk" path="res://scripts/player_wm.gd" id="2_4wyf3"]
-[ext_resource type="Script" uid="uid://b7qs8mpyww88f" path="res://scripts/camera_grid.gd" id="3_camera"]
-[ext_resource type="Script" uid="uid://bdpxvgjp8e85w" path="res://scripts/world_menu.gd" id="4_menu"]
+[ext_resource type="Script" uid="uid://drpgnbd3j42qk" path="res://scripts/wm_player.gd" id="2_4wyf3"]
+[ext_resource type="Script" uid="uid://b7qs8mpyww88f" path="res://scripts/wm_camera_grid.gd" id="3_camera"]
+[ext_resource type="Script" uid="uid://bdpxvgjp8e85w" path="res://scripts/wm_menu.gd" id="4_menu"]
 [ext_resource type="Theme" uid="uid://bug5wlu7yvs7w" path="res://resources/control_theme.tres" id="6_qfnet"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rwgxs"]

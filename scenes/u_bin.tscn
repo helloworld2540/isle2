@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://da0cx3ko11vpg"]
+
+[ext_resource type="Texture2D" uid="uid://x67gghrm5rm5" path="res://sprites/upcycle/bin.png" id="1_gfb4s"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nmirg"]
+size = Vector2(252.85718, 264.28577)
+
+[node name="UFish" type="Node2D" unique_id=1654979840]
+
+[node name="Body" type="StaticBody2D" parent="." unique_id=518155049]
+scale = Vector2(0.7, 0.7)
+input_pickable = true
+
+[node name="Sprite" type="Sprite2D" parent="Body" unique_id=1696270003]
+scale = Vector2(0.99999994, 0.99999994)
+texture = ExtResource("1_gfb4s")
+
+[node name="Collisiion" type="CollisionShape2D" parent="Body" unique_id=1493735751]
+position = Vector2(5.0000014, -0.7142911)
+scale = Vector2(0.9999998, 0.9999998)
+shape = SubResource("RectangleShape2D_nmirg")

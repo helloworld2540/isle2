@@ -70,7 +70,7 @@ func _input(event: InputEvent) -> void:
 		drag_velocity += (drag_velocity + event.relative) / 2
 
 func _spawn_item() -> void:
-	var item: Fish = preload("res://scenes/fish.tscn").instantiate()
+	var item: Fish = preload("res://scenes/rr_fish.tscn").instantiate()
 	items.add_child(item)
 	item.add_to_group("items")
 	if randfn(depth / 1000.0, 0.5) > 0.5:

@@ -12,7 +12,7 @@ config_version=5
 
 config/name="isle2"
 config/description="a second very trash island"
-run/main_scene="uid://bcx24d56s64oq"
+run/main_scene="res://scenes/upcycle.tscn"
 config/features=PackedStringArray("4.7", "Forward Plus")
 boot_splash/show_image=false
 config/icon="res://icon.svg"
@@ -21,8 +21,7 @@ config/icon="res://icon.svg"
 
 SaveManager="*res://scripts/save_manager.gd"
 SceneTransition="*res://scripts/scene_transition.gd"
-MCPGameBridge="res://addons/godot-mcp/runtime_bridge.gd"
-MCPRuntimeProbe="*res://addons/godot-mcp/runtime_bridge.gd"
+MCPGameBridge="*res://addons/godot-mcp/runtime_bridge.gd"
 
 [display]
 

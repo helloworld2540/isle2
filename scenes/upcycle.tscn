@@ -1,3 +1,80 @@
-[gd_scene format=3 uid="uid://cbvjcsdcgxq4"]
+[gd_scene format=3 uid="uid://blohioo5o7cxg"]
 
-[node name="Upcycle" type="Node2D" unique_id=28411565]
+[ext_resource type="Script" uid="uid://cseoerxg1vwmu" path="res://scripts/upcycle.gd" id="1_up"]
+[ext_resource type="Texture2D" uid="uid://b1704yjyhcgu5" path="res://sprites/player_wm_walk.png" id="2_7koka"]
+[ext_resource type="PackedScene" uid="uid://da0cx3ko11vpg" path="res://scenes/u_bin.tscn" id="3_cggsw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cggsw"]
+atlas = ExtResource("2_7koka")
+region = Rect2(0, 0, 256, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1tuwn"]
+atlas = ExtResource("2_7koka")
+region = Rect2(0, 384, 256, 384)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pnio1"]
+atlas = ExtResource("2_7koka")
+region = Rect2(0, 768, 256, 384)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nmirg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cggsw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1tuwn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pnio1")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nmirg"]
+size = Vector2(372, 187)
+
+[node name="Upcycle" type="Node2D" unique_id=218072149]
+script = ExtResource("1_up")
+
+[node name="Player" type="CharacterBody2D" parent="." unique_id=836588523]
+position = Vector2(908, 260)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player" unique_id=1806486222]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_nmirg")
+
+[node name="Conveyor" type="Node2D" parent="." unique_id=1815201309]
+
+[node name="Fire" type="Area2D" parent="." unique_id=872353914]
+position = Vector2(40, 600)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fire" unique_id=2036253270]
+position = Vector2(145, -48.5)
+shape = SubResource("RectangleShape2D_nmirg")
+
+[node name="Bins" type="Node2D" parent="." unique_id=358018576]
+
+[node name="Polyethylene" parent="Bins" unique_id=1654979840 instance=ExtResource("3_cggsw")]
+position = Vector2(457, 551)
+
+[node name="Glass" parent="Bins" unique_id=344425009 instance=ExtResource("3_cggsw")]
+position = Vector2(637, 552)
+
+[node name="Polypropylene" parent="Bins" unique_id=335785607 instance=ExtResource("3_cggsw")]
+position = Vector2(816, 552)
+
+[node name="Nylon" parent="Bins" unique_id=52178698 instance=ExtResource("3_cggsw")]
+position = Vector2(993, 554)
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=411811438]
+
+[node name="ScoreLabel" type="Label" parent="UI" unique_id=400564542]
+offset_left = 20.0
+offset_top = 20.0
+
+[node name="HeldLabel" type="Label" parent="UI" unique_id=1135639387]
+offset_left = 20.0
+offset_top = 50.0

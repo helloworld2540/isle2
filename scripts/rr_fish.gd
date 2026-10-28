@@ -2,17 +2,18 @@ extends Node2D
 class_name Fish
 
 const GARBAGE := {
-	"res://sprites/rr/trash_net.png": 35,
-	"res://sprites/rr/trash_bottle.png": 15,
-	"res://sprites/rr/trash_plasticblue.png": 40,
-	"res://sprites/rr/trash_plasticwhite.png": 35,
+	"trash_net.png": 35,
+	"trash_bottle.png": 15,
+	"trash_plasticblue.png": 40,
+	"trash_plasticwhite.png": 35,
+	"trash_straw.png": 17
 }
 
 const FISH := {
-	"res://sprites/rr/fish_gold.png": 20, 
-	"res://sprites/rr/fish_greyreefshark.png": 45, 
-	"res://sprites/rr/fish_nemo.png": 25,
-	"res://sprites/rr/fish_crab.png": 15
+	"fish_gold.png": 20, 
+	"fish_greyreefshark.png": 45, 
+	"fish_nemo.png": 25,
+	"fish_crab.png": 15
 }
 
 @onready var sprite: Sprite2D = $CharacterBody2D/Sprite2D
@@ -22,7 +23,7 @@ var size := 1.0
 func init_fish() -> void:
 	set_meta("is_fish", true)
 	var texture = FISH.keys().pick_random()
-	sprite.texture = load(texture)
+	sprite.texture = load("res://sprites/rr/" + texture)
 	
 	speed = Vector2(randfn(0, 75), randfn(1, 0.4))
 	size = log(randfn(FISH[texture], 10)) / log(100)
@@ -30,11 +31,16 @@ func init_fish() -> void:
 func init_garbage() -> void:
 	set_meta("is_fish", false)
 	var texture = GARBAGE.keys().pick_random()
-	sprite.texture = load(texture)
+	sprite.texture = load("res://sprites/rr/" + texture)
 	
 	speed = Vector2(randfn(0, 25), randfn(1, 0.2))
 	size = log(randfn(GARBAGE[texture], 10)) / log(100)
+	
+	rotation_degrees = randi_range(0, 360)
+	sprite.flip_h = randf() > 0.5
 	set_meta("weight", int(randfn(10, 10)))
+	if texture == "trash_straw.png":
+		sprite.modulate = Color.from_hsv(randf(), 1.0, 1.0)
 
 func _ready() -> void:
 	var vp = get_viewport_rect().size
