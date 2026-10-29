@@ -15,117 +15,212 @@ var trash := [
 	"trash_straw.png"
 ]
 
+const GRID := 160
+const MIN_SWIPE_DISTANCE := 30.0
+
+# Grid boundaries
+const MIN_GRID_X := 1
+const MAX_GRID_X := 5
+const MIN_GRID_Y := 0
+const MAX_GRID_Y := 2
+
 var score := 0
 var carried_item: Node2D = null
 var spawn_timer := 0.0
 var SPAWN_INTERVAL := 1.0
 var belt_speed := 120.0
 
+var drag_start_pos := Vector2.ZERO
+var is_dragging := false
+var move_tween: Tween = null
+
 @onready var score_label: Label = $UI/ScoreLabel
 @onready var held_label: Label = $UI/HeldLabel
 @onready var player: CharacterBody2D = $Player
-@onready var conveyor: Node2D = $Conveyor
+@onready var conveyor: Path2D = $Conveyor
 @onready var fire: Area2D = $Fire
 @onready var bins: Node2D = $Bins
+@onready var highlight_node: Node2D = $highlight_node
 
 func _ready() -> void:
-	for i in range(4):
-		trash.append_array(trash.duplicate())
-	for i in range(bins.get_child_count()):
+	var max_bins = min(bins.get_child_count(), MATERIALS.size())
+	for i in range(max_bins):
 		var bin := bins.get_child(i)
 		bin.set_meta("material", MATERIALS[i])
-		var body := bin.get_node_or_null("Body")
-		if body:
-			body.input_event.connect(_handle_bin.bind(bin))
+		
+	player.global_position = _snap(player.global_position)
 	_update_ui()
 
-func _random_path() -> Path2D:
-	var paths := conveyor.get_children()
-	if paths.is_empty():
-		return null
-	return paths[randi() % paths.size()] as Path2D
+func _snap(pos: Vector2) -> Vector2:
+	var offset := Vector2(GRID / 2.0, GRID / 2.0)
+	return (pos - offset).snapped(Vector2(GRID, GRID)) + offset
 
 func _process(delta: float) -> void:
-	for path in conveyor.get_children():
-		if not (path is Path2D):
+	for follow in conveyor.get_children():
+		if follow.get_child_count() == 0:
+			follow.queue_free()
 			continue
-		for child in path.get_children():
-			if not (child is PathFollow2D):
-				continue
-			var follow := child as PathFollow2D
-			if follow.get_child_count() == 0:
-				follow.queue_free()
-				continue
-			var item := follow.get_child(0) as Node2D
-			if not is_instance_valid(item):
-				continue
-			if not item.get_meta("on_belt", false):
-				continue
-			follow.progress += belt_speed * delta
-			if follow.progress_ratio >= 1.0:
-				item.set_meta("on_belt", false)
-				burn_item(item)
-				follow.queue_free()
+			
+		var item := follow.get_child(0) as Node2D
+		if not item.get_meta("on_belt", false): continue
+			
+		follow.progress += belt_speed * delta
+		
+		if follow.progress_ratio >= 1.0:
+			item.set_meta("on_belt", false)
+			burn_item(item)
+			
 	spawn_timer += delta
 	if spawn_timer >= SPAWN_INTERVAL:
 		spawn_timer = 0.0
 		spawn_item()
+		
 	if carried_item and is_instance_valid(carried_item):
 		carried_item.global_position = player.global_position + Vector2(0, -20)
+		
+	var target = _get_valid_interaction_target()
+	if target:
+		highlight_node.visible = true
+		highlight_node.global_position = _snap(target.global_position)
+	else:
+		highlight_node.visible = false
+		
 	_update_ui()
+
+func _get_valid_interaction_target() -> Node2D:
+	var player_grid := _snap(player.global_position)
+	var nearest: Node2D = null
+	var best_dist := INF
+	
+	if not carried_item:
+		for follow in conveyor.get_children():
+			if follow.get_child_count() == 0: continue
+			var item := follow.get_child(0) as Node2D
+			if not item.get_meta("on_belt", false): continue
+			
+			var item_grid := _snap(item.global_position)
+			var diff := (item_grid - player_grid).abs()
+			
+			if diff.x <= GRID and diff.y <= GRID:
+				var d := item.global_position.distance_to(player.global_position)
+				if d < best_dist:
+					best_dist = d
+					nearest = item
+	else:
+		for bin in bins.get_children():
+			var bin_grid := _snap(bin.global_position)
+			var diff := (bin_grid - player_grid).abs()
+			if diff.x <= GRID and diff.y <= GRID:
+				var d: float = bin.global_position.distance_to(player.global_position)
+				if d < best_dist:
+					best_dist = d
+					nearest = bin
+	return nearest
 
 func spawn_item() -> void:
 	var tex: String = trash.pick_random()
 	var item: Node2D = preload("res://scenes/u_trash.tscn").instantiate()
-	var path := _random_path()
-	if path:
-		var follow := PathFollow2D.new()
-		follow.loop = false
-		follow.progress = 0.0
-		path.add_child(follow)
-		follow.add_child(item)
-		item.position = Vector2.ZERO
-	else:
-		conveyor.add_child(item)
+
+	var follow := PathFollow2D.new()
+	follow.loop = false
+	follow.progress = 0.0
+	conveyor.add_child(follow)
+	follow.add_child(item)
+	item.position = Vector2.ZERO
+
 	item.set_meta("on_belt", true)
 	item.init(tex)
-	var body := item.get_node_or_null("Body")
-	if body:
-		body.input_event.connect(_handle_item.bind(item))
-
-func _handle_item(viewport: Viewport, event: InputEvent, shape_idx: int, item: Node2D) -> void:
-	if (event is InputEventMouseButton or event is InputEventScreenTouch) and event.pressed:
-		if not carried_item:
-			var parent := item.get_parent()
-			if parent is PathFollow2D:
-				item.reparent(self)
-				item.global_position = (parent as PathFollow2D).global_position
-				parent.queue_free()
-			carried_item = item
-			item.set_meta("on_belt", false)
-
-func _handle_bin(viewport: Viewport, event: InputEvent, shape_idx: int, bin: Node2D) -> void:
-	if (event is InputEventMouseButton or event is InputEventScreenTouch) and event.pressed:
-		if carried_item:
-			var mat: String = str(carried_item.get_meta("material"))
-			print("[rr] Put", mat, "into", bin.get_meta("material"))
-			if mat == bin.get_meta("material"):
-				score += 1
-			else:
-				score -= 1
-			carried_item.queue_free()
-			carried_item = null
 
 func burn_item(item: Node2D) -> void:
 	score -= 1
-	var ap := item.get_node_or_null("AnimationPlayer")
+	var ap := item.get_node("AnimationPlayer")
 	if ap:
 		ap.play("suck")
+		if not ap.animation_finished.is_connected(item.queue_free):
+			ap.animation_finished.connect(func(_anim_name): item.queue_free())
+	else:
+		item.queue_free()
 	_update_ui()
 
 func _update_ui() -> void:
 	score_label.text = "Score: %d" % score
-	held_label.text = "Held: %s" % (carried_item.get_meta("material") if carried_item else "none")
+	
+	var mat_name = "none"
+	if carried_item and carried_item.has_meta("material"):
+		mat_name = carried_item.get_meta("material")
+	held_label.text = "Holding %s" % mat_name
 
 func _on_fire_body_entered(body: Node2D) -> void:
-	burn_item(body)
+	var parent_item = body.get_parent() 
+	if parent_item and parent_item.has_meta("on_belt"):
+		burn_item(parent_item)
+
+func _input(event: InputEvent) -> void:
+	if not (event is InputEventScreenTouch or event is  InputEventMouseButton):
+		return
+		
+	if event.pressed:
+		drag_start_pos = event.position
+	else:
+		var drag_vector: Vector2 = event.position - drag_start_pos
+		
+		if drag_vector.length() < MIN_SWIPE_DISTANCE:
+			_interact()
+		else:
+			var dir := (
+				(Vector2(-1, 0) if drag_vector.x < 0 else Vector2(1, 0))
+				if abs(drag_vector.x) > abs(drag_vector.y)
+				else (Vector2(0, -1) if drag_vector.y < 0 else Vector2(0, 1))
+			)
+			print("[u] input: ", drag_vector)
+			print("[u] output:", dir)
+			var target_pixel_pos = _snap(player.global_position + dir * GRID)
+				
+			var target_grid_pos = Vector2(
+				round((target_pixel_pos.x - GRID / 2.0) / GRID),
+				round((target_pixel_pos.y - GRID / 2.0) / GRID)
+			)
+				
+			if _is_valid_move(target_grid_pos):
+				if move_tween and move_tween.is_valid():
+					move_tween.kill()
+				move_tween = create_tween()
+				move_tween.tween_property(player, "global_position", target_pixel_pos, 0.08).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+
+func _is_valid_move(grid_pos: Vector2) -> bool:
+	var x = int(grid_pos.x)
+	var y = int(grid_pos.y)
+	
+	if x < MIN_GRID_X or x > MAX_GRID_X or y < MIN_GRID_Y or y > MAX_GRID_Y:
+		return false
+		
+	if y == 0 and x != 1: return false
+	return true
+
+func _interact() -> void:
+	var target = _get_valid_interaction_target()
+	
+	if not target:
+		return
+		
+	if not carried_item:
+		var parent := target.get_parent()
+		if parent is PathFollow2D:
+			var old_gpos = target.global_position
+			target.reparent(self)
+			target.global_position = old_gpos
+			parent.queue_free()
+			
+		carried_item = target
+		target.set_meta("on_belt", false)
+	else:
+		var mat: String = str(carried_item.get_meta("material"))
+		var bin_mat: String = str(target.get_meta("material"))
+		
+		if mat == bin_mat:
+			score += 1
+		else:
+			score -= 1
+			
+		carried_item.queue_free()
+		carried_item = null
