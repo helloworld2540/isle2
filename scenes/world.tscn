@@ -6,6 +6,8 @@
 [ext_resource type="Script" uid="uid://b7qs8mpyww88f" path="res://scripts/wm_camera_grid.gd" id="3_camera"]
 [ext_resource type="Script" uid="uid://bdpxvgjp8e85w" path="res://scripts/wm_menu.gd" id="4_menu"]
 [ext_resource type="Theme" uid="uid://bug5wlu7yvs7w" path="res://resources/control_theme.tres" id="6_qfnet"]
+[ext_resource type="Script" path="res://scripts/wm_summary.gd" id="7_summary"]
+[ext_resource type="Script" path="res://scripts/wm_portal.gd" id="5_portal"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rwgxs"]
 texture = ExtResource("1_nnsk1")
@@ -288,3 +290,50 @@ layout_mode = 2
 theme = ExtResource("6_qfnet")
 theme_override_font_sizes/font_size = 30
 text = "Save & Quit"
+
+[sub_resource type="RectangleShape2D" id="Shape_portal"]
+size = Vector2(64, 64)
+
+[node name="PortalUpcycle" type="Area2D" parent="." unique_id=900000001]
+position = Vector2(150, 204)
+script = ExtResource("5_portal")
+target_scene = "res://scenes/upcycle.tscn"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PortalUpcycle" unique_id=900000002]
+shape = SubResource("Shape_portal")
+
+[node name="Label" type="Label" parent="PortalUpcycle" unique_id=900000003]
+offset_left = -46.0
+offset_top = -46.0
+offset_right = 46.0
+offset_bottom = 0.0
+text = "Upcycle"
+horizontal_alignment = 1
+
+[node name="PortalReefRescue" type="Area2D" parent="." unique_id=900000004]
+position = Vector2(534, 588)
+script = ExtResource("5_portal")
+target_scene = "res://scenes/reef_rescue.tscn"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PortalReefRescue" unique_id=900000005]
+shape = SubResource("Shape_portal")
+
+[node name="Label" type="Label" parent="PortalReefRescue" unique_id=900000006]
+offset_left = -50.0
+offset_top = -46.0
+offset_right = 50.0
+offset_bottom = 0.0
+text = "Reef Rescue"
+horizontal_alignment = 1
+
+[node name="WorldSummary" type="CanvasLayer" parent="." unique_id=900000011]
+
+[node name="SummaryLabel" type="Label" parent="WorldSummary" unique_id=900000012]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 620.0
+offset_bottom = 100.0
+text = "Upcycle Score: 0 | Reef Garbage: 0 kg, Fish: 0"
+theme_override_font_sizes/font_size = 16
+script = ExtResource("7_summary")
+

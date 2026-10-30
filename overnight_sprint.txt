@@ -1,0 +1,30 @@
+Overnight Sprint Log
+====================
+2026-10-30 23:38: Sprint initiated. Analyzed architecture: autoloads SaveManager, SceneTransition, MCPGameBridge; world map uses Area2D wm_portal for scene transitions; point-and-click BFS movement.
+
+2026-10-30 23:46: Added PortalUpcycle and PortalReefRescue Area2D nodes into scenes/world.tscn, each wired to scripts/wm_portal.gd targeting res://scenes/upcycle.tscn and res://scenes/reef_rescue.tscn. Added collision shapes and visible labels.
+
+2026-10-30 23:47: Added "Return to Map" buttons in upcycle.gd and reef_rescue.gd, routing through SceneTransition to world.tscn. Sealed seamless bidirectional flow.
+
+2026-10-30 23:48: Headless run reports only the addon runtime bridge listen error (err 22, port 9877) which is environment-specific and non-blocking for gameplay. No GDScript parse/compile errors in project load.
+
+2026-10-31 00:55: Progress summary now flows through WorldSummary CanvasLayer in scenes/world.tscn.
+2026-10-31 00:56: Added portal pulse polish in scripts/wm_portal.gd (continuous ease-in/out scale animation).
+2026-10-31 00:57: Added AudioManager autoload (scripts/audio_manager.gd) and registered in project.godot. Hooked return buttons to request SFX playback (placeholder-safe).
+2026-10-31 00:58: Headless project load still shows only addon port-9877 binding warning (environment-only), no project autoload/script errors.
+Next ideas: Add resource consumption via shop/trash inventory, polish BFS movement responsiveness, add full settings UI.
+
+2026-10-30 23:52: Added GameState autoload (scripts/game_state.gd) and registered in project.godot for cross-scene progress persistence (upcycle_score, reef garbage/fish) via SaveManager. Hooked minigame return flows to record progress.
+
+2026-10-30 23:53: Headless project load reports only non-blocking addon runtime bridge (port 9877) warning. Autoload chain (SaveManager -> GameState -> SceneTransition) parses cleanly; no script compile errors.
+
+Next ideas:
+- Add world-map on-screen Score/Catch summary label reading GameState after return.
+- Implement proper minimap/portal highlighted glow animations.
+- Add audio_manager autoload and button-click SFX.
+- Add settings menu (volume, fullscreen) under wm_menu Save button branch.
+
+2026-10-31 01:08: Settings UI layer started in scripts/settings_ui.gd (Control, master volume + persistence).
+2026-10-31 01:09: Loop remains active; world-map core integration stable under documented environment limitations.
+
+2026-10-31 01:14: Sprint loop active. Next polish branch queued: implement gameplay polish passes for portal glow, upcycle BFS move responsiveness, and a concrete settings menu scene in scenes.

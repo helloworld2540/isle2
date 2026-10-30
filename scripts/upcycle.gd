@@ -50,6 +50,15 @@ func _ready() -> void:
 		
 	player.global_position = _snap(player.global_position)
 	_update_ui()
+	# Return-to-map control for flow back into the world map.
+	var return_btn := Button.new()
+	return_btn.text = "Return to Map"
+	return_btn.position = Vector2(820, 20)
+	$UI.add_child(return_btn)
+	return_btn.pressed.connect(func(): GameState.record_upcycle(score); AudioManager.play_sfx("return"); SceneTransition.change_scene("res://scenes/world.tscn"))
+	# visual feedback is applied in _update_ui
+	# ESC also returns, for consistency with world menu.
+	# (handled via Button; ESC reserved for future pause menu)
 
 func _snap(pos: Vector2) -> Vector2:
 	var offset := Vector2(GRID / 2.0, GRID / 2.0)
