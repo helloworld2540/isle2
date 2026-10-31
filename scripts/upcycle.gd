@@ -50,6 +50,11 @@ func _ready() -> void:
 		
 	player.global_position = _snap(player.global_position)
 	_update_ui()
+	if ResourceLoader.exists("res://scripts/minigame_intro.gd"):
+		var intro: CanvasLayer = preload("res://scripts/minigame_intro.gd").new()
+		add_child(intro)
+		if intro.has_method("setup"):
+			intro.setup("Upcycle Sorting", ["Sort trash into matching material bins.", "Press Esc to quit or Return to Map when finished."])
 # BGM
 	AudioManager.play_bgm("upcycle")
 	# Return-to-map control for flow back into the world map.

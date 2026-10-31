@@ -23,6 +23,11 @@ func _ready() -> void:
 	timer.timeout.connect(_spawn_item)
 	timer.start()
 	AudioManager.play_bgm("reef")
+	if ResourceLoader.exists("res://scripts/minigame_intro.gd"):
+		var intro: CanvasLayer = preload("res://scripts/minigame_intro.gd").new()
+		add_child(intro)
+		if intro.has_method("setup"):
+			intro.setup("Reef Rescue", ["Move the drone and touch garbage/fish to collect them.", "Press Esc or Return to Map when ready."])
 	_update_ui()
 	# Return-to-map control for flow back into the world map.
 	var return_btn := Button.new()
