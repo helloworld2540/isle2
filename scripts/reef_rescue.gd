@@ -45,7 +45,7 @@ func _process(delta: float) -> void:
 	$ParallaxBackground.scroll_offset.y -= bg_speed
 	depth += bg_speed / 10.0
 	
-	drone.position += drag_velocity
+	drone.position += drag_velocity * GameState.get_move_speed_multiplier()
 	
 	if not (60 < drone.position.x and drone.position.x < vp.x - 60):
 		drone.position.x = clampf(drone.position.x, 60, vp.x - 60)

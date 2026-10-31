@@ -18,6 +18,7 @@ func _ready() -> void:
 	_path_highlight.top_level = true
 	_path_highlight.z_index = -1
 	add_child(_path_highlight)
+	MOVE_TIME = max(0.05, (0.3 / GameState.get_move_speed_multiplier()) * 0.5 + 0.15)
 
 func _clear_highlight() -> void:
 	for c in _path_highlight.get_children():
