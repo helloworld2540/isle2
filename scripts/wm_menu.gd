@@ -30,6 +30,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
 		_toggle()
 		get_viewport().set_input_as_handled()
+func _process(_delta: float) -> void:
+	if panel and panel.visible and _summary_label:
+		_summary_label.text = "Trash: %d kg | Upcycle Score: %d | Best Streak: %d" % [GameState.trash_inventory, GameState.upcycle_score, GameState.best_sort_streak]
 
 
 func _toggle() -> void:
