@@ -228,3 +228,7 @@ date: 2026-10-31 23:21
 ## 2026-11-01 00:21 — Live pause inventory + BGM pass.
 - World pause overlay now updates trash, upcycle score, and best streak live while open.
 - Imports remain green (only environmental MCP warning).
+
+## 2026-11-01 01:11 — Upgrade helpers + sprint continuity check.
+- GameState now exposes upgrade level lookups and derived move/collection bonuses for future upcycle and reef polish.
+- Working tree and headless import remain clean.

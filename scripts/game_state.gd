@@ -53,6 +53,18 @@ func purchase_deep_cache() -> bool:
 	_persist()
 	return true
 
+func get_upgrade_level(key: String) -> int:
+	var data := SaveManager.load_game()
+	return int(data.get(key, 0))
+
+func get_move_speed_multiplier() -> float:
+	var lvl := get_upgrade_level("upgrade_move")
+	return 1.0 + float(lvl) * 0.08
+
+func get_collection_radius_bonus() -> float:
+	var lvl := get_upgrade_level("upgrade_range")
+	return float(lvl) * 12.0
+
 func consume_trash_type(mat: String, amount: int) -> bool:
 	if amount <= 0:
 		return false
