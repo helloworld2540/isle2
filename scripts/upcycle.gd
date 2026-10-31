@@ -228,6 +228,7 @@ func _interact() -> void:
 		
 		if mat == bin_mat:
 			score += 1
+			GameState.add_trash_type(mat, int(carried_item.get("size")))
 		else:
 			score -= 1
 			

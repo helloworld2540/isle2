@@ -23,7 +23,6 @@ GameState="*res://scripts/game_state.gd"
 SaveManager="*res://scripts/save_manager.gd"
 AudioManager="*res://scripts/audio_manager.gd"
 SceneTransition="*res://scripts/scene_transition.gd"
-MCPGameBridge="*res://addons/godot-mcp/runtime_bridge.gd"
 
 [display]
 

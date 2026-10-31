@@ -8,6 +8,7 @@ const TRASH_MAP := {
 	"trash_plasticwhite.png": ["Polypropylene", 35],
 	"trash_straw.png": ["Polyethylene", 17],
 }
+
 @onready var sprite = $Body/Sprite
 
 var mat := ""
@@ -19,7 +20,8 @@ func init(texture: String) -> void:
 	size = entry[1]
 	sprite.texture = load("res://sprites/rr/" + texture)
 	set_meta("material", mat)
+	set_meta("size", size)
 	scale = Vector2(log(size) / log(100) / 3, log(size) / log(100) / 3)
-	
+
 func _ready() -> void:
 	pass

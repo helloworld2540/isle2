@@ -199,3 +199,18 @@
 - Headless import validated clean (only environmental missing godot-mcp runtime_bridge autoload; no script errors).
 - Working tree clean, branch up to date with origin/master.
 - Project health green; sprint remains active.
+date: 2026-10-31 23:21
+
+## 2026-10-31 23:22 — Audio playback restoration.
+- AudioManager.play_sfx now loads and plays real samples from res://sound/ (SFX/BGM placeholders), falling back across wav/ogg/mp3 when extension omitted.
+- Headless import clean; commit pushed.
+
+## 2026-10-31 23:27 — Economy closed-loop + persistence hardening.
+- GameState now owns full persistent economy (trash_by_type, trash_inventory, best score/streak/depth/fish) and add/consume helpers.
+- Upcycle sorts now deposit collected material into GameState.trash_by_type for downstream shop sales.
+- Reef Rescue return now records "Reef Debris" into economy, tying minigame to economy.
+- AudioManager gained persistent master volume + reduced-motion helpers; SFX paths fixed.
+- Fixed corrupted u_trash.gd ordering; u_trash now exports material size meta.
+- Hidden MCPGameBridge autoload reference removed from project.godot (missing addon file) to eliminate startup errors.
+- Fixed world.tscn subresource order causing parse failure; headless scene load now clean (all major scenes import/run with zero GDScript errors).
+- Stats menu and shop remain data-consistent with GameState persistence.

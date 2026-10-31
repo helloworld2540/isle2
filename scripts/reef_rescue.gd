@@ -28,7 +28,7 @@ func _ready() -> void:
 	return_btn.text = "Return to Map"
 	return_btn.position = Vector2(16, 160)
 	$UI.add_child(return_btn)
-	return_btn.pressed.connect(func(): GameState.record_reef(garbage, fish); AudioManager.play_sfx("return"); SceneTransition.change_scene("res://scenes/world.tscn"))
+	return_btn.pressed.connect(func(): GameState.record_reef(garbage, fish); GameState.add_trash_type("Reef Debris", int(max(1.0, round(garbage)))); AudioManager.play_sfx("return"); SceneTransition.change_scene("res://scenes/world.tscn"))
 
 func _process(delta: float) -> void:
 	if not running:
