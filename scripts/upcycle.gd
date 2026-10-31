@@ -50,6 +50,8 @@ func _ready() -> void:
 		
 	player.global_position = _snap(player.global_position)
 	_update_ui()
+# BGM
+	AudioManager.play_bgm("upcycle")
 	# Return-to-map control for flow back into the world map.
 	var return_btn := Button.new()
 	return_btn.text = "Return to Map"

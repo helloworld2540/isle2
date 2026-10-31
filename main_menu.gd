@@ -2,28 +2,49 @@ extends Control
 
 @onready var new_save_button: Button = $NewSaveButton
 @onready var load_save_button: Button = $LoadSaveButton
+@onready var quit_button: Button = $QuitButton
+
+const STATS_SCENE := "res://scenes/stats_menu.tscn"
 
 func _ready() -> void:
 	new_save_button.pressed.connect(_on_new_save_pressed)
 	load_save_button.pressed.connect(_on_load_save_pressed)
+	quit_button.pressed.connect(_on_quit_pressed)
 	load_save_button.disabled = not SaveManager.has_save()
-	_create_continue_preview()
+	GameState.restore()
+	AudioManager.play_bgm("menu")
+	_build_summary()
+	_build_stats_button()
 
-func _create_continue_preview() -> void:
-	var preview := Label.new()
-	preview.text = _preview_text()
-	preview.position = Vector2(16, 16)
-	preview.custom_minimum_size = Vector2(560, 0)
-	add_child(preview)
+func _build_summary() -> void:
+	var summary := Label.new()
+	summary.name = "SaveSummary"
+	summary.position = Vector2(30, 30)
+	summary.custom_minimum_size = Vector2(600, 0)
+	summary.text = _summary_text()
+	summary.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	add_child(summary)
 
-func _preview_text() -> String:
+func _summary_text() -> String:
 	if not SaveManager.has_save():
-		return "No save file yet."
-	var d := SaveManager.load_game()
-	var score := int(d.get("upcycle_score", 0))
-	var garbage := float(d.get("reef_garbage", 0.0))
-	var fish := int(d.get("reef_fish", 0))
-	return "Last save: Score %d | Reef %dkg, %d fish | Best score %d" % [score, int(garbage), fish, int(d.get("best_upcycle_score", 0))]
+		return "No save found yet. Start a new save to begin cleaning."
+	var sd := SaveManager.load_game()
+	GameState.restore()
+	return "Continue summary: Score %d (best %d) | Trash %d kg | Fish %d | Best streak %d" % [
+		GameState.upcycle_score, GameState.best_upcycle_score,
+		GameState.trash_inventory, GameState.reef_fish, GameState.best_sort_streak
+	]
+
+func _build_stats_button() -> void:
+	var stats := Button.new()
+	stats.text = "Stats"
+	stats.position = Vector2(60, 100)
+	stats.custom_minimum_size = Vector2(140, 0)
+	stats.pressed.connect(func():
+		AudioManager.play_sfx("return")
+		SceneTransition.change_scene(STATS_SCENE)
+	)
+	add_child(stats)
 
 func _on_start_pressed() -> void:
 	SceneTransition.change_scene("res://scenes/world.tscn")
@@ -33,5 +54,9 @@ func _on_new_save_pressed() -> void:
 	SceneTransition.change_scene("res://scenes/world.tscn")
 
 func _on_load_save_pressed() -> void:
-	if not SaveManager.has_save(): return
+	if not SaveManager.has_save():
+		return
 	SceneTransition.change_scene("res://scenes/world.tscn")
+
+func _on_quit_pressed() -> void:
+	get_tree().quit()

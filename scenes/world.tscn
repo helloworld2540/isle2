@@ -298,6 +298,7 @@ text = "Save & Quit"
 position = Vector2(150, 204)
 script = ExtResource("5_portal")
 target_scene = "res://scenes/upcycle.tscn"
+warn_if_empty = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PortalUpcycle" unique_id=900000002]
 shape = SubResource("Shape_portal")

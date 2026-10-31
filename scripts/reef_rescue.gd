@@ -22,6 +22,8 @@ func _ready() -> void:
 	timer.wait_time = SPAWN_INTERVAL
 	timer.timeout.connect(_spawn_item)
 	timer.start()
+	timer.start()
+	AudioManager.play_bgm("reef")
 	_update_ui()
 	# Return-to-map control for flow back into the world map.
 	var return_btn := Button.new()

@@ -218,3 +218,9 @@ date: 2026-10-31 23:21
 ## 2026-10-31 23:34 — Main menu continue preview.
 - Main menu now builds a live last-save summary label (score, reef garbage/fish, best score) to improve return flow orientation.
 - Headless import/runtime validated clean (only environmental MCP port warning at most).
+
+## 2026-11-01 00:07 — Portal gating + BGM/polish pass.
+- Upcycle portal now warns "no trash collected yet" (and blocks) until Reef Rescue materials exist.
+- Audio:BGM director hooks added for main menu/worldshop/upcycle/reef, plus portal SFX and portal pulse gated on reduced motion.
+- Upcycle interaction auto-inks sorted material into GameState.trash_by_type for shop economy.
+- Save & Quit now merges into existing save file so economy/settings survive quit flow.

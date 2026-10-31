@@ -55,6 +55,7 @@ func consume_trash_type(mat: String, amount: int) -> bool:
 func record_sort_streak(streak: int) -> void:
 	if streak > best_sort_streak:
 		best_sort_streak = streak
+		_persist()
 
 func _persist() -> void:
 	var data := SaveManager.load_game()

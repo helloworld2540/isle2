@@ -4,6 +4,8 @@ extends CanvasLayer
 @onready var resume_button: Button = $MenuPanel/VBoxContainer/ResumeButton
 @onready var save_button: Button = $MenuPanel/VBoxContainer/SaveButton
 
+var _summary_label: Label
+
 func _ready() -> void:
 	panel.visible = false
 
@@ -17,6 +19,12 @@ func _ready() -> void:
 	resume_button.pressed.connect(_on_resume_pressed)
 	save_button.pressed.connect(_on_save_pressed)
 	process_mode = Node.PROCESS_MODE_ALWAYS
+
+	# Add lightweight trash inventory summary to the world pause panel.
+	_summary_label = Label.new()
+	_summary_label.text = "Trash in inventory: %d" % GameState.trash_inventory
+	_summary_label.modulate = Color(0.85, 0.9, 1.0, 0.9)
+	$MenuPanel/VBoxContainer.add_child(_summary_label)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
@@ -32,6 +40,7 @@ func _toggle() -> void:
 func _on_resume_pressed() -> void:
 	panel.visible = false
 	get_tree().paused = false
+	_summary_label.text = "Trash in inventory: %d" % GameState.trash_inventory
 
 
 func _on_save_pressed() -> void:
@@ -39,7 +48,9 @@ func _on_save_pressed() -> void:
 	var position_value: Array = []
 	if player:
 		position_value = [player.global_position.x, player.global_position.y]
-	SaveManager.save_game({"player_position": position_value})
+	var data := SaveManager.load_game()
+	data["player_position"] = position_value
+	SaveManager.save_game(data)
 	panel.visible = false
 	get_tree().paused = false
 	SceneTransition.change_scene("res://scenes/main_menu.tscn")
