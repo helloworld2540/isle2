@@ -5,6 +5,7 @@ extends CanvasLayer
 @onready var save_button: Button = $MenuPanel/VBoxContainer/SaveButton
 
 var _summary_label: Label
+var _inventory_list: Label
 
 func _ready() -> void:
 	panel.visible = false
@@ -26,6 +27,10 @@ func _ready() -> void:
 	_summary_label.modulate = Color(0.85, 0.9, 1.0, 0.9)
 	$MenuPanel/VBoxContainer.add_child(_summary_label)
 
+	_inventory_list = Label.new()
+	_inventory_list.modulate = Color(0.75, 0.9, 0.8, 0.9)
+	$MenuPanel/VBoxContainer.add_child(_inventory_list)
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
 		_toggle()
@@ -33,7 +38,19 @@ func _unhandled_input(event: InputEvent) -> void:
 func _process(_delta: float) -> void:
 	if panel and panel.visible and _summary_label:
 		_summary_label.text = "Trash: %d kg | Upcycle Score: %d | Best Streak: %d" % [GameState.trash_inventory, GameState.upcycle_score, GameState.best_sort_streak]
+		var inv := _format_inventory()
+		_inventory_list.text = inv
 
+
+func _format_inventory() -> String:
+	var lines := []
+	for key in GameState.trash_by_type.keys():
+		var qty := int(GameState.trash_by_type.get(key, 0))
+		if qty > 0:
+			lines.append("  %s x%d" % [str(key), qty])
+	if lines.is_empty():
+		return "Inventory: empty"
+	return "Inventory:\n" + "\n".join(lines)
 
 func _toggle() -> void:
 	panel.visible = not panel.visible

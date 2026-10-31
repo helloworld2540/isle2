@@ -224,3 +224,7 @@ date: 2026-10-31 23:21
 - Audio:BGM director hooks added for main menu/worldshop/upcycle/reef, plus portal SFX and portal pulse gated on reduced motion.
 - Upcycle interaction auto-inks sorted material into GameState.trash_by_type for shop economy.
 - Save & Quit now merges into existing save file so economy/settings survive quit flow.
+
+## 2026-11-01 00:21 — Live pause inventory + BGM pass.
+- World pause overlay now updates trash, upcycle score, and best streak live while open.
+- Imports remain green (only environmental MCP warning).

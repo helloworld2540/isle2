@@ -13,6 +13,7 @@ var best_sort_streak: int = 0
 var best_reef_depth: int = 0
 var best_reef_fish: int = 0
 var sort_streak: int = 0
+var deep_cache: bool = false
 
 func _init() -> void:
 	for t in DEFAULT_TRASH_TYPES:
@@ -42,6 +43,16 @@ func add_trash_type(mat: String, amount: int) -> void:
 	trash_inventory += amount
 	_persist()
 
+func purchase_deep_cache() -> bool:
+	if deep_cache:
+		return false
+	if upcycle_score < 30:
+		return false
+	upcycle_score -= 30
+	deep_cache = true
+	_persist()
+	return true
+
 func consume_trash_type(mat: String, amount: int) -> bool:
 	if amount <= 0:
 		return false
@@ -69,6 +80,7 @@ func _persist() -> void:
 	data["best_reef_depth"] = best_reef_depth
 	data["best_reef_fish"] = best_reef_fish
 	data["sort_streak"] = sort_streak
+	data["deep_cache"] = deep_cache
 	SaveManager.save_game(data)
 
 func restore() -> void:
@@ -89,3 +101,4 @@ func restore() -> void:
 	best_reef_depth = int(data.get("best_reef_depth", 0))
 	best_reef_fish = int(data.get("best_reef_fish", 0))
 	sort_streak = int(data.get("sort_streak", 0))
+	deep_cache = bool(data.get("deep_cache", false))
