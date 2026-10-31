@@ -232,3 +232,8 @@ date: 2026-10-31 23:21
 ## 2026-11-01 01:11 — Upgrade helpers + sprint continuity check.
 - GameState now exposes upgrade level lookups and derived move/collection bonuses for future upcycle and reef polish.
 - Working tree and headless import remain clean.
+
+## 2026-11-01 01:33 — Continuous game feel + upgrade wiring.
+- Upgrades now affect world map movement speed (MOVE_TIME).
+- Reef Rescue uses `GameState.get_move_speed_multiplier()` for drone movement feel.
+- Cleaned duplicated timer launch (scene-load regression avoided), validated import.
