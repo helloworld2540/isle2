@@ -214,3 +214,7 @@ date: 2026-10-31 23:21
 - Hidden MCPGameBridge autoload reference removed from project.godot (missing addon file) to eliminate startup errors.
 - Fixed world.tscn subresource order causing parse failure; headless scene load now clean (all major scenes import/run with zero GDScript errors).
 - Stats menu and shop remain data-consistent with GameState persistence.
+
+## 2026-10-31 23:34 — Main menu continue preview.
+- Main menu now builds a live last-save summary label (score, reef garbage/fish, best score) to improve return flow orientation.
+- Headless import/runtime validated clean (only environmental MCP port warning at most).
