@@ -430,7 +430,6 @@ quest2_reward_amount = 4
 
 [node name="WorldProgress" type="CanvasLayer" parent="." unique_id=900000020]
 layer = 35
-layer = 20
 script = ExtResource("8_progress")
 
 [node name="Panel" type="PanelContainer" parent="WorldProgress" unique_id=900000021]

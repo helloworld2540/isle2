@@ -57,3 +57,10 @@
 - Tightened pause width clamp and added viewport size tracking.
 - Basic vertical anchor fallback for small viewports.
 - Headless import/runtime clean.
+
+## 2026-11-01 15:55 — Audio + cleanup pass.
+- Generated real WAV SFX/BGM placeholders in sound/sfx and sound/bgm; AudioManager already loads .wav.
+- Fixed shop_menu double UI creation; WorldProgress duplicate layer removed.
+- Hardened reef escape (ESC) to record reef result and debris.
+- Polished world pause upgrade panel styling and content cost labels.
+- Headless import/runtime clean.

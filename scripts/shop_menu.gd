@@ -13,7 +13,7 @@ var _last_sale: Dictionary = {}
 func _ready() -> void:
 	GameState.restore()
 	_create_ui()
-	_create_ui()
+	# Build the shop UI once (avoid duplicate canvas layers).
 	AudioManager.play_bgm("shop")
 
 func _create_ui() -> void:

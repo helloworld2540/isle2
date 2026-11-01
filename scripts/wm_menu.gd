@@ -124,7 +124,26 @@ func _parse_position(value) -> Vector2:
 func _create_upgrade_panel() -> void:
 	_upgrade_panel = VBoxContainer.new()
 	_upgrade_panel.name = "UpgradePanel"
-	$MenuPanel/VBoxContainer.add_child(_upgrade_panel)
+	var style := StyleBoxFlat.new()
+	style.bg_color = Color(0.08, 0.11, 0.16, 0.65)
+	style.corner_radius_top_left = 10
+	style.corner_radius_top_right = 10
+	style.corner_radius_bottom_left = 10
+	style.corner_radius_bottom_right = 10
+	style.border_color = Color(0.45, 0.7, 0.9, 0.4)
+	style.border_width_left = 1
+	style.border_width_top = 1
+	style.border_width_right = 1
+	style.border_width_bottom = 1
+	style.content_margin_left = 10
+	style.content_margin_top = 8
+	style.content_margin_right = 10
+	style.content_margin_bottom = 8
+	# Apply via a backing panel so the VBox keeps layout semantics.
+	var backing := PanelContainer.new()
+	backing.add_theme_stylebox_override("panel", style)
+	backing.add_child(_upgrade_panel)
+	$MenuPanel/VBoxContainer.add_child(backing)
 	var title := Label.new()
 	title.text = "Upgrades"
 	title.add_theme_font_size_override("font_size", 22)
@@ -147,13 +166,17 @@ func _create_upgrade_panel() -> void:
 	_upgrade_panel.add_child(_deep_cache_btn)
 
 func _move_cost_text() -> String:
-	return "Move Faster (8 trash each)"
+	var lvl := int(SaveManager.load_game().get("upgrade_move", 0))
+	return "Move Faster: Lv.%d (+8%% speed) — 8 trash" % lvl
 
 func _range_cost_text() -> String:
-	return "Collection Range (12 trash each)"
+	var lvl := int(SaveManager.load_game().get("upgrade_range", 0))
+	return "Collection Range: Lv.%d (+12 px) — 12 trash" % lvl
 
 func _deep_cache_text() -> String:
-	return "Deep Cache (30 score) — collects more debris per run" if not GameState.deep_cache else "Deep Cache: OWNED"
+	if GameState.deep_cache:
+		return "Deep Cache: OWNED"
+	return "Deep Cache (30 upcycle score) — bonus debris per run"
 func _upgrade_status_text() -> String:
 	var data := SaveManager.load_game()
 	var mv := int(data.get("upgrade_move", 0))

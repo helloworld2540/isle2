@@ -189,4 +189,6 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
 		AudioManager.play_sfx("return")
 		_clear_edge_markers()
+		GameState.record_reef(garbage, fish)
+		GameState.add_trash_type("Reef Debris", int(max(1.0, round(garbage))))
 		SceneTransition.change_scene("res://scenes/world.tscn")

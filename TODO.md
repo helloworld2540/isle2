@@ -3,10 +3,10 @@
 ## High priority features
 - Tune NPC sprite scale/identity pairings and quests (done part: sprites wired, ongoing polish).
 
-- Dev: Nina/Kai tier-1 explicit reward materials hardened.
-- Ship placeholder audio assets to real samples.
+- Dev: Nina/Kai tier-1 explicit reward materials hardened. (done: rewards explicitly set)
+- Ship placeholder audio assets to real samples. (done: generated WAV SFX/BGM placeholders) (done: generated WAV SFX/BGM)
 - Reduce tween allocations further in reef/upcycle.
-- World-map upgrade panel styling/content polish.
+- World-map upgrade panel styling/content polish. (done: styled panel + cost labels)
 - Add animation polish: spawn fade-in for reef items, juice for portal pulse overshoot.
 - Main-menu Continue summary thumbnail stats (not art assets). (done)
 - NPC repeat-visit flavour text variants / branching. (done)
