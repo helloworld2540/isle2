@@ -15,7 +15,7 @@ func save_game(data: Dictionary) -> void:
 	if file == null:
 		push_error("SaveManager: could not open save file for writing")
 		return
-	file.store_string(JSON.stringify(data))
+	file.store_string(JSON.stringify(data, "\t", true))
 	file.close()
 
 func load_game() -> Dictionary:

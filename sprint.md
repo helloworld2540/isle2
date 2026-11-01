@@ -261,3 +261,7 @@ date: 2026-10-31 23:21
 - Reef Rescue items now fade in on spawn (0.4s ease-out) for readability.
 - Portal entry pulse overshoot strengthened to 1.30 scale.
 - Headless import validated clean.
+
+## 2026-11-01 12:25 — World progress HUD + polish cycle.
+- Added CanvasLayer WorldProgress panel in world.tscn with live upcycle/reef progress bars and summary label.
+- Headless import validated clean.
