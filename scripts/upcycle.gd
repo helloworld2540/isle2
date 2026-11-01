@@ -171,6 +171,10 @@ func spawn_item() -> void:
 
 	item.set_meta("on_belt", true)
 	item.init(tex)
+	# Spawn fade-in for better readability and game feel.
+	item.modulate.a = 0.0
+	var spawn_tw := item.create_tween()
+	spawn_tw.tween_property(item, "modulate:a", 1.0, 0.22).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
 func burn_item(item: Node2D) -> void:
 	score -= 1

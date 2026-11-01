@@ -24,6 +24,10 @@ func _ready() -> void:
 	_edge_markers = {}
 	timer.timeout.connect(_spawn_item)
 	timer.start()
+	# Apply any collection-range upgrades to the drone's catch radius.
+	var collect_shape: CollisionShape2D = $Drone/Area2D/CollisionShape2D
+	if collect_shape and collect_shape.shape is CircleShape2D:
+		(collect_shape.shape as CircleShape2D).radius = 66.27 + GameState.get_collection_radius_bonus()
 	AudioManager.play_bgm("reef")
 	if ResourceLoader.exists("res://scripts/minigame_intro.gd"):
 		var intro: CanvasLayer = preload("res://scripts/minigame_intro.gd").new()
@@ -36,7 +40,7 @@ func _ready() -> void:
 	return_btn.text = "Return to Map"
 	return_btn.position = Vector2(16, 160)
 	$UI.add_child(return_btn)
-	return_btn.pressed.connect(func(): _clear_edge_markers(); GameState.record_reef(garbage, fish); GameState.add_trash_type("Reef Debris", int(max(1.0, round(garbage)))); AudioManager.play_sfx("return"); SceneTransition.change_scene("res://scenes/world.tscn"))
+	return_btn.pressed.connect(func(): _leave_to_map())
 
 func _process(delta: float) -> void:
 	if not running:
@@ -185,10 +189,20 @@ func _spawn_popup(at: Vector2, text: String, col: Color) -> void:
 	tw.parallel().tween_property(lbl, "modulate:a", 0.0, 0.7)
 	tw.tween_callback(lbl.queue_free)
 
+func _leave_to_map() -> void:
+	if not running:
+		return
+	running = false
+	_clear_edge_markers()
+	GameState.record_reef(garbage, fish)
+	var debris_total := int(max(1.0, round(garbage)))
+	if GameState.deep_cache:
+		debris_total += 5
+		_spawn_popup($Drone.global_position, "+5 Deep Cache debris", Color(0.45, 0.85, 1.0, 1.0))
+	GameState.add_trash_type("Reef Debris", debris_total)
+	AudioManager.play_sfx("return")
+	SceneTransition.change_scene("res://scenes/world.tscn")
+
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
-		AudioManager.play_sfx("return")
-		_clear_edge_markers()
-		GameState.record_reef(garbage, fish)
-		GameState.add_trash_type("Reef Debris", int(max(1.0, round(garbage))))
-		SceneTransition.change_scene("res://scenes/world.tscn")
+	if event.is_action_pressed("ui_cancel") and running:
+		_leave_to_map()

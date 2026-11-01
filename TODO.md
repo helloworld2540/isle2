@@ -10,7 +10,7 @@
 - Add animation polish: spawn fade-in for reef items, juice for portal pulse overshoot.
 - Main-menu Continue summary thumbnail stats (not art assets). (done)
 - NPC repeat-visit flavour text variants / branching. (done)
-- Pause menu max width / safer anchor at 720p.
+- Pause menu max width / safer anchor at 720p. (done)
 - NPC quest progress indicators above NPCs. (improved)
 - World portal pulse + overshoot easing extra overshoot. (done)
 - Save scoping: persist player position before portal transition. (done)
