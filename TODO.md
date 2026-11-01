@@ -8,6 +8,7 @@
 - Reduce tween allocations further in reef/upcycle.
 - World-map upgrade panel styling/content polish. (done: styled panel + cost labels)
 - Add animation polish: spawn fade-in for reef items, juice for portal pulse overshoot.
+ - Add animation polish: spawn fade-in for reef items (done), juice for portal pulse overshoot (done).
 - Main-menu Continue summary thumbnail stats (not art assets). (done)
 - NPC repeat-visit flavour text variants / branching. (done)
 - Pause menu max width / safer anchor at 720p. (done)

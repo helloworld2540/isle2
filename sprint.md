@@ -76,3 +76,9 @@
 - Portal transitions now write the current player position into the existing save file before changing scenes, so Continue restores the last explored spot even when pause was not used.
 - Pause menu max width/clamp recomputed from the actual viewport with a 720p-safe anchor fallback.
 - Headless import/runtime clean.
+
+## 2026-11-01 16:35 — ReefEscape consistency pass.
+- Unified Return-to-Map (button and ESC) through one `_leave_to_map()` flow to avoid duplicate score/debris recording.
+- Added `running` guard so ESC or a second click cannot double-submit after exit starts.
+- Deep Cache debris bonus applied once.
+- Headless import/runtime clean.
