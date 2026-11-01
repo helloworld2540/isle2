@@ -14,8 +14,10 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	if uc_bar:
-		uc_bar.value = min(100.0, float(GameState.upcycle_score))
+		uc_bar.max_value = max(1.0, float(max(1, GameState.best_upcycle_score)))
+		uc_bar.value = min(uc_bar.max_value, float(GameState.upcycle_score))
 	if reef_bar:
-		reef_bar.value = min(1000.0, GameState.reef_garbage)
+		reef_bar.max_value = max(1.0, float(max(10.0, GameState.best_reef_depth)))
+		reef_bar.value = min(reef_bar.max_value, GameState.reef_garbage)
 	if label:
 		label.text = "Upcycle %d | Reef %d m / %d fish" % [GameState.upcycle_score, int(GameState.reef_garbage), GameState.reef_fish]
