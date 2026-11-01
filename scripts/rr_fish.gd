@@ -47,6 +47,9 @@ func _ready() -> void:
 	position.x = vp.x * randf_range(0, 0.8)
 	position.y = vp.y * 1.5
 	add_to_group("items")
+	self.modulate.a = 0.0
+	var tw := create_tween()
+	tw.tween_property(self, "modulate:a", 1.0, 0.4).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
 func process(bg_speed: float, delta: float) -> void:
 	position.y -= bg_speed * speed.y

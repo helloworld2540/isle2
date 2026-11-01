@@ -43,6 +43,6 @@ func _on_body_entered(body) -> void:
 		SceneTransition.change_scene(target_scene)
 	else:
 		var pulse := create_tween()
-		pulse.tween_property(self, "scale", Vector2(1.22, 1.22), 0.12).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		pulse.tween_property(self, "scale", Vector2(1.30, 1.30), 0.12).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 		pulse.tween_property(self, "scale", Vector2(1.0, 1.0), 0.12)
 		pulse.tween_callback(func(): SceneTransition.change_scene(target_scene))
