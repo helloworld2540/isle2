@@ -58,6 +58,7 @@ func _build_quest_progress() -> void:
 		return
 	if has_node("QuestProgress"):
 		_quest_progress_label = $QuestProgress
+		_quest_progress_label.z_index = 20
 		_update_quest_progress()
 		return
 	_quest_progress_label = Label.new()
@@ -70,6 +71,7 @@ func _build_quest_progress() -> void:
 	_quest_progress_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_quest_progress_label.modulate = Color(0.85, 0.9, 1.0, 0.95)
 	_quest_progress_label.add_theme_font_size_override("font_size", 11)
+	_quest_progress_label.z_index = 20
 	add_child(_quest_progress_label)
 	_update_quest_progress()
 

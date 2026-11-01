@@ -44,3 +44,7 @@
 - Reef spawn fade-in (transparency + scale back-ease) already in place; verified headless runtime.
 - Desktop NPC/sprite/progress systems stable.
 - Headless import/run clean (no errors).
+
+## 2026-11-01 15:23 — Quest label z polish.
+- Quest progress labels raised z order and are guaranteed visible over NPC sprites.
+- Headless import/runtime validated.
