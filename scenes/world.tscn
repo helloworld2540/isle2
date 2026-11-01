@@ -422,7 +422,7 @@ quest2_reward_mat = "Glass"
 quest2_reward_amount = 4
 
 [node name="WorldProgress" type="CanvasLayer" parent="." unique_id=900000020]
-layer = 5
+layer = 20
 script = ExtResource("8_progress")
 
 [node name="Panel" type="PanelContainer" parent="WorldProgress" unique_id=900000021]
@@ -430,6 +430,7 @@ offset_left = 8.0
 offset_top = 96.0
 offset_right = 220.0
 offset_bottom = 168.0
+modulate = Color(1, 1, 1, 0.85)
 
 [node name="VBox" type="VBoxContainer" parent="WorldProgress/Panel" unique_id=900000022]
 layout_mode = 2

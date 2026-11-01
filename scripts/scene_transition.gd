@@ -16,6 +16,10 @@ func change_scene(path: String) -> void:
 	if busy:
 		return
 	busy = true
+	# Defensively unpause before a scene swap; a leftover paused tree
+	# would otherwise soft-lock the incoming scene's overlay/input.
+	if get_tree().paused:
+		get_tree().paused = false
 	var fade_in_time := 0.5
 	var hold_time := 1.0
 	var fade_out_time := 0.5
@@ -27,6 +31,7 @@ func change_scene(path: String) -> void:
 	fade.mouse_filter = Control.MOUSE_FILTER_STOP
 	tween.tween_property(fade, "color:a", 1.0, fade_in_time)
 	await tween.finished
+	await get_tree().process_frame
 	get_tree().change_scene_to_file(path)
 	await get_tree().create_timer(hold_time).timeout
 	var tween2 := create_tween()

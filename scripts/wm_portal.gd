@@ -13,7 +13,7 @@ func _ready() -> void:
 		tween.tween_property(self, "scale", Vector2(1.02, 1.02), 1.2)
 		tween.tween_property(self, "scale", Vector2(1.0, 1.0), 1.2)
 	else:
-		tween.tween_property(self, "scale", Vector2(1.08, 1.08), 0.9).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		tween.tween_property(self, "scale", Vector2(1.12, 1.12), 0.8).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN_OUT)
 		tween.tween_property(self, "scale", Vector2(1.0, 1.0), 0.9).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
 func _make_warn() -> void:
@@ -43,6 +43,7 @@ func _on_body_entered(body) -> void:
 		SceneTransition.change_scene(target_scene)
 	else:
 		var pulse := create_tween()
-		pulse.tween_property(self, "scale", Vector2(1.34, 1.34), 0.12).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-		pulse.tween_property(self, "scale", Vector2(1.0, 1.0), 0.12)
+		pulse.tween_property(self, "scale", Vector2(1.5, 1.5), 0.1).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		pulse.tween_property(self, "scale", Vector2(0.6, 0.6), 0.06)
+		pulse.tween_property(self, "scale", Vector2(1.0, 1.0), 0.14).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 		pulse.tween_callback(func(): SceneTransition.change_scene(target_scene))

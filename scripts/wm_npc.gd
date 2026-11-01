@@ -26,6 +26,8 @@ var _visited_flag := false
 var _quest_done := false
 var _quest2_done := false
 
+var _quest_progress_label: Label = null
+
 func _ready() -> void:
 	add_to_group("npc")
 	body_entered.connect(_on_body_entered)
@@ -36,7 +38,41 @@ func _ready() -> void:
 	tween.tween_property(self, "scale", Vector2(1.06, 1.06), 1.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	tween.tween_property(self, "scale", Vector2(1.0, 1.0), 1.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	_refresh_name_label()
+	_refresh_quest_progress()
+	_build_quest_progress()
 
+func _build_quest_progress() -> void:
+	if _quest_progress_label and is_instance_valid(_quest_progress_label):
+		return
+	_quest_progress_label = Label.new()
+	_quest_progress_label.name = "QuestProgress"
+	_quest_progress_label.offset_left = -70
+	_quest_progress_label.offset_top = -78
+	_quest_progress_label.offset_right = 70
+	_quest_progress_label.offset_bottom = -56
+	_quest_progress_label.text = ""
+	_quest_progress_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_quest_progress_label.modulate = Color(0.85, 0.9, 1.0, 0.95)
+	_quest_progress_label.add_theme_font_size_override("font_size", 11)
+	add_child(_quest_progress_label)
+	_update_quest_progress()
+
+func _update_quest_progress() -> void:
+	if not _quest_progress_label or not is_instance_valid(_quest_progress_label):
+		return
+	if _quest2_done:
+		_quest_progress_label.text = "✓★ done"
+		_quest_progress_label.modulate = Color(1.0, 0.75, 0.2, 1.0)
+		return
+	if _quest_done:
+		if quest2_material != "" and quest2_amount > 0 and not _quest2_done:
+			var have2 := int(GameState.trash_by_type.get(quest2_material, 0))
+			_quest_progress_label.text = "%s %d/%d" % [quest2_material.substr(0, 6), have2, quest2_amount]
+			return
+	_quest_progress_label.text = ""
+	if _visited_flag and not _quest_done and quest_material != "" and quest_amount > 0:
+		var have := int(GameState.trash_by_type.get(quest_material, 0))
+		_quest_progress_label.text = "%s %d/%d" % [quest_material.substr(0, 6), have, quest_amount]
 func _load_visited() -> bool:
 	var data := SaveManager.load_game()
 	var visited: Dictionary = data.get("npc_visited", {})
@@ -182,6 +218,7 @@ func _add_quest_ui(vbox: VBoxContainer, tier: int, mat: String, amount: int, rew
 				_quest2_done = true
 				_mark_quest_done(2)
 			_refresh_name_label()
+			_refresh_quest_progress()
 			_close()
 			_show_dialogue()
 	)
@@ -210,3 +247,30 @@ func _refresh_name_label() -> void:
 	else:
 		nl.text = npc_name
 		nl.modulate = Color(1.0, 1.0, 1.0, 0.9)
+func _refresh_quest_progress() -> void:
+	if not has_node("QuestProgress"):
+		return
+	var ql: Label = $QuestProgress
+	if _quest2_done:
+		ql.text = "Quests: complete"
+		ql.modulate = Color(1.0, 0.85, 0.3, 0.95)
+		return
+	var cur_mat: String = ""
+	var cur_amt: int = 0
+	var cur_have: int = 0
+	if (not _quest_done) and quest_material != "" and quest_amount > 0:
+		cur_mat = quest_material
+		cur_amt = quest_amount
+	elif _quest_done and not _quest2_done and quest2_material != "" and quest2_amount > 0:
+		cur_mat = quest2_material
+		cur_amt = quest2_amount
+	if cur_mat == "":
+		ql.text = ""
+		return
+	cur_have = int(GameState.trash_by_type.get(cur_mat, 0))
+	ql.text = "Quest: %d/%d %s" % [min(cur_have, cur_amt), cur_amt, cur_mat]
+	if cur_have >= cur_amt:
+		ql.modulate = Color(0.6, 1.0, 0.7, 1.0)
+	else:
+		ql.modulate = Color(0.7, 0.95, 1.0, 0.9)
+
