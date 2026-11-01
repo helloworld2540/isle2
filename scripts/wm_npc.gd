@@ -75,6 +75,8 @@ func _update_quest_progress() -> void:
 	if _visited_flag and not _quest_done and quest_material != "" and quest_amount > 0:
 		var have := int(GameState.trash_by_type.get(quest_material, 0))
 		_quest_progress_label.text = "%s %d/%d" % [quest_material.substr(0, 6), have, quest_amount]
+
+	_glow_quest_ready()
 func _load_visited() -> bool:
 	var data := SaveManager.load_game()
 	var visited: Dictionary = data.get("npc_visited", {})
@@ -292,3 +294,18 @@ func _refresh_quest_progress() -> void:
 	else:
 		ql.modulate = Color(0.7, 0.95, 1.0, 0.9)
 
+
+func _glow_quest_ready() -> void:
+	if not is_instance_valid(self):
+		return
+	var ready := false
+	if _visited_flag and not _quest_done and quest_material != "" and quest_amount > 0:
+		ready = int(GameState.trash_by_type.get(quest_material, 0)) >= quest_amount
+	elif _quest_done and not _quest2_done and quest2_material != "" and quest2_amount > 0:
+		ready = int(GameState.trash_by_type.get(quest2_material, 0)) >= quest2_amount
+	if has_node("Body"):
+		var body: ColorRect = $Body
+		if ready:
+			body.color = Color(1.0, 0.95, 0.55, 1.0)
+		else:
+			body.color = Color(0.95, 0.72, 0.45, 1.0)
