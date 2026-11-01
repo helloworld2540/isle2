@@ -349,7 +349,9 @@ offset_right = 46.0
 text = "Shop"
 horizontal_alignment = 1
 
-[node name="WorldNPC_Mara" parent="." unique_id=1021890887 instance=ExtResource("9_npc")]
+[node name="NPCs" type="Node2D" parent="." unique_id=2071271072]
+
+[node name="WorldNPC_Mara" parent="NPCs" unique_id=1021890887 instance=ExtResource("9_npc")]
 position = Vector2(0, -934)
 npc_id = "npc_mara"
 dialogue_lines = Array[String](["Hi! I'm Mara, island caretaker.", "Pick up trash and bring it back. I'll reward good work!"])
@@ -365,7 +367,7 @@ quest2_amount = 5
 quest2_reward_mat = "Polypropylene"
 quest2_reward_amount = 6
 
-[node name="WorldNPC_Tom" parent="." unique_id=1692442811 instance=ExtResource("9_npc")]
+[node name="WorldNPC_Tom" parent="NPCs" unique_id=1692442811 instance=ExtResource("9_npc")]
 position = Vector2(-689, -1150)
 npc_id = "npc_tom"
 npc_name = "Tom"
@@ -383,7 +385,7 @@ quest2_material = "Polypropylene"
 quest2_amount = 6
 quest2_reward_amount = 8
 
-[node name="WorldNPC_Nina" parent="." unique_id=822166491 instance=ExtResource("9_npc")]
+[node name="WorldNPC_Nina" parent="NPCs" unique_id=822166491 instance=ExtResource("9_npc")]
 position = Vector2(475, 913)
 npc_id = "npc_nina"
 npc_name = "Nina"
@@ -401,7 +403,7 @@ quest2_amount = 8
 quest2_reward_mat = "Polypropylene"
 quest2_reward_amount = 8
 
-[node name="WorldNPC_Kai" parent="." unique_id=200355740 instance=ExtResource("9_npc")]
+[node name="WorldNPC_Kai" parent="NPCs" unique_id=200355740 instance=ExtResource("9_npc")]
 position = Vector2(1019, -1164)
 npc_id = "npc_kai"
 npc_name = "Kai"

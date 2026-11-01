@@ -22,3 +22,8 @@
 ## 2026-11-01 12:55 — NPC polish + Kai shop-themed quests.
 - Added third NPC (Kai) near world center; two-tier Glass/Polyethylene quests.
 - Tile-name cleanup trailing; headless import clean.
+
+## 2026-11-01 13:46 — World cleanup + player polish.
+- Removed stray empty TileMapLayer from world.tscn; grouped NPC instances under NPCs node.
+- Portal pulse overshoot amplitude ticked for more juice.
+- Headless import clean.
