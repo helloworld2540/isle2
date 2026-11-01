@@ -270,3 +270,7 @@ date: 2026-10-31 23:21
 - Pretty-printed save JSON for debugging/maintenance.
 - Headless import clean; working tree clean.
 - Continuous sprint remains active; no new blockers.
+
+## 2026-11-01 12:55 — Edge-marker cleanup polish.
+- Reef Rescue edge markers now cleaned on collect and on world return.
+- Headless import clean; working tree committed.
