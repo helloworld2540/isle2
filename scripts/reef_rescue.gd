@@ -36,7 +36,7 @@ func _ready() -> void:
 	return_btn.text = "Return to Map"
 	return_btn.position = Vector2(16, 160)
 	$UI.add_child(return_btn)
-	return_btn.pressed.connect(func(): GameState.record_reef(garbage, fish); GameState.add_trash_type("Reef Debris", int(max(1.0, round(garbage)))); AudioManager.play_sfx("return"); SceneTransition.change_scene("res://scenes/world.tscn"))
+	return_btn.pressed.connect(func(): _clear_edge_markers(); GameState.record_reef(garbage, fish); GameState.add_trash_type("Reef Debris", int(max(1.0, round(garbage)))); AudioManager.play_sfx("return"); SceneTransition.change_scene("res://scenes/world.tscn"))
 
 func _process(delta: float) -> void:
 	if not running:
@@ -155,6 +155,10 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	if not is_instance_valid(root) or not root.is_in_group("items"): return
 	if bool(root.get_meta("collected", false)): return
 	root.set_meta("collected", true)
+	if _edge_markers.has(root.get_instance_id()):
+		var m2: Label = _edge_markers[root.get_instance_id()]
+		if is_instance_valid(m2): m2.queue_free()
+		_edge_markers.erase(root.get_instance_id())
 	
 	var is_fish: bool = root.get_meta("is_fish", false)
 	
@@ -184,4 +188,5 @@ func _spawn_popup(at: Vector2, text: String, col: Color) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
 		AudioManager.play_sfx("return")
+		_clear_edge_markers()
 		SceneTransition.change_scene("res://scenes/world.tscn")
