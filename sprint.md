@@ -14,3 +14,7 @@
 ## 2026-11-01 12:30 — Main-menu continue summary thumbnail polish.
 - Expanded Continue summary to include best fish, best streak, and lifetime earnings in a compact thumbnail-style layout.
 - Headless import clean.
+
+## 2026-11-01 12:43 — NPC tier-2 quests + parser cleanup.
+- Added tier-2 turn-in quests for Mara and Tom.
+- Repaired wm_menu.gd broken progress-bar scaffolding; import clean.

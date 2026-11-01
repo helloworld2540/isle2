@@ -384,6 +384,44 @@ quest2_reward_amount = 8
 tier2_lines = PackedStringArray(["Tier 2: 6 Polypropylene for 8 Polyethylene."])
 quest_complete_lines = PackedStringArray(["Sea life thanks you!"])
 
+[node name="WorldNPC_Nina" parent="." instance=ExtResource("9_npc")]
+position = Vector2(520.0, 360.0)
+npc_id = "npc_nina"
+npc_name = "Nina"
+dialogue_lines = PackedStringArray(["I run the recycling stand near the shop.", "Sell trash for coins; I'll pay a bonus!"])
+repeat_dialogue_lines = PackedStringArray(["Got stock for the store today?"])
+quest_complete_lines = PackedStringArray(["Shop's stocked! Thanks."])
+reward_trash = 5
+reward_mat = "Nylon"
+quest_material = "Glass"
+quest_amount = 6
+quest_reward_mat = "Polyethylene"
+quest_reward_amount = 5
+quest2_material = "Polyethylene"
+quest2_amount = 8
+quest2_reward_mat = "Polypropylene"
+quest2_reward_amount = 8
+tier2_lines = PackedStringArray(["Tier 2: 8 Polyethylene for 8 Polypropylene."])
+
+[node name="WorldNPC_Kai" parent="." instance=ExtResource("9_npc")]
+position = Vector2(500.0, 420.0)
+npc_id = "npc_kai"
+npc_name = "Kai"
+dialogue_lines = PackedStringArray(["I run the shop across the way.", "Bring me Glass and I'll stock the shelves!"])
+repeat_dialogue_lines = PackedStringArray(["Any Glass for the shop today?"])
+quest_complete_lines = PackedStringArray(["Shelves fully stocked. Thank you!"])
+reward_trash = 3
+reward_mat = "Polypropylene"
+quest_material = "Glass"
+quest_amount = 5
+quest_reward_mat = "Polyethylene"
+quest_reward_amount = 5
+quest2_material = "Polyethylene"
+quest2_amount = 8
+quest2_reward_mat = "Glass"
+quest2_reward_amount = 4
+tier2_lines = PackedStringArray(["Tier 2: 8 Polyethylene for 4 Glass."])
+
 [node name="WorldProgress" type="CanvasLayer" parent="." unique_id=900000020]
 script = ExtResource("8_progress")
 layer = 5

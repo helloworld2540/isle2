@@ -1,7 +1,7 @@
 # Current project todo:
 
 ## High priority features
-- World-map NPC dialogue/quests shipped. Next: deeper quest chain + reward tiers.
+- World-map NPC dialogue/quests shipped with tier-2 chains.
 
 ## Future polish
 - Ship placeholder audio assets to real samples.
