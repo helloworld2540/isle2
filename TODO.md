@@ -1,6 +1,15 @@
 # Current project todo:
 
-- Inventory-like stats screen in world map menu to display collected trash that updates live while paused.
-- Shop in the world map with upgrades.
 - Continue animation/performance polish: reduce tween allocations and cache SFX stream load results.
-- Add world-map upgrade success feedback sound effect and sell summary polish to improve perceived response.
+
+## Completed this pass
+- Wired Shop portal into world map (PortalShop) driving existing shop flow.
+- Added upgrade success SFX hook (upgrade.txt/ogg placeholder) + button flash.
+- Added shop sale SFX triggers.
+- Cached SFX/BGM stream loads in AudioManager.
+- (Removed) Inventory stats already live; shop upgrades present.
+
+## Backlog
+- Ship placeholder audio assets to real samples.
+- Reduce tween allocations further in reef/upcycle.
+- World-map upgrade panel styling/content polish.

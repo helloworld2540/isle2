@@ -8,6 +8,17 @@ var sfx_path := "res://sound/sfx/"
 var bgm_path := "res://sound/bgm/"
 var _reduced_motion := false
 var _bgm_player: AudioStreamPlayer
+var _stream_cache: Dictionary = {}
+
+func _load_stream(path: String) -> AudioStream:
+	if _stream_cache.has(path):
+		return _stream_cache[path]
+	if not ResourceLoader.exists(path):
+		return null
+	var stream := load(path)
+	if stream != null:
+		_stream_cache[path] = stream
+	return stream
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -32,26 +43,24 @@ func play_sfx(name: String) -> void:
 	var base := name.get_basename()
 	var candidates := [sfx_path + name, sound_path + name, sfx_path + base + ".ogg", sfx_path + base + ".wav", sfx_path + base + ".mp3"]
 	for c in candidates:
-		if ResourceLoader.exists(c):
-			var stream := load(c)
-			if stream != null:
-				var player := AudioStreamPlayer.new()
-				player.stream = stream
-				player.bus = MASTER_BUS
-				add_child(player)
-				player.finished.connect(player.queue_free)
-				player.play()
+		var stream := _load_stream(c)
+		if stream != null:
+			var player := AudioStreamPlayer.new()
+			player.stream = stream
+			player.bus = MASTER_BUS
+			add_child(player)
+			player.finished.connect(player.queue_free)
+			player.play()
 			return
 
 func play_bgm(track: String) -> void:
 	var base := track.get_basename()
 	var candidates := [bgm_path + track, bgm_path + base + ".ogg", bgm_path + base + ".wav", bgm_path + base + ".mp3"]
 	for c in candidates:
-		if ResourceLoader.exists(c):
-			var stream := load(c)
-			if stream != null:
-				_bgm_player.stream = stream
-				_bgm_player.play()
+		var stream := _load_stream(c)
+		if stream != null:
+			_bgm_player.stream = stream
+			_bgm_player.play()
 			return
 	_bgm_player.stop()
 

@@ -147,6 +147,7 @@ func _sell_one(mat: String) -> void:
 		_play_denied("No %s left" % mat, mat)
 		return
 	GameState.upcycle_score += price
+	AudioManager.play_sfx("sale")
 	_last_sale = {"mat": mat, "price": price, "qty": 1, "earnings": price, "bulk": false}
 	_feedback("Sold %s +%d (score %d)" % [mat, price, GameState.upcycle_score])
 	GameState._persist()
@@ -162,6 +163,7 @@ func _sell_all(mat: String) -> void:
 	var earnings := int(round(float(avail) * float(price) * multiplier))
 	GameState.consume_trash_type(mat, avail)
 	GameState.upcycle_score += earnings
+	AudioManager.play_sfx("sale")
 	_last_sale = {"mat": mat, "price": price, "qty": avail, "earnings": earnings, "bulk": multiplier > 1.0}
 	var tag := " (bulk)" if multiplier > 1.0 else ""
 	_feedback("Sold %d %s%s +%d (score %d)" % [avail, mat, tag, earnings, GameState.upcycle_score])

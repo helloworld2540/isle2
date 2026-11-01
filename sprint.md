@@ -237,3 +237,10 @@ date: 2026-10-31 23:21
 - Upgrades now affect world map movement speed (MOVE_TIME).
 - Reef Rescue uses `GameState.get_move_speed_multiplier()` for drone movement feel.
 - Cleaned duplicated timer launch (scene-load regression avoided), validated import.
+
+## 2026-11-01 11:55 — Autonomous port + perf pass.
+- Added world-map PortalShop wiring into existing shop scene flow (portal block in world.tscn).
+- AudioManager now caches SFX/BGM AudioStream loads (_load_stream) to reduce repeated loads.
+- World upgrades now emit upgrade SFX (placeholder) and green button flash on success.
+- Shop sales now play sale SFX.
+- Headless project import clean (only environmental GitPlugin/MCP warnings).

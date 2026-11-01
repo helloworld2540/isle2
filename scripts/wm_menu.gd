@@ -134,6 +134,8 @@ func _buy_move() -> void:
 	var up: int = int(data.get("upgrade_move", 0)) + 1
 	data["upgrade_move"] = up
 	SaveManager.save_game(data)
+	AudioManager.play_sfx("upgrade")
+	_flash_success(_upgrade_fast_btn)
 	_refresh_upgrade_ui()
 
 func _buy_range() -> void:
@@ -146,6 +148,8 @@ func _buy_range() -> void:
 	var up: int = int(data.get("upgrade_range", 0)) + 1
 	data["upgrade_range"] = up
 	SaveManager.save_game(data)
+	AudioManager.play_sfx("upgrade")
+	_flash_success(_upgrade_range_btn)
 	_refresh_upgrade_ui()
 
 func _flash(btn: Button) -> void:
@@ -156,3 +160,9 @@ func _flash(btn: Button) -> void:
 func _refresh_upgrade_ui() -> void:
 	_upgrade_status.text = _upgrade_status_text()
 	_summary_label.text = "Trash: %d kg | Upcycle Score: %d | Best Streak: %d" % [GameState.trash_inventory, GameState.upcycle_score, GameState.best_sort_streak]
+
+func _flash_success(btn: Button) -> void:
+	if not btn: return
+	var tw := btn.create_tween()
+	btn.modulate = Color(0.5, 1.0, 0.55, 1.0)
+	tw.tween_property(btn, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.6)

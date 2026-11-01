@@ -327,6 +327,22 @@ offset_bottom = 0.0
 text = "Reef Rescue"
 horizontal_alignment = 1
 
+[node name="PortalShop" type="Area2D" parent="." unique_id=900000010]
+position = Vector2(320, 400)
+script = ExtResource("5_portal")
+target_scene = "res://scenes/shop.tscn"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PortalShop" unique_id=900000011]
+shape = SubResource("Shape_portal")
+
+[node name="Label" type="Label" parent="PortalShop" unique_id=900000012]
+offset_left = -46.0
+offset_top = -46.0
+offset_right = 46.0
+offset_bottom = 0.0
+text = "Shop"
+horizontal_alignment = 1
+
 [node name="WorldSummary" type="CanvasLayer" parent="." unique_id=900000011]
 
 [node name="SummaryLabel" type="Label" parent="WorldSummary" unique_id=900000012]
