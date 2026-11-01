@@ -274,3 +274,9 @@ date: 2026-10-31 23:21
 ## 2026-11-01 12:55 — Edge-marker cleanup polish.
 - Reef Rescue edge markers now cleaned on collect and on world return.
 - Headless import clean; working tree committed.
+
+## 2026-11-01 13:05 — Economy tracking + stats pass.
+- Added GameState.lifetime_earnings.
+- Shop sales update lifetime earnings.
+- Stats menu displays lifetime shop earnings.
+- Headless import clean.
