@@ -1,7 +1,7 @@
 # Current project todo:
 
 ## High priority features
-- Tune NPC sprite scale/identity pairings and quests (done part: sprites wired, ongoing polish).
+- Tune NPC sprite scale/identity pairings and quests (done: sprite provenance/size scale adjusted, quest label offsets fixed).
 
 - Dev: Nina/Kai tier-1 explicit reward materials hardened. (done: rewards explicitly set)
 - Ship placeholder audio assets to real samples. (done: generated WAV SFX/BGM placeholders)

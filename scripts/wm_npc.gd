@@ -332,8 +332,21 @@ func _apply_npc_sprite() -> void:
 	if ResourceLoader.exists(path):
 		_sprite.texture = load(path)
 		_sprite.centered = true
-		_sprite.scale = Vector2(0.62, 0.62)
+		# NPC art is authored at 256x384; scale down so labels stay close and
+		# the character fits the tile-based world without oversized billboards.
+		_sprite.scale = Vector2(0.46, 0.46)
 		_sprite.position = Vector2(0, -10)
+		# Keep name and quest text above the sprite instead of overlapping it.
+		var sprite_height: float = _sprite.get_rect().size.y * _sprite.scale.y
+		var top: float = _sprite.position.y - sprite_height * 0.5
+		if has_node("NameLabel"):
+			var name_label: Label = $NameLabel
+			name_label.offset_top = top - 28.0
+			name_label.offset_bottom = top - 4.0
+		if has_node("QuestProgress"):
+			var quest_label: Label = $QuestProgress
+			quest_label.offset_top = top + 2.0
+			quest_label.offset_bottom = top + 26.0
 	if has_node("Body"):
 		var body: ColorRect = $Body
 		body.visible = false

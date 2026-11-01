@@ -64,3 +64,10 @@
 - Hardened reef escape (ESC) to record reef result and debris.
 - Polished world pause upgrade panel styling and content cost labels.
 - Headless import/runtime clean.
+
+## 2026-11-01 16:18 — NPC presentation polish.
+- Reduced NPC sprite scale from 0.62 to 0.46 and measured all four exported pngs so the billboards fit the tile-based world map.
+- Repositioned NameLabel and QuestProgress labels dynamically above each sprite, preventing overlap with the sprite and keeping progress readable.
+- Removed stale player/upcycle console debug spam.
+- Updated TODO to mark NPC sprite pairing polish complete.
+- Headless Godot import clean.

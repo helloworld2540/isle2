@@ -136,8 +136,6 @@ func _bfs(start: Vector2i, goal: Vector2i) -> Array[Vector2i]:
 		step = came_from[step]
 		
 	route.reverse()
-	print("[bfs] start, end:", start, goal)
-	print("[bfs] route:", route)
 	return route
 
 func _nearest_walkable_cell(target: Vector2i, max_radius: int) -> Vector2i:

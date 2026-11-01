@@ -217,8 +217,6 @@ func _input(event: InputEvent) -> void:
 				if abs(drag_vector.x) > abs(drag_vector.y)
 				else (Vector2(0, -1) if drag_vector.y < 0 else Vector2(0, 1))
 			)
-			print("[u] input: ", drag_vector)
-			print("[u] output:", dir)
 			var target_pixel_pos = _snap(player.global_position + dir * GRID)
 				
 			var target_grid_pos = Vector2(
