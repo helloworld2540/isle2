@@ -4,6 +4,7 @@ extends CanvasLayer
 @onready var uc_bar: ProgressBar = $Panel/VBox/UpcycleBar
 @onready var reef_bar: ProgressBar = $Panel/VBox/ReefBar
 @onready var label: Label = $Panel/VBox/Label
+@onready var panel: PanelContainer = $Panel
 
 func _ready() -> void:
 	GameState.restore()
@@ -11,6 +12,14 @@ func _ready() -> void:
 		uc_bar.max_value = 100.0
 	if reef_bar:
 		reef_bar.max_value = 1000.0
+	if panel:
+		var sb := StyleBoxFlat.new()
+		sb.bg_color = Color(0.05, 0.08, 0.12, 0.72)
+		sb.corner_radius_top_left = 6
+		sb.corner_radius_top_right = 6
+		sb.corner_radius_bottom_left = 6
+		sb.corner_radius_bottom_right = 6
+		panel.add_theme_stylebox_override("panel", sb)
 
 func _process(_delta: float) -> void:
 	if uc_bar:

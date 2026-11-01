@@ -25,6 +25,7 @@ var _panel: CanvasLayer = null
 var _visited_flag := false
 var _quest_done := false
 var _quest2_done := false
+var _visit_count := 0
 
 var _quest_progress_label: Label = null
 
@@ -32,6 +33,7 @@ func _ready() -> void:
 	add_to_group("npc")
 	body_entered.connect(_on_body_entered)
 	_visited_flag = _load_visited()
+	_visit_count = _load_visit_count()
 	_quest_done = _load_quest_done(1)
 	_quest2_done = _load_quest_done(2)
 	var tween := create_tween().set_loops()
@@ -85,6 +87,21 @@ func _mark_visited() -> void:
 	data["npc_visited"] = visited
 	SaveManager.save_game(data)
 
+
+func _load_visit_count() -> int:
+	var data := SaveManager.load_game()
+	var counts: Dictionary = data.get("npc_visit_counts", {})
+	return int(counts.get(npc_id, 0))
+
+
+func _bump_visit_count() -> void:
+	_visit_count += 1
+	var data := SaveManager.load_game()
+	var counts: Dictionary = data.get("npc_visit_counts", {})
+	counts[npc_id] = _visit_count
+	data["npc_visit_counts"] = counts
+	SaveManager.save_game(data)
+
 func _load_quest_done(tier: int) -> bool:
 	var data := SaveManager.load_game()
 	var key := "npc_quests" if tier == 1 else "npc_quests2"
@@ -120,11 +137,12 @@ func _prepare_lines() -> Array:
 func _flavour_lines() -> Array:
 	if flavour_variants.is_empty():
 		return []
-	var i := randi() % flavour_variants.size()
+	var i := _visit_count % flavour_variants.size()
 	return PackedStringArray([flavour_variants[i]])
 
 func _show_dialogue() -> void:
 	var first_visit := not _visited_flag
+	_bump_visit_count()
 	var lines := _prepare_lines()
 
 	get_tree().paused = true

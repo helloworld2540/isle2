@@ -28,6 +28,9 @@ func _ready() -> void:
 	save_button.pressed.connect(_on_save_pressed)
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
+	# Safe anchor/max width for 720p small viewports.
+	_clamp_menu_width()
+
 	# Add lightweight trash inventory summary to the world pause panel.
 	_summary_label = Label.new()
 	_summary_label.text = "Trash in inventory: %d" % GameState.trash_inventory
@@ -67,6 +70,13 @@ func _toggle() -> void:
 	get_tree().paused = panel.visible
 
 	# Auto-open overlay; input handled in _unhandled_input.
+
+func _clamp_menu_width() -> void:
+	var vw: float = float(DisplayServer.window_get_size().x)
+	var w: float = clampf(min(460.0, vw - 24.0), 220.0, 460.0)
+	if $MenuPanel/VBoxContainer:
+		$MenuPanel/VBoxContainer.custom_minimum_size.x = w
+
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel") or (event is InputEventKey and event.pressed and event.keycode == KEY_TAB):
