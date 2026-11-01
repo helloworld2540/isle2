@@ -71,3 +71,8 @@
 - Removed stale player/upcycle console debug spam.
 - Updated TODO to mark NPC sprite pairing polish complete.
 - Headless Godot import clean.
+
+## 2026-11-01 16:28 — Portal autosave + pause anchoring
+- Portal transitions now write the current player position into the existing save file before changing scenes, so Continue restores the last explored spot even when pause was not used.
+- Pause menu max width/clamp recomputed from the actual viewport with a 720p-safe anchor fallback.
+- Headless import/runtime clean.
