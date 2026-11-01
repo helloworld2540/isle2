@@ -124,15 +124,20 @@ func _toggle_settings() -> void:
 
 
 func _clamp_menu_width() -> void:
-	var vw: float = float(DisplayServer.window_get_size().x)
-	var vh: float = float(DisplayServer.window_get_size().y)
+	var vp := get_viewport().get_visible_rect().size
+	var vw: float = vp.x
+	var vh: float = vp.y
+	if vw < 1.0 or vh < 1.0:
+		vw = maxf(1.0, float(DisplayServer.window_get_size().x))
+		vh = maxf(1.0, float(DisplayServer.window_get_size().y))
 	var w: float = clampf(min(440.0, vw - 32.0), 200.0, 440.0)
 	if $MenuPanel/VBoxContainer:
 		$MenuPanel/VBoxContainer.custom_minimum_size.x = w
 		$MenuPanel/VBoxContainer.custom_maximum_size.x = w
-		var y_off: float = clampf((vh - 260.0) * 0.5, 24.0, 160.0)
-		$MenuPanel/VBoxContainer.offset_top = -130.0 + y_off
-		$MenuPanel/VBoxContainer.offset_bottom = 130.0 + y_off
+		var menu_h: float = 420.0
+		var y_off: float = clampf((vh - menu_h) * 0.5, 12.0, 120.0)
+		$MenuPanel/VBoxContainer.offset_top = - (menu_h * 0.5) + y_off
+		$MenuPanel/VBoxContainer.offset_bottom = (menu_h * 0.5) + y_off
 
 
 func _unhandled_input(event: InputEvent) -> void:
