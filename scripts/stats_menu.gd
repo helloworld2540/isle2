@@ -41,6 +41,9 @@ func _on_volume_changed(v: float) -> void:
 
 func _on_reduce_toggled(v: bool) -> void:
 	AudioManager.set_reduced_motion(v)
+	var sd := SaveManager.load_game()
+	sd["reduced_motion"] = v
+	SaveManager.save_game(sd)
 
 func _on_back() -> void:
 	AudioManager.play_sfx("return")

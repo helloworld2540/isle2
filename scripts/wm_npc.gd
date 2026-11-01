@@ -319,7 +319,7 @@ func _apply_npc_sprite() -> void:
 	if ResourceLoader.exists(path):
 		_sprite.texture = load(path)
 		_sprite.centered = true
-		_sprite.scale = Vector2(0.5, 0.5)
+		_sprite.scale = Vector2(0.62, 0.62)
 		_sprite.position = Vector2(0, -10)
 	if has_node("Body"):
 		var body: ColorRect = $Body
