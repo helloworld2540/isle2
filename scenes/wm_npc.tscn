@@ -9,7 +9,7 @@ size = Vector2(40, 40)
 script = ExtResource("1_npc")
 npc_id = "npc_1"
 npc_name = "Mara"
-dialogue_lines = PackedStringArray(["Hi! I'm Mara. Welcome to the island.", "Pick up trash and bring it back. I'll reward good work!"])
+dialogue_lines = ["Hi! I'm Mara. Welcome to the island.", "Pick up trash and bring it back. I'll reward good work!"]
 reward_trash = 6
 reward_mat = "Polyethylene"
 

@@ -5,10 +5,11 @@
 [ext_resource type="Script" uid="uid://drpgnbd3j42qk" path="res://scripts/wm_player.gd" id="2_4wyf3"]
 [ext_resource type="Script" uid="uid://b7qs8mpyww88f" path="res://scripts/wm_camera_grid.gd" id="3_camera"]
 [ext_resource type="Script" uid="uid://bdpxvgjp8e85w" path="res://scripts/wm_menu.gd" id="4_menu"]
+[ext_resource type="Script" uid="uid://bnrwlk5185f3v" path="res://scripts/wm_portal.gd" id="5_portal"]
 [ext_resource type="Theme" uid="uid://bug5wlu7yvs7w" path="res://resources/control_theme.tres" id="6_qfnet"]
-[ext_resource type="Script" path="res://scripts/wm_summary.gd" id="7_summary"]
-[ext_resource type="Script" path="res://scripts/wm_progress.gd" id="8_progress"]
-[ext_resource type="PackedScene" path="res://scenes/wm_npc.tscn" id="9_npc"]
+[ext_resource type="Script" uid="uid://1lr0p4mpnbr7" path="res://scripts/wm_summary.gd" id="7_summary"]
+[ext_resource type="Script" uid="uid://cj18btbost2db" path="res://scripts/wm_progress.gd" id="8_progress"]
+[ext_resource type="PackedScene" uid="uid://4kfitbfafl6w" path="res://scenes/wm_npc.tscn" id="9_npc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rwgxs"]
 texture = ExtResource("1_nnsk1")
@@ -217,6 +218,9 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nmirg"]
+size = Vector2(102, 163)
+
 [sub_resource type="RectangleShape2D" id="Shape_portal"]
 size = Vector2(64, 64)
 
@@ -245,6 +249,10 @@ sprite_frames = SubResource("SpriteFrames_nmirg")
 animation = &"player_down"
 autoplay = "player_down"
 frame_progress = 0.3313893
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=1402422924]
+position = Vector2(1, -30.5)
+shape = SubResource("RectangleShape2D_nmirg")
 
 [node name="Menu" type="CanvasLayer" parent="." unique_id=410065409]
 visible = false
@@ -296,7 +304,7 @@ theme_override_font_sizes/font_size = 30
 text = "Save & Quit"
 
 [node name="PortalUpcycle" type="Area2D" parent="." unique_id=900000001]
-position = Vector2(150, 204)
+position = Vector2(16, -103)
 script = ExtResource("5_portal")
 target_scene = "res://scenes/upcycle.tscn"
 warn_if_empty = true
@@ -308,12 +316,11 @@ shape = SubResource("Shape_portal")
 offset_left = -46.0
 offset_top = -46.0
 offset_right = 46.0
-offset_bottom = 0.0
 text = "Upcycle"
 horizontal_alignment = 1
 
 [node name="PortalReefRescue" type="Area2D" parent="." unique_id=900000004]
-position = Vector2(534, 588)
+position = Vector2(-7, 937)
 script = ExtResource("5_portal")
 target_scene = "res://scenes/reef_rescue.tscn"
 
@@ -324,12 +331,11 @@ shape = SubResource("Shape_portal")
 offset_left = -50.0
 offset_top = -46.0
 offset_right = 50.0
-offset_bottom = 0.0
 text = "Reef Rescue"
 horizontal_alignment = 1
 
 [node name="PortalShop" type="Area2D" parent="." unique_id=900000010]
-position = Vector2(320, 400)
+position = Vector2(446, -598)
 script = ExtResource("5_portal")
 target_scene = "res://scenes/shop.tscn"
 
@@ -340,19 +346,16 @@ shape = SubResource("Shape_portal")
 offset_left = -46.0
 offset_top = -46.0
 offset_right = 46.0
-offset_bottom = 0.0
 text = "Shop"
 horizontal_alignment = 1
 
-[node name="WorldNPC_Mara" parent="." instance=ExtResource("9_npc")]
-position = Vector2(320.0, 260.0)
+[node name="WorldNPC_Mara" parent="." unique_id=1021890887 instance=ExtResource("9_npc")]
+position = Vector2(0, -934)
 npc_id = "npc_mara"
-npc_name = "Mara"
-dialogue_lines = PackedStringArray(["Hi! I'm Mara, island caretaker.", "Pick up trash and bring it back. I'll reward good work!"])
-repeat_dialogue_lines = PackedStringArray(["Welcome back! Got any Polyethylene to spare?"])
-quest_complete_lines = PackedStringArray(["You're a true island hero!"])
-reward_trash = 6
-reward_mat = "Polyethylene"
+dialogue_lines = Array[String](["Hi! I'm Mara, island caretaker.", "Pick up trash and bring it back. I'll reward good work!"])
+repeat_dialogue_lines = Array[String](["Welcome back! Got any Polyethylene to spare?"])
+quest_complete_lines = Array[String](["You're a true island hero!"])
+tier2_lines = Array[String](["Tier 2: bring 5 Glass for a Polypropylene bounty."])
 quest_material = "Polyethylene"
 quest_amount = 8
 quest_reward_mat = "Glass"
@@ -361,16 +364,15 @@ quest2_material = "Glass"
 quest2_amount = 5
 quest2_reward_mat = "Polypropylene"
 quest2_reward_amount = 6
-tier2_lines = PackedStringArray(["Tier 2: bring 5 Glass for a Polypropylene bounty."])
-quest_complete_lines = PackedStringArray(["You're a true island hero!"])
 
-[node name="WorldNPC_Tom" parent="." instance=ExtResource("9_npc")]
-position = Vector2(820.0, 720.0)
+[node name="WorldNPC_Tom" parent="." unique_id=1692442811 instance=ExtResource("9_npc")]
+position = Vector2(-689, -1150)
 npc_id = "npc_tom"
 npc_name = "Tom"
-dialogue_lines = PackedStringArray(["The reef is full of drifting junk.", "Bring it back for recycling!"])
-repeat_dialogue_lines = PackedStringArray(["Any Nylon for the shop today?"])
-quest_complete_lines = PackedStringArray(["Sea life thanks you!"])
+dialogue_lines = Array[String](["The reef is full of drifting junk.", "Bring it back for recycling!"])
+repeat_dialogue_lines = Array[String](["Any Nylon for the shop today?"])
+quest_complete_lines = Array[String](["Sea life thanks you!"])
+tier2_lines = Array[String](["Tier 2: 6 Polypropylene for 8 Polyethylene."])
 reward_trash = 4
 reward_mat = "Nylon"
 quest_material = "Nylon"
@@ -379,52 +381,47 @@ quest_reward_mat = "Polypropylene"
 quest_reward_amount = 4
 quest2_material = "Polypropylene"
 quest2_amount = 6
-quest2_reward_mat = "Polyethylene"
 quest2_reward_amount = 8
-tier2_lines = PackedStringArray(["Tier 2: 6 Polypropylene for 8 Polyethylene."])
-quest_complete_lines = PackedStringArray(["Sea life thanks you!"])
 
-[node name="WorldNPC_Nina" parent="." instance=ExtResource("9_npc")]
-position = Vector2(520.0, 360.0)
+[node name="WorldNPC_Nina" parent="." unique_id=822166491 instance=ExtResource("9_npc")]
+position = Vector2(475, 913)
 npc_id = "npc_nina"
 npc_name = "Nina"
-dialogue_lines = PackedStringArray(["I run the recycling stand near the shop.", "Sell trash for coins; I'll pay a bonus!"])
-repeat_dialogue_lines = PackedStringArray(["Got stock for the store today?"])
-quest_complete_lines = PackedStringArray(["Shop's stocked! Thanks."])
+dialogue_lines = Array[String](["I run the recycling stand near the shop.", "Sell trash for coins; I'll pay a bonus!"])
+repeat_dialogue_lines = Array[String](["Got stock for the store today?"])
+quest_complete_lines = Array[String](["Shop's stocked! Thanks."])
+tier2_lines = Array[String](["Tier 2: 8 Polyethylene for 8 Polypropylene."])
 reward_trash = 5
 reward_mat = "Nylon"
 quest_material = "Glass"
 quest_amount = 6
-quest_reward_mat = "Polyethylene"
 quest_reward_amount = 5
 quest2_material = "Polyethylene"
 quest2_amount = 8
 quest2_reward_mat = "Polypropylene"
 quest2_reward_amount = 8
-tier2_lines = PackedStringArray(["Tier 2: 8 Polyethylene for 8 Polypropylene."])
 
-[node name="WorldNPC_Kai" parent="." instance=ExtResource("9_npc")]
-position = Vector2(500.0, 420.0)
+[node name="WorldNPC_Kai" parent="." unique_id=200355740 instance=ExtResource("9_npc")]
+position = Vector2(1019, -1164)
 npc_id = "npc_kai"
 npc_name = "Kai"
-dialogue_lines = PackedStringArray(["I run the shop across the way.", "Bring me Glass and I'll stock the shelves!"])
-repeat_dialogue_lines = PackedStringArray(["Any Glass for the shop today?"])
-quest_complete_lines = PackedStringArray(["Shelves fully stocked. Thank you!"])
+dialogue_lines = Array[String](["I run the shop across the way.", "Bring me Glass and I'll stock the shelves!"])
+repeat_dialogue_lines = Array[String](["Any Glass for the shop today?"])
+quest_complete_lines = Array[String](["Shelves fully stocked. Thank you!"])
+tier2_lines = Array[String](["Tier 2: 8 Polyethylene for 4 Glass."])
 reward_trash = 3
 reward_mat = "Polypropylene"
 quest_material = "Glass"
 quest_amount = 5
-quest_reward_mat = "Polyethylene"
 quest_reward_amount = 5
 quest2_material = "Polyethylene"
 quest2_amount = 8
 quest2_reward_mat = "Glass"
 quest2_reward_amount = 4
-tier2_lines = PackedStringArray(["Tier 2: 8 Polyethylene for 4 Glass."])
 
 [node name="WorldProgress" type="CanvasLayer" parent="." unique_id=900000020]
-script = ExtResource("8_progress")
 layer = 5
+script = ExtResource("8_progress")
 
 [node name="Panel" type="PanelContainer" parent="WorldProgress" unique_id=900000021]
 offset_left = 8.0
@@ -433,31 +430,31 @@ offset_right = 220.0
 offset_bottom = 168.0
 
 [node name="VBox" type="VBoxContainer" parent="WorldProgress/Panel" unique_id=900000022]
+layout_mode = 2
 
 [node name="Label" type="Label" parent="WorldProgress/Panel/VBox" unique_id=900000023]
-text = "Progress"
+layout_mode = 2
 theme_override_font_sizes/font_size = 12
+text = "Progress"
 
 [node name="UpcycleBar" type="ProgressBar" parent="WorldProgress/Panel/VBox" unique_id=900000024]
 custom_minimum_size = Vector2(200, 0)
-max_value = 100.0
-value = 0.0
+layout_mode = 2
 show_percentage = false
 
 [node name="ReefBar" type="ProgressBar" parent="WorldProgress/Panel/VBox" unique_id=900000025]
 custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
 max_value = 1000.0
-value = 0.0
 show_percentage = false
 
-[node name="WorldSummary" type="CanvasLayer" parent="." unique_id=900000011]
+[node name="WorldSummary" type="CanvasLayer" parent="." unique_id=1420355445]
 
-[node name="SummaryLabel" type="Label" parent="WorldSummary" unique_id=900000012]
+[node name="SummaryLabel" type="Label" parent="WorldSummary" unique_id=32793830]
 offset_left = 8.0
 offset_top = 8.0
 offset_right = 620.0
 offset_bottom = 100.0
-text = "Upcycle Score: 0 | Reef Garbage: 0 kg, Fish: 0"
 theme_override_font_sizes/font_size = 16
+text = "Upcycle Score: 0 | Reef Garbage: 0 kg, Fish: 0"
 script = ExtResource("7_summary")
-

@@ -3,10 +3,11 @@ class_name WorldNPC
 
 @export var npc_id: String = "npc_1"
 @export var npc_name: String = "Friendly Cleaner"
-@export_multiline var dialogue_lines: Array = ["Hello! Welcome to trash island."]
-@export_multiline var repeat_dialogue_lines: Array = ["Good to see you again!"]
-@export_multiline var quest_complete_lines: Array = ["Thanks for the help!"]
-@export_multiline var tier2_lines: Array = ["Tier 2 unlocked. Bring more!"]
+@export_multiline var dialogue_lines: Array[String] = ["Hello! Welcome to trash island."]
+@export_multiline var repeat_dialogue_lines: Array[String] = ["Good to see you again!"]
+@export_multiline var quest_complete_lines: Array[String] = ["Thanks for the help!"]
+@export_multiline var tier2_lines: Array[String] = ["Tier 2 unlocked. Bring more!"]
+@export_multiline var flavour_variants: Array[String] = ["The tides are calm today.", "Keep the shores clean!", "Every bit of trash helps."]
 @export var reward_trash: int = 5
 @export var reward_mat: String = "Polyethylene"
 
@@ -73,10 +74,18 @@ func _prepare_lines() -> Array:
 	if not _visited_flag:
 		return dialogue_lines
 	if _quest2_done:
-		return quest_complete_lines if not quest_complete_lines.is_empty() else repeat_dialogue_lines
+		var out := quest_complete_lines if not quest_complete_lines.is_empty() else repeat_dialogue_lines
+		return out + _flavour_lines()
 	if _quest_done:
-		return tier2_lines if not tier2_lines.is_empty() else repeat_dialogue_lines
-	return repeat_dialogue_lines
+		var t := tier2_lines if not tier2_lines.is_empty() else repeat_dialogue_lines
+		return t + _flavour_lines()
+	return repeat_dialogue_lines + _flavour_lines()
+
+func _flavour_lines() -> Array:
+	if flavour_variants.is_empty():
+		return []
+	var i := randi() % flavour_variants.size()
+	return PackedStringArray([flavour_variants[i]])
 
 func _show_dialogue() -> void:
 	var first_visit := not _visited_flag

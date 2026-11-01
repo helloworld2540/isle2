@@ -18,3 +18,7 @@
 ## 2026-11-01 12:43 — NPC tier-2 quests + parser cleanup.
 - Added tier-2 turn-in quests for Mara and Tom.
 - Repaired wm_menu.gd broken progress-bar scaffolding; import clean.
+
+## 2026-11-01 12:55 — NPC polish + Kai shop-themed quests.
+- Added third NPC (Kai) near world center; two-tier Glass/Polyethylene quests.
+- Tile-name cleanup trailing; headless import clean.

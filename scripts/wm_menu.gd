@@ -64,6 +64,14 @@ func _toggle() -> void:
 	panel.visible = not panel.visible
 	get_tree().paused = panel.visible
 
+	# Auto-open overlay; input handled in _unhandled_input.
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel") or (event is InputEventKey and event.pressed and event.keycode == KEY_TAB):
+		_toggle()
+		get_viewport().set_input_as_handled()
+
+
 
 func _on_resume_pressed() -> void:
 	panel.visible = false
