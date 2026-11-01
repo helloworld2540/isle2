@@ -11,6 +11,8 @@ var _upgrade_fast_btn: Button
 var _upgrade_range_btn: Button
 var _deep_cache_btn: Button
 var _inventory_list: Label
+var _up_bar: ProgressBar
+var _reef_bar: ProgressBar
 
 func _ready() -> void:
 	panel.visible = false
@@ -47,7 +49,7 @@ func _process(_delta: float) -> void:
 		_summary_label.text = "Trash: %d kg | Upcycle Score: %d | Best Streak: %d" % [GameState.trash_inventory, GameState.upcycle_score, GameState.best_sort_streak]
 		var inv := _format_inventory()
 		_inventory_list.text = inv
-		# progress bars updated in their own node
+		_update_progress_bars()
 
 
 func _format_inventory() -> String:
@@ -187,6 +189,10 @@ func _refresh_upgrade_ui() -> void:
 	if _deep_cache_btn:
 		_deep_cache_btn.text = _deep_cache_text()
 		_deep_cache_btn.disabled = GameState.deep_cache
+	if _upgrade_fast_btn:
+		_upgrade_fast_btn.disabled = GameState.trash_inventory < 8
+	if _upgrade_range_btn:
+		_upgrade_range_btn.disabled = GameState.trash_inventory < 12
 	_summary_label.text = "Trash: %d kg | Upcycle Score: %d | Best Streak: %d" % [GameState.trash_inventory, GameState.upcycle_score, GameState.best_sort_streak]
 
 func _flash_success(btn: Button) -> void:
@@ -209,6 +215,7 @@ func _build_progress_bars() -> void:
 	up_bar.custom_minimum_size = Vector2(320, 20)
 	up_bar.max_value = max(1, GameState.best_upcycle_score)
 	up_bar.value = min(GameState.upcycle_score, up_bar.max_value)
+	_up_bar = up_bar
 	up_box.add_child(up_bar)
 
 	var reef_box := HBoxContainer.new()
@@ -223,10 +230,17 @@ func _build_progress_bars() -> void:
 	reef_bar.custom_minimum_size = Vector2(320, 20)
 	reef_bar.max_value = max(1, GameState.best_reef_depth)
 	reef_bar.value = min(int(GameState.reef_garbage), int(reef_bar.max_value))
+	_reef_bar = reef_bar
 	reef_box.add_child(reef_bar)
 
 func _update_progress_bars() -> void:
-	pass
+	if not _up_bar or not _reef_bar:
+		return
+	_up_bar.max_value = max(1.0, float(max(1, GameState.best_upcycle_score)))
+	_up_bar.value = min(_up_bar.max_value, float(GameState.upcycle_score))
+	_reef_bar.max_value = max(1.0, float(max(10, GameState.best_reef_depth)))
+	_reef_bar.value = min(_reef_bar.max_value, GameState.reef_garbage)
+
 
 func _find_node(root: Node, target_name: String) -> Node:
 	if root.name == target_name:
