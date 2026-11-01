@@ -40,6 +40,13 @@ func _on_body_entered(body) -> void:
 	if warn_if_empty and int(GameState.trash_inventory) <= 0 and target_scene.find("upcycle") != -1:
 		_make_warn()
 		return
+	# Persist player position before leaving the world map so Continue keeps
+	# the last explored spot even if the pause menu was not used.
+	var player := get_tree().get_first_node_in_group("player")
+	if player and SaveManager:
+		var save_data := SaveManager.load_game()
+		save_data["player_position"] = [player.global_position.x, player.global_position.y]
+		SaveManager.save_game(save_data)
 	# Avoid re-triggering while transition is running.
 	if SceneTransition.has_method("is_busy") and SceneTransition.is_busy():
 		return

@@ -13,5 +13,5 @@
 - Pause menu max width / safer anchor at 720p.
 - NPC quest progress indicators above NPCs. (improved)
 - World portal pulse + overshoot easing extra overshoot. (done)
-- Save scoping: protect from overwriting on scene transition if pause not closed. (improved)
+- Save scoping: persist player position before portal transition. (done)
 - World progress HUD higher z index / semi-transparent background. (done)
