@@ -39,3 +39,8 @@
 - Portal/pulse/juice and NPC sprite bob passes.
 - WorldProgress HUD transparency/border and z layer pass.
 - Headless import/run clean.
+
+## 2026-11-01 15:05 — Reef spawn polish + runtime check.
+- Reef spawn fade-in (transparency + scale back-ease) already in place; verified headless runtime.
+- Desktop NPC/sprite/progress systems stable.
+- Headless import/run clean (no errors).
