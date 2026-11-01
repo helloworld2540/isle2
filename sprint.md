@@ -256,3 +256,8 @@ date: 2026-10-31 23:21
 - Off-screen world-map portal edge markers upgraded from dots to directional arrows.
 - Fixed accidental binary corruption in wm_portal_markers.gd.
 - Headless import validated clean.
+
+## 2026-11-01 12:20 — Visual polish pass.
+- Reef Rescue items now fade in on spawn (0.4s ease-out) for readability.
+- Portal entry pulse overshoot strengthened to 1.30 scale.
+- Headless import validated clean.
