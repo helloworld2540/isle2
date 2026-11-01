@@ -31,6 +31,9 @@ func _ready() -> void:
 	_summary_label.modulate = Color(0.85, 0.9, 1.0, 0.9)
 	$MenuPanel/VBoxContainer.add_child(_summary_label)
 
+	# Progress bars for reef/upcycle relative to bests.
+	_build_progress_bars()
+
 	_create_upgrade_panel()
 
 	_inventory_list = Label.new()
@@ -46,6 +49,7 @@ func _process(_delta: float) -> void:
 		_summary_label.text = "Trash: %d kg | Upcycle Score: %d | Best Streak: %d" % [GameState.trash_inventory, GameState.upcycle_score, GameState.best_sort_streak]
 		var inv := _format_inventory()
 		_inventory_list.text = inv
+		_update_progress_inline()
 
 
 func _format_inventory() -> String:
@@ -162,3 +166,49 @@ func _flash_success(btn: Button) -> void:
 	var tw := btn.create_tween()
 	btn.modulate = Color(0.5, 1.0, 0.55, 1.0)
 	tw.tween_property(btn, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.6)
+
+
+func _build_progress_bars() -> void:
+	var up_box := HBoxContainer.new()
+	up_box.custom_minimum_size = Vector2(420, 0)
+	$MenuPanel/VBoxContainer.add_child(up_box)
+	var up_lbl := Label.new()
+	up_lbl.text = "Upcycle"
+	up_lbl.custom_minimum_size = Vector2(90, 0)
+	up_box.add_child(up_lbl)
+	var up_bar := ProgressBar.new()
+	up_bar.name = "UpcycleProgress"
+	up_bar.custom_minimum_size = Vector2(320, 20)
+	up_bar.max_value = max(1, GameState.best_upcycle_score)
+	up_bar.value = min(GameState.upcycle_score, up_bar.max_value)
+	up_box.add_child(up_bar)
+
+	var reef_box := HBoxContainer.new()
+	reef_box.custom_minimum_size = Vector2(420, 0)
+	$MenuPanel/VBoxContainer.add_child(reef_box)
+	var reef_lbl := Label.new()
+	reef_lbl.text = "Reef"
+	reef_lbl.custom_minimum_size = Vector2(90, 0)
+	reef_box.add_child(reef_lbl)
+	var reef_bar := ProgressBar.new()
+	reef_bar.name = "ReefProgress"
+	reef_bar.custom_minimum_size = Vector2(320, 20)
+	reef_bar.max_value = max(1, GameState.best_reef_depth)
+	reef_bar.value = min(int(GameState.reef_garbage), int(reef_bar.max_value))
+	reef_box.add_child(reef_bar)
+
+func _update_progress_bars() -> void:
+func _find_node(root: Node, target_name: String) -> Node:
+	if root.name == target_name:
+		return root
+	for c in root.get_children():
+		var r := _find_node(c, target_name)
+		if r: return r
+	return null
+
+	if up_bar:
+		up_bar.max_value = max(1, GameState.best_upcycle_score)
+		up_bar.value = min(GameState.upcycle_score, up_bar.max_value)
+	if reef_bar:
+		reef_bar.max_value = max(1, GameState.best_reef_depth)
+		reef_bar.value = min(int(GameState.reef_garbage), int(reeef_bar.max_value)) if False else min(int(GameState.reef_garbage), int(reef_bar.max_value))
