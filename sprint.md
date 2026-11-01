@@ -244,3 +244,9 @@ date: 2026-10-31 23:21
 - World upgrades now emit upgrade SFX (placeholder) and green button flash on success.
 - Shop sales now play sale SFX.
 - Headless project import clean (only environmental GitPlugin/MCP warnings).
+
+## 2026-11-01 12:05 — Minigame polish + adaptive pacing pass.
+- Reef Rescue: guarded double-collection; floating +kg/+fish popups and pickup SFX; ESC returns to world.
+- Upcycle: streak HUD, combo popup at 5 correct, adaptive belt speed (90–220), cap 10 belt items, pickup/sort SFX.
+- Best sort streak now recorded on return.
+- Headless import clean.
