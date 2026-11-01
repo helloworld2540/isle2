@@ -10,6 +10,7 @@ var drag_velocity := Vector2.ZERO
 var dragging := false
 var fish := 0
 var garbage := 0.0
+var _edge_markers: Dictionary = {}
 
 @onready var items: Node2D = $Items
 @onready var drone: CharacterBody2D = $Drone
@@ -20,6 +21,7 @@ var garbage := 0.0
 
 func _ready() -> void:
 	timer.wait_time = SPAWN_INTERVAL
+	_edge_markers = {}
 	timer.timeout.connect(_spawn_item)
 	timer.start()
 	AudioManager.play_bgm("reef")
@@ -61,6 +63,7 @@ func _process(delta: float) -> void:
 		
 	drag_velocity.x = move_toward(drag_velocity.x, 0, delta * drag_velocity.x * 0.8)
 	drag_velocity.y = move_toward(drag_velocity.y, 0, delta * drag_velocity.y * 0.8)
+	_update_edge_markers()
 	_update_ui()
 
 func _input(event: InputEvent) -> void:
@@ -91,6 +94,52 @@ func _spawn_item() -> void:
 	else:
 		item.init_garbage()
 	
+
+func _update_edge_markers() -> void:
+	var vp := get_viewport_rect().size
+	for child in items.get_children():
+		if not is_instance_valid(child):
+			continue
+		var next := child as Node2D
+		if next == null or not next.is_inside_tree():
+			continue
+		var pos: Vector2 = next.global_position
+		var mid := pos
+		if mid.x >= 0 and mid.x <= vp.x and mid.y >= 0 and mid.y <= vp.y:
+			if _edge_markers.has(next.get_instance_id()):
+				var m: Label = _edge_markers[next.get_instance_id()]
+				if is_instance_valid(m): m.queue_free()
+				_edge_markers.erase(next.get_instance_id())
+			continue
+		var marker: Label
+		if not _edge_markers.has(next.get_instance_id()):
+			marker = Label.new()
+			marker.text = "!"
+			marker.modulate = Color(1.0, 0.95, 0.35, 0.95)
+			marker.add_theme_font_size_override("font_size", 22)
+			add_child(marker)
+			_edge_markers[next.get_instance_id()] = marker
+		else:
+			marker = _edge_markers[next.get_instance_id()]
+		if not is_instance_valid(marker):
+			continue
+		var x := clampf(pos.x, 12.0, vp.x - 12.0)
+		var y := clampf(pos.y, 12.0, vp.y - 12.0)
+		marker.position = Vector2(x - 6.0, y - 12.0)
+		if pos.x < 0:
+			marker.text = "<"
+		elif pos.x > vp.x:
+			marker.text = ">"
+		elif pos.y < 0:
+			marker.text = "^"
+		else:
+			marker.text = "v"
+
+func _clear_edge_markers() -> void:
+	for m in _edge_markers.values():
+		if is_instance_valid(m): m.queue_free()
+	_edge_markers.clear()
+
 func _update_ui() -> void:
 	garbage_label.text = "Collected %d kg of garbage" % garbage
 	fish_label.text = "Released %d fish" % fish
