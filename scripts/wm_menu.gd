@@ -9,6 +9,7 @@ var _upgrade_panel: Control
 var _upgrade_status: Label
 var _upgrade_fast_btn: Button
 var _upgrade_range_btn: Button
+var _deep_cache_btn: Button
 var _inventory_list: Label
 
 func _ready() -> void:
@@ -116,17 +117,25 @@ func _create_upgrade_panel() -> void:
 	_upgrade_range_btn.pressed.connect(_buy_range)
 	_upgrade_panel.add_child(_upgrade_range_btn)
 
+	_deep_cache_btn = Button.new()
+	_deep_cache_btn.text = _deep_cache_text()
+	_deep_cache_btn.pressed.connect(_buy_deep_cache)
+	_upgrade_panel.add_child(_deep_cache_btn)
+
 func _move_cost_text() -> String:
 	return "Move Faster (8 trash each)"
 
 func _range_cost_text() -> String:
 	return "Collection Range (12 trash each)"
 
+func _deep_cache_text() -> String:
+	return "Deep Cache (30 score) — collects more debris per run" if not GameState.deep_cache else "Deep Cache: OWNED"
 func _upgrade_status_text() -> String:
 	var data := SaveManager.load_game()
 	var mv := int(data.get("upgrade_move", 0))
 	var rng := int(data.get("upgrade_range", 0))
-	return "Upgrades -> Move: %d, Range: %d" % [mv, rng]
+	var dc := "DeepCache" if bool(data.get("deep_cache", false)) else "-"
+	return "Upgrades -> Move: %d, Range: %d, %s" % [mv, rng, dc]
 
 func _buy_move() -> void:
 	if not GameState.spend_trash(8):
@@ -152,6 +161,17 @@ func _buy_range() -> void:
 	_flash_success(_upgrade_range_btn)
 	_refresh_upgrade_ui()
 
+func _buy_deep_cache() -> void:
+	if GameState.deep_cache:
+		_flash_success(_deep_cache_btn)
+		return
+	if not GameState.purchase_deep_cache():
+		_flash(_deep_cache_btn)
+		return
+	AudioManager.play_sfx("upgrade")
+	_flash_success(_deep_cache_btn)
+	_refresh_upgrade_ui()
+
 func _flash(btn: Button) -> void:
 	var tw := btn.create_tween()
 	btn.modulate = Color(1.0, 0.4, 0.4, 1.0)
@@ -159,6 +179,9 @@ func _flash(btn: Button) -> void:
 
 func _refresh_upgrade_ui() -> void:
 	_upgrade_status.text = _upgrade_status_text()
+	if _deep_cache_btn:
+		_deep_cache_btn.text = _deep_cache_text()
+		_deep_cache_btn.disabled = GameState.deep_cache
 	_summary_label.text = "Trash: %d kg | Upcycle Score: %d | Best Streak: %d" % [GameState.trash_inventory, GameState.upcycle_score, GameState.best_sort_streak]
 
 func _flash_success(btn: Button) -> void:

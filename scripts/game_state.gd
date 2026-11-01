@@ -12,6 +12,7 @@ var best_upcycle_score: int = 0
 var best_sort_streak: int = 0
 var best_reef_depth: int = 0
 var best_reef_fish: int = 0
+var lifetime_earnings: int = 0
 var sort_streak: int = 0
 var deep_cache: bool = false
 
@@ -32,6 +33,12 @@ func record_reef(garbage: float, fish: int) -> void:
 		best_reef_depth = int(garbage)
 	if fish > best_reef_fish:
 		best_reef_fish = fish
+	_persist()
+
+func add_earnings(amount: int) -> void:
+	if amount <= 0:
+		return
+	lifetime_earnings += amount
 	_persist()
 
 func add_trash_type(mat: String, amount: int) -> void:
@@ -110,6 +117,7 @@ func _persist() -> void:
 	data["best_sort_streak"] = best_sort_streak
 	data["best_reef_depth"] = best_reef_depth
 	data["best_reef_fish"] = best_reef_fish
+	data["lifetime_earnings"] = lifetime_earnings
 	data["sort_streak"] = sort_streak
 	data["deep_cache"] = deep_cache
 	SaveManager.save_game(data)
@@ -131,5 +139,6 @@ func restore() -> void:
 	best_sort_streak = int(data.get("best_sort_streak", 0))
 	best_reef_depth = int(data.get("best_reef_depth", 0))
 	best_reef_fish = int(data.get("best_reef_fish", 0))
+	lifetime_earnings = int(data.get("lifetime_earnings", 0))
 	sort_streak = int(data.get("sort_streak", 0))
 	deep_cache = bool(data.get("deep_cache", false))
