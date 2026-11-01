@@ -28,7 +28,9 @@ func _ready() -> void:
 	save_button.pressed.connect(_on_save_pressed)
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
-	# Safe anchor/max width for 720p small viewports.
+	# Track viewport resizing to keep pause panel safely anchored.
+	get_viewport().size_changed.connect(_clamp_menu_width)
+
 	_clamp_menu_width()
 
 	# Add lightweight trash inventory summary to the world pause panel.
@@ -73,9 +75,14 @@ func _toggle() -> void:
 
 func _clamp_menu_width() -> void:
 	var vw: float = float(DisplayServer.window_get_size().x)
-	var w: float = clampf(min(460.0, vw - 24.0), 220.0, 460.0)
+	var vh: float = float(DisplayServer.window_get_size().y)
+	var w: float = clampf(min(440.0, vw - 32.0), 200.0, 440.0)
 	if $MenuPanel/VBoxContainer:
 		$MenuPanel/VBoxContainer.custom_minimum_size.x = w
+		$MenuPanel/VBoxContainer.custom_maximum_size.x = w
+		var y_off: float = clampf((vh - 260.0) * 0.5, 24.0, 160.0)
+		$MenuPanel/VBoxContainer.offset_top = -130.0 + y_off
+		$MenuPanel/VBoxContainer.offset_bottom = 130.0 + y_off
 
 
 func _unhandled_input(event: InputEvent) -> void:

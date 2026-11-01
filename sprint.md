@@ -52,3 +52,8 @@
 ## 2026-11-01 15:25 — Sprint closure.
 - TODO marked NPC repeat-visit flavour variants complete.
 - Headless import/runtime clean.
+
+## 2026-11-01 15:28 — Pause menu responsive polish.
+- Tightened pause width clamp and added viewport size tracking.
+- Basic vertical anchor fallback for small viewports.
+- Headless import/runtime clean.
