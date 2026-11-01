@@ -13,6 +13,11 @@ var _deep_cache_btn: Button
 var _inventory_list: Label
 var _up_bar: ProgressBar
 var _reef_bar: ProgressBar
+var _settings_button: Button
+var _settings_panel: Control
+var _master_slider: HSlider
+var _music_slider: HSlider
+var _reduce_checkbox: CheckBox
 
 func _ready() -> void:
 	panel.visible = false
@@ -26,6 +31,7 @@ func _ready() -> void:
 
 	resume_button.pressed.connect(_on_resume_pressed)
 	save_button.pressed.connect(_on_save_pressed)
+	_build_settings_ui()
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
 	# Track viewport resizing to keep pause panel safely anchored.
@@ -72,6 +78,50 @@ func _toggle() -> void:
 	get_tree().paused = panel.visible
 
 	# Auto-open overlay; input handled in _unhandled_input.
+
+
+
+func _build_settings_ui() -> void:
+	_settings_button = Button.new()
+	_settings_button.text = "Settings ▼"
+	$MenuPanel/VBoxContainer.add_child(_settings_button)
+	_settings_button.pressed.connect(_toggle_settings)
+
+	_settings_panel = VBoxContainer.new()
+	_settings_panel.visible = false
+	_settings_panel.custom_minimum_size = Vector2(420, 0)
+	$MenuPanel/VBoxContainer.add_child(_settings_panel)
+
+	var ml := Label.new()
+	ml.text = "Master Volume"
+	_settings_panel.add_child(ml)
+	_master_slider = HSlider.new()
+	_master_slider.min_value = 0
+	_master_slider.max_value = 100
+	_master_slider.value = AudioManager.get_master_volume() * 100.0
+	_master_slider.value_changed.connect(func(v): AudioManager.set_master_volume(v / 100.0))
+	_settings_panel.add_child(_master_slider)
+
+	var mul := Label.new()
+	mul.text = "Music Volume"
+	_settings_panel.add_child(mul)
+	_music_slider = HSlider.new()
+	_music_slider.min_value = 0
+	_music_slider.max_value = 100
+	_music_slider.value = AudioManager.get_music_volume() * 100.0
+	_music_slider.value_changed.connect(func(v): AudioManager.set_music_volume(v / 100.0))
+	_settings_panel.add_child(_music_slider)
+
+	_reduce_checkbox = CheckBox.new()
+	_reduce_checkbox.text = "Reduced motion"
+	_reduce_checkbox.button_pressed = AudioManager.get_reduced_motion()
+	_reduce_checkbox.toggled.connect(func(v): AudioManager.set_reduced_motion(v))
+	_settings_panel.add_child(_reduce_checkbox)
+
+func _toggle_settings() -> void:
+	_settings_panel.visible = not _settings_panel.visible
+	_settings_button.text = "Settings ▲" if _settings_panel.visible else "Settings ▼"
+
 
 func _clamp_menu_width() -> void:
 	var vw: float = float(DisplayServer.window_get_size().x)

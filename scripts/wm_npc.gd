@@ -283,6 +283,9 @@ func _refresh_name_label() -> void:
 	else:
 		nl.text = npc_name
 		nl.modulate = Color(1.0, 1.0, 1.0, 0.9)
+func refresh_quest_progress() -> void:
+	_refresh_quest_progress()
+
 func _refresh_quest_progress() -> void:
 	if not has_node("QuestProgress"):
 		return
@@ -310,6 +313,16 @@ func _refresh_quest_progress() -> void:
 	else:
 		ql.modulate = Color(0.7, 0.95, 1.0, 0.9)
 
+
+var _ui_timer := 0.0
+
+func _process(delta: float) -> void:
+	_ui_timer += delta
+	if _ui_timer < 0.4:
+		return
+	_ui_timer = 0.0
+	_refresh_quest_progress()
+	_glow_quest_ready()
 
 func _apply_npc_sprite() -> void:
 	if has_node("Sprite"):

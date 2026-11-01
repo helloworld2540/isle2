@@ -17,13 +17,39 @@ func _ready() -> void:
 	_build_stats_button()
 
 func _build_summary() -> void:
+	var panel := PanelContainer.new()
+	panel.name = "SaveSummaryPanel"
+	panel.position = Vector2(24, 24)
+	panel.custom_minimum_size = Vector2(640, 0)
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = Color(0.06, 0.09, 0.14, 0.8)
+	sb.corner_radius_top_left = 10
+	sb.corner_radius_top_right = 10
+	sb.corner_radius_bottom_left = 10
+	sb.corner_radius_bottom_right = 10
+	sb.border_color = Color(0.4, 0.7, 0.9, 0.4)
+	sb.border_width_left = 1
+	sb.border_width_top = 1
+	sb.border_width_right = 1
+	sb.border_width_bottom = 1
+	panel.add_theme_stylebox_override("panel", sb)
+	add_child(panel)
+	var vbox := VBoxContainer.new()
+	vbox.add_theme_constant_override("separation", 4)
+	panel.add_child(vbox)
 	var summary := Label.new()
 	summary.name = "SaveSummary"
-	summary.position = Vector2(30, 30)
-	summary.custom_minimum_size = Vector2(600, 0)
 	summary.text = _summary_text()
 	summary.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	add_child(summary)
+	summary.custom_minimum_size = Vector2(600, 0)
+	vbox.add_child(summary)
+	# thumbnail-style mini stats
+	var stats := Label.new()
+	stats.name = "MiniStats"
+	stats.text = _mini_stats_text()
+	stats.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	stats.modulate = Color(0.85, 0.95, 1.0, 0.95)
+	vbox.add_child(stats)
 
 func _summary_text() -> String:
 	if not SaveManager.has_save():
@@ -35,6 +61,11 @@ func _summary_text() -> String:
 		GameState.trash_inventory, GameState.reef_fish, GameState.best_reef_fish,
 		GameState.best_sort_streak, GameState.lifetime_earnings
 	]
+
+func _mini_stats_text() -> String:
+	if not SaveManager.has_save():
+		return "No runs yet — try Reef Rescue or Upcycle!"
+	return "Best fish %d  •  Best streak %d  •  Lifetime %d" % [GameState.best_reef_fish, GameState.best_sort_streak, GameState.lifetime_earnings]
 
 func _build_stats_button() -> void:
 	var stats := Button.new()
