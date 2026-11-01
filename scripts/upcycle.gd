@@ -102,10 +102,12 @@ func _process(delta: float) -> void:
 			item.set_meta("on_belt", false)
 			burn_item(item)
 			
+	belt_speed = clampf(90.0 + float(score) * 0.4, 90.0, 220.0)
 	spawn_timer += delta
 	if spawn_timer >= SPAWN_INTERVAL:
 		spawn_timer = 0.0
-		spawn_item()
+		if _count_belt_items() < 10:
+			spawn_item()
 		
 	if carried_item and is_instance_valid(carried_item):
 		carried_item.global_position = player.global_position + Vector2(0, -20)
@@ -148,6 +150,13 @@ func _get_valid_interaction_target() -> Node2D:
 					best_dist = d
 					nearest = bin
 	return nearest
+
+func _count_belt_items() -> int:
+	var n := 0
+	for follow in conveyor.get_children():
+		if follow.get_child_count() > 0:
+			n += 1
+	return n
 
 func spawn_item() -> void:
 	var tex: String = trash.pick_random()
@@ -270,3 +279,8 @@ func _interact() -> void:
 			
 		carried_item.queue_free()
 		carried_item = null
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		AudioManager.play_sfx("return")
+		SceneTransition.change_scene("res://scenes/world.tscn")

@@ -126,3 +126,8 @@ func _spawn_popup(at: Vector2, text: String, col: Color) -> void:
 	tw.tween_property(lbl, "position", lbl.position + Vector2(0, -42), 0.7).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	tw.parallel().tween_property(lbl, "modulate:a", 0.0, 0.7)
 	tw.tween_callback(lbl.queue_free)
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		AudioManager.play_sfx("return")
+		SceneTransition.change_scene("res://scenes/world.tscn")
