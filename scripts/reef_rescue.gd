@@ -88,6 +88,11 @@ func _spawn_item() -> void:
 	var item: Fish = preload("res://scenes/rr_fish.tscn").instantiate()
 	items.add_child(item)
 	item.add_to_group("items")
+	item.modulate.a = 0.0
+	item.scale = Vector2(0.6, 0.6)
+	var tw := item.create_tween()
+	tw.tween_property(item, "modulate:a", 1.0, 0.35)
+	tw.parallel().tween_property(item, "scale", Vector2(1.0, 1.0), 0.35).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	if randfn(depth / 1000.0, 0.5) > 0.5:
 		# fish get more common deeper
 		item.init_fish()
