@@ -94,7 +94,7 @@ func spend_trash(amount: int) -> bool:
 		var have := int(trash_by_type.get(k, 0))
 		if have <= 0:
 			continue
-		var take := min(have, remaining)
+		var take: int = min(have, remaining)
 		trash_by_type[k] = have - take
 		remaining -= take
 	trash_inventory = max(0, trash_inventory - amount)

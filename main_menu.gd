@@ -30,9 +30,10 @@ func _summary_text() -> String:
 		return "No save found yet. Start a new save to begin cleaning."
 	var sd := SaveManager.load_game()
 	GameState.restore()
-	return "Continue summary: Score %d (best %d) | Trash %d kg | Fish %d | Best streak %d" % [
+	return "Continue summary:\nScore %d (best %d)  |  Trash %d kg  |  Fish %d (best %d)\nBest streak %d  |  Lifetime earnings %d" % [
 		GameState.upcycle_score, GameState.best_upcycle_score,
-		GameState.trash_inventory, GameState.reef_fish, GameState.best_sort_streak
+		GameState.trash_inventory, GameState.reef_fish, GameState.best_reef_fish,
+		GameState.best_sort_streak, GameState.lifetime_earnings
 	]
 
 func _build_stats_button() -> void:

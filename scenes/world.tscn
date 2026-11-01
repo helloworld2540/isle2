@@ -8,7 +8,7 @@
 [ext_resource type="Theme" uid="uid://bug5wlu7yvs7w" path="res://resources/control_theme.tres" id="6_qfnet"]
 [ext_resource type="Script" path="res://scripts/wm_summary.gd" id="7_summary"]
 [ext_resource type="Script" path="res://scripts/wm_progress.gd" id="8_progress"]
-[ext_resource type="Script" path="res://scripts/wm_portal.gd" id="5_portal"]
+[ext_resource type="PackedScene" path="res://scenes/wm_npc.tscn" id="9_npc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rwgxs"]
 texture = ExtResource("1_nnsk1")
@@ -343,6 +343,34 @@ offset_right = 46.0
 offset_bottom = 0.0
 text = "Shop"
 horizontal_alignment = 1
+
+[node name="WorldNPC_Mara" parent="." instance=ExtResource("9_npc")]
+position = Vector2(320.0, 260.0)
+npc_id = "npc_mara"
+npc_name = "Mara"
+dialogue_lines = PackedStringArray(["Hi! I'm Mara, island caretaker.", "Pick up trash and bring it back. I'll reward good work!"])
+repeat_dialogue_lines = PackedStringArray(["Welcome back! Got any Polyethylene to spare?"])
+quest_complete_lines = PackedStringArray(["You're a true island hero!"])
+reward_trash = 6
+reward_mat = "Polyethylene"
+quest_material = "Polyethylene"
+quest_amount = 8
+quest_reward_mat = "Glass"
+quest_reward_amount = 3
+
+[node name="WorldNPC_Tom" parent="." instance=ExtResource("9_npc")]
+position = Vector2(820.0, 720.0)
+npc_id = "npc_tom"
+npc_name = "Tom"
+dialogue_lines = PackedStringArray(["The reef is full of drifting junk.", "Bring it back for recycling!"])
+repeat_dialogue_lines = PackedStringArray(["Any Nylon for the shop today?"])
+quest_complete_lines = PackedStringArray(["Sea life thanks you!"])
+reward_trash = 4
+reward_mat = "Nylon"
+quest_material = "Nylon"
+quest_amount = 6
+quest_reward_mat = "Polypropylene"
+quest_reward_amount = 4
 
 [node name="WorldProgress" type="CanvasLayer" parent="." unique_id=900000020]
 script = ExtResource("8_progress")
