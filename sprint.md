@@ -48,3 +48,7 @@
 ## 2026-11-01 15:23 — Quest label z polish.
 - Quest progress labels raised z order and are guaranteed visible over NPC sprites.
 - Headless import/runtime validated.
+
+## 2026-11-01 15:25 — Sprint closure.
+- TODO marked NPC repeat-visit flavour variants complete.
+- Headless import/runtime clean.

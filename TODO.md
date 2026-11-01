@@ -9,7 +9,7 @@
 - World-map upgrade panel styling/content polish.
 - Add animation polish: spawn fade-in for reef items, juice for portal pulse overshoot.
 - Main-menu Continue summary thumbnail stats (not art assets). (done)
-- NPC repeat-visit flavour text variants / branching. (partial)
+- NPC repeat-visit flavour text variants / branching. (done)
 - Pause menu max width / safer anchor at 720p.
 - NPC quest progress indicators above NPCs. (improved)
 - World portal pulse + overshoot easing extra overshoot. (done)
