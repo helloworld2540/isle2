@@ -50,7 +50,7 @@ func _process(_delta: float) -> void:
 		_summary_label.text = "Trash: %d kg | Upcycle Score: %d | Best Streak: %d" % [GameState.trash_inventory, GameState.upcycle_score, GameState.best_sort_streak]
 		var inv := _format_inventory()
 		_inventory_list.text = inv
-		_update_progress_inline()
+		# progress bars updated in their own node
 
 
 func _format_inventory() -> String:
@@ -221,6 +221,8 @@ func _build_progress_bars() -> void:
 	reef_box.add_child(reef_bar)
 
 func _update_progress_bars() -> void:
+	pass
+
 func _find_node(root: Node, target_name: String) -> Node:
 	if root.name == target_name:
 		return root
@@ -228,10 +230,3 @@ func _find_node(root: Node, target_name: String) -> Node:
 		var r := _find_node(c, target_name)
 		if r: return r
 	return null
-
-	if up_bar:
-		up_bar.max_value = max(1, GameState.best_upcycle_score)
-		up_bar.value = min(GameState.upcycle_score, up_bar.max_value)
-	if reef_bar:
-		reef_bar.max_value = max(1, GameState.best_reef_depth)
-		reef_bar.value = min(int(GameState.reef_garbage), int(reeef_bar.max_value)) if False else min(int(GameState.reef_garbage), int(reef_bar.max_value))

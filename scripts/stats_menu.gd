@@ -23,7 +23,7 @@ func _stats_text() -> String:
 	var lines := []
 	lines.append("Stats")
 	lines.append("Score: %d  (best %d)" % [GameState.upcycle_score, GameState.best_upcycle_score])
-    lines.append("Lifetime shop earnings: %d" % GameState.lifetime_earnings)
+	lines.append("Lifetime shop earnings: %d" % GameState.lifetime_earnings)
 	lines.append("Trash total: %d kg" % GameState.trash_inventory)
 	for k in GameState.trash_by_type.keys():
 		lines.append("  %s: %d" % [k, int(GameState.trash_by_type[k])])
