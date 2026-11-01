@@ -28,6 +28,9 @@ var _quest2_done := false
 var _visit_count := 0
 
 var _quest_progress_label: Label = null
+var _sprite: Sprite2D = null
+
+@export_range(1, 4) var npc_sprite_index: int = 1
 
 func _ready() -> void:
 	add_to_group("npc")
@@ -39,12 +42,23 @@ func _ready() -> void:
 	var tween := create_tween().set_loops()
 	tween.tween_property(self, "scale", Vector2(1.06, 1.06), 1.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	tween.tween_property(self, "scale", Vector2(1.0, 1.0), 1.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	_build_quest_progress()
+	_apply_npc_sprite()
+	if _sprite and is_instance_valid(_sprite) and not AudioManager.get_reduced_motion():
+		var sp_tween := create_tween().set_loops()
+		sp_tween.tween_property(_sprite, "position:y", _sprite.position.y - 4.0, 1.05).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		sp_tween.tween_property(_sprite, "position:y", _sprite.position.y, 1.05).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	_refresh_name_label()
 	_refresh_quest_progress()
-	_build_quest_progress()
+	_glow_quest_ready()
 
 func _build_quest_progress() -> void:
 	if _quest_progress_label and is_instance_valid(_quest_progress_label):
+		_update_quest_progress()
+		return
+	if has_node("QuestProgress"):
+		_quest_progress_label = $QuestProgress
+		_update_quest_progress()
 		return
 	_quest_progress_label = Label.new()
 	_quest_progress_label.name = "QuestProgress"
@@ -295,6 +309,20 @@ func _refresh_quest_progress() -> void:
 		ql.modulate = Color(0.7, 0.95, 1.0, 0.9)
 
 
+func _apply_npc_sprite() -> void:
+	if has_node("Sprite"):
+		_sprite = $Sprite
+	var idx := clampi(npc_sprite_index, 1, 4)
+	var path := "res://sprites/wm_npc/npc%d.png" % idx
+	if ResourceLoader.exists(path):
+		_sprite.texture = load(path)
+		_sprite.centered = true
+		_sprite.scale = Vector2(0.5, 0.5)
+		_sprite.position = Vector2(0, -10)
+	if has_node("Body"):
+		var body: ColorRect = $Body
+		body.visible = false
+
 func _glow_quest_ready() -> void:
 	if not is_instance_valid(self):
 		return
@@ -303,7 +331,12 @@ func _glow_quest_ready() -> void:
 		ready = int(GameState.trash_by_type.get(quest_material, 0)) >= quest_amount
 	elif _quest_done and not _quest2_done and quest2_material != "" and quest2_amount > 0:
 		ready = int(GameState.trash_by_type.get(quest2_material, 0)) >= quest2_amount
-	if has_node("Body"):
+	if _sprite and is_instance_valid(_sprite):
+		if ready:
+			_sprite.modulate = Color(1.0, 0.95, 0.55, 1.0)
+		else:
+			_sprite.modulate = Color(1.0, 1.0, 1.0, 1.0)
+	if has_node("Body") and is_instance_valid($Body):
 		var body: ColorRect = $Body
 		if ready:
 			body.color = Color(1.0, 0.95, 0.55, 1.0)

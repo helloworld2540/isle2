@@ -2,6 +2,8 @@ extends CanvasLayer
 
 var fade: ColorRect
 var busy: bool = false
+func is_busy() -> bool:
+	return busy
 
 func _ready() -> void:
 	layer = 100

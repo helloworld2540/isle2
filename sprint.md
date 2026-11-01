@@ -27,3 +27,15 @@
 - Removed stray empty TileMapLayer from world.tscn; grouped NPC instances under NPCs node.
 - Portal pulse overshoot amplitude ticked for more juice.
 - Headless import clean.
+
+## 2026-11-01 14:54 — NPC sprites + portal/HUD polish.
+- WorldNPC now loads sprites/wm_npc/npc1–4 via npc_sprite_index and hides primitive Body.
+- Portal pulse extra overshoot, idle label bob; guarded against transition reentry.
+- WorldProgress HUD raised layer, stronger transparency and border.
+- Headless import/run clean.
+
+## 2026-11-01 15:00 — Sprint continuation polish.
+- NPC progress above-head labels hardened to reuse scene node and update live.
+- Portal/pulse/juice and NPC sprite bob passes.
+- WorldProgress HUD transparency/border and z layer pass.
+- Headless import/run clean.

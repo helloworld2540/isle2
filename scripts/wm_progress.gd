@@ -14,12 +14,19 @@ func _ready() -> void:
 		reef_bar.max_value = 1000.0
 	if panel:
 		var sb := StyleBoxFlat.new()
-		sb.bg_color = Color(0.05, 0.08, 0.12, 0.72)
-		sb.corner_radius_top_left = 6
-		sb.corner_radius_top_right = 6
-		sb.corner_radius_bottom_left = 6
-		sb.corner_radius_bottom_right = 6
+		sb.bg_color = Color(0.05, 0.08, 0.12, 0.8)
+		sb.corner_radius_top_left = 8
+		sb.corner_radius_top_right = 8
+		sb.corner_radius_bottom_left = 8
+		sb.corner_radius_bottom_right = 8
+		sb.border_color = Color(0.4, 0.7, 0.9, 0.35)
+		sb.border_width_left = 1
+		sb.border_width_top = 1
+		sb.border_width_right = 1
+		sb.border_width_bottom = 1
 		panel.add_theme_stylebox_override("panel", sb)
+	if label:
+		label.modulate = Color(0.9, 0.95, 1.0, 0.9)
 
 func _process(_delta: float) -> void:
 	if uc_bar:

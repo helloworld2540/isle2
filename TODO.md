@@ -1,9 +1,9 @@
 # Current project todo:
 
 ## High priority features
-- World-map NPC dialogue/quests shipped with tier-2 chains.
+- Tune NPC sprite scale/identity pairings and quests (done part: sprites wired, ongoing polish).
 
-## Future polish
+- Dev: Nina/Kai tier-1 explicit reward materials hardened.
 - Ship placeholder audio assets to real samples.
 - Reduce tween allocations further in reef/upcycle.
 - World-map upgrade panel styling/content polish.
@@ -11,7 +11,7 @@
 - Main-menu Continue summary thumbnail stats (not art assets). (done)
 - NPC repeat-visit flavour text variants / branching. (partial)
 - Pause menu max width / safer anchor at 720p.
-- NPC quest progress indicators above NPCs.
-- World portal pulse + overshoot easing extra overshoot.
-- Save scoping: protect from overwriting on scene transition if pause not closed.
-- World progress HUD higher z index / semi-transparent background.
+- NPC quest progress indicators above NPCs. (improved)
+- World portal pulse + overshoot easing extra overshoot. (done)
+- Save scoping: protect from overwriting on scene transition if pause not closed. (improved)
+- World progress HUD higher z index / semi-transparent background. (done)
