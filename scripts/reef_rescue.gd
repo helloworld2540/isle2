@@ -98,13 +98,31 @@ func _update_ui() -> void:
 	
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	var root := body.get_parent()
-	if not root.is_in_group("items"): return
+	if not is_instance_valid(root) or not root.is_in_group("items"): return
+	if bool(root.get_meta("collected", false)): return
+	root.set_meta("collected", true)
 	
 	var is_fish: bool = root.get_meta("is_fish", false)
 	
 	if is_fish:
 		fish += 1
+		AudioManager.play_sfx("pickup")
+		_spawn_popup(root.global_position, "+1 fish", Color(0.6, 0.9, 1.0, 1.0))
 		root.get_node("AnimationPlayer").play("run")
 	else:
-		garbage += int(root.get_meta("weight", 0))
+		var weight := int(root.get_meta("weight", 0))
+		garbage += weight
+		AudioManager.play_sfx("pickup")
+		_spawn_popup(root.global_position, "+%d kg" % weight, Color(0.95, 0.95, 0.35, 1.0))
 		root.get_node("AnimationPlayer").play("suck")
+
+func _spawn_popup(at: Vector2, text: String, col: Color) -> void:
+	var lbl := Label.new()
+	lbl.text = text
+	lbl.modulate = col
+	lbl.position = at + Vector2(-20, -40)
+	$UI.add_child(lbl)
+	var tw := lbl.create_tween()
+	tw.tween_property(lbl, "position", lbl.position + Vector2(0, -42), 0.7).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tw.parallel().tween_property(lbl, "modulate:a", 0.0, 0.7)
+	tw.tween_callback(lbl.queue_free)
