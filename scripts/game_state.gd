@@ -75,6 +75,25 @@ func consume_trash_type(mat: String, amount: int) -> bool:
 	_persist()
 	return true
 
+func spend_trash(amount: int) -> bool:
+	if amount <= 0:
+		return true
+	if trash_inventory < amount:
+		return false
+	var remaining := amount
+	for k in trash_by_type.keys():
+		if remaining <= 0:
+			break
+		var have := int(trash_by_type.get(k, 0))
+		if have <= 0:
+			continue
+		var take := min(have, remaining)
+		trash_by_type[k] = have - take
+		remaining -= take
+	trash_inventory = max(0, trash_inventory - amount)
+	_persist()
+	return true
+
 func record_sort_streak(streak: int) -> void:
 	if streak > best_sort_streak:
 		best_sort_streak = streak

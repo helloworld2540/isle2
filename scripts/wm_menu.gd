@@ -125,12 +125,10 @@ func _upgrade_status_text() -> String:
 	return "Upgrades -> Move: %d, Range: %d" % [mv, rng]
 
 func _buy_move() -> void:
-	if int(GameState.trash_inventory) < 8:
+	if not GameState.spend_trash(8):
 		_flash(_upgrade_fast_btn)
 		return
 	var data := SaveManager.load_game()
-	GameState.trash_inventory -= 8
-	GameState._persist()
 	var up: int = int(data.get("upgrade_move", 0)) + 1
 	data["upgrade_move"] = up
 	SaveManager.save_game(data)
@@ -139,12 +137,10 @@ func _buy_move() -> void:
 	_refresh_upgrade_ui()
 
 func _buy_range() -> void:
-	if int(GameState.trash_inventory) < 12:
+	if not GameState.spend_trash(12):
 		_flash(_upgrade_range_btn)
 		return
 	var data := SaveManager.load_game()
-	GameState.trash_inventory -= 12
-	GameState._persist()
 	var up: int = int(data.get("upgrade_range", 0)) + 1
 	data["upgrade_range"] = up
 	SaveManager.save_game(data)
