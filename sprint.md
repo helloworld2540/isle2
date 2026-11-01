@@ -250,3 +250,9 @@ date: 2026-10-31 23:21
 - Upcycle: streak HUD, combo popup at 5 correct, adaptive belt speed (90–220), cap 10 belt items, pickup/sort SFX.
 - Best sort streak now recorded on return.
 - Headless import clean.
+
+## 2026-11-01 12:15 — World navigation + economy polish pass.
+- Added GameState.spend_trash for upgrades; world upgrade spends now persist consistent inventory.
+- Off-screen world-map portal edge markers upgraded from dots to directional arrows.
+- Fixed accidental binary corruption in wm_portal_markers.gd.
+- Headless import validated clean.
