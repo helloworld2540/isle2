@@ -35,6 +35,7 @@ var _next_spawn_interval := 5.0
 
 var _belt_banner_shown := false
 var _leaving := false
+var _hud_queue = null
 var _recycled_total := 0
 var _recycled_by_mat := {"Polyethylene":0,"Glass":0,"Polypropylene":0,"Nylon":0}
 var drag_start_pos := Vector2.ZERO
@@ -452,17 +453,11 @@ func _spawn_cap_notice(amount: int) -> void:
 	tw.tween_callback(lbl.queue_free)
 
 
+func _ensure_hud_queue() -> void:
+	if _hud_queue == null:
+		_hud_queue = load("res://scripts/ui/notification_queue.gd").new()
+		add_child(_hud_queue)
+
 func _notify_queue(text: String, col: Color = Color(0.85, 1.0, 0.6, 1.0), duration := 1.2) -> void:
-	var notice := Label.new()
-	notice.text = text
-	notice.modulate = col
-	notice.z_index = 200
-	var ui := get_node_or_null("UI")
-	if is_instance_valid(ui):
-		ui.add_child(notice)
-		notice.position = Vector2(24, 24 + ui.get_child_count() * 22)
-	var tw := notice.create_tween()
-	tw.tween_property(notice, "modulate:a", 1.0, 0.15)
-	tw.tween_interval(duration)
-	tw.tween_property(notice, "modulate:a", 0.0, 0.35)
-	tw.tween_callback(notice.queue_free)
+	_ensure_hud_queue()
+	_hud_queue.push(text, col, duration)

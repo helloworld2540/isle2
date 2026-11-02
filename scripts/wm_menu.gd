@@ -52,6 +52,7 @@ var _reduce_checkbox: CheckBox = null
 var _bgm_cycle_timer: Timer = null
 var _bgm_cycle_index := 0
 var _bgm_cycle_tracks := ["world", "ambience", "world", "reef"]
+var _hud_queue = null
 
 var _upgrade_status_text_cache := ""
 
@@ -347,17 +348,14 @@ func _refresh_upgrade_ui() -> void:
 	if is_instance_valid(summary_label):
 		summary_label.text = "Trash: %d kg | Upcycle Score: %d | Best Streak: %d" % [GameState.trash_inventory, GameState.upcycle_score, GameState.best_sort_streak]
 
+func _ensure_hud_queue() -> void:
+	if _hud_queue == null:
+		_hud_queue = load("res://scripts/ui/notification_queue.gd").new()
+		add_child(_hud_queue)
+
 func _toast(text: String) -> void:
-	if is_instance_valid(panel):
-		var lbl := load("res://scenes/ui/label.tscn").instantiate() as Label
-		lbl.text = text
-		lbl.position = Vector2(16, 16)
-		lbl.modulate = Color(1.0, 0.85, 0.35, 1.0)
-		panel.add_child(lbl)
-		var tw := lbl.create_tween()
-		tw.tween_property(lbl, "position", lbl.position + Vector2(0, -24), 0.7)
-		tw.parallel().tween_property(lbl, "modulate:a", 0.0, 0.5)
-		tw.tween_callback(lbl.queue_free)
+	_ensure_hud_queue()
+	_hud_queue.push(text, Color(1.0, 0.85, 0.35, 1.0), 1.4)
 
 func _flash(btn: Button) -> void:
 	if not is_instance_valid(btn):

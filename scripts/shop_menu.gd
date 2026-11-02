@@ -25,6 +25,7 @@ var _rows: Dictionary = {}
 var _last_sale: Dictionary = {}
 var _undo_in_progress := false
 var _tx_log_lines: Array = []
+var _hud_queue = null
 
 func _ready() -> void:
 	GameState.restore()
@@ -274,15 +275,12 @@ func _shake_control(ctrl: Control) -> void:
 	tw.tween_property(ctrl, "position", base + Vector2(6,0), 0.05)
 	tw.tween_property(ctrl, "position", base, 0.05)
 
+func _ensure_hud_queue() -> void:
+	if _hud_queue == null:
+		_hud_queue = load("res://scripts/ui/notification_queue.gd").new()
+		var parent := get_node_or_null("CanvasLayer") if is_instance_valid(get_node_or_null("CanvasLayer")) else self
+		parent.add_child(_hud_queue)
+
 func _feedback(text: String) -> void:
-	var lbl := load("res://scenes/ui/label.tscn").instantiate() as Label
-	lbl.text = text
-	lbl.position = Vector2(20, 70)
-	lbl.modulate = Color(0.85, 1.0, 0.5, 1.0)
-	var parent := coins.get_parent() if is_instance_valid(coins) else null
-	if is_instance_valid(parent):
-		parent.add_child(lbl)
-	var tw := lbl.create_tween()
-	tw.tween_property(lbl, "position", lbl.position + Vector2(0, -30), 0.8)
-	tw.tween_property(lbl, "modulate:a", 0.0, 0.4)
-	tw.tween_callback(lbl.queue_free)
+	_ensure_hud_queue()
+	_hud_queue.push(text, Color(0.85, 1.0, 0.5, 1.0), 1.2)
