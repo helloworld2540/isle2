@@ -24,6 +24,7 @@ var upcycle_score: int = 0
 var reef_garbage: float = 0.0
 var reef_fish: int = 0
 var trash_inventory: int = 0
+# Inventory data now explicitly tracks a weight model and type metadata.
 var trash_by_type: Dictionary = {}
 var inventory_capacity_level: int = 0
 var best_upcycle_score: int = 0
@@ -38,6 +39,7 @@ var deep_cache_tier: int = 1
 func _init() -> void:
 	for t in DEFAULT_TRASH_TYPES:
 		trash_by_type[t] = 0
+
 
 # Return the weighted (space) used by current inventory, used by capacity logic.
 func get_inventory_weight() -> int:
@@ -104,8 +106,9 @@ func add_trash_type(mat: String, amount: int) -> int:
 		return 0
 	if not trash_by_type.has(mat):
 		trash_by_type[mat] = 0
-	var free := int(max(0, get_inventory_capacity() - get_inventory_weight()))
-	var accepted := int(min(amount, free))
+	var weight: int = max(1, int(TRASH_WEIGHTS.get(mat, 1)))
+	var free_weight: int = max(0, get_inventory_capacity() - get_inventory_weight())
+	var accepted: int = int(min(amount, free_weight / weight))
 	if accepted <= 0:
 		return 0
 	trash_by_type[mat] = int(trash_by_type.get(mat, 0)) + accepted
@@ -171,18 +174,21 @@ func consume_trash_type(mat: String, amount: int) -> bool:
 func spend_trash(amount: int) -> bool:
 	if amount <= 0:
 		return true
-	if trash_inventory < amount:
+	if get_inventory_weight() < amount:
 		return false
 	var remaining := amount
 	for k in trash_by_type.keys():
 		if remaining <= 0:
 			break
-		var have := int(trash_by_type.get(k, 0))
+		var item_weight: int = int(TRASH_WEIGHTS.get(k, 1))
+		var have: int = int(trash_by_type.get(k, 0)) * item_weight
 		if have <= 0:
 			continue
-		var take: int = min(have, remaining)
-		trash_by_type[k] = have - take
-		remaining -= take
+		var take_units: int = int(min(int(trash_by_type.get(k, 0)), remaining / item_weight))
+		if take_units <= 0:
+			continue
+		trash_by_type[k] = int(trash_by_type.get(k, 0)) - take_units
+		remaining -= take_units * item_weight
 	_recompute_inventory()
 	_persist()
 	return true

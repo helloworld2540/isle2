@@ -257,6 +257,7 @@ func _inv_cap_text() -> String:
 func _buy_move() -> void:
 	if not GameState.spend_trash(_move_cost()):
 		_flash(_upgrade_fast_btn)
+		_toast("Need more trash to upgrade Move Speed")
 		return
 	var data := SaveManager.load_game()
 	var up: int = int(data.get("upgrade_move", 0)) + 1
@@ -271,6 +272,7 @@ func _buy_move() -> void:
 func _buy_range() -> void:
 	if not GameState.spend_trash(_range_cost()):
 		_flash(_upgrade_range_btn)
+		_toast("Need more trash to upgrade Collection Range")
 		return
 	var data := SaveManager.load_game()
 	var up: int = int(data.get("upgrade_range", 0)) + 1
@@ -288,6 +290,7 @@ func _buy_deep_cache() -> void:
 		return
 	if not GameState.purchase_deep_cache():
 		_flash(_deep_cache_btn)
+		_toast("Need 30 upcycle score to buy Deep Cache")
 		return
 	AudioManager.play_sfx("upgrade", 1.05)
 	_flash_success(_deep_cache_btn)
@@ -299,6 +302,7 @@ func _buy_deep_cache_upgrade() -> void:
 		return
 	if not GameState.upgrade_deep_cache():
 		_flash(_deep_cache_upgrade_btn)
+		_toast("Need %d upcycle score to upgrade Deep Cache" % (15 * (GameState.deep_cache_tier)))
 		return
 	AudioManager.play_sfx("upgrade", 1.05)
 	_flash_success(_deep_cache_upgrade_btn)
@@ -307,6 +311,7 @@ func _buy_deep_cache_upgrade() -> void:
 func _buy_inv_cap() -> void:
 	if not GameState.purchase_inventory_capacity():
 		_flash(_inv_cap_btn)
+		_toast("Need %d trash to increase Inventory Cap" % (6 + GameState.inventory_capacity_level * 3))
 		return
 	AudioManager.play_sfx("upgrade", 1.05)
 	_flash_success(_inv_cap_btn)
@@ -341,6 +346,18 @@ func _refresh_upgrade_ui() -> void:
 		_upgrade_range_btn.text = _range_cost_text()
 	if is_instance_valid(summary_label):
 		summary_label.text = "Trash: %d kg | Upcycle Score: %d | Best Streak: %d" % [GameState.trash_inventory, GameState.upcycle_score, GameState.best_sort_streak]
+
+func _toast(text: String) -> void:
+	if is_instance_valid(panel):
+		var lbl := load("res://scenes/ui/label.tscn").instantiate() as Label
+		lbl.text = text
+		lbl.position = Vector2(16, 16)
+		lbl.modulate = Color(1.0, 0.85, 0.35, 1.0)
+		panel.add_child(lbl)
+		var tw := lbl.create_tween()
+		tw.tween_property(lbl, "position", lbl.position + Vector2(0, -24), 0.7)
+		tw.parallel().tween_property(lbl, "modulate:a", 0.0, 0.5)
+		tw.tween_callback(lbl.queue_free)
 
 func _flash(btn: Button) -> void:
 	if not is_instance_valid(btn):

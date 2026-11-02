@@ -34,12 +34,18 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 - `restore()` rehydrates from save; `reset()` zeroes state. `persist()` merges into save data.
 - Upgrades stored directly as save keys: `upgrade_move`, `upgrade_range`, audio/volume keys.
 
+## Economy Formulas (weighted inventory)
+- Inventory capacity is in **kg**: `60 + 20 × inventory_capacity_level`.
+- Each item costs its material weight (e.g. Polyethylene 1, Propylene 2, Glass 3, Nylon 2, Reef Debris 1).
+- `GameState.get_inventory_weight()` reports the kg used (`trash_by_type` × weights).
+- Upgrades shop spend trash in trash-weight currency.
+
 ## Economy Formulas
 - Trash types: Polyethylene, Polypropylene, Glass, Nylon, Reef Debris.
 - Shop sell rates: Polyethylene 2, Polypropylene 3, Glass 5, Nylon 4, Reef Debris 1.
 - Bulk bonus: stock ≥ 5 → ×1.25 earnings.
-- Inventory capacity: `30 + 15 × inventory_capacity_level`.
-- Purchase capacity: cost `8 + 4 × level` trash (consumed via `spend_trash`).
+- Inventory capacity: `60 + 20 × inventory_capacity_level` kg (weighted by material).
+- Purchase capacity cost: `6 + 3 × level` (paid fromtrash mix; deducted via `spend_trash`).
 - Reef rescue debris reward: `max(1, round(garbage)) + (deep_cache ? 5×tier + 3×capacity_level : 0)`, capped by free capacity.
 - Deep Cache purchase: 30 score; upgrade: 15 × tier.
 - Move speed mult: `1 + 0.08 × upgrade_move`; collection radius bonus: `12 × upgrade_range`.

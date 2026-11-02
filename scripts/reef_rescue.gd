@@ -46,7 +46,7 @@ func _ready() -> void:
 		var intro := load("res://scenes/minigame_intro.tscn").instantiate() as CanvasLayer
 		add_child(intro)
 		if intro.has_method("setup"):
-			intro.setup("Reef Rescue", ["Move the drone and touch garbage/fish to collect them.", "Press Esc or Return to Map when ready."])
+			intro.setup("Reef Rescue", ["Dive with your drone to collect floating garbage.", "Avoid jellyfish and fish — 3 hits ends the run.", "Garbage becomes Reef Debris on return.", "Recycle Reef Debris at the Upcycle bench into materials.", "Controls: drag to steer; momentum matters. ESC/Return finishes early."])
 	_update_ui()
 	if is_instance_valid(return_btn):
 		return_btn.pressed.connect(_leave_to_map)
@@ -100,6 +100,8 @@ func _input(event: InputEvent) -> void:
 		drag_velocity += (drag_velocity + event.relative) * 0.5
 
 func _spawn_item() -> void:
+	if is_instance_valid(items) and items.get_child_count() >= 18:
+		return
 	var item: Fish = preload("res://scenes/rr_fish.tscn").instantiate()
 	if is_instance_valid(items):
 		items.add_child(item)

@@ -8,6 +8,7 @@ class_name WorldNPC
 @export_multiline var quest_complete_lines: Array[String] = ["Thanks for the help!"]
 @export_multiline var tier2_lines: Array[String] = ["Tier 2 unlocked. Bring more!"]
 @export_multiline var flavour_variants: Array[String] = ["The tides are calm today.", "Keep the shores clean!", "Every bit of trash helps."]
+@export_multiline var ambient_bubbles: Array[String] = ["*quietly humming*", "Cleanup in progress...", "Another shore, another day."]
 @export var reward_trash: int = 5
 @export var reward_mat: String = "Polyethylene"
 
@@ -28,6 +29,12 @@ var _quest2_done := false
 var _visit_count := 0
 var _quest_progress_label: Label = null
 var _sprite: Sprite2D = null
+var _ambient_bubble: Label = null
+var _ambient_timer := 0.0
+var _ambient_next := 4.5
+var _refresh_tick := 0.0
+
+# Ambient chat bubble cluster
 
 @export_range(1, 4) var npc_sprite_index: int = 1
 
@@ -158,11 +165,16 @@ func _prepare_lines() -> Array:
 	return repeat_dialogue_lines + _flavour_lines()
 
 func _flavour_lines() -> Array:
-	if flavour_variants.is_empty():
+	if flavour_variants.is_empty() and not _visited_flag:
 		return []
-	var i := _visit_count % flavour_variants.size()
-	return [str(flavour_variants[i])]
-
+	var out: Array = []
+	if not flavour_variants.is_empty():
+		var i := _visit_count % flavour_variants.size()
+		out.append(str(flavour_variants[i]))
+	var banter := _personality_banter()
+	if not banter.is_empty():
+		out.append(str(banter[_visit_count % banter.size()]))
+	return out
 func _show_dialogue() -> void:
 	var first_visit := not _visited_flag
 	_bump_visit_count()
@@ -200,12 +212,26 @@ func _show_dialogue() -> void:
 	title.add_theme_font_size_override("font_size", 24)
 	vbox.add_child(title)
 
+	var line_labels: Array = []
 	for line in lines:
 		var lbl := load("res://scenes/ui/label.tscn").instantiate() as Label
 		lbl.text = str(line)
 		lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		lbl.custom_minimum_size = Vector2(440, 0)
 		vbox.add_child(lbl)
+		line_labels.append(lbl)
+
+	if AudioManager.get_reduced_motion():
+		for lbl in line_labels:
+			lbl.visible_characters = -1
+	else:
+		for lbl in line_labels:
+			lbl.visible_characters = 0
+		var tw := create_tween()
+		for lbl in line_labels:
+			var n: int = lbl.text.length()
+			tw.tween_method(func(v): lbl.visible_characters = v, 0, n, max(0.2, float(n) * 0.025))
+			tw.tween_interval(0.15)
 
 	if first_visit and reward_trash > 0:
 		var reward_lbl := load("res://scenes/ui/label.tscn").instantiate() as Label
@@ -326,17 +352,55 @@ func _refresh_quest_progress_node_label() -> void:
 	else:
 		ql.modulate = Color(0.7, 0.95, 1.0, 0.9)
 
+func _show_ambient_bubble() -> void:
+	if ambient_bubbles.is_empty():
+		return
+	if not is_instance_valid(_ambient_bubble):
+		_ambient_bubble = load("res://scenes/ui/label.tscn").instantiate() as Label
+		_ambient_bubble.add_theme_font_size_override("font_size", 11)
+		_ambient_bubble.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		_ambient_bubble.custom_minimum_size = Vector2(180, 0)
+		_ambient_bubble.z_index = 25
+		_ambient_bubble.offset_left = -90
+		_ambient_bubble.offset_top = -95
+		_ambient_bubble.offset_right = 90
+		_ambient_bubble.offset_bottom = -35
+		add_child(_ambient_bubble)
+	var idx := _visit_count % ambient_bubbles.size()
+	_ambient_bubble.text = str(ambient_bubbles[idx])
+	_ambient_bubble.modulate = Color(1.0, 1.0, 0.9, 0.0)
+	var tw := create_tween()
+	tw.tween_property(_ambient_bubble, "modulate:a", 0.85, 0.14)
+	tw.tween_interval(1.6)
+	tw.tween_property(_ambient_bubble, "modulate:a", 0.0, 0.4)
 func _process(delta: float) -> void:
 	# throttle refresh to avoid every-frame cost
-	var _timer := 0.0
-	_timer += delta
-	if _timer < 0.4:
+	_ambient_timer += delta
+	if _ambient_timer >= _ambient_next:
+		_ambient_timer = 0.0
+		_ambient_next = randf_range(3.5, 7.0) + randf_range(-0.5, 0.5)
+		if _panel == null:
+			_show_ambient_bubble()
+	_refresh_tick += delta
+	if _refresh_tick < 0.4:
 		return
-	_timer = 0.0
+	_refresh_tick = 0.0
 	_refresh_quest_progress()
 	_glow_quest_ready()
 
-func _apply_npc_sprite() -> void:
+func _personality_banter() -> Array:
+	match npc_id:
+		"npc_mara":
+			return ["The garden looks greener when you recycle.", "I swept the beach twice this morning!", "Ever notice glass sparkles in the tide?"]
+		"npc_tom":
+			return ["The sea is calm — perfect diving weather.", "Don't let the fish stare you down!", "Nylon and coffee keep me going."]
+		"npc_nina":
+			return ["Shop's freshly stocked today!", "Bulk sales mean bonus days.", "I love the clink of glass rewards."]
+		"npc_kai":
+			return ["Shelves empty; bring me Glass!", "A clean shop is a happy shop.", "Polypropylene pays the rent around here."]
+		_:
+			return []
+
 	if has_node("Sprite"):
 		_sprite = $Sprite
 	var idx := clampi(npc_sprite_index, 1, 4)

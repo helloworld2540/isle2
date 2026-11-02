@@ -371,7 +371,7 @@ horizontal_alignment = 1
 [node name="WorldNPC_Mara" parent="NPCs" unique_id=1021890887 instance=ExtResource("9_npc")]
 position = Vector2(-460, -765)
 npc_id = "npc_mara"
-dialogue_lines = Array[String](["Hi! I'm Mara, island caretaker.", "Pick up trash and bring it back. I'll reward good work!"])
+dialogue_lines = Array[String](["Hi! I'm Mara, island caretaker.", "Pick up trash and bring it back. I'll reward good work!", "Glass fetches the best price; I like tidy shores!"])
 repeat_dialogue_lines = Array[String](["Welcome back! Got any Polyethylene to spare?"])
 quest_complete_lines = Array[String](["You're a true island hero!"])
 tier2_lines = Array[String](["Tier 2: bring 5 Glass for a Polypropylene bounty."])

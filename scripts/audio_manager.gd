@@ -10,6 +10,8 @@ var bgm_path := "res://sound/bgm/"
 var _reduced_motion := false
 var _bgm_player: AudioStreamPlayer
 var _stream_cache: Dictionary = {}
+var _current_bgm_track := ""
+var _bgm_fade_tween: Tween = null
 
 func _load_stream(path: String) -> AudioStream:
 	if _stream_cache.has(path):
@@ -67,19 +69,53 @@ func play_sfx(name: String, pitch_scale: float = 1.0) -> void:
 
 func play_bgm(track: String) -> void:
 	_ensure_bgm_player()
+	if track == "" or (track == _current_bgm_track and is_instance_valid(_bgm_player) and _bgm_player.playing):
+		return
 	var base := track.get_basename()
 	var candidates := [bgm_path + track, bgm_path + base + ".ogg", bgm_path + base + ".wav", bgm_path + base + ".mp3"]
+	var resolved_path := ""
 	for c in candidates:
-		var stream := _load_stream(c)
+		if ResourceLoader.exists(c) and _load_stream(c) != null:
+			resolved_path = c
+			break
+	if resolved_path == "":
+		stop_bgm()
+		_current_bgm_track = ""
+		return
+	if is_instance_valid(_bgm_fade_tween):
+		_bgm_fade_tween.kill()
+	var reduced := _reduced_motion or get_reduced_motion()
+	var fade_time := 0.09 if reduced else 0.22
+	if is_instance_valid(_bgm_player) and _bgm_player.playing:
+		_bgm_fade_tween = create_tween()
+		_bgm_fade_tween.tween_property(_bgm_player, "volume_db", -46.0, fade_time * 0.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+		_bgm_fade_tween.tween_callback(func():
+			if not is_instance_valid(_bgm_player):
+				return
+			_bgm_player.stop()
+			var stream := _load_stream(resolved_path)
+			if stream != null:
+				_bgm_player.stream = stream
+				_bgm_player.volume_db = -6.0
+				_bgm_player.play()
+		)
+		if not reduced and fade_time > 0.0:
+			_bgm_fade_tween.tween_property(_bgm_player, "volume_db", -6.0, fade_time * 0.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	else:
+		var stream := _load_stream(resolved_path)
 		if stream != null:
 			_bgm_player.stream = stream
+			_bgm_player.volume_db = -6.0
 			_bgm_player.play()
-			return
-	_bgm_player.stop()
+	_current_bgm_track = track
 
 func stop_bgm() -> void:
+	if is_instance_valid(_bgm_fade_tween):
+		_bgm_fade_tween.kill()
+		_bgm_fade_tween = null
 	if is_instance_valid(_bgm_player):
 		_bgm_player.stop()
+	_current_bgm_track = ""
 
 func set_master_volume(v: float) -> void:
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index(MASTER_BUS), linear_to_db(clampf(v, 0.0, 1.0)))

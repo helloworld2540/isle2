@@ -39,8 +39,13 @@ func _build_ui() -> void:
 	add_child(bg)
 
 	_panel = load("res://scenes/ui/panel_container.tscn").instantiate() as PanelContainer
-	_panel.position = Vector2(32, 48)
-	_panel.custom_minimum_size = Vector2(560, 0)
+	_panel.position = Vector2(24, 24)
+	_panel.size = Vector2(700, 0)
+	_panel.custom_minimum_size = Vector2(700, 0)
+	if not AudioManager.get_reduced_motion():
+		_panel.scale = Vector2(0.95, 0.95)
+		var ti := create_tween()
+		ti.tween_property(_panel, "scale", Vector2(1.0, 1.0), 0.22).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	add_child(_panel)
 
 	var box := load("res://scenes/ui/vbox_container.tscn").instantiate() as VBoxContainer
@@ -49,14 +54,15 @@ func _build_ui() -> void:
 
 	var title := load("res://scenes/ui/label.tscn").instantiate() as Label
 	title.text = intro_title
-	title.add_theme_font_size_override("font_size", 28)
+	title.add_theme_font_size_override("font_size", 34)
+	box.add_theme_constant_override("separation", 12)
 	box.add_child(title)
 
 	for line in intro_lines:
 		var line_label := load("res://scenes/ui/label.tscn").instantiate() as Label
 		line_label.text = str(line)
-		line_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		line_label.custom_minimum_size = Vector2(520, 0)
+		line_label.add_theme_font_size_override("font_size", 20)
+		line_label.custom_minimum_size = Vector2(640, 0)
 		box.add_child(line_label)
 
 	var spacer := load("res://scenes/ui/control.tscn").instantiate() as Control
@@ -64,8 +70,9 @@ func _build_ui() -> void:
 	box.add_child(spacer)
 
 	_got_it_button = load("res://scenes/ui/button.tscn").instantiate() as Button
-	_got_it_button.text = "Got it"
-	_got_it_button.custom_minimum_size = Vector2(140, 0)
+	_got_it_button.text = "Got it!"
+	_got_it_button.custom_minimum_size = Vector2(180, 44)
+	_got_it_button.add_theme_font_size_override("font_size", 20)
 	_got_it_button.pressed.connect(_on_got_it_pressed)
 	box.add_child(_got_it_button)
 

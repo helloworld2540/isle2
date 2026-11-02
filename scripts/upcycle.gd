@@ -31,14 +31,19 @@ var carried_item: Node2D = null
 var spawn_timer := 0.0
 var SPAWN_INTERVAL := 5.0
 var belt_speed := 80.0
+var _next_spawn_interval := 5.0
 
 var _belt_banner_shown := false
+var _recycled_total := 0
+var _recycled_by_mat := {"Polyethylene":0,"Glass":0,"Polypropylene":0,"Nylon":0}
 var drag_start_pos := Vector2.ZERO
 var is_dragging := false
 var move_tween: Tween = null
 
 @onready var score_label: Label = get_node_or_null("UI/ScoreLabel")
 @onready var streak_label: Label = get_node_or_null("UI/StreakLabel")
+@onready var recycled_label: Label = get_node_or_null("UI/RecycledLabel")
+@onready var belt_label: Label = get_node_or_null("UI/BeltLabel")
 @onready var return_btn: Button = get_node_or_null("UI/ReturnToMapButton")
 @onready var player: CharacterBody2D = get_node_or_null("Player")
 @onready var conveyor: Path2D = get_node_or_null("Conveyor")
@@ -83,7 +88,7 @@ func _ready() -> void:
 		var intro := load("res://scenes/minigame_intro.tscn").instantiate() as CanvasLayer
 		add_child(intro)
 		if intro.has_method("setup"):
-			intro.setup("Upcycle Sorting", ["Sort trash into matching material bins.", "Press Esc to quit or Return to Map when finished."])
+			intro.setup("Upcycle Sorting", ["Sort belt items into matching material bins.", "Carry one item at a time; place it in the right bin.", "Correct sorts build streak; burned/wrong sorts reset streak.", "Burned/incorrect trash earns nothing and adds no material.", "Each correct sort grants its material to inventory.", "Controls: tap to move, swipe item to carry, tap bin to drop.\nESC / Return to Map leaves."])
 			
 	AudioManager.play_bgm("upcycle")
 	
@@ -118,6 +123,7 @@ func _process(delta: float) -> void:
 		_belt_banner_shown = false
 		
 	var spawn_interval := clampf(5.0 - float(score) * 0.03, 1.5, 5.0)
+	spawn_interval = clampf(spawn_interval + randf_range(-0.25, 0.25), 1.0, 5.5)
 	if spawn_timer >= spawn_interval:
 		spawn_timer = 0.0
 		if _count_belt_items() < 10:
@@ -220,6 +226,13 @@ func _update_ui() -> void:
 	var sl = get_node_or_null("UI/StreakLabel")
 	if sl:
 		sl.text = "Streak: %d (best %d)" % [sort_streak, GameState.best_sort_streak]
+	if is_instance_valid(recycled_label):
+		var parts: Array[String] = []
+		for m in MATERIALS:
+			parts.append("%s:%d" % [m.substr(0,4), int(_recycled_by_mat.get(m,0))])
+		recycled_label.text = "Recycled %d | %s" % [_recycled_total, " ".join(parts)]
+	if is_instance_valid(belt_label):
+		belt_label.text = "Belt: %d/10" % _count_belt_items()
 	var mat_name = "none"
 	if is_instance_valid(carried_item) and carried_item.has_meta("material"):
 		mat_name = str(carried_item.get_meta("material"))
@@ -287,6 +300,10 @@ func _interact() -> void:
 			AudioManager.play_sfx("sort_ok", 1.0 + min(float(sort_streak), 15.0) * 0.03)
 			sort_streak += 1
 			_sorted_count += 1
+			_recycled_total += 1
+			if not _recycled_by_mat.has(mat):
+				_recycled_by_mat[mat] = 0
+			_recycled_by_mat[mat] += 1
 			var gained := GameState.add_trash_type_weighted(mat, int(carried_item.get("size")))
 			if gained < int(carried_item.get("size")):
 				_spawn_cap_notice(int(carried_item.get("size")) - gained)
@@ -430,3 +447,19 @@ func _spawn_cap_notice(amount: int) -> void:
 	tw.tween_property(lbl, "position", lbl.position + Vector2(0, -30), 0.8)
 	tw.parallel().tween_property(lbl, "modulate:a", 0.0, 0.4)
 	tw.tween_callback(lbl.queue_free)
+
+
+func _notify_queue(text: String, col: Color = Color(0.85, 1.0, 0.6, 1.0), duration := 1.2) -> void:
+	var notice := Label.new()
+	notice.text = text
+	notice.modulate = col
+	notice.z_index = 200
+	var ui := get_node_or_null("UI")
+	if is_instance_valid(ui):
+		ui.add_child(notice)
+		notice.position = Vector2(24, 24 + ui.get_child_count() * 22)
+	var tw := notice.create_tween()
+	tw.tween_property(notice, "modulate:a", 1.0, 0.15)
+	tw.tween_interval(duration)
+	tw.tween_property(notice, "modulate:a", 0.0, 0.35)
+	tw.tween_callback(notice.queue_free)
