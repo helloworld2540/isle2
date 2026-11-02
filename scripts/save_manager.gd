@@ -6,7 +6,6 @@ func has_save() -> bool:
 	return FileAccess.file_exists(SAVE_PATH)
 
 func new_save() -> void:
-	# Reset the save slot: remove any existing save file.
 	if has_save():
 		DirAccess.remove_absolute(SAVE_PATH)
 
@@ -15,7 +14,7 @@ func save_game(data: Dictionary) -> void:
 	if file == null:
 		push_error("SaveManager: could not open save file for writing")
 		return
-	file.store_string(JSON.stringify(data, "\t", true))
+	file.store_string(JSON.stringify(data, "\t"))
 	file.close()
 
 func load_game() -> Dictionary:

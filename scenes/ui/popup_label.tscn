@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/popup_label.gd" id="1_lbl"]
+
+[node name="PopupLabel" type="Label"]
+script = ExtResource("1_lbl")
+text = "Notify"
+modulate = Color(0.85, 1.0, 0.5, 1.0)
+horizontal_alignment = 1

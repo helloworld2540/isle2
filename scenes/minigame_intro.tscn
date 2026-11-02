@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://d3jafoh6nal0n"]
+
+[ext_resource type="Script" uid="uid://ck57jnes3bm75" path="res://scripts/minigame_intro.gd" id="1_script"]
+
+[node name="MinigameIntro" type="CanvasLayer" unique_id=37090155]
+script = ExtResource("1_script")
+
+[node name="Label" type="Label" parent="." unique_id=1760341594]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Tutorial"

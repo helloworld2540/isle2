@@ -4,3 +4,166 @@
 
 [node name="Shop" type="Node2D"]
 script = ExtResource("1_shop")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+follow_viewport_enabled = false
+
+[node name="Background" type="ColorRect" parent="CanvasLayer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.12, 0.14, 0.2, 1.0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+layout_mode = 1
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 540.0
+offset_bottom = 700.0
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+text = "Shop (sell trash)"
+theme_override_font_sizes/font_size = 24
+
+[node name="Coins" type="Label" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+text = "Score: 0"
+name = "Coins"
+
+[node name="Inventory" type="Label" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+text = "Inventory: "
+name = "Inventory"
+
+[node name="Preview" type="Label" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+text = "Potential base earnings if sold all: 0 score"
+name = "Preview"
+
+[node name="Tip" type="Label" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+modulate = Color(0.95, 0.9, 0.5, 1.0)
+text = "Tip: sort efficiently for combo bonuses."
+name = "Tip"
+
+[node name="Rows" type="VBoxContainer" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Row_Polyethylene" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/Rows"]
+layout_mode = 2
+custom_minimum_size = Vector2(520, 0)
+
+[node name="SellOne" type="Button" parent="CanvasLayer/VBoxContainer/Rows/Row_Polyethylene"]
+custom_minimum_size = Vector2(210, 0)
+text = "Sell 1 Polyethylene (2)"
+
+[node name="SellAll" type="Button" parent="CanvasLayer/VBoxContainer/Rows/Row_Polyethylene"]
+custom_minimum_size = Vector2(135, 0)
+text = "Sell All"
+
+[node name="Value" type="Label" parent="CanvasLayer/VBoxContainer/Rows/Row_Polyethylene"]
+custom_minimum_size = Vector2(115, 0)
+text = "value 0"
+
+[node name="Count" type="Label" parent="CanvasLayer/VBoxContainer/Rows/Row_Polyethylene"]
+custom_minimum_size = Vector2(70, 0)
+text = "x0"
+modulate = Color(0.9, 0.5, 0.5, 1.0)
+
+[node name="Row_Polypropylene" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/Rows"]
+layout_mode = 2
+custom_minimum_size = Vector2(520, 0)
+
+[node name="SellOne" type="Button" parent="CanvasLayer/VBoxContainer/Rows/Row_Polypropylene"]
+custom_minimum_size = Vector2(210, 0)
+text = "Sell 1 Polypropylene (3)"
+
+[node name="SellAll" type="Button" parent="CanvasLayer/VBoxContainer/Rows/Row_Polypropylene"]
+custom_minimum_size = Vector2(135, 0)
+text = "Sell All"
+
+[node name="Value" type="Label" parent="CanvasLayer/VBoxContainer/Rows/Row_Polypropylene"]
+custom_minimum_size = Vector2(115, 0)
+text = "value 0"
+
+[node name="Count" type="Label" parent="CanvasLayer/VBoxContainer/Rows/Row_Polypropylene"]
+custom_minimum_size = Vector2(70, 0)
+text = "x0"
+modulate = Color(0.9, 0.5, 0.5, 1.0)
+
+[node name="Row_Glass" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/Rows"]
+layout_mode = 2
+custom_minimum_size = Vector2(520, 0)
+
+[node name="SellOne" type="Button" parent="CanvasLayer/VBoxContainer/Rows/Row_Glass"]
+custom_minimum_size = Vector2(210, 0)
+text = "Sell 1 Glass (5)"
+
+[node name="SellAll" type="Button" parent="CanvasLayer/VBoxContainer/Rows/Row_Glass"]
+custom_minimum_size = Vector2(135, 0)
+text = "Sell All"
+
+[node name="Value" type="Label" parent="CanvasLayer/VBoxContainer/Rows/Row_Glass"]
+custom_minimum_size = Vector2(115, 0)
+text = "value 0"
+
+[node name="Count" type="Label" parent="CanvasLayer/VBoxContainer/Rows/Row_Glass"]
+custom_minimum_size = Vector2(70, 0)
+text = "x0"
+modulate = Color(0.9, 0.5, 0.5, 1.0)
+
+[node name="Row_Nylon" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/Rows"]
+layout_mode = 2
+custom_minimum_size = Vector2(520, 0)
+
+[node name="SellOne" type="Button" parent="CanvasLayer/VBoxContainer/Rows/Row_Nylon"]
+custom_minimum_size = Vector2(210, 0)
+text = "Sell 1 Nylon (4)"
+
+[node name="SellAll" type="Button" parent="CanvasLayer/VBoxContainer/Rows/Row_Nylon"]
+custom_minimum_size = Vector2(135, 0)
+text = "Sell All"
+
+[node name="Value" type="Label" parent="CanvasLayer/VBoxContainer/Rows/Row_Nylon"]
+custom_minimum_size = Vector2(115, 0)
+text = "value 0"
+
+[node name="Count" type="Label" parent="CanvasLayer/VBoxContainer/Rows/Row_Nylon"]
+custom_minimum_size = Vector2(70, 0)
+text = "x0"
+modulate = Color(0.9, 0.5, 0.5, 1.0)
+
+[node name="Row_Reef Debris" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/Rows"]
+layout_mode = 2
+custom_minimum_size = Vector2(520, 0)
+
+[node name="SellOne" type="Button" parent="CanvasLayer/VBoxContainer/Rows/Row_Reef Debris"]
+custom_minimum_size = Vector2(210, 0)
+text = "Sell 1 Reef Debris (1)"
+
+[node name="SellAll" type="Button" parent="CanvasLayer/VBoxContainer/Rows/Row_Reef Debris"]
+custom_minimum_size = Vector2(135, 0)
+text = "Sell All"
+
+[node name="Value" type="Label" parent="CanvasLayer/VBoxContainer/Rows/Row_Reef Debris"]
+custom_minimum_size = Vector2(115, 0)
+text = "value 0"
+
+[node name="Count" type="Label" parent="CanvasLayer/VBoxContainer/Rows/Row_Reef Debris"]
+custom_minimum_size = Vector2(70, 0)
+text = "x0"
+modulate = Color(0.9, 0.5, 0.5, 1.0)
+
+[node name="BackButton" type="Button" parent="CanvasLayer/VBoxContainer"]
+custom_minimum_size = Vector2(140, 0)
+text = "Return to World"
+
+[node name="UndoButton" type="Button" parent="CanvasLayer/VBoxContainer"]
+custom_minimum_size = Vector2(140, 0)
+text = "Undo Last Sale"

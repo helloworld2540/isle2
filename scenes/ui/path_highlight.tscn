@@ -1,0 +1,6 @@
+[gd_scene format=3]
+
+[node name="PathHighlight" type="ColorRect"]
+color = Color(1.0, 1.0, 1.0, 0.114)
+size = Vector2(128, 128)
+mouse_filter = 2

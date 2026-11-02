@@ -82,3 +82,129 @@
 - Added `running` guard so ESC or a second click cannot double-submit after exit starts.
 - Deep Cache debris bonus applied once.
 - Headless import/runtime clean.
+
+## 2026-11-01 17:41 — Sprint polish consolidation.
+- Reef debris credit, ESC NPC dismissal, shop Reef Debris sink, speed-scaled upcycle stepping all landed and import-verified.
+- Headless Godot 4.7.2 import clean (only non-blocking environmental GitPlugin/VCS warnings).
+
+## 2026-11-01 18:35 — Sprint polish continuation
+- World map pause menu now plays BGM and cycles idle tracks (world/ambience/world/reef) every 18s (respects reduced motion).
+- Deep Cache now scales per tier: reef debris bonus = 5 * tier; upcycle score can upgrade tier cost 15 * tier.
+- Headless Godot 4.7.2 import/run clean.
+
+## 2026-11-01 18:38 — Inventory capacity sprint pass
+- GameState now caps total inventory at 30 + 15 per level; add_trash_type returns accepted count.
+- World map pause panel exposes "Inventory Cap" upgrade using the same trash currency.
+- Headless import/run validated.
+
+## 2026-11-01 18:41 — Cap feedback pass
+- Reef Escape now reports how much debris was lost to the inventory cap.
+- Upcycle now notifies when a sorted item is dropped over the cap.
+- Headless Godot import/run clean.
+
+## 2026-11-01 18:48 — HUD polish pass
+- `wm_progress.gd` now surfaces live inventory total/capacity and per-material counts in a compact label, plus the summary line.
+- Headless Godot import/run clean (only environmental GitPlugin warning).
+
+## 2026-11-01 18:53 — NPC safety pass
+- Quest turn-in buttons disable when the expected reward would exceed current inventory headroom.
+- Turn-in now surfaces partial reward gains with an "inventory cap" message when applicable.
+- Headless Godot import/run clean.
+
+## 2026-11-01 18:55 — Inventory UI polish pass
+- Pause-menu inventory cap button turns red when inventory is at/over capacity.
+- Headless Godot import/run clean.
+
+## 2026-11-01 18:57 — UI capacity indicator
+- World menu now shows inventory full/heavy status with colorized warning.
+- Headless import/run clean.
+
+## 2026-11-01 19:04 — Pickup sparkle pass
+- Reef Rescue now spawns short-lived sparkles in item color on each pickup for extra game feel.
+- Headless import/run clean (standard warnings only).
+
+## 2026-11-01 19:12 — Audio polish pass
+- `AudioManager.play_sfx` now accepts a pitch scale and applies subtle randomization for juicier feedback.
+- Shop sells (1.03) and upgrade purchases (1.05) use the new parameter.
+- Headless import/run clean.
+
+## 2026-11-01 19:15 — Main-menu ambient polish
+- Added looping ambient dot motion layer behind the menu summary for softer, more alive visual feel (respects existing randomization).
+- Headless Godot import/run clean.
+
+## 2026-11-01 19:22 — Combo feedback polish
+- Upcycle now pulses the UI on combo milestones to make high-streak play feel more satisfying.
+- Headless Godot import/run clean.
+
+## 2026-11-01 19:30 — Documentation pass
+- Added concise README.MD with engine/runtime, run/test paths, smoke guidance, and asset notes.
+- Headless verification clean (pre-existing environmental warning only).
+
+## 2026-11-01 19:42 — Reef fish penalty + Deep Cache scaling pass
+- Reef rescue now treats fish contact as a penalty: 3 bumps triggers a game-over summary screen crediting debris and returning to map.
+- Deep Cache debris bonus scales with inventory-cap upgrade tier (+3 per level).
+- Headless Godot 4.7.2 import clean (only environmental GitPlugin warning).
+
+## 2026-11-01 19:45 — Upcycle combo audio/visual polish
+- Sort SFX pitch now scales with current streak; wrong sort/burn use lower pitches.
+- Correct sort spawns bin sparkle particles; combo milestone feedback retriggered.
+- Headless Godot 4.7.2 import clean.
+
+## 2026-11-01 19:48 — Main-menu summary inventory totals
+- Continue summary now lists per-material inventory totals.
+- Headless Godot 4.7.2 import clean.
+
+## 2026-11-01 19:50 — Pause menu auto-refresh on toggle
+- Opening the world pause menu now refreshes upgrade UI and status text.
+- Fixed indentation parse error introduced in toggle.
+- Headless Godot 4.7.2 import clean.
+
+## 2026-11-01 19:52 — Main-menu summary fix
+- Corrected inventory totals formatting for parse error; added helper.
+- Headless Godot 4.7.2 import clean.
+
+## 2026-11-01 20:11 — Reef game-over juice + shop tips
+- Reef Rescue now shakes camera and spawns confetti on fish-bump game over.
+- Shop menu surfaces full/heavy/normal inventory tips.
+- Pause panel typography pass (status/summary labels) and tip on pause menu.
+- Headless import verified clean (only environmental GitPlugin warning).
+
+## 2026-11-01 20:17 — Main-menu entrance + pause toggle guard
+- Added hero entrance animation (fade/scale) for main-menu buttons/summary.
+- Added reentrancy guard + focus handling to world pause toggle.
+- Headless import verified clean.
+
+## 2026-11-01 20:18 — Inventory full toast pass
+- Reef game-over now surfaces "Inventory full — sell trash" toast when no debris can be credited.
+- Headless import verified clean.
+
+## 2026-11-01 20:22 — Pause menu polish
+- World pause menu upgraded with tighter typography + upgrade sparkle bursts, reentrancy guard, and focus handling.
+- Headless import verified clean.
+
+## 2026-11-01 20:32 — Upcycle belt bob + portal cues pending
+- Added animated trash-item bobbing on conveyor belt.
+- Headless import verified clean.
+
+## 2026-11-01 20:39 — Reef debris combo multiplier
+- Reef Rescue now awards a combo multiplier based on consecutive garbage pickups (every 3 adds +1), displays as xN in pickup popups.
+- Headless import verified clean.
+
+## 2026-11-01 20:41 — Reef debris combo multiplier
+- Reef Rescue now tracks rapid debris pickups within 2s and multiplies debris credit (x2/x3) with scaled sparkles and SFX pitch.
+- Headless import verified clean.
+
+## 2026-11-01 20:48 — Shop receipt toast
+- Shop now spawns a floating "SOLD <material>" receipt on one-off sales.
+- Headless import verified clean.
+
+## 2026-11-01 20:57 — Sprint cycle report (README + portal + upcycle banner)
+- Rewrote README.MD to introduce Isle2: engine/runtime, loop, key areas, assets, autoloads.
+- Portal hover: pad scales up on body enter and resets on exit; ping marker preserved.
+- Upcycle: spawn streak banner "FIVE ON THE BELT!" with scale bounce when 5 items on belt.
+- Headless Godot 4.7 verification pending (MCP process exited immediately; visual runtime not captured this turn).
+
+## 2026-11-01 21:02 — Sprint cycle report
+- Upcycle wrong-sort screen shake added (reduced-motion guarded).
+- NPC quest turn-in SFX now scales pitch slightly by tier.
+- World pause menu now fades in smoothly when reduced motion is off.

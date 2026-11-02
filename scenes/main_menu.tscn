@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cc0ngv5xr7xwg"]
 
-[ext_resource type="Script" uid="uid://vtvklbwxity4" path="res://main_menu.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://yf2i1sjjsj30" path="res://scripts/main_menu.gd" id="1_bqqt6"]
+[ext_resource type="Texture2D" uid="uid://is1ik2f66nh0" path="res://sprites/sky.png" id="2_bqqt6"]
 [ext_resource type="Theme" uid="uid://bug5wlu7yvs7w" path="res://resources/control_theme.tres" id="2_ekxnf"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_nmirg"]
@@ -13,18 +14,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_script")
+script = ExtResource("1_bqqt6")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=2031952553]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.27656338, 0.56510365, 0.76041085, 1)
+[node name="Background" type="Sprite2D" parent="." unique_id=2063562248]
+position = Vector2(1, 1)
+texture = ExtResource("2_bqqt6")
+centered = false
 
-[node name="Label" type="Label" parent="." unique_id=1987671865]
+[node name="Title" type="Label" parent="." unique_id=1987671865]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -32,9 +29,9 @@ anchor_top = 0.21
 anchor_right = 0.5
 anchor_bottom = 0.21
 offset_left = -378.0
-offset_top = -52.08
+offset_top = -52.0
 offset_right = 378.0
-offset_bottom = 100.92
+offset_bottom = 101.0
 grow_horizontal = 2
 theme = ExtResource("2_ekxnf")
 text = "Trash Island 2"
@@ -42,55 +39,73 @@ label_settings = SubResource("LabelSettings_nmirg")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="NewSaveButton" type="Button" parent="." unique_id=875779408]
+[node name="Buttons" type="VBoxContainer" parent="." unique_id=7000001]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -114.0
-offset_top = -46.0
-offset_right = 150.0
-offset_bottom = 57.0
+offset_left = -418.0
+offset_top = -60.0
+offset_right = -118.0
+offset_bottom = 240.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.857854, 0.857854)
 theme = ExtResource("2_ekxnf")
-theme_override_font_sizes/font_size = 40
+theme_override_constants/separation = 16
+
+[node name="NewSaveButton" type="Button" parent="Buttons" unique_id=875779408]
+custom_minimum_size = Vector2(300, 52)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("2_ekxnf")
+theme_override_font_sizes/font_size = 27
 text = "New Save"
 
-[node name="LoadSaveButton" type="Button" parent="." unique_id=875779409]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -138.0
-offset_top = 67.0
-offset_right = 130.0
-offset_bottom = 168.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="LoadSaveButton" type="Button" parent="Buttons" unique_id=875779409]
+custom_minimum_size = Vector2(300, 52)
+layout_mode = 2
+size_flags_horizontal = 4
 theme = ExtResource("2_ekxnf")
-theme_override_font_sizes/font_size = 40
+theme_override_font_sizes/font_size = 27
 text = "Load Save"
 
-[node name="QuitButton" type="Button" parent="." unique_id=678783011]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -103.0
-offset_top = 192.0
-offset_right = 165.0
-offset_bottom = 293.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.78704256, 0.78704256)
+[node name="StatsButton" type="Button" parent="Buttons" unique_id=1000005]
+custom_minimum_size = Vector2(300, 44)
+layout_mode = 2
+size_flags_horizontal = 4
 theme = ExtResource("2_ekxnf")
-theme_override_font_sizes/font_size = 40
+theme_override_font_sizes/font_size = 27
+text = "Save Stats"
+
+[node name="QuitButton" type="Button" parent="Buttons" unique_id=678783011]
+custom_minimum_size = Vector2(300, 52)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("2_ekxnf")
+theme_override_font_sizes/font_size = 27
 text = "Quit"
+
+[node name="SaveSummaryPanel" type="PanelContainer" parent="." unique_id=1000001]
+custom_minimum_size = Vector2(640, 0)
+layout_mode = 0
+offset_left = 527.0
+offset_top = 264.0
+offset_right = 1167.0
+offset_bottom = 314.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SaveSummaryPanel" unique_id=1000002]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="SaveSummary" type="Label" parent="SaveSummaryPanel/VBoxContainer" unique_id=1000003]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+autowrap_mode = 3
+
+[node name="MiniStats" type="Label" parent="SaveSummaryPanel/VBoxContainer" unique_id=1000004]
+modulate = Color(0.85, 0.95, 1, 0.95)
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+autowrap_mode = 3

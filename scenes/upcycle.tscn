@@ -197,8 +197,16 @@ frame_progress = 0.721069
 offset_left = 20.0
 offset_top = 20.0
 
-[node name="HeldLabel" type="Label" parent="UI" unique_id=1135639387]
+[node name="ReturnToMapButton" type="Button" parent="UI" unique_id=200900]
+offset_left = 820.0
+offset_top = 20.0
+offset_right = 970.0
+offset_bottom = 60.0
+text = "Return to Map"
+
+[node name="StreakLabel" type="Label" parent="UI" unique_id=200901]
 offset_left = 20.0
-offset_top = 50.0
+offset_top = 60.0
+text = "Streak: 0"
 
 [connection signal="body_entered" from="Fire" to="." method="_on_fire_body_entered"]

@@ -2,45 +2,47 @@
 
 [ext_resource type="Script" uid="uid://cvsq0ssl6il4b" path="res://scripts/reef_rescue.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://bkpw6kp688eb3" path="res://sprites/rr_bg.png" id="2_bg"]
-[ext_resource type="Texture2D" uid="uid://b1704yjyhcgu5" path="res://sprites/player_wm_walk.png" id="3_vg2hp"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_r047m"]
-atlas = ExtResource("3_vg2hp")
-region = Rect2(768, 0, 256, 384)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_p4s01"]
-atlas = ExtResource("3_vg2hp")
-region = Rect2(768, 384, 256, 384)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_npteu"]
-atlas = ExtResource("3_vg2hp")
-region = Rect2(768, 768, 256, 384)
+[ext_resource type="Texture2D" uid="uid://bcjs57177ah7s" path="res://sprites/sub/sub0000.png" id="3_c7240"]
+[ext_resource type="Texture2D" uid="uid://b6kahajhmn7wm" path="res://sprites/sub/sub0001.png" id="4_jq4cv"]
+[ext_resource type="Texture2D" uid="uid://de8ngchrr1lfc" path="res://sprites/sub/sub0002.png" id="5_m0osg"]
+[ext_resource type="Texture2D" uid="uid://fnckux3mp74w" path="res://sprites/sub/sub0003.png" id="6_nkrut"]
+[ext_resource type="Texture2D" uid="uid://d2loyhabvn7nx" path="res://sprites/sub/sub0004.png" id="7_yhndv"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_nmirg"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_r047m")
+"texture": ExtResource("3_c7240")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_p4s01")
+"texture": ExtResource("4_jq4cv")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_npteu")
+"texture": ExtResource("5_m0osg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_nkrut")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_yhndv")
 }],
 "loop": 1,
 "name": &"default",
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_nmirg"]
-radius = 66.27216
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qp2yk"]
+radius = 29.73007
+height = 147.9086
 
 [sub_resource type="SystemFont" id="SystemFont_aq0s6"]
 subpixel_positioning = 0
 
 [node name="ReefRescue" type="Node2D" unique_id=1000]
 script = ExtResource("1_script")
+MIN_BG_SPEED = null
+MAX_BG_SPEED = null
+SPAWN_INTERVAL = null
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="." unique_id=1001]
 
@@ -64,7 +66,10 @@ frame_progress = 0.45855317
 [node name="Area2D" type="Area2D" parent="Drone" unique_id=609181004]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Drone/Area2D" unique_id=462187958]
-shape = SubResource("CircleShape2D_nmirg")
+position = Vector2(-1.4305115e-06, 13)
+rotation = -1.5820796
+scale = Vector2(1.0086355, 1.1629587)
+shape = SubResource("CapsuleShape2D_qp2yk")
 
 [node name="Items" type="Node2D" parent="." unique_id=1007]
 
@@ -98,5 +103,60 @@ offset_bottom = 138.0
 theme_override_fonts/font = SubResource("SystemFont_aq0s6")
 theme_override_font_sizes/font_size = 24
 text = "Depth: 10 m"
+
+[node name="ReturnToMapButton" type="Button" parent="UI" unique_id=1020]
+offset_left = 16.0
+offset_top = 160.0
+offset_right = 180.0
+offset_bottom = 200.0
+text = "Return to Map"
+
+[node name="GameOverCanvas" type="CanvasLayer" parent="." unique_id=2001]
+layer = 100
+visible = false
+
+[node name="GameOverBg" type="ColorRect" parent="GameOverCanvas" unique_id=2002]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.72)
+
+[node name="GameOverPanel" type="PanelContainer" parent="GameOverCanvas" unique_id=2003]
+custom_minimum_size = Vector2(460, 0)
+anchors_preset = -1
+anchor_left = 0.25
+anchor_top = 0.2
+anchor_right = 0.75
+anchor_bottom = 0.8
+
+[node name="VBox" type="VBoxContainer" parent="GameOverCanvas/GameOverPanel" unique_id=2004]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="Title" type="Label" parent="GameOverCanvas/GameOverPanel/VBox" unique_id=2005]
+modulate = Color(1, 0.4, 0.45, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 46
+text = "GAME OVER"
+horizontal_alignment = 1
+
+[node name="Body" type="Label" parent="GameOverCanvas/GameOverPanel/VBox" unique_id=2006]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Bumped into 0 fish
+Garbage collected: 0 kg
+Depth: 0 m
+
+Reef debris earned: 0"
+horizontal_alignment = 1
+
+[node name="ReturnButton" type="Button" parent="GameOverCanvas/GameOverPanel/VBox" unique_id=2007]
+custom_minimum_size = Vector2(220, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Return to Map"
 
 [connection signal="body_entered" from="Drone/Area2D" to="." method="_on_area_2d_body_entered"]

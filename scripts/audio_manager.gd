@@ -1,4 +1,5 @@
 extends Node
+
 # Audio manager autoload. Loads/plays SFX and BGM placeholders from res://sound/.
 
 const MASTER_BUS := "Master"
@@ -16,9 +17,10 @@ func _load_stream(path: String) -> AudioStream:
 	if not ResourceLoader.exists(path):
 		return null
 	var stream := load(path)
-	if stream != null:
+	if stream is AudioStream:
 		_stream_cache[path] = stream
-	return stream
+		return stream
+	return null
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -30,30 +32,41 @@ func _ready() -> void:
 func _setup_bus(bus_name: String) -> void:
 	var idx := AudioServer.get_bus_index(bus_name)
 	if idx == -1:
-		AudioServer.add_bus(-1)
-		AudioServer.set_bus_name(AudioServer.bus_count - 1, bus_name)
+		var new_idx := AudioServer.bus_count
+		AudioServer.add_bus(new_idx)
+		if AudioServer.get_bus_index(bus_name) == -1:
+			# Fallback: append at end if named slot unavailable.
+			AudioServer.set_bus_name(AudioServer.bus_count - 1, bus_name)
+		else:
+			AudioServer.set_bus_name(AudioServer.get_bus_index(bus_name), bus_name)
 
 func _create_bgm_player() -> void:
-	_bgm_player = AudioStreamPlayer.new()
+	_bgm_player = load("res://scenes/ui/audio_stream_player.tscn").instantiate() as AudioStreamPlayer
 	_bgm_player.bus = MUSIC_BUS
 	_bgm_player.volume_db = -6.0
 	add_child(_bgm_player)
 
-func play_sfx(name: String) -> void:
+func _ensure_bgm_player() -> void:
+	if not is_instance_valid(_bgm_player):
+		_create_bgm_player()
+
+func play_sfx(name: String, pitch_scale: float = 1.0) -> void:
 	var base := name.get_basename()
 	var candidates := [sfx_path + name, sound_path + name, sfx_path + base + ".ogg", sfx_path + base + ".wav", sfx_path + base + ".mp3"]
 	for c in candidates:
 		var stream := _load_stream(c)
 		if stream != null:
-			var player := AudioStreamPlayer.new()
+			var player := load("res://scenes/ui/audio_stream_player.tscn").instantiate() as AudioStreamPlayer
 			player.stream = stream
 			player.bus = MASTER_BUS
+			player.pitch_scale = clampf(pitch_scale * randf_range(0.96, 1.04), 0.5, 2.0)
 			add_child(player)
 			player.finished.connect(player.queue_free)
 			player.play()
 			return
 
 func play_bgm(track: String) -> void:
+	_ensure_bgm_player()
 	var base := track.get_basename()
 	var candidates := [bgm_path + track, bgm_path + base + ".ogg", bgm_path + base + ".wav", bgm_path + base + ".mp3"]
 	for c in candidates:
@@ -65,22 +78,22 @@ func play_bgm(track: String) -> void:
 	_bgm_player.stop()
 
 func stop_bgm() -> void:
-	if _bgm_player:
+	if is_instance_valid(_bgm_player):
 		_bgm_player.stop()
 
 func set_master_volume(v: float) -> void:
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index(MASTER_BUS), linear_to_db(v))
-	_persist_volume("master_volume", v)
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index(MASTER_BUS), linear_to_db(clampf(v, 0.0, 1.0)))
+	_persist_volume("master_volume", clampf(v, 0.0, 1.0))
 
 func get_master_volume() -> float:
-	return float(_load_key("master_volume", 1.0))
+	return clampf(float(_load_key("master_volume", 1.0)), 0.0, 1.0)
 
 func set_music_volume(v: float) -> void:
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index(MUSIC_BUS), linear_to_db(v))
-	_persist_volume("music_volume", v)
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index(MUSIC_BUS), linear_to_db(clampf(v, 0.0, 1.0)))
+	_persist_volume("music_volume", clampf(v, 0.0, 1.0))
 
 func get_music_volume() -> float:
-	return float(_load_key("music_volume", 0.65))
+	return clampf(float(_load_key("music_volume", 0.65)), 0.0, 1.0)
 
 func set_reduced_motion(v: bool) -> void:
 	_reduced_motion = v

@@ -2,8 +2,8 @@ extends CharacterBody2D
 
 @export var MOVE_TIME := 0.3
 
-@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var world_map: TileMapLayer = $"../WorldMap"
+@onready var animated_sprite: AnimatedSprite2D = get_node_or_null("AnimatedSprite2D")
+@onready var world_map: TileMapLayer = get_node_or_null("../WorldMap")
 
 var is_moving := false
 var path: PackedVector2Array = []
@@ -14,56 +14,63 @@ var _path_highlight: Node2D
 func _ready() -> void:
 	add_to_group("player")
 	global_target_pos = global_position
-	_path_highlight = Node2D.new()
+	_path_highlight = load("res://scenes/ui/node2_d.tscn").instantiate() as Node2D
 	_path_highlight.top_level = true
 	_path_highlight.z_index = -1
 	add_child(_path_highlight)
-	MOVE_TIME = max(0.05, (0.3 / GameState.get_move_speed_multiplier()) * 0.5 + 0.15)
+	_refresh_move_time()
+
+func _refresh_move_time() -> void:
+	var mult: float = max(0.01, GameState.get_move_speed_multiplier())
+	MOVE_TIME = max(0.05, (0.3 / mult) * 0.5 + 0.15)
 
 func _clear_highlight() -> void:
+	if not is_instance_valid(_path_highlight):
+		return
 	for c in _path_highlight.get_children():
 		c.queue_free()
 
 func _refresh_highlight() -> void:
 	_clear_highlight()
+	if not is_instance_valid(world_map) or not is_instance_valid(_path_highlight):
+		return
 	for world_pos in path:
-		var tile := ColorRect.new()
+		var tile := load("res://scenes/ui/color_rect.tscn").instantiate() as ColorRect
 		tile.color = Color(1.0, 1.0, 1.0, 0.114)
-		tile.size = Vector2(world_map.tile_set.tile_size) if world_map.tile_set else Vector2(128, 128)
+		var ts := Vector2(128.0, 128.0)
+		if world_map.tile_set:
+			ts = Vector2(world_map.tile_set.tile_size)
+		tile.size = ts
 		tile.global_position = world_pos - (tile.size * 0.5)
 		_path_highlight.add_child(tile)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		var global_click_pos := get_global_mouse_position() 
+		var global_click_pos := get_global_mouse_position()
 		_calculate_path_to(global_click_pos)
 		get_viewport().set_input_as_handled()
 
-func _calculate_path_to(world_pos: Vector2) -> void:	
+func _calculate_path_to(world_pos: Vector2) -> void:
 	path.clear()
 	var starting_pos := global_target_pos if is_moving else global_position
-	var start_cell := world_map.local_to_map(world_map.to_local(starting_pos))
-	var end_cell := world_map.local_to_map(world_map.to_local(world_pos))
-
-	# If the clicked tile is not walkable, fall back to the nearest walkable one.
-	if not _is_walkable(end_cell):
+	var start_cell := Vector2i.ZERO
+	var end_cell := Vector2i.ZERO
+	if is_instance_valid(world_map):
+		start_cell = world_map.local_to_map(world_map.to_local(starting_pos))
+		end_cell = world_map.local_to_map(world_map.to_local(world_pos))
+	if is_instance_valid(world_map) and not _is_walkable(end_cell):
 		end_cell = _nearest_walkable_cell(end_cell, 8)
-
 	var route := _bfs(start_cell, end_cell)
-
 	for cell in route:
-		path.append(world_map.to_global(world_map.map_to_local(cell)))
-	
+		if is_instance_valid(world_map):
+			path.append(world_map.to_global(world_map.map_to_local(cell)))
 	_refresh_highlight()
 
 func _physics_process(_delta: float) -> void:
-	# Update pathfinding tile
-	if is_moving: return
-	if path.is_empty(): return
-		
+	if is_moving or path.is_empty():
+		return
 	global_target_pos = path[0]
 	path.remove_at(0)
-	
 	var dir := global_position.direction_to(global_target_pos)
 	_update_animation(dir)
 	_move_to_target()
@@ -80,11 +87,12 @@ func _on_move_finished() -> void:
 	_refresh_highlight()
 
 func _update_animation(dir: Vector2) -> void:
+	if not is_instance_valid(animated_sprite):
+		return
 	if absf(dir.x) >= absf(dir.y):
 		current_dir = Vector2(signf(dir.x), 0)
 	else:
 		current_dir = Vector2(0, signf(dir.y))
-		
 	if current_dir.x > 0:
 		animated_sprite.play("player_right")
 	elif current_dir.x < 0:
@@ -95,27 +103,25 @@ func _update_animation(dir: Vector2) -> void:
 		animated_sprite.play("player_up")
 
 func _is_walkable(cell: Vector2i) -> bool:
+	if not is_instance_valid(world_map):
+		return false
 	var tile_data := world_map.get_cell_tile_data(cell)
 	return tile_data != null and tile_data.get_custom_data("Walkable") == true
 
 func _bfs(start: Vector2i, goal: Vector2i) -> Array[Vector2i]:
 	if start == goal or not _is_walkable(start) or not _is_walkable(goal):
 		return []
-		
 	var queue: Array[Vector2i] = [start]
 	var came_from: Dictionary = {start: start}
 	var current: Vector2i
-	
 	while not queue.is_empty():
 		current = queue.pop_front()
 		if current == goal:
 			break
-			
 		for neighbor in _get_walkable_neighbors(current):
 			if not came_from.has(neighbor):
 				came_from[neighbor] = current
 				queue.append(neighbor)
-				
 	if not came_from.has(goal):
 		var best_cell: Vector2i = start
 		var best_dist: float = INF
@@ -127,14 +133,11 @@ func _bfs(start: Vector2i, goal: Vector2i) -> Array[Vector2i]:
 		if best_cell == start:
 			return []
 		goal = best_cell
-
 	var route: Array[Vector2i] = []
 	var step := goal
-	
 	while step != start:
 		route.append(step)
 		step = came_from[step]
-		
 	route.reverse()
 	return route
 

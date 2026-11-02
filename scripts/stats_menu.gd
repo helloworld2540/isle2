@@ -1,20 +1,20 @@
 extends Control
 
-@onready var stats_label: Label = $StatsLabel
-@onready var back_button: Button = $BackButton
-@onready var volume_slider: HSlider = $VolumeSlider
-@onready var reduce_checkbox: CheckBox = $ReduceMotion
+@onready var stats_label: Label = get_node_or_null("StatsLabel")
+@onready var back_button: Button = get_node_or_null("BackButton")
+@onready var volume_slider: HSlider = get_node_or_null("VolumeSlider")
+@onready var reduce_checkbox: CheckBox = get_node_or_null("ReduceMotion")
 
 func _ready() -> void:
 	GameState.restore()
-	if stats_label:
+	if is_instance_valid(stats_label):
 		stats_label.text = _stats_text()
-	if back_button:
+	if is_instance_valid(back_button):
 		back_button.pressed.connect(_on_back)
-	if volume_slider:
+	if is_instance_valid(volume_slider):
 		volume_slider.value = AudioManager.get_master_volume() * 100.0
 		volume_slider.value_changed.connect(_on_volume_changed)
-	if reduce_checkbox:
+	if is_instance_valid(reduce_checkbox):
 		reduce_checkbox.button_pressed = AudioManager.get_reduced_motion()
 		reduce_checkbox.toggled.connect(_on_reduce_toggled)
 
