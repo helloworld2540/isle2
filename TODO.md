@@ -2,8 +2,8 @@
 
 ## Medium priority features
 
-- Playtest Upcycle leave-to-map loop & confirm no double recording.
+- Continue Upcycle leave-to-map playtest coverage.
 
 ## Polish features
 
--
+- Pace NPC ambient bubbles further manually.
