@@ -34,6 +34,7 @@ var belt_speed := 80.0
 var _next_spawn_interval := 5.0
 
 var _belt_banner_shown := false
+var _leaving := false
 var _recycled_total := 0
 var _recycled_by_mat := {"Polyethylene":0,"Glass":0,"Polypropylene":0,"Nylon":0}
 var drag_start_pos := Vector2.ZERO
@@ -93,11 +94,7 @@ func _ready() -> void:
 	AudioManager.play_bgm("upcycle")
 	
 	if is_instance_valid(return_btn):
-		return_btn.pressed.connect(func():
-			GameState.record_sort_streak(sort_streak)
-			GameState.record_upcycle(score)
-			_show_return_summary()
-		)
+		return_btn.pressed.connect(_leave_to_map)
 		
 	if is_instance_valid(fire) and not fire.body_entered.is_connected(_on_fire_body_entered):
 		fire.body_entered.connect(_on_fire_body_entered)
@@ -323,10 +320,8 @@ func _interact() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
-		GameState.record_sort_streak(sort_streak)
-		GameState.record_upcycle(score)
 		AudioManager.play_sfx("return")
-		SceneTransition.change_scene("res://scenes/world.tscn")
+		_leave_to_map()
 
 func _play_combo_feedback() -> void:
 	var tw := create_tween()
@@ -416,6 +411,14 @@ func _spawn_bin_sparkle(at: Vector2) -> void:
 	var tw := create_tween()
 	tw.tween_interval(p.lifetime + 0.1)
 	tw.tween_callback(p.queue_free)
+
+func _leave_to_map() -> void:
+	if _leaving:
+		return
+	_leaving = true
+	GameState.record_sort_streak(sort_streak)
+	GameState.record_upcycle(score)
+	_show_return_summary()
 
 func _show_return_summary() -> void:
 	var lbl := load("res://scenes/ui/label.tscn").instantiate() as Label

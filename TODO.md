@@ -2,8 +2,8 @@
 
 ## Medium priority features
 
-- Add interactive audio/game-feel budget and polish pass across minigames.
+- Playtest Upcycle leave-to-map loop & confirm no double recording.
 
 ## Polish features
 
-- Maintain NPC ambient bubbles under versus-edge stress tests.
+-
