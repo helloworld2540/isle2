@@ -8,7 +8,6 @@ const SFX_BUS := "SFX"
 var sound_path := "res://sound/"
 var sfx_path := "res://sound/sfx/"
 var bgm_path := "res://sound/bgm/"
-var _reduced_motion := false
 var _bgm_player: AudioStreamPlayer
 var _stream_cache: Dictionary = {}
 var _current_bgm_track := ""
@@ -59,7 +58,7 @@ func _create_bgm_player() -> void:
 	add_child(_bgm_player)
 
 func _ensure_bgm_player() -> void:
-	if not is_instance_valid(_bgm_player):
+	if not _bgm_player:
 		_create_bgm_player()
 
 func play_sfx(name: String, pitch_scale: float = 1.0) -> void:
@@ -79,7 +78,7 @@ func play_sfx(name: String, pitch_scale: float = 1.0) -> void:
 
 func play_bgm(track: String) -> void:
 	_ensure_bgm_player()
-	if track == "" or (track == _current_bgm_track and is_instance_valid(_bgm_player) and _bgm_player.playing):
+	if track == "" or (track == _current_bgm_track and _bgm_player and _bgm_player.playing):
 		return
 	var base := track.get_basename()
 	var candidates := [bgm_path + track, bgm_path + base + ".ogg", bgm_path + base + ".wav", bgm_path + base + ".mp3"]
@@ -92,15 +91,14 @@ func play_bgm(track: String) -> void:
 		stop_bgm()
 		_current_bgm_track = ""
 		return
-	if is_instance_valid(_bgm_fade_tween):
+	if _bgm_fade_tween:
 		_bgm_fade_tween.kill()
-	var reduced := _reduced_motion or get_reduced_motion()
-	var fade_time := 0.09 if reduced else 0.22
-	if is_instance_valid(_bgm_player) and _bgm_player.playing:
+	var fade_time := 0.6
+	if _bgm_player and _bgm_player.playing:
 		_bgm_fade_tween = create_tween()
 		_bgm_fade_tween.tween_property(_bgm_player, "volume_db", -46.0, fade_time * 0.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 		_bgm_fade_tween.tween_callback(func():
-			if not is_instance_valid(_bgm_player):
+			if not _bgm_player:
 				return
 			_bgm_player.stop()
 			var stream := _load_stream(resolved_path)
@@ -109,7 +107,7 @@ func play_bgm(track: String) -> void:
 				_bgm_player.volume_db = -6.0
 				_bgm_player.play()
 		)
-		if not reduced and fade_time > 0.0:
+		if fade_time > 0.0:
 			_bgm_fade_tween.tween_property(_bgm_player, "volume_db", -6.0, fade_time * 0.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	else:
 		var stream := _load_stream(resolved_path)
@@ -120,17 +118,17 @@ func play_bgm(track: String) -> void:
 	_current_bgm_track = track
 
 func stop_bgm() -> void:
-	if is_instance_valid(_bgm_fade_tween):
+	if _bgm_fade_tween:
 		_bgm_fade_tween.kill()
 		_bgm_fade_tween = null
-	if is_instance_valid(_bgm_player):
+	if _bgm_player:
 		_bgm_player.stop()
 	_current_bgm_track = ""
 
 func duck_music(target: float = 0.18, duration: float = 0.25) -> void:
 	if _music_volume_before_duck < 0.0:
 		_music_volume_before_duck = get_music_volume()
-	if is_instance_valid(_duck_tween):
+	if _duck_tween:
 		_duck_tween.kill()
 	var idx := AudioServer.get_bus_index(MUSIC_BUS)
 	if idx == -1:
@@ -148,7 +146,7 @@ func restore_music(duration: float = 0.3) -> void:
 	var idx := AudioServer.get_bus_index(MUSIC_BUS)
 	if idx == -1:
 		return
-	if is_instance_valid(_duck_tween):
+	if _duck_tween:
 		_duck_tween.kill()
 	var cur_db := AudioServer.get_bus_volume_db(idx)
 	var target_db := linear_to_db(clampf(target_lin, 0.001, 1.0))
@@ -168,13 +166,6 @@ func set_music_volume(v: float) -> void:
 
 func get_music_volume() -> float:
 	return clampf(float(_load_key("music_volume", 0.65)), 0.0, 1.0)
-
-func set_reduced_motion(v: bool) -> void:
-	_reduced_motion = v
-	_persist_volume("reduced_motion", v)
-
-func get_reduced_motion() -> bool:
-	return bool(_load_key("reduced_motion", _reduced_motion))
 
 func set_sfx_volume(v: float) -> void:
 	var idx := AudioServer.get_bus_index(SFX_BUS)

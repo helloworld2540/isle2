@@ -6,12 +6,12 @@ extends Camera2D
 
 func _ready() -> void:
 	set_as_top_level(true)
-	if is_instance_valid(get_parent()):
+	if get_parent():
 		global_position = get_parent().global_position
 
 func _process(delta: float) -> void:
 	var parent := get_parent()
-	if parent == null or not is_instance_valid(parent):
+	if parent == null or not parent:
 		return
 	var target: Vector2 = parent.global_position
 	var diff: Vector2 = target - global_position

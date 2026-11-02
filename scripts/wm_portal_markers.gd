@@ -24,7 +24,7 @@ func _process(_delta: float) -> void:
 	for instance_id in _markers.keys():
 		if not active_node_ids.has(instance_id):
 			var m: Label = _markers[instance_id]
-			if is_instance_valid(m):
+			if m:
 				m.queue_free()
 			_markers.erase(instance_id)
 
@@ -45,7 +45,7 @@ func _process_nodes(parent: Node, canvas_transform: Transform2D, vp: Vector2, ac
 				if screen_pos.x >= 0 and screen_pos.x <= vp.x and screen_pos.y >= 0 and screen_pos.y <= vp.y:
 					if _markers.has(instance_id):
 						var m: Label = _markers[instance_id]
-						if is_instance_valid(m):
+						if m:
 							m.queue_free()
 						_markers.erase(instance_id)
 				else:
@@ -63,7 +63,7 @@ func _process_nodes(parent: Node, canvas_transform: Transform2D, vp: Vector2, ac
 					else:
 						marker = _markers[instance_id]
 						
-					if is_instance_valid(marker):
+					if marker:
 						var dx_left := -screen_pos.x
 						var dx_right := screen_pos.x - vp.x
 						var dy_top := -screen_pos.y
@@ -86,7 +86,7 @@ func _process_nodes(parent: Node, canvas_transform: Transform2D, vp: Vector2, ac
 						var dist_text := ""
 						if is_portal:
 							var player := get_tree().get_first_node_in_group("player")
-							if is_instance_valid(player):
+							if player:
 								var d := int(round(node.global_position.distance_to(player.global_position) / 100.0))
 								dist_text = " " + str(d) + "m"
 						if dist_text.strip_edges() != "":

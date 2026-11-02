@@ -19,13 +19,15 @@ func save_game(data: Dictionary) -> void:
 
 func load_game() -> Dictionary:
 	if not has_save():
-		return {}
+		return {"money": 0}
 	var file := FileAccess.open(SAVE_PATH, FileAccess.READ)
 	if file == null:
-		return {}
+		return {"money": 0}
 	var text := file.get_as_text()
 	file.close()
 	var result = JSON.parse_string(text)
 	if result is Dictionary:
+		if not result.has("money"):
+			result["money"] = 0
 		return result
-	return {}
+	return {"money": 0}

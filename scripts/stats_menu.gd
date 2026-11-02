@@ -1,21 +1,20 @@
 extends Control
 
-@onready var stats_label: Label = get_node_or_null("StatsLabel")
-@onready var back_button: Button = get_node_or_null("BackButton")
-@onready var volume_slider: HSlider = get_node_or_null("VolumeSlider")
-@onready var reduce_checkbox: CheckBox = get_node_or_null("ReduceMotion")
+@onready var stats_label: Label = $"StatsLabel"
+@onready var back_button: Button = $"BackButton"
+@onready var volume_slider: HSlider = $"VolumeSlider"
+@onready var reduce_checkbox: CheckBox = $"ReduceMotion"
 
 func _ready() -> void:
 	GameState.restore()
-	if is_instance_valid(stats_label):
+	if stats_label:
 		stats_label.text = _stats_text()
-	if is_instance_valid(back_button):
+	if back_button:
 		back_button.pressed.connect(_on_back)
-	if is_instance_valid(volume_slider):
+	if volume_slider:
 		volume_slider.value = AudioManager.get_master_volume() * 100.0
 		volume_slider.value_changed.connect(_on_volume_changed)
-	if is_instance_valid(reduce_checkbox):
-		reduce_checkbox.button_pressed = AudioManager.get_reduced_motion()
+	if reduce_checkbox:
 		reduce_checkbox.toggled.connect(_on_reduce_toggled)
 
 func _stats_text() -> String:
@@ -40,9 +39,7 @@ func _on_volume_changed(v: float) -> void:
 	SaveManager.save_game(sd)
 
 func _on_reduce_toggled(v: bool) -> void:
-	AudioManager.set_reduced_motion(v)
 	var sd := SaveManager.load_game()
-	sd["reduced_motion"] = v
 	SaveManager.save_game(sd)
 
 func _on_back() -> void:

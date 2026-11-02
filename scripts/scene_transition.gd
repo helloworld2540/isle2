@@ -9,7 +9,7 @@ func is_busy() -> bool:
 func instant_clear() -> void:
 	# Drop any in-flight fade and make the overlay transparent immediately.
 	busy = false
-	if is_instance_valid(fade):
+	if fade:
 		fade.color.a = 0.0
 		fade.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
@@ -31,10 +31,6 @@ func change_scene(path: String) -> void:
 	var fade_in_time := 0.5
 	var hold_time := 1.0
 	var fade_out_time := 0.5
-	if AudioManager.get_reduced_motion():
-		fade_in_time = 0.12
-		hold_time = 0.05
-		fade_out_time = 0.12
 	var tween := create_tween()
 	fade.mouse_filter = Control.MOUSE_FILTER_STOP
 	tween.tween_property(fade, "color:a", 1.0, fade_in_time)
@@ -44,7 +40,7 @@ func change_scene(path: String) -> void:
 	await get_tree().process_frame
 	await get_tree().process_frame
 	# Fade out instantly: pausing the tree stops tweens, so the fade-out must not depend on time.
-	if is_instance_valid(fade):
+	if fade:
 		fade.color.a = 0.0
 		fade.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	busy = false

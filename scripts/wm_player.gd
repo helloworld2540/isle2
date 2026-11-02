@@ -2,8 +2,8 @@ extends CharacterBody2D
 
 @export var MOVE_TIME := 0.3
 
-@onready var animated_sprite: AnimatedSprite2D = get_node_or_null("AnimatedSprite2D")
-@onready var world_map: TileMapLayer = get_node_or_null("../WorldMap")
+@onready var animated_sprite: AnimatedSprite2D = $"AnimatedSprite2D"
+@onready var world_map: TileMapLayer = $"../WorldMap"
 
 var is_moving := false
 var path: PackedVector2Array = []
@@ -25,14 +25,14 @@ func _refresh_move_time() -> void:
 	MOVE_TIME = max(0.05, (0.3 / mult) * 0.5 + 0.15)
 
 func _clear_highlight() -> void:
-	if not is_instance_valid(_path_highlight):
+	if not _path_highlight:
 		return
 	for c in _path_highlight.get_children():
 		c.queue_free()
 
 func _refresh_highlight() -> void:
 	_clear_highlight()
-	if not is_instance_valid(world_map) or not is_instance_valid(_path_highlight):
+	if not world_map or not _path_highlight:
 		return
 	for world_pos in path:
 		var tile := load("res://scenes/ui/color_rect.tscn").instantiate() as ColorRect
@@ -55,14 +55,14 @@ func _calculate_path_to(world_pos: Vector2) -> void:
 	var starting_pos := global_target_pos if is_moving else global_position
 	var start_cell := Vector2i.ZERO
 	var end_cell := Vector2i.ZERO
-	if is_instance_valid(world_map):
+	if world_map:
 		start_cell = world_map.local_to_map(world_map.to_local(starting_pos))
 		end_cell = world_map.local_to_map(world_map.to_local(world_pos))
-	if is_instance_valid(world_map) and not _is_walkable(end_cell):
+	if world_map and not _is_walkable(end_cell):
 		end_cell = _nearest_walkable_cell(end_cell, 8)
 	var route := _bfs(start_cell, end_cell)
 	for cell in route:
-		if is_instance_valid(world_map):
+		if world_map:
 			path.append(world_map.to_global(world_map.map_to_local(cell)))
 	_refresh_highlight()
 
@@ -87,7 +87,7 @@ func _on_move_finished() -> void:
 	_refresh_highlight()
 
 func _update_animation(dir: Vector2) -> void:
-	if not is_instance_valid(animated_sprite):
+	if not animated_sprite:
 		return
 	if absf(dir.x) >= absf(dir.y):
 		current_dir = Vector2(signf(dir.x), 0)
@@ -103,7 +103,7 @@ func _update_animation(dir: Vector2) -> void:
 		animated_sprite.play("player_up")
 
 func _is_walkable(cell: Vector2i) -> bool:
-	if not is_instance_valid(world_map):
+	if not world_map:
 		return false
 	var tile_data := world_map.get_cell_tile_data(cell)
 	return tile_data != null and tile_data.get_custom_data("Walkable") == true

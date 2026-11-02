@@ -18,7 +18,7 @@ func _print_walkable_cells() -> void:
 				ts = Vector2(tile_set.tile_size)
 			rect.size = ts
 			rect.global_position = to_global(map_to_local(cell)) - rect.size * 0.5
-			if is_instance_valid(get_parent()):
+			if get_parent():
 				get_parent().add_child(rect)
 
 func _input(event):

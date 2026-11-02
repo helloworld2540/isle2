@@ -14,18 +14,18 @@ var _leaving := false
 var _garbage_combo := 0
 var _combo_timer := 0.0
 
-@onready var items: Node2D = get_node_or_null("Items")
-@onready var drone: CharacterBody2D = get_node_or_null("Drone")
-@onready var timer: Timer = get_node_or_null("SpawnTimer")
-@onready var garbage_label: Label = get_node_or_null("UI/GarbageLabel")
-@onready var fish_label: Label = get_node_or_null("UI/FishLabel")
-@onready var depth_label: Label = get_node_or_null("UI/DepthLabel")
-@onready var return_btn: Button = get_node_or_null("UI/ReturnToMapButton")
+@onready var items: Node2D = $"Items"
+@onready var drone: CharacterBody2D = $"Drone"
+@onready var timer: Timer = $"SpawnTimer"
+@onready var garbage_label: Label = $"UI/GarbageLabel"
+@onready var fish_label: Label = $"UI/FishLabel"
+@onready var depth_label: Label = $"UI/DepthLabel"
+@onready var return_btn: Button = $"UI/ReturnToMapButton"
 
-@onready var game_over_canvas: CanvasLayer = get_node_or_null("GameOverCanvas")
-@onready var go_title: Label = get_node_or_null("GameOverCanvas/GameOverPanel/VBox/Title")
-@onready var go_body: Label = get_node_or_null("GameOverCanvas/GameOverPanel/VBox/Body")
-@onready var go_return_btn: Button = get_node_or_null("GameOverCanvas/GameOverPanel/VBox/ReturnButton")
+@onready var game_over_canvas: CanvasLayer = $"GameOverCanvas"
+@onready var go_title: Label = $"GameOverCanvas/GameOverPanel/VBox/Title"
+@onready var go_body: Label = $"GameOverCanvas/GameOverPanel/VBox/Body"
+@onready var go_return_btn: Button = $"GameOverCanvas/GameOverPanel/VBox/ReturnButton"
 
 var _edge_markers: Dictionary = {}
 var _fish_limit := 3
@@ -33,13 +33,13 @@ var _fish_limit := 3
 const _POPUP_LABEL_SCENE := preload("res://scenes/ui/popup_label.tscn")
 
 func _ready() -> void:
-	if is_instance_valid(timer):
+	if timer:
 		timer.wait_time = SPAWN_INTERVAL
 		if not timer.timeout.is_connected(_spawn_item):
 			timer.timeout.connect(_spawn_item)
 		timer.start()
-	var collect_shape: CollisionShape2D = get_node_or_null("Drone/Area2D/CollisionShape2D")
-	if is_instance_valid(collect_shape) and collect_shape.shape is CircleShape2D:
+	var collect_shape: CollisionShape2D = $"Drone/Area2D/CollisionShape2D"
+	if collect_shape and collect_shape.shape is CircleShape2D:
 		(collect_shape.shape as CircleShape2D).radius = 66.27 + GameState.get_collection_radius_bonus()
 	AudioManager.play_bgm("reef")
 	if ResourceLoader.exists("res://scenes/minigame_intro.tscn"):
@@ -48,9 +48,9 @@ func _ready() -> void:
 		if intro.has_method("setup"):
 			intro.setup("Reef Rescue", ["Dive with your drone to collect floating garbage.", "Avoid jellyfish and fish — 3 hits ends the run.", "Garbage becomes Reef Debris on return.", "Recycle Reef Debris at the Upcycle bench into materials.", "Controls: drag to steer; momentum matters. ESC/Return finishes early."])
 	_update_ui()
-	if is_instance_valid(return_btn):
+	if return_btn:
 		return_btn.pressed.connect(_leave_to_map)
-	if is_instance_valid(go_return_btn):
+	if go_return_btn:
 		go_return_btn.pressed.connect(_leave_after_summary)
 
 func _process(delta: float) -> void:
@@ -62,21 +62,21 @@ func _process(delta: float) -> void:
 			_garbage_combo = 0
 	var vp := get_viewport_rect().size
 	var bg_speed := 0.0
-	if is_instance_valid(drone):
+	if drone:
 		bg_speed = (MAX_BG_SPEED * (drone.position.y / max(1.0, vp.y)) + MIN_BG_SPEED) * delta
 	else:
 		bg_speed = MAX_BG_SPEED * delta
-	if is_instance_valid(items):
+	if items:
 		for c in items.get_children():
 			if c is Fish:
 				c.process(bg_speed, delta)
-	var parallax := get_node_or_null("ParallaxBackground")
-	if is_instance_valid(parallax):
+	var parallax := $"ParallaxBackground"
+	if parallax:
 		parallax.scroll_offset.y -= bg_speed
 	depth += bg_speed / 10.0
-	if is_instance_valid(timer):
+	if timer:
 		timer.wait_time = clampf(0.8 - depth / 3000.0, 0.32, 0.8)
-	if is_instance_valid(drone):
+	if drone:
 		drone.position += drag_velocity * GameState.get_move_speed_multiplier()
 		if not (60 < drone.position.x and drone.position.x < vp.x - 60):
 			drone.position.x = clampf(drone.position.x, 60, vp.x - 60)
@@ -102,10 +102,10 @@ func _input(event: InputEvent) -> void:
 		drag_velocity += (drag_velocity + event.relative) * 0.5
 
 func _spawn_item() -> void:
-	if is_instance_valid(items) and items.get_child_count() >= 18:
+	if items and items.get_child_count() >= 18:
 		return
 	var item: Fish = preload("res://scenes/rr_fish.tscn").instantiate()
-	if is_instance_valid(items):
+	if items:
 		items.add_child(item)
 	item.add_to_group("items")
 	item.modulate.a = 0.0
@@ -121,12 +121,12 @@ func _spawn_item() -> void:
 func _update_edge_markers() -> void:
 	var vp := get_viewport_rect().size
 	var targets: Array = []
-	if is_instance_valid(items):
+	if items:
 		for c in items.get_children():
-			if is_instance_valid(c):
+			if c:
 				targets.append(c)
 	for child in targets:
-		if not is_instance_valid(child):
+		if not child:
 			continue
 		var next := child as Node2D
 		if next == null or not next.is_inside_tree():
@@ -147,7 +147,7 @@ func _update_edge_markers() -> void:
 			_edge_markers[id] = marker
 		else:
 			marker = _edge_markers[id]
-		if not is_instance_valid(marker):
+		if not marker:
 			continue
 		var x := clampf(pos.x, 12.0, vp.x - 12.0)
 		var y := clampf(pos.y, 12.0, vp.y - 12.0)
@@ -164,7 +164,7 @@ func _update_edge_markers() -> void:
 func _clear_marker(id: int) -> void:
 	if _edge_markers.has(id):
 		var m: Label = _edge_markers[id]
-		if is_instance_valid(m):
+		if m:
 			m.queue_free()
 		_edge_markers.erase(id)
 
@@ -173,11 +173,11 @@ func _clear_edge_markers() -> void:
 		_clear_marker(id)
 
 func _update_ui() -> void:
-	if is_instance_valid(garbage_label):
+	if garbage_label:
 		garbage_label.text = "Collected %d kg of garbage" % garbage
-	if is_instance_valid(fish_label):
+	if fish_label:
 		fish_label.text = "Fish bumps: %d / %d" % [fish, _fish_limit]
-	if is_instance_valid(depth_label):
+	if depth_label:
 		depth_label.text = "%d m" % depth
 
 func _popup(msg: String, col: Color) -> void:
@@ -185,11 +185,11 @@ func _popup(msg: String, col: Color) -> void:
 	if msg != "":
 		lbl.text = msg
 	lbl.modulate = col
-	if is_instance_valid(items):
+	if items:
 		items.add_child(lbl)
 	else:
 		add_child(lbl)
-	lbl.position = (drone.global_position if is_instance_valid(drone) else Vector2.ZERO) + Vector2(-20, -40)
+	lbl.position = (drone.global_position if drone else Vector2.ZERO) + Vector2(-20, -40)
 	var tw := lbl.create_tween()
 	tw.tween_property(lbl, "position", lbl.position + Vector2(0, -42), 0.7).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	tw.parallel().tween_property(lbl, "modulate:a", 0.0, 0.7)
@@ -216,8 +216,8 @@ func _sparkle(at: Vector2, col: Color) -> void:
 	tw.tween_callback(p.queue_free)
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	var root := body.get_parent() if is_instance_valid(body) else null
-	if not is_instance_valid(root) or not root.is_in_group("items"):
+	var root := body.get_parent() if body else null
+	if not root or not root.is_in_group("items"):
 		return
 	var pos := (root as Node2D).global_position
 	var vp := get_viewport_rect().size
@@ -234,7 +234,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		AudioManager.play_sfx("sort_bad")
 		_popup("-1 life", Color(1.0, 0.4, 0.4, 1.0))
 		_sparkle(root.global_position, Color(1.0, 0.4, 0.4, 1.0))
-		var ap := root.get_node_or_null("AnimationPlayer")
+		var ap := root.get_node("AnimationPlayer")
 		if ap:
 			ap.play("run")
 		if fish >= _fish_limit:
@@ -252,7 +252,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		var t := "+%d kg" % weight if multiplier <= 1 else "+%d kg x%d" % [weight, multiplier]
 		_popup(t, Color(0.95, 0.95, 0.35, 1.0))
 		_sparkle(root.global_position, Color(0.95, 0.95, 0.35, 1.0))
-		var ap2 := root.get_node_or_null("AnimationPlayer")
+		var ap2 := root.get_node("AnimationPlayer")
 		if ap2:
 			ap2.play("suck")
 		if GameState.get_free_capacity() <= 0:
@@ -271,11 +271,11 @@ func _game_over_summary() -> void:
 		var bonus := 5 * GameState.deep_cache_tier + 3 * GameState.inventory_capacity_level
 		debris_total += bonus
 	var accepted := GameState.add_trash_type_weighted("Reef Debris", debris_total)
-	if accepted == 0 and is_instance_valid(drone):
+	if accepted == 0 and drone:
 		_popup("Inventory full - sell trash", Color(1.0, 0.4, 0.4, 1.0))
-	if is_instance_valid(go_body):
+	if go_body:
 		go_body.text = "Bumped into %d fish\nGarbage collected: %d kg\nDepth: %d m\n\nReef debris earned: %d" % [fish, int(garbage), int(depth), accepted]
-	if is_instance_valid(game_over_canvas):
+	if game_over_canvas:
 		game_over_canvas.layer = 110
 		get_tree().paused = false
 		game_over_canvas.visible = true
@@ -284,28 +284,14 @@ func _game_over_summary() -> void:
 
 func _leave_after_summary() -> void:
 	get_tree().paused = false
-	if is_instance_valid(game_over_canvas):
+	if game_over_canvas:
 		game_over_canvas.visible = false
 	AudioManager.play_sfx("return")
 	SceneTransition.change_scene("res://scenes/world.tscn")
 
 func _leave_to_map() -> void:
-	if _leaving:
-		return
-	_leaving = true
-	running = false
-	_clear_edge_markers()
-	GameState.record_reef(garbage, fish)
-	var debris_total := int(max(1.0, round(garbage)))
-	if GameState.deep_cache:
-		var bonus := 5 * GameState.deep_cache_tier + 3 * GameState.inventory_capacity_level
-		debris_total += bonus
-		_popup("+%d Deep Cache debris" % bonus, Color(0.45, 0.85, 1.0, 1.0))
-	var accepted := GameState.add_trash_type_weighted("Reef Debris", debris_total)
-	if accepted < debris_total and is_instance_valid(drone):
-		_popup("%d over capacity" % (debris_total - accepted), Color(0.95, 0.5, 0.35, 1.0))
-	AudioManager.play_sfx("return")
-	SceneTransition.change_scene("res://scenes/world.tscn")
+	_game_over_summary()
+	return
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel") and running:
@@ -322,7 +308,7 @@ func _start_game_over_juice() -> void:
 	for i in range(14):
 		shake.tween_property(cam, "offset", base_offset + Vector2(randf_range(-14.0, 14.0), randf_range(-14.0, 14.0)), 0.04)
 	shake.tween_property(cam, "offset", base_offset, 0.1)
-	shake.tween_callback(func(): if is_instance_valid(cam): cam.queue_free())
+	shake.tween_callback(func(): if cam: cam.queue_free())
 	var confetti := load("res://scenes/ui/c_p_u_particles2_d.tscn").instantiate() as CPUParticles2D
 	confetti.one_shot = true
 	confetti.explosiveness = 1.0

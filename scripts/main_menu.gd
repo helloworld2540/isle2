@@ -30,8 +30,8 @@ func _wire_buttons() -> void:
 	_more_stats_button.custom_minimum_size = Vector2(200, 36)
 	_more_stats_button.visible = SaveManager.has_save()
 	_more_stats_button.pressed.connect(_on_stats_pressed)
-	if is_instance_valid(save_summary_panel):
-		var vbox: VBoxContainer = save_summary_panel.get_node_or_null("VBoxContainer")
+	if save_summary_panel:
+		var vbox: VBoxContainer = save_summary_panel.get_node("VBoxContainer")
 		if vbox:
 			vbox.add_child(_more_stats_button)
 
@@ -110,14 +110,14 @@ func _play_entrance_animation() -> void:
 		save_summary_panel, 
 	]
 	for t in targets:
-		if not is_instance_valid(t):
+		if not t:
 			continue
 		t.modulate.a = 0.0
 		t.scale = Vector2(0.9, 0.9)
 	var ease_tw := create_tween()
 	for i in range(targets.size()):
 		var t: Control = targets[i]
-		if not is_instance_valid(t):
+		if not t:
 			continue
 		ease_tw.tween_interval(0.08 * float(i))
 		ease_tw.tween_property(t, "modulate:a", 1.0, 0.25).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)

@@ -44,6 +44,11 @@ custom_bind_ip=""
 port_override_enabled=false
 port_override=6550
 
+[gui]
+
+theme/custom="uid://b3lluk0kntgej"
+theme/custom_font="uid://b1txvn4cteyse"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"

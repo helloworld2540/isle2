@@ -3,13 +3,13 @@ class_name Trash
 
 const TRASH_MAP := {
 	"trash_net.png": ["Nylon", 35],
-	"trash_bottle.png": ["Polyethylene", 15],
+	"trash_bottle.png": ["Glass", 15],
 	"trash_plasticblue.png": ["Polypropylene", 40],
 	"trash_plasticwhite.png": ["Polypropylene", 35],
 	"trash_straw.png": ["Polyethylene", 17],
 }
 
-@onready var sprite = get_node_or_null("Body/Sprite")
+@onready var sprite = $"Body/Sprite"
 
 var mat := ""
 var size := 1
@@ -18,7 +18,7 @@ func init(texture: String) -> void:
 	if not TRASH_MAP.has(texture):
 		mat = "Polyethylene"
 		size = 1
-		if is_instance_valid(sprite):
+		if sprite:
 			sprite.texture = null
 		return
 	var entry: Array = TRASH_MAP[texture]
@@ -26,7 +26,7 @@ func init(texture: String) -> void:
 	size = int(entry[1])
 	set_meta("material", mat)
 	set_meta("size", size)
-	if is_instance_valid(sprite):
+	if sprite:
 		var tex := load("res://sprites/rr/" + texture)
 		if tex is Texture2D:
 			sprite.texture = tex

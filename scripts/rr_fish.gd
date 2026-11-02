@@ -31,7 +31,7 @@ func init_fish() -> void:
 	var clamped := clampf(raw_size, 1.0, 99.0)
 	size = log(clamped) / log(100.0)
 	speed = Vector2(randfn(0.0, 75.0), randfn(1.0, 0.4))
-	if is_instance_valid(sprite):
+	if sprite:
 		var tex := load("res://sprites/rr/" + texture)
 		if tex is Texture2D:
 			sprite.texture = tex
@@ -46,14 +46,14 @@ func init_garbage() -> void:
 	var clamped := clampf(raw_size, 1.0, 99.0)
 	size = log(clamped) / log(100.0)
 	speed = Vector2(randfn(0.0, 25.0), randfn(1.0, 0.2))
-	if is_instance_valid(sprite):
+	if sprite:
 		var tex := load("res://sprites/rr/" + texture)
 		if tex is Texture2D:
 			sprite.texture = tex
 	rotation_degrees = randi_range(0, 360)
-	if is_instance_valid(sprite):
+	if sprite:
 		sprite.flip_h = randf() > 0.5
-	if texture == "trash_straw.png" and is_instance_valid(sprite):
+	if texture == "trash_straw.png" and sprite:
 		sprite.modulate = Color.from_hsv(randf(), 1.0, 1.0)
 
 func _ready() -> void:

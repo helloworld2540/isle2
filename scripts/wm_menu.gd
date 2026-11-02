@@ -1,12 +1,10 @@
 extends CanvasLayer
 # World map pause/menu overlay.
 
-@onready var panel: Control = get_node_or_null("MenuPanel")
-@onready var resume_button: Button = get_node_or_null("MenuPanel/VBoxContainer/ResumeButton")
-@onready var save_button: Button = get_node_or_null("MenuPanel/VBoxContainer/SaveButton")
-@onready var summary_label: Label = get_node_or_null("MenuPanel/VBoxContainer/SummaryLabel")
-@onready var inventory_list: Label = get_node_or_null("MenuPanel/VBoxContainer/InventoryList")
-@onready var cap_status: Label = get_node_or_null("MenuPanel/VBoxContainer/CapStatus")
+@onready var panel: Control = $"MenuPanel"
+@onready var resume_button: Button = $"MenuPanel/HBoxContainer/VBoxContainer/ResumeButton"
+@onready var save_button: Button = $"MenuPanel/HBoxContainer/VBoxContainer/SaveButton"
+@onready var cap_status: Label = $"MenuPanel/HBoxContainer/VBoxContainer/CapStatus"
 
 var _toggling := false
 
@@ -26,30 +24,30 @@ var _music_slider: HSlider = null
 var _sfx_slider: HSlider = null
 var _reduce_checkbox: CheckBox = null
 
-@onready var upgrades_panel: PanelContainer = get_node_or_null("MenuPanel/VBoxContainer/UpgradesPanel")
-@onready var upgrade_panel: VBoxContainer = get_node_or_null("MenuPanel/VBoxContainer/UpgradesPanel/UpgradePanel")
-@onready var upgrade_status: Label = get_node_or_null("MenuPanel/VBoxContainer/UpgradesPanel/UpgradePanel/UpgradeStatus")
-@onready var move_faster_btn: Button = get_node_or_null("MenuPanel/VBoxContainer/UpgradesPanel/UpgradePanel/MoveFasterBtn")
-@onready var collection_range_btn: Button = get_node_or_null("MenuPanel/VBoxContainer/UpgradesPanel/UpgradePanel/CollectionRangeBtn")
-@onready var deep_cache_btn: Button = get_node_or_null("MenuPanel/VBoxContainer/UpgradesPanel/UpgradePanel/DeepCacheBtn")
-@onready var deep_cache_upgrade_btn: Button = get_node_or_null("MenuPanel/VBoxContainer/UpgradesPanel/UpgradePanel/DeepCacheUpgradeBtn")
-@onready var inventory_cap_btn: Button = get_node_or_null("MenuPanel/VBoxContainer/UpgradesPanel/UpgradePanel/InventoryCapBtn")
+@onready var upgrades_panel: PanelContainer = $"MenuPanel/HBoxContainer/Infobox/UpgradesPanel"
+@onready var upgrade_panel: VBoxContainer = $"MenuPanel/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel"
+@onready var upgrade_status: Label = $"MenuPanel/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel/UpgradeStatus"
+@onready var move_faster_btn: Button = $"MenuPanel/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel/MoveFasterBtn"
+@onready var collection_range_btn: Button = $"MenuPanel/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel/CollectionRangeBtn"
+@onready var deep_cache_btn: Button = $"MenuPanel/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel/DeepCacheBtn"
+@onready var deep_cache_upgrade_btn: Button = $"MenuPanel/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel/DeepCacheUpgradeBtn"
+@onready var inventory_cap_btn: Button = $"MenuPanel/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel/InventoryCapBtn"
 
-@onready var upcycle_progress_box: HBoxContainer = get_node_or_null("MenuPanel/VBoxContainer/ProgressBox")
-@onready var upcycle_label: Label = get_node_or_null("MenuPanel/VBoxContainer/ProgressBox/UpcycleLbl")
-@onready var upcycle_progress: ProgressBar = get_node_or_null("MenuPanel/VBoxContainer/ProgressBox/UpcycleProgress")
-@onready var reef_progress_box: HBoxContainer = get_node_or_null("MenuPanel/VBoxContainer/ReefProgressBox")
-@onready var reef_label: Label = get_node_or_null("MenuPanel/VBoxContainer/ReefProgressBox/ReefLbl")
-@onready var reef_progress: ProgressBar = get_node_or_null("MenuPanel/VBoxContainer/ReefProgressBox/ReefProgress")
+@onready var upcycle_progress_box: HBoxContainer = $"MenuPanel/HBoxContainer/Infobox/ProgressBox"
+@onready var upcycle_label: Label = $"MenuPanel/HBoxContainer/Infobox/ProgressBox/UpcycleLbl"
+@onready var upcycle_progress: ProgressBar = $"MenuPanel/HBoxContainer/Infobox/ProgressBox/UpcycleProgress"
+@onready var reef_progress_box: HBoxContainer = $"MenuPanel/HBoxContainer/Infobox/ReefProgressBox"
+@onready var reef_label: Label = $"MenuPanel/HBoxContainer/Infobox/ReefProgressBox/ReefLbl"
+@onready var reef_progress: ProgressBar = $"MenuPanel/HBoxContainer/Infobox/ReefProgressBox/ReefProgress"
 
-@onready var settings_button: Button = get_node_or_null("MenuPanel/VBoxContainer/SettingsButton")
-@onready var settings_panel: VBoxContainer = get_node_or_null("MenuPanel/VBoxContainer/SettingsPanel")
-@onready var master_slider: HSlider = get_node_or_null("MenuPanel/VBoxContainer/SettingsPanel/MasterSlider")
-@onready var music_slider: HSlider = get_node_or_null("MenuPanel/VBoxContainer/SettingsPanel/MusicSlider")
-@onready var sfx_slider: HSlider = get_node_or_null("MenuPanel/VBoxContainer/SettingsPanel/SfxSlider")
-@onready var reduce_motion_cb: CheckBox = get_node_or_null("MenuPanel/VBoxContainer/SettingsPanel/ReduceMotionCb")
-@onready var master_label: Label = get_node_or_null("MenuPanel/VBoxContainer/SettingsPanel/MasterLabel")
-@onready var music_label: Label = get_node_or_null("MenuPanel/VBoxContainer/SettingsPanel/MusicLabel")
+@onready var settings_button: Button = $"MenuPanel/HBoxContainer/Infobox/SettingsButton"
+@onready var settings_panel: VBoxContainer = $"MenuPanel/HBoxContainer/Infobox/SettingsPanel"
+@onready var master_slider: HSlider = $"MenuPanel/HBoxContainer/Infobox/SettingsPanel/MasterSlider"
+@onready var music_slider: HSlider = $"MenuPanel/HBoxContainer/Infobox/SettingsPanel/MusicSlider"
+@onready var sfx_slider: HSlider = $"MenuPanel/HBoxContainer/Infobox/SettingsPanel/SfxSlider"
+@onready var reduce_motion_cb: CheckBox = $"MenuPanel/HBoxContainer/Infobox/SettingsPanel/ReduceMotionCb"
+@onready var master_label: Label = $"MenuPanel/HBoxContainer/Infobox/SettingsPanel/MasterLabel"
+@onready var music_label: Label = $"MenuPanel/HBoxContainer/Infobox/SettingsPanel/MusicLabel"
 
 var _bgm_cycle_timer: Timer = null
 var _bgm_cycle_index := 0
@@ -59,7 +57,7 @@ var _hud_queue = null
 var _upgrade_status_text_cache := ""
 
 func _ready() -> void:
-	if is_instance_valid(panel):
+	if panel:
 		panel.visible = false
 
 	var saved := SaveManager.load_game()
@@ -72,9 +70,9 @@ func _ready() -> void:
 	_build_settings_ui_static()
 	_build_progress_bars_static()
 
-	if is_instance_valid(resume_button):
+	if resume_button:
 		resume_button.pressed.connect(_on_resume_pressed)
-	if is_instance_valid(save_button):
+	if save_button:
 		save_button.pressed.connect(_on_save_pressed)
 
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -84,17 +82,17 @@ func _ready() -> void:
 	_setup_bgm_cycle()
 
 func _wire_signals() -> void:
-	if is_instance_valid(move_faster_btn):
+	if move_faster_btn:
 		move_faster_btn.pressed.connect(_buy_move)
-	if is_instance_valid(collection_range_btn):
+	if collection_range_btn:
 		collection_range_btn.pressed.connect(_buy_range)
-	if is_instance_valid(deep_cache_btn):
+	if deep_cache_btn:
 		deep_cache_btn.pressed.connect(_buy_deep_cache)
-	if is_instance_valid(deep_cache_upgrade_btn):
+	if deep_cache_upgrade_btn:
 		deep_cache_upgrade_btn.pressed.connect(_buy_deep_cache_upgrade)
-	if is_instance_valid(inventory_cap_btn):
+	if inventory_cap_btn:
 		inventory_cap_btn.pressed.connect(_buy_inv_cap)
-	if is_instance_valid(settings_button):
+	if settings_button:
 		settings_button.pressed.connect(_toggle_settings)
 
 func _build_settings_ui_static() -> void:
@@ -116,34 +114,27 @@ func _build_settings_ui_static() -> void:
 
 	_refresh_upgrade_ui()
 
-	if is_instance_valid(_master_slider):
+	if _master_slider:
 		_master_slider.value = AudioManager.get_master_volume() * 100.0
 		_master_slider.value_changed.connect(func(v): AudioManager.set_master_volume(v / 100.0))
-	if is_instance_valid(_music_slider):
+	if _music_slider:
 		_music_slider.value = AudioManager.get_music_volume() * 100.0
 		_music_slider.value_changed.connect(func(v): AudioManager.set_music_volume(v / 100.0))
-	if is_instance_valid(_sfx_slider):
+	if _sfx_slider:
 		_sfx_slider.value = AudioManager.get_sfx_volume() * 100.0
 		_sfx_slider.value_changed.connect(func(v): AudioManager.set_sfx_volume(v / 100.0))
-	if is_instance_valid(_reduce_checkbox):
-		_reduce_checkbox.button_pressed = AudioManager.get_reduced_motion()
-		_reduce_checkbox.toggled.connect(func(v): AudioManager.set_reduced_motion(v))
 
 func _build_progress_bars_static() -> void:
-	if is_instance_valid(_up_bar):
+	if _up_bar:
 		_up_bar.max_value = max(1.0, float(max(1, GameState.best_upcycle_score)))
 		_up_bar.value = min(_up_bar.max_value, float(GameState.upcycle_score))
-	if is_instance_valid(_reef_bar):
+	if _reef_bar:
 		_reef_bar.max_value = max(1.0, float(max(10, GameState.best_reef_depth)))
 		_reef_bar.value = min(_reef_bar.max_value, GameState.reef_garbage)
 
 func _process(_delta: float) -> void:
-	if is_instance_valid(panel) and panel.visible and is_instance_valid(summary_label):
-		summary_label.text = "Trash: %d kg | Upcycle Score: %d | Best Streak: %d" % [GameState.trash_inventory, GameState.upcycle_score, GameState.best_sort_streak]
-		if is_instance_valid(inventory_list):
-			inventory_list.text = _format_inventory()
+	if panel and panel.visible:
 		_update_progress_bars()
-		_update_cap_status()
 
 func _format_inventory() -> String:
 	var lines := []
@@ -159,14 +150,14 @@ func _toggle() -> void:
 	if _toggling:
 		return
 	_toggling = true
-	if is_instance_valid(panel):
+	if panel:
 		panel.visible = not panel.visible
 		get_tree().paused = panel.visible
 		if panel.visible:
 			_refresh_upgrade_ui()
-			if is_instance_valid(resume_button):
+			if resume_button:
 				resume_button.grab_focus()
-			if not AudioManager.get_reduced_motion():
+			if true:
 				var fade_tw := create_tween()
 				panel.modulate = Color(1.0, 1.0, 1.0, 0.0)
 				fade_tw.tween_property(panel, "modulate:a", 1.0, 0.16).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
@@ -175,9 +166,9 @@ func _toggle() -> void:
 	_toggling = false
 
 func _toggle_settings() -> void:
-	if is_instance_valid(_settings_panel):
+	if _settings_panel:
 		_settings_panel.visible = not _settings_panel.visible
-	if is_instance_valid(_settings_button):
+	if _settings_button:
 		_settings_button.text = "Settings ▲" if _settings_panel.visible else "Settings ▼"
 
 func _clamp_menu_width() -> void:
@@ -188,8 +179,8 @@ func _clamp_menu_width() -> void:
 		vw = maxf(1.0, float(DisplayServer.window_get_size().x))
 		vh = maxf(1.0, float(DisplayServer.window_get_size().y))
 	var w: float = clampf(min(440.0, vw - 32.0), 200.0, 440.0)
-	if is_instance_valid(panel):
-		var vbox := panel.get_node_or_null("VBoxContainer")
+	if panel:
+		var vbox := panel.get_node("VBoxContainer")
 		if vbox:
 			vbox.custom_minimum_size.x = w
 			vbox.custom_maximum_size.x = w
@@ -204,11 +195,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 
 func _on_resume_pressed() -> void:
-	if is_instance_valid(panel):
+	if panel:
 		panel.visible = false
 	get_tree().paused = false
-	if is_instance_valid(summary_label):
-		summary_label.text = "Trash in inventory: %d" % GameState.trash_inventory
 
 func _on_save_pressed() -> void:
 	var player := get_tree().get_first_node_in_group("player")
@@ -218,7 +207,7 @@ func _on_save_pressed() -> void:
 	var data := SaveManager.load_game()
 	data["player_position"] = position_value
 	SaveManager.save_game(data)
-	if is_instance_valid(panel):
+	if panel:
 		panel.visible = false
 	get_tree().paused = false
 	SceneTransition.change_scene("res://scenes/main_menu.tscn")
@@ -331,28 +320,26 @@ func _range_cost() -> int:
 	return 12 + int(SaveManager.load_game().get("upgrade_range", 0)) * 6
 
 func _refresh_upgrade_ui() -> void:
-	if is_instance_valid(_upgrade_status):
+	if _upgrade_status:
 		_upgrade_status.text = _upgrade_status_text()
-	if is_instance_valid(_deep_cache_btn):
+	if _deep_cache_btn:
 		_deep_cache_btn.text = _deep_cache_text()
 		_deep_cache_btn.disabled = GameState.deep_cache
-	if is_instance_valid(_deep_cache_upgrade_btn):
+	if _deep_cache_upgrade_btn:
 		_deep_cache_upgrade_btn.text = _deep_cache_upgrade_text()
 		_deep_cache_upgrade_btn.disabled = (not GameState.deep_cache)
-	if is_instance_valid(_inv_cap_btn):
+	if _inv_cap_btn:
 		var cost := 6 + GameState.inventory_capacity_level * 3
 		_inv_cap_btn.disabled = GameState.trash_inventory < cost
 		_inv_cap_btn.text = _inv_cap_text()
-	if is_instance_valid(_upgrade_fast_btn):
+	if _upgrade_fast_btn:
 		var cost := _move_cost()
 		_upgrade_fast_btn.disabled = GameState.trash_inventory < cost
 		_upgrade_fast_btn.text = _move_cost_text()
-	if is_instance_valid(_upgrade_range_btn):
+	if _upgrade_range_btn:
 		var cost := _range_cost()
 		_upgrade_range_btn.disabled = GameState.trash_inventory < cost
 		_upgrade_range_btn.text = _range_cost_text()
-	if is_instance_valid(summary_label):
-		summary_label.text = "Trash: %d kg | Upcycle Score: %d | Best Streak: %d" % [GameState.trash_inventory, GameState.upcycle_score, GameState.best_sort_streak]
 
 func _ensure_hud_queue() -> void:
 	if _hud_queue == null:
@@ -364,21 +351,21 @@ func _toast(text: String) -> void:
 	_hud_queue.push(text, Color(1.0, 0.85, 0.35, 1.0), 1.4)
 
 func _flash(btn: Button) -> void:
-	if not is_instance_valid(btn):
+	if not btn:
 		return
 	var tw := btn.create_tween()
 	btn.modulate = Color(1.0, 0.4, 0.4, 1.0)
 	tw.tween_property(btn, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.5)
 
 func _flash_success(btn: Button) -> void:
-	if not is_instance_valid(btn):
+	if not btn:
 		return
 	var tw := btn.create_tween()
 	btn.modulate = Color(0.5, 1.0, 0.55, 1.0)
 	tw.tween_property(btn, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.6)
 
 func _spawn_upgrade_sparkle(anchor: Control) -> void:
-	if not is_instance_valid(anchor):
+	if not anchor:
 		return
 	var p := load("res://scenes/ui/c_p_u_particles2_d.tscn").instantiate() as CPUParticles2D
 	p.one_shot = true
@@ -401,7 +388,7 @@ func _spawn_upgrade_sparkle(anchor: Control) -> void:
 	tw.tween_callback(p.queue_free)
 
 func _update_progress_bars() -> void:
-	if not is_instance_valid(_up_bar) or not is_instance_valid(_reef_bar):
+	if not _up_bar or not _reef_bar:
 		return
 	_up_bar.max_value = max(1.0, float(max(1, GameState.best_upcycle_score)))
 	_up_bar.value = min(_up_bar.max_value, float(GameState.upcycle_score))
@@ -409,7 +396,7 @@ func _update_progress_bars() -> void:
 	_reef_bar.value = min(_reef_bar.max_value, GameState.reef_garbage)
 
 func _update_cap_status() -> void:
-	if not is_instance_valid(cap_status):
+	if not cap_status:
 		return
 	var cap: int = max(1, GameState.get_inventory_capacity())
 	var ratio := float(GameState.trash_inventory) / float(cap)
@@ -423,7 +410,7 @@ func _update_cap_status() -> void:
 		cap_status.text = ""
 
 func _setup_bgm_cycle() -> void:
-	if is_instance_valid(_bgm_cycle_timer):
+	if _bgm_cycle_timer:
 		return
 	_bgm_cycle_timer = load("res://scenes/ui/timer.tscn").instantiate() as Timer
 	_bgm_cycle_timer.wait_time = 18.0
@@ -433,7 +420,7 @@ func _setup_bgm_cycle() -> void:
 	_bgm_cycle_timer.start()
 
 func _tick_bgm_cycle() -> void:
-	if AudioManager.get_reduced_motion():
+	if false:
 		return
 	_bgm_cycle_index = (_bgm_cycle_index + 1) % _bgm_cycle_tracks.size()
 	AudioManager.play_bgm(_bgm_cycle_tracks[_bgm_cycle_index])

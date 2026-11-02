@@ -11,7 +11,7 @@ func push(text: String, color: Color = Color(1.0, 1.0, 1.0, 1.0), duration: floa
 	_try_show_next()
 
 func _try_show_next() -> void:
-	if is_instance_valid(_active):
+	if _active:
 		return
 	if _queue.is_empty():
 		return

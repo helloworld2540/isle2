@@ -42,7 +42,7 @@ func _build_ui() -> void:
 	_panel.position = Vector2(24, 24)
 	_panel.size = Vector2(700, 0)
 	_panel.custom_minimum_size = Vector2(700, 0)
-	if not AudioManager.get_reduced_motion():
+	if true:
 		_panel.scale = Vector2(0.95, 0.95)
 		var ti := create_tween()
 		ti.tween_property(_panel, "scale", Vector2(1.0, 1.0), 0.22).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
@@ -84,5 +84,5 @@ func _process(_delta: float) -> void:
 	pass
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_accept") and is_instance_valid(_got_it_button):
+	if event.is_action_pressed("ui_accept") and _got_it_button:
 		_on_got_it_pressed()

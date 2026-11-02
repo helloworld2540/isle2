@@ -5,21 +5,21 @@ const BULK_THRESHOLD := 5
 const BULK_MULTIPLIER := 1.25
 const FIVE_SELL_QTY := 5
 
-@onready var coins: Label = get_node_or_null("CanvasLayer/VBoxContainer/Coins")
-@onready var inv: Label = get_node_or_null("CanvasLayer/VBoxContainer/Inventory")
-@onready var preview: Label = get_node_or_null("CanvasLayer/VBoxContainer/Preview")
-@onready var tip: Label = get_node_or_null("CanvasLayer/VBoxContainer/Tip")
-@onready var capacity_status: Label = get_node_or_null("CanvasLayer/VBoxContainer/CapacityStatus")
-@onready var transaction_log: Label = get_node_or_null("CanvasLayer/VBoxContainer/TransactionLog")
+@onready var coins: Label = $"CanvasLayer/VBoxContainer/Coins"
+@onready var inv: Label = $"CanvasLayer/VBoxContainer/Inventory"
+@onready var preview: Label = $"CanvasLayer/VBoxContainer/Preview"
+@onready var tip: Label = $"CanvasLayer/VBoxContainer/Tip"
+@onready var capacity_status: Label = $"CanvasLayer/VBoxContainer/CapacityStatus"
+@onready var transaction_log: Label = $"CanvasLayer/VBoxContainer/TransactionLog"
 
-@onready var row_polyethylene: HBoxContainer = get_node_or_null("CanvasLayer/VBoxContainer/Rows/Row_Polyethylene")
-@onready var row_polypropylene: HBoxContainer = get_node_or_null("CanvasLayer/VBoxContainer/Rows/Row_Polypropylene")
-@onready var row_glass: HBoxContainer = get_node_or_null("CanvasLayer/VBoxContainer/Rows/Row_Glass")
-@onready var row_nylon: HBoxContainer = get_node_or_null("CanvasLayer/VBoxContainer/Rows/Row_Nylon")
-@onready var row_reef_debris: HBoxContainer = get_node_or_null("CanvasLayer/VBoxContainer/Rows/Row_Reef Debris")
+@onready var row_polyethylene: HBoxContainer = $"CanvasLayer/VBoxContainer/Rows/Row_Polyethylene"
+@onready var row_polypropylene: HBoxContainer = $"CanvasLayer/VBoxContainer/Rows/Row_Polypropylene"
+@onready var row_glass: HBoxContainer = $"CanvasLayer/VBoxContainer/Rows/Row_Glass"
+@onready var row_nylon: HBoxContainer = $"CanvasLayer/VBoxContainer/Rows/Row_Nylon"
+@onready var row_reef_debris: HBoxContainer = $"CanvasLayer/VBoxContainer/Rows/Row_Reef Debris"
 
-@onready var back_button: Button = get_node_or_null("CanvasLayer/VBoxContainer/BackButton")
-@onready var undo_button: Button = get_node_or_null("CanvasLayer/VBoxContainer/UndoButton")
+@onready var back_button: Button = $"CanvasLayer/VBoxContainer/BackButton"
+@onready var undo_button: Button = $"CanvasLayer/VBoxContainer/UndoButton"
 
 var _rows: Dictionary = {}
 var _last_sale: Dictionary = {}
@@ -36,48 +36,48 @@ func _ready() -> void:
 	AudioManager.play_bgm("shop")
 
 func _wire_ui() -> void:
-	if not is_instance_valid(row_polyethylene):
+	if not row_polyethylene:
 		return
 	_rows["Polyethylene"] = _wire_row(row_polyethylene, "Polyethylene", 2)
-	if is_instance_valid(row_polypropylene):
+	if row_polypropylene:
 		_rows["Polypropylene"] = _wire_row(row_polypropylene, "Polypropylene", 3)
-	if is_instance_valid(row_glass):
+	if row_glass:
 		_rows["Glass"] = _wire_row(row_glass, "Glass", 5)
-	if is_instance_valid(row_nylon):
+	if row_nylon:
 		_rows["Nylon"] = _wire_row(row_nylon, "Nylon", 4)
-	if is_instance_valid(row_reef_debris):
+	if row_reef_debris:
 		_rows["Reef Debris"] = _wire_row(row_reef_debris, "Reef Debris", 1)
 
-	if is_instance_valid(back_button):
+	if back_button:
 		back_button.pressed.connect(func():
 			AudioManager.play_sfx("return")
 			SceneTransition.change_scene("res://scenes/world.tscn")
 		)
-	if is_instance_valid(undo_button):
+	if undo_button:
 		undo_button.pressed.connect(_undo_last_sale)
 
 func _wire_row(row: HBoxContainer, mat: String, price: int) -> Dictionary:
-	var sell_one: Button = row.get_node_or_null("SellOne")
-	var sell_five: Button = row.get_node_or_null("SellFive")
-	var sell_all: Button = row.get_node_or_null("SellAll")
-	var value_lbl: Label = row.get_node_or_null("Value")
-	var count_lbl: Label = row.get_node_or_null("Count")
-	if is_instance_valid(sell_one):
+	var sell_one: Button = row.get_node("SellOne")
+	var sell_five: Button = row.get_node("SellFive")
+	var sell_all: Button = row.get_node("SellAll")
+	var value_lbl: Label = row.get_node("Value")
+	var count_lbl: Label = row.get_node("Count")
+	if sell_one:
 		sell_one.text = "Sell 1 %s (%d)" % [mat, price]
 		sell_one.pressed.connect(func(): _sell_qty(mat, 1))
-	if is_instance_valid(sell_five):
+	if sell_five:
 		sell_five.text = "Sell 5 %s" % mat
 		sell_five.pressed.connect(func(): _sell_qty(mat, FIVE_SELL_QTY))
-	if is_instance_valid(sell_all):
+	if sell_all:
 		sell_all.pressed.connect(func(): _sell_all(mat))
 	return {"sell_one": sell_one, "sell_five": sell_five, "sell_all": sell_all, "value": value_lbl, "count": count_lbl}
 
 func _refresh() -> void:
-	if is_instance_valid(coins):
+	if coins:
 		coins.text = "Score: %d" % GameState.upcycle_score
-	if is_instance_valid(inv):
+	if inv:
 		inv.text = _inv_text()
-	if is_instance_valid(preview):
+	if preview:
 		preview.text = _preview_text()
 	_update_shop_tip()
 	_update_capacity_status()
@@ -85,7 +85,7 @@ func _refresh() -> void:
 		_refresh_row(mat)
 
 func _update_shop_tip() -> void:
-	if not is_instance_valid(tip):
+	if not tip:
 		return
 	var cap := GameState.get_inventory_capacity()
 	if GameState.get_inventory_weight() >= cap:
@@ -99,7 +99,7 @@ func _update_shop_tip() -> void:
 		tip.modulate = Color(0.85, 1.0, 0.75, 1.0)
 
 func _update_capacity_status() -> void:
-	if not is_instance_valid(capacity_status):
+	if not capacity_status:
 		return
 	var cap := GameState.get_inventory_capacity()
 	var used := GameState.get_inventory_weight()
@@ -121,18 +121,18 @@ func _refresh_row(mat: String) -> void:
 	var value: int = count * price
 	var bulk: bool = count >= BULK_THRESHOLD
 	var btn_all: Button = row_data.get("sell_all", null)
-	if is_instance_valid(btn_all):
+	if btn_all:
 		btn_all.text = "Sell All" + (" (+25%)" if bulk else "")
-	btn_all.disabled = count <= 0 if is_instance_valid(btn_all) else false
+	btn_all.disabled = count <= 0 if btn_all else false
 	var btn_five: Button = row_data.get("sell_five", null)
-	if is_instance_valid(btn_five):
+	if btn_five:
 		btn_five.text = "Sell 5 %s" % mat
 		btn_five.disabled = count < FIVE_SELL_QTY
 	var value_lbl: Label = row_data.get("value", null)
-	if is_instance_valid(value_lbl):
+	if value_lbl:
 		value_lbl.text = "value %d" % value
 	var count_lbl: Label = row_data.get("count", null)
-	if is_instance_valid(count_lbl):
+	if count_lbl:
 		count_lbl.text = "x%d" % count
 		var rarity: String = str(GameState.TRASH_RARITY.get(mat, "common"))
 		var base_color := Color(0.8, 1.0, 0.85, 1.0)
@@ -147,7 +147,7 @@ func _refresh_row(mat: String) -> void:
 			base_color = Color(0.9, 0.5, 0.5, 1.0)
 		count_lbl.modulate = base_color
 	var btn_one: Button = row_data.get("sell_one", null)
-	if is_instance_valid(btn_one):
+	if btn_one:
 		btn_one.disabled = count <= 0
 		btn_one.text = "Sell 1 %s (%d)" % [mat, price]
 
@@ -219,7 +219,7 @@ func _log_sale(text: String) -> void:
 	_tx_log_lines.append(text)
 	if _tx_log_lines.size() > 6:
 		_tx_log_lines.pop_front()
-	if is_instance_valid(transaction_log):
+	if transaction_log:
 		transaction_log.text = "\n".join(_tx_log_lines)
 
 func _undo_last_sale() -> void:
@@ -260,11 +260,11 @@ func _play_denied(feedback_text: String, mat: String) -> void:
 	var btn_all: Button = row_data.get("sell_all", null)
 	var btn_one: Button = row_data.get("sell_one", null)
 	var btn_five: Button = row_data.get("sell_five", null)
-	if is_instance_valid(btn_all):
+	if btn_all:
 		_shake_control(btn_all)
-	if is_instance_valid(btn_one):
+	if btn_one:
 		_shake_control(btn_one)
-	if is_instance_valid(btn_five):
+	if btn_five:
 		_shake_control(btn_five)
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -273,7 +273,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		SceneTransition.change_scene("res://scenes/world.tscn")
 
 func _shake_control(ctrl: Control) -> void:
-	if not is_instance_valid(ctrl):
+	if not ctrl:
 		return
 	var base := ctrl.position
 	var tw := ctrl.create_tween()
@@ -284,7 +284,7 @@ func _shake_control(ctrl: Control) -> void:
 func _ensure_hud_queue() -> void:
 	if _hud_queue == null:
 		_hud_queue = load("res://scripts/ui/notification_queue.gd").new()
-		var parent := get_node_or_null("CanvasLayer") if is_instance_valid(get_node_or_null("CanvasLayer")) else self
+		var parent := $"CanvasLayer" if $"CanvasLayer" else self
 		parent.add_child(_hud_queue)
 
 func _feedback(text: String) -> void:
@@ -293,8 +293,8 @@ func _feedback(text: String) -> void:
 
 func _spawn_receipt(text: String, col: Color) -> void:
 	_receipt_stack += 1
-	var canvas := get_node_or_null("CanvasLayer")
-	var parent: Node = canvas if is_instance_valid(canvas) else self
+	var canvas := $"CanvasLayer"
+	var parent: Node = canvas if canvas else self
 	var lbl := load("res://scenes/ui/label.tscn").instantiate() as Label
 	lbl.text = text
 	lbl.modulate = col
@@ -315,7 +315,7 @@ func _spawn_receipt(text: String, col: Color) -> void:
 	)
 
 func _flash_control(ctrl: Control) -> void:
-	if not is_instance_valid(ctrl):
+	if not ctrl:
 		return
 	var tw := ctrl.create_tween()
 	ctrl.modulate = Color(0.6, 1.0, 0.65, 1.0)
