@@ -307,9 +307,12 @@ func _interact() -> void:
 				_notify_queue("%d over inventory cap" % (int(carried_item.get("size")) - gained), Color(0.95, 0.5, 0.35, 1.0), 1.4)
 			if sort_streak % 5 == 0:
 				score += 5
-				_spawn_combo_popup()
+				_notify_queue("Combo +%d! (%dx5)" % [5, int(sort_streak / 5)], Color(1.0, 0.85, 0.3, 1.0), 1.2)
 				_play_combo_feedback()
-				_spawn_highscore_toast()
+				var is_best := score > GameState.best_upcycle_score
+				_notify_queue(("NEW BEST %d!" % score) if is_best else ("Combo milestone! +%d" % 5), Color(0.9, 0.95, 0.4, 1.0) if is_best else Color(0.7, 1.0, 0.6, 1.0), 1.4)
+				if is_best:
+					AudioManager.play_sfx("combo")
 			_spawn_bin_sparkle(target.global_position)
 			AudioManager.play_sfx("combo")
 		else:
@@ -330,38 +333,6 @@ func _play_combo_feedback() -> void:
 		get_node("UI").modulate = Color(1.0, 1.0, 1.0, 1.0)
 		tw.tween_property(get_node("UI"), "scale", Vector2(1.05, 1.05), 0.08).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 		tw.tween_property(get_node("UI"), "scale", Vector2(1.0, 1.0), 0.12).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-
-func _spawn_highscore_toast() -> void:
-	var is_best := score > GameState.best_upcycle_score
-	var lbl := load("res://scenes/ui/label.tscn").instantiate() as Label
-	lbl.text = ("NEW BEST %d!" % score) if is_best else ("Combo milestone! +%d" % 5)
-	lbl.position = Vector2(360, 18)
-	lbl.modulate = Color(1.0, 0.9, 0.35, 1.0) if is_best else Color(0.7, 1.0, 0.6, 1.0)
-	lbl.add_theme_font_size_override("font_size", 26)
-	var ui := get_node_or_null("UI")
-	if is_instance_valid(ui):
-		ui.add_child(lbl)
-	var tw := lbl.create_tween()
-	tw.tween_property(lbl, "position", lbl.position + Vector2(0, -46), 0.9).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	tw.parallel().tween_property(lbl, "scale", Vector2(1.2, 1.2), 0.18).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-	tw.tween_property(lbl, "scale", Vector2(1.0, 1.0), 0.18)
-	tw.tween_property(lbl, "modulate:a", 0.0, 0.4)
-	tw.tween_callback(lbl.queue_free)
-	if is_best:
-		AudioManager.play_sfx("combo")
-
-func _spawn_combo_popup() -> void:
-	var lbl := load("res://scenes/ui/label.tscn").instantiate() as Label
-	lbl.text = "Combo +%d! (%dx5)" % [5, int(sort_streak / 5)]
-	lbl.modulate = Color(1.0, 0.85, 0.3, 1.0)
-	lbl.position = Vector2(300, 40)
-	var ui := get_node_or_null("UI")
-	if is_instance_valid(ui):
-		ui.add_child(lbl)
-	var tw := lbl.create_tween()
-	tw.tween_property(lbl, "position", lbl.position + Vector2(0, -60), 0.9).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-	tw.parallel().tween_property(lbl, "modulate:a", 0.0, 0.9)
-	tw.tween_callback(lbl.queue_free)
 
 func _snap(pos: Vector2) -> Vector2:
 	var offset := Vector2(GRID / 2.0, GRID / 2.0)
@@ -438,20 +409,6 @@ func _show_return_summary() -> void:
 	)
 	tw.tween_property(lbl, "modulate:a", 0.0, 0.3)
 	tw.tween_callback(lbl.queue_free)
-
-func _spawn_cap_notice(amount: int) -> void:
-	var lbl := load("res://scenes/ui/label.tscn").instantiate() as Label
-	lbl.text = "%d over inventory cap" % amount
-	lbl.position = Vector2(20, 100)
-	lbl.modulate = Color(0.95, 0.5, 0.35, 1.0)
-	var ui := get_node_or_null("UI")
-	if is_instance_valid(ui):
-		ui.add_child(lbl)
-	var tw := lbl.create_tween()
-	tw.tween_property(lbl, "position", lbl.position + Vector2(0, -30), 0.8)
-	tw.parallel().tween_property(lbl, "modulate:a", 0.0, 0.4)
-	tw.tween_callback(lbl.queue_free)
-
 
 func _ensure_hud_queue() -> void:
 	if _hud_queue == null:
