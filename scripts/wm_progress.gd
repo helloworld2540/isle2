@@ -48,6 +48,17 @@ func _process(_delta: float) -> void:
 	if label:
 		label.text = "Upcycle %d | Reef %d m / %d fish  |  Trash %d/%d kg" % [GameState.upcycle_score, int(GameState.reef_garbage), GameState.reef_fish, GameState.trash_inventory, GameState.get_inventory_capacity()]
 	if _inv_label:
+		var prev_pulse: float = float(_inv_label.get_meta("pulse", 0.0))
+		var cap: int = max(1, GameState.get_inventory_capacity())
+		var ratio := float(GameState.trash_inventory) / float(cap)
+		var pulse_target := 0.0
+		if ratio >= 1.0:
+			pulse_target = 1.0
+		elif ratio >= 0.85:
+			pulse_target = 0.6 + 0.4 * (0.5 + 0.5 * sin(Time.get_ticks_msec() * 0.006))
+		var new_pulse: float = lerpf(prev_pulse, pulse_target, _delta * 4.0)
+		_inv_label.set_meta("pulse", new_pulse)
+		_inv_label.modulate = Color(0.9 + 0.1 * new_pulse, 0.95 - 0.15 * new_pulse, 0.85 - 0.25 * new_pulse, 1.0)
 		_inv_label.text = _inv_summary_text()
 
 # extend _process label to include inventory material breakdown in a second label
