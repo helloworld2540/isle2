@@ -26,6 +26,7 @@ var _last_sale: Dictionary = {}
 var _undo_in_progress := false
 var _tx_log_lines: Array = []
 var _hud_queue = null
+var _receipt_stack := 0
 
 func _ready() -> void:
 	GameState.restore()
@@ -189,6 +190,8 @@ func _sell_qty(mat: String, qty: int) -> void:
 	_log_sale("%s x%d → %d score" % [mat, sell_qty, earnings])
 	AudioManager.play_sfx("sale", 1.03)
 	_feedback("Sold %d %s +%d" % [sell_qty, mat, earnings])
+	_spawn_receipt("SOLD %s x%d  +%d" % [mat, sell_qty, earnings], Color(0.7, 1.0, 0.6, 1.0))
+	_spawn_receipt("SOLD %s x%d  +%d" % [mat, sell_qty, earnings], Color(0.7, 1.0, 0.6, 1.0))
 	GameState._persist()
 	_refresh()
 
@@ -209,6 +212,8 @@ func _sell_all(mat: String) -> void:
 	_log_sale("%s x%d %s→ %d score" % [mat, avail, tag, earnings])
 	AudioManager.play_sfx("sale", 1.03)
 	_feedback("Sold %d %s%s for %d" % [avail, mat, tag, earnings])
+	_spawn_receipt("SOLD %s x%d%s  +%d" % [mat, avail, " (bulk)" if bulk else "", earnings], Color(1.0, 0.85, 0.35, 1.0) if bulk else Color(0.7, 1.0, 0.6, 1.0))
+	_spawn_receipt("SOLD %s x%d%s  +%d" % [mat, avail, (" +" + str(int((BULK_MULTIPLIER-1)*100)) + "%") if bulk else "", earnings], Color(1.0, 0.85, 0.35, 1.0) if bulk else Color(0.7, 1.0, 0.6, 1.0))
 	GameState._persist()
 	_refresh()
 
@@ -247,6 +252,9 @@ func _undo_last_sale() -> void:
 	GameState._persist()
 	_refresh()
 	_undo_in_progress = false
+	_feedback("Undo restored %d/%d %s" % [actual_units, qty, mat])
+	_spawn_receipt("UNDO -%d %s" % [earnings, mat], Color(1.0, 0.6, 0.4, 1.0))
+	_flash_control(transaction_log)
 
 func _play_denied(feedback_text: String, mat: String) -> void:
 	_feedback(feedback_text)
@@ -284,3 +292,34 @@ func _ensure_hud_queue() -> void:
 func _feedback(text: String) -> void:
 	_ensure_hud_queue()
 	_hud_queue.push(text, Color(0.85, 1.0, 0.5, 1.0), 1.2)
+
+func _spawn_receipt(text: String, col: Color) -> void:
+	_receipt_stack += 1
+	var canvas := get_node_or_null("CanvasLayer")
+	var parent: Node = canvas if is_instance_valid(canvas) else self
+	var lbl := load("res://scenes/ui/label.tscn").instantiate() as Label
+	lbl.text = text
+	lbl.modulate = col
+	lbl.add_theme_font_size_override("font_size", 18)
+	lbl.z_index = 130 + _receipt_stack
+	parent.add_child(lbl)
+	var vp := get_viewport_rect().size
+	lbl.position = Vector2(vp.x - 260.0, 60.0 + float(_receipt_stack - 1) * 26.0)
+	lbl.modulate.a = 0.0
+	var tw := lbl.create_tween()
+	tw.tween_property(lbl, "modulate:a", 1.0, 0.16).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tw.parallel().tween_property(lbl, "position", lbl.position + Vector2(0, 8), 0.16)
+	tw.tween_interval(1.4)
+	tw.tween_property(lbl, "modulate:a", 0.0, 0.4).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	tw.tween_callback(func():
+		_receipt_stack = max(0, _receipt_stack - 1)
+		lbl.queue_free()
+	)
+
+func _flash_control(ctrl: Control) -> void:
+	if not is_instance_valid(ctrl):
+		return
+	var tw := ctrl.create_tween()
+	ctrl.modulate = Color(0.6, 1.0, 0.65, 1.0)
+	tw.tween_property(ctrl, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.45)
+

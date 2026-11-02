@@ -9,8 +9,10 @@ const RATES := {
 	"Reef Debris": 1,
 }
 
+
 func get_price(t: String) -> int:
 	return int(RATES.get(t, 0))
+
 
 func sell(t: String, amount: int) -> int:
 	if amount <= 0:
