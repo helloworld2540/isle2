@@ -5,18 +5,18 @@ const DEFAULT_TRASH_TYPES := ["Polyethylene", "Polypropylene", "Glass", "Nylon",
 
 # Typed-item metadata for richer inventory and capacity logic.
 const TRASH_WEIGHTS := {
-    "Polyethylene": 1,
-    "Polypropylene": 2,
-    "Glass": 3,
-    "Nylon": 2,
-    "Reef Debris": 1,
+	"Polyethylene": 1,
+	"Polypropylene": 2,
+	"Glass": 3,
+	"Nylon": 2,
+	"Reef Debris": 1,
 }
 const TRASH_RARITY := {
-    "Polyethylene": "common",
-    "Polypropylene": "common",
-    "Glass": "uncommon",
-    "Nylon": "uncommon",
-    "Reef Debris": "rare",
+	"Polyethylene": "common",
+	"Polypropylene": "common",
+	"Glass": "uncommon",
+	"Nylon": "uncommon",
+	"Reef Debris": "rare",
 }
 
 
@@ -72,6 +72,7 @@ func add_trash_type_weighted(mat: String, amount: int) -> int:
 	_persist()
 	return accepted
 
+func _recompute_inventory() -> void:
 	var total := 0
 	for k in trash_by_type.keys():
 		total += int(trash_by_type[k])

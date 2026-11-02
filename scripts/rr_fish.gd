@@ -53,8 +53,6 @@ func init_garbage() -> void:
 	rotation_degrees = randi_range(0, 360)
 	if is_instance_valid(sprite):
 		sprite.flip_h = randf() > 0.5
-	var w := int(clampf(randfn(10.0, 10.0), 1.0, 100.0))
-	set_meta("weight", w)
 	if texture == "trash_straw.png" and is_instance_valid(sprite):
 		sprite.modulate = Color.from_hsv(randf(), 1.0, 1.0)
 

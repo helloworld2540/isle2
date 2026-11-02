@@ -237,7 +237,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			_game_over_summary()
 		return
 	else:
-		var weight := int(root.get_meta("weight", 0))
+		var weight := int(clampf(root.size * 100.0, 1.0, 100.0))
 		_garbage_combo += 1
 		_combo_timer = 2.0
 		var multiplier := 1 + int(_garbage_combo / 3)
