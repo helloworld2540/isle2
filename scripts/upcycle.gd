@@ -41,6 +41,8 @@ var _recycled_by_mat := {"Polyethylene":0,"Glass":0,"Polypropylene":0,"Nylon":0}
 var drag_start_pos := Vector2.ZERO
 var is_dragging := false
 var move_tween: Tween = null
+var _arrow_radius := 3 * GRID
+var _arrow: Polygon2D = null
 
 @onready var score_label: Label = get_node_or_null("UI/ScoreLabel")
 @onready var streak_label: Label = get_node_or_null("UI/StreakLabel")
@@ -82,6 +84,13 @@ func _ready() -> void:
 			
 	if is_instance_valid(player):
 		player.global_position = _snap(player.global_position)
+
+	_arrow = Polygon2D.new()
+	_arrow.color = Color(1.0, 0.85, 0.3, 0.9)
+	_arrow.polygon = PackedVector2Array([Vector2(0, -12), Vector2(6, 6), Vector2(-6, 6)])
+	_arrow.z_index = 20
+	_arrow.visible = false
+	add_child(_arrow)
 		
 	var ui := get_node_or_null("UI")
 	_update_ui()
@@ -131,8 +140,18 @@ func _process(delta: float) -> void:
 				_spawn_streak_banner()
 				
 	if is_instance_valid(carried_item):
-		carried_item.global_position = player.global_position + Vector2(0, -20) if is_instance_valid(player) else carried_item.global_position
-		
+		var deposit_bin := _find_deposit_bin(carried_item)
+		carried_item.z_index = 30
+		var bob := sin(Time.get_ticks_msec() * 0.005) * 2.0
+		if is_instance_valid(deposit_bin):
+			carried_item.global_position = deposit_bin.global_position + Vector2(0, -34 + bob)
+		else:
+			carried_item.global_position = (player.global_position if is_instance_valid(player) else carried_item.global_position) + Vector2(0, -22 + bob)
+		_update_arrow(carried_item, deposit_bin)
+	else:
+		carried_item = null
+		_hide_arrow()
+
 	var target = _get_valid_interaction_target()
 	if is_instance_valid(highlight_node):
 		if target:
@@ -334,6 +353,40 @@ func _play_combo_feedback() -> void:
 		tw.tween_property(get_node("UI"), "scale", Vector2(1.05, 1.05), 0.08).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 		tw.tween_property(get_node("UI"), "scale", Vector2(1.0, 1.0), 0.12).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
+func _find_deposit_bin(item: Node2D) -> Node2D:
+	var mat := str(item.get_meta("material"))
+	if not is_instance_valid(bins) or not is_instance_valid(player):
+		return null
+	var nearest: Node2D = null
+	var best_dist: float = INF
+	for bin in bins.get_children():
+		if str(bin.get_meta("material")) != mat:
+			continue
+		var d: float = (bin as Node2D).global_position.distance_to(player.global_position)
+		if d <= _arrow_radius and d < best_dist:
+			best_dist = d
+			nearest = bin
+	return nearest
+
+func _update_arrow(item: Node2D, bin: Node2D) -> void:
+	if not is_instance_valid(_arrow):
+		return
+	if not is_instance_valid(bin):
+		_arrow.visible = false
+		return
+	_arrow.visible = true
+	var pulse := 1.0 + 0.12 * (0.5 + 0.5 * sin(Time.get_ticks_msec() * 0.008))
+	_arrow.scale = Vector2(pulse, pulse)
+	var from_pos: Vector2 = player.global_position if is_instance_valid(player) else (item.global_position if is_instance_valid(item) else Vector2.ZERO)
+	var to_pos: Vector2 = bin.global_position
+	_arrow.global_position = from_pos + (to_pos - from_pos).normalized() * min(GRID * 1.5, from_pos.distance_to(to_pos) * 0.6)
+	var angle: float = (to_pos - from_pos).angle()
+	_arrow.rotation = angle - PI / 2.0
+
+func _hide_arrow() -> void:
+	if is_instance_valid(_arrow):
+		_arrow.visible = false
+
 func _snap(pos: Vector2) -> Vector2:
 	var offset := Vector2(GRID / 2.0, GRID / 2.0)
 	return (pos - offset).snapped(Vector2(GRID, GRID)) + offset
@@ -368,7 +421,7 @@ func _spawn_bin_sparkle(at: Vector2) -> void:
 	var p := load("res://scenes/ui/c_p_u_particles2_d.tscn").instantiate() as CPUParticles2D
 	p.one_shot = true
 	p.explosiveness = 1.0
-	p.amount = 12
+	p.amount = 12 + min(10, sort_streak / 5)
 	p.lifetime = 0.4
 	p.global_position = at
 	p.spread = 360.0

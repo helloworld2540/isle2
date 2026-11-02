@@ -3,10 +3,11 @@ extends Control
 @onready var new_save_button: Button = $Buttons/NewSaveButton
 @onready var load_save_button: Button = $Buttons/LoadSaveButton
 @onready var quit_button: Button = $Buttons/QuitButton
-@onready var stats_button: Button = $Buttons/StatsButton
 @onready var save_summary: Label = $SaveSummaryPanel/VBoxContainer/SaveSummary
 @onready var mini_stats: Label = $SaveSummaryPanel/VBoxContainer/MiniStats
 @onready var save_summary_panel: PanelContainer = $SaveSummaryPanel
+
+var _more_stats_button: Button = null
 
 const STATS_SCENE := "res://scenes/stats_menu.tscn"
 const WORLD_SCENE := "res://scenes/world.tscn"
@@ -24,7 +25,15 @@ func _wire_buttons() -> void:
 	load_save_button.disabled = not SaveManager.has_save()
 	load_save_button.pressed.connect(_on_load_save_pressed)
 	quit_button.pressed.connect(_on_quit_pressed)
-	stats_button.pressed.connect(_on_stats_pressed)
+	_more_stats_button = Button.new()
+	_more_stats_button.text = "More stats →"
+	_more_stats_button.custom_minimum_size = Vector2(200, 36)
+	_more_stats_button.visible = SaveManager.has_save()
+	_more_stats_button.pressed.connect(_on_stats_pressed)
+	if is_instance_valid(save_summary_panel):
+		var vbox: VBoxContainer = save_summary_panel.get_node_or_null("VBoxContainer")
+		if vbox:
+			vbox.add_child(_more_stats_button)
 
 func _refresh_summary() -> void:
 	save_summary.text = _summary_text()
@@ -97,7 +106,6 @@ func _play_entrance_animation() -> void:
 	var targets: Array = [
 		new_save_button, 
 		load_save_button, 
-		stats_button, 
 		quit_button, 
 		save_summary_panel, 
 	]

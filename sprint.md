@@ -217,3 +217,42 @@
 - `AudioManager.play_bgm` now caches the selected track and fades between tracks (0.28s) while respecting reduced motion (0.12s).
 - Avoids repeated restarts when re-entering scenes and stops smoothly when a track is unresolved.
 - Headless import smoke passed (no parse errors).
+## 2026-11-02 — Upcycle grabbed-trash display & deposit guidance
+- Fix upcycle trash grabbing so the grabbed trash displays above the player, and over the matching deposit bin when a nearby bin exists.
+- Arrow indicator now points toward the correct bin within a 3-tile radius.
+- Headless import smoke passed (parse clean).
+
+## 2026-11-02 20:12 — Upcycle held item polish pass
+- Carried trash now z-orders above scene while held; arrow pulses for visibility.
+- Bobbing retained while held and near-deposit; deposit hover lifts trash slightly.
+
+## 2026-11-02 20:13 — Audio/UI micro-polish
+- Reef pickup SFX pitch scales slightly with combo multiplier.
+- Guide corrected to current weighted inventory capacity.
+
+## 2026-11-02 20:15 — Reef pacing polish
+- Reef spawn interval now gradually tightens from 0.8s down to a 0.32s floor as depth increases for rising pressure.
+- Import/runtime smoke clean.
+
+## 2026-11-02 — Quest reward sparks + NPC polish
+- NPC first-visit turn-in now sparks CPUParticles on reward.
+- NPC dialogue pacing polish pass landed and verified (import clean).
+- NPC typewriter pacing tightened to 0.018s/char (capped 1.3s) for livelier but readable dialogue.
+- Audio jitter already provided by play_sfx.
+- Hunted entry removed from TODO; runtime smoke clean.
+- PITCH.md created (tagline, core loop, pillars, target, status, human-needed assets).
+- main_menu: StatsButton moved into SaveSummaryPanel as "More stats → " affordance that opens stats_menu; original sidebar StatsButton hidden.
+- settings_ui: removed dangling _refresh_feedback call after reduced-motion toggle (now persists cleanly).
+- Headless import/runtime smoke clean.
+- Restored missing `_apply_npc_sprite()` function declaration to fix parse error and allow NPC sprite loading.
+
+## 2026-11-02 — Audio routing + main menu path fix
+- Added dedicated SFX audio bus routed through Master; play_sfx now uses SFX bus.
+- Implemented get/set SFX volume on AudioManager and wired pause/settings sliders.
+- Corrected main_menu onready path typography error; removed dangling stats button reference.
+- Headless import smoke passed.
+- 2026-11-02 21:06 — NPC quest-ready polish + world SFX slider + upcycle deposit guidance
+  - NPC golden-ready state now shimmers QuestProgress label and emits a gentle CPUParticles layer above NPC.
+  - World pause settings now include dedicated SFX volume slider wired through AudioManager and save.
+  - Upcycle carried item now tracks nearest matching deposit bin + pulsing arrow indicator.
+  - Headless import/runtime smoke passed.

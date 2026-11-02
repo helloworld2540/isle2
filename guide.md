@@ -5,7 +5,7 @@ Welcome to Isle 2. Shared economy across world map, two minigames, shop, NPCs an
 
 ## Economy basics
 - Materials: Polyethylene(1kg), Polypropylene(2kg), Glass(3kg), Nylon(2kg), Reef Debris(1kg).
-- Inventory capacity starts at 10kg, +10kg per upgrade; upgrades cost trash (10*level, weighted spend).
+- Inventory capacity starts at 60kg, +20kg per upgrade; upgrades cost trash (6 + 3*level weighted spend).
 - Shop sells at rates: Polyethylene 2, Polypropylene 3, Glass 5, Nylon 4, Reef Debris 1.
 - Bulk bonus: selling 5+ of a type gives +25%.
 - Sell controls: Sell 1, Sell 5, Sell All. Undo last sale (capacity-aware).

@@ -74,6 +74,8 @@ func _process(delta: float) -> void:
 	if is_instance_valid(parallax):
 		parallax.scroll_offset.y -= bg_speed
 	depth += bg_speed / 10.0
+	if is_instance_valid(timer):
+		timer.wait_time = clampf(0.8 - depth / 3000.0, 0.32, 0.8)
 	if is_instance_valid(drone):
 		drone.position += drag_velocity * GameState.get_move_speed_multiplier()
 		if not (60 < drone.position.x and drone.position.x < vp.x - 60):
@@ -246,7 +248,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		# Each collected trash is exactly 1 kg; combo only earns a small score pop.
 		garbage += 1.0
 		GameState.upcycle_score += multiplier
-		AudioManager.play_sfx("pickup")
+		AudioManager.play_sfx("pickup", 1.0 + min(float(multiplier), 3.0) * 0.05)
 		var t := "+%d kg" % weight if multiplier <= 1 else "+%d kg x%d" % [weight, multiplier]
 		_popup(t, Color(0.95, 0.95, 0.35, 1.0))
 		_sparkle(root.global_position, Color(0.95, 0.95, 0.35, 1.0))

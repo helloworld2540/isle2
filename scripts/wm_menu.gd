@@ -23,6 +23,7 @@ var _settings_button: Button = null
 var _settings_panel: VBoxContainer = null
 var _master_slider: HSlider = null
 var _music_slider: HSlider = null
+var _sfx_slider: HSlider = null
 var _reduce_checkbox: CheckBox = null
 
 @onready var upgrades_panel: PanelContainer = get_node_or_null("MenuPanel/VBoxContainer/UpgradesPanel")
@@ -45,6 +46,7 @@ var _reduce_checkbox: CheckBox = null
 @onready var settings_panel: VBoxContainer = get_node_or_null("MenuPanel/VBoxContainer/SettingsPanel")
 @onready var master_slider: HSlider = get_node_or_null("MenuPanel/VBoxContainer/SettingsPanel/MasterSlider")
 @onready var music_slider: HSlider = get_node_or_null("MenuPanel/VBoxContainer/SettingsPanel/MusicSlider")
+@onready var sfx_slider: HSlider = get_node_or_null("MenuPanel/VBoxContainer/SettingsPanel/SfxSlider")
 @onready var reduce_motion_cb: CheckBox = get_node_or_null("MenuPanel/VBoxContainer/SettingsPanel/ReduceMotionCb")
 @onready var master_label: Label = get_node_or_null("MenuPanel/VBoxContainer/SettingsPanel/MasterLabel")
 @onready var music_label: Label = get_node_or_null("MenuPanel/VBoxContainer/SettingsPanel/MusicLabel")
@@ -109,6 +111,7 @@ func _build_settings_ui_static() -> void:
 	_settings_panel = settings_panel
 	_master_slider = master_slider
 	_music_slider = music_slider
+	_sfx_slider = sfx_slider
 	_reduce_checkbox = reduce_motion_cb
 
 	_refresh_upgrade_ui()
@@ -119,6 +122,9 @@ func _build_settings_ui_static() -> void:
 	if is_instance_valid(_music_slider):
 		_music_slider.value = AudioManager.get_music_volume() * 100.0
 		_music_slider.value_changed.connect(func(v): AudioManager.set_music_volume(v / 100.0))
+	if is_instance_valid(_sfx_slider):
+		_sfx_slider.value = AudioManager.get_sfx_volume() * 100.0
+		_sfx_slider.value_changed.connect(func(v): AudioManager.set_sfx_volume(v / 100.0))
 	if is_instance_valid(_reduce_checkbox):
 		_reduce_checkbox.button_pressed = AudioManager.get_reduced_motion()
 		_reduce_checkbox.toggled.connect(func(v): AudioManager.set_reduced_motion(v))

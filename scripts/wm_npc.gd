@@ -33,6 +33,8 @@ var _ambient_bubble: Label = null
 var _ambient_timer := 0.0
 var _ambient_next := 4.5
 var _refresh_tick := 0.0
+var _quest_shimmer_tween: Tween = null
+var _quest_particles: CPUParticles2D = null
 
 # Ambient chat bubble cluster
 
@@ -145,6 +147,11 @@ func _unhandled_input(event: InputEvent) -> void:
 	if is_instance_valid(_panel) and event.is_action_pressed("ui_cancel"):
 		get_viewport().set_input_as_handled()
 		_close()
+		return
+	if is_instance_valid(_panel) and event is InputEventKey and event.pressed and not event.echo:
+		if event.keycode == KEY_ENTER or event.keycode == KEY_KP_ENTER or event.keycode == KEY_SPACE:
+			get_viewport().set_input_as_handled()
+			_close()
 
 func _on_body_entered(body: Node) -> void:
 	if is_instance_valid(_panel):
@@ -230,8 +237,13 @@ func _show_dialogue() -> void:
 		var tw := create_tween()
 		for lbl in line_labels:
 			var n: int = lbl.text.length()
-			tw.tween_method(func(v): lbl.visible_characters = v, 0, n, max(0.2, float(n) * 0.025))
+			tw.tween_method(func(v): lbl.visible_characters = v, 0, n, min(1.3, max(0.18, float(n) * 0.018)))
 			tw.tween_interval(0.15)
+		# Auto-close safety timer (12s) prevents soft-lock if panel is orphaned.
+		var _auto_close_timer := get_tree().create_timer(12.0)
+		_auto_close_timer.timeout.connect(func():
+			if is_instance_valid(_panel):
+				_close())
 
 	if first_visit and reward_trash > 0:
 		var reward_lbl := load("res://scenes/ui/label.tscn").instantiate() as Label
@@ -240,6 +252,7 @@ func _show_dialogue() -> void:
 		vbox.add_child(reward_lbl)
 		GameState.add_trash_type_weighted(reward_mat, reward_trash)
 		AudioManager.play_sfx("pickup")
+		_spawn_reward_sparks()
 		_mark_visited()
 		_visited_flag = true
 
@@ -401,6 +414,7 @@ func _personality_banter() -> Array:
 		_:
 			return []
 
+func _apply_npc_sprite() -> void:
 	if has_node("Sprite"):
 		_sprite = $Sprite
 	var idx := clampi(npc_sprite_index, 1, 4)
@@ -425,6 +439,22 @@ func _personality_banter() -> Array:
 		var body: ColorRect = $Body
 		body.visible = false
 
+func _spawn_reward_sparks() -> void:
+	var p := load("res://scenes/ui/c_p_u_particles2_d.tscn").instantiate() as CPUParticles2D
+	if not is_instance_valid(p):
+		return
+	p.one_shot = true
+	p.explosiveness = 1.0
+	p.amount = 18
+	p.lifetime = 0.6
+	p.global_position = global_position + Vector2(0, -20)
+	p.spread = 360.0
+	p.initial_velocity_min = 20.0
+	p.initial_velocity_max = 60.0
+	p.gravity = Vector2(0, 40)
+	get_tree().current_scene.add_child(p)
+
+
 func _glow_quest_ready() -> void:
 	if not is_instance_valid(self):
 		return
@@ -444,3 +474,38 @@ func _glow_quest_ready() -> void:
 			body.color = Color(1.0, 0.95, 0.55, 1.0)
 		else:
 			body.color = Color(0.95, 0.72, 0.45, 1.0)
+	_update_quest_ready_fx(ready)
+
+func _update_quest_ready_fx(ready: bool) -> void:
+	if ready:
+		if _quest_shimmer_tween == null or not is_instance_valid(_quest_shimmer_tween) or not _quest_shimmer_tween.is_running():
+			if is_instance_valid(_quest_progress_label):
+				_quest_progress_label.modulate = Color(0.6, 1.0, 0.7, 1.0)
+				_quest_shimmer_tween = create_tween().set_loops()
+				_quest_shimmer_tween.tween_property(_quest_progress_label, "modulate", Color(1.0, 0.95, 0.5, 1.0), 0.6).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+				_quest_shimmer_tween.tween_property(_quest_progress_label, "modulate", Color(0.6, 1.0, 0.7, 1.0), 0.6).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		if _quest_particles == null or not is_instance_valid(_quest_particles):
+			var p := load("res://scenes/ui/c_p_u_particles2_d.tscn").instantiate() as CPUParticles2D
+			if is_instance_valid(p):
+				p.name = "QuestReadyParticles"
+				p.one_shot = false
+				p.amount = 6
+				p.lifetime = 1.8
+				p.emission_shape = CPUParticles2D.EMISSION_SHAPE_SPHERE
+				p.initial_velocity_min = 4.0
+				p.initial_velocity_max = 10.0
+				p.scale_amount_min = 0.6
+				p.scale_amount_max = 1.4
+				p.color = Color(1.0, 0.95, 0.55, 0.7)
+				p.gravity = Vector2(0, -6.0)
+				p.local_coords = true
+				p.position = Vector2(0, -48)
+				add_child(p)
+				_quest_particles = p
+	else:
+		if is_instance_valid(_quest_shimmer_tween):
+			_quest_shimmer_tween.kill()
+		_quest_shimmer_tween = null
+		if is_instance_valid(_quest_particles):
+			_quest_particles.queue_free()
+		_quest_particles = null

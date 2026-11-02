@@ -160,7 +160,6 @@ position = Vector2(1, -30.5)
 shape = SubResource("RectangleShape2D_nmirg")
 
 [node name="Menu" type="CanvasLayer" parent="." unique_id=410065409]
-visible = false
 script = ExtResource("4_menu")
 
 [node name="MenuPanel" type="Control" parent="Menu" unique_id=410065410]
@@ -313,6 +312,14 @@ text = "Music Volume"
 [node name="MusicSlider" type="HSlider" parent="Menu/MenuPanel/VBoxContainer/SettingsPanel" unique_id=410065453]
 layout_mode = 2
 value = 65.0
+
+[node name="SFXLabel" type="Label" parent="Menu/MenuPanel/VBoxContainer/SettingsPanel" unique_id=410065500]
+layout_mode = 2
+text = "SFX Volume"
+
+[node name="SfxSlider" type="HSlider" parent="Menu/MenuPanel/VBoxContainer/SettingsPanel" unique_id=410065501]
+layout_mode = 2
+value = 100.0
 
 [node name="ReduceMotionCb" type="CheckBox" parent="Menu/MenuPanel/VBoxContainer/SettingsPanel" unique_id=410065454]
 layout_mode = 2

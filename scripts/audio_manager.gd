@@ -4,6 +4,7 @@ extends Node
 
 const MASTER_BUS := "Master"
 const MUSIC_BUS := "Music"
+const SFX_BUS := "SFX"
 var sound_path := "res://sound/"
 var sfx_path := "res://sound/sfx/"
 var bgm_path := "res://sound/bgm/"
@@ -27,8 +28,10 @@ func _load_stream(path: String) -> AudioStream:
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_setup_bus(MUSIC_BUS)
+	_setup_bus(SFX_BUS)
 	set_master_volume(get_master_volume())
 	set_music_volume(get_music_volume())
+	set_sfx_volume(get_sfx_volume())
 	_create_bgm_player()
 
 func _setup_bus(bus_name: String) -> void:
@@ -41,6 +44,11 @@ func _setup_bus(bus_name: String) -> void:
 			AudioServer.set_bus_name(AudioServer.bus_count - 1, bus_name)
 		else:
 			AudioServer.set_bus_name(AudioServer.get_bus_index(bus_name), bus_name)
+	# Route non-master buses through the master bus.
+	if bus_name != MASTER_BUS:
+		var bus_idx := AudioServer.get_bus_index(bus_name)
+		if bus_idx != -1:
+			AudioServer.set_bus_send(bus_idx, MASTER_BUS)
 
 func _create_bgm_player() -> void:
 	_bgm_player = load("res://scenes/ui/audio_stream_player.tscn").instantiate() as AudioStreamPlayer
@@ -60,7 +68,7 @@ func play_sfx(name: String, pitch_scale: float = 1.0) -> void:
 		if stream != null:
 			var player := load("res://scenes/ui/audio_stream_player.tscn").instantiate() as AudioStreamPlayer
 			player.stream = stream
-			player.bus = MASTER_BUS
+			player.bus = SFX_BUS
 			player.pitch_scale = clampf(pitch_scale * randf_range(0.96, 1.04), 0.5, 2.0)
 			add_child(player)
 			player.finished.connect(player.queue_free)
@@ -137,6 +145,15 @@ func set_reduced_motion(v: bool) -> void:
 
 func get_reduced_motion() -> bool:
 	return bool(_load_key("reduced_motion", _reduced_motion))
+
+func set_sfx_volume(v: float) -> void:
+	var idx := AudioServer.get_bus_index(SFX_BUS)
+	if idx != -1:
+		AudioServer.set_bus_volume_db(idx, linear_to_db(clampf(v, 0.0, 1.0)))
+	_persist_volume("sfx_volume", clampf(v, 0.0, 1.0))
+
+func get_sfx_volume() -> float:
+	return clampf(float(_load_key("sfx_volume", 1.0)), 0.0, 1.0)
 
 func _persist_volume(key: String, value) -> void:
 	var data := SaveManager.load_game()
