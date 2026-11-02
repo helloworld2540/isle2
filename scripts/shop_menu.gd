@@ -322,4 +322,3 @@ func _flash_control(ctrl: Control) -> void:
 	var tw := ctrl.create_tween()
 	ctrl.modulate = Color(0.6, 1.0, 0.65, 1.0)
 	tw.tween_property(ctrl, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.45)
-
