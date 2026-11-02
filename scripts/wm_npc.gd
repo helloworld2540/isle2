@@ -35,6 +35,7 @@ var _ambient_next := 4.5
 var _refresh_tick := 0.0
 var _quest_shimmer_tween: Tween = null
 var _quest_particles: CPUParticles2D = null
+var _music_ducked := false
 
 # Ambient chat bubble cluster
 
@@ -184,6 +185,9 @@ func _flavour_lines() -> Array:
 	return out
 func _show_dialogue() -> void:
 	var first_visit := not _visited_flag
+	if not _music_ducked:
+		AudioManager.duck_music()
+		_music_ducked = true
 	_bump_visit_count()
 	var lines := _prepare_lines()
 	get_tree().paused = true
@@ -320,6 +324,9 @@ func _close() -> void:
 		_panel.queue_free()
 		_panel = null
 	get_tree().paused = false
+	if _music_ducked:
+		AudioManager.restore_music()
+		_music_ducked = false
 	_refresh_name_label()
 
 func _refresh_name_label() -> void:

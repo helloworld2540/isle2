@@ -256,3 +256,7 @@
   - World pause settings now include dedicated SFX volume slider wired through AudioManager and save.
   - Upcycle carried item now tracks nearest matching deposit bin + pulsing arrow indicator.
   - Headless import/runtime smoke passed.
+## 2026-11-02 21:10 — BGM ducking during NPC dialogue
+- Added AudioManager.duck_music() and restore_music() to fade the Music bus down while an NPC dialogue panel is open and back up on close.
+- WorldNPC now ducks/un-ducks music automatically on show/close.
+- Headless import/runtime smoke passed.

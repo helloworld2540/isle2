@@ -13,6 +13,8 @@ var _bgm_player: AudioStreamPlayer
 var _stream_cache: Dictionary = {}
 var _current_bgm_track := ""
 var _bgm_fade_tween: Tween = null
+var _duck_tween: Tween = null
+var _music_volume_before_duck := -1.0
 
 func _load_stream(path: String) -> AudioStream:
 	if _stream_cache.has(path):
@@ -124,6 +126,34 @@ func stop_bgm() -> void:
 	if is_instance_valid(_bgm_player):
 		_bgm_player.stop()
 	_current_bgm_track = ""
+
+func duck_music(target: float = 0.18, duration: float = 0.25) -> void:
+	if _music_volume_before_duck < 0.0:
+		_music_volume_before_duck = get_music_volume()
+	if is_instance_valid(_duck_tween):
+		_duck_tween.kill()
+	var idx := AudioServer.get_bus_index(MUSIC_BUS)
+	if idx == -1:
+		return
+	var cur_db := AudioServer.get_bus_volume_db(idx)
+	var target_db := linear_to_db(clampf(target, 0.0, 1.0))
+	_duck_tween = create_tween()
+	_duck_tween.tween_method(func(db): AudioServer.set_bus_volume_db(idx, db), cur_db, target_db, duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+
+func restore_music(duration: float = 0.3) -> void:
+	if _music_volume_before_duck < 0.0:
+		return
+	var target_lin: float = _music_volume_before_duck
+	_music_volume_before_duck = -1.0
+	var idx := AudioServer.get_bus_index(MUSIC_BUS)
+	if idx == -1:
+		return
+	if is_instance_valid(_duck_tween):
+		_duck_tween.kill()
+	var cur_db := AudioServer.get_bus_volume_db(idx)
+	var target_db := linear_to_db(clampf(target_lin, 0.001, 1.0))
+	_duck_tween = create_tween()
+	_duck_tween.tween_method(func(db): AudioServer.set_bus_volume_db(idx, db), cur_db, target_db, duration).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
 func set_master_volume(v: float) -> void:
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index(MASTER_BUS), linear_to_db(clampf(v, 0.0, 1.0)))

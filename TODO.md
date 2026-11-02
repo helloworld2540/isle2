@@ -1,7 +1,7 @@
 # Current project todo:
 
 # high priority
-- (next) Add adaptive BGM ducking during NPC dialogue and polish reward spark timing.
+- (next) Verify NPC ducking + reward spark timing in hardware; add non-blocking SFX click during ducking fade.
 
 # medium priority
 - Add shop bulk-sale receipt stacking + undo animation.
