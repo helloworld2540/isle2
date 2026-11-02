@@ -191,7 +191,6 @@ func _sell_qty(mat: String, qty: int) -> void:
 	AudioManager.play_sfx("sale", 1.03)
 	_feedback("Sold %d %s +%d" % [sell_qty, mat, earnings])
 	_spawn_receipt("SOLD %s x%d  +%d" % [mat, sell_qty, earnings], Color(0.7, 1.0, 0.6, 1.0))
-	_spawn_receipt("SOLD %s x%d  +%d" % [mat, sell_qty, earnings], Color(0.7, 1.0, 0.6, 1.0))
 	GameState._persist()
 	_refresh()
 
@@ -213,7 +212,6 @@ func _sell_all(mat: String) -> void:
 	AudioManager.play_sfx("sale", 1.03)
 	_feedback("Sold %d %s%s for %d" % [avail, mat, tag, earnings])
 	_spawn_receipt("SOLD %s x%d%s  +%d" % [mat, avail, " (bulk)" if bulk else "", earnings], Color(1.0, 0.85, 0.35, 1.0) if bulk else Color(0.7, 1.0, 0.6, 1.0))
-	_spawn_receipt("SOLD %s x%d%s  +%d" % [mat, avail, (" +" + str(int((BULK_MULTIPLIER-1)*100)) + "%") if bulk else "", earnings], Color(1.0, 0.85, 0.35, 1.0) if bulk else Color(0.7, 1.0, 0.6, 1.0))
 	GameState._persist()
 	_refresh()
 
