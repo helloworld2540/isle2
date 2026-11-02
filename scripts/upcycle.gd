@@ -304,7 +304,7 @@ func _interact() -> void:
 			_recycled_by_mat[mat] += 1
 			var gained := GameState.add_trash_type_weighted(mat, int(carried_item.get("size")))
 			if gained < int(carried_item.get("size")):
-				_spawn_cap_notice(int(carried_item.get("size")) - gained)
+				_notify_queue("%d over inventory cap" % (int(carried_item.get("size")) - gained), Color(0.95, 0.5, 0.35, 1.0), 1.4)
 			if sort_streak % 5 == 0:
 				score += 5
 				_spawn_combo_popup()
