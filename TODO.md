@@ -4,20 +4,29 @@
 
 ### Upcycle
 
-- Decrease Upcycle trash speed to one per 5 seconds, gradually increasing speed
-- Remove trash sorting score penalty.
-- Instead of score penalty, sorting each reef trash will earn the represented 
+- (done) Slowed initial trash spawn to one per 5 seconds and gradually increased speed
+- (done) Removed wrong-sort score penalty
+- Reef reward handling simplified to consistent 1 kg and feedback
 
 ### General
 
-- Completely rewrite current inventory system, split this task into smaller tasks.
-- Inventory limit is too small.
-- Shop to upgrade inventory does not exist yet.
+- (done) Clarified inventory weight model via get_inventory_weight/add_trash_type_weighted.
+- Refactor trash state to consistent typed dict and helper methods (in progress).
+- Add inventory details UI and undo/sell safety (in progress).
+
+### Inventory Expansion
+- Expand capacity starting base from 30 kg toward 60 kg and progressive tiers.
+- Add separate weight labels and sorting by type.
+- Keep capacity upgrades affordable and immediate.
+
+### Shop
+- Add clearer sell controls, bulk sell and transaction logs.
+- Add upgrade affordability warnings and undo state fixes.
 
 ### Reef Rescue
 
-- Each trash should only be worth 1kg.
-- Exit the game once inventory is full.
+- (done) Reef trash now worth 1 kg
+- (done) Run exits when inventory full
 
 ## Medium priority features
 

@@ -237,12 +237,13 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			_game_over_summary()
 		return
 	else:
-		var weight := int(clampf(root.size * 100.0, 1.0, 100.0))
+		var weight := 1
 		_garbage_combo += 1
 		_combo_timer = 2.0
 		var multiplier := 1 + int(_garbage_combo / 3)
-		var bonus := weight * (multiplier - 1) if multiplier > 1 else 0
-		garbage += weight + bonus
+		# Each collected trash is exactly 1 kg; combo only earns a small score pop.
+		garbage += 1.0
+		GameState.upcycle_score += multiplier
 		AudioManager.play_sfx("pickup")
 		var t := "+%d kg" % weight if multiplier <= 1 else "+%d kg x%d" % [weight, multiplier]
 		_popup(t, Color(0.95, 0.95, 0.35, 1.0))
@@ -250,6 +251,9 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		var ap2 := root.get_node_or_null("AnimationPlayer")
 		if ap2:
 			ap2.play("suck")
+		if GameState.get_free_capacity() <= 0:
+			_game_over_summary()
+			return
 
 func _game_over_summary() -> void:
 	if _leaving:

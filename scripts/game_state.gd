@@ -148,10 +148,10 @@ func get_collection_radius_bonus() -> float:
 	return float(lvl) * 12.0
 
 func get_inventory_capacity() -> int:
-	return 30 + inventory_capacity_level * 15
+	return 60 + inventory_capacity_level * 20
 
 func purchase_inventory_capacity() -> bool:
-	var cost := 8 + inventory_capacity_level * 4
+	var cost := 6 + inventory_capacity_level * 3
 	if not spend_trash(cost):
 		return false
 	inventory_capacity_level += 1

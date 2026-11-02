@@ -208,3 +208,9 @@
 - Upcycle wrong-sort screen shake added (reduced-motion guarded).
 - NPC quest turn-in SFX now scales pitch slightly by tier.
 - World pause menu now fades in smoothly when reduced motion is off.
+
+## 2026-11-02 16:30 — Upcycle/Reef priority pass
+- Upcycle spam spawn interval starts 5s then gradually tightens to 1.5s.
+- Removed wrong-sort and belt-burn score punishment; feedback remains.
+- Reef Rescue now grants 1 kg per garbage and auto-takes game over closure when capacity is full.
+- Updated guide/help text and docs to match.

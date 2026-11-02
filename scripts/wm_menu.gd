@@ -252,7 +252,7 @@ func _deep_cache_upgrade_text() -> String:
 	return "Upgrade Deep Cache -> tier %d (+debris) — %d upcycle score" % [GameState.deep_cache_tier + 1, 15 * (GameState.deep_cache_tier)]
 
 func _inv_cap_text() -> String:
-	return "Inventory Cap: Lv.%d — %d/%d kg (cost %d trash)" % [GameState.inventory_capacity_level, GameState.trash_inventory, GameState.get_inventory_capacity(), 8 + GameState.inventory_capacity_level * 4]
+	return "Inventory Cap: Lv.%d — %d/%d kg (cost %d trash)" % [GameState.inventory_capacity_level, GameState.trash_inventory, GameState.get_inventory_capacity(), 6 + GameState.inventory_capacity_level * 3]
 
 func _buy_move() -> void:
 	if not GameState.spend_trash(_move_cost()):
@@ -328,7 +328,7 @@ func _refresh_upgrade_ui() -> void:
 		_deep_cache_upgrade_btn.text = _deep_cache_upgrade_text()
 		_deep_cache_upgrade_btn.disabled = (not GameState.deep_cache)
 	if is_instance_valid(_inv_cap_btn):
-		var cost := 8 + GameState.inventory_capacity_level * 4
+		var cost := 6 + GameState.inventory_capacity_level * 3
 		_inv_cap_btn.disabled = GameState.trash_inventory < cost
 		_inv_cap_btn.text = _inv_cap_text()
 	if is_instance_valid(_upgrade_fast_btn):

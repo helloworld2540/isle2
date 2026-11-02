@@ -29,8 +29,8 @@ var sort_streak := 0
 var _sorted_count := 0
 var carried_item: Node2D = null
 var spawn_timer := 0.0
-var SPAWN_INTERVAL := 1.0
-var belt_speed := 120.0
+var SPAWN_INTERVAL := 5.0
+var belt_speed := 80.0
 
 var _belt_banner_shown := false
 var drag_start_pos := Vector2.ZERO
@@ -111,13 +111,14 @@ func _process(delta: float) -> void:
 				item.set_meta("on_belt", false)
 				burn_item(item)
 				
-	belt_speed = clampf(90.0 + float(score) * 0.4, 90.0, 220.0)
+	belt_speed = clampf(75.0 + float(score) * 0.3, 75.0, 180.0)
 	spawn_timer += delta
 	
 	if _count_belt_items() < 5:
 		_belt_banner_shown = false
 		
-	if spawn_timer >= SPAWN_INTERVAL:
+	var spawn_interval := clampf(5.0 - float(score) * 0.03, 1.5, 5.0)
+	if spawn_timer >= spawn_interval:
 		spawn_timer = 0.0
 		if _count_belt_items() < 10:
 			spawn_item()
@@ -201,7 +202,7 @@ func spawn_item() -> void:
 		bob.tween_property(item, "position:y", item.position.y + 6.0, 0.6).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
 func burn_item(item: Node2D) -> void:
-	score -= 1
+	# No score penalty on belt burn; streak reset only.
 	sort_streak = 0
 	AudioManager.play_sfx("sort_bad", 0.88)
 	var ap := item.get_node_or_null("AnimationPlayer")
@@ -297,7 +298,6 @@ func _interact() -> void:
 			_spawn_bin_sparkle(target.global_position)
 			AudioManager.play_sfx("combo")
 		else:
-			score -= 1
 			AudioManager.play_sfx("sort_bad", 0.92)
 			sort_streak = 0
 			_shake_wrong_sort()
