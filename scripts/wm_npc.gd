@@ -54,10 +54,7 @@ func _ready() -> void:
 	_load_saved_data()
 	_apply_npc_sprite()
 	_build_quest_progress()
-	
-	if true:
-		_start_idle_animations()
-		
+	_start_idle_animations()
 	_update_ui_state()
 
 func _process(delta: float) -> void:
@@ -77,7 +74,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if not _panel: return
 	
 	if event.is_action_pressed("ui_cancel") or \
-	  (event is InputEventKey and event.pressed and not event.echo and event.keycode in [KEY_ENTER, KEY_KP_ENTER, KEY_SPACE]):
+		(event is InputEventKey and event.pressed and not event.echo and event.keycode in [KEY_ENTER, KEY_KP_ENTER, KEY_SPACE]):
 		get_viewport().set_input_as_handled()
 		_close()
 
@@ -118,7 +115,7 @@ func _start_idle_animations() -> void:
 		sp_tween.tween_property(_sprite, "position:y", _sprite.position.y, 1.05).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
 func _apply_npc_sprite() -> void:
-	_sprite = $"Sprite"
+	_sprite = get_node_or_null("Sprite")
 	var idx := clampi(npc_sprite_index, 1, 4)
 	var path := "res://sprites/wm_npc/npc%d.png" % idx
 	
@@ -151,7 +148,7 @@ func _update_ui_state() -> void:
 func _build_quest_progress() -> void:
 	if _quest_progress_label: return
 	
-	_quest_progress_label = $"QuestProgress"
+	_quest_progress_label = get_node_or_null("QuestProgress")
 	if not _quest_progress_label:
 		_quest_progress_label = load("res://scenes/ui/label.tscn").instantiate() as Label
 		_quest_progress_label.name = "QuestProgress"
@@ -193,7 +190,7 @@ func _refresh_quest_progress() -> void:
 	_quest_progress_label.modulate = Color(0.6, 1.0, 0.7, 1.0) if have >= active_amt else Color(0.7, 0.95, 1.0, 0.9)
 
 func _refresh_name_label() -> void:
-	var nl: Label = $"NameLabel"
+	var nl: Label = get_node_or_null("NameLabel")
 	if not nl: return
 	
 	if _quest2_done:
@@ -290,17 +287,17 @@ func _show_dialogue() -> void:
 		line_labels.append(lbl)
 
 	# Animate Text
-	if false:
-		for lbl in line_labels: lbl.visible_characters = -1
-	else:
-		for lbl in line_labels: lbl.visible_characters = 0
-		var tw := create_tween()
-		for lbl in line_labels:
-			var n: int = lbl.text.length()
-			tw.tween_method(func(v): lbl.visible_characters = v, 0, n, clamp(float(n) * 0.018, 0.18, 1.3))
-			tw.tween_interval(0.15)
-			
-		get_tree().create_timer(12.0).timeout.connect(_close) # Auto-close fallback
+	for lbl in line_labels: 
+		lbl.visible_characters = 0
+	
+	var tw := create_tween()
+	for lbl in line_labels:
+		var n: int = lbl.text.length()
+		tw.tween_method(func(v): 
+			if lbl:
+				lbl.visible_characters = v, 0, n, clamp(float(n) * 0.018, 0.18, 1.3
+			))
+		tw.tween_interval(0.15)
 
 	# Quests and Rewards
 	if first_visit and reward_trash > 0:
@@ -393,7 +390,7 @@ func _show_ambient_bubble() -> void:
 		_ambient_bubble.position = Vector2(-90, -95)
 		add_child(_ambient_bubble)
 		
-	_ambient_bubble.text = str(ambient_bubbles[_visit_count % ambient_bubbles.size()])
+	_ambient_bubble.text = str(ambient_bubbles.pick_random())
 	_ambient_bubble.modulate = Color(1.0, 1.0, 0.9, 0.0)
 	
 	var tw := create_tween()

@@ -184,7 +184,6 @@ func _sell_qty(mat: String, qty: int) -> void:
 	var bulk := false
 	# bulk bonus applies to sell-all only
 	GameState.consume_trash_type(mat, sell_qty)
-	GameState.upcycle_score += earnings
 	GameState.add_earnings(earnings)
 	_last_sale = {"mat": mat, "price": price, "qty": sell_qty, "earnings": earnings, "bulk": bulk}
 	_log_sale("%s x%d → %d score" % [mat, sell_qty, earnings])
@@ -203,7 +202,6 @@ func _sell_all(mat: String) -> void:
 	var multiplier: float = BULK_MULTIPLIER if avail >= BULK_THRESHOLD else 1.0
 	var earnings := int(round(float(avail) * float(price) * multiplier))
 	GameState.consume_trash_type(mat, avail)
-	GameState.upcycle_score += earnings
 	GameState.add_earnings(earnings)
 	var bulk: bool = multiplier > 1.0
 	_last_sale = {"mat": mat, "price": price, "qty": avail, "earnings": earnings, "bulk": bulk}

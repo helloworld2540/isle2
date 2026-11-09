@@ -410,15 +410,21 @@ func _find_deposit_bin(item: Node2D) -> Node2D:
 	if not bins or not player: return null
 	
 	var mat: String = str(item.get_meta("material"))
+	var player_grid := _snap(player.global_position)
 	var nearest: Node2D = null
 	var best_dist: float = INF
 
 	for bin in bins.get_children():
 		if str(bin.get_meta("material")) != mat: continue
-		var d: float = bin.global_position.distance_to(player.global_position)
-		if d < best_dist:
-			best_dist = d
-			nearest = bin
+		
+		# Only target the bin when the player is grid-adjacent to it
+		var bin_grid := _snap(bin.global_position)
+		var diff := (bin_grid - player_grid).abs()
+		if diff.x <= grid_size and diff.y <= grid_size:
+			var d: float = bin.global_position.distance_to(player.global_position)
+			if d < best_dist:
+				best_dist = d
+				nearest = bin
 			
 	return nearest
 

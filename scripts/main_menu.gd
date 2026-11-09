@@ -4,7 +4,6 @@ extends Control
 @onready var load_save_button: Button = $Buttons/LoadSaveButton
 @onready var quit_button: Button = $Buttons/QuitButton
 @onready var save_summary: Label = $SaveSummaryPanel/VBoxContainer/SaveSummary
-@onready var mini_stats: Label = $SaveSummaryPanel/VBoxContainer/MiniStats
 @onready var save_summary_panel: PanelContainer = $SaveSummaryPanel
 
 var _more_stats_button: Button = null
@@ -37,17 +36,17 @@ func _wire_buttons() -> void:
 
 func _refresh_summary() -> void:
 	save_summary.text = _summary_text()
-	mini_stats.text = _mini_stats_text()
 
 func _summary_text() -> String:
 	if not SaveManager.has_save():
 		return "No save found yet. Start a new save to begin cleaning."
 	var sd := SaveManager.load_game()
 	GameState.restore()
-	return "Continue summary:\nScore %d (best %d)  |  Trash %d kg  |  Fish %d (best %d)\nBest streak %d  |  Lifetime earnings %d\nInventory totals: %s" % [
+	return "Continue summary:\nScore %d (best %d)  |  Trash %d kg  |  Fish %d \nBest streak %d  |  Lifetime earnings %d  | %d$ \nInventory totals: %s" % [
 		GameState.upcycle_score, GameState.best_upcycle_score,
-		GameState.trash_inventory, GameState.reef_fish, GameState.best_reef_fish,
+		GameState.trash_inventory, GameState.reef_fish,
 		GameState.best_sort_streak, GameState.lifetime_earnings,
+		GameState.money,
 		_format_inventory_totals()
 	]
 
@@ -60,13 +59,6 @@ func _format_inventory_totals() -> String:
 	if parts.is_empty():
 		return "empty"
 	return ", ".join(parts)
-
-func _mini_stats_text() -> String:
-	if not SaveManager.has_save():
-		return "No runs yet — try Reef Rescue or Upcycle!"
-	return "Best fish %d  •  Best streak %d  •  Lifetime %d" % [
-		GameState.best_reef_fish, GameState.best_sort_streak, GameState.lifetime_earnings
-	]
 
 func _on_new_save_pressed() -> void:
 	SaveManager.new_save()

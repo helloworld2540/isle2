@@ -158,163 +158,6 @@ frame_progress = 0.3313893
 position = Vector2(1, -30.5)
 shape = SubResource("RectangleShape2D_nmirg")
 
-[node name="Menu" type="CanvasLayer" parent="." unique_id=410065409]
-script = ExtResource("4_menu")
-
-[node name="MenuPanel" type="Control" parent="Menu" unique_id=410065410]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Dimmer" type="ColorRect" parent="Menu/MenuPanel" unique_id=410065411]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.5)
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Menu/MenuPanel" unique_id=1150308291]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -339.5
-offset_top = -162.0
-offset_right = 339.5
-offset_bottom = 162.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Infobox" type="VBoxContainer" parent="Menu/MenuPanel/HBoxContainer" unique_id=999707723]
-layout_mode = 2
-
-[node name="UpgradesPanel" type="PanelContainer" parent="Menu/MenuPanel/HBoxContainer/Infobox" unique_id=410065433]
-custom_minimum_size = Vector2(420, 0)
-layout_mode = 2
-
-[node name="UpgradePanel" type="VBoxContainer" parent="Menu/MenuPanel/HBoxContainer/Infobox/UpgradesPanel" unique_id=410065434]
-layout_mode = 2
-
-[node name="UpgradesTitle" type="Label" parent="Menu/MenuPanel/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel" unique_id=410065435]
-layout_mode = 2
-theme_override_font_sizes/font_size = 20
-text = "Upgrades"
-
-[node name="UpgradeStatus" type="Label" parent="Menu/MenuPanel/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel" unique_id=410065436]
-layout_mode = 2
-theme_override_font_sizes/font_size = 14
-text = "Upgrades -> Move: 0, Range: 0, -"
-
-[node name="MoveFasterBtn" type="Button" parent="Menu/MenuPanel/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel" unique_id=410065437]
-layout_mode = 2
-text = "Move Faster: Lv.0 (+8%% speed) — 8 trash"
-
-[node name="CollectionRangeBtn" type="Button" parent="Menu/MenuPanel/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel" unique_id=410065438]
-layout_mode = 2
-text = "Collection Range: Lv.0 (+12 px) — 12 trash"
-
-[node name="DeepCacheBtn" type="Button" parent="Menu/MenuPanel/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel" unique_id=410065439]
-layout_mode = 2
-text = "Deep Cache (30 upcycle score) — bonus debris per run"
-
-[node name="DeepCacheUpgradeBtn" type="Button" parent="Menu/MenuPanel/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel" unique_id=410065440]
-layout_mode = 2
-disabled = true
-text = "Upgrade Deep Cache -> tier 1 (+debris) — 15 upcycle score"
-
-[node name="InventoryCapBtn" type="Button" parent="Menu/MenuPanel/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel" unique_id=410065441]
-layout_mode = 2
-text = "Inventory Cap: Lv.0 — 0/30 kg (cost 8 trash)"
-
-[node name="ProgressBox" type="HBoxContainer" parent="Menu/MenuPanel/HBoxContainer/Infobox" unique_id=410065442]
-custom_minimum_size = Vector2(420, 0)
-layout_mode = 2
-
-[node name="UpcycleLbl" type="Label" parent="Menu/MenuPanel/HBoxContainer/Infobox/ProgressBox" unique_id=410065443]
-custom_minimum_size = Vector2(90, 0)
-layout_mode = 2
-text = "Upcycle"
-
-[node name="UpcycleProgress" type="ProgressBar" parent="Menu/MenuPanel/HBoxContainer/Infobox/ProgressBox" unique_id=410065444]
-custom_minimum_size = Vector2(320, 20)
-layout_mode = 2
-max_value = 1.0
-
-[node name="ReefProgressBox" type="HBoxContainer" parent="Menu/MenuPanel/HBoxContainer/Infobox" unique_id=410065445]
-custom_minimum_size = Vector2(420, 0)
-layout_mode = 2
-
-[node name="ReefLbl" type="Label" parent="Menu/MenuPanel/HBoxContainer/Infobox/ReefProgressBox" unique_id=410065446]
-custom_minimum_size = Vector2(90, 0)
-layout_mode = 2
-text = "Reef"
-
-[node name="ReefProgress" type="ProgressBar" parent="Menu/MenuPanel/HBoxContainer/Infobox/ReefProgressBox" unique_id=410065447]
-custom_minimum_size = Vector2(320, 20)
-layout_mode = 2
-max_value = 1.0
-
-[node name="SettingsButton" type="Button" parent="Menu/MenuPanel/HBoxContainer/Infobox" unique_id=410065448]
-layout_mode = 2
-text = "Settings ▼"
-
-[node name="SettingsPanel" type="VBoxContainer" parent="Menu/MenuPanel/HBoxContainer/Infobox" unique_id=410065449]
-visible = false
-custom_minimum_size = Vector2(420, 0)
-layout_mode = 2
-
-[node name="MasterLabel" type="Label" parent="Menu/MenuPanel/HBoxContainer/Infobox/SettingsPanel" unique_id=410065450]
-layout_mode = 2
-text = "Master Volume"
-
-[node name="MasterSlider" type="HSlider" parent="Menu/MenuPanel/HBoxContainer/Infobox/SettingsPanel" unique_id=410065451]
-layout_mode = 2
-value = 100.0
-
-[node name="MusicLabel" type="Label" parent="Menu/MenuPanel/HBoxContainer/Infobox/SettingsPanel" unique_id=410065452]
-layout_mode = 2
-text = "Music Volume"
-
-[node name="MusicSlider" type="HSlider" parent="Menu/MenuPanel/HBoxContainer/Infobox/SettingsPanel" unique_id=410065453]
-layout_mode = 2
-value = 65.0
-
-[node name="SFXLabel" type="Label" parent="Menu/MenuPanel/HBoxContainer/Infobox/SettingsPanel" unique_id=410065500]
-layout_mode = 2
-text = "SFX Volume"
-
-[node name="SfxSlider" type="HSlider" parent="Menu/MenuPanel/HBoxContainer/Infobox/SettingsPanel" unique_id=410065501]
-layout_mode = 2
-value = 100.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Menu/MenuPanel/HBoxContainer" unique_id=410065412]
-layout_mode = 2
-
-[node name="ResumeButton" type="Button" parent="Menu/MenuPanel/HBoxContainer/VBoxContainer" unique_id=410065413]
-custom_minimum_size = Vector2(220, 70)
-layout_mode = 2
-theme = ExtResource("6_qfnet")
-theme_override_font_sizes/font_size = 30
-text = "Resume"
-
-[node name="SaveButton" type="Button" parent="Menu/MenuPanel/HBoxContainer/VBoxContainer" unique_id=410065415]
-custom_minimum_size = Vector2(220, 70)
-layout_mode = 2
-theme = ExtResource("6_qfnet")
-theme_override_font_sizes/font_size = 30
-text = "Save & Quit"
-
-[node name="CapStatus" type="Label" parent="Menu/MenuPanel/HBoxContainer/VBoxContainer" unique_id=410065432]
-modulate = Color(1, 0.9, 0.5, 0.95)
-layout_mode = 2
-
 [node name="PortalUpcycle" type="Area2D" parent="." unique_id=900000001]
 position = Vector2(328, -143)
 script = ExtResource("5_portal")
@@ -333,7 +176,7 @@ text = "Upcycle"
 horizontal_alignment = 1
 
 [node name="PortalReefRescue" type="Area2D" parent="." unique_id=900000004]
-position = Vector2(91, 1058)
+position = Vector2(74, 1413)
 script = ExtResource("5_portal")
 target_scene = "res://scenes/reef_rescue.tscn"
 
@@ -479,3 +322,160 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 18
 text = "Progress"
 autowrap_mode = 3
+
+[node name="Menu" type="CanvasLayer" parent="." unique_id=410065409]
+script = ExtResource("4_menu")
+
+[node name="MenuPanel" type="Control" parent="Menu" unique_id=410065410]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Dimmer" type="ColorRect" parent="Menu/MenuPanel" unique_id=410065411]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.67058825)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu/MenuPanel" unique_id=1150308291]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -339.5
+offset_top = -162.0
+offset_right = 339.5
+offset_bottom = 162.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Infobox" type="VBoxContainer" parent="Menu/MenuPanel/HBoxContainer" unique_id=999707723]
+layout_mode = 2
+
+[node name="UpgradesPanel" type="PanelContainer" parent="Menu/MenuPanel/HBoxContainer/Infobox" unique_id=410065433]
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 2
+
+[node name="UpgradePanel" type="VBoxContainer" parent="Menu/MenuPanel/HBoxContainer/Infobox/UpgradesPanel" unique_id=410065434]
+layout_mode = 2
+
+[node name="UpgradesTitle" type="Label" parent="Menu/MenuPanel/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel" unique_id=410065435]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Upgrades"
+
+[node name="UpgradeStatus" type="Label" parent="Menu/MenuPanel/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel" unique_id=410065436]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Upgrades -> Move: 0, Range: 0, -"
+
+[node name="MoveFasterBtn" type="Button" parent="Menu/MenuPanel/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel" unique_id=410065437]
+layout_mode = 2
+text = "Move Faster: Lv.0 (+8%% speed) — 8 trash"
+
+[node name="CollectionRangeBtn" type="Button" parent="Menu/MenuPanel/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel" unique_id=410065438]
+layout_mode = 2
+text = "Collection Range: Lv.0 (+12 px) — 12 trash"
+
+[node name="DeepCacheBtn" type="Button" parent="Menu/MenuPanel/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel" unique_id=410065439]
+layout_mode = 2
+text = "Deep Cache (30 upcycle score) — bonus debris per run"
+
+[node name="DeepCacheUpgradeBtn" type="Button" parent="Menu/MenuPanel/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel" unique_id=410065440]
+layout_mode = 2
+disabled = true
+text = "Upgrade Deep Cache -> tier 1 (+debris) — 15 upcycle score"
+
+[node name="InventoryCapBtn" type="Button" parent="Menu/MenuPanel/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel" unique_id=410065441]
+layout_mode = 2
+text = "Inventory Cap: Lv.0 — 0/30 kg (cost 8 trash)"
+
+[node name="ProgressBox" type="HBoxContainer" parent="Menu/MenuPanel/HBoxContainer/Infobox" unique_id=410065442]
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 2
+
+[node name="UpcycleLbl" type="Label" parent="Menu/MenuPanel/HBoxContainer/Infobox/ProgressBox" unique_id=410065443]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+text = "Upcycle"
+
+[node name="UpcycleProgress" type="ProgressBar" parent="Menu/MenuPanel/HBoxContainer/Infobox/ProgressBox" unique_id=410065444]
+custom_minimum_size = Vector2(320, 20)
+layout_mode = 2
+max_value = 1.0
+
+[node name="ReefProgressBox" type="HBoxContainer" parent="Menu/MenuPanel/HBoxContainer/Infobox" unique_id=410065445]
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 2
+
+[node name="ReefLbl" type="Label" parent="Menu/MenuPanel/HBoxContainer/Infobox/ReefProgressBox" unique_id=410065446]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+text = "Reef"
+
+[node name="ReefProgress" type="ProgressBar" parent="Menu/MenuPanel/HBoxContainer/Infobox/ReefProgressBox" unique_id=410065447]
+custom_minimum_size = Vector2(320, 20)
+layout_mode = 2
+max_value = 1.0
+
+[node name="SettingsButton" type="Button" parent="Menu/MenuPanel/HBoxContainer/Infobox" unique_id=410065448]
+layout_mode = 2
+text = "Settings ▼"
+
+[node name="SettingsPanel" type="VBoxContainer" parent="Menu/MenuPanel/HBoxContainer/Infobox" unique_id=410065449]
+visible = false
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 2
+
+[node name="MasterLabel" type="Label" parent="Menu/MenuPanel/HBoxContainer/Infobox/SettingsPanel" unique_id=410065450]
+layout_mode = 2
+text = "Master Volume"
+
+[node name="MasterSlider" type="HSlider" parent="Menu/MenuPanel/HBoxContainer/Infobox/SettingsPanel" unique_id=410065451]
+layout_mode = 2
+value = 100.0
+
+[node name="MusicLabel" type="Label" parent="Menu/MenuPanel/HBoxContainer/Infobox/SettingsPanel" unique_id=410065452]
+layout_mode = 2
+text = "Music Volume"
+
+[node name="MusicSlider" type="HSlider" parent="Menu/MenuPanel/HBoxContainer/Infobox/SettingsPanel" unique_id=410065453]
+layout_mode = 2
+value = 65.0
+
+[node name="SFXLabel" type="Label" parent="Menu/MenuPanel/HBoxContainer/Infobox/SettingsPanel" unique_id=410065500]
+layout_mode = 2
+text = "SFX Volume"
+
+[node name="SfxSlider" type="HSlider" parent="Menu/MenuPanel/HBoxContainer/Infobox/SettingsPanel" unique_id=410065501]
+layout_mode = 2
+value = 100.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu/MenuPanel/HBoxContainer" unique_id=410065412]
+layout_mode = 2
+
+[node name="ResumeButton" type="Button" parent="Menu/MenuPanel/HBoxContainer/VBoxContainer" unique_id=410065413]
+custom_minimum_size = Vector2(220, 70)
+layout_mode = 2
+theme = ExtResource("6_qfnet")
+theme_override_font_sizes/font_size = 30
+text = "Resume"
+
+[node name="SaveButton" type="Button" parent="Menu/MenuPanel/HBoxContainer/VBoxContainer" unique_id=410065415]
+custom_minimum_size = Vector2(220, 70)
+layout_mode = 2
+theme = ExtResource("6_qfnet")
+theme_override_font_sizes/font_size = 30
+text = "Save & Quit"
+
+[node name="CapStatus" type="Label" parent="Menu/MenuPanel/HBoxContainer/VBoxContainer" unique_id=410065432]
+modulate = Color(1, 0.9, 0.5, 0.95)
+layout_mode = 2

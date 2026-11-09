@@ -238,14 +238,13 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		if ap:
 			ap.play("run")
 		if fish >= _fish_limit:
-			_game_over_summary()
+			_game_over_summary("fish")
 		return
 	else:
 		var weight := 1
 		_garbage_combo += 1
 		_combo_timer = 2.0
 		var multiplier := 1 + int(_garbage_combo / 3)
-		# Each collected trash is exactly 1 kg; combo only earns a small score pop.
 		garbage += 1.0
 		GameState.upcycle_score += multiplier
 		AudioManager.play_sfx("pickup", 1.0 + min(float(multiplier), 3.0) * 0.05)
@@ -256,10 +255,10 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		if ap2:
 			ap2.play("suck")
 		if GameState.get_free_capacity() <= 0:
-			_game_over_summary()
+			_game_over_summary("inventory")
 			return
 
-func _game_over_summary() -> void:
+func _game_over_summary(reason: String = "manual") -> void:
 	if _leaving:
 		return
 	_leaving = true
@@ -271,10 +270,29 @@ func _game_over_summary() -> void:
 		var bonus := 5 * GameState.deep_cache_tier + 3 * GameState.inventory_capacity_level
 		debris_total += bonus
 	var accepted := GameState.add_trash_type_weighted("Reef Debris", debris_total)
+	
+	var cause_msg := ""
+	if reason == "fish" or fish >= _fish_limit:
+		cause_msg = "Drone disabled! You bumped into sea life 3 times."
+		if go_title:
+			go_title.text = "Drone Damaged!"
+	elif reason == "inventory" or GameState.get_free_capacity() <= 0:
+		cause_msg = "Cargo full! You ran out of inventory space for more trash."
+		if go_title:
+			go_title.text = "Inventory Full!"
+	else:
+		cause_msg = "Dive ended early by operator return."
+		if go_title:
+			go_title.text = "Dive Summary"
+
 	if accepted == 0 and drone:
 		_popup("Inventory full - sell trash", Color(1.0, 0.4, 0.4, 1.0))
+		
 	if go_body:
-		go_body.text = "Bumped into %d fish\nGarbage collected: %d kg\nDepth: %d m\n\nReef debris earned: %d" % [fish, int(garbage), int(depth), accepted]
+		go_body.text = "%s\n\nFish bumps: %d / %d\nGarbage collected: %d kg\nDepth reached: %d m\n\nReef debris earned: %d" % [
+			cause_msg, fish, _fish_limit, int(garbage), int(depth), accepted
+		]
+		
 	if game_over_canvas:
 		game_over_canvas.layer = 110
 		get_tree().paused = false
@@ -290,7 +308,7 @@ func _leave_after_summary() -> void:
 	SceneTransition.change_scene("res://scenes/world.tscn")
 
 func _leave_to_map() -> void:
-	_game_over_summary()
+	_game_over_summary("manual")
 	return
 
 func _unhandled_input(event: InputEvent) -> void:

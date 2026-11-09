@@ -4,7 +4,8 @@ extends Area2D
 @export var warn_target_contains: String = "upcycle"
 @onready var label: Label = $"Label"
 
-@onready var pad: ColorRect = $"Pad"
+var pad: ColorRect = null
+
 var _warn_label: Label
 
 func _ready() -> void:
