@@ -23,6 +23,7 @@ GameState="*res://scripts/game_state.gd"
 SaveManager="*res://scripts/save_manager.gd"
 AudioManager="*res://scripts/audio_manager.gd"
 SceneTransition="*res://scripts/scene_transition.gd"
+MCPGameBridge="res://addons/godot_mcp/game_bridge/mcp_game_bridge.gd"
 
 [display]
 
@@ -35,7 +36,7 @@ version_control/autoload_on_startup=true
 
 [editor_plugins]
 
-enabled=PackedStringArray()
+enabled=PackedStringArray("res://addons/godot_mcp/plugin.cfg")
 
 [godot_mcp]
 
