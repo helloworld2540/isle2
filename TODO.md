@@ -1,6 +1,11 @@
 # Current project todo:
 
 # done this pass
+- NPC turn-in path verified end to end on a fresh save: Mara tier 1 (8 PE -> 3
+  Glass) consumes the PE, credits the Glass, marks the quest done, and
+  quests_completed increments correctly — after flush, since GameState's
+  0.4 s save debounce had not yet fired during the immediate check.
+  Player save restored afterwards.
 - Fresh-save tour re-verified after today's batch (starfish, journal, HUD):
   welcome dismisses -> step 1, move/reef/sort/sell notify through to step 5
   (finale) persisted on disk; money 0/pure fresh values, no crash. Player
