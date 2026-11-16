@@ -1,6 +1,12 @@
 # Current project todo:
 
 # done this pass
+- Ambient world-life pass 4: the distant sailboat is now a working boat — a
+  rare low foghorn sounds every 45–85 s while the boat is actually on the
+  horizon (synthesized sound/sfx/foghorn.wav, ~2 Hz beat between two detuned
+  saws, soft strike). Under reduced motion the boat stays visually frozen but
+  the horn still sounds (it is audio ambience, not motion). Resolver
+  verified in-game; smoke 44/44.
 - Web export rebuilt after the harbor-bell asset landed: pack completes
   (html/js/wasm/pck all emitted, zero errors). Linux and Android debug
   builds verified earlier this sprint.
