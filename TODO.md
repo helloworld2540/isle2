@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- World HUD first-paint confirmed visually: "Trash 0/10 kg" and "(empty)"
+  render cleanly; a starfish is visible at the top of the map; no defects.
 - World HUD default labels no longer flash the placeholder word "Progress"
   before the first _process tick — now they read "Trash 0/10 kg" and "(empty)".
 - Scene integrity sweep: no duplicate sibling node names, no ext_resource
