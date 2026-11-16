@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- Upcycle briefing card re-verified visually after all recent additions: the
+  golden-scrap bullet renders inline with the rest, layout holds.
 - Linux debug build re-verified after the collectathon batch (starfish,
   journal HUD, tide pool): boots headless with zero script errors (only
   benign shutdown noise).
