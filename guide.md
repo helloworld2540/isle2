@@ -150,6 +150,23 @@ checked against this yield — nothing changed, deliberately.*
   Deep Cache / its tier-up / Inv Cap), the **Settings** toggle and the **Reduce
   motion** checkbox are each ≥ 44 px, so the whole island menu is thumb-friendly.
 
+## Screen layout & toasts
+- Everything obeys one 24 px screen margin. Centered **modal cards** (welcome
+  guide, minigame briefings, the pause/Island Menu) sit on a full-rect
+  `CenterContainer` inset by 24 px; non-modal **bottom cards** (tutorial step
+  hints) sit in a bottom `Margin` column. Both register in a group
+  (`ui_modal_card` / `hud_bottom_card`) so the toast queue and the tutorial
+  director stack above / wait for them instead of overlapping.
+- The pause/Island Menu card is 880 px-min with its own header row (title +
+  live upgrade status), an ACTIONS column (Resume, Save & quit) beside the
+  infobox, and a **Settings** view that swaps out the upgrades/progress pane
+  so the card never outgrows a 1152×648 screen. Under **Reduce motion** the
+  card simply appears; otherwise it fades in over 0.16 s.
+- Minigame HUDs group their stat labels into a `UI/HUDStats` VBox pinned at
+  the 24 px safe margin (20 px type).
+- Toast notifications live in a bottom-centre lane, 24 px off the edge, 18 px
+  type with a dark outline, and lift clear of any visible bottom-centre card.
+
 ## Upgrades
 - Move speed +8% / level via trash.
 - Collection radius +12px / level via trash.
