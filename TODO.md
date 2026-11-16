@@ -1,6 +1,11 @@
 # Current project todo:
 
 # done this pass
+- Audio identity pass: the upcycle shift now closes on its own signature —
+  synthesized `shift_complete` SFX (A4→E5 bell motif, mono 22050 Hz, decaying
+  third harmonic) instead of the generic achievement chime. Upcycle already
+  had its own BGM stem (`sound/bgm/upcycle.mp3`); the motif gives the panel
+  its voice. Verified it plays clean in-game.
 - Best-run stake on the pre-round briefing: the shared `MinigameIntro` card
   gained an optional "Stats" row (gold, hidden until set) — the upcycle bench
   shows "Best score: N · Runs finished: M", reef rescue shows "Deepest: N m ·
@@ -149,10 +154,10 @@
   Fixed deferred spawn (hint used to parent to a dying scene during transitions).
 
 # high priority
-- Audio identity pass: the bench shares the generic BGM-action vibe of reef
-  rescue — give upcycle its own track (or at least a distinct player stem) and
-  a short two-note motif on the SHIFT COMPLETE panel, so the minigame
-  hand-off feels scored rather than shared.
+- Recipe of the loop: surface "what's the fastest path this save" as a living
+  hint — once the player beats Market Contact, the route advisor should
+  re-weight itself toward bag/dive choices rather than Reef Debris sorting,
+  so the advice stays honest as the economy matures.
 
 # medium priority
 # (shimmer item promoted to high priority)

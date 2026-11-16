@@ -88,6 +88,8 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 - Two buses: Master, Music. Volumes persisted in save.
 - SFX candidates with extensions .ogg/.wav/.mp3; pitch jitter 0.96–1.04.
 - BGM loops per scene ("menu", "world", "upcycle", "shop", "reef").
+- Signature stingers: `shift_complete` (A4 → E5 bell motif, 22050 Hz) closes the
+  upcycle shift; `achievement` covers story/cards; `combo` punches at sort ×3.
 - Reduced motion flag affects animations/transitions.
 
 ## Scene Transitions

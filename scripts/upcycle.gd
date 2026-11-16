@@ -644,7 +644,7 @@ func _game_over_summary(clean_finish: bool = false) -> void:
 	GameState.record_upcycle(score)
 	_record_run_card(prev_best)
 	
-	AudioManager.play_sfx("achievement" if clean_finish else "sort_bad")
+	AudioManager.play_sfx("shift_complete" if clean_finish else "sort_bad")
 	
 	if game_over_canvas and go_body:
 		if clean_finish:
