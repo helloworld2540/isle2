@@ -5,4 +5,6 @@
 addons/
 export/
 .idea
-*.kra~.npc2.kra-autosave.kra
+*.kra~
+*.kra-autosave.kra
+*~
