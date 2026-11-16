@@ -20,6 +20,7 @@ var _combo_timer := 0.0
 @onready var garbage_label: Label = $"UI/GarbageLabel"
 @onready var fish_label: Label = $"UI/FishLabel"
 @onready var depth_label: Label = $"UI/DepthLabel"
+@onready var combo_label: Label = $"UI/ComboLabel"
 @onready var return_btn: Button = $"UI/ReturnToMapButton"
 
 @onready var game_over_canvas: CanvasLayer = $"GameOverCanvas"
@@ -29,6 +30,9 @@ var _combo_timer := 0.0
 
 var _edge_markers: Dictionary = {}
 var _fish_limit := 3
+## Depth milestones that fire a one-time toast per dive (meters).
+const DEPTH_MILESTONES: Array[int] = [100, 250, 400, 700, 900]
+var _milestones_hit: Dictionary = {}
 
 @onready var shake_camera: Camera2D = $"ShakeCamera"
 
@@ -61,6 +65,8 @@ func _process(delta: float) -> void:
 		_combo_timer -= delta
 		if _combo_timer <= 0.0:
 			_garbage_combo = 0
+			if combo_label:
+				combo_label.visible = false
 	var vp := get_viewport_rect().size
 	var bg_speed := 0.0
 	if drone:
@@ -75,6 +81,7 @@ func _process(delta: float) -> void:
 	if parallax:
 		parallax.scroll_offset.y -= bg_speed
 	depth += bg_speed / 10.0
+	_check_depth_milestones()
 	if timer:
 		timer.wait_time = clampf(0.8 - depth / 3000.0, 0.32, 0.8)
 	if drone:
@@ -173,6 +180,64 @@ func _update_ui() -> void:
 	if depth_label:
 		depth_label.text = "%d m" % depth
 
+## Fires a one-time toast per milestone per dive. Milestones line up with the
+## achievement ladder (400 m = DEEP DIVE, 900 m = TO THE ABYSS) so crossing one
+## feels like making progress rather than just reading a number go up.
+func _check_depth_milestones() -> void:
+	for milestone in DEPTH_MILESTONES:
+		if depth >= float(milestone) and not _milestones_hit.has(milestone):
+			_milestones_hit[milestone] = true
+			var text := "%d m" % milestone
+			var col := Color(0.66, 0.9, 1.0, 1.0)
+			if milestone == 400:
+				text = "400 m — DEEP DIVE"
+				col = Color(0.8, 0.87, 1.0, 1.0)
+			elif milestone == 900:
+				text = "900 m — TO THE ABYSS"
+				col = Color(1.0, 0.82, 0.4, 1.0)
+			elif milestone >= 700:
+				col = Color(0.75, 0.85, 1.0, 1.0)
+			_toast_milestone(text, col)
+
+
+## Big, centered, back-eased banner — readable at a glance mid-dive without
+## covering the action at the edges (where the HUD labels live).
+func _toast_milestone(text: String, col: Color) -> void:
+	var lbl := _FLOATING_TEXT_SCENE.instantiate()
+	lbl.z_index = 60
+	lbl.rise_distance = 0.0
+	lbl.hold_time = 1.6
+	lbl.fade_out_time = 0.5
+	lbl.punch_scale = 1.65
+	lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	lbl.custom_minimum_size = Vector2(440.0, 0.0)
+	lbl.size = Vector2(440.0, 40.0)
+	var vp := get_viewport_rect().size
+	lbl.position = Vector2(vp.x * 0.5 - 220.0, vp.y * 0.2)
+	add_child(lbl)
+	lbl.present(text, col, 30)
+	AudioManager.play_sfx("quest_complete", 1.25)
+
+
+## Combo label under the depth HUD. Visible from ×2 up; every time the
+## multiplier steps (every 3 garbage inside the 2s window) it punches big and
+## flares hot gold before settling, so an x3+ streak reads across the screen.
+func _update_combo_label(multiplier: int) -> void:
+	if not combo_label:
+		return
+	if multiplier <= 1:
+		combo_label.visible = false
+		return
+	combo_label.visible = true
+	combo_label.text = "COMBO ×%d" % multiplier
+	var stepped := _garbage_combo % 3 == 0
+	combo_label.pivot_offset = combo_label.size * 0.5
+	combo_label.scale = Vector2(1.55, 1.55) if stepped else Vector2(1.2, 1.2)
+	combo_label.modulate = Color(1.0, 0.92, 0.45, 1.0) if stepped else Color(1.0, 0.84, 0.35, 1.0)
+	var tw := combo_label.create_tween()
+	tw.tween_property(combo_label, "scale", Vector2.ONE, 0.42).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tw.tween_property(combo_label, "modulate", Color(1.0, 0.84, 0.35, 1.0), 0.3)
+
 func _popup(msg: String, col: Color) -> void:
 	var lbl := _FLOATING_TEXT_SCENE.instantiate()
 	lbl.position = (drone.global_position if drone else Vector2.ZERO) + Vector2(-20, -40)
@@ -234,6 +299,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		_garbage_combo += 1
 		_combo_timer = 2.0
 		var multiplier := 1 + int(_garbage_combo / 3)
+		_update_combo_label(multiplier)
 		garbage += 1.0
 		GameState.upcycle_score += multiplier
 		AudioManager.play_sfx("pickup", 1.0 + min(float(multiplier), 3.0) * 0.05)

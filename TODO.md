@@ -7,6 +7,10 @@
 - Main-menu postcard: one-time golden shimmer sweep on the first menu visit after
   closing an island circuit (flag `postcard_shimmer_played`; reduced-motion flash).
   Verified mid-sweep on a fresh save; player save restored after testing.
+- Reef Rescue juice pass: depth-milestone banners (100/250/400/700/900 m, tied to
+  the DEEP DIVE / TO THE ABYSS ladder) and a combo counter under the depth HUD
+  that punches gold at every x3 milestone. Verified via exec (6 garbage → COMBO ×3,
+  milestone fired at 100 m).
 - Balance trace of the fresh-save loop (reef fish curve measured via randfn sampling;
   debris conversion audited). Upcycle spawn 3.5s → 2.75s so the bench stays busy;
   documented pacing in guide.md; fixed stale README claims (belt speed, spawn rate,
@@ -25,8 +29,9 @@
   Fixed deferred spawn (hint used to parent to a dying scene during transitions).
 
 # high priority
-- (next) Reef Rescue juice pass: depth-milestone toasts (100/250/400/700/900 m)
-  and a low-ink combo counter punch at each x3 milestone.
+- (next) Balance pass 2: live playtest one full fresh-save loop with the MCP
+  (menu → welcome → walk → dive → sort → sell → finale) and record wall-clock
+  pacing; adjust only if the median loop exceeds 6 minutes.
 
 # medium priority
 # (shimmer item promoted to high priority)
