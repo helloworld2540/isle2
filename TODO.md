@@ -8,8 +8,8 @@
   a golden spawns (golden flag persisted through nudge_gold_shown during the
   run) and a grey reef shark was logged to fish_met — both were test residue
   and the player's save was restored to its pre-run state afterwards.
-  This also surfaced that raven_weight spawns can persist mid-dive state to
-  disk; that's expected — a dive only "counts" once it ends.
+  This also surfaced that A dive doesn't persist mid-run state to disk — only at dive end (record_reef).
+  This is intentional; the player can't farm partial dives by reloading.
 - NPC turn-in path verified end to end on a fresh save: Mara tier 1 (8 PE -> 3
   Glass) consumes the PE, credits the Glass, marks the quest done, and
   quests_completed increments correctly — after flush, since GameState's
