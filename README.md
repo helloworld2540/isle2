@@ -112,6 +112,8 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 - The capacity line shows both expansion routes (shop cash price and the island-map trash
   cost), so the upgrade is discoverable wherever the player is looking. First sale in a save
   also earns the one-shot **Room for more?** nudge.
+- Late game: after Patron of the Isle, the shop sells the **Tidekeeper's Pact** (2500$,
+  one-time) — a permanent +10 kg bag and the KEEPER OF THE TIDE achievement.
 
 ## Files
 - `.godot/` — editor cache.

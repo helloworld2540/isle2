@@ -26,6 +26,7 @@ const RECEIPT_WIDTH := 460.0
 @onready var buy_market_button: Button = $"CanvasLayer/Scroll/VBoxContainer/Purchases/UpgradeRow/BuyMarketButton"
 @onready var buy_reef_button: Button = $"CanvasLayer/Scroll/VBoxContainer/Purchases/UpgradeRow/BuyReefButton"
 @onready var buy_patron_button: Button = $"CanvasLayer/Scroll/VBoxContainer/Purchases/PatronRow/BuyPatronButton"
+@onready var buy_tidekeeper_button: Button = $"CanvasLayer/Scroll/VBoxContainer/Purchases/TidekeeperRow/BuyTidekeeperButton"
 @onready var money_note: Label = $"CanvasLayer/Scroll/VBoxContainer/Purchases/MoneyNote"
 
 @onready var back_button: Button = $"CanvasLayer/Scroll/VBoxContainer/BackButton"
@@ -73,6 +74,8 @@ func _wire_ui() -> void:
 		buy_reef_button.pressed.connect(_buy_reef_lives)
 	if buy_patron_button:
 		buy_patron_button.pressed.connect(_buy_patron)
+	if buy_tidekeeper_button:
+		buy_tidekeeper_button.pressed.connect(_buy_tidekeeper)
 
 func _wire_row(row: HBoxContainer, mat: String, price: int) -> Dictionary:
 	var sell_one: Button = row.get_node("SellOne")
@@ -177,6 +180,14 @@ func _refresh_purchases() -> void:
 		else:
 			buy_patron_button.text = "Become a Patron of the Isle — %d$" % GameState.ISLAND_PATRON_COST
 			buy_patron_button.disabled = not GameState.can_afford(GameState.ISLAND_PATRON_COST)
+	
+	if buy_tidekeeper_button:
+		if GameState.tidekeeper:
+			buy_tidekeeper_button.text = "Tidekeeper's Pact — funded (+10 kg)"
+			buy_tidekeeper_button.disabled = true
+		else:
+			buy_tidekeeper_button.text = "Tidekeeper's Pact — %d$ (+10 kg bag for good)" % GameState.TIDEKEEPER_COST
+			buy_tidekeeper_button.disabled = not GameState.can_afford(GameState.TIDEKEEPER_COST)
 
 
 func _buy_market() -> void:
@@ -188,6 +199,17 @@ func _buy_market() -> void:
 	AudioManager.play_sfx("upgrade", 1.1)
 	_spawn_receipt("MARKET CONTACT +1$/unit  -%d$" % cost, Color(1.0, 0.9, 0.5, 1.0))
 	_log_sale("Market contacts up to +%d$ per unit for %d$" % [GameState.get_market_bonus(), cost])
+	_refresh()
+
+
+func _buy_tidekeeper() -> void:
+	if not GameState.purchase_tidekeeper():
+		_play_denied("Need %d$ for the Tidekeeper's Pact" % GameState.TIDEKEEPER_COST, "")
+		_shake_control(buy_tidekeeper_button)
+		return
+	AudioManager.play_sfx("achievement")
+	_spawn_receipt("TIDEKEEPER'S PACT  -%d$" % GameState.TIDEKEEPER_COST, Color(0.55, 0.95, 0.85, 1.0))
+	_log_sale("Tidekeeper's Pact: +10 kg bag for good — the reef is yours to keep")
 	_refresh()
 
 

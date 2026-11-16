@@ -137,6 +137,10 @@ const TIDE_GIFT_MONEY := 25
 ## Prestige purchase: a one-time island benefactor gift. No stat effect, only
 ## bragging rights — the island's answer to late-game money.
 var island_patron: bool = false
+## The final money sink: a permanent +10 kg bag granted outright as thanks for
+## a one-time 2500$ gift. Saved with the bag level (the level is bumped at
+## purchase), so the flag is only needed for the shop button and the title.
+var tidekeeper: bool = false
 
 # Most recent minigame run, handed to the world map for its recap card.
 # Shape: { "kind": String, "title": String, "lines": Array[String], "hint": String }
@@ -300,6 +304,22 @@ func purchase_island_patron() -> bool:
 		return false
 	money -= ISLAND_PATRON_COST
 	island_patron = true
+	_persist()
+	return true
+
+## The Tidekeeper's Pact: the last, deliberately steep money sink on the
+## island. Not a prestige title — a real reward: +1 bag level (+10 kg) for
+## life, bumped into inventory_capacity_level at purchase time.
+const TIDEKEEPER_COST := 2500
+
+func purchase_tidekeeper() -> bool:
+	if tidekeeper:
+		return false
+	if money < TIDEKEEPER_COST:
+		return false
+	money -= TIDEKEEPER_COST
+	tidekeeper = true
+	inventory_capacity_level += 1
 	_persist()
 	return true
 
@@ -643,6 +663,7 @@ func _write_save() -> void:
 		"market_level": market_level,
 		"reef_bonus_lives": reef_bonus_lives,
 		"island_patron": island_patron,
+		"tidekeeper": tidekeeper,
 		"bottles_read": bottles_read,
 		"tide_gift_granted": tide_gift_granted,
 		"quests_completed": quests_completed,
@@ -683,6 +704,7 @@ func restore() -> void:
 	market_level = int(data.get("market_level", 0))
 	reef_bonus_lives = int(data.get("reef_bonus_lives", 0))
 	island_patron = bool(data.get("island_patron", false))
+	tidekeeper = bool(data.get("tidekeeper", false))
 	bottles_read.clear()
 	for id in data.get("bottles_read", []):
 		bottles_read.append(str(id))
@@ -742,6 +764,7 @@ func reset() -> void:
 	market_level = 0
 	reef_bonus_lives = 0
 	island_patron = false
+	tidekeeper = false
 	bottles_read.clear()
 	tide_gift_granted = false
 	harbor_hero_granted = false

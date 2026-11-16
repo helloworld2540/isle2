@@ -1,6 +1,13 @@
 # Current project todo:
 
 # done this pass
+- Endgame hook: after ISLAND STEWARD there is now a chase — three new
+  long-game achievements (BENCH MASTER 25 runs, REEF VETERAN 25 dives,
+  LOOP MASTER 25 circuits) and a final money sink, the **Tidekeeper's Pact**
+  (2500$, one-time: permanent +10 kg bag) sold in the shop and granting the
+  KEEPER OF THE TIDE achievement. Catalogue now 21. Verified: purchase spends
+  the 2500$, capacity grew 70→80, button locks to "funded", achievement
+  unlocked, player save restored after the test.
 - Balance pass 4 (payback audit, nothing re-priced blindly): re-derived every
   money/plasticity sink from the measured ~$32/loop median — Bag L1 repays in
   ~3 loops (best first buy, hence the new nudge), Market Contact L1 ~8 loops
@@ -113,9 +120,10 @@
   Fixed deferred spawn (hint used to parent to a dying scene during transitions).
 
 # high priority
-- Endgame hook: after ISLAND STEWARD (all 17 achievements) there is no chase
-  left. Add a capstone ladder pass — e.g. a prestige stat the island shows
-  (dives/sorts/circuits) or a final $-sink, so completion doesn't fall flat.
+- World-map milestone celebration for the new endgame achievements: LOOP
+  MASTER and friends now exist, but the map only shows circuit celebrations —
+  add a special "legendary" border flash when a 25-run/25-dive/25-circuit
+  badge lands, using the existing banner path with a gold palette.
 
 # medium priority
 # (shimmer item promoted to high priority)

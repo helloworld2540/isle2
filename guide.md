@@ -37,6 +37,9 @@ Welcome to Isle 2. Shared economy across world map, two minigames, shop, NPCs an
   somewhere to spend it beyond bag space.
 - Patron of the Isle — 1500$ one time. Pure prestige title shown on the stats
   page, plus the PATRON OF THE ISLE achievement.
+- Tidekeeper's Pact — 2500$ one time. The final sink: a permanent +10 kg bag
+  and the KEEPER OF THE TIDE achievement (no prestige-only fill — the reward is
+  mechanical).
 
 ## Money-sink payback audit (re-derived from measured $32/loop)
 *Measured on a fresh save, three consecutive full loops ≈ $32 each; a loop is
@@ -108,6 +111,9 @@ checked against this yield — nothing changed, deliberately.*
 - Debris payout breakdown on the summary card — haul, deep-cache bonus and
   "bag full −N kg" so the capacity cap reads as a rule, not a bug.
 - Depth is tracked in the stats page and feeds two achievements: DEEP DIVE (400 m) and TO THE ABYSS (900 m). Ten finished dives earns REEF REGULAR; the stats page keeps a running "Field log" of dives and bench runs.
+- Long-game badges: BENCH MASTER (25 runs), REEF VETERAN (25 dives) and
+  LOOP MASTER (25 circuits) sit behind the 10-run regulars — the island's
+  endgame chase alongside the two pact/patron money sinks.
 - Garbage converts into Reef Debris (plus Deep Cache bonus per tier and capacity).
 
 ## Upgrades

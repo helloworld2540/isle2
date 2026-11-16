@@ -86,6 +86,15 @@ custom_minimum_size = Vector2(486, 0)
 layout_mode = 2
 text = "Become a Patron of the Isle — 1500$"
 
+[node name="TidekeeperRow" type="HBoxContainer" parent="CanvasLayer/Scroll/VBoxContainer/Purchases"]
+layout_mode = 2
+
+[node name="BuyTidekeeperButton" type="Button" parent="CanvasLayer/Scroll/VBoxContainer/Purchases/TidekeeperRow"]
+custom_minimum_size = Vector2(486, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "Tidekeeper's Pact — 2500$ (+10 kg bag for good)"
+
 [node name="MoneyNote" type="Label" parent="CanvasLayer/Scroll/VBoxContainer/Purchases"]
 layout_mode = 2
 modulate = Color(0.8, 0.95, 1, 1)

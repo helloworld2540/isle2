@@ -31,6 +31,13 @@ const ENTRIES: Array[Dictionary] = [
 		"where": "Upcycle",
 	},
 	{
+		"id": "benchmark",
+		"short": "Bench+",
+		"title": "BENCH MASTER",
+		"subtitle": "Finished 25 runs at the Upcycle bench.",
+		"where": "Upcycle",
+	},
+	{
 		"id": "first_sale",
 		"short": "Sale",
 		"title": "FIRST SALE",
@@ -108,6 +115,27 @@ const ENTRIES: Array[Dictionary] = [
 		"where": "Reef Rescue",
 	},
 	{
+		"id": "reef_veteran",
+		"short": "Dives+",
+		"title": "REEF VETERAN",
+		"subtitle": "Completed 25 dives at Reef Rescue.",
+		"where": "Reef Rescue",
+	},
+	{
+		"id": "loop_master",
+		"short": "Loop",
+		"title": "LOOP MASTER",
+		"subtitle": "Closed 25 island circuits.",
+		"where": "Island",
+	},
+	{
+		"id": "tide_keeper",
+		"short": "Pact",
+		"title": "KEEPER OF THE TIDE",
+		"subtitle": "Funded the Tidekeeper's Pact — the reef keeps your bag.",
+		"where": "Shop",
+	},
+	{
 		"id": "island_patron",
 		"short": "Patron",
 		"title": "PATRON OF THE ISLE",
@@ -160,6 +188,8 @@ static func is_met(id: String, state: Node) -> bool:
 			return state.best_upcycle_score > 0
 		"bench_regular":
 			return state.upcycle_runs >= 10
+		"benchmark":
+			return state.upcycle_runs >= 25
 		"first_sale":
 			return state.lifetime_earnings > 0
 		"first_quest":
@@ -184,6 +214,12 @@ static func is_met(id: String, state: Node) -> bool:
 			return state.island_patron
 		"reef_regular":
 			return state.reef_dives >= 10
+		"reef_veteran":
+			return state.reef_dives >= 25
+		"loop_master":
+			return state.circuits_completed >= 25
+		"tide_keeper":
+			return state.tidekeeper
 		"tide_keeper":
 			return state.bottles_read.size() >= 3
 		"island_steward":

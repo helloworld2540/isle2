@@ -96,6 +96,8 @@ func _build_stats_text() -> String:
 		lines.append("Title: Harbor Hero — every quest tier cleared (+%d kg bag)." % bonus_kg)
 	if GameState.island_patron:
 		lines.append("✦ Patron of the Isle — 1500$ given back to keep the island clean.")
+	if GameState.tidekeeper:
+		lines.append("✦ Tidekeeper of the Isle — 2500$ pact funded; the reef keeps your bag (+10 kg).")
 	elif GameState.quests_completed > 0:
 		lines.append("Title progress: Harbor Hero at %d turn-ins (%d/%d)" % [
 			GameState.HARBOR_HERO_TURNS,
