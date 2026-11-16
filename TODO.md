@@ -1,6 +1,11 @@
 # Current project todo:
 
 # done this pass
+- Shop layout overflow fixed (found via screenshot + measured via exec):
+  content min-width 1165 px > 1152 viewport, clipping both edges. Fixes:
+  material-name column 150 -> 84 px, spend column 400 -> 360 px, body
+  separation 14 -> 10, sell-button font 15 px. Now scroll_w = 1104 px and
+  the whole page fits (verified by screenshot). Smoke 44/44.
 - Main-menu title fit: THE ISLE postcard no longer collides with the game
   title at narrower widths — title font 100 -> 84 px so "Trash Island 2"
   clears the right edge (verified by screenshot at 800 px). Smoke 44/44.

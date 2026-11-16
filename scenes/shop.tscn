@@ -89,7 +89,7 @@ horizontal_alignment = 2
 [node name="Body" type="HBoxContainer" parent="CanvasLayer/Scroll/Margin/Layout"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/separation = 14
+theme_override_constants/separation = 10
 
 [node name="SellColumn" type="VBoxContainer" parent="CanvasLayer/Scroll/Margin/Layout/Body"]
 layout_mode = 2
@@ -127,7 +127,7 @@ layout_mode = 2
 theme_override_constants/separation = 6
 
 [node name="Name" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Polyethylene"]
-custom_minimum_size = Vector2(150, 0)
+custom_minimum_size = Vector2(84, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Polyethylene · 2$"
@@ -141,16 +141,19 @@ text = "x0"
 [node name="SellOne" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Polyethylene"]
 custom_minimum_size = Vector2(76, 44)
 layout_mode = 2
+theme_override_font_sizes/font_size = 15
 text = "Sell 1"
 
 [node name="SellFive" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Polyethylene"]
 custom_minimum_size = Vector2(112, 44)
 layout_mode = 2
+theme_override_font_sizes/font_size = 15
 text = "Sell 5"
 
 [node name="SellAll" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Polyethylene"]
 custom_minimum_size = Vector2(112, 44)
 layout_mode = 2
+theme_override_font_sizes/font_size = 15
 text = "Sell All"
 
 [node name="Value" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Polyethylene"]
@@ -165,7 +168,7 @@ layout_mode = 2
 theme_override_constants/separation = 6
 
 [node name="Name" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Polypropylene"]
-custom_minimum_size = Vector2(150, 0)
+custom_minimum_size = Vector2(84, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Polypropylene · 3$"
@@ -179,16 +182,19 @@ text = "x0"
 [node name="SellOne" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Polypropylene"]
 custom_minimum_size = Vector2(76, 44)
 layout_mode = 2
+theme_override_font_sizes/font_size = 15
 text = "Sell 1"
 
 [node name="SellFive" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Polypropylene"]
 custom_minimum_size = Vector2(112, 44)
 layout_mode = 2
+theme_override_font_sizes/font_size = 15
 text = "Sell 5"
 
 [node name="SellAll" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Polypropylene"]
 custom_minimum_size = Vector2(112, 44)
 layout_mode = 2
+theme_override_font_sizes/font_size = 15
 text = "Sell All"
 
 [node name="Value" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Polypropylene"]
@@ -203,7 +209,7 @@ layout_mode = 2
 theme_override_constants/separation = 6
 
 [node name="Name" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Glass"]
-custom_minimum_size = Vector2(150, 0)
+custom_minimum_size = Vector2(84, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Glass · 5$"
@@ -217,16 +223,19 @@ text = "x0"
 [node name="SellOne" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Glass"]
 custom_minimum_size = Vector2(76, 44)
 layout_mode = 2
+theme_override_font_sizes/font_size = 15
 text = "Sell 1"
 
 [node name="SellFive" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Glass"]
 custom_minimum_size = Vector2(112, 44)
 layout_mode = 2
+theme_override_font_sizes/font_size = 15
 text = "Sell 5"
 
 [node name="SellAll" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Glass"]
 custom_minimum_size = Vector2(112, 44)
 layout_mode = 2
+theme_override_font_sizes/font_size = 15
 text = "Sell All"
 
 [node name="Value" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Glass"]
@@ -241,7 +250,7 @@ layout_mode = 2
 theme_override_constants/separation = 6
 
 [node name="Name" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Nylon"]
-custom_minimum_size = Vector2(150, 0)
+custom_minimum_size = Vector2(84, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Nylon · 4$"
@@ -255,16 +264,19 @@ text = "x0"
 [node name="SellOne" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Nylon"]
 custom_minimum_size = Vector2(76, 44)
 layout_mode = 2
+theme_override_font_sizes/font_size = 15
 text = "Sell 1"
 
 [node name="SellFive" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Nylon"]
 custom_minimum_size = Vector2(112, 44)
 layout_mode = 2
+theme_override_font_sizes/font_size = 15
 text = "Sell 5"
 
 [node name="SellAll" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Nylon"]
 custom_minimum_size = Vector2(112, 44)
 layout_mode = 2
+theme_override_font_sizes/font_size = 15
 text = "Sell All"
 
 [node name="Value" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Nylon"]
@@ -279,7 +291,7 @@ layout_mode = 2
 theme_override_constants/separation = 6
 
 [node name="Name" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_ReefDebris"]
-custom_minimum_size = Vector2(150, 0)
+custom_minimum_size = Vector2(84, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Reef Debris · 1$"
@@ -293,16 +305,19 @@ text = "x0"
 [node name="SellOne" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_ReefDebris"]
 custom_minimum_size = Vector2(76, 44)
 layout_mode = 2
+theme_override_font_sizes/font_size = 15
 text = "Sell 1"
 
 [node name="SellFive" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_ReefDebris"]
 custom_minimum_size = Vector2(112, 44)
 layout_mode = 2
+theme_override_font_sizes/font_size = 15
 text = "Sell 5"
 
 [node name="SellAll" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_ReefDebris"]
 custom_minimum_size = Vector2(112, 44)
 layout_mode = 2
+theme_override_font_sizes/font_size = 15
 text = "Sell All"
 
 [node name="Value" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_ReefDebris"]
@@ -340,7 +355,7 @@ theme_override_font_sizes/font_size = 15
 text = "Tip: sort efficiently for combo bonuses."
 
 [node name="SpendColumn" type="VBoxContainer" parent="CanvasLayer/Scroll/Margin/Layout/Body"]
-custom_minimum_size = Vector2(400, 0)
+custom_minimum_size = Vector2(360, 0)
 layout_mode = 2
 theme_override_constants/separation = 12
 
