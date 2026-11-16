@@ -88,6 +88,17 @@ func _update_stats_display() -> void:
 		_stats_label.text = _build_stats_text()
 
 
+## One-line completion ledger across every collectathon on the island, so a
+## checklist player sees the whole book at a glance. Not a stat — a compass.
+func _build_journal_line() -> String:
+	var bottles := GameState.bottles_read.size()
+	var starfish := GameState.starfish_found.size()
+	var fish := GameState.fish_met.size()
+	var ach := GameState.achievement_count()
+	var total := GameState.achievement_total()
+	return "Journal — bottles %d/4 · starfish %d/5 · species %d/4 · achievements %d/%d" % [bottles, starfish, fish, ach, total]
+
+
 ## The scrap-journal reading of the page: which era of the island is the
 ## player in, most advanced first. Purely cosmetic — no numbers, just flavour
 ## earned by what the save has actually done.
@@ -129,8 +140,10 @@ func _era_tag() -> String:
 
 
 func _build_stats_text() -> String:
+	var journal := _build_journal_line()
 	var lines: Array[String] = [
 		"Stats",
+		journal,
 		"Upcycle score: %d  (best %d)" % [GameState.upcycle_score, GameState.best_upcycle_score],
 		"Money: %d$  (lifetime %d$)" % [GameState.money, GameState.lifetime_earnings],
 		"Bag: %d/%d kg" % [GameState.get_inventory_weight(), GameState.get_inventory_capacity()],

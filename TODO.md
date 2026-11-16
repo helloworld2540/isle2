@@ -1,6 +1,11 @@
 # Current project todo:
 
 # done this pass
+- Stats page "Journal" line: a one-line completion ledger at the top of the
+  page (bottles / starfish / species / achievements, e.g.
+  "Journal — bottles 1/4 · starfish 0/5 · species 0/4 · achievements 9/31")
+  so a checklist player sees the whole board at a glance. Verified visually;
+  smoke 45/45.
 - Post-tour wander nudge updated: the "Bottles on the shore" card now also
   points players at the five hidden starfish (wander coverage for the new
   collectathon), so every collectible on the island is named in the tour
