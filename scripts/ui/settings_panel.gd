@@ -7,6 +7,8 @@ extends VBoxContainer
 @onready var master_slider: HSlider = $MasterSlider
 @onready var music_label: Label = $MusicLabel
 @onready var music_slider: HSlider = $MusicSlider
+@onready var ambience_label: Label = $AmbienceLabel
+@onready var ambience_slider: HSlider = $AmbienceSlider
 @onready var sfx_label: Label = $SfxLabel
 @onready var sfx_slider: HSlider = $SfxSlider
 @onready var reduce_motion_checkbox: CheckBox = $ReduceMotion
@@ -17,6 +19,7 @@ func _ready() -> void:
 	
 	master_slider.value_changed.connect(_on_master_changed)
 	music_slider.value_changed.connect(_on_music_changed)
+	ambience_slider.value_changed.connect(_on_ambience_changed)
 	sfx_slider.value_changed.connect(_on_sfx_changed)
 	reduce_motion_checkbox.toggled.connect(_on_reduce_motion_toggled)
 
@@ -24,6 +27,7 @@ func _ready() -> void:
 func sync_from_settings() -> void:
 	master_slider.value = AudioManager.get_master_volume() * 100.0
 	music_slider.value = AudioManager.get_music_volume() * 100.0
+	ambience_slider.value = AudioManager.get_ambience_volume() * 100.0
 	sfx_slider.value = AudioManager.get_sfx_volume() * 100.0
 	reduce_motion_checkbox.button_pressed = GameSettings.reduce_motion
 	_refresh_labels()
@@ -32,6 +36,7 @@ func sync_from_settings() -> void:
 func _refresh_labels() -> void:
 	master_label.text = "Master Volume: %d%%" % int(master_slider.value)
 	music_label.text = "Music Volume: %d%%" % int(music_slider.value)
+	ambience_label.text = "Ambience Volume: %d%%" % int(ambience_slider.value)
 	sfx_label.text = "SFX Volume: %d%%" % int(sfx_slider.value)
 
 
@@ -42,6 +47,11 @@ func _on_master_changed(value: float) -> void:
 
 func _on_music_changed(value: float) -> void:
 	AudioManager.set_music_volume(value / 100.0)
+	_refresh_labels()
+
+
+func _on_ambience_changed(value: float) -> void:
+	AudioManager.set_ambience_volume(value / 100.0)
 	_refresh_labels()
 
 

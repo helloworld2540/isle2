@@ -7,10 +7,12 @@ extends Node
 const MASTER_BUS := "Master"
 const MUSIC_BUS := "Music"
 const SFX_BUS := "SFX"
+const AMBIENCE_BUS := "Ambience"
 
 const KEY_MASTER := "master_volume"
 const KEY_MUSIC := "music_volume"
 const KEY_SFX := "sfx_volume"
+const KEY_AMBIENCE := "ambience_volume"
 
 const SAVE_DEBOUNCE_SECONDS := 0.6
 
@@ -31,6 +33,7 @@ var _volumes := {
 	KEY_MASTER: 1.0,
 	KEY_MUSIC: 0.65,
 	KEY_SFX: 1.0,
+	KEY_AMBIENCE: 0.7,
 }
 var _dirty_volumes := {}
 var _save_timer: SceneTreeTimer = null
@@ -41,11 +44,13 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_setup_bus(MUSIC_BUS)
 	_setup_bus(SFX_BUS)
+	_setup_bus(AMBIENCE_BUS)
 	_load_volumes()
 	
 	_apply_bus_volume(MASTER_BUS, _volumes[KEY_MASTER])
 	_apply_bus_volume(MUSIC_BUS, _volumes[KEY_MUSIC])
 	_apply_bus_volume(SFX_BUS, _volumes[KEY_SFX])
+	_apply_bus_volume(AMBIENCE_BUS, _volumes[KEY_AMBIENCE])
 	_assign_player_buses()
 
 
@@ -79,7 +84,7 @@ func _apply_bus_volume(bus_name: String, linear: float) -> void:
 
 # --- SFX ---
 
-func play_sfx(sound: String, pitch_scale: float = 1.0) -> void:
+func play_sfx(sound: String, pitch_scale: float = 1.0, bus_name: String = SFX_BUS) -> void:
 	var stream := _resolve_sfx(sound)
 	if stream == null or sfx_pool == null:
 		return
@@ -89,6 +94,7 @@ func play_sfx(sound: String, pitch_scale: float = 1.0) -> void:
 		return
 	
 	player.stream = stream
+	player.bus = bus_name
 	player.pitch_scale = clampf(pitch_scale * randf_range(0.96, 1.04), 0.5, 2.0)
 	player.play()
 
@@ -239,6 +245,12 @@ func set_sfx_volume(value: float) -> void:
 
 func get_sfx_volume() -> float:
 	return _volumes[KEY_SFX]
+
+func set_ambience_volume(value: float) -> void:
+	_set_volume(KEY_AMBIENCE, AMBIENCE_BUS, value)
+
+func get_ambience_volume() -> float:
+	return _volumes[KEY_AMBIENCE]
 
 
 func _set_volume(key: String, bus_name: String, value: float) -> void:

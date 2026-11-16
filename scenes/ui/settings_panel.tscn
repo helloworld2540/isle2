@@ -23,6 +23,14 @@ text = "Music Volume: 65%"
 layout_mode = 2
 value = 65.0
 
+[node name="AmbienceLabel" type="Label" parent="."]
+layout_mode = 2
+text = "Ambience Volume: 70%"
+
+[node name="AmbienceSlider" type="HSlider" parent="."]
+layout_mode = 2
+value = 70.0
+
 [node name="SfxLabel" type="Label" parent="."]
 layout_mode = 2
 text = "SFX Volume: 100%"

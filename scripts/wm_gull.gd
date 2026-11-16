@@ -48,5 +48,5 @@ func _process(delta: float) -> void:
 	texture = FRAMES[int(Time.get_ticks_msec() / int(FLAP_SECONDS * 1000.0)) % FRAMES.size()]
 	_cry_timer -= delta
 	if _cry_timer <= 0.0:
-		AudioManager.play_sfx("gull", randf_range(0.85, 1.15))
+		AudioManager.play_sfx("gull", randf_range(0.85, 1.15), AudioManager.AMBIENCE_BUS)
 		_cry_timer = randf_range(cry_min_interval, cry_max_interval)

@@ -7,8 +7,8 @@ class_name HarborAmbience
 ## sparse, *distant* harbor cry on its own cadence so resting at the dock always
 ## sounds alive — it carries no visuals, so there is nothing for reduced motion
 ## to freeze and it keeps playing. Pitch sits below the flock's so the two read
-## as different birds rather than an echo. Rendered through the SFX bus by
-## AudioManager, so the player's SFX volume setting applies.
+## as different birds rather than an echo. Rendered through the Ambience bus by
+## AudioManager, so the player's ambience volume setting applies.
 
 ## Sparse by design: 40–75 s between calls. The flock fills the gaps.
 @export var min_interval: float = 40.0
@@ -37,7 +37,7 @@ func _process(delta: float) -> void:
 	if _echo_timer > 0.0:
 		_echo_timer -= delta
 		if _echo_timer <= 0.0:
-			AudioManager.play_sfx("gull", _echo_pitch)
+			AudioManager.play_sfx("gull", _echo_pitch, AudioManager.AMBIENCE_BUS)
 	
 	_timer -= delta
 	if _timer > 0.0:
@@ -50,7 +50,7 @@ func _process(delta: float) -> void:
 func _cry() -> void:
 	# Lower and a touch slower than the flock — this is the bird on the far jetty.
 	var pitch := randf_range(0.78, 0.94)
-	AudioManager.play_sfx("gull", pitch)
+	AudioManager.play_sfx("gull", pitch, AudioManager.AMBIENCE_BUS)
 	
 	if _echo_timer > 0.0:
 		return

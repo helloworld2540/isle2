@@ -141,6 +141,7 @@ checked against this yield — nothing changed, deliberately.*
   birds hold still, the water still sounds like water.
 - Under it all runs a continuous **surf wash**, a seamless 12 s loop that fades
   in when you reach the map and keeps rolling while the pause menu is open. It
-  rides the SFX volume.
+  has its own **Ambience** slider (settings: Master / Music / Ambience / SFX), so
+  you can quiet the wash and wildlife without softening the sort/sale feedback.
 - Bottles wash up on the shore with lore; after the Tidekeeper's Pact is funded
   and all base bottles are read, a hidden fourth bottle surfaces.

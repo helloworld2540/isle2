@@ -1,6 +1,16 @@
 # Current project todo:
 
 # done this pass
+- Ambience bus + slider: ambient loops and wildlife no longer share the SFX bus.
+  `AudioManager` now sets up a fourth **Ambience** bus (send → Master), persists
+  `ambience_volume` (default 0.7), and `play_sfx(sound, pitch, bus)` takes an
+  optional bus. The surf bed, harbor cries and flock gull cries route through
+  Ambience; sort/sale/portal feedback stays on SFX. The shared settings panel
+  (`scenes/ui/settings_panel.tscn`) gained an "Ambience Volume" slider between
+  Music and SFX, so the world menu and stats page both show it. Verified in-game:
+  bus created at index 3, 0.7 → −3.1 dB, surf/harbor on it, slider reads 70%, and
+  `set_ambience_volume(0.3)` moved the bus to −10.5 dB (then restored without a
+  save write).
 - Continuous surf bed for the world map: `tools/make_surf.py` generates a
   seamless 12 s wash (circularly filtered noise + periodic swell, shipped as
   16-bit PCM `sound/sfx/surf.wav`). `scenes/wm_surf_bed.tscn` lives in
@@ -185,12 +195,11 @@
   Fixed deferred spawn (hint used to parent to a dying scene during transitions).
 
 # high priority
-- Ambience bus + slider: the surf/harbor bed currently rides the SFX bus, so a
-  player who wants loud one-shot feedback also gets a loud wash (or vice versa).
-  Split ambient loops onto their own **Ambience** bus (send → Master), add an
-  0–100 slider to the settings panel beside master/music/sfx, persist as
-  `ambience_volume`, default ~0.7, and route `SurfBed` (and future beds) through
-  it.
+- Minigame ambience beds: the bench and the reef both have BGM but no room tone.
+  Add scene-authored players on the **Ambience** bus — a low workshop hum for
+  upcycle (fade in on entry/out on exit) and a muffled, slow underwater swell for
+  reef rescue — generated with small `tools/` Python scripts like the surf bed,
+  looping seamlessly, and trimmed by the new Ambience slider.
 
 # medium priority
 # (shimmer item promoted to high priority)
