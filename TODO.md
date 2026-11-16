@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Scene integrity sweep: no duplicate sibling node names, no ext_resource
+  references to missing scripts/textures/audio/themes anywhere in the
+  project — scenes are internally consistent.
 - Duplicate unique_id 1011 in reef_rescue.tscn (ShakeCamera and FishLabel)
   assigned FishLabel a fresh id 1012; full project re-scan clean. Smoke 45/45.
 - Android debug APK rebuilt after the collectathon + audio batch: still
