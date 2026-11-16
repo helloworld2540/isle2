@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- Post-tour wander nudge updated: the "Bottles on the shore" card now also
+  points players at the five hidden starfish (wander coverage for the new
+  collectathon), so every collectible on the island is named in the tour
+  arc's final nudge. Smoke 45/45.
 - Starfish placements verified visually on the frozen world (screenshot shows
   one by the shop pad and one by the bench area; remaining three are on other
   walkable cells) — positions and glint read correctly.
