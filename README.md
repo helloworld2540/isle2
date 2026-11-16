@@ -29,7 +29,10 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
   non-modal step cards. Steps fire on world/reef/upcycle/shop scene entry and on
   gameplay events (`move`, `reef_entered`, `sorted`, `sold`); progress persists as
   save key `tutorial_step` (1..5, `999` = complete).
-- **UI**: `scripts/ui/*`, `scenes/ui/*` — reused overlay primitives.
+- **UI**: `scripts/ui/*`, `scenes/ui/*` — reused overlay primitives. `DragScrollContainer`
+  (`scripts/ui/drag_scroll.gd`) adds finger-speed mouse drag-to-scroll on top of
+  ScrollContainer's native touch scrolling (shop, stats guide list). Touch targets
+  ≥ 44 px, primary type ≥ 15 px.
 - **Audio**: `scripts/audio_manager.gd`.
 
 ## State & Save

@@ -105,7 +105,7 @@ layout_mode = 2
 autowrap_mode = 3
 
 [node name="MoreStatsButton" type="Button" parent="SaveSummaryPanel/VBoxContainer" unique_id=1000004]
-custom_minimum_size = Vector2(200, 36)
+custom_minimum_size = Vector2(220, 46)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "More stats →"

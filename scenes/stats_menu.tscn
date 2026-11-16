@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://kamvcjhav8w5"]
+[gd_scene load_steps=5 format=3 uid="uid://kamvcjhav8w5"]
 
 [ext_resource type="Script" uid="uid://cno3w2hkaq50n" path="res://scripts/stats_menu.gd" id="1_menu"]
 [ext_resource type="PackedScene" path="res://scenes/ui/settings_panel.tscn" id="2_settings"]
+[ext_resource type="Script" path="res://scripts/ui/drag_scroll.gd" id="2_drag"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_guide"]
 content_margin_left = 22.0
@@ -72,7 +73,7 @@ size_flags_horizontal = 4
 text = "Main Menu"
 
 [node name="GuideButton" type="Button" parent="Margin/VBox" unique_id=300000010]
-custom_minimum_size = Vector2(200, 40)
+custom_minimum_size = Vector2(220, 48)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Achievement Guide"
@@ -130,6 +131,7 @@ text = "✓ earned    ·    still to earn"
 horizontal_alignment = 1
 
 [node name="Scroll" type="ScrollContainer" parent="GuideOverlay/Panel/VBox"]
+script = ExtResource("2_drag")
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
@@ -143,7 +145,7 @@ text = ""
 autowrap_mode = 2
 
 [node name="GuideClose" type="Button" parent="GuideOverlay/Panel/VBox"]
-custom_minimum_size = Vector2(160, 40)
+custom_minimum_size = Vector2(180, 46)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Close"
