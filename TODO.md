@@ -1,6 +1,11 @@
 # Current project todo:
 
 # done this pass
+- BGM weight cut ~24 MB: menu (27→18), shop (14→7), reef (9→4), ambience
+  (6→3), upcycle (4→2) re-encoded to 160 kbps CBR, durations identical, ID3
+  tags preserved (Kevin MacLeod attribution intact), world.mp3 already 162
+  kbps untouched. Web pck rebuilt: 80 MB → 55 MB. Originals live in git
+  history; smoke test still green (43/43), save untouched.
 - Export presets no longer ship dev artifacts: Web/Android/Linux all exclude
   `addons/`, `tools/`, `export/`, `opencode.json` and `scenes/world.tscn.bak`
   (the Godot MCP addon alone was 75 packed files). Web rebuilt clean — 354
