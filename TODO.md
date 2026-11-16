@@ -1,6 +1,11 @@
 # Current project todo:
 
 # done this pass
+- Undo nudge delivery chain verified end to end: bulk sale -> "first sale"
+  upgrade card fires -> dismiss it -> deferred call drains `_pending_nudge`
+  -> "Oops — bulk sale?" undo nudge appears -> `nudge_undo_shown` persists.
+  Earlier observation of it "not firing" was a test-order artifact. Player
+  save restored afterwards.
 - Portal return-to-map safety snap: a player who approaches from an awkward
   angle (or faces outward with terrain ahead) now respawns on the nearest
   walkable cell instead of possibly inside water/walls. The portal uses the
