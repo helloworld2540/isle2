@@ -35,6 +35,7 @@ var sort_streak: int = 0
 var _peak_streak: int = 0  ## Longest streak reached this run, for the summary card.
 var _sorted_count: int = 0
 var _misses: int = 0  ## Failed sorts / belt-burned items this run — 0 with a real haul earns the Flawless tag.
+var _golden_sorted: int = 0  ## Golden belt items landed in the right bin — each worth a bonus point.
 var _recycled_total: int = 0
 var _recycled_by_mat: Dictionary = {
 	"Polyethylene": 0,
@@ -254,9 +255,16 @@ func spawn_item() -> void:
 	
 	if item.has_method("init"):
 		item.init(str(TRASH_SPRITES.pick_random()))
+	# Rare golden scrap: worth +1 bonus score when it lands in the right bin.
+	# The gold tint is purely cosmetic; the belt position logic is unchanged.
+	if randf() < 0.12:
+		item.set_meta("golden", true)
+		item.modulate = Color(1.15, 1.05, 0.55, 1.0)
 		
-	item.modulate.a = 0.0
-	item.create_tween().tween_property(item, "modulate:a", 1.0, 0.22).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	# Fade in from transparent while keeping the (possibly golden) tint.
+	var resting := item.modulate
+	item.modulate = Color(resting.r, resting.g, resting.b, 0.0)
+	item.create_tween().tween_property(item, "modulate", resting, 0.22).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	
 	var bob := item.create_tween().set_loops()
 	bob.tween_property(item, "position:y", item.position.y - 6.0, 0.6).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
@@ -364,7 +372,10 @@ func _check_best_beaten() -> void:
 
 func _process_successful_sort(mat: String, bin_pos: Vector2) -> void:
 	TutorialDirector.notify("sorted")
-	score += 1
+	var is_golden: bool = carried_item != null and bool(carried_item.get_meta("golden", false))
+	score += 2 if is_golden else 1
+	if is_golden:
+		_golden_sorted += 1
 	sort_streak += 1
 	_peak_streak = maxi(_peak_streak, sort_streak)
 	_sorted_count += 1
@@ -385,6 +396,9 @@ func _process_successful_sort(mat: String, bin_pos: Vector2) -> void:
 		_process_combo_milestone()
 		_spawn_combo_trail(bin_pos)
 		
+	if is_golden:
+		AudioManager.play_sfx("achievement", 1.3)
+		_notify_queue("GOLD +2!", Color(1.0, 0.9, 0.35, 1.0), 1.4)
 	_spawn_bin_sparkle(bin_pos)
 	AudioManager.play_sfx("combo")
 
@@ -679,6 +693,8 @@ func _record_run_card(prev_best: int) -> void:
 	var lines: Array[String] = [
 		"Score %d · %d sorted · peak streak %d" % [score, _sorted_count, _peak_streak],
 	]
+	if _golden_sorted > 0:
+		lines.append("✦ %d golden scrap sorted (+%d bonus score)" % [_golden_sorted, _golden_sorted])
 	if _misses == 0 and _sorted_count >= 5:
 		lines.append("✦ FLAWLESS SHIFT — not a single miss")
 	if score > prev_best:

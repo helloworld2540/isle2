@@ -100,13 +100,14 @@ func _script_check(p: String) -> void:
 		var path: String = id_to_path.get(m.get_string(1), "")
 		if path.is_empty() or not path.begins_with("res://"):
 			continue
-		var script: Script = load(path) as Script
+		# Bypass the .godot compile cache: a stale cached binary can mask an on-disk parse error.
+		var script: Script = ResourceLoader.load(path, "Script", ResourceLoader.CACHE_MODE_IGNORE) as Script
 		if script == null:
 			printerr("[FAIL] script     ", path, " (referenced by ", p, ")")
 			_failures += 1
 
 func _instantiate_check(p: String) -> void:
-	var res = ResourceLoader.load(p)
+	var res = ResourceLoader.load(p, "", ResourceLoader.CACHE_MODE_IGNORE)
 	if res == null:
 		printerr("[FAIL] load       ", p)
 		_failures += 1

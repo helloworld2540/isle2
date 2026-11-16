@@ -1,6 +1,17 @@
 # Current project todo:
 
 # done this pass
+- Upcycle **golden scrap**: 12% of belt spawns are golden-tinted and worth
+  +2 score when sorted right (GOLD +2! callout, achievement sfx, recap line
+  "✦ N golden scrap sorted (+N bonus score)"); golden items count toward the
+  streak and grant material as usual. Intro card now documents them.
+  Verified in-game (+2 score, counter bumps); save restored after the test.
+- Fixed a self-inflicted regression it exposed: the gold callout used a
+  non-existent _popup() (reef method) — `upcycle.gd` failed to parse and the
+  launched scene ran scriptless. Fixed to `_notify_queue`.
+- Smoke-test cache hole closed: `_script_check` and the instantiate check
+  now load with CACHE_MODE_IGNORE so a stale .godot compile cache can no
+  longer mask an on-disk parse error. Smoke 44/44.
 - Post-change regression sweep on a true fresh save (save set aside, zeroed,
   driven through main_menu -> tour): the guide advances move 1 -> reef 2 ->
   sort 3 -> sell 4 -> finale 5 cleanly, and the new ledger nudge correctly
