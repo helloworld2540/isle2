@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Final Web preset rebuild verified as the closing check for this iteration —
+  pck pack completes cleanly (57 MB). No code changes; the export matrix
+  remains healthy.
 - Final build verification: Linux debug rebuild at the current commit state
   compiles, packs, and launches headless with zero script errors.
 - Scene reference audit: zero orphan ExtResource ids anywhere in the project.
