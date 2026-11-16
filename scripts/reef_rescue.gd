@@ -435,8 +435,10 @@ func _game_over_summary(reason: String = "manual") -> void:
 			milestone_line = "Next depth milestone: DEEP DIVE at 400 m (best %d m)." % best_depth
 		elif best_depth < 900:
 			milestone_line = "DEEP DIVE earned · %d m to TO THE ABYSS (900 m)." % (900 - best_depth)
-		go_body.text = "%s\n\nFish bumps: %d / %d\nGarbage collected: %d kg\nDepth reached: %d m\n%s\n\nReef debris earned: %d kg\n(%s)" % [
-			cause_msg, fish, _fish_limit, int(garbage), int(depth), milestone_line, accepted, breakdown
+		var clean_dive := fish == 0 and dive_happened and int(garbage) >= 8
+		var clean_line := "\n✦ CLEAN DIVE — not a single bump" if clean_dive else ""
+		go_body.text = "%s\n\nFish bumps: %d / %d\nGarbage collected: %d kg\nDepth reached: %d m\n%s\n\nReef debris earned: %d kg\n(%s)%s" % [
+			cause_msg, fish, _fish_limit, int(garbage), int(depth), milestone_line, accepted, breakdown, clean_line
 		]
 		
 	if game_over_canvas:
@@ -477,6 +479,8 @@ func _record_run_card(accepted: int, new_best: bool, prev_best: int) -> void:
 			accepted, GameState.get_inventory_weight(), GameState.get_inventory_capacity()
 		],
 	]
+	if fish == 0 and int(garbage) >= 8:
+		lines.append("✦ CLEAN DIVE — not a single bump")
 	if new_best:
 		lines.append("★ New personal best — %d m! (was %d m)" % [int(depth), prev_best])
 	elif fish > 0:

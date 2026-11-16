@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- Reef Rescue "CLEAN DIVE" tag (mirrors the bench's FLAWLESS SHIFT): a dive
+  with zero fish bumps and >= 8 kg hauled appends "✦ CLEAN DIVE — not a
+  single bump" to the summary card and the world-map recap line. Zero economy
+  impact; smoke 44/44.
 - Upcycle "FLAWLESS SHIFT" tag: the bench now counts misses (wrong bin +
   belt-burned items); a run with >=5 sorted and zero misses appends
   "FLAWLESS SHIFT - not a single miss" to the game-over card and the
