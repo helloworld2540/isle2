@@ -1004,6 +1004,7 @@ text = "Save & Quit"
 [node name="JournalButton" type="Button" parent="Menu/MenuPanel/Center/Card/HBoxContainer/VBoxContainer" unique_id=410065433]
 custom_minimum_size = Vector2(232, 52)
 layout_mode = 2
+tooltip_text = "Open the stats page — bottles, starfish, species, achievements, and every stat on the island."
 theme_override_styles/normal = SubResource("StyleBox_ghost")
 theme_override_styles/hover = SubResource("StyleBox_ghost_hover")
 theme_override_styles/pressed = SubResource("StyleBox_ghost_pressed")
