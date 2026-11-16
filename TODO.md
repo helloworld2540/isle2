@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Web pck deep-check after the collectathon additions: wm_starfish.tscn,
+  starfish.png, harbor_bell.wav, foghorn.wav, fish_catalog.gd and
+  bottle_catalog.gd all present in the exported pack.
 - Android APK rebuilt after the Journal/Stats deep-link addition — still
   builds and signs cleanly (~174 MB).
 - Island Menu with the new Journal button screenshot-verified: Resume /
