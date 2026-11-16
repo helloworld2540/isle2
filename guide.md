@@ -131,6 +131,7 @@ checked against this yield — nothing changed, deliberately.*
   with "★ NEW BEST DEPTH — N m! ★" and plays the achievement chime.
 - Debris payout breakdown on the summary card — haul, deep-cache bonus and
   "bag full −N kg" so the capacity cap reads as a rule, not a bug.
+- The stats page opens with a single-line Keeper's Journal ledger: "Journal — bottles n/4 · starfish n/5 · species n/4 · achievements n/31" — so you can see the whole completion board at a glance without scrolling.
 - Bottles you have already read can be re-read from the stats page via the Tide Ledger overlay (the game nudges you there once the third base bottle is read) (undiscovered notes stay locked).
 - Quest economics audit (SALE_PRICES-weighted): turn-ins are deliberately slightly under market value — that is the price of quest progress and the Harbor Hero +10 kg cap — but the old numbers were punitive (Tom 24$->12$, Nina 30$->15$, Kai 25$->10$, Mara t2 25$->18$). Buffed: Tom t1 4->6 PP (18$), Nina t1 5->6 PP (18$), Kai t1 now 6 PP (18$), Mara t2 6->8 PP (24$). Nina t2 (+8$) and Kai t2 (+4$) remain the profitable tiers.
 - Depth is tracked in the stats page and feeds two achievements: DEEP DIVE (400 m) and TO THE ABYSS (900 m). Ten finished dives earns REEF REGULAR; the stats page keeps a running "Field log" of dives and bench runs.
