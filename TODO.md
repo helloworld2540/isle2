@@ -1,6 +1,11 @@
 # Current project todo:
 
 # done this pass
+- SFX coverage audit: every play_sfx() name in code resolves to a file in
+  sound/sfx except the new "open" (added for the save-wipe confirm card) —
+  synthesized sound/sfx/open.wav (22 kHz mono, soft card-open thunk) and
+  imported it. BGM names audited too (all five map to sound/bgm/*.mp3).
+  Smoke 44/44.
 - Export bug fixed: exported builds autoloaded MCPGameBridge from an excluded
   path, so every launch logged "Failed to instantiate an autoload". The export
   exclude filter now ships only what the autoload needs
