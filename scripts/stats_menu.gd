@@ -16,6 +16,8 @@ const GUIDE_GROUPS: Array[String] = ["Reef Rescue", "Upcycle", "Shop", "Islander
 
 @onready var _stats_label: Label = $"Margin/VBox/StatsScroll/Content/StatsLabel"
 @onready var _back_button: Button = $"Margin/VBox/BackButton"
+@onready var _reset_button: Button = $"Margin/VBox/ResetButton"
+@onready var _confirm_panel: CanvasLayer = $"ConfirmPanel"
 @onready var _guide_button: Button = $"Margin/VBox/GuideButton"
 @onready var _guide_overlay: Control = $"GuideOverlay"
 @onready var _guide_list: Label = $"GuideOverlay/Panel/VBox/Scroll/GuideList"
@@ -57,6 +59,9 @@ func _unhandled_input(event: InputEvent) -> void:
 func _connect_signals() -> void:
 	if _back_button:
 		_back_button.pressed.connect(_on_back)
+	if _reset_button and _confirm_panel:
+		_reset_button.pressed.connect(_on_reset_pressed)
+		_confirm_panel.confirmed.connect(_on_reset_confirmed)
 	if _guide_button:
 		_guide_button.pressed.connect(_open_guide)
 	if _guide_close:
@@ -326,6 +331,20 @@ func _on_registry_fish(id: String) -> void:
 	add_child(dialogue)
 	dialogue.present(FishCatalog.name_of(id), [FishCatalog.blurb_of(id)])
 	AudioManager.play_sfx("pickup", 0.9)
+
+
+## Reset island: wipe and start fresh, straight from the stats page. Reuses
+## the shared ConfirmPanel so the copy matches the main menu's guard.
+func _on_reset_pressed() -> void:
+	AudioManager.play_sfx("open")
+	_confirm_panel.present("Reset island?", "Every dive, sort, sale, quest and achievement will be wiped for good. You will land back on the main menu.", "Reset island")
+
+
+func _on_reset_confirmed() -> void:
+	AudioManager.play_sfx("return")
+	SaveManager.new_save()
+	GameState.restore()
+	SceneTransition.change_scene(SCENE_MAIN_MENU)
 
 
 func _on_back() -> void:

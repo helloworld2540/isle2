@@ -1,6 +1,11 @@
 # Current project todo:
 
 # done this pass
+- Stats page "Reset island…" button: wipes the save via the shared
+  ConfirmPanel with blunt copy, fades to the main menu afterwards — same
+  guard the main menu uses, now reachable from the stats page too. Verified
+  in-game (panel shows, cancel keeps the save); player save untouched;
+  smoke 45/45.
 - Reef Rescue briefing re-verified visually after all bullet additions
   (golden debris, golden Goldie): the card auto-sizes and every line renders,
   stat line intact. No defects.

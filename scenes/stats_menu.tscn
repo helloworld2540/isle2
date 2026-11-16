@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cno3w2hkaq50n" path="res://scripts/stats_menu.gd" id="1_menu"]
 [ext_resource type="PackedScene" path="res://scenes/ui/settings_panel.tscn" id="2_settings"]
+[ext_resource type="PackedScene" path="res://scenes/ui/confirm_panel.tscn" id="5_confirm"]
 [ext_resource type="Script" path="res://scripts/ui/drag_scroll.gd" id="2_drag"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_guide"]
@@ -99,6 +100,16 @@ custom_minimum_size = Vector2(220, 48)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Reef Registry (fish)"
+
+[node name="ResetButton" type="Button" parent="Margin/VBox" unique_id=300000031]
+custom_minimum_size = Vector2(220, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.95, 0.55, 0.5, 1)
+text = "Reset island…"
+
+[node name="ConfirmPanel" parent="." instance=ExtResource("5_confirm")]
 
 [node name="LedgerOverlay" type="Control" parent="." unique_id=300000013]
 visible = false
