@@ -1,6 +1,11 @@
 # Current project todo:
 
 # done this pass
+- Economy re-measured end to end on a synthetic fresh-save loop (10 kg haul,
+  zero bumps, x5 combo, flawless shift, one golden each): $16 sale + $15
+  circuit bonus = **$31 net** — on par with the historical ~$32/loop base,
+  confirming today's additions (goldens, quest buffs) did not inflate the
+  economy. Player save restored afterwards.
 - Shop sell -> undo round trip verified on a scratch save: Glass x3 sold for
   15$ (nothing else fits in a fresh bag — the weighted capacity correctly
   clipped the 7-grant to 3), the `_last_sale` snapshot recorded the sale,
