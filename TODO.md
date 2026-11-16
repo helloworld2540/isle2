@@ -1,6 +1,11 @@
 # Current project todo:
 
 # done this pass
+- Fresh-save end-to-end QA sweep passed: tutorial chain advances step 1→5 and
+  lands on DONE with the bottle nudge armed afterwards; the upcycle wind-down
+  on an empty save shows a gold "SHIFT COMPLETE — No Reef Debris banked"
+  panel instead of a red loss; the shop fires "Room for more?" on the first
+  sale and persists `nudge_upgrade_shown`. Player save restored afterwards.
 - Upcycle HUD shows the banked Reef Debris pile ("Reef Debris banked: N",
   red at 0, amber at ≤5) so the shift wind-down and the four-to-five warning
   are legible before the belt stops feeding. Verified all three tint states.
@@ -101,10 +106,10 @@
   Fixed deferred spawn (hint used to parent to a dying scene during transitions).
 
 # high priority
-- Fresh-save end-to-end QA sweep: a new-save playthrough across menu → map →
-  reef → upcycle (with the zero-debris wind-down) → shop, checking tutorial
-  cards, the new upgrade nudge and the SHIFT COMPLETE panel for regressions.
-  Restore the player save afterwards.
+- Balance pass 4 (capacity & upgrade economy): bag upgrade (60+25$/level vs.
+  6+3 trash/level), Market Contact 80$ and Reef Charter 100$ are all still
+  guess-priced. Re-derive them from measured loop yields (~$32/loop) and the
+  10 kg/level bag curve; write the numbers down in guide.md.
 
 # medium priority
 # (shimmer item promoted to high priority)
