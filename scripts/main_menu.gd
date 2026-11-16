@@ -7,6 +7,7 @@ class_name MainMenu
 @onready var save_summary: Label = $SaveSummaryPanel/VBoxContainer/SaveSummary
 @onready var save_summary_panel: PanelContainer = $SaveSummaryPanel
 @onready var more_stats_button: Button = $SaveSummaryPanel/VBoxContainer/MoreStatsButton
+@onready var confirm_panel: CanvasLayer = $ConfirmPanel
 
 const STATS_SCENE := "res://scenes/stats_menu.tscn"
 const WORLD_SCENE := "res://scenes/world.tscn"
@@ -28,6 +29,8 @@ func _wire_buttons() -> void:
 	if more_stats_button:
 		more_stats_button.visible = SaveManager.has_save()
 		more_stats_button.pressed.connect(_on_stats_pressed)
+	if confirm_panel:
+		confirm_panel.confirmed.connect(_start_fresh_save)
 
 func _refresh_summary() -> void:
 	save_summary.text = _summary_text()
@@ -84,6 +87,16 @@ func _format_inventory_totals() -> String:
 	return ", ".join(parts)
 
 func _on_new_save_pressed() -> void:
+	# A fresh save wipes save.json AND its backup irreversibly — never let a
+	# stray tap on "New Save" destroy an existing island. Confirm first.
+	if SaveManager.has_save() and confirm_panel:
+		AudioManager.play_sfx("open")
+		confirm_panel.present("Start over?", "Your saved island — bags, dives, achievements, quests, everything — will be wiped for good.", "Start over")
+		return
+	_start_fresh_save()
+
+
+func _start_fresh_save() -> void:
 	SaveManager.new_save()
 	GameState.restore()
 	SceneTransition.change_scene(WORLD_SCENE)

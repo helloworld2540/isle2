@@ -1,6 +1,12 @@
 # Current project todo:
 
 # done this pass
+- **Save-wipe guard on New Save**: pressing New Save with an existing save now
+  opens the shared ConfirmPanel ("Start over? … wiped for good", 52 px+ buttons,
+  "Start over" confirm) instead of silently deleting save.json + .bak; cancel
+  keeps everything. Verified in-game (panel shows, save intact after the tap,
+  closes cleanly on cancel); smoke 44/44. Fresh-save flow unchanged when no
+  save exists.
 - Code-quality sweep: every top-level script now carries a class_name
   (StatsMenu, WorldProgress, ReefRescue, ShopMenu, WorldMenu, MainMenu — the
   rest already had one), and the Reef Rescue briefing now shows the heaviest

@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://is1ik2f66nh0" path="res://sprites/sky.png" id="2_bqqt6"]
 [ext_resource type="Theme" uid="uid://bug5wlu7yvs7w" path="res://resources/control_theme.tres" id="2_ekxnf"]
 [ext_resource type="PackedScene" path="res://scenes/ui/world_preview.tscn" id="3_preview"]
+[ext_resource type="PackedScene" path="res://scenes/ui/confirm_panel.tscn" id="4_confirm"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_nmirg"]
 font_size = 100
@@ -134,3 +135,5 @@ custom_minimum_size = Vector2(220, 46)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "More stats →"
+
+[node name="ConfirmPanel" parent="." instance=ExtResource("4_confirm")]
