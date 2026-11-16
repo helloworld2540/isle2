@@ -102,6 +102,7 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 - Collection radius 66.27 + 12×upgrade_range.
 - Combos: 3 garbage in 2s → multiplier `1 + floor(combo/3)`; bonus = weight × (mult-1).
 - Fish limit 3 ends run; spawns edge markers for off-screen items.
+- A dive with no pickups and no fish bumps is not counted (no dive counter, depth best, recap card or haul).
 - Game over: camera shake + confetti, summary panel.
 
 ## World Map

@@ -360,33 +360,45 @@ func _game_over_summary(reason: String = "manual") -> void:
 	_leaving = true
 	running = false
 	_clear_edge_markers()
+	# A dive that never reached a pickup or a bump is not a dive: don't bank a
+	# phantom "Dive № N" — no counter, no depth best, no recap card, no haul.
+	# Mirrors the bench's empty-shift rule.
+	var dive_happened := garbage > 0.0 or fish > 0
 	var prev_best := GameState.best_reef_depth
-	GameState.record_reef(garbage, fish, depth)
-	var new_best := int(depth) > prev_best
-	var haul := int(max(1.0, round(garbage)))
+	var new_best := false
+	var accepted := 0
+	var haul := 0
 	var cache_bonus := 0
-	if GameState.deep_cache:
-		cache_bonus = 5 * GameState.deep_cache_tier + 3 * GameState.inventory_capacity_level
-	var offered := haul + cache_bonus
-	var accepted := GameState.add_trash_type_weighted("Reef Debris", offered)
-	var lost := offered - accepted
-	# The Deep Cache bonus is an upgrade reward, so never let a full bag swallow
-	# it: whatever part of the bonus did not fit is salvaged as money at the
-	# debris rate. At the 10 kg starting bag nearly every dive fills up, so
-	# without this the whole upgrade would be dead until the bag grows.
 	var salvage := 0
-	if cache_bonus > 0 and lost > 0:
-		salvage = mini(lost, cache_bonus)
-		GameState.add_earnings(salvage)
-	# Payout breakdown line so the capacity cap reads as a rule, not a bug.
-	var breakdown := "haul +%d kg" % haul
-	if cache_bonus > 0:
-		breakdown += "  ·  deep cache +%d kg" % cache_bonus
-	if salvage > 0:
-		breakdown += " (%d$ salvaged)" % salvage
-	var overflow := lost - salvage
-	if overflow > 0:
-		breakdown += "  ·  bag full: −%d kg" % overflow
+	var breakdown := "nothing hauled — no pickups this dive"
+	var overflow := 0
+	if dive_happened:
+		GameState.record_reef(garbage, fish, depth)
+		new_best = int(depth) > prev_best
+		haul = int(max(1.0, round(garbage)))
+		if GameState.deep_cache:
+			cache_bonus = 5 * GameState.deep_cache_tier + 3 * GameState.inventory_capacity_level
+		var offered := haul + cache_bonus
+		accepted = GameState.add_trash_type_weighted("Reef Debris", offered)
+		var lost := offered - accepted
+		# The Deep Cache bonus is an upgrade reward, so never let a full bag swallow
+		# it: whatever part of the bonus did not fit is salvaged as money at the
+		# debris rate. At the 10 kg starting bag nearly every dive fills up, so
+		# without this the whole upgrade would be dead until the bag grows.
+		if cache_bonus > 0 and lost > 0:
+			salvage = mini(lost, cache_bonus)
+			GameState.add_earnings(salvage)
+		# Payout breakdown line so the capacity cap reads as a rule, not a bug.
+		breakdown = "haul +%d kg" % haul
+		if cache_bonus > 0:
+			breakdown += "  ·  deep cache +%d kg" % cache_bonus
+		if salvage > 0:
+			breakdown += " (%d$ salvaged)" % salvage
+		overflow = lost - salvage
+		if overflow > 0:
+			breakdown += "  ·  bag full: −%d kg" % overflow
+	else:
+		pass
 	
 	var cause_msg := ""
 	if reason == "fish" or fish >= _fish_limit:
@@ -399,13 +411,16 @@ func _game_over_summary(reason: String = "manual") -> void:
 			go_title.text = "Inventory Full!"
 	else:
 		cause_msg = "Dive ended early by operator return."
+		if not dive_happened:
+			cause_msg = "No pickups this dive."
 		if go_title:
 			go_title.text = "Dive Summary"
 
-	if accepted == 0 and drone:
+	if accepted == 0 and dive_happened and drone:
 		_popup("Inventory full - sell trash", Color(1.0, 0.4, 0.4, 1.0))
-	
-	_record_run_card(accepted, new_best, prev_best)
+
+	if dive_happened:
+		_record_run_card(accepted, new_best, prev_best)
 	
 	if go_body:
 		var best_depth := GameState.best_reef_depth

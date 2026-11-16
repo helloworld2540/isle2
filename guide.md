@@ -133,6 +133,10 @@ checked against this yield — nothing changed, deliberately.*
   salvaged as money ($1/kg, shown as "N$ salvaged" on the summary card). Without
   that, the upgrade would do nothing at the 10 kg starting bag, where every dive
   fills up.
+- A dive that never reaches a pickup or a fish bump is not counted: no dive
+  counter, no depth best, no "Dive № N" recap card, no haul ("No pickups this
+  dive." on the summary card). Mirrors the bench's empty-shift rule. Ten finished
+  *counted* dives still earns REEF REGULAR.
 - A muffled underwater current runs under the dive music; trim it with the
   Ambience slider without quieting pickup or combo feedback.
 

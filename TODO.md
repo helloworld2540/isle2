@@ -1,6 +1,15 @@
 # Current project todo:
 
 # done this pass
+- Reef dive phantom runs: a dive that reached neither a pickup nor a fish
+  bump was counted as a dive — `reef_dives += 1`, a "Dive № N" recap card,
+  depth-best credit, up to 1 kg free debris. Now a no-interaction dive shows
+  the summary panel with "No pickups this dive." but banks nothing: no
+  counter, no depth best, no recap, no haul (modeled on the bench's
+  empty-shift rule). Verified in-game: open → return immediately → dives
+  stay 0, `last_run` empty, best depth untouched; a real 5 kg dive records
+  (dives 1, debris +5, "Dive № 1 — Shallow Sweep" queued). Player save
+  restored after testing.
 - Empty-shift phantom run fixed: opening the bench with a dry Reef Debris
   pile auto-ended the "run" on the first frame and banked a 0-score shift
   (`upcycle_runs += 1`, a "Bench Run № N" recap card, achievement progress) —
@@ -343,10 +352,12 @@
   Fixed deferred spawn (hint used to parent to a dying scene during transitions).
 
 # high priority
-- Reef dive phantom runs: entering Reef Rescue with zero pickups and ending
-  still counts as a dive (`reef_dives += 1`), same phantom-inflation class as
-  the bench issue fixed this pass. Decide the intended semantics (count any
-  dive vs. require ≥1 pickup/depth) before touching achievements/stats.
+- `gull.wav` now holds a real 14.5 s 48 kHz 24-bit stereo recording (4 MB,
+  externally restored after being reverted earlier). Provenance/license
+  unknown; it is 60x the synthesized cry the docs describe. Decide: keep +
+  trim/compress (mono 16-bit, ~half the room tone), re-synthesize, or
+  re-download from a known CC0 source — and keep the web/Android export
+  budget in mind.
 
 # medium priority
 # (shimmer item promoted to high priority)
