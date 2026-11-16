@@ -7,36 +7,64 @@ custom_minimum_size = Vector2(420, 0)
 theme_override_constants/separation = 4
 script = ExtResource("1_settings")
 
-[node name="MasterLabel" type="Label" parent="."]
+[node name="MasterRow" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="MasterLabel" type="Label" parent="MasterRow"]
+custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 text = "Master Volume: 100%"
 
-[node name="MasterSlider" type="HSlider" parent="."]
+[node name="MasterSlider" type="HSlider" parent="MasterRow"]
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
+size_flags_horizontal = 3
 value = 100.0
 
-[node name="MusicLabel" type="Label" parent="."]
+[node name="MusicRow" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="MusicLabel" type="Label" parent="MusicRow"]
+custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 text = "Music Volume: 65%"
 
-[node name="MusicSlider" type="HSlider" parent="."]
+[node name="MusicSlider" type="HSlider" parent="MusicRow"]
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
+size_flags_horizontal = 3
 value = 65.0
 
-[node name="AmbienceLabel" type="Label" parent="."]
+[node name="AmbienceRow" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="AmbienceLabel" type="Label" parent="AmbienceRow"]
+custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 text = "Ambience Volume: 70%"
 
-[node name="AmbienceSlider" type="HSlider" parent="."]
+[node name="AmbienceSlider" type="HSlider" parent="AmbienceRow"]
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
+size_flags_horizontal = 3
 value = 70.0
 
-[node name="SfxLabel" type="Label" parent="."]
+[node name="SfxRow" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="SfxLabel" type="Label" parent="SfxRow"]
+custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 text = "SFX Volume: 100%"
 
-[node name="SfxSlider" type="HSlider" parent="."]
+[node name="SfxSlider" type="HSlider" parent="SfxRow"]
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
+size_flags_horizontal = 3
 value = 100.0
 
 [node name="ReduceMotion" type="CheckBox" parent="."]

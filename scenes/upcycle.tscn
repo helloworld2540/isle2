@@ -203,7 +203,7 @@ offset_top = 20.0
 offset_left = 820.0
 offset_top = 20.0
 offset_right = 970.0
-offset_bottom = 60.0
+offset_bottom = 68.0
 text = "Return to Map"
 
 [node name="StreakLabel" type="Label" parent="UI" unique_id=200901]

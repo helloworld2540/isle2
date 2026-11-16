@@ -3,14 +3,14 @@ extends VBoxContainer
 ## Shared volume + accessibility controls. Used by the world-menu overlay and
 ## the stats page so both always agree with AudioManager and GameSettings.
 
-@onready var master_label: Label = $MasterLabel
-@onready var master_slider: HSlider = $MasterSlider
-@onready var music_label: Label = $MusicLabel
-@onready var music_slider: HSlider = $MusicSlider
-@onready var ambience_label: Label = $AmbienceLabel
-@onready var ambience_slider: HSlider = $AmbienceSlider
-@onready var sfx_label: Label = $SfxLabel
-@onready var sfx_slider: HSlider = $SfxSlider
+@onready var master_label: Label = $MasterRow/MasterLabel
+@onready var master_slider: HSlider = $MasterRow/MasterSlider
+@onready var music_label: Label = $MusicRow/MusicLabel
+@onready var music_slider: HSlider = $MusicRow/MusicSlider
+@onready var ambience_label: Label = $AmbienceRow/AmbienceLabel
+@onready var ambience_slider: HSlider = $AmbienceRow/AmbienceSlider
+@onready var sfx_label: Label = $SfxRow/SfxLabel
+@onready var sfx_slider: HSlider = $SfxRow/SfxSlider
 @onready var reduce_motion_checkbox: CheckBox = $ReduceMotion
 
 

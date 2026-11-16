@@ -34,7 +34,8 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 - **UI**: `scripts/ui/*`, `scenes/ui/*` — reused overlay primitives. `DragScrollContainer`
   (`scripts/ui/drag_scroll.gd`) adds finger-speed mouse drag-to-scroll on top of
   ScrollContainer's native touch scrolling (shop, stats guide list). Touch targets
-  ≥ 44 px, primary type ≥ 15 px.
+  ≥ 44 px — the in-run **Return to Map** buttons are 48 px and each volume slider
+  sits in a label+slider row with a 40 px track — primary type ≥ 15 px.
 - **Audio**: `scripts/audio_manager.gd`.
 
 ## State & Save

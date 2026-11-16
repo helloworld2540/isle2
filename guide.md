@@ -129,6 +129,14 @@ checked against this yield — nothing changed, deliberately.*
 - A muffled underwater current runs under the dive music; trim it with the
   Ambience slider without quieting pickup or combo feedback.
 
+## Settings & touch
+- The island menu (☰) holds Master / Music / Ambience / SFX sliders and the
+  **Reduce motion** toggle. Each slider sits on its own row with a big, fat
+  touch track, so it is easy to grab on a phone without the labels moving.
+- The in-run **Return to Map** buttons in both minigames are 48 px tall, and the
+  shop and stats lists drag-scroll (mouse drag or finger) without stealing taps
+  from the buttons inside them.
+
 ## Upgrades
 - Move speed +8% / level via trash.
 - Collection radius +12px / level via trash.

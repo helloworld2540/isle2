@@ -1,6 +1,13 @@
 # Current project todo:
 
 # done this pass
+- Mobile touch pass 2: the in-run `ReturnToMapButton` in both minigames was
+  40 px tall; it is now 48 px (verified both scenes report size.y = 48). The
+  shared settings panel was rebuilt as four label+slider rows (Master / Music /
+  Ambience / SFX) with a 40 px touch track each, sized so the opened panel fits
+  a 1152×648 viewport (minimum height 622 < 648; the Reduce Motion checkbox sits
+  fully on-screen at y 594–635 instead of clipping off the bottom). Values still
+  sync and the Ambience handler still moves the bus (−6 dB at 50%, restored).
 - First-upgrade nudge: the tour taught walk → dive → sort → sell, and "Room for
   more?" taught the bag, but nothing pointed at Move Faster / Collection Range /
   Deep Cache. `TutorialDirector` now has a fourth one-shot nudge, **Tune up the
@@ -214,11 +221,11 @@
   Fixed deferred spawn (hint used to parent to a dying scene during transitions).
 
 # high priority
-- Mobile touch targets: the in-run `ReturnToMapButton` in both minigames is only
-  40 px tall (below the 44 px guideline) and the settings volume sliders use the
-  default thin track. Raise the in-run exit buttons to 48 px, give the shared
-  settings sliders a ≥44 px touch height, and verify nothing overlaps at
-  1152×648 and in portrait.
+- Balance pass 5 (measures, not guesses): drive a fresh-save loop plus the first
+  three upgrade purchases end-to-end via MCP; confirm Move L1/L2 and Range L1
+  land within the intended ~1/3/8-loop payback and that the new tune nudge fires
+  at a moment the player can actually act on it (hold ≥ cost, not mid-sale).
+  Record the measured numbers in guide.md; re-price only if they are off.
 
 # medium priority
 # (shimmer item promoted to high priority)
