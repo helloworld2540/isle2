@@ -29,9 +29,11 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
   non-modal step cards. Steps fire on world/reef/upcycle/shop scene entry and on
   gameplay events (`move`, `reef_entered`, `sorted`, `sold`); progress persists as
   save key `tutorial_step` (1..5, `999` = complete). Post-tour one-shot nudges
-  (bag 85%, bottles on the shore, first sale, first affordable upgrade, and the
-  Deep Cache unlock once the player can afford the 30-score price) each persist
-  as a `nudge_*_shown` flag and defer while another card is up.
+  (bag 85%, bottles on the shore, first sale, first bulk sale → undo, first
+  affordable upgrade, and the Deep Cache unlock once the player can afford the
+  30-score price) each persist
+  as a `nudge_*_shown` flag and wait their turn — a nudge raised while another
+  card or a modal owns the screen is queued and fires when that card closes.
 - **UI**: `scripts/ui/*`, `scenes/ui/*` — reused overlay primitives. `DragScrollContainer`
   (`scripts/ui/drag_scroll.gd`) adds finger-speed mouse drag-to-scroll on top of
   ScrollContainer's native touch scrolling (shop, stats guide list). Touch targets

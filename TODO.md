@@ -1,6 +1,19 @@
 # Current project todo:
 
 # done this pass
+- New post-tour nudge: **Oops — bulk sale?** points at the Undo last sale
+  button, fired once per save on the player's first bulk sale (Sell 5+ /
+  Sell All, `bulk` flag from the ledger). Verified in-game end to end: a
+  bulk sale with the save's `nudge_upgrade_shown = false` shows "Room for
+  more?", dismissing it immediately raises the undo card via the new
+  deferred-nudge queue, `nudge_undo_shown` persists, and recalling the
+  nudge afterwards stays silent. Player save restored.
+- Deferred-nudge queue: nudges raised while another card or a modal owns the
+  screen used to silently drop despite their one-shot flag being safe; the
+  first bulk sale proved it (the undo card could never appear once the
+  first-sale card was up). The director now keeps a single-slot pending
+  nudge that fires on the next card dismissal — a strictly better deferral
+  for every nudge, no flag semantics changed.
 - BGM weight cut ~24 MB: menu (27→18), shop (14→7), reef (9→4), ambience
   (6→3), upcycle (4→2) re-encoded to 160 kbps CBR, durations identical, ID3
   tags preserved (Kevin MacLeod attribution intact), world.mp3 already 162

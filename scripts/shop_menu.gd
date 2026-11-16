@@ -349,6 +349,8 @@ func _sell_qty(mat: String, qty: int) -> void:
 	_spawn_receipt("SOLD %s x%d%s  +%d$" % [mat, units, tag, earnings], Color(1.0, 0.85, 0.35, 1.0) if bulk else Color(0.7, 1.0, 0.6, 1.0), 1.35 if bulk else 1.0)
 	TutorialDirector.notify("sold")
 	TutorialDirector.nudge("upgrade")
+	if bulk:
+		TutorialDirector.nudge("undo")
 	GameState._persist()
 	_refresh()
 
@@ -374,6 +376,8 @@ func _sell_all(mat: String) -> void:
 	_spawn_receipt("SOLD %s x%d%s  +%d$" % [mat, units, tag, earnings], Color(1.0, 0.85, 0.35, 1.0) if bulk else Color(0.7, 1.0, 0.6, 1.0), 1.35 if bulk else 1.0)
 	TutorialDirector.notify("sold")
 	TutorialDirector.nudge("upgrade")
+	if bulk:
+		TutorialDirector.nudge("undo")
 	GameState._persist()
 	_refresh()
 

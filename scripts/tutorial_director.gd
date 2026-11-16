@@ -76,9 +76,14 @@ const NUDGE_BOTTLE := "nudge_bottle_shown"
 const NUDGE_UPGRADE := "nudge_upgrade_shown"
 const NUDGE_TUNE := "nudge_tune_shown"
 const NUDGE_DEEP_CACHE := "nudge_deep_cache_shown"
+const NUDGE_UNDO := "nudge_undo_shown"
 
 var _step: int = 0
 var _active_hint: CanvasLayer = null
+## A nudge deferred because a card or modal owned the screen. Fires once the
+## current card is dismissed — so a two-card trigger (first bulk sale) still
+## lands both cards instead of the second evaporating.
+var _pending_nudge: String = ""
 var _nudge_state: Dictionary = {}
 
 func _ready() -> void:
@@ -237,6 +242,10 @@ func _spawn_card(title: String, body: String, button: String) -> void:
 
 func _on_hint_dismissed() -> void:
 	_active_hint = null
+	if not _pending_nudge.is_empty():
+		var k := _pending_nudge
+		_pending_nudge = ""
+		call_deferred("nudge", k)
 	if _step == STEP_FINALE:
 		_set_step(DONE)
 		# The tour is over; point at the optional lore collectathon once,
@@ -262,14 +271,16 @@ func nudge(kind: String) -> void:
 		"upgrade": key = NUDGE_UPGRADE
 		"tune": key = NUDGE_TUNE
 		"deep_cache": key = NUDGE_DEEP_CACHE
+		"undo": key = NUDGE_UNDO
 		_: return
 	if not _nudge_state.has(key):
 		_nudge_state[key] = bool(SaveManager.load_game().get(key, false))
 	if bool(_nudge_state[key]):
 		return
-	# Don't smother an active step card or a modal guide/briefing; retry next
-	# call instead of burning the one-shot flag.
+	# Don't smother an active step card or a modal guide/briefing; queue the
+	# nudge to fire once the current card is dismissed instead of dropping it.
 	if (_active_hint and is_instance_valid(_active_hint)) or _modal_card_active():
+		_pending_nudge = kind
 		return
 	_nudge_state[key] = true
 	SaveManager.update_game({key: true})
@@ -293,6 +304,10 @@ func nudge(kind: String) -> void:
 		"deep_cache":
 			_spawn_card("Deep Cache",
 				"[font_size=15]Both [color=#9fe2ff]Reef Rescue[/color] (combo pickups) and the [color=#9fe2ff]Upcycle bench[/color] bank [color=#ffd27f]Upcycle score[/color].\nSpend it at the [color=#9fe2ff]island menu[/color] on the [color=#ffd27f]Deep Cache[/color] — it deepens every dive.\nDeep Cache upgrades spend the same score.[/font_size]",
+				"Got it")
+		"undo":
+			_spawn_card("Oops — bulk sale?",
+				"[font_size=15]Sold the whole pile by accident?\nThe [color=#ffd27f]Undo last sale[/color] button at the bottom of the shop puts it all back — materials and cash — as long as your bag can fit the lot.[/font_size]",
 				"Got it")
 
 
