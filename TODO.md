@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- World menu re-verified after the Journal addition: panel opens/closes
+  cleanly; Journal button visible, fits in-scene on a 1152x648 screen,
+  tree unpauses on close.
 - Linux debug build verified at the tip of the loop: compiles, packs,
   launches with zero script errors (only benign shutdown noise). README/guide
   document the sailboat foghorn; no stale references in the docs.
