@@ -1,6 +1,11 @@
 # Current project todo:
 
 # done this pass
+- Balance re-measured with current code across five consecutive simulated
+  fresh-save loops: $33 per loop ($18 materials + $15 circuit bonus). Entry
+  costs reachable in 2-3 loops (Bag 60$, Market Contact 80$) and the whole
+  early-game arc pays back cleanly; pacing intentional and intact.
+  Player save restored afterwards.
 - Starfish first-pickup nudge verified end to end on a live fresh save:
   welcome dismissed -> starfish body_entered -> hint card "A starfish!"
   appears, flag persists; player save restored afterwards.
