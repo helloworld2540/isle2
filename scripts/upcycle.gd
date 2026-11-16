@@ -31,6 +31,7 @@ const TRASH_SPRITES: Array[String] = [
 # Game State
 var score: int = 0
 var sort_streak: int = 0
+var _peak_streak: int = 0  ## Longest streak reached this run, for the summary card.
 var _sorted_count: int = 0
 var _recycled_total: int = 0
 var _recycled_by_mat: Dictionary = {
@@ -308,6 +309,7 @@ func _process_successful_sort(mat: String, bin_pos: Vector2) -> void:
 	TutorialDirector.notify("sorted")
 	score += 1
 	sort_streak += 1
+	_peak_streak = maxi(_peak_streak, sort_streak)
 	_sorted_count += 1
 	_recycled_total += 1
 	_recycled_by_mat[mat] = _recycled_by_mat.get(mat, 0) + 1
@@ -567,9 +569,10 @@ func _game_over_summary() -> void:
 	if _leaving: return
 	_leaving = true
 	
+	var prev_best := GameState.best_upcycle_score
 	GameState.record_sort_streak(sort_streak)
 	GameState.record_upcycle(score)
-	_record_run_card()
+	_record_run_card(prev_best)
 	
 	AudioManager.play_sfx("sort_bad")
 	
@@ -585,7 +588,20 @@ func _leave_to_map() -> void:
 
 
 ## Hand-off card for the world map: what this run produced and where to go next.
-func _record_run_card() -> void:
+## Mirrors the reef dive recap — runs are numbered "chapters" with a flavour
+## title earned by the longest streak inside the run.
+func _record_run_card(prev_best: int) -> void:
+	var runs := GameState.upcycle_runs
+	var flavor := "Belt Survived"
+	if _peak_streak >= 15:
+		flavor = "Golden Gloves"
+	elif _peak_streak >= 10:
+		flavor = "Hot Streak"
+	elif _peak_streak >= 5:
+		flavor = "Steady Hands"
+	elif _peak_streak >= 1:
+		flavor = "Belt Sorted"
+	
 	var material_parts: Array[String] = []
 	for material in MATERIALS:
 		var gained := int(_gained_by_mat.get(material, 0))
@@ -593,8 +609,10 @@ func _record_run_card() -> void:
 			material_parts.append("%s +%d" % [material, gained])
 	
 	var lines: Array[String] = [
-		"Score %d · %d sorted · best streak %d" % [score, _sorted_count, GameState.best_sort_streak],
+		"Score %d · %d sorted · peak streak %d" % [score, _sorted_count, _peak_streak],
 	]
+	if score > prev_best:
+		lines.append("★ New personal best — %d (was %d)" % [score, prev_best])
 	lines.append(", ".join(material_parts) if not material_parts.is_empty() else "No materials sorted this run")
 	
 	var debris := int(GameState.trash_by_type.get("Reef Debris", 0))
@@ -606,7 +624,7 @@ func _record_run_card() -> void:
 	else:
 		hint = "Collect more debris at Reef Rescue."
 	
-	GameState.record_run("upcycle", "Upcycle run complete", lines, hint)
+	GameState.record_run("upcycle", "Bench Run № %d — %s" % [runs, flavor], lines, hint)
 
 func _game_over_leave() -> void:
 	if game_over_canvas:

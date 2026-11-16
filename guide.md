@@ -58,6 +58,11 @@ Welcome to Isle 2. Shared economy across world map, two minigames, shop, NPCs an
 ## Upcycle
 - Sort belt trash into matching bins. Wrong/burned does not produce materials or score loss reward except streak reset.
 - Correct sort gains that material and updates recycled counter/belt counter HUD.
+- Back on the map the run is titled like a chapter — "Bench Run № 2 —
+  Hot Streak" — named by the longest streak you kept inside that run, and it
+  flags a new personal best. Ten finished runs earns BENCH REGULAR.
+- Combo milestones (every five clean sorts) add +5 score and a "FIVE ON THE
+  BELT!" banner; a burned or wrong item resets the streak.
 
 ## Reef Rescue
 - Dodge fish, collide with garbage to collect 1kg per hit, combos multiply debris bonus.
@@ -75,7 +80,7 @@ Welcome to Isle 2. Shared economy across world map, two minigames, shop, NPCs an
   with "★ NEW BEST DEPTH — N m! ★" and plays the achievement chime.
 - Debris payout breakdown on the summary card — haul, deep-cache bonus and
   "bag full −N kg" so the capacity cap reads as a rule, not a bug.
-- Depth is tracked in the stats page and feeds two achievements: DEEP DIVE (400 m) and TO THE ABYSS (900 m).
+- Depth is tracked in the stats page and feeds two achievements: DEEP DIVE (400 m) and TO THE ABYSS (900 m). Ten finished dives earns REEF REGULAR; the stats page keeps a running "Field log" of dives and bench runs.
 - Garbage converts into Reef Debris (plus Deep Cache bonus per tier and capacity).
 
 ## Upgrades

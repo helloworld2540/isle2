@@ -24,6 +24,13 @@ const ENTRIES: Array[Dictionary] = [
 		"where": "Upcycle",
 	},
 	{
+		"id": "bench_regular",
+		"short": "Bench",
+		"title": "BENCH REGULAR",
+		"subtitle": "Finished 10 runs at the Upcycle bench.",
+		"where": "Upcycle",
+	},
+	{
 		"id": "first_sale",
 		"short": "Sale",
 		"title": "FIRST SALE",
@@ -94,6 +101,13 @@ const ENTRIES: Array[Dictionary] = [
 		"where": "Reef Rescue",
 	},
 	{
+		"id": "reef_regular",
+		"short": "Dives",
+		"title": "REEF REGULAR",
+		"subtitle": "Completed 10 dives at Reef Rescue.",
+		"where": "Reef Rescue",
+	},
+	{
 		"id": "island_patron",
 		"short": "Patron",
 		"title": "PATRON OF THE ISLE",
@@ -144,6 +158,8 @@ static func is_met(id: String, state: Node) -> bool:
 			return state.best_reef_depth > 0 or state.reef_garbage > 0.0
 		"first_sort":
 			return state.best_upcycle_score > 0
+		"bench_regular":
+			return state.upcycle_runs >= 10
 		"first_sale":
 			return state.lifetime_earnings > 0
 		"first_quest":
@@ -166,6 +182,8 @@ static func is_met(id: String, state: Node) -> bool:
 			return state.best_reef_depth >= 900
 		"island_patron":
 			return state.island_patron
+		"reef_regular":
+			return state.reef_dives >= 10
 		"tide_keeper":
 			return state.bottles_read.size() >= 3
 		"island_steward":

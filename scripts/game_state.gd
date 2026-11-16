@@ -110,6 +110,8 @@ var reef_fish: int = 0
 var lifetime_garbage_kg: int = 0
 ## Total dives made, drives the dive number on recap cards.
 var reef_dives: int = 0
+## Total bench runs made, drives the run number on recap cards.
+var upcycle_runs: int = 0
 
 # Inventory
 var trash_inventory: int = 0
@@ -362,8 +364,12 @@ func purchase_range() -> bool:
 
 # --- Tracking & Statistics ---
 
+## record_upcycle is called once per finished bench run. It banners the score,
+## keeps the personal best and bumps the run counter the hand-off card uses to
+## number runs ("Bench Run № 3 — Hot Streak") exactly like reef dives do.
 func record_upcycle(score: int) -> void:
 	upcycle_score = score
+	upcycle_runs += 1
 	if score > best_upcycle_score:
 		best_upcycle_score = score
 	_persist()
@@ -642,6 +648,7 @@ func _write_save() -> void:
 		"quests_completed": quests_completed,
 		"lifetime_garbage_kg": lifetime_garbage_kg,
 		"reef_dives": reef_dives,
+		"upcycle_runs": upcycle_runs,
 		"harbor_hero_granted": harbor_hero_granted,
 		"circuits_completed": circuits_completed,
 		"achievements": unlocked_achievements,
@@ -659,6 +666,7 @@ func restore() -> void:
 	quests_completed = int(data.get("quests_completed", 0))
 	lifetime_garbage_kg = int(data.get("lifetime_garbage_kg", 0))
 	reef_dives = int(data.get("reef_dives", 0))
+	upcycle_runs = int(data.get("upcycle_runs", 0))
 	
 	best_upcycle_score = int(data.get("best_upcycle_score", 0))
 	best_sort_streak = int(data.get("best_sort_streak", 0))
@@ -713,6 +721,7 @@ func reset() -> void:
 	reef_garbage = 0.0
 	reef_fish = 0
 	reef_dives = 0
+	upcycle_runs = 0
 	money = 0
 	lifetime_earnings = 0
 	quests_completed = 0

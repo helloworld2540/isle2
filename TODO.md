@@ -1,6 +1,15 @@
 # Current project todo:
 
 # done this pass
+- Two long-game achievements backed by the new run counters: BENCH REGULAR
+  (10 Upcycle runs) and REEF REGULAR (10 Reef dives), catalogue now 17; the
+  stats page gained a "Field log: N dives · M bench runs" line. Verified both
+  unlock via exec and that the stats scene loads clean.
+- Upcycle hand-off parity: bench runs are now numbered story chapters on the
+  world-map card ("Bench Run № 1 — Hot Streak"), named by the run's peak streak
+  (≥15 Golden Gloves, ≥10 Hot Streak, ≥5 Steady Hands, ≥1 Belt Sorted, else Belt
+  Survived) and lead with "★ New personal best" when earned. New save key
+  `upcycle_runs`. Verified via exec (score 42 → "Bench Run № 1 — Hot Streak").
 - Mobile UI sweep: `DragScrollContainer` (mouse drag-to-scroll, finger-speed,
   threshold-gated so buttons still click, reduce_motion-safe) wired into the shop
   and stats guide ScrollContainers; touch targets ≥ 44 px on main-menu/stats
@@ -76,8 +85,9 @@
   Fixed deferred spawn (hint used to parent to a dying scene during transitions).
 
 # high priority
-- (next) Upcycle hand-off parity: give the upcycle bench the same story-chapter
-  treatment — run counter, a named run, and the carry-over hint.
+- Upcycle story beats: the bench has no mid-run narrative beyond "FIVE ON THE
+  BELT" — give it a first-run intro line, a debris-low warning, and a clean
+  "belt clear" finish so repeated runs do not feel identical.
 
 # medium priority
 # (shimmer item promoted to high priority)

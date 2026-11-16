@@ -77,6 +77,7 @@ func _build_stats_text() -> String:
 	])
 	lines.append("Quests turned in: %d" % GameState.quests_completed)
 	lines.append("Island circuits completed: %d  (+$%d each)" % [GameState.circuits_completed, GameState.CIRCUIT_BONUS_MONEY])
+	lines.append("Field log: %d dives · %d bench runs" % [GameState.reef_dives, GameState.upcycle_runs])
 	
 	# Compact achievement roll: the banner cards carry the full text, this is
 	# the checklist players scroll to when they want to know what is left.
