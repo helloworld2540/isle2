@@ -1,6 +1,11 @@
 # Current project todo:
 
 # done this pass
+- NPC talk-to-trigger verified end to end on a fresh save: teleport player
+  onto Mara -> body_entered -> dialogue card opens ("Hi! I'm Mara, island
+  caretaker...
+You received 6 Polyethylene!"), inventory updated to
+  Polyethylene 6. Player save restored afterwards.
 - In-game unique_id collision found and fixed: the new JournalButton node
   accidentally reused unique_id 410065433 (UpgradesPanel). JournalButton
   bumped to 410065470; all scenes re-scanned for duplicate unique_ids —
