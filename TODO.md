@@ -1,6 +1,12 @@
 # Current project todo:
 
 # done this pass
+- Export verification after the addon-filter fix: Web preset rebuilds clean
+  (html/js/wasm/pck all emitted, pack completes); editor error log audited —
+  every remaining entry is historical (pre-fix ReceiptStack parse errors, the
+  pre-9764725 reef_rescue.tscn sub_resource tag, the rescan re-entrancy
+  warning); zero new errors on the current build. Linux debug build verified
+  previously (boots headless, zero script errors).
 - World HUD perf pass: the per-frame money / trash / inventory label setters
   in wm_progress.gd built and assigned strings every physics tick; they now
   cache the last written text and only assign on change (the circuit label
