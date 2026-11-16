@@ -136,6 +136,9 @@ checked against this yield — nothing changed, deliberately.*
 - The in-run **Return to Map** buttons in both minigames are 48 px tall, and the
   shop and stats lists drag-scroll (mouse drag or finger) without stealing taps
   from the buttons inside them.
+- Every shop button is ≥ 44 px tall — the row **Sell 1 / Sell 5 / Sell All**, the
+  Buy buttons and the footer Return / Undo — so nothing needs a pinpoint tap; the
+  two-column counter still fits a 1152×648 screen with no scrolling.
 
 ## Upgrades
 - Move speed +8% / level via trash.

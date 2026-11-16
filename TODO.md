@@ -1,6 +1,12 @@
 # Current project todo:
 
 # done this pass
+- Shop touch pass: every button in the redesigned shop is now ≥ 44 px tall
+  (custom_minimum_size y=44 on the 15 Sell 1/5/All row buttons, the 5 Buy
+  buttons and Return to World / Undo last sale). Verified in-game: all 22
+  buttons report h=44, the two-column counter stays inside 1152×648 (scroll
+  rect 1119 wide, content 559 tall, no scrolling needed, footer fully
+  on-screen), and the rows still populate and sell.
 - Balance pass 5 — trash-upgrade payback, measured not guessed. Trash costs are
   paid in **kg of held material**, and the bag is the hard cap on a loop's haul,
   so one loop banks ≈ bag capacity: the live dive payout accepts exactly the free
@@ -240,11 +246,13 @@
   Fixed deferred spawn (hint used to parent to a dying scene during transitions).
 
 # high priority
-- Shop touch pass: the redesigned shop keeps default (~31 px) button heights on
-  the row Sell 1/5/All buttons, the Buy buttons and the footer Return/Undo, all
-  below the 44 px touch guideline. Raise them to ≥44 px (and the +25% label
-  stays readable) and verify the two-column content still fits 1152×648 without
-  clipping, plus portrait.
+- Deep Cache value audit: it is the only score-priced upgrade (30 score, then
+  15×tier) and its reef-debris bonus (`5×tier + 3×capacity_level`) is silently
+  clamped away whenever the bag is full — which is *always* at the starting
+  10 kg bag (measured: a tier-1 dive at a 20 kg bag accepts exactly 20 and drops
+  the +8). Measure whether it can ever pay off before a bag upgrade, then decide:
+  let the cache bonus bypass the capacity cap, warn in the buy copy, or re-price.
+  Record the numbers in guide.md.
 
 # medium priority
 # (shimmer item promoted to high priority)

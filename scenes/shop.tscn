@@ -139,17 +139,17 @@ horizontal_alignment = 2
 text = "x0"
 
 [node name="SellOne" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Polyethylene"]
-custom_minimum_size = Vector2(76, 0)
+custom_minimum_size = Vector2(76, 44)
 layout_mode = 2
 text = "Sell 1"
 
 [node name="SellFive" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Polyethylene"]
-custom_minimum_size = Vector2(112, 0)
+custom_minimum_size = Vector2(112, 44)
 layout_mode = 2
 text = "Sell 5"
 
 [node name="SellAll" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Polyethylene"]
-custom_minimum_size = Vector2(112, 0)
+custom_minimum_size = Vector2(112, 44)
 layout_mode = 2
 text = "Sell All"
 
@@ -177,17 +177,17 @@ horizontal_alignment = 2
 text = "x0"
 
 [node name="SellOne" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Polypropylene"]
-custom_minimum_size = Vector2(76, 0)
+custom_minimum_size = Vector2(76, 44)
 layout_mode = 2
 text = "Sell 1"
 
 [node name="SellFive" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Polypropylene"]
-custom_minimum_size = Vector2(112, 0)
+custom_minimum_size = Vector2(112, 44)
 layout_mode = 2
 text = "Sell 5"
 
 [node name="SellAll" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Polypropylene"]
-custom_minimum_size = Vector2(112, 0)
+custom_minimum_size = Vector2(112, 44)
 layout_mode = 2
 text = "Sell All"
 
@@ -215,17 +215,17 @@ horizontal_alignment = 2
 text = "x0"
 
 [node name="SellOne" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Glass"]
-custom_minimum_size = Vector2(76, 0)
+custom_minimum_size = Vector2(76, 44)
 layout_mode = 2
 text = "Sell 1"
 
 [node name="SellFive" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Glass"]
-custom_minimum_size = Vector2(112, 0)
+custom_minimum_size = Vector2(112, 44)
 layout_mode = 2
 text = "Sell 5"
 
 [node name="SellAll" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Glass"]
-custom_minimum_size = Vector2(112, 0)
+custom_minimum_size = Vector2(112, 44)
 layout_mode = 2
 text = "Sell All"
 
@@ -253,17 +253,17 @@ horizontal_alignment = 2
 text = "x0"
 
 [node name="SellOne" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Nylon"]
-custom_minimum_size = Vector2(76, 0)
+custom_minimum_size = Vector2(76, 44)
 layout_mode = 2
 text = "Sell 1"
 
 [node name="SellFive" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Nylon"]
-custom_minimum_size = Vector2(112, 0)
+custom_minimum_size = Vector2(112, 44)
 layout_mode = 2
 text = "Sell 5"
 
 [node name="SellAll" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Nylon"]
-custom_minimum_size = Vector2(112, 0)
+custom_minimum_size = Vector2(112, 44)
 layout_mode = 2
 text = "Sell All"
 
@@ -291,17 +291,17 @@ horizontal_alignment = 2
 text = "x0"
 
 [node name="SellOne" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_ReefDebris"]
-custom_minimum_size = Vector2(76, 0)
+custom_minimum_size = Vector2(76, 44)
 layout_mode = 2
 text = "Sell 1"
 
 [node name="SellFive" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_ReefDebris"]
-custom_minimum_size = Vector2(112, 0)
+custom_minimum_size = Vector2(112, 44)
 layout_mode = 2
 text = "Sell 5"
 
 [node name="SellAll" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_ReefDebris"]
-custom_minimum_size = Vector2(112, 0)
+custom_minimum_size = Vector2(112, 44)
 layout_mode = 2
 text = "Sell All"
 
@@ -359,30 +359,35 @@ theme_override_font_sizes/font_size = 18
 text = "Spend money"
 
 [node name="BuyCapButton" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SpendColumn/SpendPanel/SpendBox"]
+custom_minimum_size = Vector2(0, 44)
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Bag +10 kg — 60$"
 
 [node name="BuyMarketButton" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SpendColumn/SpendPanel/SpendBox"]
+custom_minimum_size = Vector2(0, 44)
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Market +1$/unit — 80$"
 
 [node name="BuyReefButton" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SpendColumn/SpendPanel/SpendBox"]
+custom_minimum_size = Vector2(0, 44)
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Reef Charter — 100$"
 
 [node name="BuyPatronButton" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SpendColumn/SpendPanel/SpendBox"]
+custom_minimum_size = Vector2(0, 44)
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Patron of the Isle — 1500$"
 
 [node name="BuyTidekeeperButton" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SpendColumn/SpendPanel/SpendBox"]
+custom_minimum_size = Vector2(0, 44)
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -425,12 +430,12 @@ theme_override_constants/separation = 10
 
 [node name="BackButton" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Footer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(150, 0)
+custom_minimum_size = Vector2(150, 44)
 layout_mode = 2
 text = "Return to World"
 
 [node name="UndoButton" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Footer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(150, 0)
+custom_minimum_size = Vector2(150, 44)
 layout_mode = 2
 text = "Undo last sale"
