@@ -60,6 +60,13 @@ func _read() -> void:
 		queue_free()
 		return
 	GameState.mark_story_read(bottle_id)
+	# One-shot pointer to the Tide Ledger once the base set is complete.
+	var base_found := 0
+	for id in GameState.bottles_read:
+		if id != PACT_BOTTLE_ID:
+			base_found += 1
+	if base_found >= 3:
+		TutorialDirector.nudge("ledger")
 	AudioManager.play_sfx("quest_complete", 0.95)
 	set_deferred("monitoring", false)
 	

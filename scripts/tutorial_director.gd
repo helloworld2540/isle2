@@ -79,6 +79,7 @@ const NUDGE_DEEP_CACHE := "nudge_deep_cache_shown"
 const NUDGE_UNDO := "nudge_undo_shown"
 const NUDGE_QUEST := "nudge_quest_shown"
 const NUDGE_MEET := "nudge_meet_shown"
+const NUDGE_LEDGER := "nudge_ledger_shown"
 
 var _step: int = 0
 var _active_hint: CanvasLayer = null
@@ -276,6 +277,7 @@ func nudge(kind: String) -> void:
 		"undo": key = NUDGE_UNDO
 		"quest": key = NUDGE_QUEST
 		"meet": key = NUDGE_MEET
+		"ledger": key = NUDGE_LEDGER
 		_: return
 	if not _nudge_state.has(key):
 		_nudge_state[key] = bool(SaveManager.load_game().get(key, false))
@@ -317,6 +319,12 @@ func nudge(kind: String) -> void:
 			_spawn_card("Someone needs a hand",
 				"[font_size=15]An islander is holding out for a trade.\nThe [color=#9fe2ff]quest tracker[/color] (left) shows who wants what, and a [color=#ffd27f]glowing sprite with a ★[/color] means you have enough to deliver right now.\nTalk to them on the map — the reward can go straight into your bag.[/font_size]",
 				"Let's go")
+		"ledger":
+			_spawn_card("Every note found",
+				"[font_size=15]You have read all three shoreline bottles.\n" +
+				"The [color=#9fe2ff]stats page[/color] (from the main menu) has a [color=#ffd27f]Tide Ledger[/color] — every note you found, re-readable any time.\n" +
+				"Something about the Pact might make a fourth note wash up…[/font_size]",
+				"Lovely")
 		"meet":
 			_spawn_card("Islanders about",
 				"[font_size=15]You have not met everyone yet.\nThe islanders walking the trail hand out a little [color=#9fe2ff]first-visit gift[/color] each — and the [color=#ffd27f]quest tracker[/color] glares when someone wants a trade.\nHave a wander.[/font_size]",

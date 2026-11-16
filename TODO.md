@@ -1,6 +1,12 @@
 # Current project todo:
 
 # done this pass
+- New one-shot nudge **Every note found** (`nudge_ledger_shown`): reading the
+  third base bottle fires a card pointing at the Tide Ledger on the stats
+  page (and hints the Pact's fourth note). Wired through the usual deferred
+  nudge queue (waits for any open card); fires on the read event itself, so
+  collectors who finished the set before this build existed are unaffected.
+  Smoke 44/44.
 - Sparkle burst refactor: seven hand-rolled CPUParticles2D blocks across
   reef_rescue / upcycle / wm_menu / wm_npc extracted into scene-first
   `FxSparkle.burst()` (scripts/fx_sparkle.gd). Fixed a real leak it exposed:
