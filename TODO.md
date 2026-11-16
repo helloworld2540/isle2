@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- Player-save achievement audit: all 10 unlocked ids are legitimate
+  gameplay achievements (big_bag, first_sale, first_dive, reef_rhythm,
+  reef_deep, heavy_haul, hot_streak, first_sort, reef_registry, starlight) —
+  no test leakage, no phantom unlocks.
 - World HUD first-paint confirmed visually: "Trash 0/10 kg" and "(empty)"
   render cleanly; a starfish is visible at the top of the map; no defects.
 - World HUD default labels no longer flash the placeholder word "Progress"
