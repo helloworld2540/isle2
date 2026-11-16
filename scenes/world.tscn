@@ -628,7 +628,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="WorldProgress/Panel/VBox" unique_id=900000023]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-text = "Progress"
+text = "Trash 0/10 kg"
 
 [node name="MoneyLabel" type="Label" parent="WorldProgress/Panel/VBox" unique_id=342528160]
 layout_mode = 2
@@ -685,7 +685,7 @@ custom_minimum_size = Vector2(240, 0)
 custom_maximum_size = Vector2(240, -1)
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
-text = "Progress"
+text = "(empty)"
 autowrap_mode = 3
 
 [node name="RunRecap" parent="." instance=ExtResource("12_recap")]

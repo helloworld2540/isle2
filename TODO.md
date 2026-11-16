@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- World HUD default labels no longer flash the placeholder word "Progress"
+  before the first _process tick — now they read "Trash 0/10 kg" and "(empty)".
 - Scene integrity sweep: no duplicate sibling node names, no ext_resource
   references to missing scripts/textures/audio/themes anywhere in the
   project — scenes are internally consistent.
