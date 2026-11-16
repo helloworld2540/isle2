@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Web export deep-checked after all collectathon work: the packed pck
+  contains wm_starfish.tscn, starfish.png, harbor_bell.wav and foghorn.wav;
+  export completes cleanly.
 - Fresh-save starfish regression verified: new save -> world boots with
   welcome guide + five starfish nodes -> collecting one via body_entered
   persists after flush (starfish_found=[sf_1]) and the node frees itself.
