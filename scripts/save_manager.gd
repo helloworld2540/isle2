@@ -72,6 +72,31 @@ func load_game() -> Dictionary:
 		data = {"money": 0}
 	if not data.has("money"):
 		data["money"] = 0
+	data = _check_version(data)
+	return data
+
+
+## Schema gate for saves. `save_version` is written by every save_game(); this
+## reads it back and either upgrades an older layout or warns when the file
+## came from a newer build. Migrations are pure dict transforms chained in
+## version order — each step only needs to produce the next version's shape.
+## v0 (pre-versioning) → v1: nothing structural to fix; the key codec layer
+## in GameState already tolerates missing keys via defaults, so the bump is
+## purely declarative.
+func _check_version(data: Dictionary) -> Dictionary:
+	var version := int(data.get("save_version", 0))
+	if version > SAVE_VERSION:
+		push_warning("SaveManager: save_version %d is newer than this build (%d); loading as-is" % [version, SAVE_VERSION])
+		return data
+	while version < SAVE_VERSION:
+		match version:
+			0:
+				# v0 → v1: mark the file as current; no key renames needed.
+				version = 1
+				data["save_version"] = version
+			_:
+				push_warning("SaveManager: no migration from save_version %d; stopping" % version)
+				break
 	return data
 
 

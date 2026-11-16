@@ -1,6 +1,12 @@
 # Current project todo:
 
 # done this pass
+- Save schema gate: `SAVE_VERSION` was written but never read — load_game now
+  runs `_check_version` (migrates older saves in version order; warns and
+  loads as-is when the file is from a newer build; v0->v1 is declarative since
+  the key codec tolerates missing keys). Verified in-game (current save v1
+  untouched, legacy dict upgraded to v1, newer-build save warns and loads
+  money intact); player save untouched; smoke 44/44.
 - New one-shot nudge **Every note found** (`nudge_ledger_shown`): reading the
   third base bottle fires a card pointing at the Tide Ledger on the stats
   page (and hints the Pact's fourth note). Wired through the usual deferred
