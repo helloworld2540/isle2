@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Editor log audit on the current build: all 22 entries are historical
+  (pre-fix upcycle.gd parse errors, the 2026-11-16 rescan re-entrancy from
+  importing fish_catalog.gd); zero new errors from a fresh main-menu boot.
 - Reef Charter purchase path verified end to end: fresh save with $200 ->
   purchase_reef_lives() deducts the first-tier 100$ and grants +1 life
   (reef_bonus_lives=1, persisted). Player save restored afterwards.
