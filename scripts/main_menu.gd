@@ -49,6 +49,10 @@ func _summary_text() -> String:
 		_format_inventory_totals()
 	]
 	
+	# How fresh is this save? Datestamp at the top of a continue screen.
+	var saved := SaveManager.get_save_mtime()
+	if saved > 0:
+		summary += "\nLast played: %s" % Time.get_datetime_string_from_unix_time(saved, false)
 	# Titles are identity, so they get their own line rather than a stat column.
 	var badges: Array[String] = []
 	if GameState.is_harbor_hero():

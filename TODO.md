@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- Main-menu Continue summary shows "Last played: <datetime>" under the
+  inventory totals (reuses SaveManager.get_save_mtime). An initial edit
+  dropped the badges preamble — caught and fixed before commit. Verified
+  visually; smoke 45/45.
 - Stats page shows "Last saved: <iso datetime>" (via SaveManager.get_save_mtime
   reading save.json's mtime) — handy for knowing how fresh the shown numbers
   are. Verified visually; smoke 45/45.
