@@ -1,6 +1,11 @@
 # Current project todo:
 
 # done this pass
+- Balance pass 3 (measured, not guessed): three consecutive fresh-save loops driven
+  end-to-end via MCP; median yield ≈ $32/loop ($17 materials + $15 circuit),
+  Market Contact reachable in ~2–3 loops; kept prices, documented in guide.md.
+  Tested with real portal warps (fresh-save welcome → tour → circuit ×3), save
+  restored to player data afterwards.
 - Tutorial one-shot ambient nudges: "Bag almost full!" at 85% hold (once per save,
   skipped while another card is up) and "Bottles on the shore" after the tour
   finale; verified both in-game.
@@ -38,9 +43,8 @@
   Fixed deferred spawn (hint used to parent to a dying scene during transitions).
 
 # high priority
-- (next) Re-tune the upcycle grant curve after the fix: watch how many sorts it
-  takes a fresh player to afford Market Contact (80$) across 3 real loops and
-  nudge sale prices or grant sizes if the median is off by >25%.
+- (each loop complete) See done sections; keep an eye on whether Market Contact
+  (80$) feels too distant for new players and re-price if testers report it.
 
 # medium priority
 # (shimmer item promoted to high priority)

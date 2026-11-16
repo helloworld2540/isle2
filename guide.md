@@ -7,14 +7,17 @@ Welcome to Isle 2. Shared economy across world map, two minigames, shop, NPCs an
 - Materials: Polyethylene(1kg), Polypropylene(2kg), Glass(3kg), Nylon(2kg), Reef Debris(1kg).
 - Bag capacity starts at 10kg and grows by +10kg per level.
 
-### Pacing (measured on a fresh save)
-- A surface dive fishes ~16% of spawns as fish (~27% at 200 m, ~43% at 400 m).
-  Each garbage pickup banks 1 kg toward the end-of-dive Reef Debris payout.
-- A typical 60–90 s dive banks ~15–25 kg of Reef Debris, which the upcycle
+### Pacing (measured on a fresh save, three consecutive loops)
+- A surface dive fishes ~16% of spawns as fish (~27% at 200 m, ~43% at 400 m,
+  ~57% at 600 m). Each garbage pickup banks 1 kg toward the end-of-dive payout.
+- Loop yields: +$34, +$32, +$32 (≈$17 of materials + the flat $15 island-circuit
+  bonus; bulk ×1.25 hits whenever a single material reaches 5+).
+- Market Contact (80$) lands after ~2–3 loops (~10–12 minutes); Bag and Reef
+  Charter sinks are a 3–5 loop goal. Pacing is intentional — the island circuit
+  is the reliable earner, bulk sales reward focused hauls over mixed ones.
+- A typical 60–90 s dive banks ~15–30 kg of Reef Debris, which the upcycle
   converts one-for-one into materials (each correct sort burns 1 debris).
-- A full 10 kg bag sells for roughly $18–25 (bulk bonus applies once you hold
-  5+ of one material), and the island circuit adds a flat $15 on top.
-- The opening loop (dive → sort → sell) pays out in ~3–5 minutes.
+- The opening loop (dive → sort → sell) pays out in ~3–6 minutes.
 - Bag capacity starts at 10kg and grows by +10kg per level. Two ways to upgrade:
   trash-paid at the world menu (6 + 3*level), or money-paid at the shop (60 + 25*level).
 - Shop sells at rates: Polyethylene 2, Polypropylene 3, Glass 5, Nylon 4, Reef Debris 1.
