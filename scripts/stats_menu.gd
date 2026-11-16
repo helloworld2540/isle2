@@ -350,4 +350,8 @@ func _on_reset_confirmed() -> void:
 
 func _on_back() -> void:
 	AudioManager.play_sfx("return")
-	SceneTransition.change_scene(SCENE_MAIN_MENU)
+	var target := GameState.return_to_scene
+	if target.is_empty() or not ResourceLoader.exists(target):
+		target = SCENE_MAIN_MENU
+	GameState.return_to_scene = ""
+	SceneTransition.change_scene(target)

@@ -609,6 +609,11 @@ func has_visited_station(station_id: String) -> bool:
 	return circuit_visits.has(station_id)
 
 
+## Optional scene the stats page should return to when the player presses
+## Back (set by anything that deep-links the stats page from outside the
+## main menu, e.g. the world HUD's Journal button).
+var return_to_scene: String = ""
+
 # --- Achievements ---
 # One evaluation point: _persist() already runs after every state change, so
 # achievements need no call sites. Conditions read the same public fields the

@@ -10,6 +10,7 @@ const FxSparkle := preload("res://scripts/fx_sparkle.gd")
 @onready var bgm_cycle_timer: Timer = $BgmCycleTimer
 @onready var resume_button: Button = $MenuPanel/Center/Card/HBoxContainer/VBoxContainer/ResumeButton
 @onready var save_button: Button = $MenuPanel/Center/Card/HBoxContainer/VBoxContainer/SaveButton
+@onready var journal_button: Button = $MenuPanel/Center/Card/HBoxContainer/VBoxContainer/JournalButton
 @onready var cap_status: Label = $MenuPanel/Center/Card/HBoxContainer/VBoxContainer/CapStatus
 
 @onready var card: PanelContainer = $MenuPanel/Center/Card
@@ -64,6 +65,7 @@ func _process(_delta: float) -> void:
 func _wire_signals() -> void:
 	if resume_button: resume_button.pressed.connect(_on_resume_pressed)
 	if save_button: save_button.pressed.connect(_on_save_pressed)
+	if journal_button: journal_button.pressed.connect(_on_journal_pressed)
 	if confirm_panel: confirm_panel.confirmed.connect(_do_save_and_leave)
 	if hud_menu_button: hud_menu_button.pressed.connect(_toggle)
 	if move_faster_btn: move_faster_btn.pressed.connect(_buy_move)
@@ -183,6 +185,19 @@ func _do_save_and_leave() -> void:
 		panel.remove_from_group("ui_modal_card")
 	get_tree().paused = false
 	SceneTransition.change_scene("res://scenes/main_menu.tscn")
+
+## Deep-link to the stats page; the stats scene's Back button returns here.
+func _on_journal_pressed() -> void:
+	var player := get_tree().get_first_node_in_group("player")
+	if player:
+		SaveManager.save_player_position(player.global_position)
+	GameState.return_to_scene = "res://scenes/world.tscn"
+	AudioManager.play_sfx("pickup")
+	if panel:
+		panel.visible = false
+		panel.remove_from_group("ui_modal_card")
+	get_tree().paused = false
+	SceneTransition.change_scene("res://scenes/stats_menu.tscn")
 
 # --- Upgrades & Costs ---
 

@@ -1,6 +1,12 @@
 # Current project todo:
 
 # done this pass
+- World HUD -> Journal deep-link: a new "Journal" button in the world menu
+  deep-links straight to the stats page; the stats scene's Back button
+  returns to the world (via GameState.return_to_scene, cleared on return).
+  Player position is persisted across the round-trip. Verified end-to-end
+  (world -> stats -> world); smoke 45/45; player save restored afterwards
+  (test teleport position removed).
 - Sprite-cache pass fixed a self-inflicted bug: GDScript disallows mutating
   a const Dictionary, so the caches were converted to vars; smoke test now
   passes 45/45 and reef rescue spawns items correctly. The broken-first-push

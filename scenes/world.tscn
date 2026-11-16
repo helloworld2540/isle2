@@ -1001,6 +1001,21 @@ theme_override_colors/font_hover_pressed_color = Color(0.9, 0.98, 1, 1)
 theme_override_colors/font_pressed_color = Color(0.9, 0.98, 1, 1)
 text = "Save & Quit"
 
+[node name="JournalButton" type="Button" parent="Menu/MenuPanel/Center/Card/HBoxContainer/VBoxContainer" unique_id=410065433]
+custom_minimum_size = Vector2(232, 52)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBox_ghost")
+theme_override_styles/hover = SubResource("StyleBox_ghost_hover")
+theme_override_styles/pressed = SubResource("StyleBox_ghost_pressed")
+theme_override_styles/focus = SubResource("StyleBox_ghost_hover")
+theme_override_font_sizes/font_size = 17
+theme_override_colors/font_color = Color(0.72, 0.93, 1, 0.95)
+theme_override_colors/font_hover_color = Color(0.9, 0.98, 1, 1)
+theme_override_colors/font_focus_color = Color(0.9, 0.98, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.9, 0.98, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.9, 0.98, 1, 1)
+text = "Journal"
+
 [node name="CapStatus" type="Label" parent="Menu/MenuPanel/Center/Card/HBoxContainer/VBoxContainer" unique_id=410065432]
 autowrap_mode = 2
 layout_mode = 2
