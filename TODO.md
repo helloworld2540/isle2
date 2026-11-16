@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Cross-check: rr_fish's FISH table and fish_catalog's ENTRIES match 1:1
+  on species keys -> ids. Any new fish added in one side will now fail an
+  explicit audit (no silent orphans).
 - Android APK re-verified across the full change-set (collectathon, foghorn,
   journal, overflow fixes): builds and signs cleanly, ~174 MB.
 - Undo nudge delivery chain verified end to end: bulk sale -> "first sale"
