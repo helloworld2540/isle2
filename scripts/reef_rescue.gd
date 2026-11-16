@@ -493,7 +493,7 @@ func _record_run_card(accepted: int, new_best: bool, prev_best: int) -> void:
 		],
 	]
 	if _golden_hauled > 0:
-		lines.append("✦ %d golden debris hauled (+%d bonus score)" % [_golden_hauled, _golden_hauled])
+		lines.append("✦ %d golden finds (+%d bonus score)" % [_golden_hauled, _golden_hauled])
 	if fish == 0 and int(garbage) >= 8:
 		lines.append("✦ CLEAN DIVE — not a single bump")
 	if new_best:

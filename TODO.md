@@ -1,6 +1,11 @@
 # Current project todo:
 
 # done this pass
+- Recap line wording corrected now that golden finds include golden debris AND
+  golden Goldies ("✦ N golden finds (+N bonus score)").
+- Export re-verified after this week of changes: Linux debug build compiles,
+  packs and boots headless with zero script errors (only benign shutdown
+  noise).
 - Reef "Goldie": 10% of fish spawns are golden variants of a species (any
   species incl. sharks). Bumping one pays +5 score, costs no life, logs the
   species, fires GOLDIE!/+5 and a gold wake-free sparkle — while its edge
