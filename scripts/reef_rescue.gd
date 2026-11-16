@@ -16,6 +16,7 @@ var garbage := 0.0
 var _leaving := false
 var _garbage_combo := 0
 var _peak_combo := 0
+var _golden_hauled := 0  ## Golden debris vacuumed this dive — each worth +1 bonus score.
 var _combo_timer := 0.0
 
 @onready var items: Node2D = $"Items"
@@ -333,7 +334,10 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		var multiplier := 1 + int(_garbage_combo / 3)
 		_update_combo_label(multiplier)
 		garbage += 1.0
-		GameState.upcycle_score += multiplier
+		var is_golden: bool = bool(root.get_meta("golden", false))
+		GameState.upcycle_score += multiplier + (1 if is_golden else 0)
+		if is_golden:
+			_golden_hauled += 1
 		AudioManager.play_sfx("pickup", 1.0 + min(float(multiplier), 3.0) * 0.05)
 		var t := "+%d kg" % weight if multiplier <= 1 else "+%d kg x%d" % [weight, multiplier]
 		_popup(t, Color(0.95, 0.95, 0.35, 1.0))
@@ -341,6 +345,9 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		var ap2 := root.get_node("AnimationPlayer")
 		if ap2:
 			ap2.play("suck")
+		if is_golden:
+			AudioManager.play_sfx("achievement", 1.3)
+			_popup("GOLD +%d!" % (multiplier + 1), Color(1.0, 0.9, 0.35, 1.0))
 		if GameState.get_free_capacity() <= 0:
 			_game_over_summary("inventory")
 			return
@@ -467,6 +474,8 @@ func _record_run_card(accepted: int, new_best: bool, prev_best: int) -> void:
 			accepted, GameState.get_inventory_weight(), GameState.get_inventory_capacity()
 		],
 	]
+	if _golden_hauled > 0:
+		lines.append("✦ %d golden debris hauled (+%d bonus score)" % [_golden_hauled, _golden_hauled])
 	if fish == 0 and int(garbage) >= 8:
 		lines.append("✦ CLEAN DIVE — not a single bump")
 	if new_best:

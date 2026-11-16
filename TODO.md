@@ -1,6 +1,11 @@
 # Current project todo:
 
 # done this pass
+- Reef **golden debris** (mirror of the bench's golden scrap): 12% of garbage
+  spawns render gold and grant +1 bonus score on top of the combo multiplier;
+  "GOLD +N!" callout and a recap line ("✦ N golden debris hauled"). Rate
+  verified in-game (19/200 spawns over a sampling run — within binomial range
+  of 12%); briefing now documents it. Smoke 44/44.
 - Upcycle **golden scrap**: 12% of belt spawns are golden-tinted and worth
   +2 score when sorted right (GOLD +2! callout, achievement sfx, recap line
   "✦ N golden scrap sorted (+N bonus score)"); golden items count toward the

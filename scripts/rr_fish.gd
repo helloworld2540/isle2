@@ -54,10 +54,17 @@ func init_garbage() -> void:
 	var clamped := clampf(raw_size, 1.0, 99.0)
 	size = log(clamped) / log(100.0)
 	speed = Vector2(randfn(0.0, 25.0), randfn(1.0, 0.2))
+	# Rare golden debris: worth a bonus point when vacuumed up.
+	if randf() < 0.12:
+		set_meta("golden", true)
+		if sprite:
+			sprite.modulate = Color(1.15, 1.05, 0.55, 1.0)
 	if sprite:
 		var tex := load("res://sprites/rr/" + texture)
 		if tex is Texture2D:
 			sprite.texture = tex
+			if bool(get_meta("golden", false)):
+				sprite.modulate = Color(1.15, 1.05, 0.55, 1.0)
 	rotation_degrees = randi_range(0, 360)
 	if sprite:
 		sprite.flip_h = randf() > 0.5
