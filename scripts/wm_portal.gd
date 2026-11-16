@@ -1,16 +1,22 @@
 extends Area2D
 
+const RouteAdvisor := preload("res://scripts/route_advisor.gd")
+
 ## Glowing world-map pad. Standing on it transitions into a scene and remembers
 ## a safe spot to drop the player back onto when they return.
 
 ## How far from the pad centre the player is placed after coming back.
 const RETURN_DISTANCE := 120.0
+
 ## Grace period after the world loads, so a returning player standing on the
 ## pad is not bounced straight back into the scene they just left.
 const SPAWN_GRACE_MSEC := 900
 
 @export var target_scene: String = ""
 @export var portal_title: String = "Enter"
+## Station id for the island-circuit tracker ("reef_rescue", "upcycle", "shop").
+## Empty means this pad does not count toward a circuit.
+@export var station_id: String = ""
 @export var warn_if_empty: bool = false
 @export var required_material: String = ""
 @export var empty_warning: String = ""
@@ -21,6 +27,9 @@ const SPAWN_GRACE_MSEC := 900
 
 var _ignore_entries_until := 0
 var _hint_tick := 0.0
+## Re-derived a few times a second while the world map is open.
+const RECOMMENDATION_TICK_SECONDS := 0.5
+var _advice_tick := 0.0
 
 
 func _ready() -> void:
@@ -34,6 +43,11 @@ func _ready() -> void:
 
 # Keeps the pad honest about what it needs before the player steps on it.
 func _process(delta: float) -> void:
+	_advice_tick += delta
+	if _advice_tick >= RECOMMENDATION_TICK_SECONDS:
+		_advice_tick = 0.0
+		_refresh_recommendation()
+	
 	if not warn_if_empty:
 		return
 	
@@ -42,6 +56,15 @@ func _process(delta: float) -> void:
 		return
 	_hint_tick = 0.0
 	_apply_requirement_state()
+
+
+## Lights the label of the pad the HUD is recommending, so route advice shows
+## up in the world and not only as a line of text in the corner.
+func _refresh_recommendation() -> void:
+	if not label or station_id.is_empty():
+		return
+	var recommended := String(RouteAdvisor.next_stop(get_tree()).get("station", "")) == station_id
+	label.modulate = Color(1.0, 0.86, 0.35, 1.0) if recommended else Color(1.0, 1.0, 1.0, 0.85)
 
 
 func _apply_requirement_state() -> void:
@@ -123,6 +146,9 @@ func _on_body_entered(body: Node2D) -> void:
 		return
 	
 	_save_return_position(body)
+	# Ticked before the transition so the world map can show the updated route
+	# the moment the player comes back out of this station.
+	GameState.record_station_visit(station_id)
 	AudioManager.play_sfx("portal")
 	if label:
 		label.modulate = Color(0.2, 1.0, 0.4, 1.0)

@@ -24,6 +24,7 @@ SaveManager="*res://scripts/save_manager.gd"
 AudioManager="*res://scenes/audio_manager.tscn"
 GameSettings="*res://scripts/game_settings.gd"
 SceneTransition="*res://scripts/scene_transition.gd"
+TutorialDirector="*res://scripts/tutorial_director.gd"
 MCPGameBridge="res://addons/godot_mcp/game_bridge/mcp_game_bridge.gd"
 
 [display]

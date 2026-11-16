@@ -5,6 +5,8 @@ class_name WorldNPC
 @export var npc_id: String = "npc_1"
 @export var npc_name: String = "Friendly Cleaner"
 @export_range(1, 4) var npc_sprite_index: int = 1
+## Authored placeholder portrait shown on the dialogue card (sprites/npc/).
+@export var portrait: Texture2D
 
 @export_group("Dialogue")
 @export_multiline var dialogue_lines: Array[String] = ["Hello! Welcome to trash island."]
@@ -39,10 +41,12 @@ var _quest2_done: bool = false
 var _visit_count: int = 0
 
 const DIALOGUE_SCENE := preload("res://scenes/ui/npc_dialogue.tscn")
+const NpcQuests := preload("res://scripts/npc_quests.gd")
 
 # Nodes
 @onready var sprite: Sprite2D = $Sprite
 @onready var name_label: Label = $NameLabel
+@onready var ready_marker: Label = $ReadyMarker
 @onready var quest_progress_label: Label = $QuestProgress
 @onready var ambient_bubble: Label = $AmbientBubble
 
@@ -101,47 +105,6 @@ func _bump_visit_count() -> void:
 	_visit_count += 1
 	_save_flag("npc_visit_counts", _visit_count)
 
-# --- Quest Config ---
-
-## The tier this NPC is currently offering, or 0 when the line is finished.
-func _active_tier() -> int:
-	if not _visited_flag:
-		return 0
-	if not _quest_done and quest_amount > 0:
-		return 1
-	if _quest_done and not _quest2_done and quest2_amount > 0:
-		return 2
-	return 0
-
-
-## All data for one quest tier in a single shape, so callers stop repeating
-## the same tier-1/tier-2 conditionals.
-func _quest_config(tier: int) -> Dictionary:
-	match tier:
-		1:
-			return {
-				"material": quest_material,
-				"amount": quest_amount,
-				"reward_material": quest_reward_mat,
-				"reward_amount": quest_reward_amount,
-			}
-		2:
-			return {
-				"material": quest2_material,
-				"amount": quest2_amount,
-				"reward_material": quest2_reward_mat,
-				"reward_amount": quest2_reward_amount,
-			}
-	return {}
-
-
-func _has_quest_items(tier: int) -> bool:
-	var config := _quest_config(tier)
-	if config.is_empty():
-		return false
-	var have := int(GameState.trash_by_type.get(config.get("material", ""), 0))
-	return have >= int(config.get("amount", 0))
-
 # --- Animations ---
 
 func _start_idle_animations() -> void:
@@ -192,12 +155,12 @@ func _refresh_quest_progress() -> void:
 		quest_progress_label.modulate = Color(1.0, 0.85, 0.3, 0.95)
 		return
 	
-	var tier := _active_tier()
+	var tier := NpcQuests.active_tier(self)
 	if tier == 0:
 		quest_progress_label.text = ""
 		return
 	
-	var config := _quest_config(tier)
+	var config := NpcQuests.config(self, tier)
 	var material := String(config.get("material", ""))
 	var amount := int(config.get("amount", 0))
 	var have := int(GameState.trash_by_type.get(material, 0))
@@ -222,40 +185,33 @@ func _refresh_name_label() -> void:
 		nl.modulate = Color(1.0, 1.0, 1.0, 0.9)
 
 func _glow_quest_ready() -> void:
-	var tier := _active_tier()
-	var ready := tier > 0 and _has_quest_items(tier)
+	var tier := NpcQuests.active_tier(self)
+	var ready := tier > 0 and NpcQuests.has_items(self, tier)
 	
 	if sprite:
 		sprite.modulate = Color(1.0, 0.95, 0.55, 1.0) if ready else Color(1.0, 1.0, 1.0, 1.0)
 		
 	if has_node("Body") and $Body:
 		$Body.color = Color(1.0, 0.95, 0.55, 1.0) if ready else Color(0.95, 0.72, 0.45, 1.0)
+	
+	# The star is the same language as the HUD's "Next: <name>" line: a turn-in
+	# is waiting. It hides as soon as the bag no longer satisfies the quest.
+	if ready_marker:
+		if ready and not ready_marker.visible and not GameSettings.reduce_motion:
+			_pop_ready_marker()
+		ready_marker.visible = ready
+
+
+func _pop_ready_marker() -> void:
+	ready_marker.scale = Vector2(0.4, 0.4)
+	var tw := create_tween()
+	tw.tween_property(ready_marker, "scale", Vector2.ONE, 0.26).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 # --- Quest Tracking ---
 
 ## Snapshot of the quest this NPC is currently offering, for the HUD tracker.
 func get_active_quest() -> Dictionary:
-	var tier := _active_tier()
-	if tier == 0:
-		return {}
-	var config := _quest_config(tier)
-	return _quest_entry(
-		tier,
-		String(config.get("material", "")),
-		int(config.get("amount", 0))
-	)
-
-
-func _quest_entry(tier: int, mat: String, amount: int) -> Dictionary:
-	var have := int(GameState.trash_by_type.get(mat, 0))
-	return {
-		"npc": npc_name,
-		"tier": tier,
-		"material": mat,
-		"amount": amount,
-		"have": mini(have, amount),
-		"ready": have >= amount,
-	}
+	return NpcQuests.entry(self)
 
 
 # --- Dialogue System ---
@@ -289,7 +245,7 @@ func _show_dialogue(status: String = "", positive: bool = true) -> void:
 	_dialogue = DIALOGUE_SCENE.instantiate()
 	get_tree().current_scene.add_child(_dialogue)
 	_dialogue.turn_in_requested.connect(_on_turn_in_requested)
-	_dialogue.present(npc_name, lines)
+	_dialogue.present(npc_name, lines, portrait)
 	
 	if status != "":
 		_dialogue.show_status(status, positive)
@@ -299,14 +255,16 @@ func _show_dialogue(status: String = "", positive: bool = true) -> void:
 			GameState.add_trash_type_weighted(reward_mat, reward_trash)
 			_dialogue.show_reward("You received %d %s!" % [reward_trash, reward_mat])
 			AudioManager.play_sfx("pickup")
-			_spawn_reward_sparks()
+			# Sparks read as the reward being handed over, so they wait until
+			# the card is dismissed instead of bursting behind its dimmer.
+			_dialogue.closed.connect(_spawn_reward_sparks, CONNECT_ONE_SHOT)
 		# Visited is tracked for every NPC, not only reward-granting ones, so
 		# quests reveal themselves and repeat dialogue kicks in for all.
 		_save_flag("npc_visited", true)
 		_visited_flag = true
 		_update_ui_state()
 	else:
-		var tier := _active_tier()
+		var tier := NpcQuests.active_tier(self)
 		if tier > 0:
 			_configure_quest(tier)
 
@@ -317,38 +275,30 @@ func _configure_quest(tier: int) -> void:
 	if not _dialogue:
 		return
 	
-	var config := _quest_config(tier)
-	if config.is_empty():
+	var data := NpcQuests.turn_in(self, tier)
+	if data.is_empty():
 		return
 	
-	var mat := String(config.get("material", ""))
-	var amount := int(config.get("amount", 0))
-	var rw_mat := String(config.get("reward_material", ""))
-	var rw_amt := int(config.get("reward_amount", 0))
-	
-	var have := int(GameState.trash_by_type.get(mat, 0))
-	var freed_weight: int = amount * int(GameState.TRASH_WEIGHTS.get(mat, 1))
-	var reward_weight: int = rw_amt * int(GameState.TRASH_WEIGHTS.get(rw_mat, 1))
-	var room_after_turn_in: int = GameState.get_free_capacity() + freed_weight
-	var reward_fits := rw_amt <= 0 or room_after_turn_in >= reward_weight
-	
+	var amount := int(data.get("amount", 0))
+	var mat := String(data.get("material", ""))
+	var have := int(data.get("have", 0))
 	_dialogue.show_quest(
 		tier,
 		"Quest: bring %d %s (you have %d)." % [amount, mat, have],
 		"Turn in %d %s" % [amount, mat],
-		have >= amount and reward_fits
+		have >= amount and bool(data.get("fits", false))
 	)
 
 
 func _on_turn_in_requested(tier: int) -> void:
-	var config := _quest_config(tier)
-	if config.is_empty():
+	var data := NpcQuests.turn_in(self, tier)
+	if data.is_empty():
 		return
 	
-	var mat := String(config.get("material", ""))
-	var amount := int(config.get("amount", 0))
-	var rw_mat := String(config.get("reward_material", ""))
-	var rw_amt := int(config.get("reward_amount", 0))
+	var mat := String(data.get("material", ""))
+	var amount := int(data.get("amount", 0))
+	var rw_mat := String(data.get("reward_material", ""))
+	var rw_amt := int(data.get("reward_amount", 0))
 	
 	if not GameState.consume_trash_type(mat, amount):
 		return
@@ -403,12 +353,7 @@ func _show_ambient_bubble() -> void:
 
 
 func _personality_banter() -> Array:
-	match npc_id:
-		"npc_mara": return ["The garden looks greener when you recycle.", "I swept the beach twice this morning!", "Ever notice glass sparkles in the tide?"]
-		"npc_tom": return ["The sea is calm — perfect diving weather.", "Don't let the fish stare you down!", "Nylon and coffee keep me going."]
-		"npc_nina": return ["Shop's freshly stocked today!", "Bulk sales mean bonus days.", "I love the clink of glass rewards."]
-		"npc_kai": return ["Shelves empty; bring me Glass!", "A clean shop is a happy shop.", "Polypropylene pays the rent around here."]
-		_: return []
+	return NpcQuests.banter(npc_id)
 
 func _spawn_reward_sparks() -> void:
 	var p := load("res://scenes/ui/c_p_u_particles2_d.tscn").instantiate() as CPUParticles2D

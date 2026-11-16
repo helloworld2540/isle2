@@ -47,8 +47,20 @@ theme_override_styles/panel = SubResource("StyleBox_dialogue")
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Title" type="Label" parent="Center/Panel/VBox"]
+[node name="Header" type="HBoxContainer" parent="Center/Panel/VBox"]
 layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Portrait" type="TextureRect" parent="Center/Panel/VBox/Header"]
+custom_minimum_size = Vector2(72, 72)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Title" type="Label" parent="Center/Panel/VBox/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
 theme_override_colors/font_color = Color(0.7, 0.92, 1, 1)
 theme_override_font_sizes/font_size = 26
 text = "NPC"

@@ -36,6 +36,9 @@ const _FLOATING_TEXT_SCENE := preload("res://scenes/ui/floating_text.tscn")
 const _EDGE_MARKER_SCENE := preload("res://scenes/ui/edge_marker.tscn")
 
 func _ready() -> void:
+	TutorialDirector.scene_started("reef")
+	# Reef Charter bought at the shop tolerates extra fish bumps.
+	_fish_limit = 3 + GameState.get_reef_bonus_lives()
 	if timer:
 		timer.wait_time = SPAWN_INTERVAL
 		if not timer.timeout.is_connected(_spawn_item):
@@ -250,7 +253,7 @@ func _game_over_summary(reason: String = "manual") -> void:
 	_leaving = true
 	running = false
 	_clear_edge_markers()
-	GameState.record_reef(garbage, fish)
+	GameState.record_reef(garbage, fish, depth)
 	var debris_total := int(max(1.0, round(garbage)))
 	if GameState.deep_cache:
 		var bonus := 5 * GameState.deep_cache_tier + 3 * GameState.inventory_capacity_level
@@ -277,8 +280,14 @@ func _game_over_summary(reason: String = "manual") -> void:
 	_record_run_card(accepted)
 	
 	if go_body:
-		go_body.text = "%s\n\nFish bumps: %d / %d\nGarbage collected: %d kg\nDepth reached: %d m\n\nReef debris earned: %d" % [
-			cause_msg, fish, _fish_limit, int(garbage), int(depth), accepted
+		var best_depth := GameState.best_reef_depth
+		var milestone_line := "Depth milestones complete: TO THE ABYSS earned."
+		if best_depth < 400:
+			milestone_line = "Next depth milestone: DEEP DIVE at 400 m (best %d m)." % best_depth
+		elif best_depth < 900:
+			milestone_line = "DEEP DIVE earned · %d m to TO THE ABYSS (900 m)." % (900 - best_depth)
+		go_body.text = "%s\n\nFish bumps: %d / %d\nGarbage collected: %d kg\nDepth reached: %d m\n%s\n\nReef debris earned: %d" % [
+			cause_msg, fish, _fish_limit, int(garbage), int(depth), milestone_line, accepted
 		]
 		
 	if game_over_canvas:
@@ -310,6 +319,9 @@ func _record_run_card(accepted: int) -> void:
 			fish, _fish_limit, maxi(int(depth), GameState.best_reef_depth)
 		])
 	
+	if GameState.best_reef_depth >= 400 and GameState.best_reef_depth < 900:
+		lines.append("%d m to TO THE ABYSS (best %d m)" % [900 - GameState.best_reef_depth, GameState.best_reef_depth])
+
 	var hint := ""
 	if GameState.get_free_capacity() <= 0:
 		hint = "Bag full - sell materials at the Shop."

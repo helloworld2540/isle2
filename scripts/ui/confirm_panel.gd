@@ -22,6 +22,7 @@ func _ready() -> void:
 
 ## Show the card; the world tree is already paused by the caller's menu.
 func present(title_text: String, message_text: String, confirm_text: String = "Yes") -> void:
+	add_to_group("ui_modal_card")
 	title.text = title_text
 	message.text = message_text
 	confirm_button.text = confirm_text
@@ -31,9 +32,11 @@ func present(title_text: String, message_text: String, confirm_text: String = "Y
 
 func _on_confirm() -> void:
 	visible = false
+	remove_from_group("ui_modal_card")
 	confirmed.emit()
 
 
 func _on_cancel() -> void:
 	visible = false
+	remove_from_group("ui_modal_card")
 	cancelled.emit()

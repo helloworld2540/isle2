@@ -17,6 +17,8 @@ signal dismissed
 func _ready() -> void:
 	layer = 200
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	# Blocks milestone cards while the guide is up (see achievement_banner).
+	add_to_group("ui_modal_card")
 	title.text = title_text
 	body.text = body_text
 	dismiss_button.text = button_text
@@ -25,5 +27,6 @@ func _ready() -> void:
 
 func _on_dismiss_pressed() -> void:
 	get_tree().paused = false
+	remove_from_group("ui_modal_card")
 	dismissed.emit()
 	queue_free()

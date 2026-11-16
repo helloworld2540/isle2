@@ -72,6 +72,7 @@ var _hud_queue: Node = null
 @onready var arrow: Polygon2D = $"Arrow"
 
 func _ready() -> void:
+	TutorialDirector.scene_started("upcycle")
 	if go_return_btn:
 		go_return_btn.pressed.connect(_game_over_leave)
 	_setup_bins()
@@ -304,6 +305,7 @@ func _drop_off_item(target: Node2D) -> void:
 	carried_item = null
 
 func _process_successful_sort(mat: String, bin_pos: Vector2) -> void:
+	TutorialDirector.notify("sorted")
 	score += 1
 	sort_streak += 1
 	_sorted_count += 1
@@ -321,6 +323,7 @@ func _process_successful_sort(mat: String, bin_pos: Vector2) -> void:
 		
 	if sort_streak % 5 == 0:
 		_process_combo_milestone()
+		_spawn_combo_trail(bin_pos)
 		
 	_spawn_bin_sparkle(bin_pos)
 	AudioManager.play_sfx("combo")
@@ -491,6 +494,41 @@ func _spawn_bin_sparkle(at: Vector2) -> void:
 	p.emitting = true
 	create_tween().tween_interval(p.lifetime + 0.1).connect("finished", p.queue_free)
 
+## Gold trail that races along the belt on every fifth consecutive sort. It is
+## a chain of short bursts rather than one big bang, so the milestone reads as
+## movement and matches the belt's left-to-right flow. Uses the authored
+## particle scene; no nodes are constructed in code.
+func _spawn_combo_trail(bin_pos: Vector2) -> void:
+	if GameSettings.reduce_motion:
+		return
+	var player_pos: Vector2 = player.global_position if player else bin_pos + Vector2(-200.0, 0.0)
+	var dir := Vector2(signf(bin_pos.x - player_pos.x), 0.0)
+	if dir.x == 0.0:
+		dir.x = 1.0
+	for i in range(4):
+		var p := load("res://scenes/ui/c_p_u_particles2_d.tscn").instantiate() as CPUParticles2D
+		p.one_shot = true
+		p.emitting = false
+		p.explosiveness = 0.75
+		p.amount = 8
+		p.lifetime = 0.35
+		p.global_position = bin_pos - dir * (34.0 * float(i)) + Vector2(0.0, randf_range(-10.0, 4.0))
+		p.direction = Vector2(dir.x, -0.35)
+		p.spread = 40.0
+		p.initial_velocity_min = 20.0
+		p.initial_velocity_max = 62.0
+		p.gravity = Vector2(0.0, 55.0)
+		p.scale_amount_min = 2.0
+		p.scale_amount_max = 4.0
+		p.color = Color(1.0, 0.86, 0.35, 1.0)
+		add_child(p)
+		var tw := create_tween()
+		tw.tween_interval(0.05 * float(i))
+		tw.tween_callback(func(): p.emitting = true)
+		tw.tween_interval(p.lifetime + 0.15)
+		tw.tween_callback(p.queue_free)
+
+
 func _spawn_streak_banner() -> void:
 	if not ui:
 		return
@@ -499,6 +537,7 @@ func _spawn_streak_banner() -> void:
 	lbl.position = Vector2(320, 14)
 	lbl.rise_distance = 6.0
 	lbl.hold_time = 0.7
+	lbl.fade_out_time = 0.45
 	lbl.punch_scale = 1.25
 	ui.add_child(lbl)
 	lbl.present("FIVE ON THE BELT!", Color(0.7, 0.95, 1.0, 1.0), 28)

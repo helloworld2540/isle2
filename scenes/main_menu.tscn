@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://yf2i1sjjsj30" path="res://scripts/main_menu.gd" id="1_bqqt6"]
 [ext_resource type="Texture2D" uid="uid://is1ik2f66nh0" path="res://sprites/sky.png" id="2_bqqt6"]
 [ext_resource type="Theme" uid="uid://bug5wlu7yvs7w" path="res://resources/control_theme.tres" id="2_ekxnf"]
+[ext_resource type="PackedScene" path="res://scenes/ui/world_preview.tscn" id="3_preview"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_nmirg"]
 font_size = 100
@@ -78,6 +79,13 @@ size_flags_horizontal = 4
 theme = ExtResource("2_ekxnf")
 theme_override_font_sizes/font_size = 27
 text = "Quit"
+
+[node name="WorldPreviewPanel" parent="." instance=ExtResource("3_preview")]
+layout_mode = 0
+offset_left = 970.0
+offset_top = 10.0
+offset_right = 1144.0
+offset_bottom = 170.0
 
 [node name="SaveSummaryPanel" type="PanelContainer" parent="." unique_id=1000001]
 custom_minimum_size = Vector2(300, 0)

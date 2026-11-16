@@ -1,0 +1,207 @@
+extends Node
+
+## Step-by-step first-playthrough guide ("walk → dive → sort → sell").
+##
+## Autoloaded as TutorialDirector. The flow:
+##   1. Brand-new save → main menu → world: wm_onboarding shows the welcome
+##      card and calls TutorialDirector.start() on dismiss.
+##   2. Each step arms a trigger heard through notify() / scene_started().
+##      Steps are scene-scoped: the hint only appears while the player is in
+##      the scene that can complete it (e.g. the "sell" hint in the shop).
+##   3. Completing a step plays a chime and advances. The last step is a
+##      celebratory card announcing the island circuit.
+## State persists as save key `tutorial_step` (1..5, or DONE=999), so the
+## guide survives quitting mid-tour and never re-arms for old saves.
+##
+## Scenes call in with two primitives:
+##   scene_started(tag) — from _ready: "world" | "reef" | "upcycle" | "shop"
+##   notify(event)      — "move" | "reef_entered" | "sorted" | "sold"
+
+const HINT_SCENE := preload("res://scenes/ui/tutorial_hint.tscn")
+
+const DONE := 999
+const STEP_MOVE := 1
+const STEP_REEF := 2
+const STEP_SORT := 3
+const STEP_SELL := 4
+const STEP_FINALE := 5
+
+## Per step: which scene shows the hint, and the copy to show there.
+const STEPS := {
+	STEP_MOVE: {
+		"title": "Take a stroll",
+		"body": "[font_size=15][color=#9fe2ff]Tap anywhere[/color] and your islander will walk there.\nThe glowing trail and flow dots point to the next stop on the circuit.[/font_size]",
+		"button": "On my way",
+	},
+	STEP_REEF: {
+		"title": "Dive the reef",
+		"body": "[font_size=15]Head to the [color=#9fe2ff]south dock[/color] — that is Reef Rescue.\nDodge fish, scoop up junk, and bank a deep haul as Reef Debris.[/font_size]",
+		"button": "Got it",
+	},
+	STEP_SORT: {
+		"title": "Sort at the bench",
+		"body": "[font_size=15]Now ride the belt at the [color=#9fe2ff]Upcycle bench[/color] (east).\nMatch each piece to its bin — correct sorts become material.[/font_size]",
+		"button": "Got it",
+	},
+	STEP_SELL: {
+		"title": "Cash in at the shop",
+		"body": "[font_size=15]The [color=#9fe2ff]shop[/color] (north) turns materials into money.\nSelling 5+ of one type pays a [color=#ffd27f]+25% bulk bonus[/color].[/font_size]",
+		"button": "Got it",
+	},
+	STEP_FINALE: {
+		"title": "You know the loop!",
+		"body": "[font_size=15][color=#8fd0a0]Reef → Upcycle → Shop[/color] is the island circuit.\nClear all three stops for a [color=#ffd27f]$15 circuit bonus[/color] — then chase NPCs, bottles and achievements.[/font_size]",
+		"button": "Let's clean up",
+	},
+}
+
+## Where each step's hint may appear; the hint arms whenever the player is in
+## one of these scenes and the step is still pending. Sell hints show on the
+## map (where to go) and inside the shop (what to do there).
+const STEP_SCENE_TAG := {
+	STEP_MOVE: ["world"],
+	STEP_REEF: ["world"],
+	STEP_SORT: ["world", "upcycle"],
+	STEP_SELL: ["world", "shop"],
+	STEP_FINALE: ["*"],
+}
+
+var _step: int = 0
+var _active_hint: CanvasLayer = null
+
+func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	_load_step()
+
+
+func _load_step() -> void:
+	var data := SaveManager.load_game()
+	_step = int(data.get("tutorial_step", 0))
+	if _step <= 0:
+		# Missing key: either a fresh tour still pending the welcome card
+		# (seen=false) or a save from before the step system existed.
+		_step = DONE if bool(data.get("tutorial_seen", false)) else 0
+		if _step == DONE:
+			SaveManager.update_game({"tutorial_step": DONE})
+
+
+## Called by wm_onboarding when the welcome card is dismissed (fresh save).
+## Arms the tour unconditionally from the live save — never infers step 0
+## from `seen`, which is already true by the time this runs.
+func start() -> void:
+	var data := SaveManager.load_game()
+	if int(data.get("tutorial_step", 0)) > 0:
+		# Tour already armed or finished; don't re-arm mid-session.
+		_step = int(data.get("tutorial_step", DONE))
+		return
+	_step = 0
+	_set_step(STEP_MOVE)
+	_show_hint(_step)
+
+
+## Called from each relevant scene's _ready. Shows the hint for the current
+## step when the player is standing in the scene that step cares about.
+func scene_started(tag: String) -> void:
+	_load_step()
+	match tag:
+		"reef":
+			notify("reef_entered")
+		_: pass
+	if _step >= DONE or _step == 0:
+		return
+	var wanted: Variant = STEP_SCENE_TAG.get(_step, [])
+	if wanted is Array and not "*" in wanted and not tag in wanted:
+		_clear_hint()
+		return
+	_show_hint(_step)
+## One-shot events from gameplay. Unknown events for the current step are ignored.
+func notify(event: String) -> void:
+	var completed := false
+	match _step:
+		STEP_MOVE:
+			completed = event == "move"
+		STEP_REEF:
+			completed = event == "reef_entered"
+		STEP_SORT:
+			completed = event == "sorted"
+		STEP_SELL:
+			completed = event == "sold"
+		_:
+			completed = false
+	if completed:
+		_advance()
+
+
+func _advance() -> void:
+	AudioManager.play_sfx("quest_complete", 1.15)
+	_set_step(_step + 1)
+	_clear_hint()
+	# Re-arm immediately if the new step's scenes include the current one —
+	# otherwise the next hint would not appear until the player re-enters.
+	if _step == STEP_FINALE:
+		_show_hint(STEP_FINALE)
+		return
+	var scene := get_tree().current_scene
+	if scene == null:
+		return
+	var tag := String(scene.name).to_lower()
+	if tag.contains("reef"):
+		tag = "reef"
+	elif tag.contains("upcycle"):
+		tag = "upcycle"
+	elif tag.contains("shop"):
+		tag = "shop"
+	elif tag.contains("world"):
+		tag = "world"
+	else:
+		return
+	var wanted: Variant = STEP_SCENE_TAG.get(_step, [])
+	if wanted is Array and ("*" in wanted or tag in wanted):
+		_show_hint(_step)
+
+
+func _set_step(n: int) -> void:
+	_step = n
+	SaveManager.update_game({"tutorial_step": n})
+	if n >= DONE:
+		_clear_hint()
+		SaveManager.update_game({"tutorial_complete": true})
+
+
+func _show_hint(step: int) -> void:
+	_clear_hint()
+	# Defer one frame: during a scene change, _ready fires before SceneTree
+	# swaps current_scene, so attaching now would parent the card to the
+	# dying scene (or the autoload) and it would vanish or linger forever.
+	call_deferred("_spawn_hint", step)
+
+
+func _spawn_hint(step: int) -> void:
+	if step != _step or _step >= DONE:
+		return  # the step finished or advanced while we were deferring
+	var info: Dictionary = STEPS.get(step, {})
+	if info.is_empty():
+		return
+	var hint := HINT_SCENE.instantiate()
+	hint.title_text = String(info.get("title", ""))
+	hint.body_text = String(info.get("body", ""))
+	hint.button_text = String(info.get("button", "Got it"))
+	hint.dismissed.connect(_on_hint_dismissed)
+	var scene := get_tree().current_scene
+	if scene:
+		scene.add_child(hint)
+	else:
+		get_tree().root.add_child(hint)
+	_active_hint = hint
+
+
+func _on_hint_dismissed() -> void:
+	_active_hint = null
+	if _step == STEP_FINALE:
+		_set_step(DONE)
+
+
+func _clear_hint() -> void:
+	if _active_hint and is_instance_valid(_active_hint):
+		_active_hint.queue_free()
+	_active_hint = null

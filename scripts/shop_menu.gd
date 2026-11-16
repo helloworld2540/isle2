@@ -3,10 +3,11 @@ extends Node2D
 const NOTIFICATION_QUEUE := preload("res://scenes/ui/notification_queue.tscn")
 const FLOATING_TEXT_SCENE := preload("res://scenes/ui/floating_text.tscn")
 
-const RATES := {"Polyethylene":2,"Polypropylene":3,"Glass":5,"Nylon":4,"Reef Debris":1}
-const BULK_THRESHOLD := 5
-const BULK_MULTIPLIER := 1.25
-const FIVE_SELL_QTY := 5
+const ShopLedger := preload("res://scripts/shop_ledger.gd")
+
+## Fixed width for receipt labels; text right-aligns inside it so receipts
+## always hug the right margin and never clip off-screen.
+const RECEIPT_WIDTH := 460.0
 
 @onready var coins: Label = $"CanvasLayer/Scroll/VBoxContainer/Coins"
 @onready var inv: Label = $"CanvasLayer/Scroll/VBoxContainer/Inventory"
@@ -22,6 +23,9 @@ const FIVE_SELL_QTY := 5
 @onready var row_reef_debris: HBoxContainer = $"CanvasLayer/Scroll/VBoxContainer/Rows/Row_Reef Debris"
 
 @onready var buy_cap_button: Button = $"CanvasLayer/Scroll/VBoxContainer/Purchases/BuyRow/BuyCapButton"
+@onready var buy_market_button: Button = $"CanvasLayer/Scroll/VBoxContainer/Purchases/UpgradeRow/BuyMarketButton"
+@onready var buy_reef_button: Button = $"CanvasLayer/Scroll/VBoxContainer/Purchases/UpgradeRow/BuyReefButton"
+@onready var buy_patron_button: Button = $"CanvasLayer/Scroll/VBoxContainer/Purchases/PatronRow/BuyPatronButton"
 @onready var money_note: Label = $"CanvasLayer/Scroll/VBoxContainer/Purchases/MoneyNote"
 
 @onready var back_button: Button = $"CanvasLayer/Scroll/VBoxContainer/BackButton"
@@ -32,10 +36,10 @@ var _last_sale: Dictionary = {}
 var _undo_in_progress := false
 var _tx_log_lines: Array = []
 var _hud_queue = null
-var _receipt_stack := 0
+var _receipts: Array[Control] = []
 
 func _ready() -> void:
-	GameState.restore()
+	TutorialDirector.scene_started("shop")
 	_wire_ui()
 	_tx_log_lines.clear()
 	_refresh()
@@ -44,15 +48,15 @@ func _ready() -> void:
 func _wire_ui() -> void:
 	if not row_polyethylene:
 		return
-	_rows["Polyethylene"] = _wire_row(row_polyethylene, "Polyethylene", 2)
+	_rows["Polyethylene"] = _wire_row(row_polyethylene, "Polyethylene", int(GameState.SALE_PRICES["Polyethylene"]))
 	if row_polypropylene:
-		_rows["Polypropylene"] = _wire_row(row_polypropylene, "Polypropylene", 3)
+		_rows["Polypropylene"] = _wire_row(row_polypropylene, "Polypropylene", int(GameState.SALE_PRICES["Polypropylene"]))
 	if row_glass:
-		_rows["Glass"] = _wire_row(row_glass, "Glass", 5)
+		_rows["Glass"] = _wire_row(row_glass, "Glass", int(GameState.SALE_PRICES["Glass"]))
 	if row_nylon:
-		_rows["Nylon"] = _wire_row(row_nylon, "Nylon", 4)
+		_rows["Nylon"] = _wire_row(row_nylon, "Nylon", int(GameState.SALE_PRICES["Nylon"]))
 	if row_reef_debris:
-		_rows["Reef Debris"] = _wire_row(row_reef_debris, "Reef Debris", 1)
+		_rows["Reef Debris"] = _wire_row(row_reef_debris, "Reef Debris", int(GameState.SALE_PRICES["Reef Debris"]))
 
 	if back_button:
 		back_button.pressed.connect(func():
@@ -63,6 +67,12 @@ func _wire_ui() -> void:
 		undo_button.pressed.connect(_undo_last_sale)
 	if buy_cap_button:
 		buy_cap_button.pressed.connect(_buy_capacity)
+	if buy_market_button:
+		buy_market_button.pressed.connect(_buy_market)
+	if buy_reef_button:
+		buy_reef_button.pressed.connect(_buy_reef_lives)
+	if buy_patron_button:
+		buy_patron_button.pressed.connect(_buy_patron)
 
 func _wire_row(row: HBoxContainer, mat: String, price: int) -> Dictionary:
 	var sell_one: Button = row.get_node("SellOne")
@@ -75,7 +85,7 @@ func _wire_row(row: HBoxContainer, mat: String, price: int) -> Dictionary:
 		sell_one.pressed.connect(func(): _sell_qty(mat, 1))
 	if sell_five:
 		sell_five.text = "Sell 5 %s" % mat
-		sell_five.pressed.connect(func(): _sell_qty(mat, FIVE_SELL_QTY))
+		sell_five.pressed.connect(func(): _sell_qty(mat, ShopLedger.BULK_THRESHOLD))
 	if sell_all:
 		sell_all.pressed.connect(func(): _sell_all(mat))
 	return {"sell_one": sell_one, "sell_five": sell_five, "sell_all": sell_all, "value": value_lbl, "count": count_lbl}
@@ -87,11 +97,34 @@ func _refresh() -> void:
 		inv.text = _inv_text()
 	if preview:
 		preview.text = _preview_text()
+	_refresh_undo_button()
 	_update_shop_tip()
 	_update_capacity_status()
 	_refresh_purchases()
-	for mat in RATES.keys():
+	for mat in GameState.SALE_PRICES.keys():
 		_refresh_row(mat)
+
+## Undo is only meaningful while a sale is remembered; show what it would do.
+func _refresh_undo_button() -> void:
+	if not undo_button:
+		return
+	if _last_sale.is_empty():
+		undo_button.text = "Undo last sale"
+		undo_button.disabled = true
+		return
+	undo_button.text = "Undo %s x%d (+%d$)" % [
+		String(_last_sale.get("mat", "")),
+		int(_last_sale.get("qty", 0)),
+		int(_last_sale.get("earnings", 0)),
+	]
+	undo_button.disabled = _undo_in_progress
+	# Surface the all-or-nothing rule before the press: if the lot cannot
+	# fit back in the bag, say so on the tooltip instead of after a denial.
+	var _mat := String(_last_sale.get("mat", ""))
+	var _need := int(_last_sale.get("qty", 0)) * int(GameState.TRASH_WEIGHTS.get(_mat, 1))
+	var _free := GameState.get_inventory_capacity() - GameState.get_inventory_weight()
+	undo_button.tooltip_text = "Take the sale back" if _need <= _free else "Bag can't fit the lot back (needs %d kg free)" % (_need - _free)
+
 
 func _update_shop_tip() -> void:
 	if not tip:
@@ -112,10 +145,73 @@ func _refresh_purchases() -> void:
 	if buy_cap_button:
 		buy_cap_button.text = "Bag +10 kg — %d$" % cost
 		buy_cap_button.disabled = not GameState.can_afford(cost)
+	
+	var market_cost := GameState.get_market_cost()
+	if buy_market_button:
+		if GameState.market_level >= GameState.MARKET_MAX_LEVEL:
+			buy_market_button.text = "Market Contact MAX (+%d$/unit)" % GameState.get_market_bonus()
+			buy_market_button.disabled = true
+		else:
+			buy_market_button.text = "Market Contact +1$ — %d$" % market_cost
+			buy_market_button.disabled = not GameState.can_afford(market_cost)
+	
+	var reef_cost := GameState.get_reef_lives_cost()
+	if buy_reef_button:
+		if GameState.reef_bonus_lives >= GameState.REEF_LIVES_MAX_LEVEL:
+			buy_reef_button.text = "Reef Charter MAX (+%d bumps)" % GameState.get_reef_bonus_lives()
+			buy_reef_button.disabled = true
+		else:
+			buy_reef_button.text = "Reef Charter +1 bump — %d$" % reef_cost
+			buy_reef_button.disabled = not GameState.can_afford(reef_cost)
+	
 	if money_note:
-		money_note.text = "Bag %d kg  ·  next upgrade %d$  ·  you have %d$" % [
-			GameState.get_inventory_capacity(), cost, GameState.money
+		money_note.text = "Bag %d kg  ·  +%d$/unit  ·  %d dive bumps  ·  you have %d$" % [
+			GameState.get_inventory_capacity(), GameState.get_market_bonus(),
+			3 + GameState.get_reef_bonus_lives(), GameState.money
 		]
+	
+	if buy_patron_button:
+		if GameState.island_patron:
+			buy_patron_button.text = "Patron of the Isle — owned"
+			buy_patron_button.disabled = true
+		else:
+			buy_patron_button.text = "Become a Patron of the Isle — %d$" % GameState.ISLAND_PATRON_COST
+			buy_patron_button.disabled = not GameState.can_afford(GameState.ISLAND_PATRON_COST)
+
+
+func _buy_market() -> void:
+	var cost := GameState.get_market_cost()
+	if not GameState.purchase_market():
+		_play_denied("Need %d$ for market contacts" % cost, "")
+		_shake_control(buy_market_button)
+		return
+	AudioManager.play_sfx("upgrade", 1.1)
+	_spawn_receipt("MARKET CONTACT +1$/unit  -%d$" % cost, Color(1.0, 0.9, 0.5, 1.0))
+	_log_sale("Market contacts up to +%d$ per unit for %d$" % [GameState.get_market_bonus(), cost])
+	_refresh()
+
+
+func _buy_patron() -> void:
+	if not GameState.purchase_island_patron():
+		_play_denied("Need %d$ to become a patron" % GameState.ISLAND_PATRON_COST, "")
+		_shake_control(buy_patron_button)
+		return
+	AudioManager.play_sfx("upgrade", 0.85)
+	_spawn_receipt("PATRON OF THE ISLE  -%d$" % GameState.ISLAND_PATRON_COST, Color(1.0, 0.75, 0.35, 1.0))
+	_log_sale("Became Patron of the Isle — 1500$ gift")
+	_refresh()
+
+
+func _buy_reef_lives() -> void:
+	var cost := GameState.get_reef_lives_cost()
+	if not GameState.purchase_reef_lives():
+		_play_denied("Need %d$ for a reef charter" % cost, "")
+		_shake_control(buy_reef_button)
+		return
+	AudioManager.play_sfx("upgrade", 0.95)
+	_spawn_receipt("REEF CHARTER +1 bump  -%d$" % cost, Color(0.6, 0.9, 1.0, 1.0))
+	_log_sale("Reef charter: %d fish bumps tolerated" % (3 + GameState.get_reef_bonus_lives()))
+	_refresh()
 
 
 func _buy_capacity() -> void:
@@ -149,10 +245,11 @@ func _refresh_row(mat: String) -> void:
 	var row_data: Dictionary = _rows.get(mat, {})
 	if row_data.is_empty():
 		return
-	var price: int = int(RATES.get(mat, 0))
+	var price: int = int(GameState.SALE_PRICES.get(mat, 0))
 	var count: int = int(GameState.trash_by_type.get(mat, 0))
-	var value: int = count * price
-	var bulk: bool = count >= BULK_THRESHOLD
+	var unit_value: int = price + GameState.get_market_bonus()
+	var value: int = count * unit_value
+	var bulk: bool = count >= ShopLedger.BULK_THRESHOLD
 	var btn_all: Button = row_data.get("sell_all", null)
 	if btn_all:
 		btn_all.text = "Sell All" + (" (+25%)" if bulk else "")
@@ -160,9 +257,9 @@ func _refresh_row(mat: String) -> void:
 	var btn_five: Button = row_data.get("sell_five", null)
 	if btn_five:
 		btn_five.text = "Sell 5 %s" % mat
-		if count >= FIVE_SELL_QTY:
+		if count >= ShopLedger.BULK_THRESHOLD:
 			btn_five.text += " (+25%)"
-		btn_five.disabled = count < FIVE_SELL_QTY
+		btn_five.disabled = count < ShopLedger.BULK_THRESHOLD
 	var value_lbl: Label = row_data.get("value", null)
 	if value_lbl:
 		value_lbl.text = "value %d" % value
@@ -184,7 +281,7 @@ func _refresh_row(mat: String) -> void:
 	var btn_one: Button = row_data.get("sell_one", null)
 	if btn_one:
 		btn_one.disabled = count <= 0
-		btn_one.text = "Sell 1 %s (%d)" % [mat, price]
+		btn_one.text = "Sell 1 %s (%d)" % [mat, unit_value]
 
 func _inv_text() -> String:
 	var used := GameState.get_inventory_weight()
@@ -200,56 +297,55 @@ func _inv_text() -> String:
 
 func _preview_text() -> String:
 	var total := 0
-	for mat in RATES.keys():
-		total += int(GameState.trash_by_type.get(mat, 0)) * int(RATES.get(mat, 0))
+	for mat in GameState.SALE_PRICES.keys():
+		total += int(GameState.trash_by_type.get(mat, 0)) * (int(GameState.SALE_PRICES.get(mat, 0)) + GameState.get_market_bonus())
 	return "Potential base earnings if sold all: %d$" % total
 
 func _sell_qty(mat: String, qty: int) -> void:
 	if qty < 1:
 		return
-	var price: int = int(RATES.get(mat, 0))
-	var avail := int(GameState.trash_by_type.get(mat, 0))
-	if avail <= 0:
+	var sale := ShopLedger.apply(mat, qty)
+	if sale.is_empty():
 		_play_denied("No %s left" % mat, mat)
 		return
-	var sell_qty: int = min(qty, avail)
-	if sell_qty <= 0:
-		_play_denied("No %s left" % mat, mat)
-		return
-	# Bulk bonus kicks in at BULK_THRESHOLD units for any sale size.
-	var bulk: bool = sell_qty >= BULK_THRESHOLD
-	var multiplier: float = BULK_MULTIPLIER if bulk else 1.0
-	var earnings := int(round(float(sell_qty) * float(price) * multiplier))
-	GameState.consume_trash_type(mat, sell_qty)
-	GameState.add_earnings(earnings)
-	_last_sale = {"mat": mat, "price": price, "qty": sell_qty, "earnings": earnings, "bulk": bulk}
+	
+	var units := int(sale.get("units", 0))
+	var earnings := int(sale.get("earnings", 0))
+	var bulk := bool(sale.get("bulk", false))
 	var tag := " (bulk +25%)" if bulk else ""
-	_log_sale("%s x%d%s → %d$" % [mat, sell_qty, tag, earnings])
+	_last_sale = {"mat": mat, "price": int(sale.get("price", 0)), "qty": units, "earnings": earnings, "bulk": bulk}
+	_log_sale("%s x%d%s → %d$" % [mat, units, tag, earnings])
 	AudioManager.play_sfx("sale", 1.03)
-	_feedback("Sold %d %s%s +%d$" % [sell_qty, mat, tag, earnings])
-	_spawn_receipt("SOLD %s x%d%s  +%d$" % [mat, sell_qty, tag, earnings], Color(1.0, 0.85, 0.35, 1.0) if bulk else Color(0.7, 1.0, 0.6, 1.0))
+	_feedback("Sold %d %s%s +%d$" % [units, mat, tag, earnings])
+	_spawn_receipt("SOLD %s x%d%s  +%d$" % [mat, units, tag, earnings], Color(1.0, 0.85, 0.35, 1.0) if bulk else Color(0.7, 1.0, 0.6, 1.0), 1.35 if bulk else 1.0)
+	TutorialDirector.notify("sold")
 	GameState._persist()
 	_refresh()
 
+
 func _sell_all(mat: String) -> void:
-	var price: int = int(RATES.get(mat, 0))
-	var avail := int(GameState.trash_by_type.get(mat, 0))
-	if avail <= 0:
+	var available := int(GameState.trash_by_type.get(mat, 0))
+	if available <= 0:
 		_play_denied("No %s left" % mat, mat)
 		return
-	var multiplier: float = BULK_MULTIPLIER if avail >= BULK_THRESHOLD else 1.0
-	var earnings := int(round(float(avail) * float(price) * multiplier))
-	GameState.consume_trash_type(mat, avail)
-	GameState.add_earnings(earnings)
-	var bulk: bool = multiplier > 1.0
-	_last_sale = {"mat": mat, "price": price, "qty": avail, "earnings": earnings, "bulk": bulk}
+	var sale := ShopLedger.apply(mat, available)
+	if sale.is_empty():
+		_play_denied("No %s left" % mat, mat)
+		return
+	
+	var units := int(sale.get("units", 0))
+	var earnings := int(sale.get("earnings", 0))
+	var bulk := bool(sale.get("bulk", false))
 	var tag := " (bulk +25%)" if bulk else ""
-	_log_sale("%s x%d %s→ %d$" % [mat, avail, tag, earnings])
+	_last_sale = {"mat": mat, "price": int(sale.get("price", 0)), "qty": units, "earnings": earnings, "bulk": bulk}
+	_log_sale("%s x%d%s → %d$" % [mat, units, tag, earnings])
 	AudioManager.play_sfx("sale", 1.03)
-	_feedback("Sold %d %s%s for %d$" % [avail, mat, tag, earnings])
-	_spawn_receipt("SOLD %s x%d%s  +%d$" % [mat, avail, " (bulk)" if bulk else "", earnings], Color(1.0, 0.85, 0.35, 1.0) if bulk else Color(0.7, 1.0, 0.6, 1.0))
+	_feedback("Sold %d %s%s for %d$" % [units, mat, tag, earnings])
+	_spawn_receipt("SOLD %s x%d%s  +%d$" % [mat, units, tag, earnings], Color(1.0, 0.85, 0.35, 1.0) if bulk else Color(0.7, 1.0, 0.6, 1.0), 1.35 if bulk else 1.0)
+	TutorialDirector.notify("sold")
 	GameState._persist()
 	_refresh()
+
 
 func _log_sale(text: String) -> void:
 	_tx_log_lines.append(text)
@@ -274,22 +370,32 @@ func _undo_last_sale() -> void:
 	_undo_in_progress = true
 	var cap: int = GameState.get_inventory_capacity()
 	var used := GameState.get_inventory_weight()
-	var add_back: int = min(qty * int(GameState.TRASH_WEIGHTS.get(mat, 1)), max(0, cap - used))
-	var actual_units := int(floor(float(add_back) / float(max(1, int(GameState.TRASH_WEIGHTS.get(mat, 1))))))
-	if actual_units < qty:
-		_feedback("Only %d/%d restored (capacity)" % [actual_units, qty])
-	if actual_units > 0:
-		GameState.trash_by_type[mat] = int(GameState.trash_by_type.get(mat, 0)) + actual_units
+	var weight_each := int(GameState.TRASH_WEIGHTS.get(mat, 1))
+	var needed := qty * weight_each
+	var free := cap - used
+	# All-or-nothing: a partial restore would claw back the full earnings while
+	# returning only some of the goods — a silent loss for the player. Deny the
+	# undo until the bag can take the whole lot back.
+	if needed > free:
+		_undo_in_progress = false
+		_feedback("Bag too full — free %d kg to undo" % (needed - free))
+		_shake_control(undo_button)
+		AudioManager.play_sfx("sort_bad", 0.9)
+		return
+	var actual_units := qty
+	GameState.trash_by_type[mat] = int(GameState.trash_by_type.get(mat, 0)) + actual_units
 	GameState.money = max(0, GameState.money - earnings)
 	GameState.lifetime_earnings = max(0, GameState.lifetime_earnings - earnings)
 	_last_sale.clear()
 	GameState._recompute_inventory()
 	GameState._persist()
-	_refresh()
+	# Release the busy flag before refreshing so the button re-enables here
+	# instead of staying locked until the next sale.
 	_undo_in_progress = false
+	_refresh()
 	_feedback("Undo restored %d/%d %s" % [actual_units, qty, mat])
-	_spawn_receipt("UNDO -%d$ %s%s" % [earnings, mat, " (bulk +25%)" if was_bulk else ""], Color(1.0, 0.6, 0.4, 1.0))
-	_flash_control(transaction_log)
+	_play_undo_animation(mat, actual_units, earnings, was_bulk)
+	AudioManager.play_sfx("return", 0.95)
 
 func _play_denied(feedback_text: String, mat: String) -> void:
 	_feedback(feedback_text)
@@ -328,24 +434,136 @@ func _feedback(text: String) -> void:
 	_ensure_hud_queue()
 	_hud_queue.push(text, Color(0.85, 1.0, 0.5, 1.0), 1.2)
 
-func _spawn_receipt(text: String, col: Color) -> void:
-	_receipt_stack += 1
+## Receipts live in a stack anchored to the top-right corner. Each new entry
+## slides in from the right; when one expires the survivors reflow upward, so
+## the column never keeps gaps from a burst of quick sales. `punch` > 1.0 plays
+## a pop-in punch — bulk sales use it so the 25% bonus reads at a glance in a
+## fast stack of receipts.
+func _spawn_receipt(text: String, col: Color, punch: float = 1.0) -> void:
 	var parent: Node = $"CanvasLayer" if has_node("CanvasLayer") else self
-	
 	var lbl := FLOATING_TEXT_SCENE.instantiate()
-	var vp := get_viewport_rect().size
-	lbl.position = Vector2(vp.x - 260.0, 88.0 + float(_receipt_stack - 1) * 26.0)
-	lbl.z_index = 130 + _receipt_stack
-	lbl.rise_distance = 8.0
+	lbl.z_index = 130
+	lbl.rise_distance = 0.0
 	lbl.hold_time = 1.4
 	lbl.fade_out_time = 0.4
+	lbl.punch_scale = punch
 	parent.add_child(lbl)
-	lbl.tree_exited.connect(func(): _receipt_stack = max(0, _receipt_stack - 1))
-	lbl.present(text, col, 18)
+	_receipts.append(lbl)
+	lbl.tree_exited.connect(func(): _retire_receipt(lbl))
 
-func _flash_control(ctrl: Control) -> void:
+	var vp := get_viewport_rect().size
+	lbl.modulate.a = 0.0
+	lbl.present(text, col, 18)
+	# Right-aligned text hugging the right margin: fixed-width label with
+	# HORIZONTAL_ALIGNMENT_RIGHT means no off-screen clipping regardless of
+	# how long the bulk line gets, without measuring the font at runtime.
+	lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	lbl.custom_minimum_size = Vector2(RECEIPT_WIDTH, 0)
+	lbl.size = Vector2(RECEIPT_WIDTH, 24.0)
+	var rest_x := vp.x - RECEIPT_WIDTH - 24.0
+	var slot_y := _receipt_slot_y(_receipts.size() - 1)
+	lbl.position = Vector2(vp.x + 20.0, slot_y)
+
+	# present() fades alpha and (rise_distance 0) leaves position alone.
+	var tw := lbl.create_tween()
+	tw.tween_property(lbl, "position:x", rest_x, 0.22).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+
+
+func _receipt_slot_y(index: int) -> float:
+	return 88.0 + float(index) * 26.0
+
+
+func _retire_receipt(lbl: Control) -> void:
+	_receipts.erase(lbl)
+	_reflow_receipts()
+
+
+## Undo animation: the ledger rewinds in three beats — a red "REVERSED" stamp
+## punches in over the screen, a dark receipt slides back out to the right
+## (the mirror of a sale receipt entering the stack), and the chips that
+## changed hands (undo button, coin line, row count) punch and flash red.
+## Split from _undo_last_sale so the state change stays readable and the
+## presentation stays swappable.
+func _play_undo_animation(mat: String, restored_qty: int, earnings: int, was_bulk: bool) -> void:
+	var bulk_tag := " (bulk +25%)" if was_bulk else ""
+	_spawn_stamp("REVERSED", Color(1.0, 0.42, 0.38, 1.0))
+	_spawn_undo_receipt("UNDO %s x%d%s  -%d$" % [mat, restored_qty, bulk_tag, earnings], Color(1.0, 0.55, 0.4, 1.0))
+	_punch_control(undo_button)
+	_flash_control(transaction_log, Color(1.0, 0.55, 0.45, 1.0))
+	_flash_control(coins, Color(1.0, 0.5, 0.4, 1.0))
+	var row_data: Dictionary = _rows.get(mat, {})
+	_flash_control(row_data.get("count", null), Color(1.0, 0.6, 0.45, 1.0))
+	_punch_control(row_data.get("count", null))
+
+
+## Exiting receipt for an undo. Deliberately kept OUT of the _receipts stack:
+## it owns slot 0 for a moment and leaves to the right, so it never disturbs
+## the reflow of fresh sale receipts behind it.
+func _spawn_undo_receipt(text: String, col: Color) -> void:
+	var parent: Node = $"CanvasLayer" if has_node("CanvasLayer") else self
+	var lbl := FLOATING_TEXT_SCENE.instantiate()
+	lbl.z_index = 131
+	lbl.rise_distance = 0.0
+	lbl.hold_time = 0.9
+	lbl.fade_out_time = 0.35
+	lbl.punch_scale = 1.3
+	parent.add_child(lbl)
+	var vp := get_viewport_rect().size
+	lbl.present(text, col, 18)
+	lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	lbl.custom_minimum_size = Vector2(RECEIPT_WIDTH, 0)
+	lbl.size = Vector2(RECEIPT_WIDTH, 24.0)
+	var rest_x := vp.x - RECEIPT_WIDTH - 24.0
+	lbl.position = Vector2(rest_x, _receipt_slot_y(0))
+	# present() only fades alpha (rise_distance == 0), so the exit slide is safe to own.
+	var tw := lbl.create_tween()
+	tw.tween_interval(0.35)
+	tw.tween_property(lbl, "position:x", vp.x + 60.0, 0.45).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+
+
+## One-shot "REVERSED" stamp: oversized, back-eased punch-in, short hold.
+## Sells the rewind without touching layout anywhere else on screen.
+func _spawn_stamp(text: String, col: Color) -> void:
+	var parent: Node = $"CanvasLayer" if has_node("CanvasLayer") else self
+	var lbl := FLOATING_TEXT_SCENE.instantiate()
+	lbl.z_index = 132
+	lbl.rise_distance = 0.0
+	lbl.hold_time = 0.65
+	lbl.fade_out_time = 0.3
+	lbl.punch_scale = 2.1
+	parent.add_child(lbl)
+	var vp := get_viewport_rect().size
+	lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	lbl.custom_minimum_size = Vector2(300.0, 0)
+	lbl.size = Vector2(300.0, 44.0)
+	lbl.present(text, col, 34)
+	lbl.position = Vector2(vp.x * 0.5 - 150.0, vp.y * 0.3)
+
+
+## Scale punch for any control: snaps up then settles with a back ease. Used
+## for tactile feedback on undo without stealing layout space.
+func _punch_control(ctrl: Control) -> void:
+	if not ctrl:
+		return
+	var base := ctrl.scale
+	ctrl.scale = base * 1.28
+	var tw := ctrl.create_tween()
+	tw.tween_property(ctrl, "scale", base, 0.38).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+
+
+func _reflow_receipts() -> void:
+	var vp := get_viewport_rect().size
+	for i in range(_receipts.size()):
+		var lbl := _receipts[i]
+		if not is_instance_valid(lbl):
+			continue
+		var target := Vector2(vp.x - RECEIPT_WIDTH - 24.0, _receipt_slot_y(i))
+		var tw := lbl.create_tween()
+		tw.tween_property(lbl, "position", target, 0.18).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+
+func _flash_control(ctrl: Control, from_color: Color = Color(0.6, 1.0, 0.65, 1.0)) -> void:
 	if not ctrl:
 		return
 	var tw := ctrl.create_tween()
-	ctrl.modulate = Color(0.6, 1.0, 0.65, 1.0)
+	ctrl.modulate = from_color
 	tw.tween_property(ctrl, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.45)

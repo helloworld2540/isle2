@@ -17,13 +17,18 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 | `SaveManager` | `scripts/save_manager.gd` | JSON save/load at `user://save.json` |
 | `AudioManager` | `scripts/audio_manager.gd` | SFX/BGM playback, buses, volumes, reduced motion |
 | `SceneTransition` | `scripts/scene_transition.gd` | Fade overlay scene changes |
+| `TutorialDirector` | `scripts/tutorial_director.gd` | Step-by-step first-playthrough guide (walk → dive → sort → sell) |
 
 ### Modules
 - **World map** (`scripts/wm_*`) — player movement (BFS pathfinding on TileMapLayer), portals, NPCs, menus, settings, progress bars.
 - **Minigames**
   - Upcycle: `upcycle.tscn` (`scripts/upcycle.gd`) — belt sorting into material bins.
   - Reef Rescue: `reef_rescue.tscn` (`scripts/reef_rescue.gd`) + `rr_fish.tscn` (`scripts/rr_fish.gd`) — drone collection, combo, fish hazard.
-- **Shop**: `shop.tscn` (`scripts/shop_menu.gd`) + `shop_trader.gd` helper.
+- **Shop**: `shop.tscn` (`scripts/shop_menu.gd`) with pure pricing in `scripts/shop_ledger.gd`.
+- **Tutorial**: `scripts/tutorial_director.gd` (autoload) + `scenes/ui/tutorial_hint.tscn`
+  non-modal step cards. Steps fire on world/reef/upcycle/shop scene entry and on
+  gameplay events (`move`, `reef_entered`, `sorted`, `sold`); progress persists as
+  save key `tutorial_step` (1..5, `999` = complete).
 - **UI**: `scripts/ui/*`, `scenes/ui/*` — reused overlay primitives.
 - **Audio**: `scripts/audio_manager.gd`.
 
@@ -86,6 +91,16 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 ## Stats & Settings
 - `stats_menu.tscn`: shows score, best, lifetime, inventory, reef stats, best streak, master volume.
 - World menu: volume sliders (master/music), reduced motion checkbox, upgrade buttons, progress bars.
+- Main menu: painted vista backdrop, save summary, and a framed "THE ISLE" world-preview
+  postcard (`scenes/ui/world_preview.tscn`) with ambient motes (`scenes/ui/mote.tscn`)
+  drifting over the island vista. Motes freeze under reduced motion.
+
+## Shop UI conveniences
+- Bulk sales pop a gold "SOLD … (bulk +25%)" receipt with a punch animation; receipts stack
+  top-right, right-aligned on a fixed-width row, sliding in and reflowing as they expire.
+- Undo last sale is all-or-nothing: if the bag cannot fit the lot back it is denied (with a
+  capacity hint in the button tooltip) instead of half-refunding. Undo plays a REVERSED
+  stamp, an exiting receipt, and red flashes on the coin line / row count.
 
 ## Files
 - `.godot/` — editor cache.

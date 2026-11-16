@@ -28,17 +28,32 @@ const TRASH_RARITY: Dictionary = {
 	"Reef Debris": "rare",
 }
 
-const MONEY_RATES: Dictionary = {
-	"Polyethylene": 3,
-	"Polypropylene": 4,
-	"Glass": 6,
-	"Nylon": 5
+## Canonical sale prices. The shop UI, the preview line and any future vendor
+## read this one table; there used to be three copies (one dead, one stale).
+const SALE_PRICES: Dictionary = {
+	"Polyethylene": 2,
+	"Polypropylene": 3,
+	"Glass": 5,
+	"Nylon": 4,
+	"Reef Debris": 1,
 }
 
 ## Turn-ins needed for the island's mastery title, and the one-time reward
 ## it grants (one extra capacity level = +10 kg of bag space).
 const HARBOR_HERO_TURNS: int = 8
 const HARBOR_HERO_CAPACITY_BONUS: int = 1
+
+## The three world-map stops, in the order the trail suggests. Visiting all of
+## them closes an island circuit, which pays a flat bonus so the loop the
+## minigames form is worth running end to end.
+const CIRCUIT_STATIONS: Array[String] = ["reef_rescue", "upcycle", "shop"]
+const CIRCUIT_BONUS_MONEY: int = 15
+
+## Catalogue lives in its own pure module; GameState only keeps the unlocked
+## ids, the pending-card queue and the signal.
+const AchievementCatalog := preload("res://scripts/achievement_catalog.gd")
+## Capacity rules live in their own pure module; GameState delegates.
+const Inventory := preload("res://scripts/inventory.gd")
 
 ## Emitted once, the moment the Harbor Hero milestone is earned. The world HUD
 ## banner listens for it so the reward is felt, not just written to the save.
@@ -49,6 +64,23 @@ signal harbor_hero_unlocked
 ## banner to WorldNPC.
 signal npc_quest_line_completed(npc_name: String)
 
+## Emitted whenever the set of stations visited this circuit changes, so any
+## HUD showing route progress can redraw without polling.
+signal circuit_progress_changed(visited: Array)
+
+## Emitted when a circuit closes. The celebration itself is deferred (see
+## consume_circuit_celebrations) because the closing visit is one scene
+## transition away from the world map the card belongs on.
+signal island_circuit_completed(total: int)
+
+## Emitted the moment a new one-time achievement is earned. The world banner
+## listens to this single signal instead of every subsystem, so adding a
+## milestone only means adding an entry to achievement_catalog.gd.
+signal achievement_unlocked(id: String, title: String, subtitle: String)
+
+## Emitted when a bottle is read. HUD can redraw the bottles-found roll.
+signal bottle_read(count: int)
+
 # --- Game State Variables ---
 var upcycle_score: int = 0
 var money: int = 0
@@ -56,8 +88,26 @@ var lifetime_earnings: int = 0
 var quests_completed: int = 0
 var harbor_hero_granted: bool = false
 
+## Stations entered since the last completed circuit. Transient by design: a
+## save that ends mid-route simply starts the next circuit from scratch, so no
+## half-finished route can be farmed by reloading.
+var circuit_visits: Array[String] = []
+## Lifetime circuit count (shown on the stats page).
+var circuits_completed: int = 0
+## Circuits waiting for their banner card. Consumed by the world HUD, which is
+## the only scene that owns a celebration banner.
+var _pending_circuit_celebrations: int = 0
+
+## Ids of earned achievements, in unlock order (saved).
+var unlocked_achievements: Array[String] = []
+## Achievements earned while no celebration banner existed (a shop sale, a
+## minigame run). The world banner drains this on load so no card is lost.
+var _pending_achievement_ids: Array[String] = []
+
 var reef_garbage: float = 0.0
 var reef_fish: int = 0
+## Lifetime kg recovered at the reef, for the stats page.
+var lifetime_garbage_kg: int = 0
 
 # Inventory
 var trash_inventory: int = 0
@@ -69,6 +119,20 @@ var deep_cache: bool = false
 var deep_cache_tier: int = 1
 var upgrade_move: int = 0
 var upgrade_range: int = 0
+
+## Money-priced shop conveniences. Kept separate from the trash-priced world
+## upgrades so each currency has its own clear purpose: trash buys performance,
+## money buys comfort (bag, market contacts, dive charter).
+var market_level: int = 0
+var reef_bonus_lives: int = 0
+## Ids of "messages in a bottle" already read (saved, so they never respawn).
+var bottles_read: Array[String] = []
+## The one-time reward for finding all three bottles (saved).
+var tide_gift_granted: bool = false
+const TIDE_GIFT_MONEY := 25
+## Prestige purchase: a one-time island benefactor gift. No stat effect, only
+## bragging rights — the island's answer to late-game money.
+var island_patron: bool = false
 
 # Most recent minigame run, handed to the world map for its recap card.
 # Shape: { "kind": String, "title": String, "lines": Array[String], "hint": String }
@@ -86,23 +150,27 @@ func _init() -> void:
 	for t in DEFAULT_TRASH_TYPES:
 		trash_by_type[t] = 0
 
-# --- Inventory & Capacity ---
 
-# Return the weighted (space) used by current inventory, used by capacity logic.
+## Autoloads are ready before the first scene, so loading the save here means
+## every scene (HUD, shop, stats, loop path) can read state in its own _ready
+## without each of them re-reading the file. main_menu still calls restore()
+## explicitly for "New save" and "Load save".
+func _ready() -> void:
+	restore()
+
+# --- Inventory & Capacity ---
+# Capacity maths and stock movement live in inventory.gd; the wrappers below
+# keep the public API stable for HUD/minigame/NPC readers.
+
 func get_inventory_weight() -> int:
-	var total: int = 0
-	for k in trash_by_type.keys():
-		total += int(trash_by_type[k]) * int(TRASH_WEIGHTS.get(k, 1))
-	return total
+	return Inventory.weight(self)
 
 func get_inventory_capacity() -> int:
-	return 10 + (inventory_capacity_level * 10)
+	return Inventory.capacity(self)
 
-# Free cap now considers weight, not raw count.
 func get_free_capacity() -> int:
-	return max(0, get_inventory_capacity() - get_inventory_weight())
+	return Inventory.free_space(self)
 
-# Total current weighted inventory, but reported as the effective count.
 func get_effective_inventory_count() -> int:
 	return get_inventory_weight()
 
@@ -112,88 +180,29 @@ func _recompute_inventory() -> void:
 		total += int(amount)
 	trash_inventory = total
 
-# Add trash accounting for weight when accepting.
 func add_trash_type_weighted(mat: String, amount: int) -> int:
-	var weight: int = max(1, int(TRASH_WEIGHTS.get(mat, 1)))
-	
-	if amount <= 0:
-		return 0
-		
-	var free_weight: int = get_free_capacity()
-	var max_acceptable: int = free_weight / weight
-	var accepted: int = min(amount, max_acceptable)
-	
-	if accepted <= 0:
-		return 0
-		
-	trash_by_type[mat] = int(trash_by_type.get(mat, 0)) + accepted
-	
-	_recompute_inventory()
-	_persist()
+	var accepted := Inventory.add_weighted(self, mat, amount)
+	if accepted > 0:
+		_recompute_inventory()
+		_persist()
 	return accepted
 
 func add_trash_type(mat: String, amount: int) -> int:
-	# Aliased to the weighted function to prevent duplicated logic
 	return add_trash_type_weighted(mat, amount)
 
 func consume_trash_type(mat: String, amount: int) -> bool:
-	if amount <= 0:
+	if not Inventory.consume(self, mat, amount):
 		return false
-		
-	var current_amount: int = int(trash_by_type.get(mat, 0))
-	if current_amount < amount:
-		return false
-		
-	trash_by_type[mat] = current_amount - amount
 	_recompute_inventory()
 	_persist()
 	return true
 
 func spend_trash(amount: int) -> bool:
-	if amount <= 0:
-		return true
-	
-	if get_inventory_weight() < amount:
+	if not Inventory.spend(self, amount):
 		return false
-	
-	# Heaviest material first, then fall back to a bounded search: picking the
-	# biggest denominations first avoids the old greedy failure where a cheap
-	# 1 kg item was taken and the remaining weight could not be matched.
-	var keys: Array = trash_by_type.keys()
-	keys.sort_custom(func(a, b): return int(TRASH_WEIGHTS.get(a, 1)) > int(TRASH_WEIGHTS.get(b, 1)))
-	
-	var plan: Dictionary = {}
-	if not _plan_spend(keys, 0, amount, plan):
-		return false
-	
-	for key in plan.keys():
-		trash_by_type[key] -= int(plan[key])
-	
 	_recompute_inventory()
 	_persist()
 	return true
-
-
-func _plan_spend(keys: Array, index: int, remaining: int, plan: Dictionary) -> bool:
-	if remaining == 0:
-		return true
-	if index >= keys.size():
-		return false
-	
-	var key: String = keys[index]
-	var weight: int = max(1, int(TRASH_WEIGHTS.get(key, 1)))
-	var available: int = int(trash_by_type.get(key, 0))
-	var max_units: int = min(available, remaining / weight)
-	
-	for units in range(max_units, -1, -1):
-		if units > 0:
-			plan[key] = units
-		if _plan_spend(keys, index + 1, remaining - units * weight, plan):
-			return true
-		plan.erase(key)
-	
-	return false
-
 
 # --- Upgrades ---
 
@@ -233,6 +242,60 @@ func purchase_capacity_with_money() -> bool:
 		return false
 	
 	inventory_capacity_level += 1
+	_persist()
+	return true
+
+# --- Shop conveniences (money sinks) ---
+
+const MARKET_MAX_LEVEL := 3
+const REEF_LIVES_MAX_LEVEL := 2
+
+## Market Contact: each level adds +1$ to every unit sold, no matter the type.
+func get_market_bonus() -> int:
+	return market_level
+
+func get_market_cost() -> int:
+	return 80 + market_level * 60
+
+func purchase_market() -> bool:
+	if market_level >= MARKET_MAX_LEVEL:
+		return false
+	var cost := get_market_cost()
+	if money < cost:
+		return false
+	money -= cost
+	market_level += 1
+	_persist()
+	return true
+
+## Reef Charter: one extra fish bump tolerated per dive.
+func get_reef_bonus_lives() -> int:
+	return reef_bonus_lives
+
+func get_reef_lives_cost() -> int:
+	return 100 + reef_bonus_lives * 80
+
+func purchase_reef_lives() -> bool:
+	if reef_bonus_lives >= REEF_LIVES_MAX_LEVEL:
+		return false
+	var cost := get_reef_lives_cost()
+	if money < cost:
+		return false
+	money -= cost
+	reef_bonus_lives += 1
+	_persist()
+	return true
+
+## One-time 1500$ gift. Pure prestige: the title is earned, not rented.
+const ISLAND_PATRON_COST := 1500
+
+func purchase_island_patron() -> bool:
+	if island_patron:
+		return false
+	if money < ISLAND_PATRON_COST:
+		return false
+	money -= ISLAND_PATRON_COST
+	island_patron = true
 	_persist()
 	return true
 
@@ -303,11 +366,15 @@ func record_upcycle(score: int) -> void:
 		best_upcycle_score = score
 	_persist()
 
-func record_reef(garbage: float, fish: int) -> void:
+## record_reef is called at the end of a dive. Depth is a separate argument
+## because it grows with vertical reach, not with garbage; the old code stored
+## garbage into best_reef_depth, so the "best depth" it showed was a kg count.
+func record_reef(garbage: float, fish: int, depth: float = 0.0) -> void:
 	reef_garbage = garbage
 	reef_fish = fish
-	if int(garbage) > best_reef_depth:
-		best_reef_depth = int(garbage)
+	lifetime_garbage_kg += int(round(garbage))
+	if int(depth) > best_reef_depth:
+		best_reef_depth = int(depth)
 	if fish > best_reef_fish:
 		best_reef_fish = fish
 	_persist()
@@ -323,6 +390,36 @@ func record_sort_streak(streak: int) -> void:
 	if streak > best_sort_streak:
 		best_sort_streak = streak
 		_persist()
+
+# --- Stories: messages in a bottle ---
+
+func is_story_read(id: String) -> bool:
+	return bottles_read.has(id)
+
+
+## Marks a bottle read and persists. Achievement evaluation happens inside
+## _persist, so the Tide Keeper card fires on its own once all are found.
+func mark_story_read(id: String) -> void:
+	if id.is_empty() or bottles_read.has(id):
+		return
+	bottles_read.append(id)
+	bottle_read.emit(bottles_read.size())
+	_persist()
+
+## One-time gift for completing the set. Callers (the world banner) drain
+## this on load so the reward plays as a card, not as silent money.
+func try_grant_tide_gift() -> Dictionary:
+	if tide_gift_granted:
+		return {}
+	if bottles_read.size() < 3:
+		return {}
+	tide_gift_granted = true
+	add_earnings(TIDE_GIFT_MONEY)
+	return {
+		"title": "TIDE'S GIFT",
+		"subtitle": "The island thanks its keeper. +$%d" % TIDE_GIFT_MONEY,
+	}
+
 
 # --- Minigame Hand-off ---
 # Minigames call this on their summary screen so the world map can show what
@@ -358,6 +455,113 @@ func notify_npc_quest_line_completed(npc_name: String) -> void:
 	npc_quest_line_completed.emit(npc_name)
 
 
+# --- Island Circuit ---
+
+## Records that the player entered a station. Repeating a station inside the
+## same circuit is ignored, so the bonus cannot be farmed by bouncing on one
+## pad. The third distinct stop closes the circuit.
+## Returns true on the visit that completed it.
+func record_station_visit(station_id: String) -> bool:
+	if station_id.is_empty() or circuit_visits.has(station_id):
+		return false
+	
+	circuit_visits.append(station_id)
+	circuit_progress_changed.emit(circuit_visits.duplicate())
+	
+	if circuit_visits.size() < CIRCUIT_STATIONS.size():
+		_persist()
+		return false
+	
+	circuit_visits.clear()
+	circuits_completed += 1
+	_pending_circuit_celebrations += 1
+	add_earnings(CIRCUIT_BONUS_MONEY)
+	
+	circuit_progress_changed.emit([])
+	island_circuit_completed.emit(circuits_completed)
+	return true
+
+
+## Hands the world HUD the celebrations it owes the player, then forgets them
+## so the card plays exactly once per completed circuit.
+func consume_circuit_celebrations() -> int:
+	var owed := _pending_circuit_celebrations
+	_pending_circuit_celebrations = 0
+	return owed
+
+
+## True when this station is already ticked off in the current circuit.
+func has_visited_station(station_id: String) -> bool:
+	return circuit_visits.has(station_id)
+
+
+# --- Achievements ---
+# One evaluation point: _persist() already runs after every state change, so
+# achievements need no call sites. Conditions read the same public fields the
+# rest of the game writes; the unlock itself only appends an id and emits.
+
+func is_achievement_unlocked(id: String) -> bool:
+	return unlocked_achievements.has(id)
+
+
+func achievement_count() -> int:
+	return unlocked_achievements.size()
+
+
+func achievement_total() -> int:
+	return AchievementCatalog.total()
+
+
+## Catalogue copy for the stats page (never mutated).
+func achievement_definitions() -> Array[Dictionary]:
+	return AchievementCatalog.definitions()
+
+
+## Marks every achievement whose condition is already met. `silent` is used by
+## restore(): a legacy save must not fire a burst of cards for milestones the
+## player earned before this system existed.
+func _evaluate_achievements(silent: bool = false) -> void:
+	for def in AchievementCatalog.definitions():
+		var id := String(def.get("id", ""))
+		if id.is_empty() or unlocked_achievements.has(id):
+			continue
+		if not AchievementCatalog.is_met(id, self):
+			continue
+		
+		unlocked_achievements.append(id)
+		if not silent:
+			_pending_achievement_ids.append(id)
+			achievement_unlocked.emit(id, String(def.get("title", id)), String(def.get("subtitle", "")))
+
+
+## Drains card-ready copies of achievements earned while the banner was not
+## loaded. Safe to call every frame: it returns [] once the queue is empty.
+func consume_pending_achievements() -> Array[Dictionary]:
+	if _pending_achievement_ids.is_empty():
+		return []
+	
+	var ready: Array[Dictionary] = []
+	for id in _pending_achievement_ids:
+		var def := AchievementCatalog.find(id)
+		if not def.is_empty():
+			ready.append(def.duplicate())
+	_pending_achievement_ids.clear()
+	return ready
+
+
+## Puts a card back when the map unloads before it could be seen (the player
+## steps into a portal right after earning it).
+func requeue_achievement_card(id: String) -> void:
+	if id.is_empty() or _pending_achievement_ids.has(id):
+		return
+	_pending_achievement_ids.append(id)
+
+
+## Same, for a circuit card that was still queued at unload.
+func requeue_circuit_celebration() -> void:
+	_pending_circuit_celebrations += 1
+
+
 func record_run(kind: String, title: String, lines: Array, hint: String = "") -> void:
 	last_run = {
 		"kind": kind,
@@ -387,6 +591,7 @@ var _save_scheduled := false
 
 
 func _persist() -> void:
+	_evaluate_achievements()
 	if _save_scheduled:
 		return
 	_save_scheduled = true
@@ -426,8 +631,16 @@ func _write_save() -> void:
 		"last_run": last_run,
 		"inventory_capacity_level": inventory_capacity_level,
 		"money": money,
+		"market_level": market_level,
+		"reef_bonus_lives": reef_bonus_lives,
+		"island_patron": island_patron,
+		"bottles_read": bottles_read,
+		"tide_gift_granted": tide_gift_granted,
 		"quests_completed": quests_completed,
+		"lifetime_garbage_kg": lifetime_garbage_kg,
 		"harbor_hero_granted": harbor_hero_granted,
+		"circuits_completed": circuits_completed,
+		"achievements": unlocked_achievements,
 	})
 
 func restore() -> void:
@@ -440,6 +653,7 @@ func restore() -> void:
 	money = int(data.get("money", 0))
 	lifetime_earnings = int(data.get("lifetime_earnings", 0))
 	quests_completed = int(data.get("quests_completed", 0))
+	lifetime_garbage_kg = int(data.get("lifetime_garbage_kg", 0))
 	
 	best_upcycle_score = int(data.get("best_upcycle_score", 0))
 	best_sort_streak = int(data.get("best_sort_streak", 0))
@@ -453,7 +667,23 @@ func restore() -> void:
 	upgrade_range = int(data.get("upgrade_range", 0))
 	last_run = data.get("last_run", {}) if data.get("last_run", {}) is Dictionary else {}
 	inventory_capacity_level = int(data.get("inventory_capacity_level", 0))
+	market_level = int(data.get("market_level", 0))
+	reef_bonus_lives = int(data.get("reef_bonus_lives", 0))
+	island_patron = bool(data.get("island_patron", false))
+	bottles_read.clear()
+	for id in data.get("bottles_read", []):
+		bottles_read.append(str(id))
+	tide_gift_granted = bool(data.get("tide_gift_granted", false))
 	harbor_hero_granted = bool(data.get("harbor_hero_granted", false))
+	circuits_completed = int(data.get("circuits_completed", 0))
+	
+	unlocked_achievements.clear()
+	for id in data.get("achievements", []):
+		unlocked_achievements.append(str(id))
+	# Old saves predate achievements: bank whatever they already earned
+	# without firing cards, then persist the backfill with the rest of the
+	# save (callers write after restore anyway).
+	_evaluate_achievements(true)
 	
 	# Legacy saves that already cleared every quest tier predate the title
 	# reward: grant it once here and write immediately, so repeated restore()
@@ -480,6 +710,7 @@ func reset() -> void:
 	money = 0
 	lifetime_earnings = 0
 	quests_completed = 0
+	lifetime_garbage_kg = 0
 	
 	best_upcycle_score = 0
 	best_sort_streak = 0
@@ -493,7 +724,17 @@ func reset() -> void:
 	upgrade_range = 0
 	last_run = {}
 	inventory_capacity_level = 0
+	market_level = 0
+	reef_bonus_lives = 0
+	island_patron = false
+	bottles_read.clear()
+	tide_gift_granted = false
 	harbor_hero_granted = false
+	circuits_completed = 0
+	circuit_visits.clear()
+	_pending_circuit_celebrations = 0
+	unlocked_achievements.clear()
+	_pending_achievement_ids.clear()
 	
 	trash_by_type.clear()
 	for t in DEFAULT_TRASH_TYPES:

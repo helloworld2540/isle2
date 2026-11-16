@@ -7,6 +7,7 @@ const SEEN_KEY := "tutorial_seen"
 
 
 func _ready() -> void:
+	TutorialDirector.scene_started("world")
 	var data := SaveManager.load_game()
 	if bool(data.get(SEEN_KEY, false)):
 		return
@@ -22,10 +23,13 @@ func _show_guide() -> void:
 		+ "[color=#9fe2ff]1 · Reef Rescue[/color] (south)  Dive, grab junk, dodge fish. Hauls bank as Reef Debris.\n" \
 		+ "[color=#9fe2ff]2 · Upcycle bench[/color] (east)  Sort debris into matching bins. Correct sorts become material.\n" \
 		+ "[color=#9fe2ff]3 · Shop[/color] (north)  Sell material for money and buy a bigger bag.\n\n" \
-		+ "[color=#ffd27f]Click to walk  ·  Tab / Esc opens the menu  ·  NPCs hand out quests[/color]"
+		+ "[color=#9fe2ff]The trail and flow dots show the way.[/color] Complete one full circuit (Reef → Upcycle → Shop) for a $15 bonus.\n\n" \
+		+ "[color=#ffd27f]Click to walk  ·  Tab / Esc opens the menu  ·  NPCs hand out quests[/color]\n" \
+		+ "[color=#8fd0a0]Look for bottles along the shore — they hold stories. Blue cards are achievements.[/color]"
 	guide.dismissed.connect(_on_guide_dismissed)
 	get_tree().current_scene.add_child(guide)
 
 
 func _on_guide_dismissed() -> void:
 	SaveManager.update_game({SEEN_KEY: true})
+	TutorialDirector.start()

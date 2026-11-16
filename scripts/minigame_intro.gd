@@ -15,6 +15,7 @@ class_name MinigameIntro
 
 
 func _ready() -> void:
+	add_to_group("ui_modal_card")
 	_apply_text()
 	get_tree().paused = true
 	get_tree().root.set_disable_input(false)
@@ -46,6 +47,7 @@ func _apply_text() -> void:
 
 func _on_got_it_pressed() -> void:
 	get_tree().paused = false
+	remove_from_group("ui_modal_card")
 	queue_free()
 
 

@@ -79,6 +79,8 @@ func _calculate_path_to(world_pos: Vector2) -> void:
 		if world_map:
 			path.append(world_map.to_global(world_map.map_to_local(cell)))
 	_refresh_highlight()
+	if not path.is_empty():
+		TutorialDirector.notify("move")
 
 func _physics_process(_delta: float) -> void:
 	if is_moving or path.is_empty():

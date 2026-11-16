@@ -13,7 +13,8 @@ const TYPE_SPEED := 60.0
 
 @onready var dimmer: ColorRect = $Dimmer
 @onready var panel: PanelContainer = $Center/Panel
-@onready var title_label: Label = $Center/Panel/VBox/Title
+@onready var portrait: TextureRect = $Center/Panel/VBox/Header/Portrait
+@onready var title_label: Label = $Center/Panel/VBox/Header/Title
 @onready var lines_label: RichTextLabel = $Center/Panel/VBox/Lines
 @onready var reward_label: Label = $Center/Panel/VBox/Reward
 @onready var quest_box: VBoxContainer = $Center/Panel/VBox/QuestBox
@@ -26,6 +27,14 @@ var _quest_tier := 0
 
 
 func _ready() -> void:
+	# Milestone banners watch this group so celebrations never play underneath
+	# a conversation. Registered here, not by the caller, so every dialogue
+	# (NPC, tutorial, future vendors) is covered by the same contract.
+	add_to_group("ui_modal_card")
+	# A conversation should not fight the BGM; duck while the card is up and
+	# let the AudioManager fade it back in when the card closes.
+	AudioManager.duck_music()
+	
 	reward_label.visible = false
 	quest_box.visible = false
 	status_label.visible = false
@@ -39,8 +48,11 @@ func _ready() -> void:
 
 # --- Content ---
 
-func present(npc_title: String, lines: Array) -> void:
+func present(npc_title: String, lines: Array, portrait_texture: Texture2D = null) -> void:
 	title_label.text = npc_title
+	if portrait:
+		portrait.texture = portrait_texture
+		portrait.visible = portrait_texture != null
 	
 	var text: Array[String] = []
 	for line in lines:
@@ -71,6 +83,8 @@ func show_status(text: String, positive: bool) -> void:
 func dismiss() -> void:
 	if not is_inside_tree():
 		return
+	remove_from_group("ui_modal_card")
+	AudioManager.restore_music()
 	closed.emit()
 	queue_free()
 

@@ -1,0 +1,178 @@
+extends RefCounted
+
+## Pure data and unlock predicates for the island's one-time achievements.
+## GameState owns the save, the pending-card queue and the signal; this module
+## only answers "what exists" and "is it earned given that state", so menus and
+## banners can read the catalogue without touching the save system.
+##
+## Conditions are deliberately plain field reads on the state object passed in
+## (GameState or a test double), which keeps this file free of autoload calls.
+
+const ENTRIES: Array[Dictionary] = [
+	{
+		"id": "first_dive",
+		"short": "Dive",
+		"title": "FIRST DIVE",
+		"subtitle": "Reef Rescue cleared — the loop has started.",
+		"where": "Reef Rescue",
+	},
+	{
+		"id": "first_sort",
+		"short": "Sort",
+		"title": "FIRST SORT",
+		"subtitle": "Sorted a load at the Upcycle bench.",
+		"where": "Upcycle",
+	},
+	{
+		"id": "first_sale",
+		"short": "Sale",
+		"title": "FIRST SALE",
+		"subtitle": "Turned material into money at the Shop.",
+		"where": "Shop",
+	},
+	{
+		"id": "first_quest",
+		"short": "Favour",
+		"title": "FIRST FAVOUR",
+		"subtitle": "An islander's request is done.",
+		"where": "Islanders",
+	},
+	{
+		"id": "harbor_hero",
+		"short": "Harbor",
+		"title": "HARBOR HERO",
+		"subtitle": "Every quest tier cleared — bag capacity +10 kg!",
+		"where": "Islanders",
+	},
+	{
+		"id": "big_bag",
+		"short": "Bag",
+		"title": "ROOM TO SPARE",
+		"subtitle": "Bag capacity reached 30 kg.",
+		"where": "Island",
+	},
+	{
+		"id": "deep_cache",
+		"short": "Cache",
+		"title": "CACHE FOUND",
+		"subtitle": "Bought the Deep Cache for richer hauls.",
+		"where": "Island",
+	},
+	{
+		"id": "well_off",
+		"short": "Money",
+		"title": "WELL OFF",
+		"subtitle": "Earned 300$ on the island.",
+		"where": "Shop",
+	},
+	{
+		"id": "market_contact",
+		"short": "Market",
+		"title": "MARKET CONTACT",
+		"subtitle": "Bought a Market Contact — sales pay +1$ per unit.",
+		"where": "Shop",
+	},
+	{
+		"id": "reef_charter",
+		"short": "Charter",
+		"title": "REEF CHARTER",
+		"subtitle": "Chartered an extra fish bump for Reef Rescue.",
+		"where": "Shop",
+	},
+	{
+		"id": "reef_deep",
+		"short": "Depth",
+		"title": "DEEP DIVE",
+		"subtitle": "Reached 400 m in Reef Rescue.",
+		"where": "Reef Rescue",
+	},
+	{
+		"id": "reef_abyss",
+		"short": "Abyss",
+		"title": "TO THE ABYSS",
+		"subtitle": "Reached 900 m in Reef Rescue.",
+		"where": "Reef Rescue",
+	},
+	{
+		"id": "island_patron",
+		"short": "Patron",
+		"title": "PATRON OF THE ISLE",
+		"subtitle": "Gave 1500$ to keep the island clean.",
+		"where": "Shop",
+	},
+	{
+		"id": "tide_keeper",
+		"short": "Tides",
+		"title": "TIDE KEEPER",
+		"subtitle": "Found every message the tide left on the island.",
+		"where": "Island",
+	},
+	{
+		"id": "island_steward",
+		"short": "Steward",
+		"title": "ISLAND STEWARD",
+		"subtitle": "Every other achievement earned. The island is yours.",
+		"where": "Island",
+	},
+]
+
+
+static func definitions() -> Array[Dictionary]:
+	return ENTRIES
+
+
+static func total() -> int:
+	return ENTRIES.size()
+
+
+static func find(id: String) -> Dictionary:
+	for def in ENTRIES:
+		if String(def.get("id", "")) == id:
+			return def
+	return {}
+
+
+## True when `id` is satisfied by the fields currently on `state`.
+## Kept as a predicate chain rather than data expressions so each unlock can
+## read several fields and the capstone can look at the whole catalogue.
+static func is_met(id: String, state: Node) -> bool:
+	if state == null:
+		return false
+	
+	match id:
+		"first_dive":
+			return state.best_reef_depth > 0 or state.reef_garbage > 0.0
+		"first_sort":
+			return state.best_upcycle_score > 0
+		"first_sale":
+			return state.lifetime_earnings > 0
+		"first_quest":
+			return state.quests_completed > 0
+		"harbor_hero":
+			return state.harbor_hero_granted
+		"big_bag":
+			return state.get_inventory_capacity() >= 30
+		"deep_cache":
+			return state.deep_cache
+		"well_off":
+			return state.lifetime_earnings >= 300
+		"market_contact":
+			return state.market_level > 0
+		"reef_charter":
+			return state.reef_bonus_lives > 0
+		"reef_deep":
+			return state.best_reef_depth >= 400
+		"reef_abyss":
+			return state.best_reef_depth >= 900
+		"island_patron":
+			return state.island_patron
+		"tide_keeper":
+			return state.bottles_read.size() >= 3
+		"island_steward":
+			# Capstone: every other goal in the catalogue is already earned.
+			for def in ENTRIES:
+				var other := String(def.get("id", ""))
+				if other != "island_steward" and not state.unlocked_achievements.has(other):
+					return false
+			return true
+	return false

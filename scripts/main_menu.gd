@@ -17,6 +17,7 @@ func _ready() -> void:
 	_play_entrance_animation()
 	_spawn_ambient_motion()
 	AudioManager.play_bgm("menu")
+	_pulse_both_titles()
 
 func _wire_buttons() -> void:
 	new_save_button.pressed.connect(_on_new_save_pressed)
@@ -33,15 +34,43 @@ func _refresh_summary() -> void:
 func _summary_text() -> String:
 	if not SaveManager.has_save():
 		return "No save found yet. Start a new save to begin cleaning."
-	var sd := SaveManager.load_game()
-	GameState.restore()
-	return "Continue summary:\nScore %d (best %d)  |  Trash %d kg  |  Fish %d \nBest streak %d  |  Lifetime earnings %d  | %d$ \nInventory totals: %s" % [
+	
+	# GameState restored the save in _ready; nothing to re-read here.
+	var summary := "Continue summary:\nScore %d (best %d)  |  Trash %d kg  |  Fish %d \nBest streak %d  |  Lifetime earnings %d  | %d$ \nAchievements %d/%d  |  Inventory totals: %s" % [
 		GameState.upcycle_score, GameState.best_upcycle_score,
 		GameState.get_inventory_weight(), GameState.reef_fish,
 		GameState.best_sort_streak, GameState.lifetime_earnings,
 		GameState.money,
+		GameState.achievement_count(), GameState.achievement_total(),
 		_format_inventory_totals()
 	]
+	
+	# Titles are identity, so they get their own line rather than a stat column.
+	var badges: Array[String] = []
+	if GameState.is_harbor_hero():
+		badges.append("★ Harbor Hero")
+	if GameState.island_patron:
+		badges.append("◆ Patron of the Isle")
+	if not badges.is_empty():
+		summary += "\n" + "  ·  ".join(badges)
+	return summary
+
+
+## Owning both titles earns one celebratory pulse of the summary on load.
+func _pulse_both_titles() -> void:
+	if GameSettings.reduce_motion:
+		return
+	if not (GameState.is_harbor_hero() and GameState.island_patron):
+		return
+	if not save_summary:
+		return
+	save_summary.pivot_offset = save_summary.size * 0.5
+	var tw := create_tween()
+	tw.tween_property(save_summary, "scale", Vector2(1.08, 1.08), 0.16).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tw.tween_property(save_summary, "scale", Vector2.ONE, 0.35).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	var color_tw := create_tween()
+	color_tw.tween_property(save_summary, "modulate", Color(1.35, 1.15, 0.5, 1.0), 0.16).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	color_tw.tween_property(save_summary, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.4).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
 func _format_inventory_totals() -> String:
 	var parts: Array = []
@@ -65,6 +94,9 @@ func _on_load_save_pressed() -> void:
 	SceneTransition.change_scene(WORLD_SCENE)
 
 func _on_quit_pressed() -> void:
+	# Quitting bypasses SceneTransition's flush, so write out the debounced
+	# save explicitly or the last ~0.4 s of play is lost.
+	GameState.flush_save()
 	get_tree().quit()
 
 func _on_stats_pressed() -> void:
