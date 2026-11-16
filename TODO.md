@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Achievement banner legendary tier widened: HARBOR HERO, PATRON OF THE ISLE
+  and the ISLAND STEWARD capstone now land on the loud gold style alongside
+  the 25-run badges and KEEPER OF THE TIDE. Smoke 44/44.
 - Golden spawn telegraphing: both minigames now chime softly and shimmer on
   spawn when a golden item appears (belt: scale pulse, reef: scale pulse after
   the spawn tween), so gold rarity is readable at a glance — not just a tint.

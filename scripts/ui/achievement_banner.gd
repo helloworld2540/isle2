@@ -31,6 +31,9 @@ const LEGENDARY_ACHIEVEMENTS := {
 	"loop_master": true,
 	"tide_keeper": true,
 	"tide_messages": true,
+	"harbor_hero": true,
+	"island_patron": true,
+	"island_steward": true,
 }
 
 ## Two card flavours: gold for milestones/route celebrations, blue for the

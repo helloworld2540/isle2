@@ -69,7 +69,7 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
   `trash_by_type{}`, `inventory_capacity_level`, `best_sort_streak`,
   `best_reef_depth`, `best_reef_fish`, `best_reef_combo`, `best_reef_haul`, `clean_dives`, `flawless_shifts`, `golden_finds`, `fish_met`, `bottles_read`, `lifetime_earnings`, `sort_streak`,
   `deep_cache`, `deep_cache_tier`.
-- Run counters: `reef_dives` and `upcycle_runs` number the map recap chapters ("Dive № 4 — Deep Dive", "Bench Run № 2 — Hot Streak") and feed the BENCH REGULAR / REEF REGULAR achievements; the 25-run badges (BENCH MASTER, REEF VETERAN, LOOP MASTER) and KEEPER OF THE TIDE land on the banner's legendary gold tier.
+- Run counters: `reef_dives` and `upcycle_runs` number the map recap chapters ("Dive № 4 — Deep Dive", "Bench Run № 2 — Hot Streak") and feed the BENCH REGULAR / REEF REGULAR achievements; the 25-run badges (BENCH MASTER, REEF VETERAN, LOOP MASTER), KEEPER OF THE TIDE, HARBOR HERO, PATRON OF THE ISLE and the ISLAND STEWARD capstone land on the banner's legendary gold tier.
 - `restore()` rehydrates from save; `reset()` zeroes state. `persist()` merges into save data.
 - The save codec is one table: `SAVE_SCHEMA` in `scripts/game_state.gd` maps every
   persisted `[key ↔ property ↔ default ↔ codec]`; `_write_save`, `restore()` and
