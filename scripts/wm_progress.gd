@@ -22,6 +22,11 @@ const RouteAdvisor := preload("res://scripts/route_advisor.gd")
 
 var _pulse_state: float = 0.0
 var _circuit_text := ""
+## Frame-loop text setters run every physics tick; cache the last written
+## strings so a static HUD costs nothing but a compare.
+var _money_text := ""
+var _main_text := ""
+var _inv_text := ""
 ## Route advice only needs to be re-derived a few times a second.
 const ADVICE_TICK_SECONDS := 0.35
 var _advice_tick := 0.0
@@ -90,7 +95,10 @@ func _update_progress_bars() -> void:
 
 func _update_money_label() -> void:
 	if money_label:
-		money_label.text = "Money: %d$" % GameState.money
+		var text := "Money: %d$" % GameState.money
+		if text != _money_text:
+			_money_text = text
+			money_label.text = text
 
 
 ## Bottles found so far. The line is hidden at 0 until the first one is read
@@ -179,9 +187,12 @@ func _update_main_label(cap: int, inv_amount: int, ratio: float) -> void:
 	elif ratio >= 0.85:
 		cap_state = "Bag heavy (%d/%d)" % [inv_amount, cap]
 		
-	main_label.text = "Trash %d/%d kg" % [inv_amount, cap]
+	var text := "Trash %d/%d kg" % [inv_amount, cap]
 	if cap_state != "":
-		main_label.text += " | " + cap_state
+		text += " | " + cap_state
+	if text != _main_text:
+		_main_text = text
+		main_label.text = text
 
 func _update_inventory_label(delta: float, ratio: float, cap: int, inv_amount: int) -> void:
 	var pulse_target := 0.0
@@ -193,7 +204,10 @@ func _update_inventory_label(delta: float, ratio: float, cap: int, inv_amount: i
 	# Smoothly transition the pulse state (replaces the old set_meta/get_meta usage)
 	_pulse_state = lerpf(_pulse_state, pulse_target, delta * 4.0)
 
-	inv_label.text = _get_inv_summary_text(inv_amount, cap)
+	var inv_text := _get_inv_summary_text(inv_amount, cap)
+	if inv_text != _inv_text:
+		_inv_text = inv_text
+		inv_label.text = inv_text
 	_apply_capacity_pulse()
 
 

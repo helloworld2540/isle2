@@ -1,6 +1,11 @@
 # Current project todo:
 
 # done this pass
+- World HUD perf pass: the per-frame money / trash / inventory label setters
+  in wm_progress.gd built and assigned strings every physics tick; they now
+  cache the last written text and only assign on change (the circuit label
+  already did this). Verified live: after stepping 30 frames the HUD reads
+  real values (Trash 7/70 kg, Polyethylene 5/Nylon 1, Money: 174$); smoke 44/44.
   Verified live in-game post-change: all four NPCs report the buffed tier-1
   rewards (Tom/Nina/Kai PP x6, Mara Glass x3 by design), turn-in gating reads
   the save correctly (Mara needs 8 PE, save holds 5 -> not ready), and no
