@@ -945,3 +945,36 @@ SHIPPED
 
 STATE
   45 scenes pass smoke; export matrix healthy; no outstanding tasks.
+
+[ITERATION 25] 2026-11-17 - Collectathon completion + onboarding arc
+--------------------------------------------------------------------------------
+GOAL
+  Close out the collectathon, every collectible now tutored and persistent,
+  with the sprint log current.
+
+SHIPPED
+  * Tidepool Starfish collectathon: five hidden around the island (walkable
+    cells verified by tile-data query); walk-over pickup, "Starfish n/5"
+    floating callout + sparkle, HUD line flips gold as STARLIGHT KEEPER at
+    five, totals persist in `starfish_found`, feeds STARLIGHT achievement.
+  * Tide Pool payout: all five grants a one-time +$25 card on the next world
+    load (mirrors TIDE'S GIFT for bottles). Separate flag keeps each
+    collectathon paying out exactly once.
+  * Starfish tutorial arc: two one-shot nudges —
+      "A starfish!" on the first pickup (nudge_starfish_shown),
+      "One more…" on the fourth pickup (nudge_starfish_final_shown);
+    both queue correctly behind any active card.
+  * World HUD: starfish counter line under the bottle line (hidden until
+    first pickup, gold "✦ STARLIGHT KEEPER" at five), wired to the new
+    starfish_collected signal so it updates live.
+  * Stats page: keeper-style Journal line at the top — "Journal — bottles
+    n/4 · starfish n/5 · species n/4 · achievements n/31" — and a "Reset
+    island…" button (ConfirmPanel), same guard as the main menu.
+  * Keeper's Journal mention in guide.md; PITCH + README updated with the
+    starfish collectathon, legendary-tier banner widening (HARBOR HERO,
+    PATRON OF THE ISLE, ISLAND STEWARD), full achievement list (31) in README.
+
+STATE
+  45 scenes pass smoke; export matrix healthy (Linux / Web / Android verified);
+  every collectathon persists, tutored, and discoverable; the markdown suite
+  reflects the code exactly; no outstanding priority items.
