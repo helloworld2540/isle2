@@ -14,6 +14,9 @@
 - Ambient world-life pass 2: additive sea-sparkle drift over the western water
   (46 particles, fade ramp, killed under reduced motion) and a rare synthesized
   gull cry (25–60 s per gull, pitch-jittered, honors the SFX bus volume).
+- Ambient world-life pass 3: a distant fishing sailboat drifting slowly across
+  the eastern horizon (fade in/out wrap, swell bob + heel, frozen under reduced
+  motion; PIL-drawn placeholder, scenes/wm_boat.tscn + scripts/wm_boat.gd).
 - Balance pass 3 (measured, not guessed): three consecutive fresh-save loops driven
   end-to-end via MCP; median yield ≈ $32/loop ($17 materials + $15 circuit),
   Market Contact reachable in ~2–3 loops; kept prices, documented in guide.md.
@@ -56,9 +59,8 @@
   Fixed deferred spawn (hint used to parent to a dying scene during transitions).
 
 # high priority
-- (next) Ambient world-life pass 3: a distant fishing boat crossing the horizon
-  on a long loop out in the eastern water (simple hull + sail sprite, slow drift,
-  bobbing; reduced-motion safe).
+- (next) Reef Rescue polish: fish warning shimmer on the edge markers of fish
+  that are close to the drone (depth-scaled), making near-miss dodges feel fair.
 
 # medium priority
 # (shimmer item promoted to high priority)
