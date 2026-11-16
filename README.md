@@ -20,7 +20,7 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 | `TutorialDirector` | `scripts/tutorial_director.gd` | Step-by-step first-playthrough guide (walk → dive → sort → sell) |
 
 ### Modules
-- **World map** (`scripts/wm_*`) — player movement (BFS pathfinding on TileMapLayer), portals, NPCs, menus, settings, progress bars.
+- **World map** (`scripts/wm_*`) — player movement (BFS pathfinding on TileMapLayer), portals, NPCs, menus, settings, progress bars, and ambient life (gull flock, sea sparkle, distant boat, harbor cries).
 - **Minigames**
   - Upcycle: `upcycle.tscn` (`scripts/upcycle.gd`) — belt sorting into material bins.
   - Reef Rescue: `reef_rescue.tscn` (`scripts/reef_rescue.gd`) + `rr_fish.tscn` (`scripts/rr_fish.gd`) — drone collection, combo, fish hazard.
@@ -90,7 +90,13 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 - BGM loops per scene ("menu", "world", "upcycle", "shop", "reef").
 - Signature stingers: `shift_complete` (A4 → E5 bell motif, 22050 Hz) closes the
   upcycle shift; `achievement` covers story/cards; `combo` punches at sort ×3.
-- Reduced motion flag affects animations/transitions.
+- Harbor ambience (`scripts/wm_harbor_ambience.gd`, `scenes/wm_harbor_ambience.tscn`
+  in `world.tscn`): a sparse, lower-pitched gull cry every 40–75 s with an
+  occasional answer, layered over the animated flock. It is audio-only and so
+  keeps the dock alive under reduced motion, where the flock goes still and silent.
+- Reduced motion flag affects animations/transitions (ambient/idle tweens come to
+  rest: menu motes and entrance, briefing pop, dialogue/recap lifts, circuit-ring
+  pulse, portal glow/bob) but never audio.
 
 ## Scene Transitions
 - `SceneTransition.change_scene` fades in 0.5s, holds 1.0s, fades out 0.5s; faster with reduced motion.

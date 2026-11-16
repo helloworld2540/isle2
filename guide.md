@@ -128,3 +128,16 @@ checked against this yield — nothing changed, deliberately.*
 - Collection radius +12px / level via trash.
 - Deep Cache 30 score purchase and 15*tier upgrade increases reef debris.
 - Inventory capacity +10 level via trash.
+
+## World map & dock ambience
+- Tap any walkable tile to walk there (BFS pathfinding); glowing pads are the
+  portals to the bench, the reef dive, and the shop.
+- Completing all three stations in a lap pays the **$15 island-circuit** bonus
+  and the return card names your lap "Circuit No N".
+- The dock is alive even when you stand still: a **harbor cry** sounds every
+  40–75 s (a lone, lower-pitched gull answering itself across the water), on top
+  of the four gulls patrolling the open water east of the island. The harbor cry
+  is audio-only, so it keeps playing even with **Reduced motion** on — where the
+  birds hold still, the water still sounds like water.
+- Bottles wash up on the shore with lore; after the Tidekeeper's Pact is funded
+  and all base bottles are read, a hidden fourth bottle surfaces.

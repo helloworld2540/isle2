@@ -1,6 +1,20 @@
 # Current project todo:
 
 # done this pass
+- Harbor ambience: the world map now has a dock-side voice of its own —
+  `scenes/wm_harbor_ambience.tscn` (audio-only Node in `world.tscn`) plays a
+  sparse, lower-pitched gull cry every 40–75 s (35% of calls draw a closer
+  answer ~1–2 s later). The four flock gulls fill the gaps under normal motion;
+  under reduced motion the flock freezes and goes silent, so this node is what
+  keeps the dock audible. Rendered via `AudioManager.play_sfx` → SFX bus, so the
+  volume setting applies. Verified in-game: node present and configured, a
+  forced call played `gull.wav` through the pool, and it still plays with
+  reduced motion on.
+- Reduced-motion audit: the remaining entrance/idle tweens now come to rest when
+  the setting is on — main-menu mote drift and button rise, minigame briefing
+  pop, NPC dialogue intro, run-recap lift, circuit-ring pulse (steady 0.75 ring),
+  and portal pad glow/bob (fixed 0.62 glow). Verified main menu with the setting
+  on: buttons/panel load at full alpha and scale one, no runtime errors.
 - Stats page gains an "Era:" line — a scrap-journal read of where the save is
   on the island (Fresh Shore → First-Coin → Bench → Diving → Circuit →
   Trading → Pact → Steward), picked by what the save has actually done. Pure
@@ -163,10 +177,11 @@
   Fixed deferred spawn (hint used to parent to a dying scene during transitions).
 
 # high priority
-- Waiting-room polish: the world map gives no ambient soundscape while idle —
-  add a sparse harbor-gull cry every 40–75 s (reuses gull.wav, honors the SFX
-  bus volume and reduced-motion, fires only on the world scene) so resting at
-  the dock feels alive instead of muted.
+- Continuous surf bed for the world map: the harbor cry punctuates the dock but
+  there is still no continuous water. Synthesize a short, seamless loopable surf
+  wash into `sound/`, add a scene-authored player (route through the SFX bus or a
+  new Ambience bus) that fades in on world entry and out on exit, and keep it
+  quiet under the BGM. Honors the volume slider and reduced motion (audio only).
 
 # medium priority
 # (shimmer item promoted to high priority)
