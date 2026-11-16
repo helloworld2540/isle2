@@ -1,6 +1,15 @@
 # Current project todo:
 
 # done this pass
+- Deep Cache value fix: the score-priced upgrade's debris bonus was silently
+  clamped away whenever the bag filled — which is *every* dive at the 10 kg
+  starting bag — so Deep Cache did nothing until the bag grew. The reef payout
+  now salvages whatever part of the cache bonus does not fit as money at the
+  debris rate ($1/kg), and the summary card shows it ("… 5$ salvaged"). Verified
+  in-game: Deep Cache off, 10 kg bag, 15 kg haul → 10 debris, $0; tier 1, 10 kg
+  bag → 10 debris + $5 salvaged; tier 1, 20 kg bag, 24 kg haul → 20 debris + $8;
+  a light 3 kg dive → 11 debris, $0, breakdown "(haul +3 kg · deep cache +8 kg)".
+  Player save restored.
 - Shop touch pass: every button in the redesigned shop is now ≥ 44 px tall
   (custom_minimum_size y=44 on the 15 Sell 1/5/All row buttons, the 5 Buy
   buttons and Return to World / Undo last sale). Verified in-game: all 22
@@ -246,13 +255,12 @@
   Fixed deferred spawn (hint used to parent to a dying scene during transitions).
 
 # high priority
-- Deep Cache value audit: it is the only score-priced upgrade (30 score, then
-  15×tier) and its reef-debris bonus (`5×tier + 3×capacity_level`) is silently
-  clamped away whenever the bag is full — which is *always* at the starting
-  10 kg bag (measured: a tier-1 dive at a 20 kg bag accepts exactly 20 and drops
-  the +8). Measure whether it can ever pay off before a bag upgrade, then decide:
-  let the cache bonus bypass the capacity cap, warn in the buy copy, or re-price.
-  Record the numbers in guide.md.
+- Deep Cache copy & discoverability: the upgrade now always pays out, but the
+  world-menu button still reads "Deep Cache (30 score) — bonus debris" and
+  nothing tells the player the bonus survives a full bag. Reword the button (and
+  the tier-upgrade line) to state the guaranteed payout, then verify the whole
+  path end-to-end: buy with 30 score, upgrade a tier with 15×tier score, dive,
+  and read the salvage on the summary card.
 
 # medium priority
 # (shimmer item promoted to high priority)

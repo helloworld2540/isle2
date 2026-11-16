@@ -126,6 +126,10 @@ checked against this yield — nothing changed, deliberately.*
   LOOP MASTER (25 circuits) sit behind the 10-run regulars — the island's
   endgame chase alongside the two pact/patron money sinks.
 - Garbage converts into Reef Debris (plus Deep Cache bonus per tier and capacity).
+  The Deep Cache bonus is never lost to a full bag: any part that does not fit is
+  salvaged as money ($1/kg, shown as "N$ salvaged" on the summary card). Without
+  that, the upgrade would do nothing at the 10 kg starting bag, where every dive
+  fills up.
 - A muffled underwater current runs under the dive music; trim it with the
   Ambience slider without quieting pickup or combo feedback.
 

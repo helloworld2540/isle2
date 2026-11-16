@@ -63,7 +63,7 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 - Move/Range cost: `8 + 4 × move_level` / `12 + 6 × range_level` (also paid from the trash mix).
 - Trash-upgrade payback: one loop banks ≈ bag capacity in kg, so the whole first trash tier
   (cap 6, move 8, range 12) lands at ≲1.2 loops; see guide.md for the measured table.
-- Reef rescue debris reward: `max(1, round(garbage)) + (deep_cache ? 5×tier + 3×capacity_level : 0)`, capped by free capacity.
+- Reef rescue debris reward: `max(1, round(garbage)) + (deep_cache ? 5×tier + 3×capacity_level : 0)`, capped by free capacity. The Deep Cache part is never wasted — whatever of it does not fit is salvaged as money at the debris rate ($1/kg) instead of being clamped away.
 - Deep Cache purchase: 30 score; upgrade: 15 × tier.
 - Move speed mult: `1 + 0.08 × upgrade_move`; collection radius bonus: `12 × upgrade_range`.
 
