@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- Web preset rebuilt after the starfish-final nudge addition — still packs
+  cleanly.
 - Main-menu confirm flow verified end to end on an existing save: New Save ->
   confirm panel -> wipe + restore -> World loads with a fresh state
   (money 0, tutorial_step 0 -> 1 after the welcome card dismisses, then
