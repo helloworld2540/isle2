@@ -16,6 +16,7 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 | `GameState` | `scripts/game_state.gd` | Shared cross-scene state (score, inventory, bests, upgrades) |
 | `SaveManager` | `scripts/save_manager.gd` | JSON save/load at `user://save.json` |
 | `AudioManager` | `scripts/audio_manager.gd` | SFX/BGM playback, buses, volumes, reduced motion |
+| `GameSettings` | `scripts/game_settings.gd` | Persisted per-player toggles (reduce motion) |
 | `SceneTransition` | `scripts/scene_transition.gd` | Fade overlay scene changes |
 | `TutorialDirector` | `scripts/tutorial_director.gd` | Step-by-step first-playthrough guide (walk → dive → sort → sell) |
 
