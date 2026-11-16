@@ -1,6 +1,11 @@
 # Current project todo:
 
 # done this pass
+- End-to-end Reef Rescue collision loop verified with no injected input:
+  frozen launch -> stepping ~25 s of game time spawns items (16 in flight),
+  drifts the drone, and the drone collects 1 kg on contact with the HUD
+  label updating ("Collected 1 kg of garbage", depth 215 m). No save writes
+  triggered (record_reef only fires at dive end).
 - Web export rebuilt with the new exclude filters as a final cross-check:
   pack completes cleanly.
 - Export filters now exclude the dev markdown suite and sprint logs too
