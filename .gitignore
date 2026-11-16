@@ -8,3 +8,6 @@ export/
 *.kra~
 *.kra-autosave.kra
 *~
+
+# OpenCode harness state
+.opencode/
