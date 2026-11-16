@@ -50,6 +50,8 @@ var _belt_banner_shown: bool = false
 var _leaving: bool = false
 var _shift_exhausted: bool = false  ## No reef debris left to feed the belt.
 var _low_debris_warned: bool = false  ## One-shot "running low" callout.
+var _best_beaten: bool = false  ## One-shot per run, when the player passes the saved best.
+var _prev_best: int = 0  ## best_upcycle_score captured at run start.
 
 # Interaction & UI State
 var drag_start_pos: Vector2 = Vector2.ZERO
@@ -82,6 +84,7 @@ func _ready() -> void:
 		go_return_btn.pressed.connect(_game_over_leave)
 	_setup_bins()
 	_setup_audio()
+	_prev_best = GameState.best_upcycle_score
 	
 	if player:
 		player.global_position = _snap(player.global_position)
@@ -334,12 +337,25 @@ func _drop_off_item(target: Node2D) -> void:
 	carried_item.queue_free()
 	carried_item = null
 
+## Personal-best chase, live on the bench: once per run, the moment the current
+## score passes the saved best, fire a gold callout and punch the readout — the
+## same payoff the reef run gets at the summary card.
+func _check_best_beaten() -> void:
+	if _best_beaten or _prev_best <= 0:
+		return
+	if score > _prev_best:
+		_best_beaten = true
+		_notify_queue("NEW BEST — %d!" % score, Color(0.94, 0.95, 0.42, 1.0), 1.6)
+		_play_combo_feedback()
+
+
 func _process_successful_sort(mat: String, bin_pos: Vector2) -> void:
 	TutorialDirector.notify("sorted")
 	score += 1
 	sort_streak += 1
 	_peak_streak = maxi(_peak_streak, sort_streak)
 	_sorted_count += 1
+	_check_best_beaten()
 	_recycled_total += 1
 	_recycled_by_mat[mat] = _recycled_by_mat.get(mat, 0) + 1
 	
@@ -366,6 +382,7 @@ func _process_failed_sort() -> void:
 
 func _process_combo_milestone() -> void:
 	score += 5
+	_check_best_beaten()
 	_notify_queue("Combo +5! (%dx5)" % int(sort_streak / 5), Color(1.0, 0.85, 0.3, 1.0), 1.2)
 	_play_combo_feedback()
 	
@@ -460,7 +477,10 @@ func _count_belt_items() -> int:
 
 func _update_ui() -> void:
 	if score_label:
-		score_label.text = "Score: %d" % score
+		# Ghost-best mark: the record stays visible mid-run so the chase is a
+		# visible race rather than a surprise at the summary card.
+		var best_line := " (best %d)" % maxi(_prev_best, GameState.best_upcycle_score) if GameState.best_upcycle_score > 0 else ""
+		score_label.text = "Score: %d%s" % [score, best_line]
 	if streak_label:
 		streak_label.text = "Streak: %d (best %d)" % [sort_streak, GameState.best_sort_streak]
 	if recycled_label:

@@ -91,6 +91,8 @@ checked against this yield — nothing changed, deliberately.*
 - Back on the map the run is titled like a chapter — "Bench Run № 2 —
   Hot Streak" — named by the longest streak you kept inside that run, and it
   flags a new personal best. Ten finished runs earns BENCH REGULAR.
+- Mid-run the score readout carries "(best N)" so the chase stays visible, and
+  passing the record fires a one-shot gold "NEW BEST — N!" callout with a punch.
 - Combo milestones (every five clean sorts) add +5 score and a "FIVE ON THE
   BELT!" banner; a burned or wrong item resets the streak.
 - When only 5 Reef Debris remain the bench warns you once; when the pile runs

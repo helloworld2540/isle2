@@ -1,6 +1,11 @@
 # Current project todo:
 
 # done this pass
+- Bench ghost best: the score readout now shows "Score: N (best M)" mid-run,
+  and the moment the run passes the saved best a one-shot gold "NEW BEST — N!"
+  callout fires with the same punch the combo milestones use. Fires once per
+  run, skipped entirely on a fresh save (no record yet). Verified: crossing
+  beats, second call stays silent, label shows the suffix.
 - Economy end-check: three consecutive scripted circuit loops on a fresh
   sandbox banked +34$ each (19$ materials + 15$ circuit; bulk ×1.25 applied on
   a 7-unit material at +25% as expected), circuits closed normally, no script
@@ -139,10 +144,10 @@
   Fixed deferred spawn (hint used to parent to a dying scene during transitions).
 
 # high priority
-- Bench ghost best: upcycle feels like it lacks a "beat your run" hook — the
-  best-score card exists but nothing shows mid-run. Add a faint "Best: N"
-  silhouette mark on the belt/bin HUD that triggers the same NEW BEST pulse the
-  reef run gets, with the same reduce_motion semantics.
+- Best-run ghost score at the START screen of the bench: the HUD now telegraphs
+  the record mid-run, but the pre-round intro still shows no personal stake —
+  surface "Best: N" (and "Runs: M") on the minigame briefing's stats panel so
+  the ghost follows you into the room.
 
 # medium priority
 # (shimmer item promoted to high priority)
