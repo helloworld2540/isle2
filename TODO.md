@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- Android APK rebuilt at the current commit — still builds and signs cleanly;
+  ~174 MB; consistent with every prior verified build.
 - Cross-check: rr_fish's FISH table and fish_catalog's ENTRIES match 1:1
   on species keys -> ids. Any new fish added in one side will now fail an
   explicit audit (no silent orphans).
