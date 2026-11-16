@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Final build verification: Linux debug rebuild at the current commit state
+  compiles, packs, and launches headless with zero script errors.
+- Scene reference audit: zero orphan ExtResource ids anywhere in the project.
 - Reef Rescue -> world loop verified end to end with real signals: on a
   fresh save, dive -> Return button emitted -> fade runs -> scene becomes
   World again. One earlier observation (scene stuck at ReefRescue) was my own
