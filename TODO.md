@@ -1,6 +1,11 @@
 # Current project todo:
 
 # done this pass
+- Economy end-check: three consecutive scripted circuit loops on a fresh
+  sandbox banked +34$ each (19$ materials + 15$ circuit; bulk ×1.25 applied on
+  a 7-unit material at +25% as expected), circuits closed normally, no script
+  or debug errors surfaced. $32–34/loop median holds; guide.md unchanged.
+  Player save restored afterwards.
 - Endgame radio: after the Tidekeeper's Pact is funded, world NPCs mix rare
   mint-green pact gossip into their ambient bubbles (35% swap;
   "Saw the pact keeper pass by — good folk." et al.). Verified in-game — the
@@ -134,10 +139,10 @@
   Fixed deferred spawn (hint used to parent to a dying scene during transitions).
 
 # high priority
-- Economy end-check: with every sink and badge live, re-run three fresh-save
-  circuits through MCP and confirm (a) ~USD 32/loop still holds, (b) the
-  Room-for-more nudge and the wind-down flow don't break the tour, and no log
-  errors appear.
+- Bench ghost best: upcycle feels like it lacks a "beat your run" hook — the
+  best-score card exists but nothing shows mid-run. Add a faint "Best: N"
+  silhouette mark on the belt/bin HUD that triggers the same NEW BEST pulse the
+  reef run gets, with the same reduce_motion semantics.
 
 # medium priority
 # (shimmer item promoted to high priority)
