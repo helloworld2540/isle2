@@ -12,6 +12,7 @@ var fish := 0
 var garbage := 0.0
 var _leaving := false
 var _garbage_combo := 0
+var _peak_combo := 0
 var _combo_timer := 0.0
 
 @onready var items: Node2D = $"Items"
@@ -338,6 +339,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	else:
 		var weight := 1
 		_garbage_combo += 1
+		_peak_combo = maxi(_peak_combo, _garbage_combo)
 		_combo_timer = 2.0
 		var multiplier := 1 + int(_garbage_combo / 3)
 		_update_combo_label(multiplier)
@@ -373,7 +375,7 @@ func _game_over_summary(reason: String = "manual") -> void:
 	var breakdown := "nothing hauled — no pickups this dive"
 	var overflow := 0
 	if dive_happened:
-		GameState.record_reef(garbage, fish, depth)
+		GameState.record_reef(garbage, fish, depth, _peak_combo)
 		new_best = int(depth) > prev_best
 		haul = int(max(1.0, round(garbage)))
 		if GameState.deep_cache:

@@ -152,6 +152,8 @@ var best_upcycle_score: int = 0
 var best_sort_streak: int = 0
 var best_reef_depth: int = 0
 var best_reef_fish: int = 0
+## Longest single-dive garbage pickup chain (drives the COMBO multiplier).
+var best_reef_combo: int = 0
 
 
 func _init() -> void:
@@ -407,7 +409,7 @@ func record_upcycle(score: int) -> void:
 ## record_reef is called at the end of a dive. Depth is a separate argument
 ## because it grows with vertical reach, not with garbage; the old code stored
 ## garbage into best_reef_depth, so the "best depth" it showed was a kg count.
-func record_reef(garbage: float, fish: int, depth: float = 0.0) -> void:
+func record_reef(garbage: float, fish: int, depth: float = 0.0, combo: int = 0) -> void:
 	reef_garbage = garbage
 	reef_fish = fish
 	lifetime_garbage_kg += int(round(garbage))
@@ -416,6 +418,8 @@ func record_reef(garbage: float, fish: int, depth: float = 0.0) -> void:
 		best_reef_depth = int(depth)
 	if fish > best_reef_fish:
 		best_reef_fish = fish
+	if combo > best_reef_combo:
+		best_reef_combo = combo
 	_persist()
 
 func add_earnings(amount: int) -> void:
@@ -635,6 +639,7 @@ const SAVE_SCHEMA: Array = [
 	["best_sort_streak", "best_sort_streak", 0, "int"],
 	["best_reef_depth", "best_reef_depth", 0, "int"],
 	["best_reef_fish", "best_reef_fish", 0, "int"],
+	["best_reef_combo", "best_reef_combo", 0, "int"],
 	["deep_cache", "deep_cache", false, "bool"],
 	["deep_cache_tier", "deep_cache_tier", 1, "int"],
 	["upgrade_move", "upgrade_move", 0, "int"],

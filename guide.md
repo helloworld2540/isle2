@@ -132,6 +132,7 @@ checked against this yield — nothing changed, deliberately.*
 - Debris payout breakdown on the summary card — haul, deep-cache bonus and
   "bag full −N kg" so the capacity cap reads as a rule, not a bug.
 - Depth is tracked in the stats page and feeds two achievements: DEEP DIVE (400 m) and TO THE ABYSS (900 m). Ten finished dives earns REEF REGULAR; the stats page keeps a running "Field log" of dives and bench runs.
+- Your longest single-dive garbage chain persists as "Best reef combo" (stats page) and feeds the RHYTHM OF THE REEF achievement at a 9-chain (a x4 score multiplier).
 - Long-game badges: BENCH MASTER (25 runs), REEF VETERAN (25 dives) and
   LOOP MASTER (25 circuits) sit behind the 10-run regulars — the island's
   endgame chase alongside the two pact/patron money sinks.

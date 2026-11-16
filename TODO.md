@@ -1,6 +1,14 @@
 # Current project todo:
 
 # done this pass
+- Reef combo now persists: new save key `best_reef_combo` (longest single-dive
+  pickup chain, schema-codec) tracks the peak chain at dive end and shows in
+  the stats menu ("Best reef combo: N chain (×M multiplier)"). New achievement
+  **RHYTHM OF THE REEF** (`reef_rhythm`, Reef Rescue, chain 9 pickups in one
+  dive for a ×4 multiplier) added to the catalogue + predicate; capstone count
+  auto-adjusts. Verified in-game (record_reef 11 → best sticks at 11, ×4 combo
+  not lowered by a later 4-chain, predicate fires); smoke 44/44; player save
+  restored (reef_garbage/reef_fish/dives/kg/combo all back to pre-test values).
 - Island-circuit loop verified end to end on a fresh save: New Save → world →
   one visit to each station (`record_station_visit` ×3 in reef→upcycle→shop
   order) closes the circuit — `circuits_completed` 0→1, **+$15 circuit bonus**
