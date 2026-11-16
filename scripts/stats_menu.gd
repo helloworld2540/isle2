@@ -4,6 +4,7 @@ class_name StatsMenu
 const SCENE_MAIN_MENU: String = "res://scenes/main_menu.tscn"
 const DIALOGUE_SCENE: PackedScene = preload("res://scenes/ui/npc_dialogue.tscn")
 const BottleCatalog := preload("res://scripts/bottle_catalog.gd")
+const FishCatalog := preload("res://scripts/fish_catalog.gd")
 ## Display order of the Tide Ledger buttons, matched to the scene's button nodes.
 const LEDGER_BUTTONS: Array[String] = ["BottleTideButton", "BottleGullButton", "BottleLightButton", "BottlePactButton"]
 const LEDGER_IDS: Array[String] = ["bottle_tide", "bottle_gull", "bottle_light", "bottle_pact"]
@@ -131,7 +132,10 @@ func _build_stats_text() -> String:
 	lines.append("Fish bumps taken: %d  (best %d)" % [GameState.reef_fish, GameState.best_reef_fish])
 	lines.append("Best reef combo: %d chain  (×%d multiplier)" % [GameState.best_reef_combo, 1 + int(GameState.best_reef_combo / 3)])
 	lines.append("Heaviest dive: %d kg  ·  Clean dives: %d" % [GameState.best_reef_haul, GameState.clean_dives])
-	lines.append("Fish spotted: %d / 4 species%s" % [GameState.fish_met.size(), "  ·  " + ", ".join(GameState.fish_met) if GameState.fish_met.size() > 0 else ""])
+	var fish_names: Array[String] = []
+	for id in GameState.fish_met:
+		fish_names.append(FishCatalog.name_of(id))
+	lines.append("Fish spotted: %d / 4 species%s" % [GameState.fish_met.size(), "  ·  " + ", ".join(fish_names) if not fish_names.is_empty() else ""])
 	lines.append("Best sort streak: %d  ·  Flawless shifts: %d" % [GameState.best_sort_streak, GameState.flawless_shifts])
 	lines.append("Deep Cache: %s" % ("tier %d" % GameState.deep_cache_tier if GameState.deep_cache else "not owned"))
 	lines.append("Market Contact: +%d$/unit  ·  Reef Charter: %d dive bumps" % [

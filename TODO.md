@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- Fish journal naming pass: `scripts/fish_catalog.gd` maps species keys to
+  display names + one-line blurbs; the stats page and the "New species!"
+  popup now show names (Goldie, Grey Reef Shark, Nemo, Crab) instead of
+  texture keys. Smoke 44/44.
 - Reef fish journal: new save key `fish_met` (string array) records every
   species bumped into (species tag written by init_fish), the dive pops
   "New species: <name>!" on a first sighting, the stats page shows

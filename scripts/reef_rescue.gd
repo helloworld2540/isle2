@@ -1,6 +1,7 @@
 extends Node2D
 class_name ReefRescue
 const FxSparkle := preload("res://scripts/fx_sparkle.gd")
+const FishCatalog := preload("res://scripts/fish_catalog.gd")
 
 @export var MIN_BG_SPEED := 75.0
 @export var MAX_BG_SPEED := 120.0
@@ -312,7 +313,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		fish += 1
 		var species := str(root.get_meta("species", ""))
 		if GameState.mark_fish_met(species):
-			_popup("New species: %s!" % species, Color(0.6, 0.9, 1.0, 1.0))
+			_popup("New species: %s!" % FishCatalog.name_of(species), Color(0.6, 0.9, 1.0, 1.0))
 		_update_ui()
 		_update_low_health()
 		AudioManager.play_sfx("sort_bad")
