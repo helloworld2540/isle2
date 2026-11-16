@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Reef Charter purchase path verified end to end: fresh save with $200 ->
+  purchase_reef_lives() deducts the first-tier 100$ and grants +1 life
+  (reef_bonus_lives=1, persisted). Player save restored afterwards.
 - Economy re-measured end to end on a synthetic fresh-save loop (10 kg haul,
   zero bumps, x5 combo, flawless shift, one golden each): $16 sale + $15
   circuit bonus = **$31 net** — on par with the historical ~$32/loop base,
