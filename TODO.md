@@ -1,6 +1,12 @@
 # Current project todo:
 
 # done this pass
+- Island-circuit loop verified end to end on a fresh save: New Save → world →
+  one visit to each station (`record_station_visit` ×3 in reef→upcycle→shop
+  order) closes the circuit — `circuits_completed` 0→1, **+$15 circuit bonus**
+  credited, visits cleared, 1 celebration queued, and the whole thing
+  persisted to disk through the new schema-codec save path (file-level check:
+  `circuits_completed: 1`, `money: 15` on disk). Player save restored.
 - Two new one-shot NPC nudges complete the quest-loop tutorial arc:
   **Islanders about** (fires once per save on the first world visit after the
   tour while any resident is unmet — points at the trail walkers and their
