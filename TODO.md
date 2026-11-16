@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Starfish first-pickup nudge verified end to end on a live fresh save:
+  welcome dismissed -> starfish body_entered -> hint card "A starfish!"
+  appears, flag persists; player save restored afterwards.
 - New one-shot nudge **A starfish!** (`nudge_starfish_shown`): fires the
   moment the player collects their first starfish anywhere on the island,
   pointing at the Journal count, the +$25 Tide Pool, and the STARLIGHT
