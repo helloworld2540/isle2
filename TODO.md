@@ -1,6 +1,12 @@
 # Current project todo:
 
 # done this pass
+- Export bug fixed: exported builds autoloaded MCPGameBridge from an excluded
+  path, so every launch logged "Failed to instantiate an autoload". The export
+  exclude filter now ships only what the autoload needs
+  (`addons/godot_mcp/game_bridge/*` + `core/mcp_log.gd`) and drops the
+  editor-only tooling; verified by re-exporting the Linux debug build and
+  booting it headless — zero script errors (only benign shutdown noise).
 - Mobile typography audit: every remaining sub-13 px label raised to 13 px
   (NPC name tag, world menu hint, main-menu postcard caption, achievement and
   ledger legends). Verified no `font_size < 13` remains outside the `.bak`;
