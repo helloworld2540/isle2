@@ -2,6 +2,7 @@ extends Node2D
 class_name Upcycle
 
 const NOTIFICATION_QUEUE := preload("res://scenes/ui/notification_queue.tscn")
+const FxSparkle := preload("res://scripts/fx_sparkle.gd")
 const FLOATING_TEXT_SCENE := preload("res://scenes/ui/floating_text.tscn")
 
 const MATERIALS: Array[String] = ["Polyethylene", "Glass", "Polypropylene", "Nylon"]
@@ -558,22 +559,7 @@ func _shake_wrong_sort() -> void:
 	tw.tween_property(self, "position", base_pos, 0.08).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
 func _spawn_bin_sparkle(at: Vector2) -> void:
-	var p := load("res://scenes/ui/c_p_u_particles2_d.tscn").instantiate() as CPUParticles2D
-	p.one_shot = true
-	p.explosiveness = 1.0
-	p.amount = 12 + min(10, sort_streak / 5)
-	p.lifetime = 0.4
-	p.global_position = at
-	p.spread = 360.0
-	p.initial_velocity_min = 30.0
-	p.initial_velocity_max = 90.0
-	p.gravity = Vector2(0.0, 60.0)
-	p.scale_amount_min = 2.0
-	p.scale_amount_max = 4.0
-	p.color = Color(0.7, 1.0, 0.6, 1.0)
-	add_child(p)
-	p.emitting = true
-	create_tween().tween_interval(p.lifetime + 0.1).connect("finished", p.queue_free)
+	FxSparkle.burst(self, at, Color(0.7, 1.0, 0.6, 1.0), {"amount": 12 + min(10, sort_streak / 5), "lifetime": 0.4, "vel_min": 30.0, "vel_max": 90.0, "gravity": 60.0})
 
 ## Gold trail that races along the belt on every fifth consecutive sort. It is
 ## a chain of short bursts rather than one big bang, so the milestone reads as
@@ -587,27 +573,15 @@ func _spawn_combo_trail(bin_pos: Vector2) -> void:
 	if dir.x == 0.0:
 		dir.x = 1.0
 	for i in range(4):
-		var p := load("res://scenes/ui/c_p_u_particles2_d.tscn").instantiate() as CPUParticles2D
-		p.one_shot = true
-		p.emitting = false
-		p.explosiveness = 0.75
-		p.amount = 8
-		p.lifetime = 0.35
-		p.global_position = bin_pos - dir * (34.0 * float(i)) + Vector2(0.0, randf_range(-10.0, 4.0))
-		p.direction = Vector2(dir.x, -0.35)
-		p.spread = 40.0
-		p.initial_velocity_min = 20.0
-		p.initial_velocity_max = 62.0
-		p.gravity = Vector2(0.0, 55.0)
-		p.scale_amount_min = 2.0
-		p.scale_amount_max = 4.0
-		p.color = Color(1.0, 0.86, 0.35, 1.0)
-		add_child(p)
-		var tw := create_tween()
-		tw.tween_interval(0.05 * float(i))
-		tw.tween_callback(func(): p.emitting = true)
-		tw.tween_interval(p.lifetime + 0.15)
-		tw.tween_callback(p.queue_free)
+		# Emitters are pre-staged with emitting=false so the milestone sweeps
+		# left-to-right instead of popping all at once; free deferred.
+		var p := FxSparkle.burst(self, bin_pos - dir * (34.0 * float(i)) + Vector2(0.0, randf_range(-10.0, 4.0)), Color(1.0, 0.86, 0.35, 1.0), {"explosiveness": 0.75, "amount": 8, "lifetime": 0.35, "vel_min": 20.0, "vel_max": 62.0, "gravity": 55.0, "spread": 40.0})
+		if p:
+			p.emitting = false
+			p.direction = Vector2(dir.x, -0.35)
+			var tw := create_tween()
+			tw.tween_interval(0.05 * float(i))
+			tw.tween_callback(func(): p.emitting = true)
 
 
 func _spawn_streak_banner() -> void:

@@ -42,6 +42,7 @@ var _quest2_done: bool = false
 var _visit_count: int = 0
 
 const DIALOGUE_SCENE := preload("res://scenes/ui/npc_dialogue.tscn")
+const FxSparkle := preload("res://scripts/fx_sparkle.gd")
 const NpcQuests := preload("res://scripts/npc_quests.gd")
 
 ## After the Tidekeeper's Pact is funded the island talks about it. Loose
@@ -381,16 +382,5 @@ func _personality_banter() -> Array:
 	return NpcQuests.banter(npc_id)
 
 func _spawn_reward_sparks() -> void:
-	var p := load("res://scenes/ui/c_p_u_particles2_d.tscn").instantiate() as CPUParticles2D
-	if not p: return
-	
-	p.one_shot = true
-	p.explosiveness = 1.0
-	p.amount = 18
-	p.lifetime = 0.6
-	p.global_position = global_position + Vector2(0, -20)
-	p.spread = 360.0
-	p.initial_velocity_min = 20.0
-	p.initial_velocity_max = 60.0
-	p.gravity = Vector2(0, 40)
-	get_tree().current_scene.add_child(p)
+	# Rewards spark above the islander's head; burst() emits and frees for us.
+	FxSparkle.burst(get_tree().current_scene, global_position + Vector2(0, -20), Color(1.0, 0.86, 0.35, 1.0), {"amount": 18, "lifetime": 0.6, "vel_min": 20.0, "vel_max": 60.0, "gravity": 40.0})

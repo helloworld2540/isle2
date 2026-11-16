@@ -1,6 +1,15 @@
 # Current project todo:
 
 # done this pass
+- Sparkle burst refactor: seven hand-rolled CPUParticles2D blocks across
+  reef_rescue / upcycle / wm_menu / wm_npc extracted into scene-first
+  `FxSparkle.burst()` (scripts/fx_sparkle.gd). Fixed a real leak it exposed:
+  wm_npc's reward sparks never set emitting=true and were never freed (every
+  turn-in leaked a dead emitter) — now bursts emit and self-free. Smoke test
+  hardened: new _script_check fails any scene whose script ext_resource does
+  not load AND parse (previously a parse-error script still read as PASS);
+  verified catching exactly that. Verified in-game: reward spark bursts,
+  emits, and frees within ~1 s. Smoke 44/44 (with script check).
 - Lifetime CLEAN DIVE / FLAWLESS SHIFT tracking: new save keys `clean_dives`
   and `flawless_shifts` (schema-codec) bump from record_reef/record_upcycle
   (7-8 kg+ zero-bump dives / zero-miss 5-sort+ shifts), shown on the stats

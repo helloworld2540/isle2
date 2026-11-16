@@ -1,5 +1,6 @@
 extends Node2D
 class_name ReefRescue
+const FxSparkle := preload("res://scripts/fx_sparkle.gd")
 
 @export var MIN_BG_SPEED := 75.0
 @export var MAX_BG_SPEED := 120.0
@@ -292,24 +293,7 @@ func _popup(msg: String, col: Color) -> void:
 	lbl.present(msg, col, 18)
 
 func _sparkle(at: Vector2, col: Color) -> void:
-	var p := load("res://scenes/ui/c_p_u_particles2_d.tscn").instantiate() as CPUParticles2D
-	p.one_shot = true
-	p.explosiveness = 1.0
-	p.amount = 16
-	p.lifetime = 0.45
-	p.global_position = at
-	p.spread = 180.0
-	p.initial_velocity_min = 40.0
-	p.initial_velocity_max = 120.0
-	p.gravity = Vector2(0.0, 120.0)
-	p.scale_amount_min = 2.0
-	p.scale_amount_max = 4.0
-	p.color = col
-	add_child(p)
-	p.emitting = true
-	var tw := create_tween()
-	tw.tween_interval(p.lifetime + 0.1)
-	tw.tween_callback(p.queue_free)
+	FxSparkle.burst(self, at, col, {"amount": 16, "lifetime": 0.45, "spread": 180.0, "vel_min": 40.0, "vel_max": 120.0, "gravity": 120.0})
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	var root := body.get_parent() if body else null
@@ -520,21 +504,4 @@ func _start_game_over_juice() -> void:
 		for i in range(14):
 			shake.tween_property(shake_camera, "offset", base_offset + Vector2(randf_range(-14.0, 14.0), randf_range(-14.0, 14.0)), 0.04)
 		shake.tween_property(shake_camera, "offset", base_offset, 0.1)
-	var confetti := load("res://scenes/ui/c_p_u_particles2_d.tscn").instantiate() as CPUParticles2D
-	confetti.one_shot = true
-	confetti.explosiveness = 1.0
-	confetti.amount = 96
-	confetti.lifetime = 1.4
-	confetti.global_position = get_viewport_rect().size * 0.5
-	confetti.spread = 360.0
-	confetti.initial_velocity_min = 120.0
-	confetti.initial_velocity_max = 280.0
-	confetti.gravity = Vector2(0.0, 260.0)
-	confetti.scale_amount_min = 3.0
-	confetti.scale_amount_max = 6.0
-	confetti.color = Color(1.0, 0.85, 0.3, 1.0)
-	add_child(confetti)
-	confetti.emitting = true
-	var tw := create_tween()
-	tw.tween_interval(confetti.lifetime + 0.2)
-	tw.tween_callback(confetti.queue_free)
+	FxSparkle.burst(self, get_viewport_rect().size * 0.5, Color(1.0, 0.85, 0.3, 1.0), {"amount": 96, "lifetime": 1.4, "vel_min": 120.0, "vel_max": 280.0, "gravity": 260.0, "scale_min": 3.0, "scale_max": 6.0})

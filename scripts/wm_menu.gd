@@ -2,6 +2,7 @@ extends CanvasLayer
 class_name WorldMenu
 
 const NOTIFICATION_QUEUE := preload("res://scenes/ui/notification_queue.tscn")
+const FxSparkle := preload("res://scripts/fx_sparkle.gd")
 # World map pause/menu overlay.
 
 @onready var panel: Control = $MenuPanel
@@ -305,27 +306,8 @@ func _flash_success(btn: Button) -> void:
 func _spawn_upgrade_sparkle(anchor: Control) -> void:
 	if not anchor or GameSettings.reduce_motion: return
 	
-	var p := load("res://scenes/ui/c_p_u_particles2_d.tscn").instantiate() as CPUParticles2D
-	p.one_shot = true
-	p.explosiveness = 1.0
-	p.amount = 24
-	p.lifetime = 0.5
-	p.spread = 360.0
-	p.initial_velocity_min = 40.0
-	p.initial_velocity_max = 110.0
-	p.gravity = Vector2(0.0, 160.0)
-	p.scale_amount_min = 2.0
-	p.scale_amount_max = 4.0
-	p.color = Color(0.6, 1.0, 0.8, 1.0)
-	
 	var r := anchor.get_global_rect()
-	p.global_position = r.position + r.size * 0.5
-	add_child(p)
-	p.emitting = true
-	
-	var tw := create_tween()
-	tw.tween_interval(p.lifetime + 0.1)
-	tw.tween_callback(p.queue_free)
+	FxSparkle.burst(self, r.position + r.size * 0.5, Color(0.6, 1.0, 0.8, 1.0), {"amount": 24, "lifetime": 0.5, "vel_min": 40.0, "vel_max": 110.0, "gravity": 160.0})
 
 func _update_progress_bars() -> void:
 	if upcycle_progress:
