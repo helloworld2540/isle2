@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Nudge sweep: all ten ambient nudge kinds (bag/bottle/upgrade/tune/
+  deep_cache/undo/quest/meet/ledger/gold) verified delivering end to end on a
+  clear screen — every one spawns its card; player save restored afterwards.
 - Nudge deferral drain fixed (real bug): a nudge parked behind a modal with
   no tour step pending would never fire — _pending_nudge only drained on a
   hint dismissal. TutorialDirector now polls every 0.4 s and delivers the
