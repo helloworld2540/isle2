@@ -57,6 +57,14 @@ func _process(delta: float) -> void:
 	# throttles itself (persisted flag + skips while another card is up).
 	if ratio >= 0.85:
 		TutorialDirector.nudge("bag")
+	
+	# Once the tour is understood, point at the island-map upgrade terminal the
+	# first time the player can actually afford a speed/range tier. Gated on the
+	# tour so the intro never stacks this on top of a step card.
+	if TutorialDirector.is_tour_complete():
+		var tune_cost := mini(GameState.get_move_speed_cost(), GameState.get_range_cost())
+		if inv_amount >= tune_cost:
+			TutorialDirector.nudge("tune")
 
 # --- Initialization ---
 

@@ -1,6 +1,14 @@
 # Current project todo:
 
 # done this pass
+- First-upgrade nudge: the tour taught walk → dive → sort → sell, and "Room for
+  more?" taught the bag, but nothing pointed at Move Faster / Collection Range /
+  Deep Cache. `TutorialDirector` now has a fourth one-shot nudge, **Tune up the
+  dock** (`nudge_tune_shown`), gated on a new `is_tour_complete()` so it never
+  stacks on the intro. `wm_progress` fires it the first frame the hold can afford
+  min(Move, Range) and the card quotes the live Move cost. Verified in-game on a
+  tutorial-complete save with 27 kg: the card spawned with "8 trash" and the flag
+  persisted (player save restored afterwards).
 - Minigame ambience beds: the bench and reef now have room tone under their BGM.
   `tools/make_ambience.py` synthesizes two seamless loops (whole-cycle tones /
   circular filters, so both wrap without a click): an 8 s workshop drone + fan
@@ -206,13 +214,11 @@
   Fixed deferred spawn (hint used to parent to a dying scene during transitions).
 
 # high priority
-- First-upgrade nudge: the five-step tutorial covers walk → dive → sort → sell,
-  and "Room for more?" covers the bag, but nothing ever points at Move Faster /
-  Collection Range / Deep Cache. When the player first owns enough trash to buy
-  any upgrade (or after the first completed circuit), show a one-shot
-  **Tune up the dock** card naming the real cost and pointing at the world menu's
-  upgrade panel. New save flag; skip while another card is up; verify fresh-save
-  and already-progressed saves.
+- Mobile touch targets: the in-run `ReturnToMapButton` in both minigames is only
+  40 px tall (below the 44 px guideline) and the settings volume sliders use the
+  default thin track. Raise the in-run exit buttons to 48 px, give the shared
+  settings sliders a ≥44 px touch height, and verify nothing overlaps at
+  1152×648 and in portrait.
 
 # medium priority
 # (shimmer item promoted to high priority)

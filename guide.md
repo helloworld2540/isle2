@@ -79,11 +79,13 @@ checked against this yield — nothing changed, deliberately.*
   where the current step can be acted on; they reappear on scene re-entry until done.
 - Progress saves as `tutorial_step`; the tour survives quitting mid-way and never
   re-arms on old saves.
-- Three one-shot ambient nudges also live here: a **Bag almost full!** card the
+- Four one-shot ambient nudges also live here: a **Bag almost full!** card the
   first time your hold crosses 85% (fires once per save, skipped while another
   card is up), a **Bottles on the shore** card shown right after the tour
-  finishes, and a **Room for more?** card after your first sale — pointing at
-  both bag-expansion paths (shop cash or island-map trash).
+  finishes, a **Room for more?** card after your first sale — pointing at
+  both bag-expansion paths (shop cash or island-map trash), and a **Tune up the
+  dock** card the first time you can afford a speed/range tier, naming the live
+  trash cost and reminding you upgrades spend materials, not money.
 
 ## Upcycle
 - Sort belt trash into matching bins. Wrong/burned does not produce materials or score loss reward except streak reset.

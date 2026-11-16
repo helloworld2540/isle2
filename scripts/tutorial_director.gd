@@ -68,11 +68,13 @@ const STEP_SCENE_TAG := {
 
 ## One-shot ambient nudges that live outside the linear tour: a bag-full
 ## warning the first time the hold crosses 85%, a bottle pointer once the
-## tour is done, and an upgrade pointer after your first sale. Persisted
+## tour is done, an upgrade pointer after your first sale, and a terminal
+## pointer once you can actually afford a speed/range upgrade. Persisted
 ## flags make each fire exactly once per save.
 const NUDGE_BAG := "nudge_bag_shown"
 const NUDGE_BOTTLE := "nudge_bottle_shown"
 const NUDGE_UPGRADE := "nudge_upgrade_shown"
+const NUDGE_TUNE := "nudge_tune_shown"
 
 var _step: int = 0
 var _active_hint: CanvasLayer = null
@@ -218,12 +220,24 @@ func _on_hint_dismissed() -> void:
 		call_deferred("nudge", "bottle")
 
 
-## Public entry for ambient nudges. `kind` is "bag" or "bottle". Cheap to
-## call every frame: after the first delivery the flag is cached in memory.
+## True once the five-step tour has been seen through (or the save predates it).
+## Ambient nudges that teach post-tour systems gate on this so the intro never
+## gets crowded.
+func is_tour_complete() -> bool:
+	return _step >= DONE
+
+
+## Public entry for ambient nudges. `kind` is "bag", "bottle", "upgrade" or
+## "tune". Cheap to call every frame: after the first delivery the flag is
+## cached in memory.
 func nudge(kind: String) -> void:
-	var key := NUDGE_BAG if kind == "bag" else NUDGE_BOTTLE if kind == "bottle" else NUDGE_UPGRADE if kind == "upgrade" else ""
-	if key == "":
-		return
+	var key := ""
+	match kind:
+		"bag": key = NUDGE_BAG
+		"bottle": key = NUDGE_BOTTLE
+		"upgrade": key = NUDGE_UPGRADE
+		"tune": key = NUDGE_TUNE
+		_: return
 	if not _nudge_state.has(key):
 		_nudge_state[key] = bool(SaveManager.load_game().get(key, false))
 	if bool(_nudge_state[key]):
@@ -246,6 +260,10 @@ func nudge(kind: String) -> void:
 		"upgrade":
 			_spawn_card("Room for more?",
 				"[font_size=15]Your first sale — nice work.\nThe [color=#9fe2ff]shop[/color] sells a [color=#ffd27f]+10 kg bag[/color] for cash, and the terminal up on the [color=#9fe2ff]island map[/color] can grow it with trash instead.\nEither way, a bigger hold means fewer trips home.[/font_size]",
+				"Got it")
+		"tune":
+			_spawn_card("Tune up the dock",
+				"[font_size=15]Your scrap can buy upgrades now.\nOpen the [color=#9fe2ff]island menu[/color] (top-right) — Move Speed costs [color=#ffd27f]%d trash[/color], with Collection Range and Deep Cache beside it.\nUpgrades spend materials, not money, so weigh them against a sale.[/font_size]" % GameState.get_move_speed_cost(),
 				"Got it")
 
 
