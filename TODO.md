@@ -1,6 +1,11 @@
 # Current project todo:
 
 # done this pass
+- Shop sell -> undo round trip verified on a scratch save: Glass x3 sold for
+  15$ (nothing else fits in a fresh bag — the weighted capacity correctly
+  clipped the 7-grant to 3), the `_last_sale` snapshot recorded the sale,
+  and `_undo_last_sale()` returned the goods and clawed back the cash.
+  Player save restored afterwards.
 - Player-save achievement audit: all 10 unlocked ids are legitimate
   gameplay achievements (big_bag, first_sale, first_dive, reef_rhythm,
   reef_deep, heavy_haul, hot_streak, first_sort, reef_registry, starlight) —
