@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- project.godot no longer references the missing GitPlugin VCS plugin
+  (version_control/plugin_name cleared) — the editor previously logged
+  "Cannot get class 'GitPlugin'" on every headless import. Smoke 45/45.
 - Main-menu Continue summary shows "Last played: <datetime>" under the
   inventory totals (reuses SaveManager.get_save_mtime). An initial edit
   dropped the badges preamble — caught and fixed before commit. Verified
