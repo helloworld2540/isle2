@@ -33,7 +33,9 @@ func present(text_value: String, color: Color = Color.WHITE, font_size: int = 18
 	if rise_distance != 0.0:
 		tw.parallel().tween_property(self, "position", _rest_position + Vector2(0, -rise_distance), fade_in_time + hold_time).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
-	if punch_scale > 1.0:
+	# The pop-in punch is pure motion; skip it under reduced motion and let
+	# the card hold its resting size. The settle happens invisibly at spawn.
+	if punch_scale > 1.0 and not GameSettings.reduce_motion:
 		scale = Vector2(punch_scale, punch_scale)
 		tw.parallel().tween_property(self, "scale", Vector2.ONE, fade_in_time * 1.6).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 

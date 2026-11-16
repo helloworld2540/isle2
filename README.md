@@ -134,7 +134,7 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
   briefing/game-over card pauses the tree.
 - Reduced motion flag affects animations/transitions (ambient/idle tweens come to
   rest: menu motes and entrance, briefing pop, dialogue/recap lifts, circuit-ring
-  pulse, portal glow/bob) but never audio.
+  pulse, portal glow/bob, the shop receipt punch) but never audio.
 
 ## Scene Transitions
 - `SceneTransition.change_scene` fades in 0.5s, holds 1.0s, fades out 0.5s; faster with reduced motion.

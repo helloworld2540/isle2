@@ -1,6 +1,11 @@
 # Current project todo:
 
 # done this pass
+- Reduced-motion coverage for the pop-in punch: the shop "SOLD ... (bulk)" receipt
+  punched with a scale burst on every bulk sale (and every score popup using
+  `FloatingText.punch_scale`). The scale burst is now skipped under **Reduce
+  motion** (the card appears at its resting size, fade intact). Verified
+  headlessly: RM on → `scale = (1, 1)`, RM off → `(1.35, 1.35)`. Save restored.
 - Deep Cache tutorial coverage: added a one-shot **Deep Cache** nudge
   (`nudge_deep_cache_shown`, same persisted/defer-while-a-card-is-up design) that
   fires once the player can afford the 30-score unlock and points at the
@@ -295,16 +300,13 @@
   Fixed deferred spawn (hint used to parent to a dying scene during transitions).
 
 # high priority
-- Tune-nudge & Deep Cache nudge: verify the Deep Cache card doesn't stack on the
-  tune card in the same breath — both gate on is_tour_complete() and both can
-  fire when the hold is heavy *and* the score is sufficient. The director
-  defers while a card is up, but the two retries order them arbitrarily.
-  Confirm the order reads well and, if needed, make the Deep Cache nudge yield
-  until the bag/tune nudge has shown (or been ignored).
+- (none outstanding — the balance, Deep Cache and tutorial-nudge items are done.)
 
 # medium priority
 # (shimmer item promoted to high priority)
 
 # low priority backlog
-- Second-pass reduced-motion coverage for the world-menu open animation and the
-  shop receipt punch under "Reduce motion" (both currently keep their motion).
+- Reduced-motion: the **world-menu open animation** still runs under "Reduce
+  motion". The shop receipt punch is now suppressed; the world menu's own
+  open tween lives in `scripts/wm_menu.gd`, which the parallel layout pass is
+  reworking — revisit once it settles.
