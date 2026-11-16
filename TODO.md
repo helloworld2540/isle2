@@ -1,6 +1,13 @@
 # Current project todo:
 
 # done this pass
+- `game_state.gd` save codec refactored to a single schema table
+  (`SAVE_SCHEMA`): every persisted `[key ↔ property ↔ default ↔ codec]` feeds
+  `_write_save`, `restore()` and `reset()` — the three hand-mirrored blocks
+  (which had drifted into ~330 lines with a real chance of key mismatch) are
+  gone. Verified byte-identical round-trip of a real player save (md5 match
+  after `restore()` + `flush_save()`), a full field-by-field dump after
+  boot, and a `reset()` → `restore()` sweep; smoke test still 43/43.
 - Fresh-save first-run regression audit (save set aside, game booted to a
   brand-new save, driven interactively end to end): main menu → New Save →
   welcome card ("Welcome to Isle 2") shows and arms the tour (`step 1`,

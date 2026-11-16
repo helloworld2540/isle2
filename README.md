@@ -62,6 +62,11 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
   `deep_cache`, `deep_cache_tier`.
 - Run counters: `reef_dives` and `upcycle_runs` number the map recap chapters ("Dive № 4 — Deep Dive", "Bench Run № 2 — Hot Streak") and feed the BENCH REGULAR / REEF REGULAR achievements; the 25-run badges (BENCH MASTER, REEF VETERAN, LOOP MASTER) and KEEPER OF THE TIDE land on the banner's legendary gold tier.
 - `restore()` rehydrates from save; `reset()` zeroes state. `persist()` merges into save data.
+- The save codec is one table: `SAVE_SCHEMA` in `scripts/game_state.gd` maps every
+  persisted `[key ↔ property ↔ default ↔ codec]`; `_write_save`, `restore()` and
+  `reset()` all iterate it, so a new persisted field is one schema line — not
+  three hand-mirrored blocks. Verified byte-identical round-trip (md5) against a
+  real player save, plus a full `reset()` → `restore()` field sweep.
 - Upgrades stored directly as save keys: `upgrade_move`, `upgrade_range`, audio/volume keys.
 
 ## Economy Formulas (weighted inventory)

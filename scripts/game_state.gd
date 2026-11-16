@@ -620,6 +620,42 @@ func consume_last_run() -> Dictionary:
 	_persist()
 	return pending
 
+## One source of truth for the save codec. Every entry: [save_key, property,
+## default, codec]; codec is "int" | "float" | "bool" | "dict" | "string_array".
+## New persisted state is one schema line here — not three hand-mirrored
+## blocks in _write_save / restore / reset.
+const SAVE_SCHEMA: Array = [
+	["upcycle_score", "upcycle_score", 0, "int"],
+	["reef_garbage", "reef_garbage", 0.0, "float"],
+	["reef_fish", "reef_fish", 0, "int"],
+	["money", "money", 0, "int"],
+	["lifetime_earnings", "lifetime_earnings", 0, "int"],
+	["sort_streak", "sort_streak", 0, "int"],
+	["best_upcycle_score", "best_upcycle_score", 0, "int"],
+	["best_sort_streak", "best_sort_streak", 0, "int"],
+	["best_reef_depth", "best_reef_depth", 0, "int"],
+	["best_reef_fish", "best_reef_fish", 0, "int"],
+	["deep_cache", "deep_cache", false, "bool"],
+	["deep_cache_tier", "deep_cache_tier", 1, "int"],
+	["upgrade_move", "upgrade_move", 0, "int"],
+	["upgrade_range", "upgrade_range", 0, "int"],
+	["last_run", "last_run", {}, "dict"],
+	["inventory_capacity_level", "inventory_capacity_level", 0, "int"],
+	["market_level", "market_level", 0, "int"],
+	["reef_bonus_lives", "reef_bonus_lives", 0, "int"],
+	["island_patron", "island_patron", false, "bool"],
+	["tidekeeper", "tidekeeper", false, "bool"],
+	["bottles_read", "bottles_read", [], "string_array"],
+	["tide_gift_granted", "tide_gift_granted", false, "bool"],
+	["quests_completed", "quests_completed", 0, "int"],
+	["lifetime_garbage_kg", "lifetime_garbage_kg", 0, "int"],
+	["reef_dives", "reef_dives", 0, "int"],
+	["upcycle_runs", "upcycle_runs", 0, "int"],
+	["harbor_hero_granted", "harbor_hero_granted", false, "bool"],
+	["circuits_completed", "circuits_completed", 0, "int"],
+	["achievements", "unlocked_achievements", [], "string_array"],
+]
+
 # --- Save & Load ---
 
 ## Writes are coalesced: sorting and diving change state many times per second
@@ -651,85 +687,44 @@ func flush_save() -> void:
 
 
 func _write_save() -> void:
-	SaveManager.update_game({
-		"upcycle_score": upcycle_score,
-		"reef_garbage": reef_garbage,
-		"reef_fish": reef_fish,
-		"trash_inventory": trash_inventory,
-		"trash_by_type": trash_by_type,
-		"best_upcycle_score": best_upcycle_score,
-		"best_sort_streak": best_sort_streak,
-		"best_reef_depth": best_reef_depth,
-		"best_reef_fish": best_reef_fish,
-		"lifetime_earnings": lifetime_earnings,
-		"sort_streak": sort_streak,
-		"deep_cache": deep_cache,
-		"deep_cache_tier": deep_cache_tier,
-		"upgrade_move": upgrade_move,
-		"upgrade_range": upgrade_range,
-		"last_run": last_run,
-		"inventory_capacity_level": inventory_capacity_level,
-		"money": money,
-		"market_level": market_level,
-		"reef_bonus_lives": reef_bonus_lives,
-		"island_patron": island_patron,
-		"tidekeeper": tidekeeper,
-		"bottles_read": bottles_read,
-		"tide_gift_granted": tide_gift_granted,
-		"quests_completed": quests_completed,
-		"lifetime_garbage_kg": lifetime_garbage_kg,
-		"reef_dives": reef_dives,
-		"upcycle_runs": upcycle_runs,
-		"harbor_hero_granted": harbor_hero_granted,
-		"circuits_completed": circuits_completed,
-		"achievements": unlocked_achievements,
-	})
+	var out := {}
+	for e in SAVE_SCHEMA:
+		out[e[0]] = get(String(e[1]))
+	out["trash_inventory"] = trash_inventory
+	out["trash_by_type"] = trash_by_type
+	SaveManager.update_game(out)
+
 
 func restore() -> void:
 	var data: Dictionary = SaveManager.load_game()
-	
-	upcycle_score = int(data.get("upcycle_score", 0))
-	reef_garbage = float(data.get("reef_garbage", 0.0))
-	reef_fish = int(data.get("reef_fish", 0))
-	trash_inventory = int(data.get("trash_inventory", 0))
-	money = int(data.get("money", 0))
-	lifetime_earnings = int(data.get("lifetime_earnings", 0))
-	quests_completed = int(data.get("quests_completed", 0))
-	lifetime_garbage_kg = int(data.get("lifetime_garbage_kg", 0))
-	reef_dives = int(data.get("reef_dives", 0))
-	upcycle_runs = int(data.get("upcycle_runs", 0))
-	
-	best_upcycle_score = int(data.get("best_upcycle_score", 0))
-	best_sort_streak = int(data.get("best_sort_streak", 0))
-	best_reef_depth = int(data.get("best_reef_depth", 0))
-	best_reef_fish = int(data.get("best_reef_fish", 0))
-	sort_streak = int(data.get("sort_streak", 0))
-	
-	deep_cache = bool(data.get("deep_cache", false))
-	deep_cache_tier = int(data.get("deep_cache_tier", 1))
-	upgrade_move = int(data.get("upgrade_move", 0))
-	upgrade_range = int(data.get("upgrade_range", 0))
-	last_run = data.get("last_run", {}) if data.get("last_run", {}) is Dictionary else {}
-	inventory_capacity_level = int(data.get("inventory_capacity_level", 0))
-	market_level = int(data.get("market_level", 0))
-	reef_bonus_lives = int(data.get("reef_bonus_lives", 0))
-	island_patron = bool(data.get("island_patron", false))
-	tidekeeper = bool(data.get("tidekeeper", false))
-	bottles_read.clear()
-	for id in data.get("bottles_read", []):
-		bottles_read.append(str(id))
-	tide_gift_granted = bool(data.get("tide_gift_granted", false))
-	harbor_hero_granted = bool(data.get("harbor_hero_granted", false))
-	circuits_completed = int(data.get("circuits_completed", 0))
-	
-	unlocked_achievements.clear()
-	for id in data.get("achievements", []):
-		unlocked_achievements.append(str(id))
+
+	for e in SAVE_SCHEMA:
+		var key := String(e[0])
+		var prop := String(e[1])
+		var default: Variant = e[2]
+		match String(e[3]):
+			"int":
+				set(prop, int(data.get(key, default)))
+			"float":
+				set(prop, float(data.get(key, default)))
+			"bool":
+				set(prop, bool(data.get(key, default)))
+			"dict":
+				var d: Variant = data.get(key, default)
+				if d is Dictionary:
+					set(prop, d.duplicate(true))
+				else:
+					set(prop, {})
+			"string_array":
+				var current: Array = get(prop)
+				current.clear()
+				for id in data.get(key, []):
+					current.append(str(id))
 	# Old saves predate achievements: bank whatever they already earned
 	# without firing cards, then persist the backfill with the rest of the
 	# save (callers write after restore anyway).
 	_evaluate_achievements(true)
-	
+
 	# Legacy saves that already cleared every quest tier predate the title
 	# reward: grant it once here and write immediately, so repeated restore()
 	# calls cannot stack the bonus.
@@ -737,55 +732,35 @@ func restore() -> void:
 		harbor_hero_granted = true
 		inventory_capacity_level += HARBOR_HERO_CAPACITY_BONUS
 		_write_save()
-	
+
+	trash_inventory = int(data.get("trash_inventory", 0))
 	trash_by_type.clear()
 	for t in DEFAULT_TRASH_TYPES:
 		trash_by_type[t] = 0
-		
+
 	var loaded_trash: Dictionary = data.get("trash_by_type", {})
 	for k in loaded_trash.keys():
 		trash_by_type[str(k)] = int(loaded_trash[k])
-		
+
 	_recompute_inventory()
 
 func reset() -> void:
-	upcycle_score = 0
-	reef_garbage = 0.0
-	reef_fish = 0
-	reef_dives = 0
-	upcycle_runs = 0
-	money = 0
-	lifetime_earnings = 0
-	quests_completed = 0
-	lifetime_garbage_kg = 0
-	
-	best_upcycle_score = 0
-	best_sort_streak = 0
-	best_reef_depth = 0
-	best_reef_fish = 0
-	sort_streak = 0
-	
-	deep_cache = false
-	deep_cache_tier = 1
-	upgrade_move = 0
-	upgrade_range = 0
-	last_run = {}
-	inventory_capacity_level = 0
-	market_level = 0
-	reef_bonus_lives = 0
-	island_patron = false
-	tidekeeper = false
-	bottles_read.clear()
-	tide_gift_granted = false
-	harbor_hero_granted = false
-	circuits_completed = 0
+	for e in SAVE_SCHEMA:
+		var prop := String(e[1])
+		match String(e[3]):
+			"int", "float", "bool":
+				set(prop, e[2])
+			"dict":
+				set(prop, {})
+			"string_array":
+				(get(prop) as Array).clear()
 	circuit_visits.clear()
 	_pending_circuit_celebrations = 0
-	unlocked_achievements.clear()
 	_pending_achievement_ids.clear()
-	
+
+	trash_inventory = 0
 	trash_by_type.clear()
 	for t in DEFAULT_TRASH_TYPES:
 		trash_by_type[t] = 0
-		
+
 	_recompute_inventory()
