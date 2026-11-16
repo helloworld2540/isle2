@@ -101,7 +101,8 @@ func _build_journal_line() -> String:
 	var fish := GameState.fish_met.size()
 	var ach := GameState.achievement_count()
 	var total := GameState.achievement_total()
-	return "Journal — bottles %d/4 · starfish %d/5 · species %d/4 · achievements %d/%d" % [bottles, starfish, fish, ach, total]
+	var paid_out := " · tide pool paid" if GameState.tide_pool_granted else ""
+	return "Journal — bottles %d/4 · starfish %d/5%s · species %d/4 · achievements %d/%d" % [bottles, starfish, paid_out, fish, ach, total]
 
 
 ## The scrap-journal reading of the page: which era of the island is the

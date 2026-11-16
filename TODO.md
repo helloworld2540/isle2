@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Stats page Journal line annotates the starfish slot with "· tide pool
+  paid" once the +$25 completion bonus has been claimed (save schema key
+  tide_pool_granted). Verified clean build; smoke 45/45.
 - Editor log audit on the current build: all 22 entries are historical
   (pre-fix upcycle.gd parse errors, the 2026-11-16 rescan re-entrancy from
   importing fish_catalog.gd); zero new errors from a fresh main-menu boot.
