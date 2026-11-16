@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Editor log audit at current HEAD: zero new errors. All entries in the log
+  are historical (pre-fix parse errors from this session's earlier state);
+  the current build boots clean.
 - Web pck deep-check after the collectathon additions: wm_starfish.tscn,
   starfish.png, harbor_bell.wav, foghorn.wav, fish_catalog.gd and
   bottle_catalog.gd all present in the exported pack.
