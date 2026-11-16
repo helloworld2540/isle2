@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- Android APK rebuilt after the Journal/Stats deep-link addition — still
+  builds and signs cleanly (~174 MB).
 - Island Menu with the new Journal button screenshot-verified: Resume /
   Save & Quit / Journal at 52 px each, all visible, no clipping, all
   consistent with the surrounding opencode-theme styling.
