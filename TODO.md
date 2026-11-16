@@ -15,8 +15,8 @@
   seamless 12 s wash (circularly filtered noise + periodic swell, shipped as
   16-bit PCM `sound/sfx/surf.wav`). `scenes/wm_surf_bed.tscn` lives in
   `world.tscn` as a dedicated `AudioStreamPlayer` (never the round-robin SFX
-  pool), fading in over 3 s to −22 dB on the SFX bus, looping the full buffer,
-  and running with `PROCESS_MODE_ALWAYS`. Verified in-game: playing/looping
+  pool), fading in over 3 s to −22 dB and looping the full buffer, and running
+  with `PROCESS_MODE_ALWAYS` (later moved to the Ambience bus, see above). Verified in-game: playing/looping
   (loop_end 264600 = 12 s × 22050), volume reached −22, and the playback
   position kept advancing while the pause menu had the tree paused.
 - Harbor ambience: the world map now has a dock-side voice of its own —
@@ -24,8 +24,8 @@
   sparse, lower-pitched gull cry every 40–75 s (35% of calls draw a closer
   answer ~1–2 s later). The four flock gulls fill the gaps under normal motion;
   under reduced motion the flock freezes and goes silent, so this node is what
-  keeps the dock audible. Rendered via `AudioManager.play_sfx` → SFX bus, so the
-  volume setting applies. Verified in-game: node present and configured, a
+  keeps the dock audible. Routed through the Ambience bus, so the volume
+  setting applies. Verified in-game: node present and configured, a
   forced call played `gull.wav` through the pool, and it still plays with
   reduced motion on.
 - Reduced-motion audit: the remaining entrance/idle tweens now come to rest when
