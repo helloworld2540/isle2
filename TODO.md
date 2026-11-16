@@ -1,6 +1,13 @@
 # Current project todo:
 
 # done this pass
+- Lifetime CLEAN DIVE / FLAWLESS SHIFT tracking: new save keys `clean_dives`
+  and `flawless_shifts` (schema-codec) bump from record_reef/record_upcycle
+  (7-8 kg+ zero-bump dives / zero-miss 5-sort+ shifts), shown on the stats
+  page, and feed two new achievements — **CLEAN SWEEP** (5 clean dives, Reef
+  Rescue) and **SILK TOUCH** (5 flawless shifts, Upcycle). Verified in-game
+  (counters bump, predicates fire at 5); player save restored after testing;
+  smoke 44/44.
 - Reef Rescue "CLEAN DIVE" tag (mirrors the bench's FLAWLESS SHIFT): a dive
   with zero fish bumps and >= 8 kg hauled appends "✦ CLEAN DIVE — not a
   single bump" to the summary card and the world-map recap line. Zero economy

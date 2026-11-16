@@ -376,7 +376,7 @@ func _game_over_summary(reason: String = "manual") -> void:
 	var breakdown := "nothing hauled — no pickups this dive"
 	var overflow := 0
 	if dive_happened:
-		GameState.record_reef(garbage, fish, depth, _peak_combo)
+		GameState.record_reef(garbage, fish, depth, _peak_combo, fish == 0 and int(garbage) >= 8)
 		new_best = int(depth) > prev_best
 		haul = int(max(1.0, round(garbage)))
 		if GameState.deep_cache:

@@ -156,6 +156,9 @@ var best_reef_fish: int = 0
 var best_reef_combo: int = 0
 ## Heaviest single dive banked, in whole kg.
 var best_reef_haul: int = 0
+## Lifetime zero-bump dives (CLEAN DIVE) and zero-miss bench shifts (FLAWLESS SHIFT).
+var clean_dives: int = 0
+var flawless_shifts: int = 0
 
 
 func _init() -> void:
@@ -401,9 +404,11 @@ func purchase_range() -> bool:
 ## record_upcycle is called once per finished bench run. The run's score is
 ## banked, not replaced, so reef dives and bench runs both accumulate toward the
 ## Deep Cache — the bar on the world map shows progress to the next tier.
-func record_upcycle(score: int) -> void:
+func record_upcycle(score: int, flawless: bool = false) -> void:
 	upcycle_score += score
 	upcycle_runs += 1
+	if flawless:
+		flawless_shifts += 1
 	if score > best_upcycle_score:
 		best_upcycle_score = score
 	_persist()
@@ -411,11 +416,13 @@ func record_upcycle(score: int) -> void:
 ## record_reef is called at the end of a dive. Depth is a separate argument
 ## because it grows with vertical reach, not with garbage; the old code stored
 ## garbage into best_reef_depth, so the "best depth" it showed was a kg count.
-func record_reef(garbage: float, fish: int, depth: float = 0.0, combo: int = 0) -> void:
+func record_reef(garbage: float, fish: int, depth: float = 0.0, combo: int = 0, clean: bool = false) -> void:
 	reef_garbage = garbage
 	reef_fish = fish
 	lifetime_garbage_kg += int(round(garbage))
 	reef_dives += 1
+	if clean:
+		clean_dives += 1
 	if int(depth) > best_reef_depth:
 		best_reef_depth = int(depth)
 	if fish > best_reef_fish:
@@ -646,6 +653,8 @@ const SAVE_SCHEMA: Array = [
 	["best_reef_fish", "best_reef_fish", 0, "int"],
 	["best_reef_combo", "best_reef_combo", 0, "int"],
 	["best_reef_haul", "best_reef_haul", 0, "int"],
+	["clean_dives", "clean_dives", 0, "int"],
+	["flawless_shifts", "flawless_shifts", 0, "int"],
 	["deep_cache", "deep_cache", false, "bool"],
 	["deep_cache_tier", "deep_cache_tier", 1, "int"],
 	["upgrade_move", "upgrade_move", 0, "int"],
