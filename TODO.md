@@ -26,6 +26,8 @@
 - Reef one-bump warning: soft red vignette breathes at the edges when a single
   fish bump remains before the limit; static dim under reduced motion.
   Verified (visible at 1 bump left, alpha oscillating).
+- Reef summary payoff: dives beating the deepest-ever depth lead the summary
+  with "★ NEW BEST DEPTH" and chime the achievement SFX. Verified (best 100→250).
 - Balance pass 3 (measured, not guessed): three consecutive fresh-save loops driven
   end-to-end via MCP; median yield ≈ $32/loop ($17 materials + $15 circuit),
   Market Contact reachable in ~2–3 loops; kept prices, documented in guide.md.
@@ -68,8 +70,9 @@
   Fixed deferred spawn (hint used to parent to a dying scene during transitions).
 
 # high priority
-- (next) Reef Rescue juice: game-over summary card — one-line payoff comparing
-  this dive to your best ("New best depth!" / "Best 480 m — 52 kg banked").
+- (next) Reef Rescue summary card: show the exact debris payout breakdown
+  (haul + deep-cache bonus + capacity-truncated amount) so the cap feels fair,
+  not arbitrary.
 
 # medium priority
 # (shimmer item promoted to high priority)

@@ -71,6 +71,8 @@ Welcome to Isle 2. Shared economy across world map, two minigames, shop, NPCs an
   before it rises into view (swells and fades; skipped under reduced motion).
 - One bump left from the fish limit: the screen edges breathe a soft red
   vignette (static dim under reduced motion).
+- Dive summary payoff: when a dive beats your deepest ever, the summary leads
+  with "★ NEW BEST DEPTH — N m! ★" and plays the achievement chime.
 - Depth is tracked in the stats page and feeds two achievements: DEEP DIVE (400 m) and TO THE ABYSS (900 m).
 - Garbage converts into Reef Debris (plus Deep Cache bonus per tier and capacity).
 

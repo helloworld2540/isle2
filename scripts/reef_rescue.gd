@@ -352,7 +352,9 @@ func _game_over_summary(reason: String = "manual") -> void:
 	_leaving = true
 	running = false
 	_clear_edge_markers()
+	var prev_best := GameState.best_reef_depth
 	GameState.record_reef(garbage, fish, depth)
+	var new_best := int(depth) > prev_best
 	var debris_total := int(max(1.0, round(garbage)))
 	if GameState.deep_cache:
 		var bonus := 5 * GameState.deep_cache_tier + 3 * GameState.inventory_capacity_level
@@ -381,7 +383,10 @@ func _game_over_summary(reason: String = "manual") -> void:
 	if go_body:
 		var best_depth := GameState.best_reef_depth
 		var milestone_line := "Depth milestones complete: TO THE ABYSS earned."
-		if best_depth < 400:
+		if new_best:
+			# The payoff line leads the card — a dive worth remembering.
+			milestone_line = "★ NEW BEST DEPTH — %d m! ★" % int(depth)
+		elif best_depth < 400:
 			milestone_line = "Next depth milestone: DEEP DIVE at 400 m (best %d m)." % best_depth
 		elif best_depth < 900:
 			milestone_line = "DEEP DIVE earned · %d m to TO THE ABYSS (900 m)." % (900 - best_depth)
@@ -394,7 +399,11 @@ func _game_over_summary(reason: String = "manual") -> void:
 		get_tree().paused = false
 		game_over_canvas.visible = true
 	_start_game_over_juice()
-	AudioManager.play_sfx("empty_inventory" if reason == "inventory" else "sort_bad")
+	if new_best:
+		# A personal-best dive celebrates instead of stinging.
+		AudioManager.play_sfx("achievement", 1.15)
+	else:
+		AudioManager.play_sfx("empty_inventory" if reason == "inventory" else "sort_bad")
 
 func _leave_after_summary() -> void:
 	get_tree().paused = false
