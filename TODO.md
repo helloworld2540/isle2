@@ -1,6 +1,11 @@
 # Current project todo:
 
 # done this pass
+- Upcycle belt verified end-to-end: injected Reef Debris is consumed by the
+  spawn loop at one unit per item fed (2 items fed in ~6.7 s at the unchanged
+  2.75 s cadence, belt at 75 px/s); the integration works. Test residue in
+  the player's save (Debris 0 -> 5 in memory -> 3 after two spawns) was
+  corrected back to the original 0.
 - End-to-end Reef Rescue collision loop verified with no injected input:
   frozen launch -> stepping ~25 s of game time spawns items (16 in flight),
   drifts the drone, and the drone collects 1 kg on contact with the HUD
