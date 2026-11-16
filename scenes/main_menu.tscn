@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/confirm_panel.tscn" id="4_confirm"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_nmirg"]
-font_size = 100
+font_size = 84
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_summary"]
 content_margin_left = 22.0

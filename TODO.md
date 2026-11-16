@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Main-menu title fit: THE ISLE postcard no longer collides with the game
+  title at narrower widths — title font 100 -> 84 px so "Trash Island 2"
+  clears the right edge (verified by screenshot at 800 px). Smoke 44/44.
 - Stats page layout fix (spotted via screenshot): the settings sliders and
   the stat text competed for a fixed VBox, so on shorter screens the stats
   scrolled out of view under the sliders. The settings panel now lives
