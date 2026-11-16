@@ -1,6 +1,13 @@
 # Current project todo:
 
 # done this pass
+- Deep Cache tutorial coverage: added a one-shot **Deep Cache** nudge
+  (`nudge_deep_cache_shown`, same persisted/defer-while-a-card-is-up design) that
+  fires once the player can afford the 30-score unlock and points at the
+  score-priced purchase at the island menu. Verified in-game: with the tour
+  complete, DC unowned and score 35 the card spawns with title "Deep Cache",
+  repeat calls are suppressed, and the flag persists; the world HUD fires it
+  when `upcycle_score >= 30`. Save restored.
 - `upcycle_score` semantics: it was a **lifetime bank** on the reef side
   (`upcycle_score += combo`) but `record_upcycle` **overwrote** it with the
   bench run's score, so diving for score was silently discarded and Deep Cache
@@ -288,11 +295,12 @@
   Fixed deferred spawn (hint used to parent to a dying scene during transitions).
 
 # high priority
-- Tutorial/nudge coverage for Deep Cache: the tour and the one-shot nudges teach
-  the bag and the trash-priced Move/Range tiers, but never mention the
-  score-priced Deep Cache. Add a short line to the tune card (or a small
-  post-tour hint) pointing at it once the player has the 30 score to buy it, and
-  verify the card fires exactly once and persists.
+- Tune-nudge & Deep Cache nudge: verify the Deep Cache card doesn't stack on the
+  tune card in the same breath — both gate on is_tour_complete() and both can
+  fire when the hold is heavy *and* the score is sufficient. The director
+  defers while a card is up, but the two retries order them arbitrarily.
+  Confirm the order reads well and, if needed, make the Deep Cache nudge yield
+  until the bag/tune nudge has shown (or been ignored).
 
 # medium priority
 # (shimmer item promoted to high priority)

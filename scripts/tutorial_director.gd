@@ -75,6 +75,7 @@ const NUDGE_BAG := "nudge_bag_shown"
 const NUDGE_BOTTLE := "nudge_bottle_shown"
 const NUDGE_UPGRADE := "nudge_upgrade_shown"
 const NUDGE_TUNE := "nudge_tune_shown"
+const NUDGE_DEEP_CACHE := "nudge_deep_cache_shown"
 
 var _step: int = 0
 var _active_hint: CanvasLayer = null
@@ -227,9 +228,9 @@ func is_tour_complete() -> bool:
 	return _step >= DONE
 
 
-## Public entry for ambient nudges. `kind` is "bag", "bottle", "upgrade" or
-## "tune". Cheap to call every frame: after the first delivery the flag is
-## cached in memory.
+## Public entry for ambient nudges. `kind` is "bag", "bottle", "upgrade",
+## "tune" or "deep_cache". Cheap to call every frame: after the first delivery
+## the flag is cached in memory.
 func nudge(kind: String) -> void:
 	var key := ""
 	match kind:
@@ -237,6 +238,7 @@ func nudge(kind: String) -> void:
 		"bottle": key = NUDGE_BOTTLE
 		"upgrade": key = NUDGE_UPGRADE
 		"tune": key = NUDGE_TUNE
+		"deep_cache": key = NUDGE_DEEP_CACHE
 		_: return
 	if not _nudge_state.has(key):
 		_nudge_state[key] = bool(SaveManager.load_game().get(key, false))
@@ -264,6 +266,10 @@ func nudge(kind: String) -> void:
 		"tune":
 			_spawn_card("Tune up the dock",
 				"[font_size=15]Your scrap can buy upgrades now.\nOpen the [color=#9fe2ff]island menu[/color] (top-right) — Move Speed costs [color=#ffd27f]%d trash[/color], with Collection Range and Deep Cache beside it.\nUpgrades spend materials, not money, so weigh them against a sale.[/font_size]" % GameState.get_move_speed_cost(),
+				"Got it")
+		"deep_cache":
+			_spawn_card("Deep Cache",
+				"[font_size=15]Both [color=#9fe2ff]Reef Rescue[/color] (combo pickups) and the [color=#9fe2ff]Upcycle bench[/color] bank [color=#ffd27f]Upcycle score[/color].\nSpend it at the [color=#9fe2ff]island menu[/color] on the [color=#ffd27f]Deep Cache[/color] — it deepens every dive.\nDeep Cache upgrades spend the same score.[/font_size]",
 				"Got it")
 
 

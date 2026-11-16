@@ -65,6 +65,11 @@ func _process(delta: float) -> void:
 		var tune_cost := mini(GameState.get_move_speed_cost(), GameState.get_range_cost())
 		if inv_amount >= tune_cost:
 			TutorialDirector.nudge("tune")
+	# Same idea, score-priced: point at the Deep Cache once the player can
+	# afford the 30-score unlock. One-shot, persisted, gated on the tour.
+	if TutorialDirector.is_tour_complete() and not GameState.deep_cache:
+		if GameState.upcycle_score >= 30:
+			TutorialDirector.nudge("deep_cache")
 
 # --- Initialization ---
 
