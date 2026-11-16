@@ -1,6 +1,11 @@
 # Current project todo:
 
 # done this pass
+- Export presets no longer ship dev artifacts: Web/Android/Linux all exclude
+  `addons/`, `tools/`, `export/`, `opencode.json` and `scenes/world.tscn.bak`
+  (the Godot MCP addon alone was 75 packed files). Web rebuilt clean — 354
+  files packed (was 439), no dev paths in the pack; Linux rebuilt clean the
+  same way. README exporting section updated.
 - `gull.wav` size fix, done non-destructively: the externally-restored real
   recording (14.5 s 48 kHz 24-bit stereo, 4 MB) is preserved in git history
   and in `/tmp/opencode/gull-original-4MB.wav`; the committed working file is
