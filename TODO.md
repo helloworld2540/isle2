@@ -1,6 +1,12 @@
 # Current project todo:
 
 # done this pass
+- Post-change regression sweep on a true fresh save (save set aside, zeroed,
+  driven through main_menu -> tour): the guide advances move 1 -> reef 2 ->
+  sort 3 -> sell 4 -> finale 5 cleanly, and the new ledger nudge correctly
+  defers behind an open card (pending=ledger, no crash, no premature flag).
+  Player save restored afterwards (money 174). Also captured screenshots of
+  world / upcycle / reef / main menu — all render within the viewport.
 - Shop layout overflow fixed (found via screenshot + measured via exec):
   content min-width 1165 px > 1152 viewport, clipping both edges. Fixes:
   material-name column 150 -> 84 px, spend column 400 -> 360 px, body
