@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Starfish placements verified visually on the frozen world (screenshot shows
+  one by the shop pad and one by the bench area; remaining three are on other
+  walkable cells) — positions and glint read correctly.
 - **Tidepool Starfish collectathon**: five authored starfish hidden around
   the island (walkable cells verified by tile-data query). Walk over one to
   add it to the journal (`starfish_found`, string array in the save codec),
