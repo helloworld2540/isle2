@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- Main-menu New Save flow verified with an existing save: hit the button,
+  confirm panel shows (now correctly gated on a save file being present),
+  confirm -> scene transitions to World with a fresh save. Player save
+  restored afterwards.
 - Export-audit sweep: the 54 "suspect" @export variables are all legitimate
   inspector-customizable knobs (flow-dots appearance, ambience timings,
   NPC ambient lines, upcycle belt difficulty, floating-text fade) — every
