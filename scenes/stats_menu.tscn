@@ -89,6 +89,12 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "Tide Ledger (bottles)"
 
+[node name="RegistryButton" type="Button" parent="Margin/VBox" unique_id=300000020]
+custom_minimum_size = Vector2(220, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Reef Registry (fish)"
+
 [node name="LedgerOverlay" type="Control" parent="." unique_id=300000013]
 visible = false
 layout_mode = 1
@@ -166,6 +172,88 @@ size_flags_horizontal = 4
 text = "· The Tidekeeper's Reply"
 
 [node name="LedgerClose" type="Button" parent="LedgerOverlay/Panel/VBox"]
+custom_minimum_size = Vector2(180, 46)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Close"
+
+[node name="RegistryOverlay" type="Control" parent="." unique_id=300000021]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+
+[node name="Dimmer" type="ColorRect" parent="RegistryOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.62)
+
+[node name="Panel" type="PanelContainer" parent="RegistryOverlay"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -230.0
+offset_right = 300.0
+offset_bottom = 230.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBox_guide")
+
+[node name="VBox" type="VBoxContainer" parent="RegistryOverlay/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="RegistryTitle" type="Label" parent="RegistryOverlay/Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.62, 0.86, 1, 1)
+theme_override_font_sizes/font_size = 22
+text = "Reef Registry"
+horizontal_alignment = 1
+
+[node name="RegistryLegend" type="Label" parent="RegistryOverlay/Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.72, 0.9, 1)
+theme_override_font_sizes/font_size = 13
+text = "every species you have bumped into — tap to read what you know"
+horizontal_alignment = 1
+
+[node name="FishGoldButton" type="Button" parent="RegistryOverlay/Panel/VBox"]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "· Goldie"
+
+[node name="FishGreyreefsharkButton" type="Button" parent="RegistryOverlay/Panel/VBox"]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "· Grey Reef Shark"
+
+[node name="FishNemoButton" type="Button" parent="RegistryOverlay/Panel/VBox"]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "· Nemo"
+
+[node name="FishCrabButton" type="Button" parent="RegistryOverlay/Panel/VBox"]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "· Crab"
+
+[node name="RegistryClose" type="Button" parent="RegistryOverlay/Panel/VBox"]
 custom_minimum_size = Vector2(180, 46)
 layout_mode = 2
 size_flags_horizontal = 4

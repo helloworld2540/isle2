@@ -8,6 +8,9 @@ const FishCatalog := preload("res://scripts/fish_catalog.gd")
 ## Display order of the Tide Ledger buttons, matched to the scene's button nodes.
 const LEDGER_BUTTONS: Array[String] = ["BottleTideButton", "BottleGullButton", "BottleLightButton", "BottlePactButton"]
 const LEDGER_IDS: Array[String] = ["bottle_tide", "bottle_gull", "bottle_light", "bottle_pact"]
+## Reef Registry rows, matched to the scene's button nodes and FishCatalog.
+const REGISTRY_BUTTONS: Array[String] = ["FishGoldButton", "FishGreyreefsharkButton", "FishNemoButton", "FishCrabButton"]
+const REGISTRY_IDS: Array[String] = ["fish_gold", "fish_greyreefshark", "fish_nemo", "fish_crab"]
 ## Display order of the guide's station sections. Entries carry a "where" tag.
 const GUIDE_GROUPS: Array[String] = ["Reef Rescue", "Upcycle", "Shop", "Islanders", "Island"]
 
@@ -20,6 +23,9 @@ const GUIDE_GROUPS: Array[String] = ["Reef Rescue", "Upcycle", "Shop", "Islander
 @onready var _ledger_button: Button = $"Margin/VBox/LedgerButton"
 @onready var _ledger_overlay: Control = $"LedgerOverlay"
 @onready var _ledger_close: Button = $"LedgerOverlay/Panel/VBox/LedgerClose"
+@onready var _registry_button: Button = $"Margin/VBox/RegistryButton"
+@onready var _registry_overlay: Control = $"RegistryOverlay"
+@onready var _registry_close: Button = $"RegistryOverlay/Panel/VBox/RegistryClose"
 
 
 # ------------------------------------------------------------------------------
@@ -38,6 +44,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			_close_guide()
 		elif _ledger_overlay and _ledger_overlay.visible:
 			_close_ledger()
+		elif _registry_overlay and _registry_overlay.visible:
+			_close_registry()
 		else:
 			_on_back()
 
@@ -61,6 +69,14 @@ func _connect_signals() -> void:
 		var button := _ledger_overlay.get_node_or_null("Panel/VBox/" + LEDGER_BUTTONS[i]) as Button
 		if button:
 			button.pressed.connect(_on_ledger_bottle.bind(LEDGER_IDS[i]))
+	if _registry_button:
+		_registry_button.pressed.connect(_open_registry)
+	if _registry_close:
+		_registry_close.pressed.connect(_close_registry)
+	for i in REGISTRY_BUTTONS.size():
+		var button := _registry_overlay.get_node_or_null("Panel/VBox/" + REGISTRY_BUTTONS[i]) as Button
+		if button:
+			button.pressed.connect(_on_registry_fish.bind(REGISTRY_IDS[i]))
 
 
 # ------------------------------------------------------------------------------
@@ -254,6 +270,43 @@ func _on_ledger_bottle(id: String) -> void:
 	var dialogue := DIALOGUE_SCENE.instantiate()
 	add_child(dialogue)
 	dialogue.present(BottleCatalog.title_of(id), BottleCatalog.lines_of(id))
+	AudioManager.play_sfx("pickup", 0.9)
+
+
+## Reef Registry: the fish counterpart to the Tide Ledger. Locked rows mark
+## species the player has not bumped into yet; found rows re-show the field
+## note on tap.
+func _open_registry() -> void:
+	if _registry_overlay == null:
+		return
+	for i in REGISTRY_BUTTONS.size():
+		var id := REGISTRY_IDS[i]
+		var button := _registry_overlay.get_node_or_null("Panel/VBox/" + REGISTRY_BUTTONS[i]) as Button
+		if button == null:
+			continue
+		if GameState.fish_met.has(id):
+			button.text = "✓  " + FishCatalog.name_of(id)
+			button.disabled = false
+		else:
+			button.text = "·  ? ? ?  —  still out there"
+			button.disabled = true
+	_registry_overlay.visible = true
+	AudioManager.play_sfx("pickup")
+
+
+func _close_registry() -> void:
+	if _registry_overlay == null:
+		return
+	_registry_overlay.visible = false
+	AudioManager.play_sfx("return")
+
+
+func _on_registry_fish(id: String) -> void:
+	if not GameState.fish_met.has(id):
+		return
+	var dialogue := DIALOGUE_SCENE.instantiate()
+	add_child(dialogue)
+	dialogue.present(FishCatalog.name_of(id), [FishCatalog.blurb_of(id)])
 	AudioManager.play_sfx("pickup", 0.9)
 
 

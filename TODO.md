@@ -1,6 +1,11 @@
 # Current project todo:
 
 # done this pass
+- Reef Registry overlay on the stats page (fish counterpart to the Tide
+  Ledger): four 52 px rows (✓ found name / locked "? ? ?"), tap a found
+  species to open its field note in the dialogue card; Escape closes it
+  before the Tide Ledger/back handling. Verified in-game (found rows enabled,
+  locked rows disabled, dialogue opens, save restored); smoke 44/44.
 - Fish journal naming pass: `scripts/fish_catalog.gd` maps species keys to
   display names + one-line blurbs; the stats page and the "New species!"
   popup now show names (Goldie, Grey Reef Shark, Nemo, Crab) instead of
