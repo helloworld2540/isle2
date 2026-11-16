@@ -36,6 +36,8 @@ func _on_body_entered(body: Node) -> void:
 	AudioManager.play_sfx("pickup", 1.5)
 	if total == 1:
 		TutorialDirector.nudge("starfish")
+	elif total == 4:
+		TutorialDirector.nudge("starfish_final")
 	set_deferred("monitoring", false)
 	if has_node("Sprite2D"):
 		var ap := create_tween()

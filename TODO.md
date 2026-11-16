@@ -1,6 +1,12 @@
 # Current project todo:
 
 # done this pass
+- New one-shot nudge **One more…** (`nudge_starfish_final_shown`): fires
+  the moment the player collects their fourth starfish, pointing back atthe
+  island's coast for the last one. The two cards queue in order (first
+  pickup -> 4th pickup) so the tutorial completes the arc deliberately.
+  Verified in-game (both cards appear; flag persists); player save
+  restored afterwards; smoke 45/45.
 - Balance re-measured with current code across five consecutive simulated
   fresh-save loops: $33 per loop ($18 materials + $15 circuit bonus). Entry
   costs reachable in 2-3 loops (Bag 60$, Market Contact 80$) and the whole
