@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- Android debug APK rebuilt after the collectathon + audio batch: still
+  builds and signs cleanly (verify step passes).
 - Frozen-stepped a real reef dive (~20 s game time) and observed live state:
   the drone drifts, garbage contact accumulates kg, the HUD label updates, and
   a golden spawns (golden flag persisted through nudge_gold_shown during the
