@@ -355,11 +355,19 @@ func _game_over_summary(reason: String = "manual") -> void:
 	var prev_best := GameState.best_reef_depth
 	GameState.record_reef(garbage, fish, depth)
 	var new_best := int(depth) > prev_best
-	var debris_total := int(max(1.0, round(garbage)))
+	var haul := int(max(1.0, round(garbage)))
+	var cache_bonus := 0
 	if GameState.deep_cache:
-		var bonus := 5 * GameState.deep_cache_tier + 3 * GameState.inventory_capacity_level
-		debris_total += bonus
-	var accepted := GameState.add_trash_type_weighted("Reef Debris", debris_total)
+		cache_bonus = 5 * GameState.deep_cache_tier + 3 * GameState.inventory_capacity_level
+	var offered := haul + cache_bonus
+	var accepted := GameState.add_trash_type_weighted("Reef Debris", offered)
+	var lost := offered - accepted
+	# Payout breakdown line so the capacity cap reads as a rule, not a bug.
+	var breakdown := "haul +%d kg" % haul
+	if cache_bonus > 0:
+		breakdown += "  ·  deep cache +%d kg" % cache_bonus
+	if lost > 0:
+		breakdown += "  ·  bag full: −%d kg" % lost
 	
 	var cause_msg := ""
 	if reason == "fish" or fish >= _fish_limit:
@@ -390,8 +398,8 @@ func _game_over_summary(reason: String = "manual") -> void:
 			milestone_line = "Next depth milestone: DEEP DIVE at 400 m (best %d m)." % best_depth
 		elif best_depth < 900:
 			milestone_line = "DEEP DIVE earned · %d m to TO THE ABYSS (900 m)." % (900 - best_depth)
-		go_body.text = "%s\n\nFish bumps: %d / %d\nGarbage collected: %d kg\nDepth reached: %d m\n%s\n\nReef debris earned: %d" % [
-			cause_msg, fish, _fish_limit, int(garbage), int(depth), milestone_line, accepted
+		go_body.text = "%s\n\nFish bumps: %d / %d\nGarbage collected: %d kg\nDepth reached: %d m\n%s\n\nReef debris earned: %d kg\n(%s)" % [
+			cause_msg, fish, _fish_limit, int(garbage), int(depth), milestone_line, accepted, breakdown
 		]
 		
 	if game_over_canvas:

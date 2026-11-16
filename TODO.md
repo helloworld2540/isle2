@@ -28,6 +28,9 @@
   Verified (visible at 1 bump left, alpha oscillating).
 - Reef summary payoff: dives beating the deepest-ever depth lead the summary
   with "★ NEW BEST DEPTH" and chime the achievement SFX. Verified (best 100→250).
+- Reef payout breakdown: the summary card now itemizes the haul, any Deep Cache
+  bonus, and "bag full −N kg" when the cap truncates — verified at 10 kg cap
+  (40 kg haul → 1 banked, line reads "bag full: −39 kg").
 - Balance pass 3 (measured, not guessed): three consecutive fresh-save loops driven
   end-to-end via MCP; median yield ≈ $32/loop ($17 materials + $15 circuit),
   Market Contact reachable in ~2–3 loops; kept prices, documented in guide.md.
@@ -70,9 +73,8 @@
   Fixed deferred spawn (hint used to parent to a dying scene during transitions).
 
 # high priority
-- (next) Reef Rescue summary card: show the exact debris payout breakdown
-  (haul + deep-cache bonus + capacity-truncated amount) so the cap feels fair,
-  not arbitrary.
+- (next) Reef Rescue: record the per-dive result on the world map hand-off card
+  (run_recap) so the loop's outcome reads as a story chapter, not a stat popup.
 
 # medium priority
 # (shimmer item promoted to high priority)
