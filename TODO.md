@@ -1,6 +1,11 @@
 # Current project todo:
 
 # done this pass
+- **HOT STREAK achievement** (`hot_streak`, Upcycle, 15 correct sorts in a row)
+  + a real bug fix it exposed: the bench banked the *final* streak at run end,
+  so a 14-sort streak erased by one miss never counted toward the best — it now
+  banks `_peak_streak`. Verified in-game (record 15 -> sticks + predicate fires,
+  lower streak doesn't overwrite, save restored); smoke 44/44.
 - Heaviest-dive tracking: new save key `best_reef_haul` (whole kg banked in one
   dive, schema-codec) shown on the stats page ("Heaviest dive: N kg"), feeding
   the new **HEAVY HARVEST** achievement (`heavy_haul`, Reef Rescue, bank 30 kg

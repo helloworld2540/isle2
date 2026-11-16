@@ -648,7 +648,7 @@ func _game_over_summary(clean_finish: bool = false) -> void:
 
 	var prev_best := GameState.best_upcycle_score
 	if not empty_shift:
-		GameState.record_sort_streak(sort_streak)
+		GameState.record_sort_streak(_peak_streak)
 		GameState.record_upcycle(score)
 		_record_run_card(prev_best)
 	
