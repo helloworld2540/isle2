@@ -1,6 +1,11 @@
 # Current project todo:
 
 # done this pass
+- Mature-market route advisor: the "Next:" hint and the glowing pad now flip
+  to a pricing-maxed playbook once Market Contact is fully maxed — dives and
+  early cash-outs over sort trips (prices maxed — dive deeper / cash in soon),
+  with debris advice intact underneath. Verified across the threshold states;
+  immature saves keep the old guidance exactly.
 - Audio identity pass: the upcycle shift now closes on its own signature —
   synthesized `shift_complete` SFX (A4→E5 bell motif, mono 22050 Hz, decaying
   third harmonic) instead of the generic achievement chime. Upcycle already
@@ -154,10 +159,10 @@
   Fixed deferred spawn (hint used to parent to a dying scene during transitions).
 
 # high priority
-- Recipe of the loop: surface "what's the fastest path this save" as a living
-  hint — once the player beats Market Contact, the route advisor should
-  re-weight itself toward bag/dive choices rather than Reef Debris sorting,
-  so the advice stays honest as the economy matures.
+- Dashboard honesty: the stats page still says "Island circuits, best depths"
+  without any of this run's history context — give each stat a tiny one-line
+  "vs last" / era tag (e.g. "Fresh run", "Sorting era", "Pact era") so the page
+  reads like a scrap-journal instead of a spreadsheet.
 
 # medium priority
 # (shimmer item promoted to high priority)
