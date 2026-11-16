@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- Android APK re-verified across the full change-set (collectathon, foghorn,
+  journal, overflow fixes): builds and signs cleanly, ~174 MB.
 - Undo nudge delivery chain verified end to end: bulk sale -> "first sale"
   upgrade card fires -> dismiss it -> deferred call drains `_pending_nudge`
   -> "Oops — bulk sale?" undo nudge appears -> `nudge_undo_shown` persists.
