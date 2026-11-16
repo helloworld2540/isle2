@@ -132,6 +132,7 @@ checked against this yield — nothing changed, deliberately.*
 - Debris payout breakdown on the summary card — haul, deep-cache bonus and
   "bag full −N kg" so the capacity cap reads as a rule, not a bug.
 - Bottles you have already read can be re-read from the stats page via the Tide Ledger overlay (undiscovered notes stay locked).
+- Quest economics audit (SALE_PRICES-weighted): turn-ins are deliberately slightly under market value — that is the price of quest progress and the Harbor Hero +10 kg cap — but the old numbers were punitive (Tom 24$->12$, Nina 30$->15$, Kai 25$->10$, Mara t2 25$->18$). Buffed: Tom t1 4->6 PP (18$), Nina t1 5->6 PP (18$), Kai t1 now 6 PP (18$), Mara t2 6->8 PP (24$). Nina t2 (+8$) and Kai t2 (+4$) remain the profitable tiers.
 - Depth is tracked in the stats page and feeds two achievements: DEEP DIVE (400 m) and TO THE ABYSS (900 m). Ten finished dives earns REEF REGULAR; the stats page keeps a running "Field log" of dives and bench runs.
 - Your longest sort streak persists as "Best sort streak" (stats page) and feeds the HOT STREAK achievement at 15 in a row. Your heaviest single dive persists as "Heaviest dive" (stats page) and feeds the HEAVY HARVEST achievement at 30 kg banked in one dive. Your longest single-dive garbage chain persists as "Best reef combo" (stats page) and feeds the RHYTHM OF THE REEF achievement at a 9-chain (a x4 score multiplier).
 - Long-game badges: BENCH MASTER (25 runs), REEF VETERAN (25 dives) and
