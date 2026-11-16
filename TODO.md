@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Fresh-save welcome card verified visually: the onboarding card opens with
+  the loop overview, legible type, and a working "Let's clean up" button on a
+  brand-new save. Player save restored afterwards.
 - Legendary achievement banner visually verified via a synthetic ISLAND STEWARD
   card fired at the world map: solid gold panel, legendary pitch chime +
   harbor bell accent, and fade-in — screenshot confirms the rare presentation
