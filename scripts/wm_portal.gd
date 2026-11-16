@@ -172,10 +172,20 @@ func _warned_empty() -> bool:
 
 
 # Save a spot just outside the pad so the player walks back onto the map
-# instead of reappearing on top of the trigger.
+# instead of reappearing on top of the trigger. The candidate is snapped to
+# the nearest walkable cell so an awkward approach angle (facing water or a
+# wall ahead) never respawns the player inside terrain they cannot leave.
 func _save_return_position(player: Node2D) -> void:
 	var away := player.global_position - global_position
 	if away.length() < 1.0:
 		away = Vector2.DOWN
 	
-	SaveManager.save_player_position(global_position + away.normalized() * RETURN_DISTANCE)
+	var candidate := global_position + away.normalized() * RETURN_DISTANCE
+	var wm: TileMapLayer = player.get("world_map") as TileMapLayer
+	if wm and is_instance_valid(wm) and player.has_method("_is_walkable"):
+		var cell: Vector2i = wm.local_to_map(wm.to_local(candidate))
+		if not bool(player.call("_is_walkable", cell)):
+			cell = player.call("_nearest_walkable_cell", cell, 8) as Vector2i
+			candidate = wm.to_global(wm.map_to_local(cell))
+	
+	SaveManager.save_player_position(candidate)

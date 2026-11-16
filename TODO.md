@@ -1,6 +1,13 @@
 # Current project todo:
 
 # done this pass
+- Portal return-to-map safety snap: a player who approaches from an awkward
+  angle (or faces outward with terrain ahead) now respawns on the nearest
+  walkable cell instead of possibly inside water/walls. The portal uses the
+  player's own world_map to test the candidate, calls _is_walkable, and
+  falls back to _nearest_walkable_cell(radius 8) when the slot isn't walkable.
+  Verified the snap writes a position without crashing; smoke 45/45.
+  Player save restored afterwards.
 - Final Web preset rebuild verified as the closing check for this iteration —
   pck pack completes cleanly (57 MB). No code changes; the export matrix
   remains healthy.
