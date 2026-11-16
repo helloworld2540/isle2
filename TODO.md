@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- Legendary achievement banner visually verified via a synthetic ISLAND STEWARD
+  card fired at the world map: solid gold panel, legendary pitch chime +
+  harbor bell accent, and fade-in — screenshot confirms the rare presentation
+  path actually fires and reads cleanly over the scene.
 - Fresh-save tour re-verified with current code: welcome dismissed ->
   move/reef/sort/sell notifications advance the guide to step 5 (finale);
   dismiss -> step 999 (DONE), and the atlas collectathon nudge fires once
