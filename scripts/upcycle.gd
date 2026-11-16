@@ -652,6 +652,9 @@ func _game_over_summary(clean_finish: bool = false) -> void:
 		_record_run_card(prev_best)
 	
 	AudioManager.play_sfx("shift_complete" if clean_finish else "sort_bad")
+	if _misses == 0 and _sorted_count >= 5:
+		# A flawless run earns the little brass ring, not just the panel.
+		AudioManager.play_sfx("achievement", 1.2)
 	
 	if game_over_canvas and go_body:
 		if clean_finish:

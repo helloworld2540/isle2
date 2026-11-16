@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Mastery-run audio: a zero-miss bench shift and a zero-bump 8kg+ dive now
+  end on the achievement chime instead of the generic shift/hurt jingle —
+  the clean-run reward is felt, not just read. Smoke 44/44.
 - Nudge sweep: all ten ambient nudge kinds (bag/bottle/upgrade/tune/
   deep_cache/undo/quest/meet/ledger/gold) verified delivering end to end on a
   clear screen — every one spawns its card; player save restored afterwards.

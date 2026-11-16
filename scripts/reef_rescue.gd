@@ -469,8 +469,9 @@ func _game_over_summary(reason: String = "manual") -> void:
 		get_tree().paused = false
 		game_over_canvas.visible = true
 	_start_game_over_juice()
-	if new_best:
-		# A personal-best dive celebrates instead of stinging.
+	var perfect_dive := fish == 0 and dive_happened and int(garbage) >= 8
+	if new_best or perfect_dive:
+		# A personal-best or a clean dive celebrates instead of stinging.
 		AudioManager.play_sfx("achievement", 1.15)
 	else:
 		AudioManager.play_sfx("empty_inventory" if reason == "inventory" else "sort_bad")
