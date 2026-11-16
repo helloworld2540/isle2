@@ -383,6 +383,7 @@ func _process_successful_sort(mat: String, bin_pos: Vector2) -> void:
 	score += 2 if is_golden else 1
 	if is_golden:
 		_golden_sorted += 1
+		TutorialDirector.nudge("gold")
 	sort_streak += 1
 	_peak_streak = maxi(_peak_streak, sort_streak)
 	_sorted_count += 1

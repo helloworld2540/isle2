@@ -80,6 +80,7 @@ const NUDGE_UNDO := "nudge_undo_shown"
 const NUDGE_QUEST := "nudge_quest_shown"
 const NUDGE_MEET := "nudge_meet_shown"
 const NUDGE_LEDGER := "nudge_ledger_shown"
+const NUDGE_GOLD := "nudge_gold_shown"
 
 var _step: int = 0
 var _active_hint: CanvasLayer = null
@@ -278,6 +279,7 @@ func nudge(kind: String) -> void:
 		"quest": key = NUDGE_QUEST
 		"meet": key = NUDGE_MEET
 		"ledger": key = NUDGE_LEDGER
+		"gold": key = NUDGE_GOLD
 		_: return
 	if not _nudge_state.has(key):
 		_nudge_state[key] = bool(SaveManager.load_game().get(key, false))
@@ -319,6 +321,12 @@ func nudge(kind: String) -> void:
 			_spawn_card("Someone needs a hand",
 				"[font_size=15]An islander is holding out for a trade.\nThe [color=#9fe2ff]quest tracker[/color] (left) shows who wants what, and a [color=#ffd27f]glowing sprite with a ★[/color] means you have enough to deliver right now.\nTalk to them on the map — the reward can go straight into your bag.[/font_size]",
 				"Let's go")
+		"gold":
+			_spawn_card("A golden find",
+				"[font_size=15]Something on the belt shines different.\n" +
+				"[color=#ffd27f]Golden scrap[/color] is worth double for correct sorts — and a golden [color=#ffd27f]Goldie[/color] in the reef pays +5 when you graze it on purpose.\n" +
+				"The stats page keeps a running count of everything glinting on your route.[/font_size]",
+				"Shiny")
 		"ledger":
 			_spawn_card("Every note found",
 				"[font_size=15]You have read all three shoreline bottles.\n" +

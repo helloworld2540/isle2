@@ -332,6 +332,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			GameState.mark_fish_met(species)
 			_update_ui()
 			AudioManager.play_sfx("achievement", 1.25)
+			TutorialDirector.nudge("gold")
 			_popup("GOLDIE! +5", Color(1.0, 0.9, 0.35, 1.0))
 			_sparkle(root.global_position, Color(1.0, 0.9, 0.4, 1.0))
 			var ap_gold := root.get_node_or_null("AnimationPlayer")
@@ -364,6 +365,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		GameState.upcycle_score += multiplier + (1 if is_golden else 0)
 		if is_golden:
 			_golden_hauled += 1
+			TutorialDirector.nudge("gold")
 		AudioManager.play_sfx("pickup", 1.0 + min(float(multiplier), 3.0) * 0.05)
 		var t := "+%d kg" % weight if multiplier <= 1 else "+%d kg x%d" % [weight, multiplier]
 		_popup(t, Color(0.95, 0.95, 0.35, 1.0))

@@ -1,6 +1,11 @@
 # Current project todo:
 
 # done this pass
+- New one-shot nudge **A golden find** (`nudge_gold_shown`): any golden pickup
+  (belt sort, reef debris, golden Goldie) fires a one-time card explaining
+  gold items — belt +2, Goldie +5 — and points at the stats page golden
+  counter. Matches the ledger/registry nudge pattern (deferred behind open
+  cards; persisted flag; cached in memory after first read). Smoke 44/44.
 - Clean re-import verified (`godot --headless --import` from a cold editor
   pass): no new errors — the error log holds only the 20 known historical
   entries (ReceiptStack/upcycle parse errors from before their fixes, the
