@@ -1,6 +1,13 @@
 # Current project todo:
 
 # done this pass
+- World-menu touch pass: the island-map **upgrade buttons** (Move / Range /
+  Deep Cache / its tier-up / Inv Cap) plus the **Settings** toggle all rendered
+  at 41 px, just under the 44 px touch guideline the shop and minigames follow.
+  Raised all six to 44 px in `scenes/world.tscn`, and the **Reduce motion**
+  checkbox in the shared settings panel (`scenes/ui/settings_panel.tscn`) to
+  44 px too. Verified in-game: all six buttons report size.y = 44 and the menu
+  infobox (692×419) still fits inside 1152×648. Player save restored.
 - Deep Cache copy: the world-menu buttons now explain the guaranteed payout —
   unowned reads "bonus debris, never wasted", owned shows "OWNED · Tier N (+X kg)"
   and the upgrade shows the next tier's per-run kg ("Tier 2 — 15 score
@@ -261,16 +268,23 @@
   Fixed deferred spawn (hint used to parent to a dying scene during transitions).
 
 # high priority
-- World-menu touch pass: the island-map upgrade buttons (Move / Range /
-  Deep Cache / Inv Cap) render at 41 px tall, just under the 44 px guideline the
-  shop and minigames now follow. Raise them and any other sub-44 px menu buttons
-  to ≥44 px and verify the panel still fits 1152×648 without clipping.
+- Tutorial/nudge coverage for Deep Cache: the tour and the one-shot nudges teach
+  the bag and the trash-priced Move/Range tiers, but never mention the
+  score-priced Deep Cache. Add a short line to the tune card (or a small
+  post-tour hint) pointing at it once the player has the 30 score to buy it, and
+  verify the card fires exactly once and persists.
+- Investigate `upcycle_score` semantics: reef dives *add* to it
+  (`reef_rescue.gd: GameState.upcycle_score += multiplier`) but every finished
+  bench run *overwrites* it (`game_state.gd record_upcycle` sets
+  `upcycle_score = score`). So a bench run wipes score banked by diving, and the
+  world HUD bar (value `upcycle_score` vs max `best_upcycle_score`) only makes
+  sense if it is a per-run score. Decide whether it is a spendable bank
+  (then record_upcycle should add, and the bar needs a cap) or a latest-run
+  score (then the reef should not add), and fix the loser side.
 
 # medium priority
 # (shimmer item promoted to high priority)
 
 # low priority backlog
-- Tutorial/nudge coverage for Deep Cache: the tour and the one-shot nudges teach
-  the bag and the waste-priced Move/Range tiers, but never mention the
-  score-priced Deep Cache. Consider a short line in the tune card or a small
-  post-tour hint once the player has the score to buy it.
+- Second-pass reduced-motion coverage for the world-menu open animation and the
+  shop receipt punch under "Reduce motion" (both currently keep their motion).

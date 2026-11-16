@@ -470,23 +470,28 @@ theme_override_font_sizes/font_size = 14
 text = "Upgrades -> Move: 0, Range: 0, -"
 
 [node name="MoveFasterBtn" type="Button" parent="Menu/MenuPanel/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel" unique_id=410065437]
+custom_minimum_size = Vector2(0, 44)
 layout_mode = 2
 text = "Move Faster: Lv.0 (+8%% speed) — 8 trash"
 
 [node name="CollectionRangeBtn" type="Button" parent="Menu/MenuPanel/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel" unique_id=410065438]
+custom_minimum_size = Vector2(0, 44)
 layout_mode = 2
 text = "Collection Range: Lv.0 (+12 px) — 12 trash"
 
 [node name="DeepCacheBtn" type="Button" parent="Menu/MenuPanel/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel" unique_id=410065439]
+custom_minimum_size = Vector2(0, 44)
 layout_mode = 2
 text = "Deep Cache (30 upcycle score) — bonus debris per run"
 
 [node name="DeepCacheUpgradeBtn" type="Button" parent="Menu/MenuPanel/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel" unique_id=410065440]
+custom_minimum_size = Vector2(0, 44)
 layout_mode = 2
 disabled = true
 text = "Upgrade Deep Cache -> tier 1 (+debris) — 15 upcycle score"
 
 [node name="InventoryCapBtn" type="Button" parent="Menu/MenuPanel/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel" unique_id=410065441]
+custom_minimum_size = Vector2(0, 44)
 layout_mode = 2
 text = "Inventory Cap: Lv.0 — 0/30 kg (cost 8 trash)"
 
@@ -519,6 +524,7 @@ layout_mode = 2
 max_value = 1.0
 
 [node name="SettingsButton" type="Button" parent="Menu/MenuPanel/HBoxContainer/Infobox" unique_id=410065448]
+custom_minimum_size = Vector2(0, 44)
 layout_mode = 2
 text = "Settings ▼"
 

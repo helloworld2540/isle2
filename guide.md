@@ -143,6 +143,9 @@ checked against this yield — nothing changed, deliberately.*
 - Every shop button is ≥ 44 px tall — the row **Sell 1 / Sell 5 / Sell All**, the
   Buy buttons and the footer Return / Undo — so nothing needs a pinpoint tap; the
   two-column counter still fits a 1152×648 screen with no scrolling.
+- The world-menu (☰) buttons match: the five upgrade buttons (Move / Range /
+  Deep Cache / its tier-up / Inv Cap), the **Settings** toggle and the **Reduce
+  motion** checkbox are each ≥ 44 px, so the whole island menu is thumb-friendly.
 
 ## Upgrades
 - Move speed +8% / level via trash.
