@@ -150,6 +150,7 @@ func _update_edge_markers() -> void:
 			marker = _EDGE_MARKER_SCENE.instantiate()
 			marker.set_direction(pos - vp * 0.5)
 			add_child(marker)
+			marker.set_kind(bool(next.get_meta("is_fish", false)))
 			_edge_markers[id] = marker
 		else:
 			marker = _edge_markers[id]
@@ -160,6 +161,17 @@ func _update_edge_markers() -> void:
 			clampf(pos.y, 12.0, vp.y - 12.0) - 12.0
 		)
 		marker.set_direction(pos - vp * 0.5)
+		# Fish markers shimmer harder as they close on the drone, and the
+		# effect deepens with depth — near-misses feel readable, not random.
+		if bool(next.get_meta("is_fish", false)) and drone:
+			var dist := pos.distance_to(drone.global_position)
+			var proximity := clampf(1.0 - dist / 900.0, 0.0, 1.0)
+			var depth_factor := clampf(depth / 800.0, 0.0, 1.0)
+			var shimmer := clampf(proximity * 0.7 + depth_factor * 0.45, 0.0, 1.0)
+			var wave := 0.5 + 0.5 * sin(Time.get_ticks_msec() * (0.006 + shimmer * 0.012))
+			marker.pulse(shimmer * wave)
+		else:
+			marker.pulse(0.0)
 
 func _clear_marker(id: int) -> void:
 	if _edge_markers.has(id):

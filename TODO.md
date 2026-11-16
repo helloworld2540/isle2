@@ -17,6 +17,9 @@
 - Ambient world-life pass 3: a distant fishing sailboat drifting slowly across
   the eastern horizon (fade in/out wrap, swell bob + heel, frozen under reduced
   motion; PIL-drawn placeholder, scenes/wm_boat.tscn + scripts/wm_boat.gd).
+- Reef fairness pass: off-screen edge markers for fish flare red and swell/throb
+  as they close in (proximity + depth-scaled shimmer, faster sine at higher
+  depth); garbage markers stay calm yellow. Verified at 650 m (marker ff6b59).
 - Balance pass 3 (measured, not guessed): three consecutive fresh-save loops driven
   end-to-end via MCP; median yield ≈ $32/loop ($17 materials + $15 circuit),
   Market Contact reachable in ~2–3 loops; kept prices, documented in guide.md.
@@ -59,8 +62,8 @@
   Fixed deferred spawn (hint used to parent to a dying scene during transitions).
 
 # high priority
-- (next) Reef Rescue polish: fish warning shimmer on the edge markers of fish
-  that are close to the drone (depth-scaled), making near-miss dodges feel fair.
+- (next) Reef Rescue polish: fish shadow telegraph — a subtle red-tinted wake
+  under fish entering from the top edge, so dodges read one beat earlier.
 
 # medium priority
 # (shimmer item promoted to high priority)

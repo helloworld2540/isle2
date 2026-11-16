@@ -65,6 +65,8 @@ Welcome to Isle 2. Shared economy across world map, two minigames, shop, NPCs an
 - Combo counter appears under the depth HUD from ×2 up and punches at every
   x3 milestone; depth milestones (100/250/400/700/900 m) fire a one-time banner
   each — 400 m is DEEP DIVE, 900 m is TO THE ABYSS.
+- Off-screen edge markers: fish markers flare red and swell/throb as they
+  close on the drone (proximity + depth-scaled shimmer); garbage markers stay calm yellow.
 - Depth is tracked in the stats page and feeds two achievements: DEEP DIVE (400 m) and TO THE ABYSS (900 m).
 - Garbage converts into Reef Debris (plus Deep Cache bonus per tier and capacity).
 
