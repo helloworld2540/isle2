@@ -176,6 +176,9 @@ checked against this yield — nothing changed, deliberately.*
   Ambience slider without quieting pickup or combo feedback.
 - Closing a full island circuit (Reef → Upcycle → Shop) rings the harbor bell
   on the next map load.
+- A distant foghorn sounds every 45–85 s while the sailboat is up on the
+  horizon (it stays silent when the boat fades out; it still sounds under
+  reduced motion, since it is audio, not motion).
 
 ## Settings & touch
 - The island menu (☰) holds Master / Music / Ambience / SFX sliders and the
