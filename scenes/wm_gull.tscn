@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Texture2D" path="res://sprites/gull_1.png" id="1_gull"]
+[ext_resource type="Script" path="res://scripts/wm_gull.gd" id="2_gull"]
+
+[node name="WorldGull" type="Sprite2D"]
+scale = Vector2(2.2, 2.2)
+texture = ExtResource("1_gull")
+script = ExtResource("2_gull")

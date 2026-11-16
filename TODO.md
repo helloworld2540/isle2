@@ -8,6 +8,9 @@
 - Export pipeline verified: headless Linux debug build compiles, packs, launches
   with zero script errors; Web preset also builds clean (Godot 4.7.2 templates
   installed). Android preset untested (needs SDK).
+- Ambient world-life pass 1: four gulls patrol ellipses over open water east of
+  the island — two-frame wing flap, banking into the bob, desynced phases,
+  frozen still under reduced motion (scenes/wm_gull.tscn + scripts/wm_gull.gd).
 - Balance pass 3 (measured, not guessed): three consecutive fresh-save loops driven
   end-to-end via MCP; median yield ≈ $32/loop ($17 materials + $15 circuit),
   Market Contact reachable in ~2–3 loops; kept prices, documented in guide.md.
@@ -50,8 +53,9 @@
   Fixed deferred spawn (hint used to parent to a dying scene during transitions).
 
 # high priority
-- (each loop complete) See done sections; keep an eye on whether Market Contact
-  (80$) feels too distant for new players and re-price if testers report it.
+- (next) Ambient world-life pass 2: drifting sea-sparkle on the water tiles west
+  of the island (few, slow, additive), and a gull cry on a rare timer in the SFX
+  mix (verify volume balance; keep it under reduce_motion / volume prefs).
 
 # medium priority
 # (shimmer item promoted to high priority)
