@@ -459,12 +459,18 @@ func _update_arrow(item: Node2D, bin: Node2D) -> void:
 func _hide_arrow() -> void:
 	if arrow: arrow.visible = false
 
+## Combo milestone juice: punch the score readout. The CanvasLayer can't be
+## scaled or modulated (it's not a CanvasItem), so the feedback lives on the
+## score label itself.
 func _play_combo_feedback() -> void:
-	if not ui: return
-	ui.modulate = Color(1.0, 1.0, 1.0, 1.0)
+	if not score_label:
+		return
+	score_label.pivot_offset = score_label.size * 0.5
+	score_label.scale = Vector2(1.35, 1.35)
+	score_label.modulate = Color(1.0, 1.0, 0.62, 1.0)
 	var tw := create_tween()
-	tw.tween_property(ui, "scale", Vector2(1.05, 1.05), 0.08).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-	tw.tween_property(ui, "scale", Vector2(1.0, 1.0), 0.12).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tw.tween_property(score_label, "scale", Vector2.ONE, 0.24).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tw.tween_property(score_label, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.32)
 
 func _shake_wrong_sort() -> void:
 	if GameSettings.reduce_motion:

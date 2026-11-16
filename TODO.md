@@ -11,6 +11,15 @@
   the DEEP DIVE / TO THE ABYSS ladder) and a combo counter under the depth HUD
   that punches gold at every x3 milestone. Verified via exec (6 garbage → COMBO ×3,
   milestone fired at 100 m).
+- FIRST-LOOP ECONOMY FIX (big one): sort grants were item_size units of material
+  (15–40), so one correct sort tried to refill the entire 10 kg bag every time and
+  everything else was silently rejected as "over inventory cap". Rebalanced grants
+  to ~1–2 units per sort (bag fills in ~4–6 sorts) and decoupled belt-item visual
+  scale from economy size. Also fixed _play_combo_feedback assigning modulate to a
+  CanvasLayer (runtime error on every combo milestone) — it now punches the score
+  label instead. Full fresh-save loop driven through REAL portals on the MCP:
+  menu → welcome → move → dive (52 kg) → sort → sell → circuit completed ($15)
+  → finale; active game time ~65 s (a human loop fits in ~3–6 minutes).
 - Balance trace of the fresh-save loop (reef fish curve measured via randfn sampling;
   debris conversion audited). Upcycle spawn 3.5s → 2.75s so the bench stays busy;
   documented pacing in guide.md; fixed stale README claims (belt speed, spawn rate,
@@ -29,9 +38,9 @@
   Fixed deferred spawn (hint used to parent to a dying scene during transitions).
 
 # high priority
-- (next) Balance pass 2: live playtest one full fresh-save loop with the MCP
-  (menu → welcome → walk → dive → sort → sell → finale) and record wall-clock
-  pacing; adjust only if the median loop exceeds 6 minutes.
+- (next) Re-tune the upcycle grant curve after the fix: watch how many sorts it
+  takes a fresh player to afford Market Contact (80$) across 3 real loops and
+  nudge sale prices or grant sizes if the median is off by >25%.
 
 # medium priority
 # (shimmer item promoted to high priority)

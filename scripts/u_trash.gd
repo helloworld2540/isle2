@@ -2,11 +2,14 @@ extends Node2D
 class_name Trash
 
 const TRASH_MAP := {
-	"trash_net.png": ["Nylon", 35],
-	"trash_bottle.png": ["Glass", 15],
-	"trash_plasticblue.png": ["Polypropylene", 40],
-	"trash_plasticwhite.png": ["Polypropylene", 35],
-	"trash_straw.png": ["Polyethylene", 17],
+	# Grants are sized to ~25–50% of a fresh 10 kg bag so one sort never
+	# silently maxes the hold; a bag levels up roughly every 2–3 sorts early,
+	# which keeps the dive → sort → sell loop tight.
+	"trash_net.png": ["Nylon", 1],
+	"trash_bottle.png": ["Glass", 1],
+	"trash_plasticblue.png": ["Polypropylene", 2],
+	"trash_plasticwhite.png": ["Polypropylene", 2],
+	"trash_straw.png": ["Polyethylene", 2],
 }
 
 @onready var sprite = $"Body/Sprite"
@@ -30,7 +33,9 @@ func init(texture: String) -> void:
 		var tex := load("res://sprites/rr/" + texture)
 		if tex is Texture2D:
 			sprite.texture = tex
-	scale = Vector2(log(max(1, size)) / log(100.0) / 3.0, log(max(1, size)) / log(100.0) / 3.0)
+	# Fixed on-screen size; the material-unit `size` no longer doubles as a
+	# logarithm so visual scale and economy stay decoupled.
+	scale = Vector2(0.28, 0.28)
 
 func _ready() -> void:
 	pass
