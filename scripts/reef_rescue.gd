@@ -21,6 +21,7 @@ var _combo_timer := 0.0
 @onready var fish_label: Label = $"UI/FishLabel"
 @onready var depth_label: Label = $"UI/DepthLabel"
 @onready var combo_label: Label = $"UI/ComboLabel"
+@onready var low_health_vignette: TextureRect = $"UI/LowHealthVignette"
 @onready var return_btn: Button = $"UI/ReturnToMapButton"
 
 @onready var game_over_canvas: CanvasLayer = $"GameOverCanvas"
@@ -53,6 +54,7 @@ func _ready() -> void:
 		(collect_shape.shape as CircleShape2D).radius = 66.27 + GameState.get_collection_radius_bonus()
 	AudioManager.play_bgm("reef")
 	_update_ui()
+	_update_low_health()
 	if return_btn:
 		return_btn.pressed.connect(_leave_to_map)
 	if go_return_btn:
@@ -68,6 +70,9 @@ func _process(delta: float) -> void:
 			if combo_label:
 				combo_label.visible = false
 	var vp := get_viewport_rect().size
+	if low_health_vignette and low_health_vignette.visible and not GameSettings.reduce_motion:
+		# Soft breathing vignette: edges pulse, center stays clear.
+		low_health_vignette.modulate.a = 0.38 + 0.34 * (0.5 + 0.5 * sin(Time.get_ticks_msec() * 0.006))
 	var bg_speed := 0.0
 	if drone:
 		bg_speed = (MAX_BG_SPEED * (drone.position.y / max(1.0, vp.y)) + MIN_BG_SPEED) * delta
@@ -250,6 +255,21 @@ func _update_combo_label(multiplier: int) -> void:
 	tw.tween_property(combo_label, "scale", Vector2.ONE, 0.42).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	tw.tween_property(combo_label, "modulate", Color(1.0, 0.84, 0.35, 1.0), 0.3)
 
+## One bump left: the screen edges breathe red. Reduced motion holds a
+## static dim vignette instead of a pulse — same warning, no flashing.
+func _update_low_health() -> void:
+	if not low_health_vignette:
+		return
+	var bumps_left := _fish_limit - fish
+	low_health_vignette.visible = bumps_left == 1
+	if not low_health_vignette.visible:
+		low_health_vignette.modulate.a = 0.0
+		return
+	if GameSettings.reduce_motion:
+		low_health_vignette.modulate.a = 0.55
+	else:
+		low_health_vignette.modulate.a = 0.45
+
 func _popup(msg: String, col: Color) -> void:
 	var lbl := _FLOATING_TEXT_SCENE.instantiate()
 	lbl.position = (drone.global_position if drone else Vector2.ZERO) + Vector2(-20, -40)
@@ -297,6 +317,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	if is_fish:
 		fish += 1
 		_update_ui()
+		_update_low_health()
 		AudioManager.play_sfx("sort_bad")
 		_popup("-1 life", Color(1.0, 0.4, 0.4, 1.0))
 		_sparkle(root.global_position, Color(1.0, 0.4, 0.4, 1.0))

@@ -23,6 +23,9 @@
 - Reef telegraph pass: red wake blooms in a fish's lane at the bottom edge ~1.15s
   before it enters view; swells and fades, skipped under reduced motion.
   Verified (wake at y=624 under lane x=296, fading).
+- Reef one-bump warning: soft red vignette breathes at the edges when a single
+  fish bump remains before the limit; static dim under reduced motion.
+  Verified (visible at 1 bump left, alpha oscillating).
 - Balance pass 3 (measured, not guessed): three consecutive fresh-save loops driven
   end-to-end via MCP; median yield ≈ $32/loop ($17 materials + $15 circuit),
   Market Contact reachable in ~2–3 loops; kept prices, documented in guide.md.
@@ -65,8 +68,8 @@
   Fixed deferred spawn (hint used to parent to a dying scene during transitions).
 
 # high priority
-- (next) Reef Rescue juice: low-health warning — when one bump remains before
-  the fish limit, a soft red vignette pulse at the screen edges (reduced-motion safe).
+- (next) Reef Rescue juice: game-over summary card — one-line payoff comparing
+  this dive to your best ("New best depth!" / "Best 480 m — 52 kg banked").
 
 # medium priority
 # (shimmer item promoted to high priority)
