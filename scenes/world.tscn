@@ -662,6 +662,13 @@ theme_override_colors/font_color = Color(0.72, 0.92, 1, 1)
 theme_override_font_sizes/font_size = 14
 text = "◆ Bottles 0/3"
 
+[node name="StarfishTitle" type="Label" parent="WorldProgress/Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1.0, 0.82, 0.55, 1)
+theme_override_font_sizes/font_size = 14
+text = "★ Starfish 0/5"
+visible = false
+
 [node name="UpcycleBar" type="ProgressBar" parent="WorldProgress/Panel/VBox" unique_id=900000024]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2

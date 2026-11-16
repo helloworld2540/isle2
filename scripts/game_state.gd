@@ -80,6 +80,8 @@ signal achievement_unlocked(id: String, title: String, subtitle: String)
 
 ## Emitted when a bottle is read. HUD can redraw the bottles-found roll.
 signal bottle_read(count: int)
+## Emitted when a starfish is collected; the world HUD listens for this.
+signal starfish_collected(id: String)
 
 # --- Game State Variables ---
 var upcycle_score: int = 0
@@ -477,6 +479,7 @@ func mark_starfish_found(id: String) -> int:
 		return starfish_found.size()
 	starfish_found.append(id)
 	_persist()
+	starfish_collected.emit(id)
 	return starfish_found.size()
 
 

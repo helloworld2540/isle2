@@ -1,6 +1,11 @@
 # Current project todo:
 
 # done this pass
+- World HUD starfish line: "★ Starfish n/5" joins the progress panel under
+  the bottle line, hidden until the first pickup, flips gold as "✦
+  STARLIGHT KEEPER" at five; wired to the new starfish_collected signal so it
+  updates live without polling. Verified in-game (hidden at 0, shows 1/5
+  after a pickup); smoke 45/45.
 - Web export rebuilt after the starfish collectathon landed (pck 57 MB,
   pack completes, no errors). Linux and Android debug builds verified earlier.
 - Tide Pool payout: finding all five starfish grants a one-time +$25 with a

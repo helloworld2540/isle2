@@ -19,6 +19,7 @@ const RouteAdvisor := preload("res://scripts/route_advisor.gd")
 @onready var next_label: Label = $Panel/VBox/NextStop
 @onready var hero_label: Label = $Panel/VBox/HeroTitle
 @onready var bottle_label: Label = $Panel/VBox/BottleTitle
+@onready var starfish_label: Label = $Panel/VBox/StarfishTitle
 
 var _pulse_state: float = 0.0
 var _circuit_text := ""
@@ -41,9 +42,11 @@ func _ready() -> void:
 	GameState.harbor_hero_unlocked.connect(_refresh_hero_title)
 	GameState.circuit_progress_changed.connect(_refresh_circuit_label)
 	GameState.bottle_read.connect(_refresh_bottle_label)
+	GameState.starfish_collected.connect(_refresh_starfish_label)
 	_refresh_hero_title()
 	_refresh_circuit_label()
 	_refresh_bottle_label()
+	_refresh_starfish_label()
 	_refresh_next_stop()
 
 func _process(delta: float) -> void:
@@ -126,6 +129,24 @@ func _refresh_bottle_label(_count: int = -1) -> void:
 		bottle_label.text = "◆ Bottles %d/3" % base_count
 		bottle_label.modulate = Color(0.72, 0.92, 1.0, 0.95)
 	bottle_label.visible = true
+
+
+## Starfish found so far — hidden until the first one is collected, like the
+## bottle line; counts up to a gold "STARLIGHT KEEPER" flip at five.
+func _refresh_starfish_label(_id: String = "") -> void:
+	if not starfish_label:
+		return
+	var found := GameState.starfish_found.size()
+	if found <= 0:
+		starfish_label.visible = false
+		return
+	if found >= 5:
+		starfish_label.text = "✦ STARLIGHT KEEPER"
+		starfish_label.modulate = Color(1.0, 0.82, 0.32, 1.0)
+	else:
+		starfish_label.text = "★ Starfish %d/5" % found
+		starfish_label.modulate = Color(1.0, 0.82, 0.55, 1.0)
+	starfish_label.visible = true
 
 
 ## The earned title lives on the always-visible progress card, not only in the
