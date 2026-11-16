@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Web export rebuild verified after the latest asset changes (starfish,
+  foghorn, legendary horn) — pack completes cleanly; Linux + Android debug
+  builds verified earlier this sprint.
 - Fresh-save welcome card verified visually: the onboarding card opens with
   the loop overview, legible type, and a working "Let's clean up" button on a
   brand-new save. Player save restored afterwards.
