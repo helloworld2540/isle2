@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Reef Rescue briefing re-verified visually after all bullet additions
+  (golden debris, golden Goldie): the card auto-sizes and every line renders,
+  stat line intact. No defects.
 - Upcycle briefing card re-verified visually after all recent additions: the
   golden-scrap bullet renders inline with the rest, layout holds.
 - Linux debug build re-verified after the collectathon batch (starfish,
