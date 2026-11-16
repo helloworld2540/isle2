@@ -1,6 +1,12 @@
 # Current project todo:
 
 # done this pass
+- Reef fish journal: new save key `fish_met` (string array) records every
+  species bumped into (species tag written by init_fish), the dive pops
+  "New species: <name>!" on a first sighting, the stats page shows
+  "Fish spotted: N / 4 species", and a new achievement **REEF REGISTRY**
+  unlocks at all four. Verified in-game (dedup rejected, predicate fires at
+  four, save restored after testing); smoke 44/44.
 - Save schema gate: `SAVE_VERSION` was written but never read — load_game now
   runs `_check_version` (migrates older saves in version order; warns and
   loads as-is when the file is from a newer build; v0->v1 is declarative since

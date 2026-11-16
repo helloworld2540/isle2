@@ -129,6 +129,13 @@ const ENTRIES: Array[Dictionary] = [
 		"where": "Upcycle",
 	},
 	{
+		"id": "reef_registry",
+		"short": "Registry",
+		"title": "REEF REGISTRY",
+		"subtitle": "Bumped into all four fish species.",
+		"where": "Reef Rescue",
+	},
+	{
 		"id": "clean_sweep",
 		"short": "Sweep",
 		"title": "CLEAN SWEEP",
@@ -256,6 +263,8 @@ static func is_met(id: String, state: Node) -> bool:
 			return state.island_patron
 		"hot_streak":
 			return state.best_sort_streak >= 15
+		"reef_registry":
+			return state.fish_met.size() >= 4
 		"clean_sweep":
 			return state.clean_dives >= 5
 		"silk_touch":

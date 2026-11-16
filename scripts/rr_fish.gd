@@ -34,6 +34,7 @@ func init_fish() -> void:
 	if texture_keys.is_empty():
 		return
 	var texture: String = str(texture_keys.pick_random())
+	set_meta("species", texture.get_basename())
 	var raw_size := randfn(float(FISH.get(texture, 10)), 10.0)
 	var clamped := clampf(raw_size, 1.0, 99.0)
 	size = log(clamped) / log(100.0)

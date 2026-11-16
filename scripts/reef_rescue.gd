@@ -310,6 +310,9 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	var is_fish: bool = bool(root.get_meta("is_fish", false))
 	if is_fish:
 		fish += 1
+		var species := str(root.get_meta("species", ""))
+		if GameState.mark_fish_met(species):
+			_popup("New species: %s!" % species, Color(0.6, 0.9, 1.0, 1.0))
 		_update_ui()
 		_update_low_health()
 		AudioManager.play_sfx("sort_bad")

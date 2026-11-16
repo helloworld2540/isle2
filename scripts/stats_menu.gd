@@ -131,6 +131,7 @@ func _build_stats_text() -> String:
 	lines.append("Fish bumps taken: %d  (best %d)" % [GameState.reef_fish, GameState.best_reef_fish])
 	lines.append("Best reef combo: %d chain  (×%d multiplier)" % [GameState.best_reef_combo, 1 + int(GameState.best_reef_combo / 3)])
 	lines.append("Heaviest dive: %d kg  ·  Clean dives: %d" % [GameState.best_reef_haul, GameState.clean_dives])
+	lines.append("Fish spotted: %d / 4 species%s" % [GameState.fish_met.size(), "  ·  " + ", ".join(GameState.fish_met) if GameState.fish_met.size() > 0 else ""])
 	lines.append("Best sort streak: %d  ·  Flawless shifts: %d" % [GameState.best_sort_streak, GameState.flawless_shifts])
 	lines.append("Deep Cache: %s" % ("tier %d" % GameState.deep_cache_tier if GameState.deep_cache else "not owned"))
 	lines.append("Market Contact: +%d$/unit  ·  Reef Charter: %d dive bumps" % [
