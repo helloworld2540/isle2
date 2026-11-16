@@ -1,6 +1,11 @@
 # Current project todo:
 
 # done this pass
+- Mobile typography audit: every remaining sub-13 px label raised to 13 px
+  (NPC name tag, world menu hint, main-menu postcard caption, achievement and
+  ledger legends). Verified no `font_size < 13` remains outside the `.bak`;
+  all Buttons are >= 44 px tall (the three offset-sized ones measure 48 px).
+  Smoke 44/44.
 - **Save-wipe guard on New Save**: pressing New Save with an existing save now
   opens the shared ConfirmPanel ("Start over? … wiped for good", 52 px+ buttons,
   "Start over" confirm) instead of silently deleting save.json + .bak; cancel

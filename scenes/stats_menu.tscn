@@ -137,7 +137,7 @@ horizontal_alignment = 1
 [node name="LedgerLegend" type="Label" parent="LedgerOverlay/Panel/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6, 0.72, 0.9, 1)
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 13
 text = "every note the tide ever left you — tap to read again"
 horizontal_alignment = 1
 
@@ -219,7 +219,7 @@ horizontal_alignment = 1
 [node name="GuideLegend" type="Label" parent="GuideOverlay/Panel/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6, 0.72, 0.9, 1)
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 13
 text = "✓ earned    ·    still to earn"
 horizontal_alignment = 1
 
