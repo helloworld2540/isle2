@@ -1,6 +1,12 @@
 # Current project todo:
 
 # done this pass
+- Real portal-entry path verified end to end without any scene in-memory
+  teleport: fresh save -> main menu -> New Save -> world -> teleport player
+  onto the Reef Rescue pad -> body_entered fires -> scene actually
+  transitions to reef_rescue.tscn, the dive briefing shows, and the
+  underwater scene renders with HUD (Collected kg / fish bumps / depth) and
+  fish + garbage spawning. Player save restored afterwards.
 - Starfish HUD line verified visually behind the fresh-save welcome card:
   the "★ Starfish 1/5" row renders under the route tracker on a fresh save
   with one collected — the reveal-from-hidden logic works end-to-end on the
