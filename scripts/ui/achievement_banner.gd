@@ -68,6 +68,7 @@ func _ready() -> void:
 	_play_pending_circuits()
 	_flush_pending_achievements()
 	_play_tide_gift()
+	_play_tide_pool()
 
 
 # --- Announcement Sources ---
@@ -127,6 +128,19 @@ func _play_tide_gift() -> void:
 	present(
 		String(gift.get("title", "TIDE'S GIFT")),
 		String(gift.get("subtitle", "The island thanks its keeper.")),
+		NPC_LINE_SECONDS,
+		{"accent": "milestone"}
+	)
+
+
+## Starfish epilogue: the same 25$ thanks for a finished tidepool set.
+func _play_tide_pool() -> void:
+	var gift := GameState.try_grant_tide_pool()
+	if gift.is_empty():
+		return
+	present(
+		String(gift.get("title", "TIDE POOL")),
+		String(gift.get("subtitle", "The island's coastline thanks its keeper.")),
 		NPC_LINE_SECONDS,
 		{"accent": "milestone"}
 	)

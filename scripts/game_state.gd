@@ -138,7 +138,10 @@ var starfish_found: Array[String] = []
 var fish_met: Array[String] = []
 ## The one-time reward for finding all three bottles (saved).
 var tide_gift_granted: bool = false
+## One-time payout for finding every starfish on the island.
+var tide_pool_granted: bool = false
 const TIDE_GIFT_MONEY := 25
+const TIDE_POOL_MONEY := 25
 ## Prestige purchase: a one-time island benefactor gift. No stat effect, only
 ## bragging rights — the island's answer to late-game money.
 var island_patron: bool = false
@@ -512,6 +515,21 @@ func try_grant_tide_gift() -> Dictionary:
 	}
 
 
+## One-time payout for the five starfish. Separate flag from TIDE'S GIFT so
+## each collectathon pays exactly once.
+func try_grant_tide_pool() -> Dictionary:
+	if tide_pool_granted:
+		return {}
+	if starfish_found.size() < 5:
+		return {}
+	tide_pool_granted = true
+	add_earnings(TIDE_POOL_MONEY)
+	return {
+		"title": "TIDE POOL",
+		"subtitle": "The island's coastline thanks its keeper. +$%d" % TIDE_POOL_MONEY,
+	}
+
+
 # --- Minigame Hand-off ---
 # Minigames call this on their summary screen so the world map can show what
 # just happened the moment the player walks back out of the portal.
@@ -706,6 +724,7 @@ const SAVE_SCHEMA: Array = [
 	["starfish_found", "starfish_found", [], "string_array"],
 	["fish_met", "fish_met", [], "string_array"],
 	["tide_gift_granted", "tide_gift_granted", false, "bool"],
+	["tide_pool_granted", "tide_pool_granted", false, "bool"],
 	["quests_completed", "quests_completed", 0, "int"],
 	["lifetime_garbage_kg", "lifetime_garbage_kg", 0, "int"],
 	["reef_dives", "reef_dives", 0, "int"],

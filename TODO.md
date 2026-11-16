@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- Tide Pool payout: finding all five starfish grants a one-time +$25 with a
+  "TIDE POOL" milestone card on the next world load (banner mirrors
+  TIDE'S GIFT). Verified in-game (gift fires at 5, idempotent re-grant,
+  money +25); player save restored afterwards; smoke 45/45.
 - Stats page "Journal" line: a one-line completion ledger at the top of the
   page (bottles / starfish / species / achievements, e.g.
   "Journal — bottles 1/4 · starfish 0/5 · species 0/4 · achievements 9/31")
