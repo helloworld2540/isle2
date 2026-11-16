@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Web export rebuilt after the harbor-bell asset landed: pack completes
+  (html/js/wasm/pck all emitted, zero errors). Linux and Android debug
+  builds verified earlier this sprint.
 - New achievement **ROUND THE ISLE** (`first_circuit`, Island): closes the
   obvious gap — the first island circuit had no badge; now it does (home
   stakes for LOOP MASTER at 25). Verified in-game (predicate fires at 1,
