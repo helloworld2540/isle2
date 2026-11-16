@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- Web export rebuilt with the new exclude filters as a final cross-check:
+  pack completes cleanly.
 - Export filters now exclude the dev markdown suite and sprint logs too
   (README/TODO/guide/PITCH/overnight_sprint/sprint.md) from Web/Android/Linux
   packs — builds ship the game, not the notebook. Verified: Linux debug
