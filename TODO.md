@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Linux debug build verified at the tip of the loop: compiles, packs,
+  launches with zero script errors (only benign shutdown noise). README/guide
+  document the sailboat foghorn; no stale references in the docs.
 - Android APK inspected as a zip: contains AndroidManifest, libgodot_android.so
   (arm64-v8a) and assets.sparsepck with every imported sprite/audio/resource —
   the debug build is structurally valid for device installation.
