@@ -143,6 +143,14 @@ func _spawn_item() -> void:
 		item.init_fish()
 	else:
 		item.init_garbage()
+	# Golden variants sing out and shimmer once their spawn tween lands.
+	if bool(item.get_meta("golden", false)) or bool(item.get_meta("golden_fish", false)):
+		AudioManager.play_sfx("pickup", 1.6)
+		if not GameSettings.reduce_motion:
+			var tw2 := item.create_tween().set_loops(2)
+			tw2.tween_interval(0.4)
+			tw2.tween_property(item, "scale", Vector2(1.18, 1.18), 0.24).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+			tw2.tween_property(item, "scale", Vector2(1.0, 1.0), 0.24).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
 func _update_edge_markers() -> void:
 	var vp := get_viewport_rect().size

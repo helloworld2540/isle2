@@ -260,6 +260,13 @@ func spawn_item() -> void:
 	if randf() < 0.12:
 		item.set_meta("golden", true)
 		item.modulate = Color(1.15, 1.05, 0.55, 1.0)
+		AudioManager.play_sfx("pickup", 1.6)
+		if not GameSettings.reduce_motion:
+			# A quick scale shimmer (the fade-in tween owns modulate) so the
+			# golden scrap reads from across the room.
+			var shimmer := item.create_tween().set_loops(2)
+			shimmer.tween_property(item, "scale", Vector2(0.34, 0.34), 0.28).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+			shimmer.tween_property(item, "scale", Vector2(0.28, 0.28), 0.28).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 		
 	# Fade in from transparent while keeping the (possibly golden) tint.
 	var resting := item.modulate

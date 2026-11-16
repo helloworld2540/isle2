@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- Golden spawn telegraphing: both minigames now chime softly and shimmer on
+  spawn when a golden item appears (belt: scale pulse, reef: scale pulse after
+  the spawn tween), so gold rarity is readable at a glance — not just a tint.
+  Smoke 44/44.
 - Fresh-save end-to-end mechanical loop verified after this sprint's changes:
   menu -> fresh world -> welcome dismissed -> tour arms (step 1) -> move/reef/
   sort/sell notifications advance the guide to the finale (step 5 persists) ->
