@@ -4,7 +4,7 @@
 
 [node name="SettingsPanel" type="VBoxContainer"]
 custom_minimum_size = Vector2(420, 0)
-theme_override_constants/separation = 4
+theme_override_constants/separation = 8
 script = ExtResource("1_settings")
 
 [node name="MasterRow" type="HBoxContainer" parent="."]
@@ -12,7 +12,8 @@ layout_mode = 2
 theme_override_constants/separation = 8
 
 [node name="MasterLabel" type="Label" parent="MasterRow"]
-custom_minimum_size = Vector2(250, 0)
+custom_minimum_size = Vector2(210, 0)
+theme_override_font_sizes/font_size = 15
 layout_mode = 2
 text = "Master Volume: 100%"
 
@@ -27,7 +28,8 @@ layout_mode = 2
 theme_override_constants/separation = 8
 
 [node name="MusicLabel" type="Label" parent="MusicRow"]
-custom_minimum_size = Vector2(250, 0)
+custom_minimum_size = Vector2(210, 0)
+theme_override_font_sizes/font_size = 15
 layout_mode = 2
 text = "Music Volume: 65%"
 
@@ -42,7 +44,8 @@ layout_mode = 2
 theme_override_constants/separation = 8
 
 [node name="AmbienceLabel" type="Label" parent="AmbienceRow"]
-custom_minimum_size = Vector2(250, 0)
+custom_minimum_size = Vector2(210, 0)
+theme_override_font_sizes/font_size = 15
 layout_mode = 2
 text = "Ambience Volume: 70%"
 
@@ -57,7 +60,8 @@ layout_mode = 2
 theme_override_constants/separation = 8
 
 [node name="SfxLabel" type="Label" parent="SfxRow"]
-custom_minimum_size = Vector2(250, 0)
+custom_minimum_size = Vector2(210, 0)
+theme_override_font_sizes/font_size = 15
 layout_mode = 2
 text = "SFX Volume: 100%"
 
@@ -69,5 +73,6 @@ value = 100.0
 
 [node name="ReduceMotion" type="CheckBox" parent="."]
 custom_minimum_size = Vector2(0, 44)
+theme_override_font_sizes/font_size = 15
 layout_mode = 2
 text = "Reduce motion (no shake or confetti)"

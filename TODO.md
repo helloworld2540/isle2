@@ -1,6 +1,47 @@
 # Current project todo:
 
 # done this pass
+- Empty-shift phantom run fixed: opening the bench with a dry Reef Debris
+  pile auto-ended the "run" on the first frame and banked a 0-score shift
+  (`upcycle_runs += 1`, a "Bench Run № N" recap card, achievement progress) —
+  reproduced in-game via the MCP harness (fresh save, empty pile, entering
+  `upcycle.tscn` recorded a run without a single item spawning). Now a shift
+  that never fed the belt (`_items_fed == 0` and no score/sorts) shows the
+  same "No Reef Debris banked" panel but banks nothing: no run counter, no
+  streak, no recap card, no achievement credit. Verified both paths in-game
+  (empty pile → runs stays 0 and `last_run` stays empty; armed debris →
+  belt spawns and drains normally). Player save restored after testing.
+- World-menu layout pass settled (the "parallel layout pass" the reduced-motion
+  item was waiting on): the pause card is now a proper modal — CenterContainer
+  + 880 px-min Card on a 24 px screen margin, its own StyleBox set
+  (card/section/upgrade), a Header row (title + live upgrade status), an
+  ACTIONS column (resume / save & quit) beside an infobox, and a **Settings
+  view** that swaps out the upgrades + progress sections so the card never
+  outgrows a 1152×648 screen (button reads "Back to upgrades" while open).
+  Pause joins the `ui_modal_card` group (the same handshake minigame briefings,
+  NPC dialogue, confirm panels and the welcome guide use), so the tutorial
+  director defers step cards instead of stacking them on the pause overlay,
+  and achievement toasts no longer fire underneath it either.
+- Notification toasts moved into a bottom-centre lane: full-width band 24 px off
+  the edge, 18 px type with a dark outline for legibility over bright water,
+  and they lift clear (card height + 12 px) above any visible bottom-centre
+  card — the tutorial step hint registers in `hud_bottom_card`, joining the
+  shared 24 px margin layout convention (tutorial hint rebuilt on
+  Margin/Column; welcome guide, minigame briefing, all modal cards centered
+  on a full-rect CenterContainer).
+- Reef + Upcycle HUD labels grouped into `UI/HUDStats` VBoxes (20 px type,
+  anchored at the 24 px safe margin); minigame briefing rebuilt as a centered
+  620 px modal on the same margin grid, dim 0.6, matching the welcome guide.
+- Reduced motion covers the world-menu open fade (was the one outstanding RM
+  gap): under RM the card simply appears; off-RM the 0.16 s fade runs.
+  Verified both paths in-game. Verified end to end: menu opens/pauses/joins
+  the modal group, settings swaps both ways, all 16 touched scenes load +
+  instantiate in-game, HUD paths resolve, briefing dismisses, toasts spawn
+  bottom-lane and auto-expire. Player save untouched (restore pattern kept).
+- Asset hygiene: `sound/sfx/gull.wav` was silently replaced with a 14.5 s
+  24-bit stereo 4 MB real recording (60× oversized, undocumented, unknown
+  provenance); restored the committed synthesized cry the docs describe and
+  backed the recording up to /tmp/opencode/isle2-backup/gull-realrecording-4MB.wav.
 - Upcycle bar tooltip: the world HUD's "Upcycle" bar now reads as progress
   toward the next Deep Cache purchase (it counts down to the score price).
 - Reduced-motion coverage for the pop-in punch: the shop "SOLD ... (bulk)" receipt
@@ -302,13 +343,13 @@
   Fixed deferred spawn (hint used to parent to a dying scene during transitions).
 
 # high priority
-- (none outstanding — the balance, Deep Cache and tutorial-nudge items are done.)
+- Reef dive phantom runs: entering Reef Rescue with zero pickups and ending
+  still counts as a dive (`reef_dives += 1`), same phantom-inflation class as
+  the bench issue fixed this pass. Decide the intended semantics (count any
+  dive vs. require ≥1 pickup/depth) before touching achievements/stats.
 
 # medium priority
 # (shimmer item promoted to high priority)
 
 # low priority backlog
-- Reduced-motion: the **world-menu open animation** still runs under "Reduce
-  motion". The shop receipt punch is now suppressed; the world menu's own
-  open tween lives in `scripts/wm_menu.gd`, which the parallel layout pass is
-  reworking — revisit once it settles.
+- (none outstanding.)

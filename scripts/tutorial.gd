@@ -10,7 +10,7 @@ signal dismissed
 @export var button_text := "Got it"
 
 @onready var title: Label = $Center/Panel/VBox/Title
-@onready var body: RichTextLabel = $Center/Panel/VBox/Body
+@onready var body: RichTextLabel = $Center/Panel/VBox/BodyScroll/Body
 @onready var dismiss_button: Button = $Center/Panel/VBox/Button
 
 

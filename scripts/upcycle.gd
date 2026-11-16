@@ -48,6 +48,7 @@ var spawn_timer: float = 0.0
 var belt_speed: float = 80.0
 var _belt_banner_shown: bool = false
 var _leaving: bool = false
+var _items_fed: int = 0  ## Belt items spawned this run — 0 means the bench visit never really happened.
 var _shift_exhausted: bool = false  ## No reef debris left to feed the belt.
 var _low_debris_warned: bool = false  ## One-shot "running low" callout.
 var _best_beaten: bool = false  ## One-shot per run, when the player passes the saved best.
@@ -61,11 +62,11 @@ var _hud_queue: Node = null
 
 # Node References
 @onready var ui: CanvasLayer = $"UI"
-@onready var score_label: Label = $"UI/ScoreLabel"
-@onready var streak_label: Label = $"UI/StreakLabel"
-@onready var recycled_label: Label = $"UI/RecycledLabel"
-@onready var belt_label: Label = $"UI/BeltLabel"
-@onready var debris_label: Label = $"UI/DebrisLabel"
+@onready var score_label: Label = $"UI/HUDStats/ScoreLabel"
+@onready var streak_label: Label = $"UI/HUDStats/StreakLabel"
+@onready var recycled_label: Label = $"UI/HUDStats/RecycledLabel"
+@onready var belt_label: Label = $"UI/HUDStats/BeltLabel"
+@onready var debris_label: Label = $"UI/HUDStats/DebrisLabel"
 @onready var return_btn: Button = $"UI/ReturnToMapButton"
 @onready var player: CharacterBody2D = $"Player"
 @onready var conveyor: Path2D = $"Conveyor"
@@ -235,6 +236,7 @@ func spawn_item() -> void:
 	GameState.trash_by_type["Reef Debris"] = int(GameState.trash_by_type.get("Reef Debris", 0)) - 1
 	GameState._recompute_inventory()
 	GameState._persist()
+	_items_fed += 1
 	
 	var item: Node2D = preload("res://scenes/u_trash.tscn").instantiate()
 	var follow := load("res://scenes/ui/path_follow2_d.tscn").instantiate() as PathFollow2D
@@ -638,11 +640,17 @@ func _notify_queue(text: String, col: Color = Color(0.85, 1.0, 0.6, 1.0), durati
 func _game_over_summary(clean_finish: bool = false) -> void:
 	if _leaving: return
 	_leaving = true
-	
+
+	# An empty-pile visit that never fed the belt is not a run: don't bank a
+	# phantom "SHIFT COMPLETE" recap, don't count it in run stats, and don't
+	# let it trip bench achievements — just send the player reef-side.
+	var empty_shift := _items_fed == 0 and score == 0 and _sorted_count == 0
+
 	var prev_best := GameState.best_upcycle_score
-	GameState.record_sort_streak(sort_streak)
-	GameState.record_upcycle(score)
-	_record_run_card(prev_best)
+	if not empty_shift:
+		GameState.record_sort_streak(sort_streak)
+		GameState.record_upcycle(score)
+		_record_run_card(prev_best)
 	
 	AudioManager.play_sfx("shift_complete" if clean_finish else "sort_bad")
 	

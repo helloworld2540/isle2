@@ -8,6 +8,22 @@
 [sub_resource type="LabelSettings" id="LabelSettings_nmirg"]
 font_size = 100
 
+[sub_resource type="StyleBoxFlat" id="StyleBox_summary"]
+content_margin_left = 22.0
+content_margin_top = 18.0
+content_margin_right = 22.0
+content_margin_bottom = 18.0
+bg_color = Color(0.05, 0.08, 0.12, 0.82)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.7, 0.9, 0.35)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+
 [node name="Control" type="Control" unique_id=772106938]
 layout_mode = 3
 anchors_preset = 15
@@ -81,19 +97,28 @@ theme_override_font_sizes/font_size = 27
 text = "Quit"
 
 [node name="WorldPreviewPanel" parent="." instance=ExtResource("3_preview")]
-layout_mode = 0
-offset_left = 970.0
-offset_top = 10.0
-offset_right = 1144.0
-offset_bottom = 170.0
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -208.0
+offset_top = 24.0
+offset_right = -24.0
+offset_bottom = 184.0
+grow_horizontal = 0
 
 [node name="SaveSummaryPanel" type="PanelContainer" parent="." unique_id=1000001]
 custom_minimum_size = Vector2(300, 0)
-layout_mode = 0
-offset_left = 527.0
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -555.0
 offset_top = 264.0
-offset_right = 1058.0
+offset_right = -24.0
 offset_bottom = 523.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBox_summary")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="SaveSummaryPanel" unique_id=1000002]
 layout_mode = 2

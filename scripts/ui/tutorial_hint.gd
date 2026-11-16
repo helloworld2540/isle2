@@ -4,6 +4,10 @@ extends CanvasLayer
 ## bottom of the screen, never pauses the tree, and never blocks input outside
 ## the card itself — the player can keep playing and dismiss whenever.
 ## The director owns which step text is shown; this card only presents it.
+##
+## Layout convention: every overlay card sits inside the same 24 px screen
+## margin (MarginContainer here; centered CenterContainer on the modal cards),
+## so nothing ever touches a screen edge.
 
 signal dismissed
 
@@ -11,14 +15,16 @@ signal dismissed
 @export_multiline var body_text := ""
 @export var button_text := "Got it"
 
-@onready var panel: PanelContainer = $Anchor/Center/Panel
-@onready var title: Label = $Anchor/Center/Panel/VBox/Title
-@onready var body: RichTextLabel = $Anchor/Center/Panel/VBox/Body
-@onready var dismiss_button: Button = $Anchor/Center/Panel/VBox/Button
+@onready var panel: PanelContainer = $Margin/Column/Panel
+@onready var title: Label = $Margin/Column/Panel/VBox/Title
+@onready var body: RichTextLabel = $Margin/Column/Panel/VBox/Body
+@onready var dismiss_button: Button = $Margin/Column/Panel/VBox/Button
 
 func _ready() -> void:
 	layer = 190
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	# Bottom-centre lane owner: toasts stack above this card, never under it.
+	panel.add_to_group("hud_bottom_card")
 	title.text = title_text
 	body.text = body_text
 	dismiss_button.text = button_text

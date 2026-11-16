@@ -40,6 +40,13 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
   world-menu upgrade buttons (Move / Range / Deep Cache / Inv Cap) plus the Settings
   toggle and Reduce-motion checkbox are all ≥ 44 px, and each volume slider sits in
   a label+slider row with a 40 px track — primary type ≥ 15 px.
+- **Layout convention**: modal cards (welcome guide, minigame briefings, the
+  pause/Island Menu) center on a full-rect `CenterContainer` inset by 24 px;
+  non-modal bottom cards (tutorial step hints) sit inside a bottom `Margin`
+  column. Both lanes register in `hud_bottom_card` / `ui_modal_card` groups,
+  which the toast queue and tutorial director use to stack above / wait for
+  them instead of overlapping. Toast notifications live in a bottom-centre
+  lane, 24 px off the edge, lifted above any bottom card.
 - **Audio**: `scripts/audio_manager.gd`.
 
 ## State & Save
@@ -85,7 +92,7 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 - Belt speed: `clamp(75 + score*0.3, 75, 180)`.
 - Bin match by material; fire hazard on body enter.
 - HUD shows the banked Reef Debris count (amber at five or fewer, red when the pile is dry) so the end of a run is legible before it arrives.
-- Debris-backed shift: each spawned item spends one banked Reef Debris. At 5 or fewer a one-shot "N Reef Debris left" callout fires; at zero the belt stops feeding but the run only ends once the belt is clear and nothing is in hand, closing with a gold "SHIFT COMPLETE" panel instead of a loss screen.
+- Debris-backed shift: each spawned item spends one banked Reef Debris. At 5 or fewer a one-shot "N Reef Debris left" callout fires; at zero the belt stops feeding but the run only ends once the belt is clear and nothing is in hand, closing with a gold "SHIFT COMPLETE" panel instead of a loss screen. A visit with a dry pile that never feeds the belt records nothing — no run counter, streak, recap card or achievement credit.
 - Streak tracked; on return, `record_sort_streak` and `record_upcycle(score)`.
 
 ## Reef Rescue Mechanics

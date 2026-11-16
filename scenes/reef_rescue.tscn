@@ -41,6 +41,24 @@ height = 147.9086
 [sub_resource type="SystemFont" id="SystemFont_aq0s6"]
 subpixel_positioning = 0
 
+[sub_resource type="StyleBoxFlat" id="StyleBox_gameover"]
+content_margin_left = 24.0
+content_margin_top = 22.0
+content_margin_right = 24.0
+content_margin_bottom = 22.0
+bg_color = Color(0.05, 0.08, 0.12, 0.97)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1.0, 0.45, 0.5, 0.7)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0, 0, 0, 0.5)
+shadow_size = 12
+
 [node name="ReefRescue" type="Node2D" unique_id=1000]
 script = ExtResource("1_script")
 MIN_BG_SPEED = null
@@ -84,39 +102,34 @@ enabled = false
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=1009]
 
-[node name="GarbageLabel" type="Label" parent="UI" unique_id=1010]
-offset_left = 20.0
-offset_top = 20.0
-offset_right = 600.0
-offset_bottom = 60.0
+[node name="HUDStats" type="VBoxContainer" parent="UI" unique_id=101000]
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 624.0
+offset_bottom = 24.0
+theme_override_constants/separation = 2
+
+[node name="GarbageLabel" type="Label" parent="UI/HUDStats" unique_id=1010]
+layout_mode = 2
 theme_override_fonts/font = SubResource("SystemFont_aq0s6")
 theme_override_font_sizes/font_size = 24
 text = "Garbage collected (kg): 0"
 
-[node name="FishLabel" type="Label" parent="UI" unique_id=1011]
-offset_left = 20.0
-offset_top = 60.0
-offset_right = 600.0
-offset_bottom = 100.0
+[node name="FishLabel" type="Label" parent="UI/HUDStats" unique_id=1011]
+layout_mode = 2
 theme_override_fonts/font = SubResource("SystemFont_aq0s6")
 theme_override_font_sizes/font_size = 24
 text = "Fish released: 3"
 
-[node name="DepthLabel" type="Label" parent="UI" unique_id=1678753925]
-offset_left = 20.0
-offset_top = 98.0
-offset_right = 600.0
-offset_bottom = 138.0
+[node name="DepthLabel" type="Label" parent="UI/HUDStats" unique_id=1678753925]
+layout_mode = 2
 theme_override_fonts/font = SubResource("SystemFont_aq0s6")
 theme_override_font_sizes/font_size = 24
 text = "Depth: 10 m"
 
-[node name="ComboLabel" type="Label" parent="UI" unique_id=1678753930]
+[node name="ComboLabel" type="Label" parent="UI/HUDStats" unique_id=1678753930]
 visible = false
-offset_left = 20.0
-offset_top = 138.0
-offset_right = 600.0
-offset_bottom = 186.0
+layout_mode = 2
 theme_override_fonts/font = SubResource("SystemFont_aq0s6")
 theme_override_font_sizes/font_size = 26
 theme_override_colors/font_color = Color(1.0, 0.84, 0.35, 1.0)
@@ -136,10 +149,15 @@ stretch_mode = 6
 texture = ExtResource("8_vignette")
 
 [node name="ReturnToMapButton" type="Button" parent="UI" unique_id=1020]
-offset_left = 16.0
-offset_top = 160.0
-offset_right = 180.0
-offset_bottom = 208.0
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -220.0
+offset_top = 24.0
+offset_right = -24.0
+offset_bottom = 72.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 22
 text = "Return to Map"
 
 [node name="GameOverCanvas" type="CanvasLayer" parent="." unique_id=2001]
@@ -155,12 +173,18 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.72)
 
 [node name="GameOverPanel" type="PanelContainer" parent="GameOverCanvas" unique_id=2003]
-custom_minimum_size = Vector2(460, 0)
-anchors_preset = -1
-anchor_left = 0.25
-anchor_top = 0.2
-anchor_right = 0.75
-anchor_bottom = 0.8
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -310.0
+offset_top = -170.0
+offset_right = 310.0
+offset_bottom = 170.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBox_gameover")
 
 [node name="VBox" type="VBoxContainer" parent="GameOverCanvas/GameOverPanel" unique_id=2004]
 layout_mode = 2
@@ -170,13 +194,13 @@ alignment = 1
 [node name="Title" type="Label" parent="GameOverCanvas/GameOverPanel/VBox" unique_id=2005]
 modulate = Color(1, 0.4, 0.45, 1)
 layout_mode = 2
-theme_override_font_sizes/font_size = 46
+theme_override_font_sizes/font_size = 40
 text = "GAME OVER"
 horizontal_alignment = 1
 
 [node name="Body" type="Label" parent="GameOverCanvas/GameOverPanel/VBox" unique_id=2006]
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 22
 text = "Bumped into 0 fish
 Garbage collected: 0 kg
 Depth: 0 m

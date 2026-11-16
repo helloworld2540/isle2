@@ -22,50 +22,50 @@ corner_radius_bottom_left = 14
 layer = 190
 script = ExtResource("1_hint")
 
-[node name="Anchor" type="Control" parent="."]
-anchors_preset = 12
-anchor_left = 0.0
-anchor_right = 1.0
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -158.0
-offset_bottom = -14.0
-
-[node name="Center" type="CenterContainer" parent="Anchor"]
+[node name="Margin" type="MarginContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
 
-[node name="Panel" type="PanelContainer" parent="Anchor/Center"]
+[node name="Column" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+alignment = 2
+
+[node name="Panel" type="PanelContainer" parent="Margin/Column"]
 custom_minimum_size = Vector2(560, 0)
 layout_mode = 2
+size_flags_horizontal = 4
 theme_override_styles/panel = SubResource("StyleBox_hint")
 
-[node name="VBox" type="VBoxContainer" parent="Anchor/Center/Panel"]
+[node name="VBox" type="VBoxContainer" parent="Margin/Column/Panel"]
 layout_mode = 2
 theme_override_constants/separation = 6
 
-[node name="Title" type="Label" parent="Anchor/Center/Panel/VBox"]
+[node name="Title" type="Label" parent="Margin/Column/Panel/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1.0, 0.88, 0.5, 1)
 theme_override_font_sizes/font_size = 21
 text = "Hint"
 horizontal_alignment = 1
 
-[node name="Body" type="RichTextLabel" parent="Anchor/Center/Panel/VBox"]
-custom_minimum_size = Vector2(516, 0)
+[node name="Body" type="RichTextLabel" parent="Margin/Column/Panel/VBox"]
+custom_minimum_size = Vector2(524, 0)
 layout_mode = 2
 bbcode_enabled = true
 fit_content = true
 scroll_active = false
 
-[node name="Button" type="Button" parent="Anchor/Center/Panel/VBox"]
+[node name="Button" type="Button" parent="Margin/Column/Panel/VBox"]
 custom_minimum_size = Vector2(170, 46)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 19
 text = "Got it"
 
-[connection signal="pressed" from="Anchor/Center/Panel/VBox/Button" to="." method="_on_dismiss_pressed"]
+[connection signal="pressed" from="Margin/Column/Panel/VBox/Button" to="." method="_on_dismiss_pressed"]

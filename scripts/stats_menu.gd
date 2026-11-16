@@ -4,7 +4,7 @@ const SCENE_MAIN_MENU: String = "res://scenes/main_menu.tscn"
 ## Display order of the guide's station sections. Entries carry a "where" tag.
 const GUIDE_GROUPS: Array[String] = ["Reef Rescue", "Upcycle", "Shop", "Islanders", "Island"]
 
-@onready var _stats_label: Label = $"Margin/VBox/StatsLabel"
+@onready var _stats_label: Label = $"Margin/VBox/StatsScroll/StatsLabel"
 @onready var _back_button: Button = $"Margin/VBox/BackButton"
 @onready var _guide_button: Button = $"Margin/VBox/GuideButton"
 @onready var _guide_overlay: Control = $"GuideOverlay"

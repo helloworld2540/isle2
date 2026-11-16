@@ -6,29 +6,32 @@ const NOTIFICATION_QUEUE := preload("res://scenes/ui/notification_queue.tscn")
 @onready var panel: Control = $MenuPanel
 @onready var hud_menu_button: Button = $HUDMenuButton
 @onready var bgm_cycle_timer: Timer = $BgmCycleTimer
-@onready var resume_button: Button = $MenuPanel/HBoxContainer/VBoxContainer/ResumeButton
-@onready var save_button: Button = $MenuPanel/HBoxContainer/VBoxContainer/SaveButton
-@onready var cap_status: Label = $MenuPanel/HBoxContainer/VBoxContainer/CapStatus
+@onready var resume_button: Button = $MenuPanel/Center/Card/HBoxContainer/VBoxContainer/ResumeButton
+@onready var save_button: Button = $MenuPanel/Center/Card/HBoxContainer/VBoxContainer/SaveButton
+@onready var cap_status: Label = $MenuPanel/Center/Card/HBoxContainer/VBoxContainer/CapStatus
 
-@onready var upgrades_panel: PanelContainer = $MenuPanel/HBoxContainer/Infobox/UpgradesPanel
-@onready var upgrade_panel: VBoxContainer = $MenuPanel/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel
-@onready var upgrade_status: Label = $MenuPanel/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel/UpgradeStatus
-@onready var move_faster_btn: Button = $MenuPanel/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel/MoveFasterBtn
-@onready var collection_range_btn: Button = $MenuPanel/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel/CollectionRangeBtn
-@onready var deep_cache_btn: Button = $MenuPanel/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel/DeepCacheBtn
-@onready var deep_cache_upgrade_btn: Button = $MenuPanel/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel/DeepCacheUpgradeBtn
-@onready var inventory_cap_btn: Button = $MenuPanel/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel/InventoryCapBtn
+@onready var card: PanelContainer = $MenuPanel/Center/Card
+@onready var upgrades_label: Label = $MenuPanel/Center/Card/HBoxContainer/Infobox/UpgradesLabel
+@onready var upgrades_panel: PanelContainer = $MenuPanel/Center/Card/HBoxContainer/Infobox/UpgradesPanel
+@onready var upgrade_panel: VBoxContainer = $MenuPanel/Center/Card/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel
+@onready var upgrade_status: Label = $MenuPanel/Center/Card/HBoxContainer/Infobox/Header/TitleCol/UpgradeStatus
+@onready var move_faster_btn: Button = $MenuPanel/Center/Card/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel/MoveFasterBtn
+@onready var collection_range_btn: Button = $MenuPanel/Center/Card/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel/CollectionRangeBtn
+@onready var deep_cache_btn: Button = $MenuPanel/Center/Card/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel/DeepCacheBtn
+@onready var deep_cache_upgrade_btn: Button = $MenuPanel/Center/Card/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel/DeepCacheUpgradeBtn
+@onready var inventory_cap_btn: Button = $MenuPanel/Center/Card/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel/InventoryCapBtn
 
-@onready var upcycle_progress_box: HBoxContainer = $MenuPanel/HBoxContainer/Infobox/ProgressBox
-@onready var upcycle_label: Label = $MenuPanel/HBoxContainer/Infobox/ProgressBox/UpcycleLbl
-@onready var upcycle_progress: ProgressBar = $MenuPanel/HBoxContainer/Infobox/ProgressBox/UpcycleProgress
+@onready var upcycle_progress_box: HBoxContainer = $MenuPanel/Center/Card/HBoxContainer/Infobox/ProgressBox
+@onready var upcycle_label: Label = $MenuPanel/Center/Card/HBoxContainer/Infobox/ProgressBox/UpcycleLbl
+@onready var upcycle_progress: ProgressBar = $MenuPanel/Center/Card/HBoxContainer/Infobox/ProgressBox/UpcycleProgress
 
-@onready var reef_progress_box: HBoxContainer = $MenuPanel/HBoxContainer/Infobox/ReefProgressBox
-@onready var reef_label: Label = $MenuPanel/HBoxContainer/Infobox/ReefProgressBox/ReefLbl
-@onready var reef_progress: ProgressBar = $MenuPanel/HBoxContainer/Infobox/ReefProgressBox/ReefProgress
+@onready var reef_progress_box: HBoxContainer = $MenuPanel/Center/Card/HBoxContainer/Infobox/ReefProgressBox
+@onready var reef_label: Label = $MenuPanel/Center/Card/HBoxContainer/Infobox/ReefProgressBox/ReefLbl
+@onready var reef_progress: ProgressBar = $MenuPanel/Center/Card/HBoxContainer/Infobox/ReefProgressBox/ReefProgress
 
-@onready var settings_button: Button = $MenuPanel/HBoxContainer/Infobox/SettingsButton
-@onready var settings_panel: VBoxContainer = $MenuPanel/HBoxContainer/Infobox/SettingsPanel
+@onready var settings_button: Button = $MenuPanel/Center/Card/HBoxContainer/Infobox/SettingsButton
+@onready var settings_view: PanelContainer = $MenuPanel/Center/Card/HBoxContainer/Infobox/SettingsView
+@onready var settings_panel: VBoxContainer = $MenuPanel/Center/Card/HBoxContainer/Infobox/SettingsView/SettingsPanel
 @onready var confirm_panel = $ConfirmPanel
 
 var _toggling := false
@@ -91,6 +94,12 @@ func _toggle() -> void:
 	if panel:
 		panel.visible = not panel.visible
 		get_tree().paused = panel.visible
+		# Join the modal-card handshake while open so the tutorial director
+		# does not stack hint cards on top of the pause overlay.
+		if panel.visible:
+			panel.add_to_group("ui_modal_card")
+		else:
+			panel.remove_from_group("ui_modal_card")
 		
 		# hide world progress while paused
 		var prog := get_node_or_null("../WorldProgress")
@@ -104,43 +113,46 @@ func _toggle() -> void:
 			if resume_button:
 				resume_button.grab_focus()
 				
-			panel.modulate.a = 0.0
-			var fade_tw := create_tween()
-			fade_tw.tween_property(panel, "modulate:a", 1.0, 0.16).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+			if GameSettings.reduce_motion:
+				# No fade under Reduce motion: the card is simply there.
+				panel.modulate.a = 1.0
+			else:
+				panel.modulate.a = 0.0
+				var fade_tw := create_tween()
+				fade_tw.tween_property(panel, "modulate:a", 1.0, 0.16).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 			
 	_toggling = false
 
 func _toggle_settings() -> void:
-	if settings_panel:
-		settings_panel.visible = not settings_panel.visible
+	# Settings is a bounded "view" that swaps out the upgrades/progress sections
+	# so the card never outgrows the screen, even with the panel expanded.
+	var show_settings := not (settings_view and settings_view.visible)
+	if settings_view:
+		settings_view.visible = show_settings
+	if upgrades_panel:
+		upgrades_panel.visible = not show_settings
+	if upgrades_label:
+		upgrades_label.visible = not show_settings
+	if upcycle_progress_box:
+		upcycle_progress_box.visible = not show_settings
+	if reef_progress_box:
+		reef_progress_box.visible = not show_settings
 	if settings_button:
-		settings_button.text = "Settings ▲" if settings_panel.visible else "Settings ▼"
-	_clamp_menu_width()
+		settings_button.text = "Back to upgrades" if show_settings else "Settings"
+	if show_settings and settings_panel and settings_panel.has_method("sync_from_settings"):
+		settings_panel.sync_from_settings()
 
 func _clamp_menu_width() -> void:
-	if not panel: return
-	
+	if not card: return
+
+	# Viewport size is fixed in practice (stretch mode = viewport); clamp the
+	# card to the safe area so the 24px margins always hold. Height is bounded
+	# by construction: the settings view swaps out the upgrades sections.
 	var vp := get_viewport().get_visible_rect().size
 	var vw: float = maxf(vp.x, 1.0)
-	var vh: float = maxf(vp.y, 1.0)
-	
-	# Restrain total horizontal width with safe screen padding
-	var target_w: float = clampf(vw - 32.0, 260.0, 520.0)
-	var max_h: float = clampf(vh - 32.0, 200.0, vh - 24.0)
+	var target_w: float = clampf(vw - 48.0, 320.0, 900.0)
 
-	# Keep panel centered using Godot Anchors instead of manual offset calculation
-	panel.set_anchors_and_offsets_preset(Control.PRESET_CENTER, Control.PRESET_MODE_MINSIZE)
-	panel.grow_horizontal = Control.GROW_DIRECTION_BOTH
-	panel.grow_vertical = Control.GROW_DIRECTION_BOTH
-	
-	var hbox := panel.get_node_or_null("HBoxContainer") as Control
-	if hbox:
-		hbox.custom_minimum_size.x = target_w
-		hbox.custom_minimum_size.y = minf(hbox.get_combined_minimum_size().y, max_h)
-
-	var vbox := panel.get_node_or_null("VBoxContainer") as Control
-	if vbox:
-		vbox.custom_minimum_size.x = target_w
+	card.custom_minimum_size.x = target_w
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel") or (event is InputEventKey and event.pressed and event.keycode == KEY_TAB):
@@ -164,7 +176,9 @@ func _do_save_and_leave() -> void:
 	if player:
 		SaveManager.save_player_position(player.global_position)
 	
-	if panel: panel.visible = false
+	if panel:
+		panel.visible = false
+		panel.remove_from_group("ui_modal_card")
 	get_tree().paused = false
 	SceneTransition.change_scene("res://scenes/main_menu.tscn")
 

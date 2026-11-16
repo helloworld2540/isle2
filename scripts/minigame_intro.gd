@@ -2,17 +2,21 @@ extends CanvasLayer
 
 ## Pre-round briefing overlay. Authored entirely in minigame_intro.tscn;
 ## each minigame instance sets intro_title / intro_lines in its own scene.
+##
+## Layout convention: this is a modal card — it dims the screen, pauses the
+## tree, and centers inside the shared 24 px screen margin, matching the
+## welcome guide (scenes/tutorial.tscn).
 
 class_name MinigameIntro
 
 @export var intro_title := "Mini-game"
 @export var intro_lines: PackedStringArray = PackedStringArray()
 
-@onready var panel: PanelContainer = $Panel
-@onready var title_label: Label = $Panel/VBox/Title
-@onready var lines_label: RichTextLabel = $Panel/VBox/Lines
-@onready var got_it_button: Button = $Panel/VBox/GotItButton
-@onready var stats_label: Label = $Panel/VBox/Stats
+@onready var panel: PanelContainer = $Center/Panel
+@onready var title_label: Label = $Center/Panel/VBox/Title
+@onready var lines_label: RichTextLabel = $Center/Panel/VBox/Lines
+@onready var got_it_button: Button = $Center/Panel/VBox/GotItButton
+@onready var stats_label: Label = $Center/Panel/VBox/Stats
 
 
 func _ready() -> void:

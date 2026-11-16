@@ -194,7 +194,30 @@ func _spawn_hint(step: int) -> void:
 	var info: Dictionary = STEPS.get(step, {})
 	if info.is_empty():
 		return
+	# A modal card (welcome guide / minigame briefing) owns the screen. Wait it
+	# out instead of stacking the step card on top of the briefing.
+	if _modal_card_active():
+		await _wait_for_modal()
+		if step != _step or _step >= DONE:
+			return  # dismissed into an advance or a finished tour
 	_spawn_card(String(info.get("title", "")), String(info.get("body", "")), String(info.get("button", "Got it")))
+
+
+## True while a dimming modal card (welcome guide, minigame briefing) is up.
+## Those cards register in the "ui_modal_card" group, the same handshake the
+## achievement banner uses to avoid talking over them.
+func _modal_card_active() -> bool:
+	var tree := get_tree()
+	if tree == null:
+		return false
+	return not tree.get_nodes_in_group("ui_modal_card").is_empty()
+
+
+## Resumes when the last modal card is gone. process_frame keeps firing while
+## the tree is paused (the modals pause it), so this does not deadlock.
+func _wait_for_modal() -> void:
+	while _modal_card_active():
+		await get_tree().process_frame
 
 
 func _spawn_card(title: String, body: String, button: String) -> void:
@@ -244,9 +267,9 @@ func nudge(kind: String) -> void:
 		_nudge_state[key] = bool(SaveManager.load_game().get(key, false))
 	if bool(_nudge_state[key]):
 		return
-	# Don't smother an active tour/step card; retry next call instead of
-	# burning the one-shot flag.
-	if _active_hint and is_instance_valid(_active_hint):
+	# Don't smother an active step card or a modal guide/briefing; retry next
+	# call instead of burning the one-shot flag.
+	if (_active_hint and is_instance_valid(_active_hint)) or _modal_card_active():
 		return
 	_nudge_state[key] = true
 	SaveManager.update_game({key: true})

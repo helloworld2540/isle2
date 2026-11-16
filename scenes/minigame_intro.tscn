@@ -7,16 +7,16 @@ content_margin_left = 22.0
 content_margin_top = 18.0
 content_margin_right = 22.0
 content_margin_bottom = 18.0
-bg_color = Color(0.05, 0.08, 0.12, 0.92)
+bg_color = Color(0.05, 0.08, 0.12, 0.95)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.4, 0.7, 0.9, 0.45)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
+border_color = Color(0.4, 0.7, 0.9, 0.55)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
 
 [node name="MinigameIntro" type="CanvasLayer"]
 process_mode = 3
@@ -30,33 +30,42 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.48)
+color = Color(0, 0, 0, 0.6)
 
-[node name="Panel" type="PanelContainer" parent="."]
+[node name="Center" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = 24.0
 offset_top = 24.0
-offset_right = 724.0
-offset_bottom = 24.0
+offset_right = -24.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="Center"]
+custom_minimum_size = Vector2(620, 0)
+layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBox_intro")
 
-[node name="VBox" type="VBoxContainer" parent="Panel"]
+[node name="VBox" type="VBoxContainer" parent="Center/Panel"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Title" type="Label" parent="Panel/VBox"]
+[node name="Title" type="Label" parent="Center/Panel/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.7, 0.92, 1, 1)
-theme_override_font_sizes/font_size = 34
+theme_override_font_sizes/font_size = 26
 text = "Mini-game"
 
-[node name="Lines" type="RichTextLabel" parent="Panel/VBox"]
-custom_minimum_size = Vector2(660, 0)
+[node name="Lines" type="RichTextLabel" parent="Center/Panel/VBox"]
+custom_minimum_size = Vector2(576, 0)
 layout_mode = 2
 bbcode_enabled = true
 fit_content = true
 scroll_active = false
 
-[node name="Stats" type="Label" parent="Panel/VBox"]
+[node name="Stats" type="Label" parent="Center/Panel/VBox"]
 visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.86, 0.4, 1)
@@ -64,15 +73,15 @@ theme_override_font_sizes/font_size = 17
 text = ""
 horizontal_alignment = 1
 
-[node name="Spacer" type="Control" parent="Panel/VBox"]
+[node name="Spacer" type="Control" parent="Center/Panel/VBox"]
 custom_minimum_size = Vector2(0, 6)
 layout_mode = 2
 
-[node name="GotItButton" type="Button" parent="Panel/VBox"]
-custom_minimum_size = Vector2(180, 44)
+[node name="GotItButton" type="Button" parent="Center/Panel/VBox"]
+custom_minimum_size = Vector2(180, 46)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 20
 text = "Got it!"
 
-[connection signal="pressed" from="Panel/VBox/GotItButton" to="." method="_on_got_it_pressed"]
+[connection signal="pressed" from="Center/Panel/VBox/GotItButton" to="." method="_on_got_it_pressed"]
