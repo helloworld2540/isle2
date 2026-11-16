@@ -1,6 +1,14 @@
 # Current project todo:
 
 # done this pass
+- Upcycle HUD shows the banked Reef Debris pile ("Reef Debris banked: N",
+  red at 0, amber at ≤5) so the shift wind-down and the four-to-five warning
+  are legible before the belt stops feeding. Verified all three tint states.
+- Tutorial growth: one-shot **Room for more?** card after the first sale —
+  names both bag-expansion routes (shop cash at the cost shown on the button,
+  island-map trash). New save flag `nudge_upgrade_shown`. Also fixed the stale
+  shop capacity line, which claimed upgrades cost trash while the button sold
+  them for money; it now shows both routes and the live price.
 - Upcycle "shift wind-down": the bench used to end the run the moment the
   debris pile hit zero, stranding half-sorted items on the belt. Now at 5
   Reef Debris a one-shot "N Reef Debris left" callout fires; at zero the belt
@@ -93,9 +101,10 @@
   Fixed deferred spawn (hint used to parent to a dying scene during transitions).
 
 # high priority
-- Upcycle story beats: the bench has no mid-run narrative beyond "FIVE ON THE
-  BELT" — give it a first-run intro line, a debris-low warning, and a clean
-  "belt clear" finish so repeated runs do not feel identical.
+- Fresh-save end-to-end QA sweep: a new-save playthrough across menu → map →
+  reef → upcycle (with the zero-debris wind-down) → shop, checking tutorial
+  cards, the new upgrade nudge and the SHIFT COMPLETE panel for regressions.
+  Restore the player save afterwards.
 
 # medium priority
 # (shimmer item promoted to high priority)

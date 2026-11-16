@@ -63,6 +63,7 @@ var _hud_queue: Node = null
 @onready var streak_label: Label = $"UI/StreakLabel"
 @onready var recycled_label: Label = $"UI/RecycledLabel"
 @onready var belt_label: Label = $"UI/BeltLabel"
+@onready var debris_label: Label = $"UI/DebrisLabel"
 @onready var return_btn: Button = $"UI/ReturnToMapButton"
 @onready var player: CharacterBody2D = $"Player"
 @onready var conveyor: Path2D = $"Conveyor"
@@ -469,6 +470,17 @@ func _update_ui() -> void:
 		recycled_label.text = "Recycled %d | %s" % [_recycled_total, " ".join(parts)]
 	if belt_label:
 		belt_label.text = "Belt: %d/%d" % [_count_belt_items(), max_belt_items]
+	if debris_label:
+		var debris := int(GameState.trash_by_type.get("Reef Debris", 0))
+		debris_label.text = "Reef Debris banked: %d" % debris
+		# The bank is invisible everywhere else, so the line itself carries the
+		# warning: pale amber when four-to-five are left, red when the pile is dry.
+		if debris <= 0:
+			debris_label.modulate = Color(1.0, 0.5, 0.5, 1.0)
+		elif debris <= 5:
+			debris_label.modulate = Color(1.0, 0.85, 0.35, 1.0)
+		else:
+			debris_label.modulate = Color(0.88, 0.94, 1.0, 1.0)
 
 func _update_arrow(item: Node2D, bin: Node2D) -> void:
 	if not arrow: return

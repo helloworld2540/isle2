@@ -221,6 +221,11 @@ offset_left = 20.0
 offset_top = 140.0
 text = "On belt: 0"
 
+[node name="DebrisLabel" type="Label" parent="UI" unique_id=900003]
+offset_left = 20.0
+offset_top = 180.0
+text = "Reef Debris banked: 0"
+
 
 [node name="GameOverCanvas" type="CanvasLayer" parent="." unique_id=2001]
 layer = 100
