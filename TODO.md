@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+  Verified live in-game post-change: all four NPCs report the buffed tier-1
+  rewards (Tom/Nina/Kai PP x6, Mara Glass x3 by design), turn-in gating reads
+  the save correctly (Mara needs 8 PE, save holds 5 -> not ready), and no
+  runtime state was persisted during the checks.
 - Quest-trade balance pass (measured against SALE_PRICES, not vibes): four
   turn-ins were steeply negative with no compensating material gain — buffed
   Tom t1 4->6 PP, Nina t1 5->6 PP, Kai t1 5 PE -> 6 PP, Mara t2 6->8 PP.
