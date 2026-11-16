@@ -1,6 +1,13 @@
 # Current project todo:
 
 # done this pass
+- Fresh-save end-to-end mechanical loop verified after this sprint's changes:
+  menu -> fresh world -> welcome dismissed -> tour arms (step 1) -> move/reef/
+  sort/sell notifications advance the guide to the finale (step 5 persists) ->
+  record_reef/record_upcycle/station visits mechanically close a circuit
+  (circuits=1, +$15 bonus, dives=1, runs=1, achievements first_dive/first_sort/
+  first_sale earned and persisted after flush). Player save restored
+  afterwards (money 174, tutorial_step 999).
 - Android preset unblocked and verified: the debug APK builds and signs to
   completion (174 MB APK, keystore found at the configured location, verify
   step passes) — the only previously untested export target. README export
