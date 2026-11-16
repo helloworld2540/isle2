@@ -30,6 +30,7 @@ const LEGENDARY_ACHIEVEMENTS := {
 	"reef_veteran": true,
 	"loop_master": true,
 	"tide_keeper": true,
+	"tide_messages": true,
 }
 
 ## Two card flavours: gold for milestones/route celebrations, blue for the

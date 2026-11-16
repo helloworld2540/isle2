@@ -1,6 +1,15 @@
 # Current project todo:
 
 # done this pass
+- Achievement id collision fixed: `achievement_catalog.gd` declared **two**
+  entries with `id: "tide_keeper"` — the Tidekeeper's Pact (Shop) and the
+  "found every message" badge (Island) — and the `is_met` match had a dead
+  duplicate case, so the bottle-collection badge could never be earned on its
+  own (it just mirrored the Pact) and the stats page's count was off by one.
+  Renamed the bottle badge to `tide_messages` (title unchanged) and gave it a
+  live predicate; added it to the banner's legendary tier. Verified headlessly:
+  the catalogue now has 22/22 unique ids, `tide_messages` is false at 2 bottles
+  and true at 3, and `tide_keeper` still tracks the Pact.
 - World-menu touch pass: the island-map **upgrade buttons** (Move / Range /
   Deep Cache / its tier-up / Inv Cap) plus the **Settings** toggle all rendered
   at 41 px, just under the 44 px touch guideline the shop and minigames follow.

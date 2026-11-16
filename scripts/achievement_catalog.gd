@@ -150,7 +150,7 @@ const ENTRIES: Array[Dictionary] = [
 		"where": "Shop",
 	},
 	{
-		"id": "tide_keeper",
+		"id": "tide_messages",
 		"short": "Tides",
 		"title": "TIDE KEEPER",
 		"subtitle": "Found every message the tide left on the island.",
@@ -229,7 +229,7 @@ static func is_met(id: String, state: Node) -> bool:
 			return state.tidekeeper
 		"pact_reply":
 			return state.bottles_read.has("bottle_pact")
-		"tide_keeper":
+		"tide_messages":
 			return state.bottles_read.size() >= 3
 		"island_steward":
 			# Capstone: every other goal in the catalogue is already earned.
