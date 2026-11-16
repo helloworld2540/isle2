@@ -122,6 +122,13 @@ const ENTRIES: Array[Dictionary] = [
 		"where": "Reef Rescue",
 	},
 	{
+		"id": "heavy_haul",
+		"short": "Haul",
+		"title": "HEAVY HARVEST",
+		"subtitle": "Banked 30 kg of debris in a single dive.",
+		"where": "Reef Rescue",
+	},
+	{
 		"id": "reef_rhythm",
 		"short": "Rhythm",
 		"title": "RHYTHM OF THE REEF",
@@ -226,6 +233,8 @@ static func is_met(id: String, state: Node) -> bool:
 			return state.best_reef_depth >= 900
 		"island_patron":
 			return state.island_patron
+		"heavy_haul":
+			return state.best_reef_haul >= 30
 		"reef_rhythm":
 			return state.best_reef_combo >= 9
 		"reef_regular":

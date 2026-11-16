@@ -1,6 +1,12 @@
 # Current project todo:
 
 # done this pass
+- Heaviest-dive tracking: new save key `best_reef_haul` (whole kg banked in one
+  dive, schema-codec) shown on the stats page ("Heaviest dive: N kg"), feeding
+  the new **HEAVY HARVEST** achievement (`heavy_haul`, Reef Rescue, bank 30 kg
+  in a single dive — needs bag upgrades, so it is a real goal). Verified
+  in-game (34 kg dive sticks, smaller dives don't overwrite, predicate fires);
+  smoke 44/44; player save restored after testing.
 - Tide Ledger: bottle stories centralised into `scripts/bottle_catalog.gd`
   (id -> title/lines; world bottles now place by id only, pickup + ledger read
   from the same source), and the stats page gained a **Tide Ledger** overlay —
