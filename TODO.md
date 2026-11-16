@@ -1,6 +1,14 @@
 # Current project todo:
 
 # done this pass
+- `gull.wav` size fix, done non-destructively: the externally-restored real
+  recording (14.5 s 48 kHz 24-bit stereo, 4 MB) is preserved in git history
+  and in `/tmp/opencode/gull-original-4MB.wav`; the committed working file is
+  now the two strongest cries extracted as a 0.9 s mono 16-bit 48 kHz one-shot
+  (4.70–5.60 s window, 8 ms in / 30 ms out fades, 86 KB — same order as the old
+  synth). Verified in-game: imports as a mono `AudioStreamWAV`, 0.9 s, plays on
+  the Ambience bus. The 4 MB original remains available in commit c8274e1 if
+  its provenance ever checks out clean.
 - Headless scene smoke test added (`tools/smoke_test.gd`): link-checks every
   `ext_resource` path in every scene (and in referenced `.tres` files) and
   instantiates each of the 43 scenes under a bare `--headless` SceneTree;
@@ -358,12 +366,7 @@
   Fixed deferred spawn (hint used to parent to a dying scene during transitions).
 
 # high priority
-- `gull.wav` now holds a real 14.5 s 48 kHz 24-bit stereo recording (4 MB,
-  externally restored after being reverted earlier). Provenance/license
-  unknown; it is 60x the synthesized cry the docs describe. Decide: keep +
-  trim/compress (mono 16-bit, ~half the room tone), re-synthesize, or
-  re-download from a known CC0 source — and keep the web/Android export
-  budget in mind.
+- (none outstanding.)
 
 # medium priority
 # (shimmer item promoted to high priority)
