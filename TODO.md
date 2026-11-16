@@ -1,6 +1,11 @@
 # Current project todo:
 
 # done this pass
+- Reef Rescue -> world loop verified end to end with real signals: on a
+  fresh save, dive -> Return button emitted -> fade runs -> scene becomes
+  World again. One earlier observation (scene stuck at ReefRescue) was my own
+  test-order artifact, not a game bug; the real button path is clean.
+  Player save restored afterwards.
 - Real portal-entry path verified end to end without any scene in-memory
   teleport: fresh save -> main menu -> New Save -> world -> teleport player
   onto the Reef Rescue pad -> body_entered fires -> scene actually
