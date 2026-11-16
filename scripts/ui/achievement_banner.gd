@@ -22,11 +22,21 @@ const MODAL_CLEAR_DELAY := 0.2
 
 const TITLE_GOLD := Color(1.0, 0.86, 0.35, 1.0)
 const TITLE_BLUE := Color(0.62, 0.86, 1.0, 1.0)
+const TITLE_LEGEND := Color(1.0, 0.93, 0.6, 1.0)
+
+## Endgame badges that get the loud treatment when they land.
+const LEGENDARY_ACHIEVEMENTS := {
+	"benchmark": true,
+	"reef_veteran": true,
+	"loop_master": true,
+	"tide_keeper": true,
+}
 
 ## Two card flavours: gold for milestones/route celebrations, blue for the
 ## achievement catalogue so a collectible never reads as a story beat.
 @export var gold_style: StyleBox
 @export var blue_style: StyleBox
+@export var legendary_style: StyleBox
 
 @onready var _panel: PanelContainer = $Center/Panel
 @onready var _title: Label = $Center/Panel/VBox/Title
@@ -68,11 +78,13 @@ func _on_achievement_unlocked(_id: String, _title: String, _subtitle: String) ->
 ## loaded. Those waits in GameState and are played the moment the map loads.
 func _flush_pending_achievements() -> void:
 	for def in GameState.consume_pending_achievements():
+		var id := String(def.get("id", ""))
+		var legendary: bool = LEGENDARY_ACHIEVEMENTS.has(id)
 		present(
 			String(def.get("title", "")),
 			String(def.get("subtitle", "")),
 			SHOW_SECONDS,
-			{"achievement_id": String(def.get("id", "")), "accent": "achievement"}
+			{"achievement_id": id, "accent": "legendary" if legendary else "achievement"}
 		)
 
 
@@ -187,9 +199,15 @@ func _show_next() -> void:
 	_title.text = str(entry.get("title", ""))
 	_subtitle.text = str(entry.get("subtitle", ""))
 	_apply_accent(String(entry.get("accent", "milestone")))
+	var accent := String(entry.get("accent", "milestone"))
 	# Soft chime so a card is noticed while the player is mid-swipe/steering.
-	# Achievements ring a touch higher than story milestones.
-	AudioManager.play_sfx("achievement", 1.0 if String(entry.get("accent", "")) == "achievement" else 0.9)
+	# Achievements ring a touch higher than story milestones; legends higher still.
+	var pitch := 0.9
+	if accent == "achievement":
+		pitch = 1.0
+	elif accent == "legendary":
+		pitch = 1.25
+	AudioManager.play_sfx("achievement", pitch)
 	_panel.visible = true
 	_hide_timer.start(float(entry.get("seconds", SHOW_SECONDS)))
 	
@@ -210,8 +228,16 @@ func _show_next() -> void:
 	_fade_tween.tween_property(_panel, "scale", Vector2.ONE, 0.3).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 
-## Blue band for catalogue achievements, gold for everything else.
+## Blue band for catalogue achievements, gold for everything else — and a
+## thick-rimmed halo treatment for the endgame legends.
 func _apply_accent(accent: String) -> void:
+	if accent == "legendary":
+		if legendary_style and _panel:
+			_panel.add_theme_stylebox_override("panel", legendary_style)
+		if _title:
+			_title.add_theme_color_override("font_color", TITLE_LEGEND)
+		return
+
 	var achievement := accent == "achievement"
 	var style: StyleBox = blue_style if achievement else gold_style
 	if style and _panel:

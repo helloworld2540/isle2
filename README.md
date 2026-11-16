@@ -39,7 +39,7 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 - Save path: `user://save.json` (Godot user dir).
 - `SaveManager.has_save/new_save/save_game/load_game`.
 - `GameState` fields: `upcycle_score`, `reef_garbage`, `reef_fish`, `trash_inventory`, `trash_by_type{}`, `inventory_capacity_level`, `best_upcycle_score`, `best_sort_streak`, `best_reef_depth`, `best_reef_fish`, `lifetime_earnings`, `sort_streak`, `deep_cache`, `deep_cache_tier`.
-- Run counters: `reef_dives` and `upcycle_runs` number the map recap chapters ("Dive № 4 — Deep Dive", "Bench Run № 2 — Hot Streak") and feed the BENCH REGULAR / REEF REGULAR achievements.
+- Run counters: `reef_dives` and `upcycle_runs` number the map recap chapters ("Dive № 4 — Deep Dive", "Bench Run № 2 — Hot Streak") and feed the BENCH REGULAR / REEF REGULAR achievements; the 25-run badges (BENCH MASTER, REEF VETERAN, LOOP MASTER) and KEEPER OF THE TIDE land on the banner's legendary gold tier.
 - `restore()` rehydrates from save; `reset()` zeroes state. `persist()` merges into save data.
 - Upgrades stored directly as save keys: `upgrade_move`, `upgrade_range`, audio/volume keys.
 

@@ -1,6 +1,11 @@
 # Current project todo:
 
 # done this pass
+- Legendary celebration for endgame badges: the banner now has a third accent
+  tier ("legendary") — thick-rimmed dark-gold panel, brighter legend gold
+  title, +0.25 chime. BENCH MASTER, REEF VETERAN, LOOP MASTER and
+  KEEPER OF THE TIDE route to it automatically. Verified in-game (panel
+  visible, 4 px legendary border applied, title/slot correct).
 - Endgame hook: after ISLAND STEWARD there is now a chase — three new
   long-game achievements (BENCH MASTER 25 runs, REEF VETERAN 25 dives,
   LOOP MASTER 25 circuits) and a final money sink, the **Tidekeeper's Pact**
@@ -120,10 +125,9 @@
   Fixed deferred spawn (hint used to parent to a dying scene during transitions).
 
 # high priority
-- World-map milestone celebration for the new endgame achievements: LOOP
-  MASTER and friends now exist, but the map only shows circuit celebrations —
-  add a special "legendary" border flash when a 25-run/25-dive/25-circuit
-  badge lands, using the existing banner path with a gold palette.
+- Bottle lore epilogue cadence: read all 3 bottles and the collectathon ends —
+  consider a final rare message that only washes up after KEEPER OF THE TIDE,
+  closing the lore loop on the endgame purchase.
 
 # medium priority
 # (shimmer item promoted to high priority)
