@@ -1,6 +1,19 @@
 # Current project todo:
 
 # done this pass
+- Two new one-shot NPC nudges complete the quest-loop tutorial arc:
+  **Islanders about** (fires once per save on the first world visit after the
+  tour while any resident is unmet — points at the trail walkers and their
+  first-visit gifts) and **Someone needs a hand** (fires once when you first
+  hold enough material for a turn-in — points at the quest tracker and the
+  ★ glow; requires a prior visit, matching `active_tier`'s rules). Both wired
+  through the 0.4 s NPC refresh cadence in `wm_npc.gd` and the one-shot
+  deferred-queue pattern. Verified in-game end to end: meet card spawns with
+  tour complete + unmet NPCs (`nudge_meet_shown` persists, quest nudge stays
+  silent at 5 Polyethylene); with 8 Polyethylene and a "visited" Mara the
+  quest nudge queues behind the meet card and fires on its dismissal
+  ("Someone needs a hand", `nudge_quest_shown` persists). Player save
+  restored; smoke test 44/44.
 - Shop receipt/feedback stack extracted into a real component: sale receipts,
   undo exit-receipts, the REVERSED stamp and the punch/flash effects moved
   from the 600-line `shop_menu.gd` into `scenes/ui/receipt_stack.tscn` +

@@ -79,7 +79,7 @@ checked against this yield — nothing changed, deliberately.*
   where the current step can be acted on; they reappear on scene re-entry until done.
 - Progress saves as `tutorial_step`; the tour survives quitting mid-way and never
   re-arms on old saves.
-- Six one-shot ambient nudges also live here: a **Bag almost full!** card the
+- Eight one-shot ambient nudges also live here: a **Bag almost full!** card the
   first time your hold crosses 85% (fires once per save, skipped while another
   card is up), a **Bottles on the shore** card shown right after the tour
   finishes, a **Room for more?** card after your first sale — pointing at
@@ -87,8 +87,12 @@ checked against this yield — nothing changed, deliberately.*
   sale?** card after your first bulk sale — pointing at the Undo last sale
   button — a **Tune up the dock** card the first time you can afford a
   speed/range tier, naming the live trash cost and reminding you upgrades
-  spend materials, not money, and a **Deep Cache** card the first time you
-  can afford the 30-score unlock, pointing at the score-priced Deep Cache at
+  spend materials, not money, an **Islanders about** card on the first world
+  entry after the tour while any resident is still unmet — pointing at the
+  trail walkers and their first-visit gifts, a **Someone needs a hand** card
+  the first time you hold enough material to turn in a quest — pointing at
+  the quest tracker and the ★ glow, and a **Deep Cache** card the first time
+  you can afford the 30-score unlock, pointing at the score-priced Deep Cache at
   the island menu (both a dive and a bench run feed the score). Nudges fire
   one card at a time: if a card or modal owns the screen, the nudge waits
   for it to close instead of evaporating.

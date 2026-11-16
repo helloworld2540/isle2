@@ -77,6 +77,8 @@ const NUDGE_UPGRADE := "nudge_upgrade_shown"
 const NUDGE_TUNE := "nudge_tune_shown"
 const NUDGE_DEEP_CACHE := "nudge_deep_cache_shown"
 const NUDGE_UNDO := "nudge_undo_shown"
+const NUDGE_QUEST := "nudge_quest_shown"
+const NUDGE_MEET := "nudge_meet_shown"
 
 var _step: int = 0
 var _active_hint: CanvasLayer = null
@@ -261,8 +263,8 @@ func is_tour_complete() -> bool:
 
 
 ## Public entry for ambient nudges. `kind` is "bag", "bottle", "upgrade",
-## "tune" or "deep_cache". Cheap to call every frame: after the first delivery
-## the flag is cached in memory.
+## "tune", "deep_cache", "undo", "quest" or "meet". Cheap to call every frame: after
+## the first delivery the flag is cached in memory.
 func nudge(kind: String) -> void:
 	var key := ""
 	match kind:
@@ -272,6 +274,8 @@ func nudge(kind: String) -> void:
 		"tune": key = NUDGE_TUNE
 		"deep_cache": key = NUDGE_DEEP_CACHE
 		"undo": key = NUDGE_UNDO
+		"quest": key = NUDGE_QUEST
+		"meet": key = NUDGE_MEET
 		_: return
 	if not _nudge_state.has(key):
 		_nudge_state[key] = bool(SaveManager.load_game().get(key, false))
@@ -309,6 +313,14 @@ func nudge(kind: String) -> void:
 			_spawn_card("Oops — bulk sale?",
 				"[font_size=15]Sold the whole pile by accident?\nThe [color=#ffd27f]Undo last sale[/color] button at the bottom of the shop puts it all back — materials and cash — as long as your bag can fit the lot.[/font_size]",
 				"Got it")
+		"quest":
+			_spawn_card("Someone needs a hand",
+				"[font_size=15]An islander is holding out for a trade.\nThe [color=#9fe2ff]quest tracker[/color] (left) shows who wants what, and a [color=#ffd27f]glowing sprite with a ★[/color] means you have enough to deliver right now.\nTalk to them on the map — the reward can go straight into your bag.[/font_size]",
+				"Let's go")
+		"meet":
+			_spawn_card("Islanders about",
+				"[font_size=15]You have not met everyone yet.\nThe islanders walking the trail hand out a little [color=#9fe2ff]first-visit gift[/color] each — and the [color=#ffd27f]quest tracker[/color] glares when someone wants a trade.\nHave a wander.[/font_size]",
+				"Let's say hi")
 
 
 func _clear_hint() -> void:

@@ -33,7 +33,8 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
   gameplay events (`move`, `reef_entered`, `sorted`, `sold`); progress persists as
   save key `tutorial_step` (1..5, `999` = complete). Post-tour one-shot nudges
   (bag 85%, bottles on the shore, first sale, first bulk sale → undo, first
-  affordable upgrade, and the Deep Cache unlock once the player can afford the
+  affordable upgrade, first unmet islander, first deliverable quest, and the
+  Deep Cache unlock once the player can afford the
   30-score price) each persist
   as a `nudge_*_shown` flag and wait their turn — a nudge raised while another
   card or a modal owns the screen is queued and fires when that card closes.

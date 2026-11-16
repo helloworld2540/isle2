@@ -37,6 +37,7 @@ class_name WorldNPC
 var _dialogue = null
 var _visited_flag: bool = false
 var _quest_done: bool = false
+var _quest_ready_fired: bool = false  ## Guard so the one-shot quest nudge only fires from this instance.
 var _quest2_done: bool = false
 var _visit_count: int = 0
 
@@ -86,6 +87,13 @@ func _process(delta: float) -> void:
 	if _refresh_tick >= 0.4:
 		_refresh_tick = 0.0
 		_update_ui_state()
+		if not _quest_ready_fired:
+			var quest_tier := NpcQuests.active_tier(self)
+			if quest_tier > 0 and NpcQuests.has_items(self, quest_tier):
+				_quest_ready_fired = true
+				TutorialDirector.nudge("quest")
+		if not _visited_flag and TutorialDirector.is_tour_complete():
+			TutorialDirector.nudge("meet")
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not _dialogue: return
