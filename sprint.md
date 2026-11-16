@@ -260,3 +260,11 @@
 - Added AudioManager.duck_music() and restore_music() to fade the Music bus down while an NPC dialogue panel is open and back up on close.
 - WorldNPC now ducks/un-ducks music automatically on show/close.
 - Headless import/runtime smoke passed.
+## 2026-11-17 — Sprint verification + collectathon passes (session log)
+- ~40+ iterations across 2026-11-16/17 covering: starfish collectathon (five hidden, STARLIGHT achievement, +$25 Tide Pool), golden belt/debris/Goldie shiny scrap (12%), fish journal + REEF REGISTRY achievement, lifetime trackers (clean dives / flawless shifts / golden finds) and three achievements hung off them (CLEAN SWEEP / SILK TOUCH / GOLDEN TOUCH), best-haul / best-combo / heaviest-dive persistence (HEAVY HARVEST / RHYTHM OF THE REEF / HOT STREAK), ROUND THE ISLE (first circuit), legendary-tier banner expansion (HARBOR HERO / PATRON OF THE ISLE / ISLAND STEWARD now glow gold), harbor bell on circuit completion + legendary achievements, distant sailboat foghorn, harbor bell SFX, open.wav confirm SFX, starfish glint/shimmer, and the two one-shot starfish tutorial nudges ("A starfish!" on first; "One more…" on fourth).
+- Save hardening: schema version gate (_check_version), second-generation backup rotation save.json → .bak → .bak2, New Save asks for confirmation before wiping, Journal deep-link from the world HUD to the stats page.
+- Reset-island flow on the stats page (ConfirmPanel-guarded).
+- Export matrix verified three times: Linux (boots clean headless), Web (pck contains all new assets), Android (debug APK builds and signs).
+- Smoke-test hardened: scene-script load/compile check, CACHE_MODE_IGNORE everywhere, zero false PASSes.
+- Player-save integrity guarded through every in-game test; all test residue corrected back.
+- Full session log in overnight_sprint.txt — read there for the per-iteration detail.
