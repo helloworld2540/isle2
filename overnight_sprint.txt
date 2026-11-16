@@ -923,3 +923,25 @@ SHIPPED
   * Verified by execution, not assumption: fresh-save tour end-to-end
     (menu -> welcome -> bench/reef/shop circuit), ten-of-ten nudge delivery,
     save round-trips restored to player data after every test.
+
+[ITERATION 24] 2026-11-16/17 - Verification, audit & correctness sweep (this session, part 2)
+--------------------------------------------------------------------------------
+GOAL
+  Prove the shipped state: builds, runs, saves, resets, collects, tutorialises.
+
+SHIPPED
+  * Android debug APK rebuilt after the collectathon batch (verify step passes).
+  * Reef duplicate unique_id 1011 fixed (ShakeCamera / FishLabel collision).
+  * Scene-wide integrity audits: no duplicate sibling names, no dangling
+    ext_resource references, no duplicate unique_ids; project builds, smokes.
+  * Player-save audit: all 10 unlocked achievements are legitimate gameplay
+    ids (big_bag, first_sale, first_dive, reef_rhythm, reef_deep, heavy_haul,
+    hot_streak, first_sort, reef_registry, starlight) — no test leakage.
+  * Fresh-save tour, NPC turn-in, reset-island flow, reef collision loop and
+    upcycle belt loop all verified end-to-end; player save restored intact.
+  * World HUD first-paint placeholders ("Trash 0/10 kg", "(empty)"), export
+    filters exclude dev markdown suite, project.godot VCS plugin reference
+    removed, Web/Linux builds re-verified, repo scrubbed of editor autosaves.
+
+STATE
+  45 scenes pass smoke; export matrix healthy; no outstanding tasks.
