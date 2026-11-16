@@ -1,6 +1,17 @@
 # Current project todo:
 
 # done this pass
+- Minigame ambience beds: the bench and reef now have room tone under their BGM.
+  `tools/make_ambience.py` synthesizes two seamless loops (whole-cycle tones /
+  circular filters, so both wrap without a click): an 8 s workshop drone + fan
+  whir for Upcycle and a 14 s muffled current for Reef Rescue, shipped as 16-bit
+  PCM. `scenes/amb_bench_hum.tscn` (−26 dB) sits in `upcycle.tscn`;
+  `scenes/amb_reef_swell.tscn` (−24 dB) sits in `reef_rescue.tscn`. Both use the
+  new shared `scripts/ambience_loop.gd` (`AmbienceLoop`) — the surf bed was
+  refactored onto it too, removing the duplicate fade/loop code. Verified in-game:
+  all three play on the Ambience bus, loop the full buffer (8 s → 176400 frames,
+  14 s → 308700, surf 12 s → 264600), and the surf position kept advancing while
+  the tree was paused.
 - Ambience bus + slider: ambient loops and wildlife no longer share the SFX bus.
   `AudioManager` now sets up a fourth **Ambience** bus (send → Master), persists
   `ambience_volume` (default 0.7), and `play_sfx(sound, pitch, bus)` takes an
@@ -195,11 +206,13 @@
   Fixed deferred spawn (hint used to parent to a dying scene during transitions).
 
 # high priority
-- Minigame ambience beds: the bench and the reef both have BGM but no room tone.
-  Add scene-authored players on the **Ambience** bus — a low workshop hum for
-  upcycle (fade in on entry/out on exit) and a muffled, slow underwater swell for
-  reef rescue — generated with small `tools/` Python scripts like the surf bed,
-  looping seamlessly, and trimmed by the new Ambience slider.
+- First-upgrade nudge: the five-step tutorial covers walk → dive → sort → sell,
+  and "Room for more?" covers the bag, but nothing ever points at Move Faster /
+  Collection Range / Deep Cache. When the player first owns enough trash to buy
+  any upgrade (or after the first completed circuit), show a one-shot
+  **Tune up the dock** card naming the real cost and pointing at the world menu's
+  upgrade panel. New save flag; skip while another card is up; verify fresh-save
+  and already-progressed saves.
 
 # medium priority
 # (shimmer item promoted to high priority)

@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/ambience_loop.gd" id="1_amb"]
+
+[node name="ReefSwell" type="AudioStreamPlayer"]
+script = ExtResource("1_amb")
+stream_path = "res://sound/sfx/reef_swell.wav"
+target_db = -24.0
+fade_in_seconds = 3.5

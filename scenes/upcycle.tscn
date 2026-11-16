@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://8imt5gda1wge" path="res://sprites/fire/fire0002.png" id="5_vyhyt"]
 [ext_resource type="Texture2D" uid="uid://cmgy5rqkwii8" path="res://sprites/fire/fire0003.png" id="6_sm4rl"]
 [ext_resource type="Texture2D" uid="uid://cmrlnhld4x3da" path="res://sprites/upcycle/selection.png" id="7_l3s3u"]
+[ext_resource type="PackedScene" path="res://scenes/amb_bench_hum.tscn" id="28_amb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cggsw"]
 atlas = ExtResource("2_7koka")
@@ -284,3 +285,5 @@ polygon = PackedVector2Array(0, 12, 6, 6, -6, 6)
 [node name="MinigameIntro" parent="." instance=ExtResource("13_intro")]
 intro_title = "Upcycle Sorting"
 intro_lines = PackedStringArray("Sort belt items into matching material bins.", "Carry one item at a time; place it in the right bin.", "Correct sorts build streak; burned/wrong sorts reset streak.", "Burned or mis-sorted trash earns nothing and adds no material.", "Each correct sort grants its material to your inventory.", "Controls: swipe to move, tap to carry, tap a bin to drop.", "ESC or Return to Map leaves the bench.")
+
+[node name="BenchHum" parent="." instance=ExtResource("28_amb")]

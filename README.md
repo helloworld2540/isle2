@@ -22,8 +22,8 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 ### Modules
 - **World map** (`scripts/wm_*`) — player movement (BFS pathfinding on TileMapLayer), portals, NPCs, menus, settings, progress bars, and ambient life (gull flock, sea sparkle, distant boat, harbor cries).
 - **Minigames**
-  - Upcycle: `upcycle.tscn` (`scripts/upcycle.gd`) — belt sorting into material bins.
-  - Reef Rescue: `reef_rescue.tscn` (`scripts/reef_rescue.gd`) + `rr_fish.tscn` (`scripts/rr_fish.gd`) — drone collection, combo, fish hazard.
+  - Upcycle: `upcycle.tscn` (`scripts/upcycle.gd`) — belt sorting into material bins, over a low workshop-hum bed.
+  - Reef Rescue: `reef_rescue.tscn` (`scripts/reef_rescue.gd`) + `rr_fish.tscn` (`scripts/rr_fish.gd`) — drone collection, combo, fish hazard, over a muffled underwater current.
 - **Shop**: `shop.tscn` (`scripts/shop_menu.gd`) with pure pricing in `scripts/shop_ledger.gd`.
 - **Tutorial**: `scripts/tutorial_director.gd` (autoload) + `scenes/ui/tutorial_hint.tscn`
   non-modal step cards. Steps fire on world/reef/upcycle/shop scene entry and on
@@ -103,6 +103,16 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 - `Ambience` bus (send → Master) gives ambient loops and wildlife their own
   slider (`ambience_volume`, default 0.7) so trimming the wash never touches
   one-shot SFX feedback. `play_sfx(sound, pitch, bus)` takes an optional bus.
+- Shared bed player (`scripts/ambience_loop.gd`, `class_name AmbienceLoop`):
+  seamless-loop + fade-in-on-entry logic reused by every ambience scene. Add a
+  new bed by instancing a scene with `stream_path`, `target_db` and
+  `fade_in_seconds` set. Generators live in `tools/make_surf.py` and
+  `tools/make_ambience.py`.
+- Minigame beds (both on the Ambience bus): `scenes/amb_bench_hum.tscn` — an 8 s
+  low workshop drone + fan whir at −26 dB inside `upcycle.tscn`;
+  `scenes/amb_reef_swell.tscn` — a 14 s muffled current at −24 dB inside
+  `reef_rescue.tscn`. Both loop the full buffer and keep playing while a
+  briefing/game-over card pauses the tree.
 - Reduced motion flag affects animations/transitions (ambient/idle tweens come to
   rest: menu motes and entrance, briefing pop, dialogue/recap lifts, circuit-ring
   pulse, portal glow/bob) but never audio.

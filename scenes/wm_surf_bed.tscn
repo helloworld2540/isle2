@@ -1,6 +1,8 @@
 [gd_scene load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://scripts/wm_surf_bed.gd" id="1_surf"]
+[ext_resource type="Script" path="res://scripts/ambience_loop.gd" id="1_amb"]
 
 [node name="SurfBed" type="AudioStreamPlayer"]
-script = ExtResource("1_surf")
+script = ExtResource("1_amb")
+stream_path = "res://sound/sfx/surf.wav"
+target_db = -22.0

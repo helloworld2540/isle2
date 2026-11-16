@@ -100,6 +100,8 @@ checked against this yield — nothing changed, deliberately.*
 - When only 5 Reef Debris remain the bench warns you once; when the pile runs
   out it stops feeding the belt and lets you finish whatever is on it, then
   closes on a gold **SHIFT COMPLETE** panel (nothing left unsorted).
+- The workshop hums while you sort (low drone + fan whir under the music); it is
+  on the Ambience slider, not SFX.
 
 ## Reef Rescue
 - Dodge fish, collide with garbage to collect 1kg per hit, combos multiply debris bonus.
@@ -122,6 +124,8 @@ checked against this yield — nothing changed, deliberately.*
   LOOP MASTER (25 circuits) sit behind the 10-run regulars — the island's
   endgame chase alongside the two pact/patron money sinks.
 - Garbage converts into Reef Debris (plus Deep Cache bonus per tier and capacity).
+- A muffled underwater current runs under the dive music; trim it with the
+  Ambience slider without quieting pickup or combo feedback.
 
 ## Upgrades
 - Move speed +8% / level via trash.
