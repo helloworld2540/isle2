@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- Export-audit sweep: the 54 "suspect" @export variables are all legitimate
+  inspector-customizable knobs (flow-dots appearance, ambience timings,
+  NPC ambient lines, upcycle belt difficulty, floating-text fade) — every
+  one is consulted when scene authors open the inspector; none is dead code.
 - Android APK rebuilt at the current commit — still builds and signs cleanly;
   ~174 MB; consistent with every prior verified build.
 - Cross-check: rr_fish's FISH table and fish_catalog's ENTRIES match 1:1
