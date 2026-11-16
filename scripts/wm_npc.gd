@@ -43,6 +43,16 @@ var _visit_count: int = 0
 const DIALOGUE_SCENE := preload("res://scenes/ui/npc_dialogue.tscn")
 const NpcQuests := preload("res://scripts/npc_quests.gd")
 
+## After the Tidekeeper's Pact is funded the island talks about it. Loose
+## harbor gossip, rarely gold-mint — the tide's crew keeps score.
+const PACT_GOSSIP := [
+	"Saw the pact keeper pass by — good folk.",
+	"That's THE one. The one who kept the reef.",
+	"Money talks; on this island, it also keeps the tide.",
+	"They rebuild whole reefs where others see trash.",
+	"Word is the tide itself answers them now.",
+]
+
 # Nodes
 @onready var sprite: Sprite2D = $Sprite
 @onready var name_label: Label = $NameLabel
@@ -340,11 +350,18 @@ func _close() -> void:
 # --- FX & Ambient ---
 
 func _show_ambient_bubble() -> void:
-	if ambient_bubbles.is_empty() or not ambient_bubble:
+	if not ambient_bubble:
 		return
 	
-	ambient_bubble.text = str(ambient_bubbles.pick_random())
-	ambient_bubble.modulate = Color(1.0, 1.0, 0.9, 0.0)
+	if GameState.tidekeeper and randf() < 0.35:
+		# Pact gossip leg — mint-green, rarer than the hum.
+		ambient_bubble.text = str(PACT_GOSSIP.pick_random())
+		ambient_bubble.modulate = Color(0.55, 0.97, 0.85, 0.0)
+	else:
+		if ambient_bubbles.is_empty():
+			return
+		ambient_bubble.text = str(ambient_bubbles.pick_random())
+		ambient_bubble.modulate = Color(1.0, 1.0, 0.9, 0.0)
 	
 	var tw := create_tween()
 	tw.tween_property(ambient_bubble, "modulate:a", 0.85, 0.14)

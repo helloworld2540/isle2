@@ -41,6 +41,8 @@ Welcome to Isle 2. Shared economy across world map, two minigames, shop, NPCs an
   and the KEEPER OF THE TIDE achievement (no prestige-only fill — the reward is
   mechanical). Funding it AND reading all three shore bottles washes a fourth,
   hidden reply bottle up on the south beach — the tide answers its keeper.
+  Funded pacts also earn the island's harbor gossip: NPCs occasionally trade a
+  mint-green nod among their idle lines.
 
 ## Money-sink payback audit (re-derived from measured $32/loop)
 *Measured on a fresh save, three consecutive full loops ≈ $32 each; a loop is

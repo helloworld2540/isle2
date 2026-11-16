@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- Endgame radio: after the Tidekeeper's Pact is funded, world NPCs mix rare
+  mint-green pact gossip into their ambient bubbles (35% swap;
+  "Saw the pact keeper pass by — good folk." et al.). Verified in-game — the
+  lines interleave with the idle hum.
 - Bottle lore epilogue cadence: funding the Tidekeeper's Pact AND reading all
   three base bottles makes a fourth, hidden bottle surface on the beach —
   "The Pact's Reply" from the tidekeeper. Reading it grants a new achievement
@@ -130,10 +134,10 @@
   Fixed deferred spawn (hint used to parent to a dying scene during transitions).
 
 # high priority
-- Endgame radio: now that the pact arc closes the lore loop, the island has no
-  ambient narrative left. Add a rare (45–90 s) one-off NPC "harbor gossip" line
-  on the world map once the pact is funded — e.g. pedestrian thanks — reusing
-  the npc_dialogue card with a single line.
+- Economy end-check: with every sink and badge live, re-run three fresh-save
+  circuits through MCP and confirm (a) ~USD 32/loop still holds, (b) the
+  Room-for-more nudge and the wind-down flow don't break the tour, and no log
+  errors appear.
 
 # medium priority
 # (shimmer item promoted to high priority)
