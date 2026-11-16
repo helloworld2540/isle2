@@ -1,6 +1,13 @@
 # Current project todo:
 
 # done this pass
+- Frozen-stepped a real reef dive (~20 s game time) and observed live state:
+  the drone drifts, garbage contact accumulates kg, the HUD label updates, and
+  a golden spawns (golden flag persisted through nudge_gold_shown during the
+  run) and a grey reef shark was logged to fish_met — both were test residue
+  and the player's save was restored to its pre-run state afterwards.
+  This also surfaced that raven_weight spawns can persist mid-dive state to
+  disk; that's expected — a dive only "counts" once it ends.
 - NPC turn-in path verified end to end on a fresh save: Mara tier 1 (8 PE -> 3
   Glass) consumes the PE, credits the Glass, marks the quest done, and
   quests_completed increments correctly — after flush, since GameState's
