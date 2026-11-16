@@ -29,6 +29,9 @@ func _ready() -> void:
 	# GameState restores the save itself on boot; the HUD only reads it.
 	if main_label:
 		main_label.modulate = Color(0.9, 0.95, 1.0, 0.9)
+	if uc_bar:
+		# The bar fills toward the score price of the next Deep Cache purchase.
+		uc_bar.tooltip_text = "Progress toward the Deep Cache (score banks at the bench and on dives)"
 	GameState.harbor_hero_unlocked.connect(_refresh_hero_title)
 	GameState.circuit_progress_changed.connect(_refresh_circuit_label)
 	GameState.bottle_read.connect(_refresh_bottle_label)
