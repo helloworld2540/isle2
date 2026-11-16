@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Island Menu with the new Journal button screenshot-verified: Resume /
+  Save & Quit / Journal at 52 px each, all visible, no clipping, all
+  consistent with the surrounding opencode-theme styling.
 - World HUD -> Journal deep-link: a new "Journal" button in the world menu
   deep-links straight to the stats page; the stats scene's Back button
   returns to the world (via GameState.return_to_scene, cleared on return).
