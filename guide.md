@@ -139,5 +139,8 @@ checked against this yield — nothing changed, deliberately.*
   of the four gulls patrolling the open water east of the island. The harbor cry
   is audio-only, so it keeps playing even with **Reduced motion** on — where the
   birds hold still, the water still sounds like water.
+- Under it all runs a continuous **surf wash**, a seamless 12 s loop that fades
+  in when you reach the map and keeps rolling while the pause menu is open. It
+  rides the SFX volume.
 - Bottles wash up on the shore with lore; after the Tidekeeper's Pact is funded
   and all base bottles are read, a hidden fourth bottle surfaces.

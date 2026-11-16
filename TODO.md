@@ -1,6 +1,14 @@
 # Current project todo:
 
 # done this pass
+- Continuous surf bed for the world map: `tools/make_surf.py` generates a
+  seamless 12 s wash (circularly filtered noise + periodic swell, shipped as
+  16-bit PCM `sound/sfx/surf.wav`). `scenes/wm_surf_bed.tscn` lives in
+  `world.tscn` as a dedicated `AudioStreamPlayer` (never the round-robin SFX
+  pool), fading in over 3 s to −22 dB on the SFX bus, looping the full buffer,
+  and running with `PROCESS_MODE_ALWAYS`. Verified in-game: playing/looping
+  (loop_end 264600 = 12 s × 22050), volume reached −22, and the playback
+  position kept advancing while the pause menu had the tree paused.
 - Harbor ambience: the world map now has a dock-side voice of its own —
   `scenes/wm_harbor_ambience.tscn` (audio-only Node in `world.tscn`) plays a
   sparse, lower-pitched gull cry every 40–75 s (35% of calls draw a closer
@@ -177,11 +185,12 @@
   Fixed deferred spawn (hint used to parent to a dying scene during transitions).
 
 # high priority
-- Continuous surf bed for the world map: the harbor cry punctuates the dock but
-  there is still no continuous water. Synthesize a short, seamless loopable surf
-  wash into `sound/`, add a scene-authored player (route through the SFX bus or a
-  new Ambience bus) that fades in on world entry and out on exit, and keep it
-  quiet under the BGM. Honors the volume slider and reduced motion (audio only).
+- Ambience bus + slider: the surf/harbor bed currently rides the SFX bus, so a
+  player who wants loud one-shot feedback also gets a loud wash (or vice versa).
+  Split ambient loops onto their own **Ambience** bus (send → Master), add an
+  0–100 slider to the settings panel beside master/music/sfx, persist as
+  `ambience_volume`, default ~0.7, and route `SurfBed` (and future beds) through
+  it.
 
 # medium priority
 # (shimmer item promoted to high priority)

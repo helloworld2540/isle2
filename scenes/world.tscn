@@ -28,6 +28,7 @@
 [ext_resource type="PackedScene" path="res://scenes/wm_sparkles.tscn" id="25_sparkles"]
 [ext_resource type="PackedScene" path="res://scenes/wm_boat.tscn" id="26_boat"]
 [ext_resource type="PackedScene" path="res://scenes/wm_harbor_ambience.tscn" id="27_harbor"]
+[ext_resource type="PackedScene" path="res://scenes/wm_surf_bed.tscn" id="28_surf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4wyf3"]
 atlas = ExtResource("1_rwgxs")
@@ -570,3 +571,5 @@ position = Vector2(-1200, 300)
 position = Vector2(700, 640)
 
 [node name="HarborAmbience" parent="." instance=ExtResource("27_harbor")]
+
+[node name="SurfBed" parent="." instance=ExtResource("28_surf")]
