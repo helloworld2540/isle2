@@ -39,7 +39,8 @@ Welcome to Isle 2. Shared economy across world map, two minigames, shop, NPCs an
   page, plus the PATRON OF THE ISLE achievement.
 - Tidekeeper's Pact — 2500$ one time. The final sink: a permanent +10 kg bag
   and the KEEPER OF THE TIDE achievement (no prestige-only fill — the reward is
-  mechanical).
+  mechanical). Funding it AND reading all three shore bottles washes a fourth,
+  hidden reply bottle up on the south beach — the tide answers its keeper.
 
 ## Money-sink payback audit (re-derived from measured $32/loop)
 *Measured on a fresh save, three consecutive full loops ≈ $32 each; a loop is

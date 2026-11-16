@@ -78,19 +78,27 @@ func _update_money_label() -> void:
 
 ## Bottles found so far. The line is hidden at 0 until the first one is read
 ## so the HUD stays calm for players who are not collecting; it then counts up,
-## and flips gold at the set.
+## flips gold at the base set, and flips again once the Pact's reply is read.
 func _refresh_bottle_label(_count: int = -1) -> void:
 	if not bottle_label:
 		return
-	var n := _count if _count >= 0 else GameState.bottles_read.size()
-	if n <= 0:
+	var pact_read := GameState.is_story_read("bottle_pact")
+	# The Pact's answer is never counted toward the base three.
+	var base_count := 0
+	for id in GameState.bottles_read:
+		if id != "bottle_pact":
+			base_count += 1
+	if base_count <= 0 and not pact_read:
 		bottle_label.visible = false
 		return
-	if n >= 3:
+	if pact_read:
+		bottle_label.text = "✦ The Pact is Kept"
+		bottle_label.modulate = Color(0.55, 0.95, 0.85, 1.0)
+	elif base_count >= 3:
 		bottle_label.text = "✦ Tide Keeper"
 		bottle_label.modulate = Color(1.0, 0.84, 0.32, 1.0)
 	else:
-		bottle_label.text = "◆ Bottles %d/3" % n
+		bottle_label.text = "◆ Bottles %d/3" % base_count
 		bottle_label.modulate = Color(0.72, 0.92, 1.0, 0.95)
 	bottle_label.visible = true
 

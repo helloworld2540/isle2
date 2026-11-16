@@ -1,6 +1,11 @@
 # Current project todo:
 
 # done this pass
+- Bottle lore epilogue cadence: funding the Tidekeeper's Pact AND reading all
+  three base bottles makes a fourth, hidden bottle surface on the beach —
+  "The Pact's Reply" from the tidekeeper. Reading it grants a new achievement
+  (THE PACT'S REPLY) and the HUD flips to "✦ The Pact is Kept". Catalogue now
+  22. Verified in-game: spawns only when the pact arc is complete, grants, flips HUD.
 - Legendary celebration for endgame badges: the banner now has a third accent
   tier ("legendary") — thick-rimmed dark-gold panel, brighter legend gold
   title, +0.25 chime. BENCH MASTER, REEF VETERAN, LOOP MASTER and
@@ -125,9 +130,10 @@
   Fixed deferred spawn (hint used to parent to a dying scene during transitions).
 
 # high priority
-- Bottle lore epilogue cadence: read all 3 bottles and the collectathon ends —
-  consider a final rare message that only washes up after KEEPER OF THE TIDE,
-  closing the lore loop on the endgame purchase.
+- Endgame radio: now that the pact arc closes the lore loop, the island has no
+  ambient narrative left. Add a rare (45–90 s) one-off NPC "harbor gossip" line
+  on the world map once the pact is funded — e.g. pedestrian thanks — reusing
+  the npc_dialogue card with a single line.
 
 # medium priority
 # (shimmer item promoted to high priority)

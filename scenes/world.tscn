@@ -307,6 +307,11 @@ position = Vector2(700, 600)
 bottle_id = "bottle_light"
 story_lines = Array[String](["Kai — the shop sold out of everything again by noon.", "Stock the shelves and the island will stock itself.", "Also, I am told glass fetches best when it glitters. Noted.", "— Kai"])
 
+[node name="BottlePact" parent="." instance=ExtResource("24_bottle")]
+position = Vector2(360, 1180)
+bottle_id = "bottle_pact"
+story_lines = Array[String](["You were the one who paid to keep us here.", "Two thousand and five hundred dollars, and the reef never asked for it.", "The fish are counting on you, and I find that is a good thing.", "The tide keeps your name now. Walk proud, keeper.", "— The Tidekeeper"])
+
 [node name="PortalMarkers" type="CanvasLayer" parent="." unique_id=310133525]
 script = ExtResource("10_markers")
 
