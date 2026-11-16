@@ -12,6 +12,7 @@ class_name MinigameIntro
 @onready var title_label: Label = $Panel/VBox/Title
 @onready var lines_label: RichTextLabel = $Panel/VBox/Lines
 @onready var got_it_button: Button = $Panel/VBox/GotItButton
+@onready var stats_label: Label = $Panel/VBox/Stats
 
 
 func _ready() -> void:
@@ -31,6 +32,16 @@ func configure(title_text: String, lines: Array) -> void:
 	intro_lines = PackedStringArray(lines)
 	if is_inside_tree():
 		_apply_text()
+
+
+## A single line of personal stake shown under the checklist —
+## "Best: N · Runs: M". Empty text hides the row entirely.
+func set_stat_line(text: String) -> void:
+	if not stats_label:
+		return
+	var trimmed := text.strip_edges()
+	stats_label.text = trimmed
+	stats_label.visible = not trimmed.is_empty()
 
 
 func _apply_text() -> void:

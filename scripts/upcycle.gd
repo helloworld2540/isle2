@@ -85,6 +85,14 @@ func _ready() -> void:
 	_setup_bins()
 	_setup_audio()
 	_prev_best = GameState.best_upcycle_score
+	# Stamp the personal stake onto the briefing card while the player is reading it.
+	var intro := get_node_or_null("MinigameIntro")
+	if intro:
+		var runs := GameState.upcycle_runs
+		if runs > 0 or GameState.best_upcycle_score > 0:
+			intro.set_stat_line("Best score: %d  ·  Runs finished: %d" % [GameState.best_upcycle_score, runs])
+		else:
+			intro.set_stat_line("First shift — nobody holds the record yet.")
 	
 	if player:
 		player.global_position = _snap(player.global_position)

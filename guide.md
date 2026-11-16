@@ -93,6 +93,8 @@ checked against this yield — nothing changed, deliberately.*
   flags a new personal best. Ten finished runs earns BENCH REGULAR.
 - Mid-run the score readout carries "(best N)" so the chase stays visible, and
   passing the record fires a one-shot gold "NEW BEST — N!" callout with a punch.
+- The pre-round briefing leads with your personal stake — "Best score: N ·
+  Runs finished: M" — so the ghost follows you into the room.
 - Combo milestones (every five clean sorts) add +5 score and a "FIVE ON THE
   BELT!" banner; a burned or wrong item resets the streak.
 - When only 5 Reef Debris remain the bench warns you once; when the pile runs

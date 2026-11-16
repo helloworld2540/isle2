@@ -55,6 +55,14 @@ func _ready() -> void:
 	AudioManager.play_bgm("reef")
 	_update_ui()
 	_update_low_health()
+	# Stamp the personal stake onto the briefing card while the player reads it.
+	var intro := get_node_or_null("MinigameIntro")
+	if intro:
+		var dives := GameState.reef_dives
+		if dives > 0 or GameState.best_reef_depth > 0:
+			intro.set_stat_line("Deepest: %d m  ·  Dives finished: %d" % [GameState.best_reef_depth, dives])
+		else:
+			intro.set_stat_line("First dive — nobody holds the record yet.")
 	if return_btn:
 		return_btn.pressed.connect(_leave_to_map)
 	if go_return_btn:

@@ -1,6 +1,11 @@
 # Current project todo:
 
 # done this pass
+- Best-run stake on the pre-round briefing: the shared `MinigameIntro` card
+  gained an optional "Stats" row (gold, hidden until set) — the upcycle bench
+  shows "Best score: N · Runs finished: M", reef rescue shows "Deepest: N m ·
+  Dives finished: M", and a fresh save sees "First shift/first dive — nobody
+  holds the record yet." Verified empty and populated states in-game.
 - Bench ghost best: the score readout now shows "Score: N (best M)" mid-run,
   and the moment the run passes the saved best a one-shot gold "NEW BEST — N!"
   callout fires with the same punch the combo milestones use. Fires once per
@@ -144,10 +149,10 @@
   Fixed deferred spawn (hint used to parent to a dying scene during transitions).
 
 # high priority
-- Best-run ghost score at the START screen of the bench: the HUD now telegraphs
-  the record mid-run, but the pre-round intro still shows no personal stake —
-  surface "Best: N" (and "Runs: M") on the minigame briefing's stats panel so
-  the ghost follows you into the room.
+- Audio identity pass: the bench shares the generic BGM-action vibe of reef
+  rescue — give upcycle its own track (or at least a distinct player stem) and
+  a short two-note motif on the SHIFT COMPLETE panel, so the minigame
+  hand-off feels scored rather than shared.
 
 # medium priority
 # (shimmer item promoted to high priority)
