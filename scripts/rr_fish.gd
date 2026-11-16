@@ -21,8 +21,15 @@ const FISH := {
 var speed := Vector2.ZERO
 var size := 1.0
 
+const WAKE_SCENE := preload("res://scenes/rr_fish_wake.tscn")
+
 func init_fish() -> void:
 	set_meta("is_fish", true)
+	var wake := WAKE_SCENE.instantiate()
+	var vp := get_viewport_rect().size
+	if wake and get_parent():
+		get_parent().add_child(wake)
+		wake.global_position = Vector2(global_position.x, vp.y - 24.0)
 	var texture_keys := FISH.keys()
 	if texture_keys.is_empty():
 		return

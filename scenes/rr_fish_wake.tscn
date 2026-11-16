@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Texture2D" path="res://sprites/rr/wake.png" id="1_wake"]
+[ext_resource type="Script" path="res://scripts/rr_fish_wake.gd" id="2_wake"]
+
+[node name="FishWake" type="Sprite2D"]
+texture = ExtResource("1_wake")
+z_index = 2
+script = ExtResource("2_wake")

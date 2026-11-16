@@ -67,6 +67,8 @@ Welcome to Isle 2. Shared economy across world map, two minigames, shop, NPCs an
   each — 400 m is DEEP DIVE, 900 m is TO THE ABYSS.
 - Off-screen edge markers: fish markers flare red and swell/throb as they
   close on the drone (proximity + depth-scaled shimmer); garbage markers stay calm yellow.
+- Fish telegraph: a red wake blooms at the bottom edge in the fish's lane ~1.15s
+  before it rises into view (swells and fades; skipped under reduced motion).
 - Depth is tracked in the stats page and feeds two achievements: DEEP DIVE (400 m) and TO THE ABYSS (900 m).
 - Garbage converts into Reef Debris (plus Deep Cache bonus per tier and capacity).
 

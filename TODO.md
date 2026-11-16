@@ -20,6 +20,9 @@
 - Reef fairness pass: off-screen edge markers for fish flare red and swell/throb
   as they close in (proximity + depth-scaled shimmer, faster sine at higher
   depth); garbage markers stay calm yellow. Verified at 650 m (marker ff6b59).
+- Reef telegraph pass: red wake blooms in a fish's lane at the bottom edge ~1.15s
+  before it enters view; swells and fades, skipped under reduced motion.
+  Verified (wake at y=624 under lane x=296, fading).
 - Balance pass 3 (measured, not guessed): three consecutive fresh-save loops driven
   end-to-end via MCP; median yield ≈ $32/loop ($17 materials + $15 circuit),
   Market Contact reachable in ~2–3 loops; kept prices, documented in guide.md.
@@ -62,8 +65,8 @@
   Fixed deferred spawn (hint used to parent to a dying scene during transitions).
 
 # high priority
-- (next) Reef Rescue polish: fish shadow telegraph — a subtle red-tinted wake
-  under fish entering from the top edge, so dodges read one beat earlier.
+- (next) Reef Rescue juice: low-health warning — when one bump remains before
+  the fish limit, a soft red vignette pulse at the screen edges (reduced-motion safe).
 
 # medium priority
 # (shimmer item promoted to high priority)
