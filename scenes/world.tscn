@@ -25,6 +25,7 @@
 [ext_resource type="PackedScene" path="res://scenes/wm_bottle.tscn" id="24_bottle"]
 
 [ext_resource type="PackedScene" path="res://scenes/wm_gull.tscn" id="24_gull"]
+[ext_resource type="PackedScene" path="res://scenes/wm_sparkles.tscn" id="25_sparkles"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4wyf3"]
 atlas = ExtResource("1_rwgxs")
@@ -554,3 +555,6 @@ z_index = 5
 [node name="Gull4" parent="." instance=ExtResource("24_gull")]
 position = Vector2(1100, 1300)
 z_index = 5
+
+[node name="SeaSparkles" parent="." instance=ExtResource("25_sparkles")]
+position = Vector2(-1200, 300)

@@ -18,9 +18,12 @@ const BOB_AMPLITUDE := 0.5   ## fraction of ry used by the bob term
 @export var ry: float = 44.0      ## vertical patrol radius, px
 @export var period: float = 11.0  ## seconds per full patrol loop
 @export var bank_amount: float = 0.16  ## max roll (radians) when turning
+@export var cry_min_interval: float = 25.0  ## min seconds between cries
+@export var cry_max_interval: float = 60.0  ## max seconds between cries
 
 var _t: float = 0.0
 var _center: Vector2 = Vector2.ZERO
+var _cry_timer: float = 0.0
 
 
 func _ready() -> void:
@@ -31,6 +34,8 @@ func _ready() -> void:
 		set_process(false)
 		return
 	_t = randf() * TAU  # desync a flock spawned together
+	# Offset the first cry so a fresh world doesn't yelp immediately.
+	_cry_timer = randf_range(cry_min_interval * 0.5, cry_max_interval * 0.8)
 
 
 func _process(delta: float) -> void:
@@ -41,3 +46,7 @@ func _process(delta: float) -> void:
 	# Bank into the direction of travel (derivative sign of y).
 	rotation = clampf(cos(_t) * 0.9, -1.0, 1.0) * bank_amount
 	texture = FRAMES[int(Time.get_ticks_msec() / int(FLAP_SECONDS * 1000.0)) % FRAMES.size()]
+	_cry_timer -= delta
+	if _cry_timer <= 0.0:
+		AudioManager.play_sfx("gull", randf_range(0.85, 1.15))
+		_cry_timer = randf_range(cry_min_interval, cry_max_interval)

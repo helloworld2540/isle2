@@ -11,6 +11,9 @@
 - Ambient world-life pass 1: four gulls patrol ellipses over open water east of
   the island — two-frame wing flap, banking into the bob, desynced phases,
   frozen still under reduced motion (scenes/wm_gull.tscn + scripts/wm_gull.gd).
+- Ambient world-life pass 2: additive sea-sparkle drift over the western water
+  (46 particles, fade ramp, killed under reduced motion) and a rare synthesized
+  gull cry (25–60 s per gull, pitch-jittered, honors the SFX bus volume).
 - Balance pass 3 (measured, not guessed): three consecutive fresh-save loops driven
   end-to-end via MCP; median yield ≈ $32/loop ($17 materials + $15 circuit),
   Market Contact reachable in ~2–3 loops; kept prices, documented in guide.md.
@@ -53,9 +56,9 @@
   Fixed deferred spawn (hint used to parent to a dying scene during transitions).
 
 # high priority
-- (next) Ambient world-life pass 2: drifting sea-sparkle on the water tiles west
-  of the island (few, slow, additive), and a gull cry on a rare timer in the SFX
-  mix (verify volume balance; keep it under reduce_motion / volume prefs).
+- (next) Ambient world-life pass 3: a distant fishing boat crossing the horizon
+  on a long loop out in the eastern water (simple hull + sail sprite, slow drift,
+  bobbing; reduced-motion safe).
 
 # medium priority
 # (shimmer item promoted to high priority)
