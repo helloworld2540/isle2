@@ -52,6 +52,46 @@ func _update_stats_display() -> void:
 		_stats_label.text = _build_stats_text()
 
 
+## The scrap-journal reading of the page: which era of the island is the
+## player in, most advanced first. Purely cosmetic — no numbers, just flavour
+## earned by what the save has actually done.
+func _era_name() -> String:
+	if GameState.is_achievement_unlocked("island_steward"):
+		return "The Steward Era"
+	if GameState.tidekeeper:
+		return "The Pact Era"
+	if GameState.market_level >= GameState.MARKET_MAX_LEVEL:
+		return "The Trading Era"
+	if GameState.circuits_completed >= 3:
+		return "The Circuit Era"
+	if GameState.reef_dives >= 10:
+		return "The Diving Era"
+	if GameState.upcycle_runs >= 10:
+		return "The Bench Era"
+	if GameState.lifetime_earnings > 0:
+		return "The First-Coin Era"
+	return "The Fresh Shore"
+
+
+## One line of what the name means for the bench, the reef and the till.
+func _era_tag() -> String:
+	if GameState.is_achievement_unlocked("island_steward"):
+		return "every page of the journal is blank except yours"
+	if GameState.tidekeeper:
+		return "the tide answers its keeper"
+	if GameState.market_level >= GameState.MARKET_MAX_LEVEL:
+		return "peak prices, peak dives"
+	if GameState.circuits_completed >= 3:
+		return "the loop runs itself when you do"
+	if GameState.reef_dives >= 10:
+		return "the waterline knows your wake"
+	if GameState.upcycle_runs >= 10:
+		return "the bench is a reflex now"
+	if GameState.lifetime_earnings > 0:
+		return "the till has its first song"
+	return "every page still blank"
+
+
 func _build_stats_text() -> String:
 	var lines: Array[String] = [
 		"Stats",
@@ -78,6 +118,7 @@ func _build_stats_text() -> String:
 	lines.append("Quests turned in: %d" % GameState.quests_completed)
 	lines.append("Island circuits completed: %d  (+$%d each)" % [GameState.circuits_completed, GameState.CIRCUIT_BONUS_MONEY])
 	lines.append("Field log: %d dives · %d bench runs" % [GameState.reef_dives, GameState.upcycle_runs])
+	lines.append("Era: %s — %s" % [_era_name(), _era_tag()])
 	
 	# Compact achievement roll: the banner cards carry the full text, this is
 	# the checklist players scroll to when they want to know what is left.

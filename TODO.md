@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- Stats page gains an "Era:" line — a scrap-journal read of where the save is
+  on the island (Fresh Shore → First-Coin → Bench → Diving → Circuit →
+  Trading → Pact → Steward), picked by what the save has actually done. Pure
+  flavour, no numbers to game. Verified three branches in-game.
 - Mature-market route advisor: the "Next:" hint and the glowing pad now flip
   to a pricing-maxed playbook once Market Contact is fully maxed — dives and
   early cash-outs over sort trips (prices maxed — dive deeper / cash in soon),
@@ -159,10 +163,10 @@
   Fixed deferred spawn (hint used to parent to a dying scene during transitions).
 
 # high priority
-- Dashboard honesty: the stats page still says "Island circuits, best depths"
-  without any of this run's history context — give each stat a tiny one-line
-  "vs last" / era tag (e.g. "Fresh run", "Sorting era", "Pact era") so the page
-  reads like a scrap-journal instead of a spreadsheet.
+- Waiting-room polish: the world map gives no ambient soundscape while idle —
+  add a sparse harbor-gull cry every 40–75 s (reuses gull.wav, honors the SFX
+  bus volume and reduced-motion, fires only on the world scene) so resting at
+  the dock feels alive instead of muted.
 
 # medium priority
 # (shimmer item promoted to high priority)
