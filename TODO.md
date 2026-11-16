@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Legendary achievement banners now ring the harbor bell under the legendary
+  chime (the island hears a big one). Plain achievement / milestone pitches
+  unchanged. Smoke 45/45.
 - Tidekeeper's Pact ceremony: funding the pact now rings the harbor bell
   under the achievement chime in the shop — the island's biggest single
   purchase lands like a tide, not a receipt. (An intermediate `tidekeeper_rang`

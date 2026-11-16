@@ -228,6 +228,9 @@ func _show_next() -> void:
 		pitch = 1.0
 	elif accent == "legendary":
 		pitch = 1.25
+	if accent == "legendary":
+		# Legends ring the harbor bell — the island hears a big one.
+		AudioManager.play_sfx("harbor_bell", 0.85)
 	AudioManager.play_sfx("achievement", pitch)
 	_panel.visible = true
 	_hide_timer.start(float(entry.get("seconds", SHOW_SECONDS)))
