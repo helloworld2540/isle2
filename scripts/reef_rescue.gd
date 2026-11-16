@@ -386,7 +386,7 @@ func _game_over_summary(reason: String = "manual") -> void:
 	if accepted == 0 and drone:
 		_popup("Inventory full - sell trash", Color(1.0, 0.4, 0.4, 1.0))
 	
-	_record_run_card(accepted)
+	_record_run_card(accepted, new_best, prev_best)
 	
 	if go_body:
 		var best_depth := GameState.best_reef_depth
@@ -421,8 +421,18 @@ func _leave_after_summary() -> void:
 	SceneTransition.change_scene("res://scenes/world.tscn")
 
 
-## Hand-off card for the world map: what this dive produced and where to go next.
-func _record_run_card(accepted: int) -> void:
+## Hand-off card for the world map. Frames the dive as the next "chapter":
+## a dive number, a named dive and the carry-line the bench needs next —
+## instead of a bare stat sheet.
+func _record_run_card(accepted: int, new_best: bool, prev_best: int) -> void:
+	var dives := GameState.reef_dives
+	var flavor := "Shallow Sweep"
+	if depth >= 900.0:
+		flavor = "Into the Abyss"
+	elif depth >= 400.0:
+		flavor = "Deep Dive"
+	elif depth >= 200.0:
+		flavor = "Mid-Water Haul"
 	var debris := int(GameState.trash_by_type.get("Reef Debris", 0))
 	var lines: Array[String] = [
 		"Collected %d kg · reached %d m" % [int(garbage), int(depth)],
@@ -430,12 +440,11 @@ func _record_run_card(accepted: int) -> void:
 			accepted, GameState.get_inventory_weight(), GameState.get_inventory_capacity()
 		],
 	]
-	if fish > 0:
-		lines.append("Fish bumps %d/%d · best depth %d m" % [
-			fish, _fish_limit, maxi(int(depth), GameState.best_reef_depth)
-		])
-	
-	if GameState.best_reef_depth >= 400 and GameState.best_reef_depth < 900:
+	if new_best:
+		lines.append("★ New personal best — %d m! (was %d m)" % [int(depth), prev_best])
+	elif fish > 0:
+		lines.append("Fish bumps %d/%d · best depth %d m" % [fish, _fish_limit, maxi(int(depth), GameState.best_reef_depth)])
+	elif GameState.best_reef_depth >= 400 and GameState.best_reef_depth < 900:
 		lines.append("%d m to TO THE ABYSS (best %d m)" % [900 - GameState.best_reef_depth, GameState.best_reef_depth])
 
 	var hint := ""
@@ -445,8 +454,8 @@ func _record_run_card(accepted: int) -> void:
 		hint = "Dive again to gather Reef Debris."
 	else:
 		hint = "Sort %d Reef Debris at the Upcycle bench." % debris
-	
-	GameState.record_run("reef", "Reef Rescue complete", lines, hint)
+
+	GameState.record_run("reef", "Dive № %d — %s" % [dives, flavor], lines, hint)
 
 func _leave_to_map() -> void:
 	_game_over_summary("manual")

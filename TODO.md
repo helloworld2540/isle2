@@ -31,6 +31,9 @@
 - Reef payout breakdown: the summary card now itemizes the haul, any Deep Cache
   bonus, and "bag full −N kg" when the cap truncates — verified at 10 kg cap
   (40 kg haul → 1 banked, line reads "bag full: −39 kg").
+- Reef recap framing: the world-map hand-off card plays as a story chapter —
+  a dive number and named dive ("Dive № 1 — Mid-Water Haul") plus a "★ New
+  personal best" line when applicable; new save key `reef_dives`. Verified.
 - Balance pass 3 (measured, not guessed): three consecutive fresh-save loops driven
   end-to-end via MCP; median yield ≈ $32/loop ($17 materials + $15 circuit),
   Market Contact reachable in ~2–3 loops; kept prices, documented in guide.md.
@@ -73,8 +76,8 @@
   Fixed deferred spawn (hint used to parent to a dying scene during transitions).
 
 # high priority
-- (next) Reef Rescue: record the per-dive result on the world map hand-off card
-  (run_recap) so the loop's outcome reads as a story chapter, not a stat popup.
+- (next) Upcycle hand-off parity: give the upcycle bench the same story-chapter
+  treatment — run counter, a named run, and the carry-over hint.
 
 # medium priority
 # (shimmer item promoted to high priority)

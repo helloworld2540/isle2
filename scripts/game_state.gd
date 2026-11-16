@@ -108,6 +108,8 @@ var reef_garbage: float = 0.0
 var reef_fish: int = 0
 ## Lifetime kg recovered at the reef, for the stats page.
 var lifetime_garbage_kg: int = 0
+## Total dives made, drives the dive number on recap cards.
+var reef_dives: int = 0
 
 # Inventory
 var trash_inventory: int = 0
@@ -373,6 +375,7 @@ func record_reef(garbage: float, fish: int, depth: float = 0.0) -> void:
 	reef_garbage = garbage
 	reef_fish = fish
 	lifetime_garbage_kg += int(round(garbage))
+	reef_dives += 1
 	if int(depth) > best_reef_depth:
 		best_reef_depth = int(depth)
 	if fish > best_reef_fish:
@@ -638,6 +641,7 @@ func _write_save() -> void:
 		"tide_gift_granted": tide_gift_granted,
 		"quests_completed": quests_completed,
 		"lifetime_garbage_kg": lifetime_garbage_kg,
+		"reef_dives": reef_dives,
 		"harbor_hero_granted": harbor_hero_granted,
 		"circuits_completed": circuits_completed,
 		"achievements": unlocked_achievements,
@@ -654,6 +658,7 @@ func restore() -> void:
 	lifetime_earnings = int(data.get("lifetime_earnings", 0))
 	quests_completed = int(data.get("quests_completed", 0))
 	lifetime_garbage_kg = int(data.get("lifetime_garbage_kg", 0))
+	reef_dives = int(data.get("reef_dives", 0))
 	
 	best_upcycle_score = int(data.get("best_upcycle_score", 0))
 	best_sort_streak = int(data.get("best_sort_streak", 0))
@@ -707,6 +712,7 @@ func reset() -> void:
 	upcycle_score = 0
 	reef_garbage = 0.0
 	reef_fish = 0
+	reef_dives = 0
 	money = 0
 	lifetime_earnings = 0
 	quests_completed = 0
