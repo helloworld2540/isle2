@@ -40,7 +40,7 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 - Upgrades stored directly as save keys: `upgrade_move`, `upgrade_range`, audio/volume keys.
 
 ## Economy Formulas (weighted inventory)
-- Inventory capacity is in **kg**: `60 + 20 × inventory_capacity_level`.
+- Inventory capacity is in **kg**: `10 + 10 × inventory_capacity_level`.
 - Each item costs its material weight (e.g. Polyethylene 1, Propylene 2, Glass 3, Nylon 2, Reef Debris 1).
 - `GameState.get_inventory_weight()` reports the kg used (`trash_by_type` × weights).
 - Upgrades shop spend trash in trash-weight currency.
@@ -49,7 +49,7 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 - Trash types: Polyethylene, Polypropylene, Glass, Nylon, Reef Debris.
 - Shop sell rates: Polyethylene 2, Polypropylene 3, Glass 5, Nylon 4, Reef Debris 1.
 - Bulk bonus: stock ≥ 5 → ×1.25 earnings.
-- Inventory capacity: `60 + 20 × inventory_capacity_level` kg (weighted by material).
+- Inventory capacity: `10 + 10 × inventory_capacity_level` kg (weighted by material).
 - Purchase capacity cost: `6 + 3 × level` (paid fromtrash mix; deducted via `spend_trash`).
 - Reef rescue debris reward: `max(1, round(garbage)) + (deep_cache ? 5×tier + 3×capacity_level : 0)`, capped by free capacity.
 - Deep Cache purchase: 30 score; upgrade: 15 × tier.
@@ -58,13 +58,13 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 ## Upcycle Mechanics
 - Grid: 5 columns (1..5) × 3 rows (0..2), cell size 160 px. Swipe threshold 30 px.
 - Materials: Polyethylene, Glass, Polypropylene, Nylon (4 bins).
-- Belt: items spawn every 1.0s, max 10 on belt; banner at ≥5.
-- Belt speed: `clamp(90 + score*0.4, 90, 220)`.
+- Belt: items spawn every 2.75s at score 0 (ramps down ~0.03s/point to a 0.75s floor), max 10 on belt; banner at ≥5.
+- Belt speed: `clamp(75 + score*0.3, 75, 180)`.
 - Bin match by material; fire hazard on body enter.
 - Streak tracked; on return, `record_sort_streak` and `record_upcycle(score)`.
 
 ## Reef Rescue Mechanics
-- Spawn interval 0.8s; fish vs garbage probability `randfn(depth/1000, 0.5) > 0.5`.
+- Spawn interval: `0.8s` at the surface, tightening `clamp(0.8 - depth/3000, 0.32, 0.8)`; fish vs garbage probability `randfn(depth/1000, 0.5) > 0.5` (measured: ~16% fish at 0 m, ~27% at 200 m, ~43% at 400 m, ~72% at 800 m).
 - Background speed 75..120 based on drone Y; depth `+= bg_speed/10`.
 - Drone inertia; wall bounce × -0.3; clamped 60 px inset.
 - Collection radius 66.27 + 12×upgrade_range.
@@ -93,7 +93,9 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 - World menu: volume sliders (master/music), reduced motion checkbox, upgrade buttons, progress bars.
 - Main menu: painted vista backdrop, save summary, and a framed "THE ISLE" world-preview
   postcard (`scenes/ui/world_preview.tscn`) with ambient motes (`scenes/ui/mote.tscn`)
-  drifting over the island vista. Motes freeze under reduced motion.
+  drifting over the island vista. Motes freeze under reduced motion. The postcard plays
+  a one-time golden shimmer sweep the first time you visit the menu after closing an
+  island circuit (`postcard_shimmer_played` save flag; static flash under reduced motion).
 
 ## Shop UI conveniences
 - Bulk sales pop a gold "SOLD … (bulk +25%)" receipt with a punch animation; receipts stack

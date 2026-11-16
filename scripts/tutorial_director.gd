@@ -66,8 +66,15 @@ const STEP_SCENE_TAG := {
 	STEP_FINALE: ["*"],
 }
 
+## One-shot ambient nudges that live outside the linear tour: a bag-full
+## warning the first time the hold crosses 85%, and a bottle pointer once the
+## tour is done. Persisted flags make each fire exactly once per save.
+const NUDGE_BAG := "nudge_bag_shown"
+const NUDGE_BOTTLE := "nudge_bottle_shown"
+
 var _step: int = 0
 var _active_hint: CanvasLayer = null
+var _nudge_state: Dictionary = {}
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -182,10 +189,15 @@ func _spawn_hint(step: int) -> void:
 	var info: Dictionary = STEPS.get(step, {})
 	if info.is_empty():
 		return
+	_spawn_card(String(info.get("title", "")), String(info.get("body", "")), String(info.get("button", "Got it")))
+
+
+func _spawn_card(title: String, body: String, button: String) -> void:
+	_clear_hint()
 	var hint := HINT_SCENE.instantiate()
-	hint.title_text = String(info.get("title", ""))
-	hint.body_text = String(info.get("body", ""))
-	hint.button_text = String(info.get("button", "Got it"))
+	hint.title_text = title
+	hint.body_text = body
+	hint.button_text = button
 	hint.dismissed.connect(_on_hint_dismissed)
 	var scene := get_tree().current_scene
 	if scene:
@@ -199,6 +211,36 @@ func _on_hint_dismissed() -> void:
 	_active_hint = null
 	if _step == STEP_FINALE:
 		_set_step(DONE)
+		# The tour is over; point at the optional lore collectathon once,
+		# right as the player is looking for what to do next.
+		call_deferred("nudge", "bottle")
+
+
+## Public entry for ambient nudges. `kind` is "bag" or "bottle". Cheap to
+## call every frame: after the first delivery the flag is cached in memory.
+func nudge(kind: String) -> void:
+	var key := NUDGE_BAG if kind == "bag" else NUDGE_BOTTLE if kind == "bottle" else ""
+	if key == "":
+		return
+	if not _nudge_state.has(key):
+		_nudge_state[key] = bool(SaveManager.load_game().get(key, false))
+	if bool(_nudge_state[key]):
+		return
+	# Don't smother an active tour/step card; retry next call instead of
+	# burning the one-shot flag.
+	if _active_hint and is_instance_valid(_active_hint):
+		return
+	_nudge_state[key] = true
+	SaveManager.update_game({key: true})
+	match kind:
+		"bag":
+			_spawn_card("Bag almost full!",
+				"[font_size=15]Your hold is over [color=#ffd27f]85% capacity[/color].\nSell at the [color=#9fe2ff]shop[/color] (north) before the next run — bulk sales of 5+ pay a bonus.[/font_size]",
+				"Got it")
+		"bottle":
+			_spawn_card("Bottles on the shore",
+				"[font_size=15]Keep an eye on the waterline — [color=#9fe2ff]message bottles[/color] wash up along the beach.\nRead all three for a secret. (They sparkle. Usually.)[/font_size]",
+				"Nice")
 
 
 func _clear_hint() -> void:

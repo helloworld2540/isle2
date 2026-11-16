@@ -53,6 +53,11 @@ func _process(delta: float) -> void:
 		_advice_tick = 0.0
 		_refresh_next_stop()
 
+	# Once-ever ambient nudge when the hold first gets heavy. The director
+	# throttles itself (persisted flag + skips while another card is up).
+	if ratio >= 0.85:
+		TutorialDirector.nudge("bag")
+
 # --- Initialization ---
 
 # --- Update Methods ---

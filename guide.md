@@ -5,6 +5,16 @@ Welcome to Isle 2. Shared economy across world map, two minigames, shop, NPCs an
 
 ## Economy basics
 - Materials: Polyethylene(1kg), Polypropylene(2kg), Glass(3kg), Nylon(2kg), Reef Debris(1kg).
+- Bag capacity starts at 10kg and grows by +10kg per level.
+
+### Pacing (measured on a fresh save)
+- A surface dive fishes ~16% of spawns as fish (~27% at 200 m, ~43% at 400 m).
+  Each garbage pickup banks 1 kg toward the end-of-dive Reef Debris payout.
+- A typical 60–90 s dive banks ~15–25 kg of Reef Debris, which the upcycle
+  converts one-for-one into materials (each correct sort burns 1 debris).
+- A full 10 kg bag sells for roughly $18–25 (bulk bonus applies once you hold
+  5+ of one material), and the island circuit adds a flat $15 on top.
+- The opening loop (dive → sort → sell) pays out in ~3–5 minutes.
 - Bag capacity starts at 10kg and grows by +10kg per level. Two ways to upgrade:
   trash-paid at the world menu (6 + 3*level), or money-paid at the shop (60 + 25*level).
 - Shop sells at rates: Polyethylene 2, Polypropylene 3, Glass 5, Nylon 4, Reef Debris 1.
@@ -37,6 +47,10 @@ Welcome to Isle 2. Shared economy across world map, two minigames, shop, NPCs an
   where the current step can be acted on; they reappear on scene re-entry until done.
 - Progress saves as `tutorial_step`; the tour survives quitting mid-way and never
   re-arms on old saves.
+- Two one-shot ambient nudges also live here: a **Bag almost full!** card the
+  first time your hold crosses 85% (fires once per save, skipped while another
+  card is up), and a **Bottles on the shore** card shown right after the tour
+  finishes.
 
 ## Upcycle
 - Sort belt trash into matching bins. Wrong/burned does not produce materials or score loss reward except streak reset.

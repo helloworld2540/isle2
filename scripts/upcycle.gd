@@ -25,7 +25,7 @@ const TRASH_SPRITES: Array[String] = [
 @export var base_belt_speed: float = 75.0
 @export var max_belt_speed: float = 180.0
 @export var max_belt_items: int = 10
-@export var base_spawn_interval: float = 3.5
+@export var base_spawn_interval: float = 2.75
 @export var min_spawn_interval: float = 0.75
 
 # Game State

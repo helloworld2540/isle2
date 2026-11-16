@@ -1,6 +1,16 @@
 # Current project todo:
 
 # done this pass
+- Tutorial one-shot ambient nudges: "Bag almost full!" at 85% hold (once per save,
+  skipped while another card is up) and "Bottles on the shore" after the tour
+  finale; verified both in-game.
+- Main-menu postcard: one-time golden shimmer sweep on the first menu visit after
+  closing an island circuit (flag `postcard_shimmer_played`; reduced-motion flash).
+  Verified mid-sweep on a fresh save; player save restored after testing.
+- Balance trace of the fresh-save loop (reef fish curve measured via randfn sampling;
+  debris conversion audited). Upcycle spawn 3.5s → 2.75s so the bench stays busy;
+  documented pacing in guide.md; fixed stale README claims (belt speed, spawn rate,
+  bag capacity 10+10/level, depth-scaled reef spawn).
 - Shop receipt stack right-aligned (fixed-width right-aligned labels; no more
   off-screen clipping); bulk sales punch; receipts reflow on expiry.
 - Undo animation: REVERSED stamp + exiting receipt + red flashes + button punch;
@@ -15,14 +25,10 @@
   Fixed deferred spawn (hint used to parent to a dying scene during transitions).
 
 # high priority
-- (next) Balance pass: first-playthrough pacing from the tutorial finish to the
-  first shop bulk-sale — trace XP/money curve, tune upcycle spawn interval and
-  reef depth ramp so the opening loop feels rewarding inside ~5 minutes.
+- (next) Reef Rescue juice pass: depth-milestone toasts (100/250/400/700/900 m)
+  and a low-ink combo counter punch at each x3 milestone.
 
 # medium priority
-- Tutorial: add a contextual "Bag heavy — sell at the shop" hint when inventory
-  first crosses 85% mid-tour, plus a bottle-finder nudge after the finale.
-- Main-menu postcard: add a one-time shimmer sweep across the preview when the
-  player first unlocks the island circuit (ties the postcard to progression).
+# (shimmer item promoted to high priority)
 
 # low priority backlog
