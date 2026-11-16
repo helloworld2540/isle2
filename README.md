@@ -222,3 +222,14 @@ is excluded) so exported builds still autoload cleanly. Verified headless builds
 `export/` is git-ignored.
 ## Writing changes
 Changes land as the overnight loop cycles — see `overnight_sprint.txt` for a running log of iterations. The game is fully playable from a fresh save: menu → world map → reef rescue → upcycle bench → shop → circuit complete, with NPCs, bottles, starfish and achievements as optional flavour that persists between sessions.
+
+## Full achievement list (31)
+An island for every title the stats page tracks:
+
+- **Reef & Bench starters** — FIRST DIVE, FIRST SORT, FIRST SALE, FIRST FAVOUR, ROUND THE ISLE.
+- **Bench regulars** — BENCH REGULAR (10 runs), BENCH MASTER (25 runs), HOT STREAK (15-sort streak), SILK TOUCH (5 flawless shifts).
+- **Dive regulars** — REEF REGULAR (10 dives), REEF VETERAN (25 dives), DEEP DIVE (400 m), TO THE ABYSS (900 m), HEAVY HARVEST (30 kg in one dive), RHYTHM OF THE REEF (9-chain combo, x4 score), CLEAN SWEEP (5 clean dives), REEF CHARTER.
+- **Collections** — REEF REGISTRY (meet all four species), STARLIGHT (five hidden starfish), TIDE MESSAGES (all three bottles), PACT REPLY (the hidden pact bottle).
+- **Island quests** — HARBOR HERO (every quest tier turned in), PATRON OF THE ISLE (1500$ gift), KEEPER OF THE TIDE (2500$ pact), LOOP MASTER (25 circuits).
+- **Economy** — WELL OFF (lifetime 300$), MARKET CONTACT (+1$/unit), DEEP CACHE (buy the cache), BIG BAG (reach a 30 kg cap), GOLDEN TOUCH (10 golden scraps).
+- **Capstone** — ISLAND STEWARD: every other achievement earned.
