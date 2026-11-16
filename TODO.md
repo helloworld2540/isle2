@@ -1,6 +1,12 @@
 # Current project todo:
 
 # done this pass
+- Performance audit (200 frames on the world map, godot_profiler): avg
+  15.6 ms frame (p50 15.7, p95 18.0, max 22.9, zero spikes > 2x median),
+  physics_time 0.17 ms — the HUD/advisor refactors are not the bottleneck;
+  ~40 draw calls, ~1770 rendered objects, 194 nodes, zero orphans. Cost is
+  rendering-side on a busy scene, not GDScript; no hot spots found, no
+  changes warranted.
 - Reef Registry overlay on the stats page (fish counterpart to the Tide
   Ledger): four 52 px rows (✓ found name / locked "? ? ?"), tap a found
   species to open its field note in the dialogue card; Escape closes it
