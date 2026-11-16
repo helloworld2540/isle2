@@ -3,6 +3,19 @@
 
 Welcome to Isle 2. Shared economy across world map, two minigames, shop, NPCs and upgrades.
 
+## Controls
+- **World map** — tap anywhere to walk there; the trail and flow dots point
+  at the recommended next stop on the circuit.
+- **Upcycle bench** — swipe to move between bins; tap the carried item to
+  inspect what it is; drop it in the matching bin. Swipe threshold is 30 px.
+- **Reef Rescue** — drag to steer the drone, momentum matters. The drone
+  auto-sucks in debris and fish bumps end the dive (three bumps by default);
+  ESC (or the on-screen Return to Map) ends the dive safe.
+- **Shop** — Sell 1 / Sell 5 / Sell All per material; Undo rewinds a whole
+  sale atomically, all-or-nothing.
+- **Everywhere** — ESC (or Tab on the island menu) closes the current card
+  (modal first, then leaving the scene). The island menu opens with ☰.
+
 ## Economy basics
 - Materials: Polyethylene(1kg), Polypropylene(2kg), Glass(3kg), Nylon(2kg), Reef Debris(1kg).
 - Bag capacity starts at 10kg and grows by +10kg per level.
