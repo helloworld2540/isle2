@@ -147,7 +147,9 @@ checked against this yield — nothing changed, deliberately.*
 ## Upgrades
 - Move speed +8% / level via trash.
 - Collection radius +12px / level via trash.
-- Deep Cache 30 score purchase and 15*tier upgrade increases reef debris.
+- Deep Cache 30 score purchase and 15*tier upgrade increases reef debris; the
+  world-menu button names the current/next per-run bonus (e.g. "+10 kg/run"), and
+  the bonus is never wasted on a full bag (see the reef notes below).
 - Inventory capacity +10 level via trash.
 
 ### Trash-upgrade payback audit (measured, pass 5)

@@ -1,6 +1,12 @@
 # Current project todo:
 
 # done this pass
+- Deep Cache copy: the world-menu buttons now explain the guaranteed payout —
+  unowned reads "bonus debris, never wasted", owned shows "OWNED · Tier N (+X kg)"
+  and the upgrade shows the next tier's per-run kg ("Tier 2 — 15 score
+  (+10 kg/run)"). Verified end-to-end in-game: buy with 30 score (60→30), the
+  upgrade enables and reaches Tier 2 (30→15), and the panel stays inside
+  1152×648. Player save restored.
 - Deep Cache value fix: the score-priced upgrade's debris bonus was silently
   clamped away whenever the bag filled — which is *every* dive at the 10 kg
   starting bag — so Deep Cache did nothing until the bag grew. The reef payout
@@ -255,14 +261,16 @@
   Fixed deferred spawn (hint used to parent to a dying scene during transitions).
 
 # high priority
-- Deep Cache copy & discoverability: the upgrade now always pays out, but the
-  world-menu button still reads "Deep Cache (30 score) — bonus debris" and
-  nothing tells the player the bonus survives a full bag. Reword the button (and
-  the tier-upgrade line) to state the guaranteed payout, then verify the whole
-  path end-to-end: buy with 30 score, upgrade a tier with 15×tier score, dive,
-  and read the salvage on the summary card.
+- World-menu touch pass: the island-map upgrade buttons (Move / Range /
+  Deep Cache / Inv Cap) render at 41 px tall, just under the 44 px guideline the
+  shop and minigames now follow. Raise them and any other sub-44 px menu buttons
+  to ≥44 px and verify the panel still fits 1152×648 without clipping.
 
 # medium priority
 # (shimmer item promoted to high priority)
 
 # low priority backlog
+- Tutorial/nudge coverage for Deep Cache: the tour and the one-shot nudges teach
+  the bag and the waste-priced Move/Range tiers, but never mention the
+  score-priced Deep Cache. Consider a short line in the tune card or a small
+  post-tour hint once the player has the score to buy it.

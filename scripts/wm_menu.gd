@@ -184,15 +184,16 @@ func _range_cost_text() -> String:
 
 func _deep_cache_text() -> String:
 	if GameState.deep_cache:
-		return "Deep Cache: OWNED (Tier %d)" % GameState.deep_cache_tier
-	return "Deep Cache (30 score) — bonus debris"
+		return "Deep Cache: OWNED · Tier %d (+%d kg)" % [GameState.deep_cache_tier, 5 * GameState.deep_cache_tier + 3 * GameState.inventory_capacity_level]
+	return "Deep Cache (30 score) — bonus debris, never wasted"
 
 func _upgrade_status_text() -> String:
 	var dc := "DeepCache" if GameState.deep_cache else "-"
 	return "Upgrades: Move %d | Range %d | %s" % [GameState.upgrade_move, GameState.upgrade_range, dc]
 
 func _deep_cache_upgrade_text() -> String:
-	return "Deep Cache Tier %d — %d score" % [GameState.deep_cache_tier + 1, 15 * GameState.deep_cache_tier]
+	var next_tier := GameState.deep_cache_tier + 1
+	return "Deep Cache Tier %d — %d score (+%d kg/run)" % [next_tier, 15 * GameState.deep_cache_tier, 5 * next_tier + 3 * GameState.inventory_capacity_level]
 
 func _inv_cap_text() -> String:
 	var cost := 6 + GameState.inventory_capacity_level * 3
