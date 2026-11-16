@@ -134,6 +134,10 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
   island circuit (`postcard_shimmer_played` save flag; static flash under reduced motion).
 
 ## Shop UI conveniences
+- Two-column counter inside a dark rounded panel: **Sell material** on the left lists each
+  material as a fixed row (`Name · unit$` / `×count` / `+value$` with Sell 1 / 5 / All), and
+  **Spend money** + **Activity** stack on the right. Row nodes are addressed by scene-unique
+  names (`%Row_Polyethylene` etc.), so the layout can move without touching the script.
 - Bulk sales pop a gold "SOLD … (bulk +25%)" receipt with a punch animation; receipts stack
   top-right, right-aligned on a fixed-width row, sliding in and reflowing as they expire.
 - Undo last sale is all-or-nothing: if the bag cannot fit the lot back it is denied (with a

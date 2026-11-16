@@ -1,7 +1,23 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=4 format=3]
 
 [ext_resource type="Script" path="res://scripts/shop_menu.gd" id="1_shop"]
 [ext_resource type="Script" path="res://scripts/ui/drag_scroll.gd" id="2_drag"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_panel"]
+content_margin_left = 16.0
+content_margin_top = 14.0
+content_margin_right = 16.0
+content_margin_bottom = 14.0
+bg_color = Color(0.1, 0.13, 0.19, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3, 0.45, 0.62, 0.5)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [node name="Shop" type="Node2D"]
 script = ExtResource("1_shop")
@@ -16,250 +32,405 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.12, 0.14, 0.2, 1.0)
+color = Color(0.08, 0.1, 0.15, 1.0)
 
 [node name="Scroll" type="ScrollContainer" parent="CanvasLayer"]
-script = ExtResource("2_drag")
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 20.0
+offset_left = 24.0
 offset_top = 20.0
-offset_right = -20.0
-offset_bottom = -12.0
+offset_right = -24.0
+offset_bottom = -16.0
 grow_horizontal = 2
 grow_vertical = 2
 horizontal_scroll_mode = 0
+script = ExtResource("2_drag")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Scroll"]
+[node name="Margin" type="MarginContainer" parent="CanvasLayer/Scroll"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = 5
+theme_override_constants/margin_right = 10
 
-[node name="Title" type="Label" parent="CanvasLayer/Scroll/VBoxContainer"]
+[node name="Layout" type="VBoxContainer" parent="CanvasLayer/Scroll/Margin"]
 layout_mode = 2
-text = "Shop (sell trash)"
-theme_override_font_sizes/font_size = 24
+theme_override_constants/separation = 12
 
-[node name="Coins" type="Label" parent="CanvasLayer/Scroll/VBoxContainer"]
+[node name="Header" type="HBoxContainer" parent="CanvasLayer/Scroll/Margin/Layout"]
 layout_mode = 2
-text = "Score: 0"
-name = "Coins"
+theme_override_constants/separation = 10
 
-[node name="Purchases" type="VBoxContainer" parent="CanvasLayer/Scroll/VBoxContainer"]
+[node name="Title" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Header"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "Shop"
+
+[node name="Subtitle" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Header"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.6, 0.7, 0.8, 1)
+theme_override_font_sizes/font_size = 15
+text = "sell material · spend money"
+
+[node name="Spacer" type="Control" parent="CanvasLayer/Scroll/Margin/Layout/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Coins" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 0.87, 0.5, 1)
+theme_override_font_sizes/font_size = 20
+text = "Money: 0$"
+horizontal_alignment = 2
+
+[node name="Body" type="HBoxContainer" parent="CanvasLayer/Scroll/Margin/Layout"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 14
+
+[node name="SellColumn" type="VBoxContainer" parent="CanvasLayer/Scroll/Margin/Layout/Body"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 12
+
+[node name="SellPanel" type="PanelContainer" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBox_panel")
+
+[node name="SellBox" type="VBoxContainer" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="SellTitle" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.65, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "Sell material"
+
+[node name="Inventory" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.8, 0.88, 1)
+theme_override_font_sizes/font_size = 14
+text = "Bag empty"
+
+[node name="Rows" type="VBoxContainer" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox"]
 layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="PurchasesTitle" type="Label" parent="CanvasLayer/Scroll/VBoxContainer/Purchases"]
+[node name="Row_Polyethylene" type="HBoxContainer" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows"]
+unique_name_in_owner = true
 layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Name" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Polyethylene"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Polyethylene · 2$"
+
+[node name="Count" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Polyethylene"]
+custom_minimum_size = Vector2(36, 0)
+layout_mode = 2
+horizontal_alignment = 2
+text = "x0"
+
+[node name="SellOne" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Polyethylene"]
+custom_minimum_size = Vector2(76, 0)
+layout_mode = 2
+text = "Sell 1"
+
+[node name="SellFive" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Polyethylene"]
+custom_minimum_size = Vector2(112, 0)
+layout_mode = 2
+text = "Sell 5"
+
+[node name="SellAll" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Polyethylene"]
+custom_minimum_size = Vector2(112, 0)
+layout_mode = 2
+text = "Sell All"
+
+[node name="Value" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Polyethylene"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+horizontal_alignment = 2
+text = "+0$"
+
+[node name="Row_Polypropylene" type="HBoxContainer" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Name" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Polypropylene"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Polypropylene · 3$"
+
+[node name="Count" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Polypropylene"]
+custom_minimum_size = Vector2(36, 0)
+layout_mode = 2
+horizontal_alignment = 2
+text = "x0"
+
+[node name="SellOne" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Polypropylene"]
+custom_minimum_size = Vector2(76, 0)
+layout_mode = 2
+text = "Sell 1"
+
+[node name="SellFive" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Polypropylene"]
+custom_minimum_size = Vector2(112, 0)
+layout_mode = 2
+text = "Sell 5"
+
+[node name="SellAll" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Polypropylene"]
+custom_minimum_size = Vector2(112, 0)
+layout_mode = 2
+text = "Sell All"
+
+[node name="Value" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Polypropylene"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+horizontal_alignment = 2
+text = "+0$"
+
+[node name="Row_Glass" type="HBoxContainer" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Name" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Glass"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Glass · 5$"
+
+[node name="Count" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Glass"]
+custom_minimum_size = Vector2(36, 0)
+layout_mode = 2
+horizontal_alignment = 2
+text = "x0"
+
+[node name="SellOne" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Glass"]
+custom_minimum_size = Vector2(76, 0)
+layout_mode = 2
+text = "Sell 1"
+
+[node name="SellFive" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Glass"]
+custom_minimum_size = Vector2(112, 0)
+layout_mode = 2
+text = "Sell 5"
+
+[node name="SellAll" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Glass"]
+custom_minimum_size = Vector2(112, 0)
+layout_mode = 2
+text = "Sell All"
+
+[node name="Value" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Glass"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+horizontal_alignment = 2
+text = "+0$"
+
+[node name="Row_Nylon" type="HBoxContainer" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Name" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Nylon"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Nylon · 4$"
+
+[node name="Count" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Nylon"]
+custom_minimum_size = Vector2(36, 0)
+layout_mode = 2
+horizontal_alignment = 2
+text = "x0"
+
+[node name="SellOne" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Nylon"]
+custom_minimum_size = Vector2(76, 0)
+layout_mode = 2
+text = "Sell 1"
+
+[node name="SellFive" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Nylon"]
+custom_minimum_size = Vector2(112, 0)
+layout_mode = 2
+text = "Sell 5"
+
+[node name="SellAll" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Nylon"]
+custom_minimum_size = Vector2(112, 0)
+layout_mode = 2
+text = "Sell All"
+
+[node name="Value" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Nylon"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+horizontal_alignment = 2
+text = "+0$"
+
+[node name="Row_ReefDebris" type="HBoxContainer" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Name" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_ReefDebris"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Reef Debris · 1$"
+
+[node name="Count" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_ReefDebris"]
+custom_minimum_size = Vector2(36, 0)
+layout_mode = 2
+horizontal_alignment = 2
+text = "x0"
+
+[node name="SellOne" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_ReefDebris"]
+custom_minimum_size = Vector2(76, 0)
+layout_mode = 2
+text = "Sell 1"
+
+[node name="SellFive" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_ReefDebris"]
+custom_minimum_size = Vector2(112, 0)
+layout_mode = 2
+text = "Sell 5"
+
+[node name="SellAll" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_ReefDebris"]
+custom_minimum_size = Vector2(112, 0)
+layout_mode = 2
+text = "Sell All"
+
+[node name="Value" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_ReefDebris"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+horizontal_alignment = 2
+text = "+0$"
+
+[node name="StatusPanel" type="PanelContainer" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBox_panel")
+
+[node name="StatusBox" type="VBoxContainer" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/StatusPanel"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Preview" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/StatusPanel/StatusBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "If you sell it all: 0$"
+
+[node name="CapacityStatus" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/StatusPanel/StatusBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "Capacity 0/0 kg"
+
+[node name="Tip" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/StatusPanel/StatusBox"]
+unique_name_in_owner = true
+layout_mode = 2
+autowrap_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.9, 0.5, 1)
+theme_override_font_sizes/font_size = 15
+text = "Tip: sort efficiently for combo bonuses."
+
+[node name="SpendColumn" type="VBoxContainer" parent="CanvasLayer/Scroll/Margin/Layout/Body"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="SpendPanel" type="PanelContainer" parent="CanvasLayer/Scroll/Margin/Layout/Body/SpendColumn"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBox_panel")
+
+[node name="SpendBox" type="VBoxContainer" parent="CanvasLayer/Scroll/Margin/Layout/Body/SpendColumn/SpendPanel"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="SpendTitle" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SpendColumn/SpendPanel/SpendBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.65, 0.9, 1, 1)
 theme_override_font_sizes/font_size = 18
 text = "Spend money"
 
-[node name="BuyRow" type="HBoxContainer" parent="CanvasLayer/Scroll/VBoxContainer/Purchases"]
+[node name="BuyCapButton" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SpendColumn/SpendPanel/SpendBox"]
+unique_name_in_owner = true
 layout_mode = 2
-theme_override_constants/separation = 8
-
-[node name="BuyCapButton" type="Button" parent="CanvasLayer/Scroll/VBoxContainer/Purchases/BuyRow"]
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
+size_flags_horizontal = 3
 text = "Bag +10 kg — 60$"
 
-[node name="UpgradeRow" type="HBoxContainer" parent="CanvasLayer/Scroll/VBoxContainer/Purchases"]
+[node name="BuyMarketButton" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SpendColumn/SpendPanel/SpendBox"]
+unique_name_in_owner = true
 layout_mode = 2
-theme_override_constants/separation = 8
+size_flags_horizontal = 3
+text = "Market +1$/unit — 80$"
 
-[node name="BuyMarketButton" type="Button" parent="CanvasLayer/Scroll/VBoxContainer/Purchases/UpgradeRow"]
-custom_minimum_size = Vector2(238, 0)
+[node name="BuyReefButton" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SpendColumn/SpendPanel/SpendBox"]
+unique_name_in_owner = true
 layout_mode = 2
-text = "Market Contact — 80$"
-
-[node name="BuyReefButton" type="Button" parent="CanvasLayer/Scroll/VBoxContainer/Purchases/UpgradeRow"]
-custom_minimum_size = Vector2(238, 0)
-layout_mode = 2
+size_flags_horizontal = 3
 text = "Reef Charter — 100$"
 
-[node name="PatronRow" type="HBoxContainer" parent="CanvasLayer/Scroll/VBoxContainer/Purchases"]
+[node name="BuyPatronButton" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SpendColumn/SpendPanel/SpendBox"]
+unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
+text = "Patron of the Isle — 1500$"
 
-[node name="BuyPatronButton" type="Button" parent="CanvasLayer/Scroll/VBoxContainer/Purchases/PatronRow"]
-custom_minimum_size = Vector2(486, 0)
+[node name="BuyTidekeeperButton" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SpendColumn/SpendPanel/SpendBox"]
+unique_name_in_owner = true
 layout_mode = 2
-text = "Become a Patron of the Isle — 1500$"
+size_flags_horizontal = 3
+text = "Tidekeeper's Pact — 2500$"
 
-[node name="TidekeeperRow" type="HBoxContainer" parent="CanvasLayer/Scroll/VBoxContainer/Purchases"]
+[node name="MoneyNote" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SpendColumn/SpendPanel/SpendBox"]
+unique_name_in_owner = true
 layout_mode = 2
-
-[node name="BuyTidekeeperButton" type="Button" parent="CanvasLayer/Scroll/VBoxContainer/Purchases/TidekeeperRow"]
-custom_minimum_size = Vector2(486, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 15
-text = "Tidekeeper's Pact — 2500$ (+10 kg bag for good)"
-
-[node name="MoneyNote" type="Label" parent="CanvasLayer/Scroll/VBoxContainer/Purchases"]
-layout_mode = 2
-modulate = Color(0.8, 0.95, 1, 1)
-theme_override_font_sizes/font_size = 15
+autowrap_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.78, 0.86, 1)
+theme_override_font_sizes/font_size = 14
 text = ""
 
-[node name="Inventory" type="Label" parent="CanvasLayer/Scroll/VBoxContainer"]
+[node name="LogPanel" type="PanelContainer" parent="CanvasLayer/Scroll/Margin/Layout/Body/SpendColumn"]
 layout_mode = 2
-text = "Inventory: "
-name = "Inventory"
+theme_override_styles/panel = SubResource("StyleBox_panel")
 
-[node name="Preview" type="Label" parent="CanvasLayer/Scroll/VBoxContainer"]
+[node name="LogBox" type="VBoxContainer" parent="CanvasLayer/Scroll/Margin/Layout/Body/SpendColumn/LogPanel"]
 layout_mode = 2
-text = "Potential base earnings if sold all: 0 score"
-name = "Preview"
+theme_override_constants/separation = 5
 
-[node name="Tip" type="Label" parent="CanvasLayer/Scroll/VBoxContainer"]
+[node name="LogTitle" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SpendColumn/LogPanel/LogBox"]
 layout_mode = 2
-modulate = Color(0.95, 0.9, 0.5, 1.0)
-text = "Tip: sort efficiently for combo bonuses."
-name = "Tip"
+theme_override_colors/font_color = Color(0.65, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "Activity"
 
-[node name="CapacityStatus" type="Label" parent="CanvasLayer/Scroll/VBoxContainer"]
-custom_minimum_size = Vector2(520, 0)
-text = "Capacity: 0/0 kg"
-modulate = Color(0.8, 0.95, 1.0, 1.0)
-
-[node name="TransactionLog" type="Label" parent="CanvasLayer/Scroll/VBoxContainer"]
-custom_minimum_size = Vector2(520, 64)
-text = "(no sales this session)"
+[node name="TransactionLog" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SpendColumn/LogPanel/LogBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
 autowrap_mode = 2
+theme_override_colors/font_color = Color(0.78, 0.84, 0.9, 1)
+theme_override_font_sizes/font_size = 15
+text = "(no sales this session)"
 
-[node name="Rows" type="VBoxContainer" parent="CanvasLayer/Scroll/VBoxContainer"]
+[node name="Footer" type="HBoxContainer" parent="CanvasLayer/Scroll/Margin/Layout"]
 layout_mode = 2
-theme_override_constants/separation = 4
+theme_override_constants/separation = 10
 
-[node name="Row_Polyethylene" type="HBoxContainer" parent="CanvasLayer/Scroll/VBoxContainer/Rows"]
+[node name="BackButton" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Footer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
-custom_minimum_size = Vector2(520, 0)
-
-[node name="SellOne" type="Button" parent="CanvasLayer/Scroll/VBoxContainer/Rows/Row_Polyethylene"]
-custom_minimum_size = Vector2(210, 0)
-text = "Sell 1 Polyethylene (2)"
-
-[node name="SellFive" type="Button" parent="CanvasLayer/Scroll/VBoxContainer/Rows/Row_Polyethylene"]
-custom_minimum_size = Vector2(110, 0)
-text = "Sell 5"
-
-[node name="SellAll" type="Button" parent="CanvasLayer/Scroll/VBoxContainer/Rows/Row_Polyethylene"]
-custom_minimum_size = Vector2(135, 0)
-text = "Sell All"
-
-[node name="Value" type="Label" parent="CanvasLayer/Scroll/VBoxContainer/Rows/Row_Polyethylene"]
-custom_minimum_size = Vector2(115, 0)
-text = "value 0"
-
-[node name="Count" type="Label" parent="CanvasLayer/Scroll/VBoxContainer/Rows/Row_Polyethylene"]
-custom_minimum_size = Vector2(70, 0)
-text = "x0"
-modulate = Color(0.9, 0.5, 0.5, 1.0)
-
-[node name="Row_Polypropylene" type="HBoxContainer" parent="CanvasLayer/Scroll/VBoxContainer/Rows"]
-layout_mode = 2
-custom_minimum_size = Vector2(520, 0)
-
-[node name="SellOne" type="Button" parent="CanvasLayer/Scroll/VBoxContainer/Rows/Row_Polypropylene"]
-custom_minimum_size = Vector2(210, 0)
-text = "Sell 1 Polypropylene (3)"
-
-[node name="SellFive" type="Button" parent="CanvasLayer/Scroll/VBoxContainer/Rows/Row_Polypropylene"]
-custom_minimum_size = Vector2(110, 0)
-text = "Sell 5"
-
-[node name="SellAll" type="Button" parent="CanvasLayer/Scroll/VBoxContainer/Rows/Row_Polypropylene"]
-custom_minimum_size = Vector2(135, 0)
-text = "Sell All"
-
-[node name="Value" type="Label" parent="CanvasLayer/Scroll/VBoxContainer/Rows/Row_Polypropylene"]
-custom_minimum_size = Vector2(115, 0)
-text = "value 0"
-
-[node name="Count" type="Label" parent="CanvasLayer/Scroll/VBoxContainer/Rows/Row_Polypropylene"]
-custom_minimum_size = Vector2(70, 0)
-text = "x0"
-modulate = Color(0.9, 0.5, 0.5, 1.0)
-
-[node name="Row_Glass" type="HBoxContainer" parent="CanvasLayer/Scroll/VBoxContainer/Rows"]
-layout_mode = 2
-custom_minimum_size = Vector2(520, 0)
-
-[node name="SellOne" type="Button" parent="CanvasLayer/Scroll/VBoxContainer/Rows/Row_Glass"]
-custom_minimum_size = Vector2(210, 0)
-text = "Sell 1 Glass (5)"
-
-[node name="SellFive" type="Button" parent="CanvasLayer/Scroll/VBoxContainer/Rows/Row_Glass"]
-custom_minimum_size = Vector2(110, 0)
-text = "Sell 5"
-
-[node name="SellAll" type="Button" parent="CanvasLayer/Scroll/VBoxContainer/Rows/Row_Glass"]
-custom_minimum_size = Vector2(135, 0)
-text = "Sell All"
-
-[node name="Value" type="Label" parent="CanvasLayer/Scroll/VBoxContainer/Rows/Row_Glass"]
-custom_minimum_size = Vector2(115, 0)
-text = "value 0"
-
-[node name="Count" type="Label" parent="CanvasLayer/Scroll/VBoxContainer/Rows/Row_Glass"]
-custom_minimum_size = Vector2(70, 0)
-text = "x0"
-modulate = Color(0.9, 0.5, 0.5, 1.0)
-
-[node name="Row_Nylon" type="HBoxContainer" parent="CanvasLayer/Scroll/VBoxContainer/Rows"]
-layout_mode = 2
-custom_minimum_size = Vector2(520, 0)
-
-[node name="SellOne" type="Button" parent="CanvasLayer/Scroll/VBoxContainer/Rows/Row_Nylon"]
-custom_minimum_size = Vector2(210, 0)
-text = "Sell 1 Nylon (4)"
-
-[node name="SellFive" type="Button" parent="CanvasLayer/Scroll/VBoxContainer/Rows/Row_Nylon"]
-custom_minimum_size = Vector2(110, 0)
-text = "Sell 5"
-
-[node name="SellAll" type="Button" parent="CanvasLayer/Scroll/VBoxContainer/Rows/Row_Nylon"]
-custom_minimum_size = Vector2(135, 0)
-text = "Sell All"
-
-[node name="Value" type="Label" parent="CanvasLayer/Scroll/VBoxContainer/Rows/Row_Nylon"]
-custom_minimum_size = Vector2(115, 0)
-text = "value 0"
-
-[node name="Count" type="Label" parent="CanvasLayer/Scroll/VBoxContainer/Rows/Row_Nylon"]
-custom_minimum_size = Vector2(70, 0)
-text = "x0"
-modulate = Color(0.9, 0.5, 0.5, 1.0)
-
-[node name="Row_Reef Debris" type="HBoxContainer" parent="CanvasLayer/Scroll/VBoxContainer/Rows"]
-layout_mode = 2
-custom_minimum_size = Vector2(520, 0)
-
-[node name="SellOne" type="Button" parent="CanvasLayer/Scroll/VBoxContainer/Rows/Row_Reef Debris"]
-custom_minimum_size = Vector2(210, 0)
-text = "Sell 1 Reef Debris (1)"
-
-[node name="SellFive" type="Button" parent="CanvasLayer/Scroll/VBoxContainer/Rows/Row_Reef Debris"]
-custom_minimum_size = Vector2(110, 0)
-text = "Sell 5"
-
-[node name="SellAll" type="Button" parent="CanvasLayer/Scroll/VBoxContainer/Rows/Row_Reef Debris"]
-custom_minimum_size = Vector2(135, 0)
-text = "Sell All"
-
-[node name="Value" type="Label" parent="CanvasLayer/Scroll/VBoxContainer/Rows/Row_Reef Debris"]
-custom_minimum_size = Vector2(115, 0)
-text = "value 0"
-
-[node name="Count" type="Label" parent="CanvasLayer/Scroll/VBoxContainer/Rows/Row_Reef Debris"]
-custom_minimum_size = Vector2(70, 0)
-text = "x0"
-modulate = Color(0.9, 0.5, 0.5, 1.0)
-
-[node name="BackButton" type="Button" parent="CanvasLayer/Scroll/VBoxContainer"]
-custom_minimum_size = Vector2(140, 0)
 text = "Return to World"
 
-[node name="UndoButton" type="Button" parent="CanvasLayer/Scroll/VBoxContainer"]
-custom_minimum_size = Vector2(140, 0)
-text = "Undo Last Sale"
+[node name="UndoButton" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Footer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Undo last sale"

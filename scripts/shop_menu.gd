@@ -9,28 +9,30 @@ const ShopLedger := preload("res://scripts/shop_ledger.gd")
 ## always hug the right margin and never clip off-screen.
 const RECEIPT_WIDTH := 460.0
 
-@onready var coins: Label = $"CanvasLayer/Scroll/VBoxContainer/Coins"
-@onready var inv: Label = $"CanvasLayer/Scroll/VBoxContainer/Inventory"
-@onready var preview: Label = $"CanvasLayer/Scroll/VBoxContainer/Preview"
-@onready var tip: Label = $"CanvasLayer/Scroll/VBoxContainer/Tip"
-@onready var capacity_status: Label = $"CanvasLayer/Scroll/VBoxContainer/CapacityStatus"
-@onready var transaction_log: Label = $"CanvasLayer/Scroll/VBoxContainer/TransactionLog"
+# Scene-unique names (the scene sets unique_name_in_owner) so this list no
+# longer has to track the layout tree.
+@onready var coins: Label = %Coins
+@onready var inv: Label = %Inventory
+@onready var preview: Label = %Preview
+@onready var tip: Label = %Tip
+@onready var capacity_status: Label = %CapacityStatus
+@onready var transaction_log: Label = %TransactionLog
 
-@onready var row_polyethylene: HBoxContainer = $"CanvasLayer/Scroll/VBoxContainer/Rows/Row_Polyethylene"
-@onready var row_polypropylene: HBoxContainer = $"CanvasLayer/Scroll/VBoxContainer/Rows/Row_Polypropylene"
-@onready var row_glass: HBoxContainer = $"CanvasLayer/Scroll/VBoxContainer/Rows/Row_Glass"
-@onready var row_nylon: HBoxContainer = $"CanvasLayer/Scroll/VBoxContainer/Rows/Row_Nylon"
-@onready var row_reef_debris: HBoxContainer = $"CanvasLayer/Scroll/VBoxContainer/Rows/Row_Reef Debris"
+@onready var row_polyethylene: HBoxContainer = %Row_Polyethylene
+@onready var row_polypropylene: HBoxContainer = %Row_Polypropylene
+@onready var row_glass: HBoxContainer = %Row_Glass
+@onready var row_nylon: HBoxContainer = %Row_Nylon
+@onready var row_reef_debris: HBoxContainer = %Row_ReefDebris
 
-@onready var buy_cap_button: Button = $"CanvasLayer/Scroll/VBoxContainer/Purchases/BuyRow/BuyCapButton"
-@onready var buy_market_button: Button = $"CanvasLayer/Scroll/VBoxContainer/Purchases/UpgradeRow/BuyMarketButton"
-@onready var buy_reef_button: Button = $"CanvasLayer/Scroll/VBoxContainer/Purchases/UpgradeRow/BuyReefButton"
-@onready var buy_patron_button: Button = $"CanvasLayer/Scroll/VBoxContainer/Purchases/PatronRow/BuyPatronButton"
-@onready var buy_tidekeeper_button: Button = $"CanvasLayer/Scroll/VBoxContainer/Purchases/TidekeeperRow/BuyTidekeeperButton"
-@onready var money_note: Label = $"CanvasLayer/Scroll/VBoxContainer/Purchases/MoneyNote"
+@onready var buy_cap_button: Button = %BuyCapButton
+@onready var buy_market_button: Button = %BuyMarketButton
+@onready var buy_reef_button: Button = %BuyReefButton
+@onready var buy_patron_button: Button = %BuyPatronButton
+@onready var buy_tidekeeper_button: Button = %BuyTidekeeperButton
+@onready var money_note: Label = %MoneyNote
 
-@onready var back_button: Button = $"CanvasLayer/Scroll/VBoxContainer/BackButton"
-@onready var undo_button: Button = $"CanvasLayer/Scroll/VBoxContainer/UndoButton"
+@onready var back_button: Button = %BackButton
+@onready var undo_button: Button = %UndoButton
 
 var _rows: Dictionary = {}
 var _last_sale: Dictionary = {}
@@ -78,24 +80,25 @@ func _wire_ui() -> void:
 		buy_tidekeeper_button.pressed.connect(_buy_tidekeeper)
 
 func _wire_row(row: HBoxContainer, mat: String, price: int) -> Dictionary:
+	var name_lbl: Label = row.get_node("Name")
 	var sell_one: Button = row.get_node("SellOne")
 	var sell_five: Button = row.get_node("SellFive")
 	var sell_all: Button = row.get_node("SellAll")
 	var value_lbl: Label = row.get_node("Value")
 	var count_lbl: Label = row.get_node("Count")
+	if name_lbl:
+		name_lbl.text = "%s · %d$" % [mat, price]
 	if sell_one:
-		sell_one.text = "Sell 1 %s (%d)" % [mat, price]
 		sell_one.pressed.connect(func(): _sell_qty(mat, 1))
 	if sell_five:
-		sell_five.text = "Sell 5 %s" % mat
 		sell_five.pressed.connect(func(): _sell_qty(mat, ShopLedger.BULK_THRESHOLD))
 	if sell_all:
 		sell_all.pressed.connect(func(): _sell_all(mat))
-	return {"sell_one": sell_one, "sell_five": sell_five, "sell_all": sell_all, "value": value_lbl, "count": count_lbl}
+	return {"name": name_lbl, "sell_one": sell_one, "sell_five": sell_five, "sell_all": sell_all, "value": value_lbl, "count": count_lbl}
 
 func _refresh() -> void:
 	if coins:
-		coins.text = "Money: %d$   |   Upcycle score: %d" % [GameState.money, GameState.upcycle_score]
+		coins.text = "Money: %d$   ·   Upcycle score: %d" % [GameState.money, GameState.upcycle_score]
 	if inv:
 		inv.text = _inv_text()
 	if preview:
@@ -147,46 +150,51 @@ func _refresh_purchases() -> void:
 	var cost := GameState.get_capacity_money_cost()
 	if buy_cap_button:
 		buy_cap_button.text = "Bag +10 kg — %d$" % cost
+		buy_cap_button.tooltip_text = "Expand your hold by 10 kg."
 		buy_cap_button.disabled = not GameState.can_afford(cost)
-	
+
 	var market_cost := GameState.get_market_cost()
 	if buy_market_button:
 		if GameState.market_level >= GameState.MARKET_MAX_LEVEL:
-			buy_market_button.text = "Market Contact MAX (+%d$/unit)" % GameState.get_market_bonus()
+			buy_market_button.text = "Market MAX (+%d$/unit)" % GameState.get_market_bonus()
 			buy_market_button.disabled = true
 		else:
-			buy_market_button.text = "Market Contact +1$ — %d$" % market_cost
+			buy_market_button.text = "Market +1$/unit — %d$" % market_cost
+			buy_market_button.tooltip_text = "+1$ per unit on every sale."
 			buy_market_button.disabled = not GameState.can_afford(market_cost)
-	
+
 	var reef_cost := GameState.get_reef_lives_cost()
 	if buy_reef_button:
 		if GameState.reef_bonus_lives >= GameState.REEF_LIVES_MAX_LEVEL:
 			buy_reef_button.text = "Reef Charter MAX (+%d bumps)" % GameState.get_reef_bonus_lives()
 			buy_reef_button.disabled = true
 		else:
-			buy_reef_button.text = "Reef Charter +1 bump — %d$" % reef_cost
+			buy_reef_button.text = "Reef Charter — %d$" % reef_cost
+			buy_reef_button.tooltip_text = "Tolerate one more fish bump per dive."
 			buy_reef_button.disabled = not GameState.can_afford(reef_cost)
-	
+
 	if money_note:
-		money_note.text = "Bag %d kg  ·  +%d$/unit  ·  %d dive bumps  ·  you have %d$" % [
+		money_note.text = "Bag %d kg  ·  +%d$/unit  ·  %d dive bumps" % [
 			GameState.get_inventory_capacity(), GameState.get_market_bonus(),
-			3 + GameState.get_reef_bonus_lives(), GameState.money
+			3 + GameState.get_reef_bonus_lives(),
 		]
-	
+
 	if buy_patron_button:
 		if GameState.island_patron:
 			buy_patron_button.text = "Patron of the Isle — owned"
 			buy_patron_button.disabled = true
 		else:
-			buy_patron_button.text = "Become a Patron of the Isle — %d$" % GameState.ISLAND_PATRON_COST
+			buy_patron_button.text = "Patron of the Isle — %d$" % GameState.ISLAND_PATRON_COST
+			buy_patron_button.tooltip_text = "A one-time island benefactor gift."
 			buy_patron_button.disabled = not GameState.can_afford(GameState.ISLAND_PATRON_COST)
-	
+
 	if buy_tidekeeper_button:
 		if GameState.tidekeeper:
-			buy_tidekeeper_button.text = "Tidekeeper's Pact — funded (+10 kg)"
+			buy_tidekeeper_button.text = "Tidekeeper's Pact — funded"
 			buy_tidekeeper_button.disabled = true
 		else:
-			buy_tidekeeper_button.text = "Tidekeeper's Pact — %d$ (+10 kg bag for good)" % GameState.TIDEKEEPER_COST
+			buy_tidekeeper_button.text = "Tidekeeper's Pact — %d$" % GameState.TIDEKEEPER_COST
+			buy_tidekeeper_button.tooltip_text = "+10 kg bag, permanently."
 			buy_tidekeeper_button.disabled = not GameState.can_afford(GameState.TIDEKEEPER_COST)
 
 
@@ -260,7 +268,7 @@ func _update_capacity_status() -> void:
 		color = Color(1.0, 0.45, 0.45, 1.0)
 	elif ratio >= 0.8:
 		color = Color(1.0, 0.85, 0.35, 1.0)
-	capacity_status.text = "Capacity: %d/%d kg (%d%%) — +10 kg costs %d$ (shop) or trash (map)" % [used, cap, int(round(ratio * 100.0)), GameState.get_capacity_money_cost()]
+	capacity_status.text = "Capacity %d/%d kg (%d%%) · +10 kg: %d$ here, or trash on the map" % [used, cap, int(round(ratio * 100.0)), GameState.get_capacity_money_cost()]
 	capacity_status.modulate = color
 
 func _refresh_row(mat: String) -> void:
@@ -272,19 +280,20 @@ func _refresh_row(mat: String) -> void:
 	var unit_value: int = price + GameState.get_market_bonus()
 	var value: int = count * unit_value
 	var bulk: bool = count >= ShopLedger.BULK_THRESHOLD
+	var name_lbl: Label = row_data.get("name", null)
+	if name_lbl:
+		name_lbl.text = "%s · %d$" % [mat, unit_value]
 	var btn_all: Button = row_data.get("sell_all", null)
 	if btn_all:
-		btn_all.text = "Sell All" + (" (+25%)" if bulk else "")
-	btn_all.disabled = count <= 0 if btn_all else false
+		btn_all.text = "Sell All" + (" +25%" if bulk else "")
+		btn_all.disabled = count <= 0
 	var btn_five: Button = row_data.get("sell_five", null)
 	if btn_five:
-		btn_five.text = "Sell 5 %s" % mat
-		if count >= ShopLedger.BULK_THRESHOLD:
-			btn_five.text += " (+25%)"
+		btn_five.text = "Sell 5" + (" +25%" if bulk else "")
 		btn_five.disabled = count < ShopLedger.BULK_THRESHOLD
 	var value_lbl: Label = row_data.get("value", null)
 	if value_lbl:
-		value_lbl.text = "value %d" % value
+		value_lbl.text = "+%d$" % value
 	var count_lbl: Label = row_data.get("count", null)
 	if count_lbl:
 		count_lbl.text = "x%d" % count
@@ -303,25 +312,23 @@ func _refresh_row(mat: String) -> void:
 	var btn_one: Button = row_data.get("sell_one", null)
 	if btn_one:
 		btn_one.disabled = count <= 0
-		btn_one.text = "Sell 1 %s (%d)" % [mat, unit_value]
 
 func _inv_text() -> String:
-	var used := GameState.get_inventory_weight()
-	var cap := GameState.get_inventory_capacity()
 	var parts: Array[String] = []
 	for k in GameState.trash_by_type.keys():
 		var count := int(GameState.trash_by_type.get(k, 0))
 		if count > 0:
 			parts.append("%s x%d" % [k, count])
-	var held := "empty" if parts.is_empty() else ", ".join(parts)
-	return "Bag %d/%d kg · %s" % [used, cap, held]
+	if parts.is_empty():
+		return "Holding: nothing — go gather material"
+	return "Holding: " + ", ".join(parts)
 
 
 func _preview_text() -> String:
 	var total := 0
 	for mat in GameState.SALE_PRICES.keys():
 		total += int(GameState.trash_by_type.get(mat, 0)) * (int(GameState.SALE_PRICES.get(mat, 0)) + GameState.get_market_bonus())
-	return "Potential base earnings if sold all: %d$" % total
+	return "If you sell it all: %d$" % total
 
 func _sell_qty(mat: String, qty: int) -> void:
 	if qty < 1:
