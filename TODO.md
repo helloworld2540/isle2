@@ -1,6 +1,13 @@
 # Current project todo:
 
 # done this pass
+- Fresh-save first-run regression audit (save set aside, game booted to a
+  brand-new save, driven interactively end to end): main menu → New Save →
+  welcome card ("Welcome to Isle 2") shows and arms the tour (`step 1`,
+  "Take a stroll" hint), `tutorial_seen` persists; opening the bench with an
+  empty Reef Debris pile ends the shift instantly with **runs staying 0**
+  (empty-shift fix holds on a fresh save); no errors anywhere in the
+  sequence. Player save restored untouched (`.player` copies both round-trip).
 - New post-tour nudge: **Oops — bulk sale?** points at the Undo last sale
   button, fired once per save on the player's first bulk sale (Sell 5+ /
   Sell All, `bulk` flag from the ledger). Verified in-game end to end: a
