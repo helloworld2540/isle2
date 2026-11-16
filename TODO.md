@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- Fresh-save starfish regression verified: new save -> world boots with
+  welcome guide + five starfish nodes -> collecting one via body_entered
+  persists after flush (starfish_found=[sf_1]) and the node frees itself.
+  Player save restored afterwards (money 174, no starfish).
 - World HUD starfish line: "★ Starfish n/5" joins the progress panel under
   the bottle line, hidden until the first pickup, flips gold as "✦
   STARLIGHT KEEPER" at five; wired to the new starfish_collected signal so it
