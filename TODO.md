@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- Harbor bell: synthesized sound/sfx/harbor_bell.wav (struck-metal partials,
+  1.6 s decay) and wired it to island-circuit completion — the world banner
+  rings it once whenever one or more pending circuit celebrations fire on
+  map load. Resolver verified in-game (_resolve_sfx -> wav); smoke 44/44.
 - Mastery-run audio: a zero-miss bench shift and a zero-bump 8kg+ dive now
   end on the achievement chime instead of the generic shift/hurt jingle —
   the clean-run reward is felt, not just read. Smoke 44/44.

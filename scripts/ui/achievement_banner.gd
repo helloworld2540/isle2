@@ -105,6 +105,9 @@ func _on_npc_quest_line_completed(npc_name: String) -> void:
 ## played the next time the world map (and this banner) exists.
 func _play_pending_circuits() -> void:
 	var owed := GameState.consume_circuit_celebrations()
+	if owed > 0:
+		# The harbor bell: the island notices a finished loop.
+		AudioManager.play_sfx("harbor_bell", 0.9)
 	for i in range(owed):
 		present(
 			"ISLAND CIRCUIT",
