@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- Fresh-save tour re-verified after today's batch (starfish, journal, HUD):
+  welcome dismisses -> step 1, move/reef/sort/sell notify through to step 5
+  (finale) persisted on disk; money 0/pure fresh values, no crash. Player
+  save restored afterwards.
 - Upcycle belt verified end-to-end: injected Reef Debris is consumed by the
   spawn loop at one unit per item fed (2 items fed in ~6.7 s at the unchanged
   2.75 s cadence, belt at 75 px/s); the integration works. Test residue in
