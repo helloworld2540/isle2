@@ -1,6 +1,12 @@
 # Current project todo:
 
 # done this pass
+- Stats page layout fix (spotted via screenshot): the settings sliders and
+  the stat text competed for a fixed VBox, so on shorter screens the stats
+  scrolled out of view under the sliders. The settings panel now lives
+  inside the drag-scrolling StatsScroll (wrapped with the label in a
+  Content VBox); the four menu buttons stay fixed below. Verified visually.
+  Smoke 44/44.
 - Performance audit (200 frames on the world map, godot_profiler): avg
   15.6 ms frame (p50 15.7, p95 18.0, max 22.9, zero spikes > 2x median),
   physics_time 0.17 ms — the HUD/advisor refactors are not the bottleneck;

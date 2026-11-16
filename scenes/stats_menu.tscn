@@ -60,14 +60,19 @@ size_flags_vertical = 3
 horizontal_scroll_mode = 0
 script = ExtResource("2_drag")
 
-[node name="StatsLabel" type="Label" parent="Margin/VBox/StatsScroll" unique_id=300000006]
+[node name="Content" type="VBoxContainer" parent="Margin/VBox/StatsScroll" unique_id=300000030]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="StatsLabel" type="Label" parent="Margin/VBox/StatsScroll/Content" unique_id=300000006]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 16
 text = "Stats"
 autowrap_mode = 2
 
-[node name="SettingsPanel" parent="Margin/VBox" instance=ExtResource("2_settings")]
+[node name="SettingsPanel" parent="Margin/VBox/StatsScroll/Content" instance=ExtResource("2_settings")]
 layout_mode = 2
 size_flags_horizontal = 4
 
