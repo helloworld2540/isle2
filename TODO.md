@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- Main-menu confirm flow verified end to end on an existing save: New Save ->
+  confirm panel -> wipe + restore -> World loads with a fresh state
+  (money 0, tutorial_step 0 -> 1 after the welcome card dismisses, then
+  follows the loop notify() calls to 5). Player save restored afterwards.
 - New one-shot nudge **One more…** (`nudge_starfish_final_shown`): fires
   the moment the player collects their fourth starfish, pointing back atthe
   island's coast for the last one. The two cards queue in order (first
