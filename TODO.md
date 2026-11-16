@@ -5,6 +5,9 @@
   threshold-gated so buttons still click, reduce_motion-safe) wired into the shop
   and stats guide ScrollContainers; touch targets ≥ 44 px on main-menu/stats
   buttons; money note 14 → 15 px. Verified scroll via synthetic drag events.
+- Export pipeline verified: headless Linux debug build compiles, packs, launches
+  with zero script errors; Web preset also builds clean (Godot 4.7.2 templates
+  installed). Android preset untested (needs SDK).
 - Balance pass 3 (measured, not guessed): three consecutive fresh-save loops driven
   end-to-end via MCP; median yield ≈ $32/loop ($17 materials + $15 circuit),
   Market Contact reachable in ~2–3 loops; kept prices, documented in guide.md.

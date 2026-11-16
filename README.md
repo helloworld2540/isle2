@@ -117,3 +117,10 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 
 ## Running
 Open the project folder in Godot 4 and run from `main_menu.tscn`.
+
+## Exporting
+Export presets live in `export_presets.cfg` (Web, Android, Linux). Export templates for
+Godot 4.7.2 are installed. Verified headless builds (Nov 2026):
+- `godot --headless --export-debug "Linux" export/linux/build.x86_64` — builds and launches with no script errors.
+- `godot --headless --export-debug "Web" export/web/index.html` — builds clean; serve over HTTP(S) with cross-origin-isolation headers for threads.
+`export/` is git-ignored.
