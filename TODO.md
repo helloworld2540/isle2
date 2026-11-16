@@ -1,6 +1,11 @@
 # Current project todo:
 
 # done this pass
+- Tidekeeper's Pact ceremony: funding the pact now rings the harbor bell
+  under the achievement chime in the shop — the island's biggest single
+  purchase lands like a tide, not a receipt. (An intermediate `tidekeeper_rang`
+  signal was drafted and removed again: nothing consumed it, and the shop is
+  the right owner of the SFX.) Smoke 45/45.
 - Web export deep-checked after all collectathon work: the packed pck
   contains wm_starfish.tscn, starfish.png, harbor_bell.wav and foghorn.wav;
   export completes cleanly.

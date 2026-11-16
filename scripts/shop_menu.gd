@@ -222,6 +222,9 @@ func _buy_tidekeeper() -> void:
 		_shake_control(buy_tidekeeper_button)
 		return
 	AudioManager.play_sfx("achievement")
+	# The pact is the island's biggest beat — ring the harbor bell over the
+	# chord so it lands like a tide coming in, not a receipt.
+	AudioManager.play_sfx("harbor_bell", 0.8)
 	_stack.sale("TIDEKEEPER'S PACT  -%d$" % GameState.TIDEKEEPER_COST, Color(0.55, 0.95, 0.85, 1.0))
 	_log_sale("Tidekeeper's Pact: +10 kg bag for good — the reef is yours to keep")
 	_refresh()

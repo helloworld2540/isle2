@@ -340,6 +340,8 @@ func purchase_tidekeeper() -> bool:
 	tidekeeper = true
 	inventory_capacity_level += 1
 	_persist()
+	# The island rings for its keeper — the pact is the biggest single beat on
+	# the whole map. Played in the shop; the world map just restores the bag.
 	return true
 
 ## Cost in upcycle score for the Deep Cache (tier 1) or its next tier. A run
