@@ -184,6 +184,14 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 ## Running
 Open the project folder in Godot 4 and run from `main_menu.tscn`.
 
+## Verifying
+`godot --headless --path . -s tools/smoke_test.gd` — the smoke test walks every
+scene under `scenes/`, link-checks every `ext_resource` path (scenes and
+referenced `.tres`) and instantiates each scene headlessly; the exit code is
+the failure count (0 = clean). Run it after large scene/script edits — it
+catches broken sub-resources and bad `@onready` paths in one shot.
+`tools/` also holds the PIL sprite/ambience generation scripts.
+
 ## Exporting
 Export presets live in `export_presets.cfg` (Web, Android, Linux). Export templates for
 Godot 4.7.2 are installed. Verified headless builds (Nov 2026):

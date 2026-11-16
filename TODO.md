@@ -1,6 +1,12 @@
 # Current project todo:
 
 # done this pass
+- Headless scene smoke test added (`tools/smoke_test.gd`): link-checks every
+  `ext_resource` path in every scene (and in referenced `.tres` files) and
+  instantiates each of the 43 scenes under a bare `--headless` SceneTree;
+  exit code = failure count. Negative-control verified (a dangling script ref
+  is caught as `[FAIL] missing`). All 43 scenes pass and the run leaves the
+  player save untouched. Documented in README under "Verifying".
 - Reef dive phantom runs: a dive that reached neither a pickup nor a fish
   bump was counted as a dive — `reef_dives += 1`, a "Dive № N" recap card,
   depth-best credit, up to 1 kg free debris. Now a no-interaction dive shows
