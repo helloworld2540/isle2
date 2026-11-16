@@ -152,7 +152,9 @@ checked against this yield — nothing changed, deliberately.*
 - Collection radius +12px / level via trash.
 - Deep Cache 30 score purchase and 15*tier upgrade increases reef debris; the
   world-menu button names the current/next per-run bonus (e.g. "+10 kg/run"), and
-  the bonus is never wasted on a full bag (see the reef notes below).
+  the bonus is never wasted on a full bag (see the reef notes below). The score
+  is a lifetime bank — both a dive (combo multiplier) and a bench run feed it,
+  and the world HUD bar counts down to the next Deep Cache purchase.
 - Inventory capacity +10 level via trash.
 
 ### Trash-upgrade payback audit (measured, pass 5)

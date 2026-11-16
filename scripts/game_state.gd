@@ -323,11 +323,21 @@ func purchase_tidekeeper() -> bool:
 	_persist()
 	return true
 
+## Cost in upcycle score for the Deep Cache (tier 1) or its next tier. A run
+## banks score, which is also what the world HUD counts down.
+const DEEP_CACHE_SCORE_COST := 30
+const DEEP_CACHE_UPGRADE_SCORE := 15
+
+func get_deep_cache_cost() -> int:
+	if not deep_cache:
+		return DEEP_CACHE_SCORE_COST
+	return DEEP_CACHE_UPGRADE_SCORE * deep_cache_tier
+
 func purchase_deep_cache() -> bool:
-	if deep_cache or upcycle_score < 30:
+	if deep_cache or upcycle_score < DEEP_CACHE_SCORE_COST:
 		return false
-		
-	upcycle_score -= 30
+
+	upcycle_score -= DEEP_CACHE_SCORE_COST
 	deep_cache = true
 	deep_cache_tier = 1
 	_persist()
@@ -336,11 +346,11 @@ func purchase_deep_cache() -> bool:
 func upgrade_deep_cache() -> bool:
 	if not deep_cache:
 		return false
-		
-	var cost: int = 15 * deep_cache_tier
+
+	var cost: int = DEEP_CACHE_UPGRADE_SCORE * deep_cache_tier
 	if upcycle_score < cost:
 		return false
-		
+
 	upcycle_score -= cost
 	deep_cache_tier += 1
 	_persist()
@@ -384,11 +394,11 @@ func purchase_range() -> bool:
 
 # --- Tracking & Statistics ---
 
-## record_upcycle is called once per finished bench run. It banners the score,
-## keeps the personal best and bumps the run counter the hand-off card uses to
-## number runs ("Bench Run № 3 — Hot Streak") exactly like reef dives do.
+## record_upcycle is called once per finished bench run. The run's score is
+## banked, not replaced, so reef dives and bench runs both accumulate toward the
+## Deep Cache — the bar on the world map shows progress to the next tier.
 func record_upcycle(score: int) -> void:
-	upcycle_score = score
+	upcycle_score += score
 	upcycle_runs += 1
 	if score > best_upcycle_score:
 		best_upcycle_score = score

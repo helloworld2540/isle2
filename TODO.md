@@ -1,6 +1,17 @@
 # Current project todo:
 
 # done this pass
+- `upcycle_score` semantics: it was a **lifetime bank** on the reef side
+  (`upcycle_score += combo`) but `record_upcycle` **overwrote** it with the
+  bench run's score, so diving for score was silently discarded and Deep Cache
+  spending was meaningless (each bench run refilled the pool). Now bench runs
+  also `+=` into the bank; `best_upcycle_score` still tracks the best single
+  run for the recaps. Added `GameState.get_deep_cache_cost()` (30 first, then
+  15×tier) and re-pointed both HUD "Upcycle" bars (world progress + world
+  menu) at progress toward the *next* Deep Cache purchase instead of
+  value-vs-best, which would peg. Verified in a headless run: 12 + 8 = 20,
+  purchase blocked at 25, succeeds at 40 (40→10, cost→15), upgrades gate on
+  the 15×tier price. Save restored.
 - Achievement id collision fixed: `achievement_catalog.gd` declared **two**
   entries with `id: "tide_keeper"` — the Tidekeeper's Pact (Shop) and the
   "found every message" badge (Island) — and the `is_met` match had a dead
@@ -282,14 +293,6 @@
   score-priced Deep Cache. Add a short line to the tune card (or a small
   post-tour hint) pointing at it once the player has the 30 score to buy it, and
   verify the card fires exactly once and persists.
-- Investigate `upcycle_score` semantics: reef dives *add* to it
-  (`reef_rescue.gd: GameState.upcycle_score += multiplier`) but every finished
-  bench run *overwrites* it (`game_state.gd record_upcycle` sets
-  `upcycle_score = score`). So a bench run wipes score banked by diving, and the
-  world HUD bar (value `upcycle_score` vs max `best_upcycle_score`) only makes
-  sense if it is a per-run score. Decide whether it is a spendable bank
-  (then record_upcycle should add, and the bar needs a cap) or a latest-run
-  score (then the reef should not add), and fix the loser side.
 
 # medium priority
 # (shimmer item promoted to high priority)

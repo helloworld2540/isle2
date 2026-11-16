@@ -44,7 +44,12 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 ## State & Save
 - Save path: `user://save.json` (Godot user dir).
 - `SaveManager.has_save/new_save/save_game/load_game`.
-- `GameState` fields: `upcycle_score`, `reef_garbage`, `reef_fish`, `trash_inventory`, `trash_by_type{}`, `inventory_capacity_level`, `best_upcycle_score`, `best_sort_streak`, `best_reef_depth`, `best_reef_fish`, `lifetime_earnings`, `sort_streak`, `deep_cache`, `deep_cache_tier`.
+- `GameState` keeps `upcycle_score` as a **bank** (both reef dives and bench runs
+  add to it; it is spent on the Deep Cache) and `best_upcycle_score` as the best
+  single bench run; plus `reef_garbage`, `reef_fish`, `trash_inventory`,
+  `trash_by_type{}`, `inventory_capacity_level`, `best_sort_streak`,
+  `best_reef_depth`, `best_reef_fish`, `lifetime_earnings`, `sort_streak`,
+  `deep_cache`, `deep_cache_tier`.
 - Run counters: `reef_dives` and `upcycle_runs` number the map recap chapters ("Dive № 4 — Deep Dive", "Bench Run № 2 — Hot Streak") and feed the BENCH REGULAR / REEF REGULAR achievements; the 25-run badges (BENCH MASTER, REEF VETERAN, LOOP MASTER) and KEEPER OF THE TIDE land on the banner's legendary gold tier.
 - `restore()` rehydrates from save; `reset()` zeroes state. `persist()` merges into save data.
 - Upgrades stored directly as save keys: `upgrade_move`, `upgrade_range`, audio/volume keys.
@@ -65,6 +70,10 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 - Trash-upgrade payback: one loop banks ≈ bag capacity in kg, so the whole first trash tier
   (cap 6, move 8, range 12) lands at ≲1.2 loops; see guide.md for the measured table.
 - Reef rescue debris reward: `max(1, round(garbage)) + (deep_cache ? 5×tier + 3×capacity_level : 0)`, capped by free capacity. The Deep Cache part is never wasted — whatever of it does not fit is salvaged as money at the debris rate ($1/kg) instead of being clamped away.
+- Upcycle score is a lifetime bank: a dive adds its pickup combo multiplier and a
+  bench run adds its score; it is spent on the Deep Cache (30 score, then
+  15 × tier per upgrade). The world HUD bar shows progress toward the next Deep
+  Cache purchase. `best_upcycle_score` tracks the best single bench run only.
 - Deep Cache purchase: 30 score; upgrade: 15 × tier.
 - Move speed mult: `1 + 0.08 × upgrade_move`; collection radius bonus: `12 × upgrade_range`.
 

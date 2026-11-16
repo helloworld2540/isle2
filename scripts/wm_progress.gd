@@ -72,7 +72,7 @@ func _process(delta: float) -> void:
 
 func _update_progress_bars() -> void:
 	if uc_bar:
-		uc_bar.max_value = max(1.0, float(GameState.best_upcycle_score))
+		uc_bar.max_value = max(1.0, float(GameState.get_deep_cache_cost()))
 		uc_bar.value = min(uc_bar.max_value, float(GameState.upcycle_score))
 		
 	if reef_bar:

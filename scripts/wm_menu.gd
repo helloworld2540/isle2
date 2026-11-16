@@ -314,7 +314,7 @@ func _spawn_upgrade_sparkle(anchor: Control) -> void:
 
 func _update_progress_bars() -> void:
 	if upcycle_progress:
-		upcycle_progress.max_value = maxf(1.0, float(maxi(1, GameState.best_upcycle_score)))
+		upcycle_progress.max_value = maxf(1.0, float(GameState.get_deep_cache_cost()))
 		upcycle_progress.value = minf(upcycle_progress.max_value, float(GameState.upcycle_score))
 		
 	if reef_progress:
