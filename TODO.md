@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Reset-island flow verified end to end on a scratch save: progress set
+  -> stats page -> Reset island -> confirm -> money/runs zeroed, save file
+  removed, main menu reached. Player save restored afterwards.
 - Stats page "Reset island…" button: wipes the save via the shared
   ConfirmPanel with blunt copy, fades to the main menu afterwards — same
   guard the main menu uses, now reachable from the stats page too. Verified
