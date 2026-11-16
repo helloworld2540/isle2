@@ -210,9 +210,11 @@ catches broken sub-resources and bad `@onready` paths in one shot.
 
 ## Exporting
 Export presets live in `export_presets.cfg` (Web, Android, Linux). Export templates for
-Godot 4.7.2 are installed. All presets exclude `addons/`, `tools/`, `export/`,
-`opencode.json` and `scenes/world.tscn.bak` from the pack — the Godot MCP addon and
-other dev artifacts no longer ship inside builds. Verified headless builds (Nov 2026):
+Godot 4.7.2 are installed. All presets exclude `tools/`, `export/`, `opencode.json`
+and `scenes/world.tscn.bak` from the pack; the Godot MCP addon ships only the
+`game_bridge/` autoload dependencies plus `core/mcp_log.gd` (the editor-side tooling
+is excluded) so exported builds still autoload cleanly. Verified headless builds (Nov 2026):
 - `godot --headless --export-debug "Linux" export/linux/build.x86_64` — builds and launches with no script errors.
 - `godot --headless --export-debug "Web" export/web/index.html` — builds clean; serve over HTTP(S) with cross-origin-isolation headers for threads.
+- `godot --headless --export-debug "Android" export/android/build.apk` — builds and signs cleanly (no device install from this machine).
 `export/` is git-ignored.

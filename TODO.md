@@ -1,6 +1,11 @@
 # Current project todo:
 
 # done this pass
+- Android preset unblocked and verified: the debug APK builds and signs to
+  completion (174 MB APK, keystore found at the configured location, verify
+  step passes) — the only previously untested export target. README export
+  section rewritten to match the current exclude filters (game_bridge only
+  ships from the MCP addon) and to list all three verified presets.
 - Recap line wording corrected now that golden finds include golden debris AND
   golden Goldies ("✦ N golden finds (+N bonus score)").
 - Export re-verified after this week of changes: Linux debug build compiles,
@@ -560,7 +565,7 @@
   buttons; money note 14 → 15 px. Verified scroll via synthetic drag events.
 - Export pipeline verified: headless Linux debug build compiles, packs, launches
   with zero script errors; Web preset also builds clean (Godot 4.7.2 templates
-  installed). Android preset untested (needs SDK).
+  installed). Android debug APK verified building and signing after the export-filter fix.
 - Ambient world-life pass 1: four gulls patrol ellipses over open water east of
   the island — two-frame wing flap, banking into the bob, desynced phases,
   frozen still under reduced motion (scenes/wm_gull.tscn + scripts/wm_gull.gd).
