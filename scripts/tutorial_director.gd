@@ -88,6 +88,7 @@ var _active_hint: CanvasLayer = null
 ## current card is dismissed — so a two-card trigger (first bulk sale) still
 ## lands both cards instead of the second evaporating.
 var _pending_nudge: String = ""
+var _pending_tick: float = 0.0
 var _nudge_state: Dictionary = {}
 
 func _ready() -> void:
@@ -244,6 +245,25 @@ func _spawn_card(title: String, body: String, button: String) -> void:
 	_active_hint = hint
 
 
+## Drains a deferred nudge once the screen is free again. The hint-dismiss
+## path also drains one, but a nudge parked behind a modal (minigame briefing)
+## with no tour step pending would otherwise never fire.
+func _process(delta: float) -> void:
+	if _pending_nudge.is_empty():
+		set_process(false)
+		return
+	_pending_tick += delta
+	if _pending_tick < 0.4:
+		return
+	_pending_tick = 0.0
+	if (_active_hint and is_instance_valid(_active_hint)) or _modal_card_active():
+		return
+	var k := _pending_nudge
+	_pending_nudge = ""
+	set_process(false)
+	call_deferred("nudge", k)
+
+
 func _on_hint_dismissed() -> void:
 	_active_hint = null
 	if not _pending_nudge.is_empty():
@@ -289,6 +309,8 @@ func nudge(kind: String) -> void:
 	# nudge to fire once the current card is dismissed instead of dropping it.
 	if (_active_hint and is_instance_valid(_active_hint)) or _modal_card_active():
 		_pending_nudge = kind
+		_pending_tick = 0.0
+		set_process(true)
 		return
 	_nudge_state[key] = true
 	SaveManager.update_game({key: true})

@@ -1,6 +1,13 @@
 # Current project todo:
 
 # done this pass
+- Nudge deferral drain fixed (real bug): a nudge parked behind a modal with
+  no tour step pending would never fire — _pending_nudge only drained on a
+  hint dismissal. TutorialDirector now polls every 0.4 s and delivers the
+  deferred nudge once the screen is free. Verified both paths in-game
+  (synchronous delivery behind clear screen; deferral behind a modal then
+  delivered after it cleared, flag persists); player save restored afterwards.
+  Smoke 44/44.
 - New one-shot nudge **A golden find** (`nudge_gold_shown`): any golden pickup
   (belt sort, reef debris, golden Goldie) fires a one-time card explaining
   gold items — belt +2, Goldie +5 — and points at the stats page golden
