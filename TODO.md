@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- Export filters now exclude the dev markdown suite and sprint logs too
+  (README/TODO/guide/PITCH/overnight_sprint/sprint.md) from Web/Android/Linux
+  packs — builds ship the game, not the notebook. Verified: Linux debug
+  rebuild still boots headless with no script errors.
 - Reset-island flow verified end to end on a scratch save: progress set
   -> stats page -> Reset island -> confirm -> money/runs zeroed, save file
   removed, main menu reached. Player save restored afterwards.
