@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- Sprite-cache pass fixed a self-inflicted bug: GDScript disallows mutating
+  a const Dictionary, so the caches were converted to vars; smoke test now
+  passes 45/45 and reef rescue spawns items correctly. The broken-first-push
+  served as a real test of the _script_check hardening added earlier.
 - Texture-load caching pass: reef/garbage/upcycle sprites now resolve through
   a SPRITE_CACHE dict with fall-back to load() on a miss — no per-spawn
   resource lookup penalty on mobile. PathFollow and notification-label

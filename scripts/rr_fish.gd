@@ -9,15 +9,15 @@ const GARBAGE := {
 	"trash_straw.png": 17
 }
 
-const SPRITE_CACHE: Dictionary = {}
+var _sprite_cache: Dictionary = {}
 
 func _sprite(path: String) -> Texture2D:
-	var cached := SPRITE_CACHE.get(path) as Texture2D
+	var cached := _sprite_cache.get(path) as Texture2D
 	if cached:
 		return cached
 	var tex := load("res://sprites/rr/" + path) as Texture2D
 	if tex:
-		SPRITE_CACHE[path] = tex
+		_sprite_cache[path] = tex
 	return tex
 
 const FISH := {
