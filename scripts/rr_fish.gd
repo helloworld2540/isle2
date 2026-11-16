@@ -35,6 +35,10 @@ func init_fish() -> void:
 		return
 	var texture: String = str(texture_keys.pick_random())
 	set_meta("species", texture.get_basename())
+	# Rare golden Goldie: grazes are rewards, not penalties. Tinted bright gold.
+	var golden_fish := randf() < 0.10
+	if golden_fish:
+		set_meta("golden_fish", true)
 	var raw_size := randfn(float(FISH.get(texture, 10)), 10.0)
 	var clamped := clampf(raw_size, 1.0, 99.0)
 	size = log(clamped) / log(100.0)
@@ -43,6 +47,8 @@ func init_fish() -> void:
 		var tex := load("res://sprites/rr/" + texture)
 		if tex is Texture2D:
 			sprite.texture = tex
+		if golden_fish:
+			sprite.modulate = Color(1.18, 1.08, 0.5, 1.0)
 
 func init_garbage() -> void:
 	set_meta("is_fish", false)

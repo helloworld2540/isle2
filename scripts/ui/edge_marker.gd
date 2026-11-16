@@ -8,13 +8,21 @@ class_name EdgeMarker
 
 const FISH_COLOR := Color(1.0, 0.42, 0.35, 1.0)
 const TRASH_COLOR := Color(1.0, 0.95, 0.35, 0.95)
+## Golden Goldies look like fish but are gifts — mark them gold, never red,
+## so a sharp-eyed player knows a graze is worth taking.
+const GOLDEN_COLOR := Color(1.0, 0.85, 0.3, 0.95)
 
 func _ready() -> void:
 	pivot_offset = size * 0.5
 
 
-func set_kind(is_fish: bool) -> void:
-	add_theme_color_override("font_color", FISH_COLOR if is_fish else TRASH_COLOR)
+func set_kind(is_fish: bool, golden: bool = false) -> void:
+	var col := TRASH_COLOR
+	if golden:
+		col = GOLDEN_COLOR
+	elif is_fish:
+		col = FISH_COLOR
+	add_theme_color_override("font_color", col)
 
 
 func set_direction(dir: Vector2) -> void:

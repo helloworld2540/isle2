@@ -1,6 +1,14 @@
 # Current project todo:
 
 # done this pass
+- Reef "Goldie": 10% of fish spawns are golden variants of a species (any
+  species incl. sharks). Bumping one pays +5 score, costs no life, logs the
+  species, fires GOLDIE!/+5 and a gold wake-free sparkle — while its edge
+  marker shimmers gold instead of the red flare, so sharp players can tell a
+  gift from a threat. Counts toward golden_finds (GOLDEN TOUCH) and the fish
+  journal. Briefing line added; spawn rate verified in-game (24/300). The
+  canvas_item errors in the test log were the harness spawning orphans
+  outside the tree (real spawns parent first) — not a game bug. Smoke 44/44.
 - Save safety nets upgraded to three: writes rotate save.json -> .bak ->
   .bak2 (second generation), and load_game falls back primary -> .bak ->
   .bak2 with a warning each hop. new_save wipes all three. Verified by md5

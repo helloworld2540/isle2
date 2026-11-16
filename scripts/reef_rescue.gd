@@ -168,7 +168,7 @@ func _update_edge_markers() -> void:
 			marker = _EDGE_MARKER_SCENE.instantiate()
 			marker.set_direction(pos - vp * 0.5)
 			add_child(marker)
-			marker.set_kind(bool(next.get_meta("is_fish", false)))
+			marker.set_kind(bool(next.get_meta("is_fish", false)), bool(next.get_meta("golden_fish", false)))
 			_edge_markers[id] = marker
 		else:
 			marker = _edge_markers[id]
@@ -181,7 +181,11 @@ func _update_edge_markers() -> void:
 		marker.set_direction(pos - vp * 0.5)
 		# Fish markers shimmer harder as they close on the drone, and the
 		# effect deepens with depth — near-misses feel readable, not random.
-		if bool(next.get_meta("is_fish", false)) and drone:
+		if bool(next.get_meta("golden_fish", false)):
+			# Golden shimmer, never the red flare — a graze is a gift.
+			var wave := 0.5 + 0.5 * sin(Time.get_ticks_msec() * 0.008)
+			marker.pulse(0.4 + 0.3 * wave)
+		elif bool(next.get_meta("is_fish", false)) and drone:
 			var dist := pos.distance_to(drone.global_position)
 			var proximity := clampf(1.0 - dist / 900.0, 0.0, 1.0)
 			var depth_factor := clampf(depth / 800.0, 0.0, 1.0)
@@ -311,8 +315,22 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	_clear_marker(root.get_instance_id())
 	var is_fish: bool = bool(root.get_meta("is_fish", false))
 	if is_fish:
-		fish += 1
 		var species := str(root.get_meta("species", ""))
+		var golden_fish := bool(root.get_meta("golden_fish", false))
+		if golden_fish:
+			# Golden Goldie: a graze is a bonus, not a bump — no life lost.
+			GameState.upcycle_score += 5
+			_golden_hauled += 1
+			GameState.mark_fish_met(species)
+			_update_ui()
+			AudioManager.play_sfx("achievement", 1.25)
+			_popup("GOLDIE! +5", Color(1.0, 0.9, 0.35, 1.0))
+			_sparkle(root.global_position, Color(1.0, 0.9, 0.4, 1.0))
+			var ap_gold := root.get_node_or_null("AnimationPlayer")
+			if ap_gold:
+				ap_gold.play("suck")
+			return
+		fish += 1
 		if GameState.mark_fish_met(species):
 			_popup("New species: %s!" % FishCatalog.name_of(species), Color(0.6, 0.9, 1.0, 1.0))
 		_update_ui()
