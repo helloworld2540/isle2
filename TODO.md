@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Linux debug build re-verified after the collectathon batch (starfish,
+  journal HUD, tide pool): boots headless with zero script errors (only
+  benign shutdown noise).
 - project.godot no longer references the missing GitPlugin VCS plugin
   (version_control/plugin_name cleared) — the editor previously logged
   "Cannot get class 'GitPlugin'" on every headless import. Smoke 45/45.
