@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Android APK inspected as a zip: contains AndroidManifest, libgodot_android.so
+  (arm64-v8a) and assets.sparsepck with every imported sprite/audio/resource —
+  the debug build is structurally valid for device installation.
 - Fresh-save first-run screenshots verified the full onboarding flow at
   current state: welcome card open, HUD shows the starfish line (1/5) after a
   single pickup, bottle line (1/3), empty bag state — all render cleanly
