@@ -138,7 +138,7 @@ checked against this yield — nothing changed, deliberately.*
 - A rare golden Goldie (10% of fish spawns, any species) pays +5 when bumped and costs no life — its edge marker shimmers gold, never red.
 - Rare golden debris in the reef (12% spawn) is worth +1 bonus score on top of the combo multiplier.
 - Rare golden belt items in Upcycle (12% spawn) are worth double score (+2) when sorted correctly.
-- Lifetime golden scraps (belt + reef + Goldies) persist and feed the GOLDEN TOUCH achievement at 10.
+- Closing your first full island circuit earns ROUND THE ISLE; 25 closes earns LOOP MASTER. Lifetime golden scraps (belt + reef + Goldies) persist and feed the GOLDEN TOUCH achievement at 10.
 - A dive with no fish bumps and at least 8 kg hauled earns a CLEAN DIVE tag on the summary and recap cards.
 - A belt run with no misses and at least 5 sorted items earns a FLAWLESS SHIFT tag on the summary and recap cards.
 - Lifetime counters (stats page) track clean dives and flawless shifts; they feed the CLEAN SWEEP (5 clean dives) and SILK TOUCH (5 flawless shifts) achievements.

@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- New achievement **ROUND THE ISLE** (`first_circuit`, Island): closes the
+  obvious gap — the first island circuit had no badge; now it does (home
+  stakes for LOOP MASTER at 25). Verified in-game (predicate fires at 1,
+  save restored); smoke 44/44.
 - Harbor bell: synthesized sound/sfx/harbor_bell.wav (struck-metal partials,
   1.6 s decay) and wired it to island-circuit completion — the world banner
   rings it once whenever one or more pending circuit celebrations fire on
