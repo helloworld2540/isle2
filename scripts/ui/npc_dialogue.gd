@@ -41,9 +41,13 @@ func _ready() -> void:
 	
 	panel.modulate.a = 0.0
 	panel.scale = Vector2(0.96, 0.96)
-	var intro := create_tween().set_parallel(true)
-	intro.tween_property(panel, "modulate:a", 1.0, 0.14).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	intro.tween_property(panel, "scale", Vector2.ONE, 0.18).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	if GameSettings.reduce_motion:
+		panel.modulate.a = 1.0
+		panel.scale = Vector2.ONE
+	else:
+		var intro := create_tween().set_parallel(true)
+		intro.tween_property(panel, "modulate:a", 1.0, 0.14).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+		intro.tween_property(panel, "scale", Vector2.ONE, 0.18).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 
 # --- Content ---

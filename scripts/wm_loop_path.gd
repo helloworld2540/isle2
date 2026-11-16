@@ -24,6 +24,11 @@ func _ready() -> void:
 	if points.size() < 2:
 		return
 	
+	if GameSettings.reduce_motion:
+		# A steady ring reads just as clearly as a breathing one.
+		modulate.a = 0.75
+		return
+	
 	var pulse := create_tween().set_loops()
 	pulse.tween_property(self, "modulate:a", 0.45, pulse_time).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	pulse.tween_property(self, "modulate:a", 0.9, pulse_time).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)

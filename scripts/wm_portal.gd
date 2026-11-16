@@ -82,6 +82,12 @@ func _apply_requirement_state() -> void:
 # --- Presentation ---
 
 func _start_idle_animation() -> void:
+	if GameSettings.reduce_motion:
+		# Portal stays readable, motion stays zero: fixed glow, no bob.
+		if pad:
+			pad.modulate.a = 0.62
+		return
+	
 	if pad:
 		pad.color = Color(0.4, 0.749, 1.0, 0.5)
 		var glow := create_tween().set_loops()

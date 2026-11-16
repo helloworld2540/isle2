@@ -115,6 +115,8 @@ func _spawn_ambient_motion() -> void:
 		dot.size = Vector2(w, h)
 		dot.position = Vector2(randf() * max(1.0, size.x - w), randf() * max(1.0, size.y - h))
 		add_child(dot)
+		if GameSettings.reduce_motion:
+			continue  # scattered glow stays, the drift stops
 		var tw := dot.create_tween().set_loops()
 		tw.tween_property(dot, "position:x", dot.position.x + randf_range(-40.0, 40.0), randf_range(2.5, 4.5)).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 		tw.parallel().tween_property(dot, "position:y", dot.position.y + randf_range(-25.0, 25.0), randf_range(2.0, 4.0)).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
@@ -129,6 +131,8 @@ func _play_entrance_animation() -> void:
 	for t in targets:
 		if not t:
 			continue
+		if GameSettings.reduce_motion:
+			continue  # everything is already where it lives
 		t.modulate.a = 0.0
 		t.scale = Vector2(0.9, 0.9)
 	var ease_tw := create_tween()

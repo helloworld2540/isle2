@@ -38,11 +38,15 @@ func _show(recap: Dictionary) -> void:
 	panel.visible = true
 	panel.modulate.a = 0.0
 	var resting_y := panel.position.y
-	panel.position.y = resting_y - 14.0
-	
-	var tw := create_tween()
-	tw.tween_property(panel, "modulate:a", 1.0, 0.24).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	tw.parallel().tween_property(panel, "position:y", resting_y, 0.24).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	if GameSettings.reduce_motion:
+		# No rise: the card simply appears where it lives.
+		panel.position.y = resting_y
+		panel.modulate.a = 1.0
+	else:
+		panel.position.y = resting_y - 14.0
+		var tw := create_tween()
+		tw.tween_property(panel, "modulate:a", 1.0, 0.24).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+		tw.parallel().tween_property(panel, "position:y", resting_y, 0.24).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	
 	hide_timer.start(SHOW_SECONDS)
 

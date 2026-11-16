@@ -21,9 +21,10 @@ func _ready() -> void:
 	get_tree().paused = true
 	get_tree().root.set_disable_input(false)
 	
-	panel.scale = Vector2(0.95, 0.95)
-	var pop := create_tween()
-	pop.tween_property(panel, "scale", Vector2.ONE, 0.22).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	panel.scale = Vector2(0.95, 0.95) if not GameSettings.reduce_motion else Vector2.ONE
+	if not GameSettings.reduce_motion:
+		var pop := create_tween()
+		pop.tween_property(panel, "scale", Vector2.ONE, 0.22).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 
 ## Optional runtime override; scene-authored values cover the normal case.
