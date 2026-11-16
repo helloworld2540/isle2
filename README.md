@@ -25,6 +25,9 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
   - Upcycle: `upcycle.tscn` (`scripts/upcycle.gd`) — belt sorting into material bins, over a low workshop-hum bed.
   - Reef Rescue: `reef_rescue.tscn` (`scripts/reef_rescue.gd`) + `rr_fish.tscn` (`scripts/rr_fish.gd`) — drone collection, combo, fish hazard, over a muffled underwater current.
 - **Shop**: `shop.tscn` (`scripts/shop_menu.gd`) with pure pricing in `scripts/shop_ledger.gd`.
+  Sale/undo receipts, the REVERSED stamp and the punch/flash effects live in
+  `scenes/ui/receipt_stack.tscn` + `scripts/ui/receipt_stack.gd` (`ReceiptStack`),
+  instantiated once in `_ready`.
 - **Tutorial**: `scripts/tutorial_director.gd` (autoload) + `scenes/ui/tutorial_hint.tscn`
   non-modal step cards. Steps fire on world/reef/upcycle/shop scene entry and on
   gameplay events (`move`, `reef_entered`, `sorted`, `sold`); progress persists as

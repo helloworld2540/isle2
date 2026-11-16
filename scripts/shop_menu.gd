@@ -1,13 +1,9 @@
 extends Node2D
 
 const NOTIFICATION_QUEUE := preload("res://scenes/ui/notification_queue.tscn")
-const FLOATING_TEXT_SCENE := preload("res://scenes/ui/floating_text.tscn")
+const RECEIPT_STACK_SCENE := preload("res://scenes/ui/receipt_stack.tscn")
 
 const ShopLedger := preload("res://scripts/shop_ledger.gd")
-
-## Fixed width for receipt labels; text right-aligns inside it so receipts
-## always hug the right margin and never clip off-screen.
-const RECEIPT_WIDTH := 460.0
 
 # Scene-unique names (the scene sets unique_name_in_owner) so this list no
 # longer has to track the layout tree.
@@ -39,14 +35,23 @@ var _last_sale: Dictionary = {}
 var _undo_in_progress := false
 var _tx_log_lines: Array = []
 var _hud_queue = null
-var _receipts: Array[Control] = []
+var _stack: ReceiptStack = null
 
 func _ready() -> void:
 	TutorialDirector.scene_started("shop")
+	_spawn_receipt_stack()
 	_wire_ui()
 	_tx_log_lines.clear()
 	_refresh()
 	AudioManager.play_bgm("shop")
+
+func _spawn_receipt_stack() -> void:
+	if _stack:
+		return
+	var stack := RECEIPT_STACK_SCENE.instantiate() as ReceiptStack
+	var parent: Node = $"CanvasLayer" if has_node("CanvasLayer") else self
+	parent.add_child(stack)
+	_stack = stack
 
 func _wire_ui() -> void:
 	if not row_polyethylene:
@@ -205,7 +210,7 @@ func _buy_market() -> void:
 		_shake_control(buy_market_button)
 		return
 	AudioManager.play_sfx("upgrade", 1.1)
-	_spawn_receipt("MARKET CONTACT +1$/unit  -%d$" % cost, Color(1.0, 0.9, 0.5, 1.0))
+	_stack.sale("MARKET CONTACT +1$/unit  -%d$" % cost, Color(1.0, 0.9, 0.5, 1.0))
 	_log_sale("Market contacts up to +%d$ per unit for %d$" % [GameState.get_market_bonus(), cost])
 	_refresh()
 
@@ -216,7 +221,7 @@ func _buy_tidekeeper() -> void:
 		_shake_control(buy_tidekeeper_button)
 		return
 	AudioManager.play_sfx("achievement")
-	_spawn_receipt("TIDEKEEPER'S PACT  -%d$" % GameState.TIDEKEEPER_COST, Color(0.55, 0.95, 0.85, 1.0))
+	_stack.sale("TIDEKEEPER'S PACT  -%d$" % GameState.TIDEKEEPER_COST, Color(0.55, 0.95, 0.85, 1.0))
 	_log_sale("Tidekeeper's Pact: +10 kg bag for good — the reef is yours to keep")
 	_refresh()
 
@@ -227,7 +232,7 @@ func _buy_patron() -> void:
 		_shake_control(buy_patron_button)
 		return
 	AudioManager.play_sfx("upgrade", 0.85)
-	_spawn_receipt("PATRON OF THE ISLE  -%d$" % GameState.ISLAND_PATRON_COST, Color(1.0, 0.75, 0.35, 1.0))
+	_stack.sale("PATRON OF THE ISLE  -%d$" % GameState.ISLAND_PATRON_COST, Color(1.0, 0.75, 0.35, 1.0))
 	_log_sale("Became Patron of the Isle — 1500$ gift")
 	_refresh()
 
@@ -239,7 +244,7 @@ func _buy_reef_lives() -> void:
 		_shake_control(buy_reef_button)
 		return
 	AudioManager.play_sfx("upgrade", 0.95)
-	_spawn_receipt("REEF CHARTER +1 bump  -%d$" % cost, Color(0.6, 0.9, 1.0, 1.0))
+	_stack.sale("REEF CHARTER +1 bump  -%d$" % cost, Color(0.6, 0.9, 1.0, 1.0))
 	_log_sale("Reef charter: %d fish bumps tolerated" % (3 + GameState.get_reef_bonus_lives()))
 	_refresh()
 
@@ -252,7 +257,7 @@ func _buy_capacity() -> void:
 		return
 	
 	AudioManager.play_sfx("upgrade", 1.05)
-	_spawn_receipt("BAG +10 kg  -%d$" % cost, Color(0.7, 0.95, 1.0, 1.0))
+	_stack.sale("BAG +10 kg  -%d$" % cost, Color(0.7, 0.95, 1.0, 1.0))
 	_log_sale("Bag expanded to %d kg for %d$" % [GameState.get_inventory_capacity(), cost])
 	_refresh()
 
@@ -346,7 +351,8 @@ func _sell_qty(mat: String, qty: int) -> void:
 	_log_sale("%s x%d%s → %d$" % [mat, units, tag, earnings])
 	AudioManager.play_sfx("sale", 1.03)
 	_feedback("Sold %d %s%s +%d$" % [units, mat, tag, earnings])
-	_spawn_receipt("SOLD %s x%d%s  +%d$" % [mat, units, tag, earnings], Color(1.0, 0.85, 0.35, 1.0) if bulk else Color(0.7, 1.0, 0.6, 1.0), 1.35 if bulk else 1.0)
+
+	_stack.sale("SOLD %s x%d%s  +%d$" % [mat, units, tag, earnings], Color(1.0, 0.85, 0.35, 1.0) if bulk else Color(0.7, 1.0, 0.6, 1.0), 1.35 if bulk else 1.0)
 	TutorialDirector.notify("sold")
 	TutorialDirector.nudge("upgrade")
 	if bulk:
@@ -373,7 +379,7 @@ func _sell_all(mat: String) -> void:
 	_log_sale("%s x%d%s → %d$" % [mat, units, tag, earnings])
 	AudioManager.play_sfx("sale", 1.03)
 	_feedback("Sold %d %s%s for %d$" % [units, mat, tag, earnings])
-	_spawn_receipt("SOLD %s x%d%s  +%d$" % [mat, units, tag, earnings], Color(1.0, 0.85, 0.35, 1.0) if bulk else Color(0.7, 1.0, 0.6, 1.0), 1.35 if bulk else 1.0)
+	_stack.sale("SOLD %s x%d%s  +%d$" % [mat, units, tag, earnings], Color(1.0, 0.85, 0.35, 1.0) if bulk else Color(0.7, 1.0, 0.6, 1.0), 1.35 if bulk else 1.0)
 	TutorialDirector.notify("sold")
 	TutorialDirector.nudge("upgrade")
 	if bulk:
@@ -469,136 +475,16 @@ func _feedback(text: String) -> void:
 	_ensure_hud_queue()
 	_hud_queue.push(text, Color(0.85, 1.0, 0.5, 1.0), 1.2)
 
-## Receipts live in a stack anchored to the top-right corner. Each new entry
-## slides in from the right; when one expires the survivors reflow upward, so
-## the column never keeps gaps from a burst of quick sales. `punch` > 1.0 plays
-## a pop-in punch — bulk sales use it so the 25% bonus reads at a glance in a
-## fast stack of receipts.
-func _spawn_receipt(text: String, col: Color, punch: float = 1.0) -> void:
-	var parent: Node = $"CanvasLayer" if has_node("CanvasLayer") else self
-	var lbl := FLOATING_TEXT_SCENE.instantiate()
-	lbl.z_index = 130
-	lbl.rise_distance = 0.0
-	lbl.hold_time = 1.4
-	lbl.fade_out_time = 0.4
-	lbl.punch_scale = punch
-	parent.add_child(lbl)
-	_receipts.append(lbl)
-	lbl.tree_exited.connect(func(): _retire_receipt(lbl))
-
-	var vp := get_viewport_rect().size
-	lbl.modulate.a = 0.0
-	lbl.present(text, col, 18)
-	# Right-aligned text hugging the right margin: fixed-width label with
-	# HORIZONTAL_ALIGNMENT_RIGHT means no off-screen clipping regardless of
-	# how long the bulk line gets, without measuring the font at runtime.
-	lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	lbl.custom_minimum_size = Vector2(RECEIPT_WIDTH, 0)
-	lbl.size = Vector2(RECEIPT_WIDTH, 24.0)
-	var rest_x := vp.x - RECEIPT_WIDTH - 24.0
-	var slot_y := _receipt_slot_y(_receipts.size() - 1)
-	lbl.position = Vector2(vp.x + 20.0, slot_y)
-
-	# present() fades alpha and (rise_distance 0) leaves position alone.
-	var tw := lbl.create_tween()
-	tw.tween_property(lbl, "position:x", rest_x, 0.22).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-
-
-func _receipt_slot_y(index: int) -> float:
-	return 88.0 + float(index) * 26.0
-
-
-func _retire_receipt(lbl: Control) -> void:
-	_receipts.erase(lbl)
-	_reflow_receipts()
-
-
-## Undo animation: the ledger rewinds in three beats — a red "REVERSED" stamp
-## punches in over the screen, a dark receipt slides back out to the right
-## (the mirror of a sale receipt entering the stack), and the chips that
-## changed hands (undo button, coin line, row count) punch and flash red.
-## Split from _undo_last_sale so the state change stays readable and the
-## presentation stays swappable.
+## Sale receipts, undo receipts, the REVERSED stamp and the punch/flash
+## effects live in scenes/ui/receipt_stack.tscn (ReceiptStack) — instantiated
+## once in _ready and reused for every sale and undo.
 func _play_undo_animation(mat: String, restored_qty: int, earnings: int, was_bulk: bool) -> void:
 	var bulk_tag := " (bulk +25%)" if was_bulk else ""
-	_spawn_stamp("REVERSED", Color(1.0, 0.42, 0.38, 1.0))
-	_spawn_undo_receipt("UNDO %s x%d%s  -%d$" % [mat, restored_qty, bulk_tag, earnings], Color(1.0, 0.55, 0.4, 1.0))
-	_punch_control(undo_button)
-	_flash_control(transaction_log, Color(1.0, 0.55, 0.45, 1.0))
-	_flash_control(coins, Color(1.0, 0.5, 0.4, 1.0))
+	_stack.stamp("REVERSED", Color(1.0, 0.42, 0.38, 1.0))
+	_stack.undo("UNDO %s x%d%s  -%d$" % [mat, restored_qty, bulk_tag, earnings], Color(1.0, 0.55, 0.4, 1.0))
+	ReceiptStack.punch(undo_button)
+	ReceiptStack.flash(transaction_log, Color(1.0, 0.55, 0.45, 1.0))
+	ReceiptStack.flash(coins, Color(1.0, 0.5, 0.4, 1.0))
 	var row_data: Dictionary = _rows.get(mat, {})
-	_flash_control(row_data.get("count", null), Color(1.0, 0.6, 0.45, 1.0))
-	_punch_control(row_data.get("count", null))
-
-
-## Exiting receipt for an undo. Deliberately kept OUT of the _receipts stack:
-## it owns slot 0 for a moment and leaves to the right, so it never disturbs
-## the reflow of fresh sale receipts behind it.
-func _spawn_undo_receipt(text: String, col: Color) -> void:
-	var parent: Node = $"CanvasLayer" if has_node("CanvasLayer") else self
-	var lbl := FLOATING_TEXT_SCENE.instantiate()
-	lbl.z_index = 131
-	lbl.rise_distance = 0.0
-	lbl.hold_time = 0.9
-	lbl.fade_out_time = 0.35
-	lbl.punch_scale = 1.3
-	parent.add_child(lbl)
-	var vp := get_viewport_rect().size
-	lbl.present(text, col, 18)
-	lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-	lbl.custom_minimum_size = Vector2(RECEIPT_WIDTH, 0)
-	lbl.size = Vector2(RECEIPT_WIDTH, 24.0)
-	var rest_x := vp.x - RECEIPT_WIDTH - 24.0
-	lbl.position = Vector2(rest_x, _receipt_slot_y(0))
-	# present() only fades alpha (rise_distance == 0), so the exit slide is safe to own.
-	var tw := lbl.create_tween()
-	tw.tween_interval(0.35)
-	tw.tween_property(lbl, "position:x", vp.x + 60.0, 0.45).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
-
-
-## One-shot "REVERSED" stamp: oversized, back-eased punch-in, short hold.
-## Sells the rewind without touching layout anywhere else on screen.
-func _spawn_stamp(text: String, col: Color) -> void:
-	var parent: Node = $"CanvasLayer" if has_node("CanvasLayer") else self
-	var lbl := FLOATING_TEXT_SCENE.instantiate()
-	lbl.z_index = 132
-	lbl.rise_distance = 0.0
-	lbl.hold_time = 0.65
-	lbl.fade_out_time = 0.3
-	lbl.punch_scale = 2.1
-	parent.add_child(lbl)
-	var vp := get_viewport_rect().size
-	lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	lbl.custom_minimum_size = Vector2(300.0, 0)
-	lbl.size = Vector2(300.0, 44.0)
-	lbl.present(text, col, 34)
-	lbl.position = Vector2(vp.x * 0.5 - 150.0, vp.y * 0.3)
-
-
-## Scale punch for any control: snaps up then settles with a back ease. Used
-## for tactile feedback on undo without stealing layout space.
-func _punch_control(ctrl: Control) -> void:
-	if not ctrl:
-		return
-	var base := ctrl.scale
-	ctrl.scale = base * 1.28
-	var tw := ctrl.create_tween()
-	tw.tween_property(ctrl, "scale", base, 0.38).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-
-
-func _reflow_receipts() -> void:
-	var vp := get_viewport_rect().size
-	for i in range(_receipts.size()):
-		var lbl := _receipts[i]
-		if not is_instance_valid(lbl):
-			continue
-		var target := Vector2(vp.x - RECEIPT_WIDTH - 24.0, _receipt_slot_y(i))
-		var tw := lbl.create_tween()
-		tw.tween_property(lbl, "position", target, 0.18).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-
-func _flash_control(ctrl: Control, from_color: Color = Color(0.6, 1.0, 0.65, 1.0)) -> void:
-	if not ctrl:
-		return
-	var tw := ctrl.create_tween()
-	ctrl.modulate = from_color
-	tw.tween_property(ctrl, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.45)
+	ReceiptStack.flash(row_data.get("count", null), Color(1.0, 0.6, 0.45, 1.0))
+	ReceiptStack.punch(row_data.get("count", null))

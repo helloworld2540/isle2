@@ -1,6 +1,16 @@
 # Current project todo:
 
 # done this pass
+- Shop receipt/feedback stack extracted into a real component: sale receipts,
+  undo exit-receipts, the REVERSED stamp and the punch/flash effects moved
+  from the 600-line `shop_menu.gd` into `scenes/ui/receipt_stack.tscn` +
+  `scripts/ui/receipt_stack.gd` (`ReceiptStack`, instantiated once in
+  `_ready`); menu is down to 490 lines. Fixed a first-time parse error the
+  extraction surfaced (`CanvasLayer` has no `get_viewport_rect()` — viewport
+  size now comes from the window). Verified in-game end to end: sale →
+  "SOLD Polyethylene x1 +2$" lands in the stack, undo → cash/materials rewind,
+  "REVERSED" stamp + "UNDO Polyethylene x1 -2$" receipt spawn and reflow, and
+  the first-sale nudge still fires. Smoke test: 44/44 green, save untouched.
 - `game_state.gd` save codec refactored to a single schema table
   (`SAVE_SCHEMA`): every persisted `[key ↔ property ↔ default ↔ codec]` feeds
   `_write_save`, `restore()` and `reset()` — the three hand-mirrored blocks
