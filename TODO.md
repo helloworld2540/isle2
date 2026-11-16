@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- Duplicate unique_id 1011 in reef_rescue.tscn (ShakeCamera and FishLabel)
+  assigned FishLabel a fresh id 1012; full project re-scan clean. Smoke 45/45.
 - Android debug APK rebuilt after the collectathon + audio batch: still
   builds and signs cleanly (verify step passes).
 - Frozen-stepped a real reef dive (~20 s game time) and observed live state:

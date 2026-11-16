@@ -115,7 +115,7 @@ theme_override_fonts/font = SubResource("SystemFont_aq0s6")
 theme_override_font_sizes/font_size = 24
 text = "Garbage collected (kg): 0"
 
-[node name="FishLabel" type="Label" parent="UI/HUDStats" unique_id=1011]
+[node name="FishLabel" type="Label" parent="UI/HUDStats" unique_id=1012]
 layout_mode = 2
 theme_override_fonts/font = SubResource("SystemFont_aq0s6")
 theme_override_font_sizes/font_size = 24
