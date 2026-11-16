@@ -31,16 +31,20 @@ class_name WorldNPC
 @export var quest2_reward_amount: int = 0
 
 # Private State Variables
-var _panel: CanvasLayer = null
+# Untyped so the script works before the editor refreshes its class cache.
+var _dialogue = null
 var _visited_flag: bool = false
 var _quest_done: bool = false
 var _quest2_done: bool = false
 var _visit_count: int = 0
 
+const DIALOGUE_SCENE := preload("res://scenes/ui/npc_dialogue.tscn")
+
 # Nodes
-var _quest_progress_label: Label = null
-var _sprite: Sprite2D = null
-var _ambient_bubble: Label = null
+@onready var sprite: Sprite2D = $Sprite
+@onready var name_label: Label = $NameLabel
+@onready var quest_progress_label: Label = $QuestProgress
+@onready var ambient_bubble: Label = $AmbientBubble
 
 # Timers
 var _ambient_timer: float = 0.0
@@ -53,7 +57,6 @@ func _ready() -> void:
 	
 	_load_saved_data()
 	_apply_npc_sprite()
-	_build_quest_progress()
 	_start_idle_animations()
 	_update_ui_state()
 
@@ -62,7 +65,7 @@ func _process(delta: float) -> void:
 	if _ambient_timer >= _ambient_next:
 		_ambient_timer = 0.0
 		_ambient_next = randf_range(3.0, 7.5)
-		if not _panel:
+		if not _dialogue:
 			_show_ambient_bubble()
 			
 	_refresh_tick += delta
@@ -71,7 +74,7 @@ func _process(delta: float) -> void:
 		_update_ui_state()
 
 func _unhandled_input(event: InputEvent) -> void:
-	if not _panel: return
+	if not _dialogue: return
 	
 	if event.is_action_pressed("ui_cancel") or \
 		(event is InputEventKey and event.pressed and not event.echo and event.keycode in [KEY_ENTER, KEY_KP_ENTER, KEY_SPACE]):
@@ -79,7 +82,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		_close()
 
 func _on_body_entered(body: Node) -> void:
-	if not _panel and body is Node2D and body.is_in_group("player"):
+	if not _dialogue and body is Node2D and body.is_in_group("player"):
 		_show_dialogue()
 
 # --- Initialization & State ---
@@ -92,15 +95,52 @@ func _load_saved_data() -> void:
 	_quest2_done = data.get("npc_quests2", {}).get(npc_id, false)
 
 func _save_flag(dict_key: String, value: Variant) -> void:
-	var data := SaveManager.load_game()
-	var dict: Dictionary = data.get(dict_key, {})
-	dict[npc_id] = value
-	data[dict_key] = dict
-	SaveManager.save_game(data)
+	SaveManager.update_nested(dict_key, {npc_id: value})
 
 func _bump_visit_count() -> void:
 	_visit_count += 1
 	_save_flag("npc_visit_counts", _visit_count)
+
+# --- Quest Config ---
+
+## The tier this NPC is currently offering, or 0 when the line is finished.
+func _active_tier() -> int:
+	if not _visited_flag:
+		return 0
+	if not _quest_done and quest_amount > 0:
+		return 1
+	if _quest_done and not _quest2_done and quest2_amount > 0:
+		return 2
+	return 0
+
+
+## All data for one quest tier in a single shape, so callers stop repeating
+## the same tier-1/tier-2 conditionals.
+func _quest_config(tier: int) -> Dictionary:
+	match tier:
+		1:
+			return {
+				"material": quest_material,
+				"amount": quest_amount,
+				"reward_material": quest_reward_mat,
+				"reward_amount": quest_reward_amount,
+			}
+		2:
+			return {
+				"material": quest2_material,
+				"amount": quest2_amount,
+				"reward_material": quest2_reward_mat,
+				"reward_amount": quest2_reward_amount,
+			}
+	return {}
+
+
+func _has_quest_items(tier: int) -> bool:
+	var config := _quest_config(tier)
+	if config.is_empty():
+		return false
+	var have := int(GameState.trash_by_type.get(config.get("material", ""), 0))
+	return have >= int(config.get("amount", 0))
 
 # --- Animations ---
 
@@ -109,31 +149,30 @@ func _start_idle_animations() -> void:
 	tween.tween_property(self, "scale", Vector2(1.06, 1.06), 1.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	tween.tween_property(self, "scale", Vector2(1.0, 1.0), 1.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	
-	if _sprite:
+	if sprite:
 		var sp_tween := create_tween().set_loops()
-		sp_tween.tween_property(_sprite, "position:y", _sprite.position.y - 4.0, 1.05).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-		sp_tween.tween_property(_sprite, "position:y", _sprite.position.y, 1.05).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		sp_tween.tween_property(sprite, "position:y", sprite.position.y - 4.0, 1.05).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		sp_tween.tween_property(sprite, "position:y", sprite.position.y, 1.05).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
 func _apply_npc_sprite() -> void:
-	_sprite = get_node_or_null("Sprite")
 	var idx := clampi(npc_sprite_index, 1, 4)
 	var path := "res://sprites/wm_npc/npc%d.png" % idx
 	
-	if ResourceLoader.exists(path) and _sprite:
-		_sprite.texture = load(path)
-		_sprite.centered = true
-		_sprite.scale = Vector2(0.46, 0.46)
-		_sprite.position = Vector2(0, -10)
+	if ResourceLoader.exists(path) and sprite:
+		sprite.texture = load(path)
+		sprite.centered = true
+		sprite.scale = Vector2(0.46, 0.46)
+		sprite.position = Vector2(0, -10)
 		
-		var sprite_height: float = _sprite.get_rect().size.y * _sprite.scale.y
-		var top: float = _sprite.position.y - sprite_height * 0.5
+		var sprite_height: float = sprite.get_rect().size.y * sprite.scale.y
+		var top: float = sprite.position.y - sprite_height * 0.5
 		
-		if has_node("NameLabel"):
-			$NameLabel.offset_top = top - 28.0
-			$NameLabel.offset_bottom = top - 4.0
-		if has_node("QuestProgress"):
-			$QuestProgress.offset_top = top + 2.0
-			$QuestProgress.offset_bottom = top + 26.0
+		if name_label:
+			name_label.offset_top = top - 28.0
+			name_label.offset_bottom = top - 4.0
+		if quest_progress_label:
+			quest_progress_label.offset_top = top + 2.0
+			quest_progress_label.offset_bottom = top + 26.0
 			
 	if has_node("Body"):
 		$Body.visible = false
@@ -145,52 +184,28 @@ func _update_ui_state() -> void:
 	_refresh_quest_progress()
 	_glow_quest_ready()
 
-func _build_quest_progress() -> void:
-	if _quest_progress_label: return
-	
-	_quest_progress_label = get_node_or_null("QuestProgress")
-	if not _quest_progress_label:
-		_quest_progress_label = load("res://scenes/ui/label.tscn").instantiate() as Label
-		_quest_progress_label.name = "QuestProgress"
-		_quest_progress_label.offset_left = -70
-		_quest_progress_label.offset_top = -78
-		_quest_progress_label.offset_right = 70
-		_quest_progress_label.offset_bottom = -56
-		_quest_progress_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		_quest_progress_label.add_theme_font_size_override("font_size", 11)
-		_quest_progress_label.z_index = 20
-		add_child(_quest_progress_label)
-		
-	_refresh_quest_progress()
-
 func _refresh_quest_progress() -> void:
-	if not _quest_progress_label: return
+	if not quest_progress_label: return
 	
 	if _quest2_done:
-		_quest_progress_label.text = "Quests: complete"
-		_quest_progress_label.modulate = Color(1.0, 0.85, 0.3, 0.95)
+		quest_progress_label.text = "Quests: complete"
+		quest_progress_label.modulate = Color(1.0, 0.85, 0.3, 0.95)
 		return
-		
-	var active_mat := ""
-	var active_amt := 0
 	
-	if _visited_flag and not _quest_done and quest_amount > 0:
-		active_mat = quest_material
-		active_amt = quest_amount
-	elif _quest_done and not _quest2_done and quest2_amount > 0:
-		active_mat = quest2_material
-		active_amt = quest2_amount
-		
-	if active_mat.is_empty():
-		_quest_progress_label.text = ""
+	var tier := _active_tier()
+	if tier == 0:
+		quest_progress_label.text = ""
 		return
-		
-	var have := int(GameState.trash_by_type.get(active_mat, 0))
-	_quest_progress_label.text = "Quest: %d/%d %s" % [min(have, active_amt), active_amt, active_mat]
-	_quest_progress_label.modulate = Color(0.6, 1.0, 0.7, 1.0) if have >= active_amt else Color(0.7, 0.95, 1.0, 0.9)
+	
+	var config := _quest_config(tier)
+	var material := String(config.get("material", ""))
+	var amount := int(config.get("amount", 0))
+	var have := int(GameState.trash_by_type.get(material, 0))
+	quest_progress_label.text = "Quest: %d/%d %s" % [mini(have, amount), amount, material]
+	quest_progress_label.modulate = Color(0.6, 1.0, 0.7, 1.0) if have >= amount else Color(0.7, 0.95, 1.0, 0.9)
 
 func _refresh_name_label() -> void:
-	var nl: Label = get_node_or_null("NameLabel")
+	var nl: Label = name_label
 	if not nl: return
 	
 	if _quest2_done:
@@ -207,17 +222,41 @@ func _refresh_name_label() -> void:
 		nl.modulate = Color(1.0, 1.0, 1.0, 0.9)
 
 func _glow_quest_ready() -> void:
-	var ready := false
-	if _visited_flag and not _quest_done and quest_amount > 0:
-		ready = int(GameState.trash_by_type.get(quest_material, 0)) >= quest_amount
-	elif _quest_done and not _quest2_done and quest2_amount > 0:
-		ready = int(GameState.trash_by_type.get(quest2_material, 0)) >= quest2_amount
-		
-	if _sprite:
-		_sprite.modulate = Color(1.0, 0.95, 0.55, 1.0) if ready else Color(1.0, 1.0, 1.0, 1.0)
+	var tier := _active_tier()
+	var ready := tier > 0 and _has_quest_items(tier)
+	
+	if sprite:
+		sprite.modulate = Color(1.0, 0.95, 0.55, 1.0) if ready else Color(1.0, 1.0, 1.0, 1.0)
 		
 	if has_node("Body") and $Body:
 		$Body.color = Color(1.0, 0.95, 0.55, 1.0) if ready else Color(0.95, 0.72, 0.45, 1.0)
+
+# --- Quest Tracking ---
+
+## Snapshot of the quest this NPC is currently offering, for the HUD tracker.
+func get_active_quest() -> Dictionary:
+	var tier := _active_tier()
+	if tier == 0:
+		return {}
+	var config := _quest_config(tier)
+	return _quest_entry(
+		tier,
+		String(config.get("material", "")),
+		int(config.get("amount", 0))
+	)
+
+
+func _quest_entry(tier: int, mat: String, amount: int) -> Dictionary:
+	var have := int(GameState.trash_by_type.get(mat, 0))
+	return {
+		"npc": npc_name,
+		"tier": tier,
+		"material": mat,
+		"amount": amount,
+		"have": mini(have, amount),
+		"ready": have >= amount,
+	}
+
 
 # --- Dialogue System ---
 
@@ -242,161 +281,126 @@ func _flavour_lines() -> Array:
 		out.append(str(banter[_visit_count % banter.size()]))
 	return out
 
-func _show_dialogue() -> void:
+func _show_dialogue(status: String = "", positive: bool = true) -> void:
 	var first_visit := not _visited_flag
+	var lines := _prepare_lines()
 	_bump_visit_count()
 	
-	_panel = load("res://scenes/ui/canvas_layer.tscn").instantiate() as CanvasLayer
-	_panel.process_mode = Node.PROCESS_MODE_ALWAYS
-	_panel.layer = 200
-	get_tree().current_scene.add_child(_panel)
-
-	# Setup background dimming
-	var dim := load("res://scenes/ui/color_rect.tscn").instantiate() as ColorRect
-	dim.color = Color(0, 0, 0, 0.55)
-	dim.set_anchors_preset(Control.PRESET_FULL_RECT)
-	dim.mouse_filter = Control.MOUSE_FILTER_STOP
-	_panel.add_child(dim)
-
-	# Container structure
-	var container := load("res://scenes/ui/center_container.tscn").instantiate() as CenterContainer
-	container.set_anchors_preset(Control.PRESET_FULL_RECT)
-	_panel.add_child(container)
-
-	var box := load("res://scenes/ui/panel_container.tscn").instantiate() as PanelContainer
-	box.custom_minimum_size = Vector2(480, 0)
-	container.add_child(box)
-
-	var vbox := load("res://scenes/ui/vbox_container.tscn").instantiate() as VBoxContainer
-	vbox.add_theme_constant_override("separation", 10)
-	box.add_child(vbox)
-
-	# Text Elements
-	var title := load("res://scenes/ui/label.tscn").instantiate() as Label
-	title.text = npc_name
-	title.add_theme_font_size_override("font_size", 24)
-	vbox.add_child(title)
-
-	var line_labels: Array = []
-	for line in _prepare_lines():
-		var lbl := load("res://scenes/ui/label.tscn").instantiate() as Label
-		lbl.text = str(line)
-		lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		lbl.custom_minimum_size = Vector2(440, 0)
-		vbox.add_child(lbl)
-		line_labels.append(lbl)
-
-	# Animate Text
-	for lbl in line_labels: 
-		lbl.visible_characters = 0
+	_dialogue = DIALOGUE_SCENE.instantiate()
+	get_tree().current_scene.add_child(_dialogue)
+	_dialogue.turn_in_requested.connect(_on_turn_in_requested)
+	_dialogue.present(npc_name, lines)
 	
-	var tw := create_tween()
-	for lbl in line_labels:
-		var n: int = lbl.text.length()
-		tw.tween_method(func(v): 
-			if lbl:
-				lbl.visible_characters = v, 0, n, clamp(float(n) * 0.018, 0.18, 1.3
-			))
-		tw.tween_interval(0.15)
-
-	# Quests and Rewards
-	if first_visit and reward_trash > 0:
-		var reward_lbl := load("res://scenes/ui/label.tscn").instantiate() as Label
-		reward_lbl.text = "You received %d %s!" % [reward_trash, reward_mat]
-		reward_lbl.modulate = Color(0.7, 1.0, 0.75, 1)
-		vbox.add_child(reward_lbl)
-		GameState.add_trash_type_weighted(reward_mat, reward_trash)
-		AudioManager.play_sfx("pickup")
-		_spawn_reward_sparks()
+	if status != "":
+		_dialogue.show_status(status, positive)
+	
+	if first_visit:
+		if reward_trash > 0:
+			GameState.add_trash_type_weighted(reward_mat, reward_trash)
+			_dialogue.show_reward("You received %d %s!" % [reward_trash, reward_mat])
+			AudioManager.play_sfx("pickup")
+			_spawn_reward_sparks()
+		# Visited is tracked for every NPC, not only reward-granting ones, so
+		# quests reveal themselves and repeat dialogue kicks in for all.
 		_save_flag("npc_visited", true)
 		_visited_flag = true
+		_update_ui_state()
+	else:
+		var tier := _active_tier()
+		if tier > 0:
+			_configure_quest(tier)
 
-	if not first_visit:
-		if not _quest_done and quest_amount > 0:
-			_add_quest_ui(vbox, 1, quest_material, quest_amount, quest_reward_mat, quest_reward_amount)
-		elif _quest_done and not _quest2_done and quest2_amount > 0:
-			_add_quest_ui(vbox, 2, quest2_material, quest2_amount, quest2_reward_mat, quest2_reward_amount)
 
-	# OK Button
-	var ok := load("res://scenes/ui/button.tscn").instantiate() as Button
-	ok.text = "OK"
-	ok.custom_minimum_size = Vector2(120, 44)
-	ok.pressed.connect(_close)
-	var shortcut := Shortcut.new()
-	var event := InputEventKey.new()
-	event.keycode = KEY_ESCAPE
-	shortcut.events = [event]
-	ok.shortcut = shortcut
-	vbox.add_child(ok)
-
-func _add_quest_ui(vbox: VBoxContainer, tier: int, mat: String, amount: int, rw_mat: String, rw_amt: int) -> void:
+# The turn-in button only lights up when the player has the goods and the
+# reward will actually fit in the bag.
+func _configure_quest(tier: int) -> void:
+	if not _dialogue:
+		return
+	
+	var config := _quest_config(tier)
+	if config.is_empty():
+		return
+	
+	var mat := String(config.get("material", ""))
+	var amount := int(config.get("amount", 0))
+	var rw_mat := String(config.get("reward_material", ""))
+	var rw_amt := int(config.get("reward_amount", 0))
+	
 	var have := int(GameState.trash_by_type.get(mat, 0))
+	var freed_weight: int = amount * int(GameState.TRASH_WEIGHTS.get(mat, 1))
+	var reward_weight: int = rw_amt * int(GameState.TRASH_WEIGHTS.get(rw_mat, 1))
+	var room_after_turn_in: int = GameState.get_free_capacity() + freed_weight
+	var reward_fits := rw_amt <= 0 or room_after_turn_in >= reward_weight
 	
-	var quest_lbl := load("res://scenes/ui/label.tscn").instantiate() as Label
-	quest_lbl.text = "Quest: bring %d %s (you have %d)." % [amount, mat, have]
-	quest_lbl.modulate = Color(0.85, 0.9, 1.0, 0.95)
-	quest_lbl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	quest_lbl.custom_minimum_size = Vector2(440, 0)
-	vbox.add_child(quest_lbl)
-
-	var turn_in := load("res://scenes/ui/button.tscn").instantiate() as Button
-	turn_in.text = "Turn in %d %s" % [amount, mat]
-	turn_in.custom_minimum_size = Vector2(200, 44)
-	
-	var inventory_space_available = GameState.get_inventory_capacity() - GameState.trash_inventory + int(GameState.trash_by_type.get(mat, 0))
-	turn_in.disabled = have < amount or (rw_amt > 0 and inventory_space_available < rw_amt)
-	
-	turn_in.pressed.connect(func():
-		if GameState.consume_trash_type(mat, amount):
-			if rw_amt > 0:
-				var gained := GameState.add_trash_type_weighted(rw_mat, rw_amt)
-				var r := load("res://scenes/ui/label.tscn").instantiate() as Label
-				r.text = "Reward: %d %s!" % [rw_amt, rw_mat] if gained >= rw_amt else "Reward: %d/%d %s (cap reached)" % [gained, rw_amt, rw_mat]
-				r.modulate = Color(0.7, 1.0, 0.75, 1) if gained >= rw_amt else Color(0.95, 0.7, 0.35, 1.0)
-				vbox.add_child(r)
-				
-			AudioManager.play_sfx("upgrade", 1.0 + float(tier) * 0.06)
-			
-			if tier == 1:
-				_quest_done = true
-				_save_flag("npc_quests", true)
-			else:
-				_quest2_done = true
-				_save_flag("npc_quests2", true)
-				
-			_update_ui_state()
-			_close()
-			_show_dialogue()
+	_dialogue.show_quest(
+		tier,
+		"Quest: bring %d %s (you have %d)." % [amount, mat, have],
+		"Turn in %d %s" % [amount, mat],
+		have >= amount and reward_fits
 	)
-	vbox.add_child(turn_in)
+
+
+func _on_turn_in_requested(tier: int) -> void:
+	var config := _quest_config(tier)
+	if config.is_empty():
+		return
+	
+	var mat := String(config.get("material", ""))
+	var amount := int(config.get("amount", 0))
+	var rw_mat := String(config.get("reward_material", ""))
+	var rw_amt := int(config.get("reward_amount", 0))
+	
+	if not GameState.consume_trash_type(mat, amount):
+		return
+	
+	var hero_unlocked := GameState.record_quest_turn_in()
+	var gained := rw_amt
+	if rw_amt > 0:
+		gained = GameState.add_trash_type_weighted(rw_mat, rw_amt)
+	
+	AudioManager.play_sfx("quest_complete")
+	
+	if tier == 1:
+		_quest_done = true
+		_save_flag("npc_quests", true)
+	else:
+		_quest2_done = true
+		_save_flag("npc_quests2", true)
+		# The Harbor Hero card is the bigger beat when both land together.
+		if not hero_unlocked:
+			GameState.notify_npc_quest_line_completed(npc_name)
+	
+	_update_ui_state()
+	
+	var status := ""
+	if rw_amt > 0:
+		status = "Reward: %d %s!" % [gained, rw_mat] if gained >= rw_amt else "Reward: %d/%d %s (cap reached)" % [gained, rw_amt, rw_mat]
+	
+	_close()
+	await get_tree().process_frame
+	_show_dialogue(status, gained >= rw_amt)
+
 
 func _close() -> void:
-	if _panel:
-		_panel.queue_free()
-		_panel = null
+	if _dialogue:
+		_dialogue.dismiss()
+		_dialogue = null
 	_refresh_name_label()
 
 # --- FX & Ambient ---
 
 func _show_ambient_bubble() -> void:
-	if ambient_bubbles.is_empty(): return
+	if ambient_bubbles.is_empty() or not ambient_bubble:
+		return
 	
-	if not _ambient_bubble:
-		_ambient_bubble = load("res://scenes/ui/label.tscn").instantiate() as Label
-		_ambient_bubble.add_theme_font_size_override("font_size", 11)
-		_ambient_bubble.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		_ambient_bubble.custom_minimum_size = Vector2(180, 0)
-		_ambient_bubble.z_index = 25
-		_ambient_bubble.position = Vector2(-90, -95)
-		add_child(_ambient_bubble)
-		
-	_ambient_bubble.text = str(ambient_bubbles.pick_random())
-	_ambient_bubble.modulate = Color(1.0, 1.0, 0.9, 0.0)
+	ambient_bubble.text = str(ambient_bubbles.pick_random())
+	ambient_bubble.modulate = Color(1.0, 1.0, 0.9, 0.0)
 	
 	var tw := create_tween()
-	tw.tween_property(_ambient_bubble, "modulate:a", 0.85, 0.14)
+	tw.tween_property(ambient_bubble, "modulate:a", 0.85, 0.14)
 	tw.tween_interval(1.6)
-	tw.tween_property(_ambient_bubble, "modulate:a", 0.0, 0.4)
+	tw.tween_property(ambient_bubble, "modulate:a", 0.0, 0.4)
+
 
 func _personality_banter() -> Array:
 	match npc_id:

@@ -1,7 +1,11 @@
 extends CanvasLayer
+
+const NOTIFICATION_QUEUE := preload("res://scenes/ui/notification_queue.tscn")
 # World map pause/menu overlay.
 
 @onready var panel: Control = $MenuPanel
+@onready var hud_menu_button: Button = $HUDMenuButton
+@onready var bgm_cycle_timer: Timer = $BgmCycleTimer
 @onready var resume_button: Button = $MenuPanel/HBoxContainer/VBoxContainer/ResumeButton
 @onready var save_button: Button = $MenuPanel/HBoxContainer/VBoxContainer/SaveButton
 @onready var cap_status: Label = $MenuPanel/HBoxContainer/VBoxContainer/CapStatus
@@ -25,14 +29,9 @@ extends CanvasLayer
 
 @onready var settings_button: Button = $MenuPanel/HBoxContainer/Infobox/SettingsButton
 @onready var settings_panel: VBoxContainer = $MenuPanel/HBoxContainer/Infobox/SettingsPanel
-@onready var master_slider: HSlider = $MenuPanel/HBoxContainer/Infobox/SettingsPanel/MasterSlider
-@onready var music_slider: HSlider = $MenuPanel/HBoxContainer/Infobox/SettingsPanel/MusicSlider
-@onready var sfx_slider: HSlider = $MenuPanel/HBoxContainer/Infobox/SettingsPanel/SfxSlider
-@onready var master_label: Label = $MenuPanel/HBoxContainer/Infobox/SettingsPanel/MasterLabel
-@onready var music_label: Label = $MenuPanel/HBoxContainer/Infobox/SettingsPanel/MusicLabel
+@onready var confirm_panel = $ConfirmPanel
 
 var _toggling := false
-var _bgm_cycle_timer: Timer = null
 var _bgm_cycle_index := 0
 var _bgm_cycle_tracks: Array[String] = ["world", "ambience", "world", "reef"]
 var _hud_queue: Node = null
@@ -42,11 +41,10 @@ func _ready() -> void:
 		panel.visible = false
 
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	_load_player_position()
 	_wire_signals()
 	_setup_settings_ui()
 	_update_progress_bars()
-	_add_hud_menu_button()
+	_prepare_overlay()
 
 	get_viewport().size_changed.connect(_clamp_menu_width)
 	_clamp_menu_width()
@@ -58,16 +56,11 @@ func _process(_delta: float) -> void:
 	if panel and panel.visible:
 		_update_progress_bars()
 
-func _load_player_position() -> void:
-	var saved := SaveManager.load_game()
-	if saved.has("player_position"):
-		var player := get_tree().get_first_node_in_group("player")
-		if player:
-			player.global_position = _parse_position(saved["player_position"])
-
 func _wire_signals() -> void:
 	if resume_button: resume_button.pressed.connect(_on_resume_pressed)
 	if save_button: save_button.pressed.connect(_on_save_pressed)
+	if confirm_panel: confirm_panel.confirmed.connect(_do_save_and_leave)
+	if hud_menu_button: hud_menu_button.pressed.connect(_toggle)
 	if move_faster_btn: move_faster_btn.pressed.connect(_buy_move)
 	if collection_range_btn: collection_range_btn.pressed.connect(_buy_range)
 	if deep_cache_btn: deep_cache_btn.pressed.connect(_buy_deep_cache)
@@ -78,29 +71,6 @@ func _wire_signals() -> void:
 func _setup_settings_ui() -> void:
 	_refresh_upgrade_ui()
 
-	if master_slider:
-		master_slider.value = AudioManager.get_master_volume() * 100.0
-		_update_master_label(master_slider.value)
-		master_slider.value_changed.connect(func(v: float):
-			AudioManager.set_master_volume(v / 100.0)
-			_update_master_label(v)
-		)
-	if music_slider:
-		music_slider.value = AudioManager.get_music_volume() * 100.0
-		_update_music_label(music_slider.value)
-		music_slider.value_changed.connect(func(v: float):
-			AudioManager.set_music_volume(v / 100.0)
-			_update_music_label(v)
-		)
-	if sfx_slider:
-		sfx_slider.value = AudioManager.get_sfx_volume() * 100.0
-		sfx_slider.value_changed.connect(func(v: float): AudioManager.set_sfx_volume(v / 100.0))
-
-func _update_master_label(val: float) -> void:
-	if master_label: master_label.text = "Master: %d%%" % int(val)
-
-func _update_music_label(val: float) -> void:
-	if music_label: music_label.text = "Music: %d%%" % int(val)
 
 func _format_inventory() -> String:
 	var lines: PackedStringArray = []
@@ -128,6 +98,8 @@ func _toggle() -> void:
 		
 		if panel.visible:
 			_refresh_upgrade_ui()
+			if settings_panel and settings_panel.has_method("sync_from_settings"):
+				settings_panel.sync_from_settings()
 			_clamp_menu_width()
 			if resume_button:
 				resume_button.grab_focus()
@@ -175,60 +147,40 @@ func _unhandled_input(event: InputEvent) -> void:
 		_toggle()
 		get_viewport().set_input_as_handled()
 
-func _add_hud_menu_button() -> void:
-	var btn := Button.new()
-	btn.text = "☰"
-	btn.name = "HUDMenuButton"
-	btn.custom_minimum_size = Vector2(56, 48)
-	btn.anchor_left = 1.0; btn.anchor_right = 1.0
-	btn.anchor_top = 0.0; btn.anchor_bottom = 0.0
-	btn.offset_left = -72.0
-	btn.offset_top = 12.0
-	btn.offset_right = -12.0
-	btn.offset_bottom = 60.0
-	btn.pressed.connect(_toggle)
-	add_child(btn)
-
+func _prepare_overlay() -> void:
 	if panel: panel.visible = false
 	get_tree().paused = false
 
 func _on_save_pressed() -> void:
+	# Destructive-feeling action gets one confirmation first.
+	if confirm_panel:
+		confirm_panel.present("Save & leave?", "Progress is saved automatically. Return to the main menu?", "Leave")
+		return
+	_do_save_and_leave()
+
+
+func _do_save_and_leave() -> void:
 	var player := get_tree().get_first_node_in_group("player")
-	var position_value: Array = [player.global_position.x, player.global_position.y] if player else []
-	
-	var data := SaveManager.load_game()
-	data["player_position"] = position_value
-	SaveManager.save_game(data)
+	if player:
+		SaveManager.save_player_position(player.global_position)
 	
 	if panel: panel.visible = false
 	get_tree().paused = false
 	SceneTransition.change_scene("res://scenes/main_menu.tscn")
 
-func _parse_position(value: Variant) -> Vector2:
-	if value is Array and value.size() == 2:
-		return Vector2(value[0], value[1])
-	if value is String:
-		var cleaned: String = value.strip_edges().trim_prefix("(").trim_suffix(")")
-		var parts := cleaned.split(",")
-		if parts.size() == 2:
-			return Vector2(parts[0].to_float(), parts[1].to_float())
-	return Vector2.ZERO
-
 # --- Upgrades & Costs ---
 
 func _move_cost() -> int:
-	return 8 + int(SaveManager.load_game().get("upgrade_move", 0)) * 4
+	return GameState.get_move_speed_cost()
 
 func _range_cost() -> int:
-	return 12 + int(SaveManager.load_game().get("upgrade_range", 0)) * 6
+	return GameState.get_range_cost()
 
 func _move_cost_text() -> String:
-	var lvl := int(SaveManager.load_game().get("upgrade_move", 0))
-	return "Move Speed Lv.%d (+8%%) — %d trash" % [lvl, _move_cost()]
+	return "Move Speed Lv.%d (+8%%) — %d trash" % [GameState.upgrade_move, GameState.get_move_speed_cost()]
 
 func _range_cost_text() -> String:
-	var lvl := int(SaveManager.load_game().get("upgrade_range", 0))
-	return "Range Lv.%d (+12px) — %d trash" % [lvl, _range_cost()]
+	return "Range Lv.%d (+12px) — %d trash" % [GameState.upgrade_range, GameState.get_range_cost()]
 
 func _deep_cache_text() -> String:
 	if GameState.deep_cache:
@@ -236,50 +188,41 @@ func _deep_cache_text() -> String:
 	return "Deep Cache (30 score) — bonus debris"
 
 func _upgrade_status_text() -> String:
-	var data := SaveManager.load_game()
-	var mv := int(data.get("upgrade_move", 0))
-	var rng := int(data.get("upgrade_range", 0))
-	var dc := "DeepCache" if bool(data.get("deep_cache", false)) else "-"
-	return "Upgrades: Move %d | Range %d | %s" % [mv, rng, dc]
+	var dc := "DeepCache" if GameState.deep_cache else "-"
+	return "Upgrades: Move %d | Range %d | %s" % [GameState.upgrade_move, GameState.upgrade_range, dc]
 
 func _deep_cache_upgrade_text() -> String:
 	return "Deep Cache Tier %d — %d score" % [GameState.deep_cache_tier + 1, 15 * GameState.deep_cache_tier]
 
 func _inv_cap_text() -> String:
 	var cost := 6 + GameState.inventory_capacity_level * 3
-	return "Inv Cap Lv.%d (%d/%d kg) — %d trash" % [GameState.inventory_capacity_level, GameState.trash_inventory, GameState.get_inventory_capacity(), cost]
+	return "Inv Cap Lv.%d (%d/%d kg) — %d trash" % [GameState.inventory_capacity_level, GameState.get_inventory_weight(), GameState.get_inventory_capacity(), cost]
 
 # --- Purchasing ---
 
-func _process_upgrade(btn: Button, success: bool, failure_msg: String, upgrade_action: Callable = Callable()) -> void:
+func _process_upgrade(btn: Button, success: bool, failure_msg: String) -> void:
 	if not success:
 		_flash(btn)
 		_toast(failure_msg)
 		return
-		
-	if upgrade_action.is_valid():
-		upgrade_action.call()
-		
+	
+	_refresh_player_upgrades()
 	AudioManager.play_sfx("upgrade", 1.05)
 	_flash_success(btn)
 	_spawn_upgrade_sparkle(btn)
 	_refresh_upgrade_ui()
 
+
+func _refresh_player_upgrades() -> void:
+	var player := get_tree().get_first_node_in_group("player")
+	if player and player.has_method("refresh_upgrades"):
+		player.refresh_upgrades()
+
 func _buy_move() -> void:
-	_process_upgrade(move_faster_btn, GameState.spend_trash(_move_cost()), "Need more trash to upgrade Move Speed", func():
-		var data := SaveManager.load_game()
-		data["upgrade_move"] = int(data.get("upgrade_move", 0)) + 1
-		SaveManager.save_game(data)
-		GameState.restore()
-	)
+	_process_upgrade(move_faster_btn, GameState.purchase_move_speed(), "Need more trash to upgrade Move Speed")
 
 func _buy_range() -> void:
-	_process_upgrade(collection_range_btn, GameState.spend_trash(_range_cost()), "Need more trash to upgrade Collection Range", func():
-		var data := SaveManager.load_game()
-		data["upgrade_range"] = int(data.get("upgrade_range", 0)) + 1
-		SaveManager.save_game(data)
-		GameState.restore()
-	)
+	_process_upgrade(collection_range_btn, GameState.purchase_range(), "Need more trash to upgrade Collection Range")
 
 func _buy_deep_cache() -> void:
 	if GameState.deep_cache:
@@ -309,22 +252,22 @@ func _refresh_upgrade_ui() -> void:
 		deep_cache_upgrade_btn.disabled = not GameState.deep_cache
 		
 	if inventory_cap_btn:
-		inventory_cap_btn.disabled = GameState.trash_inventory < (6 + GameState.inventory_capacity_level * 3)
+		inventory_cap_btn.disabled = GameState.get_inventory_weight() < (6 + GameState.inventory_capacity_level * 3)
 		inventory_cap_btn.text = _inv_cap_text()
 		
 	if move_faster_btn:
-		move_faster_btn.disabled = GameState.trash_inventory < _move_cost()
+		move_faster_btn.disabled = GameState.get_inventory_weight() < _move_cost()
 		move_faster_btn.text = _move_cost_text()
 		
 	if collection_range_btn:
-		collection_range_btn.disabled = GameState.trash_inventory < _range_cost()
+		collection_range_btn.disabled = GameState.get_inventory_weight() < _range_cost()
 		collection_range_btn.text = _range_cost_text()
 
 # --- UI Feedback & Effects ---
 
 func _ensure_hud_queue() -> void:
 	if not _hud_queue:
-		_hud_queue = load("res://scripts/ui/notification_queue.gd").new()
+		_hud_queue = NOTIFICATION_QUEUE.instantiate()
 		add_child(_hud_queue)
 
 func _toast(text: String) -> void:
@@ -344,7 +287,7 @@ func _flash_success(btn: Button) -> void:
 	tw.tween_property(btn, "modulate", Color.WHITE, 0.6)
 
 func _spawn_upgrade_sparkle(anchor: Control) -> void:
-	if not anchor: return
+	if not anchor or GameSettings.reduce_motion: return
 	
 	var p := load("res://scenes/ui/c_p_u_particles2_d.tscn").instantiate() as CPUParticles2D
 	p.one_shot = true
@@ -383,13 +326,14 @@ func _update_cap_status() -> void:
 	if not cap_status: return
 	
 	var cap: int = maxi(1, GameState.get_inventory_capacity())
-	var ratio := float(GameState.trash_inventory) / float(cap)
+	var weight := GameState.get_inventory_weight()
+	var ratio := float(weight) / float(cap)
 	
 	if ratio >= 1.0:
-		cap_status.text = "Inventory FULL (%d/%d) — upgrade or sell" % [GameState.trash_inventory, cap]
+		cap_status.text = "Inventory FULL (%d/%d) — upgrade or sell" % [weight, cap]
 		cap_status.modulate = Color(1.0, 0.35, 0.35, 1.0)
 	elif ratio >= 0.85:
-		cap_status.text = "Inventory heavy (%d/%d)" % [GameState.trash_inventory, cap]
+		cap_status.text = "Inventory heavy (%d/%d)" % [weight, cap]
 		cap_status.modulate = Color(1.0, 0.85, 0.35, 1.0)
 	else:
 		cap_status.text = ""
@@ -397,15 +341,11 @@ func _update_cap_status() -> void:
 # --- BGM Management ---
 
 func _setup_bgm_cycle() -> void:
-	if _bgm_cycle_timer: return
+	if not bgm_cycle_timer:
+		return
 	
-	_bgm_cycle_timer = Timer.new()
-	_bgm_cycle_timer.wait_time = 18.0
-	_bgm_cycle_timer.one_shot = false
-	add_child(_bgm_cycle_timer)
-	
-	_bgm_cycle_timer.timeout.connect(_tick_bgm_cycle)
-	_bgm_cycle_timer.start()
+	bgm_cycle_timer.timeout.connect(_tick_bgm_cycle)
+	bgm_cycle_timer.start()
 
 func _tick_bgm_cycle() -> void:
 	_bgm_cycle_index = (_bgm_cycle_index + 1) % _bgm_cycle_tracks.size()

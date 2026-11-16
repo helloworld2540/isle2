@@ -1,6 +1,9 @@
 extends Node2D
 class_name Upcycle
 
+const NOTIFICATION_QUEUE := preload("res://scenes/ui/notification_queue.tscn")
+const FLOATING_TEXT_SCENE := preload("res://scenes/ui/floating_text.tscn")
+
 const MATERIALS: Array[String] = ["Polyethylene", "Glass", "Polypropylene", "Nylon"]
 const TRASH_SPRITES: Array[String] = [
 	"trash_bottle.png",
@@ -36,6 +39,7 @@ var _recycled_by_mat: Dictionary = {
 	"Polypropylene": 0,
 	"Nylon": 0
 }
+var _gained_by_mat: Dictionary = {}
 
 # Entity State
 var carried_item: Node2D = null
@@ -48,7 +52,6 @@ var _leaving: bool = false
 var drag_start_pos: Vector2 = Vector2.ZERO
 var is_dragging: bool = false
 var move_tween: Tween = null
-var _arrow: Polygon2D = null
 var _hud_queue: Node = null
 
 # Node References
@@ -66,13 +69,13 @@ var _hud_queue: Node = null
 @onready var go_body: Label = $"GameOverCanvas/GameOverPanel/VBox/Body"
 @onready var go_return_btn: Button = $"GameOverCanvas/GameOverPanel/VBox/ReturnButton"
 @onready var highlight_node: Node2D = $"highlight_node"
+@onready var arrow: Polygon2D = $"Arrow"
 
 func _ready() -> void:
 	if go_return_btn:
 		go_return_btn.pressed.connect(_game_over_leave)
 	_setup_bins()
-	_setup_arrow()
-	_setup_intro_and_audio()
+	_setup_audio()
 	
 	if player:
 		player.global_position = _snap(player.global_position)
@@ -160,57 +163,25 @@ func _process_highlight() -> void:
 # --- Initialization Helpers ---
 
 func _setup_bins() -> void:
-	if not bins: return
-	var max_bins: int = min(bins.get_child_count(), MATERIALS.size())
+	if not bins:
+		return
 	
+	var max_bins: int = min(bins.get_child_count(), MATERIALS.size())
 	for i in range(max_bins):
 		var bin := bins.get_child(i)
-		if not bin: continue
+		if not bin:
+			continue
 		
 		bin.set_meta("material", MATERIALS[i])
-		var lbl := load("res://scenes/ui/label.tscn").instantiate() as Label
-		lbl.text = str(bin.name)
-		lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		lbl.set_anchors_preset(Control.PRESET_CENTER)
-		lbl.offset_left = -70
-		lbl.offset_right = 70
-		lbl.offset_top = -22
-		lbl.offset_bottom = 22
-		lbl.custom_minimum_size = Vector2(140, 44)
-		lbl.autowrap_mode = TextServer.AUTOWRAP_OFF
-		lbl.add_theme_font_size_override("font_size", 18)
-		lbl.z_index = 30
-		lbl.modulate = bin.modulate
-		lbl.top_level = true
-		bin.add_child(lbl)
-		lbl.global_position = bin.global_position
+		var label: Label = bin.get_node_or_null("MaterialLabel")
+		if label:
+			label.text = str(bin.name)
+			label.modulate = bin.modulate
+			label.global_position = bin.global_position
 
-func _setup_arrow() -> void:
-	_arrow = Polygon2D.new()
-	_arrow.color = Color(1.0, 0.85, 0.3, 0.9)
-	_arrow.polygon = PackedVector2Array([Vector2(0, 12), Vector2(6, 6), Vector2(-6, 6)])
-	_arrow.z_index = 20
-	_arrow.visible = false
-	add_child(_arrow)
 
-func _setup_intro_and_audio() -> void:
+func _setup_audio() -> void:
 	AudioManager.play_bgm("upcycle")
-	if ResourceLoader.exists("res://scenes/minigame_intro.tscn"):
-		var intro := load("res://scenes/minigame_intro.tscn").instantiate() as CanvasLayer
-		add_child(intro)
-		if intro.has_method("setup"):
-			intro.setup(
-				"Upcycle Sorting", 
-				[
-					"Sort belt items into matching material bins.", 
-					"Carry one item at a time; place it in the right bin.", 
-					"Correct sorts build streak; burned/wrong sorts reset streak.", 
-					"Burned/incorrect trash earns nothing and adds no material.", 
-					"Each correct sort grants its material to inventory.", 
-					"Controls: swipe move, tap to carry, tap bin to drop.\nESC / Return to Map leaves."
-				]
-			)
 
 # --- Spawning & Mechanics ---
 
@@ -343,7 +314,9 @@ func _process_successful_sort(mat: String, bin_pos: Vector2) -> void:
 	
 	var item_size: int = int(carried_item.get("size")) if carried_item.get("size") != null else 1
 	var gained: int = GameState.add_trash_type_weighted(mat, item_size)
+	_gained_by_mat[mat] = int(_gained_by_mat.get(mat, 0)) + gained
 	if gained < item_size:
+		AudioManager.play_sfx("empty_inventory")
 		_notify_queue("%d over inventory cap" % (item_size - gained), Color(0.95, 0.5, 0.35, 1.0), 1.4)
 		
 	if sort_streak % 5 == 0:
@@ -459,29 +432,29 @@ func _update_ui() -> void:
 	if recycled_label:
 		var parts: Array[String] = []
 		for m in MATERIALS:
-			parts.append("%s:%d" % [m.substr(0,4), int(_recycled_by_mat.get(m, 0))])
+			parts.append("%s:%d" % [str(GameState.TRASH_SHORT.get(m, m.substr(0, 4))), int(_recycled_by_mat.get(m, 0))])
 		recycled_label.text = "Recycled %d | %s" % [_recycled_total, " ".join(parts)]
 	if belt_label:
 		belt_label.text = "Belt: %d/%d" % [_count_belt_items(), max_belt_items]
 
 func _update_arrow(item: Node2D, bin: Node2D) -> void:
-	if not _arrow: return
+	if not arrow: return
 	if not bin:
-		_arrow.visible = false
+		arrow.visible = false
 		return
 		
-	_arrow.visible = true
+	arrow.visible = true
 	var pulse := 1.0 + 0.12 * (0.5 + 0.5 * sin(Time.get_ticks_msec() * 0.008))
-	_arrow.scale = Vector2(pulse, pulse)
+	arrow.scale = Vector2(pulse, pulse)
 	
 	var from_pos: Vector2 = player.global_position if player else (item.global_position if item else Vector2.ZERO)
 	var to_pos: Vector2 = bin.global_position
 	
-	_arrow.global_position = from_pos + (to_pos - from_pos).normalized() * min(grid_size * 1.5, from_pos.distance_to(to_pos) * 0.6)
-	_arrow.rotation = (to_pos - from_pos).angle() - PI / 2.0
+	arrow.global_position = from_pos + (to_pos - from_pos).normalized() * min(grid_size * 1.5, from_pos.distance_to(to_pos) * 0.6)
+	arrow.rotation = (to_pos - from_pos).angle() - PI / 2.0
 
 func _hide_arrow() -> void:
-	if _arrow: _arrow.visible = false
+	if arrow: arrow.visible = false
 
 func _play_combo_feedback() -> void:
 	if not ui: return
@@ -491,6 +464,9 @@ func _play_combo_feedback() -> void:
 	tw.tween_property(ui, "scale", Vector2(1.0, 1.0), 0.12).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
 func _shake_wrong_sort() -> void:
+	if GameSettings.reduce_motion:
+		return
+	
 	var base_pos: Vector2 = position
 	var tw := create_tween()
 	for i in range(6):
@@ -516,20 +492,16 @@ func _spawn_bin_sparkle(at: Vector2) -> void:
 	create_tween().tween_interval(p.lifetime + 0.1).connect("finished", p.queue_free)
 
 func _spawn_streak_banner() -> void:
-	if not ui: return
-	var lbl := load("res://scenes/ui/label.tscn").instantiate() as Label
-	lbl.text = "FIVE ON THE BELT!"
-	lbl.position = Vector2(320, 14)
-	lbl.modulate = Color(0.7, 0.95, 1.0, 1.0)
-	lbl.add_theme_font_size_override("font_size", 28)
-	ui.add_child(lbl)
+	if not ui:
+		return
 	
-	var tw := lbl.create_tween()
-	tw.tween_property(lbl, "scale", Vector2(1.25, 1.25), 0.16).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-	tw.tween_property(lbl, "scale", Vector2(1.0, 1.0), 0.18)
-	tw.tween_interval(0.6)
-	tw.tween_property(lbl, "modulate:a", 0.0, 0.5)
-	tw.tween_callback(lbl.queue_free)
+	var lbl := FLOATING_TEXT_SCENE.instantiate()
+	lbl.position = Vector2(320, 14)
+	lbl.rise_distance = 6.0
+	lbl.hold_time = 0.7
+	lbl.punch_scale = 1.25
+	ui.add_child(lbl)
+	lbl.present("FIVE ON THE BELT!", Color(0.7, 0.95, 1.0, 1.0), 28)
 
 # --- Subsystems ---
 
@@ -540,7 +512,7 @@ func _on_fire_body_entered(body: Node2D) -> void:
 
 func _notify_queue(text: String, col: Color = Color(0.85, 1.0, 0.6, 1.0), duration: float = 1.2) -> void:
 	if not _hud_queue:
-		_hud_queue = load("res://scripts/ui/notification_queue.gd").new()
+		_hud_queue = NOTIFICATION_QUEUE.instantiate()
 		add_child(_hud_queue)
 	_hud_queue.push(text, col, duration)
 
@@ -552,6 +524,7 @@ func _game_over_summary() -> void:
 	
 	GameState.record_sort_streak(sort_streak)
 	GameState.record_upcycle(score)
+	_record_run_card()
 	
 	AudioManager.play_sfx("sort_bad")
 	
@@ -565,6 +538,31 @@ func _game_over_summary() -> void:
 func _leave_to_map() -> void:
 	_game_over_summary()
 
+
+## Hand-off card for the world map: what this run produced and where to go next.
+func _record_run_card() -> void:
+	var material_parts: Array[String] = []
+	for material in MATERIALS:
+		var gained := int(_gained_by_mat.get(material, 0))
+		if gained > 0:
+			material_parts.append("%s +%d" % [material, gained])
+	
+	var lines: Array[String] = [
+		"Score %d · %d sorted · best streak %d" % [score, _sorted_count, GameState.best_sort_streak],
+	]
+	lines.append(", ".join(material_parts) if not material_parts.is_empty() else "No materials sorted this run")
+	
+	var debris := int(GameState.trash_by_type.get("Reef Debris", 0))
+	var hint := ""
+	if debris > 0:
+		hint = "%d Reef Debris still banked - keep sorting." % debris
+	elif GameState.get_inventory_weight() > 0:
+		hint = "Sell your materials at the Shop."
+	else:
+		hint = "Collect more debris at Reef Rescue."
+	
+	GameState.record_run("upcycle", "Upcycle run complete", lines, hint)
+
 func _game_over_leave() -> void:
 	if game_over_canvas:
 		game_over_canvas.visible = false
@@ -573,13 +571,15 @@ func _game_over_leave() -> void:
 	SceneTransition.change_scene("res://scenes/world.tscn")
 
 func _show_return_summary() -> void:
-	if not ui: return
-	var lbl := load("res://scenes/ui/label.tscn").instantiate() as Label
-	lbl.text = "Run complete: Score %d | Sorted %d items" % [score, _sorted_count]
+	if not ui:
+		return
+	
+	var lbl := FLOATING_TEXT_SCENE.instantiate()
 	lbl.position = Vector2(240, 120)
-	lbl.modulate = Color(0.85, 1.0, 0.6, 1.0)
-	lbl.add_theme_font_size_override("font_size", 24)
+	lbl.rise_distance = 0.0
+	lbl.hold_time = 0.9
 	ui.add_child(lbl)
+	lbl.present("Run complete: Score %d | Sorted %d items" % [score, _sorted_count], Color(0.85, 1.0, 0.6, 1.0), 24)
 	
 	var tw := create_tween()
 	tw.tween_interval(0.9)
@@ -587,5 +587,3 @@ func _show_return_summary() -> void:
 		AudioManager.play_sfx("return")
 		SceneTransition.change_scene("res://scenes/world.tscn")
 	)
-	tw.tween_property(lbl, "modulate:a", 0.0, 0.3)
-	tw.tween_callback(lbl.queue_free)

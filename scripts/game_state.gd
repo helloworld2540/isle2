@@ -12,6 +12,14 @@ const TRASH_WEIGHTS: Dictionary = {
 	"Reef Debris": 1,
 }
 
+const TRASH_SHORT: Dictionary = {
+	"Polyethylene": "PET",
+	"Polypropylene": "PP",
+	"Glass": "GL",
+	"Nylon": "NY",
+	"Reef Debris": "Debris",
+}
+
 const TRASH_RARITY: Dictionary = {
 	"Polyethylene": "common",
 	"Polypropylene": "common",
@@ -27,10 +35,26 @@ const MONEY_RATES: Dictionary = {
 	"Nylon": 5
 }
 
+## Turn-ins needed for the island's mastery title, and the one-time reward
+## it grants (one extra capacity level = +10 kg of bag space).
+const HARBOR_HERO_TURNS: int = 8
+const HARBOR_HERO_CAPACITY_BONUS: int = 1
+
+## Emitted once, the moment the Harbor Hero milestone is earned. The world HUD
+## banner listens for it so the reward is felt, not just written to the save.
+signal harbor_hero_unlocked
+
+## Emitted when an NPC's final quest tier is turned in. Separate from the
+## Harbor Hero signal so the banner can celebrate both without coupling the
+## banner to WorldNPC.
+signal npc_quest_line_completed(npc_name: String)
+
 # --- Game State Variables ---
 var upcycle_score: int = 0
 var money: int = 0
 var lifetime_earnings: int = 0
+var quests_completed: int = 0
+var harbor_hero_granted: bool = false
 
 var reef_garbage: float = 0.0
 var reef_fish: int = 0
@@ -43,6 +67,12 @@ var inventory_capacity_level: int = 0
 # Upgrades
 var deep_cache: bool = false
 var deep_cache_tier: int = 1
+var upgrade_move: int = 0
+var upgrade_range: int = 0
+
+# Most recent minigame run, handed to the world map for its recap card.
+# Shape: { "kind": String, "title": String, "lines": Array[String], "hint": String }
+var last_run: Dictionary = {}
 
 # Statistics & High Scores
 var sort_streak: int = 0
@@ -122,41 +152,48 @@ func consume_trash_type(mat: String, amount: int) -> bool:
 func spend_trash(amount: int) -> bool:
 	if amount <= 0:
 		return true
-		
+	
 	if get_inventory_weight() < amount:
 		return false
-		
-	var remaining: int = amount
-	var pending_deductions: Dictionary = {}
 	
-	for k in trash_by_type.keys():
-		if remaining <= 0:
-			break
-			
-		var item_weight: int = int(TRASH_WEIGHTS.get(k, 1))
-		var available_units: int = int(trash_by_type.get(k, 0))
-		
-		if available_units <= 0:
-			continue
-			
-		var take_units: int = min(available_units, remaining / item_weight)
-		if take_units <= 0:
-			continue
-			
-		pending_deductions[k] = take_units
-		remaining -= take_units * item_weight
-		
-	# If we couldn't cleanly match the amount due to denomination constraints, fail the transaction.
-	if remaining > 0:
+	# Heaviest material first, then fall back to a bounded search: picking the
+	# biggest denominations first avoids the old greedy failure where a cheap
+	# 1 kg item was taken and the remaining weight could not be matched.
+	var keys: Array = trash_by_type.keys()
+	keys.sort_custom(func(a, b): return int(TRASH_WEIGHTS.get(a, 1)) > int(TRASH_WEIGHTS.get(b, 1)))
+	
+	var plan: Dictionary = {}
+	if not _plan_spend(keys, 0, amount, plan):
 		return false
-		
-	# Apply deductions safely
-	for k in pending_deductions.keys():
-		trash_by_type[k] -= pending_deductions[k]
-		
+	
+	for key in plan.keys():
+		trash_by_type[key] -= int(plan[key])
+	
 	_recompute_inventory()
 	_persist()
 	return true
+
+
+func _plan_spend(keys: Array, index: int, remaining: int, plan: Dictionary) -> bool:
+	if remaining == 0:
+		return true
+	if index >= keys.size():
+		return false
+	
+	var key: String = keys[index]
+	var weight: int = max(1, int(TRASH_WEIGHTS.get(key, 1)))
+	var available: int = int(trash_by_type.get(key, 0))
+	var max_units: int = min(available, remaining / weight)
+	
+	for units in range(max_units, -1, -1):
+		if units > 0:
+			plan[key] = units
+		if _plan_spend(keys, index + 1, remaining - units * weight, plan):
+			return true
+		plan.erase(key)
+	
+	return false
+
 
 # --- Upgrades ---
 
@@ -165,6 +202,36 @@ func purchase_inventory_capacity() -> bool:
 	if not spend_trash(cost):
 		return false
 		
+	inventory_capacity_level += 1
+	_persist()
+	return true
+
+# --- Money ---
+
+func get_money() -> int:
+	return money
+
+func can_afford(amount: int) -> bool:
+	return money >= amount
+
+func spend_money(amount: int) -> bool:
+	if amount <= 0:
+		return true
+	if money < amount:
+		return false
+	
+	money -= amount
+	_persist()
+	return true
+
+func get_capacity_money_cost() -> int:
+	return 60 + inventory_capacity_level * 25
+
+# Shop-side alternative to the trash-priced bag upgrade.
+func purchase_capacity_with_money() -> bool:
+	if not spend_money(get_capacity_money_cost()):
+		return false
+	
 	inventory_capacity_level += 1
 	_persist()
 	return true
@@ -193,14 +260,40 @@ func upgrade_deep_cache() -> bool:
 	return true
 
 func get_upgrade_level(key: String) -> int:
-	var data: Dictionary = SaveManager.load_game()
-	return int(data.get(key, 0))
+	match key:
+		"upgrade_move":
+			return upgrade_move
+		"upgrade_range":
+			return upgrade_range
+	return 0
 
 func get_move_speed_multiplier() -> float:
-	return 1.0 + (float(get_upgrade_level("upgrade_move")) * 0.08)
+	return 1.0 + (float(upgrade_move) * 0.08)
 
 func get_collection_radius_bonus() -> float:
-	return float(get_upgrade_level("upgrade_range")) * 12.0
+	return float(upgrade_range) * 12.0
+
+func get_move_speed_cost() -> int:
+	return 8 + upgrade_move * 4
+
+func get_range_cost() -> int:
+	return 12 + upgrade_range * 6
+
+func purchase_move_speed() -> bool:
+	if not spend_trash(get_move_speed_cost()):
+		return false
+	
+	upgrade_move += 1
+	_persist()
+	return true
+
+func purchase_range() -> bool:
+	if not spend_trash(get_range_cost()):
+		return false
+	
+	upgrade_range += 1
+	_persist()
+	return true
 
 # --- Tracking & Statistics ---
 
@@ -231,26 +324,111 @@ func record_sort_streak(streak: int) -> void:
 		best_sort_streak = streak
 		_persist()
 
+# --- Minigame Hand-off ---
+# Minigames call this on their summary screen so the world map can show what
+# just happened the moment the player walks back out of the portal.
+
+## Lifetime count of NPC quests turned in (shown on the stats page).
+## Returns true only on the turn-in that earns the Harbor Hero milestone, so
+## the caller can celebrate exactly once. The capacity bonus is applied here
+## and guarded by `harbor_hero_granted`, which is saved with the rest of the
+## state; reset() clears the flag along with the capacity level.
+func record_quest_turn_in() -> bool:
+	quests_completed += 1
+	
+	var unlocked := not harbor_hero_granted and quests_completed >= HARBOR_HERO_TURNS
+	if unlocked:
+		harbor_hero_granted = true
+		inventory_capacity_level += HARBOR_HERO_CAPACITY_BONUS
+	
+	_persist()
+	if unlocked:
+		harbor_hero_unlocked.emit()
+	return unlocked
+
+
+## True once every quest tier on the island has been cleared.
+func is_harbor_hero() -> bool:
+	return harbor_hero_granted
+
+
+## Presentation hook used by WorldNPC after the final tier of its quest line.
+## Kept on GameState so the world HUD can listen without knowing about NPCs.
+func notify_npc_quest_line_completed(npc_name: String) -> void:
+	npc_quest_line_completed.emit(npc_name)
+
+
+func record_run(kind: String, title: String, lines: Array, hint: String = "") -> void:
+	last_run = {
+		"kind": kind,
+		"title": title,
+		"lines": lines.duplicate(),
+		"hint": hint,
+	}
+	_persist()
+
+# Returns the pending run once, then clears it so the card never replays.
+func consume_last_run() -> Dictionary:
+	if last_run.is_empty():
+		return {}
+	
+	var pending := last_run.duplicate(true)
+	last_run = {}
+	_persist()
+	return pending
+
 # --- Save & Load ---
 
+## Writes are coalesced: sorting and diving change state many times per second
+## and each write rewrites the whole save file.
+const SAVE_DEBOUNCE_SECONDS := 0.4
+
+var _save_scheduled := false
+
+
 func _persist() -> void:
-	var data: Dictionary = SaveManager.load_game()
-	data["upcycle_score"] = upcycle_score
-	data["reef_garbage"] = reef_garbage
-	data["reef_fish"] = reef_fish
-	data["trash_inventory"] = trash_inventory
-	data["trash_by_type"] = trash_by_type
-	data["best_upcycle_score"] = best_upcycle_score
-	data["best_sort_streak"] = best_sort_streak
-	data["best_reef_depth"] = best_reef_depth
-	data["best_reef_fish"] = best_reef_fish
-	data["lifetime_earnings"] = lifetime_earnings
-	data["sort_streak"] = sort_streak
-	data["deep_cache"] = deep_cache
-	data["deep_cache_tier"] = deep_cache_tier
-	data["inventory_capacity_level"] = inventory_capacity_level
-	data["money"] = money
-	SaveManager.save_game(data)
+	if _save_scheduled:
+		return
+	_save_scheduled = true
+	get_tree().create_timer(SAVE_DEBOUNCE_SECONDS).timeout.connect(_on_save_timer)
+
+
+func _on_save_timer() -> void:
+	_save_scheduled = false
+	_write_save()
+
+
+## Force the pending write out now (used before scene changes and on quit).
+func flush_save() -> void:
+	if not _save_scheduled:
+		return
+	_save_scheduled = false
+	_write_save()
+
+
+func _write_save() -> void:
+	SaveManager.update_game({
+		"upcycle_score": upcycle_score,
+		"reef_garbage": reef_garbage,
+		"reef_fish": reef_fish,
+		"trash_inventory": trash_inventory,
+		"trash_by_type": trash_by_type,
+		"best_upcycle_score": best_upcycle_score,
+		"best_sort_streak": best_sort_streak,
+		"best_reef_depth": best_reef_depth,
+		"best_reef_fish": best_reef_fish,
+		"lifetime_earnings": lifetime_earnings,
+		"sort_streak": sort_streak,
+		"deep_cache": deep_cache,
+		"deep_cache_tier": deep_cache_tier,
+		"upgrade_move": upgrade_move,
+		"upgrade_range": upgrade_range,
+		"last_run": last_run,
+		"inventory_capacity_level": inventory_capacity_level,
+		"money": money,
+		"quests_completed": quests_completed,
+		"harbor_hero_granted": harbor_hero_granted,
+	})
 
 func restore() -> void:
 	var data: Dictionary = SaveManager.load_game()
@@ -261,6 +439,7 @@ func restore() -> void:
 	trash_inventory = int(data.get("trash_inventory", 0))
 	money = int(data.get("money", 0))
 	lifetime_earnings = int(data.get("lifetime_earnings", 0))
+	quests_completed = int(data.get("quests_completed", 0))
 	
 	best_upcycle_score = int(data.get("best_upcycle_score", 0))
 	best_sort_streak = int(data.get("best_sort_streak", 0))
@@ -270,7 +449,19 @@ func restore() -> void:
 	
 	deep_cache = bool(data.get("deep_cache", false))
 	deep_cache_tier = int(data.get("deep_cache_tier", 1))
+	upgrade_move = int(data.get("upgrade_move", 0))
+	upgrade_range = int(data.get("upgrade_range", 0))
+	last_run = data.get("last_run", {}) if data.get("last_run", {}) is Dictionary else {}
 	inventory_capacity_level = int(data.get("inventory_capacity_level", 0))
+	harbor_hero_granted = bool(data.get("harbor_hero_granted", false))
+	
+	# Legacy saves that already cleared every quest tier predate the title
+	# reward: grant it once here and write immediately, so repeated restore()
+	# calls cannot stack the bonus.
+	if not harbor_hero_granted and quests_completed >= HARBOR_HERO_TURNS:
+		harbor_hero_granted = true
+		inventory_capacity_level += HARBOR_HERO_CAPACITY_BONUS
+		_write_save()
 	
 	trash_by_type.clear()
 	for t in DEFAULT_TRASH_TYPES:
@@ -288,6 +479,7 @@ func reset() -> void:
 	reef_fish = 0
 	money = 0
 	lifetime_earnings = 0
+	quests_completed = 0
 	
 	best_upcycle_score = 0
 	best_sort_streak = 0
@@ -297,7 +489,11 @@ func reset() -> void:
 	
 	deep_cache = false
 	deep_cache_tier = 1
+	upgrade_move = 0
+	upgrade_range = 0
+	last_run = {}
 	inventory_capacity_level = 0
+	harbor_hero_granted = false
 	
 	trash_by_type.clear()
 	for t in DEFAULT_TRASH_TYPES:

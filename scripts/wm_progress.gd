@@ -7,45 +7,31 @@ extends CanvasLayer
 @onready var reef_bar: ProgressBar = $"Panel/VBox/ReefBar"
 @onready var main_label: Label = $"Panel/VBox/Label"
 @onready var inv_label: Label = $Panel/VBox/InvLabel
+@onready var money_label: Label = $Panel/VBox/MoneyLabel
+@onready var hero_label: Label = $Panel/VBox/HeroTitle
 
 var _pulse_state: float = 0.0
 
 func _ready() -> void:
 	GameState.restore()
 	
-	_setup_panel_style()
-	
 	if main_label:
 		main_label.modulate = Color(0.9, 0.95, 1.0, 0.9)
+	GameState.harbor_hero_unlocked.connect(_refresh_hero_title)
+	_refresh_hero_title()
 
 func _process(delta: float) -> void:
 	# Calculate shared variables once per frame
 	var cap: int = max(1, GameState.get_inventory_capacity())
-	var inv_amount: int = GameState.trash_inventory
+	var inv_amount: int = GameState.get_inventory_weight()
 	var ratio: float = float(inv_amount) / float(cap)
 	
 	_update_progress_bars()
 	_update_main_label(cap, inv_amount, ratio)
+	_update_money_label()
 	_update_inventory_label(delta, ratio, cap, inv_amount)
 
 # --- Initialization ---
-
-func _setup_panel_style() -> void:
-	if not panel: return
-	
-	var sb := StyleBoxFlat.new()
-	sb.bg_color = Color(0.05, 0.08, 0.12, 0.8)
-	sb.corner_radius_top_left = 8
-	sb.corner_radius_top_right = 8
-	sb.corner_radius_bottom_left = 8
-	sb.corner_radius_bottom_right = 8
-	sb.border_color = Color(0.4, 0.7, 0.9, 0.35)
-	sb.border_width_left = 1
-	sb.border_width_top = 1
-	sb.border_width_right = 1
-	sb.border_width_bottom = 1
-	
-	panel.add_theme_stylebox_override("panel", sb)
 
 # --- Update Methods ---
 
@@ -58,6 +44,22 @@ func _update_progress_bars() -> void:
 		reef_bar.max_value = max(10.0, float(GameState.best_reef_depth))
 		reef_bar.value = min(reef_bar.max_value, float(GameState.reef_garbage))
 
+func _update_money_label() -> void:
+	if money_label:
+		money_label.text = "Money: %d$" % GameState.money
+
+
+## The earned title lives on the always-visible progress card, not only in the
+## stats page, so the reward stays present while the player loops the island.
+func _refresh_hero_title() -> void:
+	if not hero_label:
+		return
+	hero_label.visible = GameState.is_harbor_hero()
+	if hero_label.visible:
+		var bonus_kg: int = GameState.HARBOR_HERO_CAPACITY_BONUS * 10
+		hero_label.text = "★ Harbor Hero · +%d kg bag" % bonus_kg
+
+
 func _update_main_label(cap: int, inv_amount: int, ratio: float) -> void:
 	if not main_label: return
 	
@@ -67,11 +69,9 @@ func _update_main_label(cap: int, inv_amount: int, ratio: float) -> void:
 	elif ratio >= 0.85:
 		cap_state = "Bag heavy (%d/%d)" % [inv_amount, cap]
 		
-	main_label.text = "Trash %d/%d kg | %s" % [
-		inv_amount, 
-		cap, 
-		cap_state
-	]
+	main_label.text = "Trash %d/%d kg" % [inv_amount, cap]
+	if cap_state != "":
+		main_label.text += " | " + cap_state
 
 func _update_inventory_label(delta: float, ratio: float, cap: int, inv_amount: int) -> void:
 	var pulse_target := 0.0

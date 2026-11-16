@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://blohioo5o7cxg"]
 
 [ext_resource type="Script" uid="uid://cseoerxg1vwmu" path="res://scripts/upcycle.gd" id="1_up"]
+[ext_resource type="PackedScene" path="res://scenes/minigame_intro.tscn" id="13_intro"]
 [ext_resource type="Texture2D" uid="uid://b1704yjyhcgu5" path="res://sprites/player_wm_walk.png" id="2_7koka"]
 [ext_resource type="Texture2D" uid="uid://b4a73di4tu8t8" path="res://sprites/upcycle/bg.png" id="2_c5o82"]
 [ext_resource type="PackedScene" uid="uid://da0cx3ko11vpg" path="res://scenes/u_bin.tscn" id="3_cggsw"]
@@ -268,3 +269,13 @@ text = "Return to Map"
 
 
 [connection signal="body_entered" from="Fire" to="." method="_on_fire_body_entered"]
+
+[node name="Arrow" type="Polygon2D" parent="." unique_id=2131461370]
+visible = false
+z_index = 20
+color = Color(1, 0.85, 0.3, 0.9)
+polygon = PackedVector2Array(0, 12, 6, 6, -6, 6)
+
+[node name="MinigameIntro" parent="." instance=ExtResource("13_intro")]
+intro_title = "Upcycle Sorting"
+intro_lines = PackedStringArray("Sort belt items into matching material bins.", "Carry one item at a time; place it in the right bin.", "Correct sorts build streak; burned/wrong sorts reset streak.", "Burned or mis-sorted trash earns nothing and adds no material.", "Each correct sort grants its material to your inventory.", "Controls: swipe to move, tap to carry, tap a bin to drop.", "ESC or Return to Map leaves the bench.")

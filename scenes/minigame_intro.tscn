@@ -1,11 +1,70 @@
-[gd_scene format=3 uid="uid://d3jafoh6nal0n"]
+[gd_scene load_steps=3 format=3 uid="uid://d3jafoh6nal0n"]
 
 [ext_resource type="Script" uid="uid://ck57jnes3bm75" path="res://scripts/minigame_intro.gd" id="1_script"]
 
-[node name="MinigameIntro" type="CanvasLayer" unique_id=37090155]
-script = ExtResource("1_script")
+[sub_resource type="StyleBoxFlat" id="StyleBox_intro"]
+content_margin_left = 22.0
+content_margin_top = 18.0
+content_margin_right = 22.0
+content_margin_bottom = 18.0
+bg_color = Color(0.05, 0.08, 0.12, 0.92)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4, 0.7, 0.9, 0.45)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
 
-[node name="Label" type="Label" parent="." unique_id=1760341594]
-offset_right = 40.0
-offset_bottom = 23.0
-text = "Tutorial"
+[node name="MinigameIntro" type="CanvasLayer"]
+process_mode = 3
+layer = 99
+script = ExtResource("1_script")
+intro_title = "Mini-game"
+
+[node name="Dimmer" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.48)
+
+[node name="Panel" type="PanelContainer" parent="."]
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 724.0
+offset_bottom = 24.0
+theme_override_styles/panel = SubResource("StyleBox_intro")
+
+[node name="VBox" type="VBoxContainer" parent="Panel"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.92, 1, 1)
+theme_override_font_sizes/font_size = 34
+text = "Mini-game"
+
+[node name="Lines" type="RichTextLabel" parent="Panel/VBox"]
+custom_minimum_size = Vector2(660, 0)
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+
+[node name="Spacer" type="Control" parent="Panel/VBox"]
+custom_minimum_size = Vector2(0, 6)
+layout_mode = 2
+
+[node name="GotItButton" type="Button" parent="Panel/VBox"]
+custom_minimum_size = Vector2(180, 44)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 20
+text = "Got it!"
+
+[connection signal="pressed" from="Panel/VBox/GotItButton" to="." method="_on_got_it_pressed"]

@@ -30,7 +30,10 @@ var _combo_timer := 0.0
 var _edge_markers: Dictionary = {}
 var _fish_limit := 3
 
-const _POPUP_LABEL_SCENE := preload("res://scenes/ui/popup_label.tscn")
+@onready var shake_camera: Camera2D = $"ShakeCamera"
+
+const _FLOATING_TEXT_SCENE := preload("res://scenes/ui/floating_text.tscn")
+const _EDGE_MARKER_SCENE := preload("res://scenes/ui/edge_marker.tscn")
 
 func _ready() -> void:
 	if timer:
@@ -42,11 +45,6 @@ func _ready() -> void:
 	if collect_shape and collect_shape.shape is CircleShape2D:
 		(collect_shape.shape as CircleShape2D).radius = 66.27 + GameState.get_collection_radius_bonus()
 	AudioManager.play_bgm("reef")
-	if ResourceLoader.exists("res://scenes/minigame_intro.tscn"):
-		var intro := load("res://scenes/minigame_intro.tscn").instantiate() as CanvasLayer
-		add_child(intro)
-		if intro.has_method("setup"):
-			intro.setup("Reef Rescue", ["Dive with your drone to collect floating garbage.", "Avoid jellyfish and fish — 3 hits ends the run.", "Garbage becomes Reef Debris on return.", "Recycle Reef Debris at the Upcycle bench into materials.", "Controls: drag to steer; momentum matters. ESC/Return finishes early."])
 	_update_ui()
 	if return_btn:
 		return_btn.pressed.connect(_leave_to_map)
@@ -139,27 +137,19 @@ func _update_edge_markers() -> void:
 		var marker: Label
 		var id := next.get_instance_id()
 		if not _edge_markers.has(id):
-			marker = load("res://scenes/ui/label.tscn").instantiate() as Label
-			marker.text = "!"
-			marker.modulate = Color(1.0, 0.95, 0.35, 0.95)
-			marker.add_theme_font_size_override("font_size", 22)
+			marker = _EDGE_MARKER_SCENE.instantiate()
+			marker.set_direction(pos - vp * 0.5)
 			add_child(marker)
 			_edge_markers[id] = marker
 		else:
 			marker = _edge_markers[id]
 		if not marker:
 			continue
-		var x := clampf(pos.x, 12.0, vp.x - 12.0)
-		var y := clampf(pos.y, 12.0, vp.y - 12.0)
-		marker.position = Vector2(x - 6.0, y - 12.0)
-		if pos.x < 0:
-			marker.text = "<"
-		elif pos.x > vp.x:
-			marker.text = ">"
-		elif pos.y < 0:
-			marker.text = "^"
-		else:
-			marker.text = "v"
+		marker.position = Vector2(
+			clampf(pos.x, 12.0, vp.x - 12.0) - 6.0,
+			clampf(pos.y, 12.0, vp.y - 12.0) - 12.0
+		)
+		marker.set_direction(pos - vp * 0.5)
 
 func _clear_marker(id: int) -> void:
 	if _edge_markers.has(id):
@@ -181,19 +171,15 @@ func _update_ui() -> void:
 		depth_label.text = "%d m" % depth
 
 func _popup(msg: String, col: Color) -> void:
-	var lbl: Label = _POPUP_LABEL_SCENE.instantiate()
-	if msg != "":
-		lbl.text = msg
-	lbl.modulate = col
+	var lbl := _FLOATING_TEXT_SCENE.instantiate()
+	lbl.position = (drone.global_position if drone else Vector2.ZERO) + Vector2(-20, -40)
+	lbl.rise_distance = 42.0
+	lbl.hold_time = 0.4
 	if items:
 		items.add_child(lbl)
 	else:
 		add_child(lbl)
-	lbl.position = (drone.global_position if drone else Vector2.ZERO) + Vector2(-20, -40)
-	var tw := lbl.create_tween()
-	tw.tween_property(lbl, "position", lbl.position + Vector2(0, -42), 0.7).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	tw.parallel().tween_property(lbl, "modulate:a", 0.0, 0.7)
-	tw.tween_callback(lbl.queue_free)
+	lbl.present(msg, col, 18)
 
 func _sparkle(at: Vector2, col: Color) -> void:
 	var p := load("res://scenes/ui/c_p_u_particles2_d.tscn").instantiate() as CPUParticles2D
@@ -287,7 +273,9 @@ func _game_over_summary(reason: String = "manual") -> void:
 
 	if accepted == 0 and drone:
 		_popup("Inventory full - sell trash", Color(1.0, 0.4, 0.4, 1.0))
-		
+	
+	_record_run_card(accepted)
+	
 	if go_body:
 		go_body.text = "%s\n\nFish bumps: %d / %d\nGarbage collected: %d kg\nDepth reached: %d m\n\nReef debris earned: %d" % [
 			cause_msg, fish, _fish_limit, int(garbage), int(depth), accepted
@@ -298,7 +286,7 @@ func _game_over_summary(reason: String = "manual") -> void:
 		get_tree().paused = false
 		game_over_canvas.visible = true
 	_start_game_over_juice()
-	AudioManager.play_sfx("sort_bad")
+	AudioManager.play_sfx("empty_inventory" if reason == "inventory" else "sort_bad")
 
 func _leave_after_summary() -> void:
 	get_tree().paused = false
@@ -306,6 +294,31 @@ func _leave_after_summary() -> void:
 		game_over_canvas.visible = false
 	AudioManager.play_sfx("return")
 	SceneTransition.change_scene("res://scenes/world.tscn")
+
+
+## Hand-off card for the world map: what this dive produced and where to go next.
+func _record_run_card(accepted: int) -> void:
+	var debris := int(GameState.trash_by_type.get("Reef Debris", 0))
+	var lines: Array[String] = [
+		"Collected %d kg · reached %d m" % [int(garbage), int(depth)],
+		"Reef Debris +%d  (%d/%d kg carried)" % [
+			accepted, GameState.get_inventory_weight(), GameState.get_inventory_capacity()
+		],
+	]
+	if fish > 0:
+		lines.append("Fish bumps %d/%d · best depth %d m" % [
+			fish, _fish_limit, maxi(int(depth), GameState.best_reef_depth)
+		])
+	
+	var hint := ""
+	if GameState.get_free_capacity() <= 0:
+		hint = "Bag full - sell materials at the Shop."
+	elif debris <= 0:
+		hint = "Dive again to gather Reef Debris."
+	else:
+		hint = "Sort %d Reef Debris at the Upcycle bench." % debris
+	
+	GameState.record_run("reef", "Reef Rescue complete", lines, hint)
 
 func _leave_to_map() -> void:
 	_game_over_summary("manual")
@@ -316,17 +329,19 @@ func _unhandled_input(event: InputEvent) -> void:
 		_leave_to_map()
 
 func _start_game_over_juice() -> void:
-	var cam := load("res://scenes/ui/camera2_d.tscn").instantiate() as Camera2D
-	cam.name = "GameOverCamera"
-	cam.position = get_viewport_rect().size * 0.5
-	cam.make_current()
-	add_child(cam)
-	var shake := create_tween()
-	var base_offset := cam.offset
-	for i in range(14):
-		shake.tween_property(cam, "offset", base_offset + Vector2(randf_range(-14.0, 14.0), randf_range(-14.0, 14.0)), 0.04)
-	shake.tween_property(cam, "offset", base_offset, 0.1)
-	shake.tween_callback(func(): if cam: cam.queue_free())
+	# Motion-sensitive players still get the summary panel, just no shake.
+	if GameSettings.reduce_motion:
+		return
+	
+	if shake_camera:
+		shake_camera.position = get_viewport_rect().size * 0.5
+		shake_camera.enabled = true
+		shake_camera.make_current()
+		var shake := create_tween()
+		var base_offset := shake_camera.offset
+		for i in range(14):
+			shake.tween_property(shake_camera, "offset", base_offset + Vector2(randf_range(-14.0, 14.0), randf_range(-14.0, 14.0)), 0.04)
+		shake.tween_property(shake_camera, "offset", base_offset, 0.1)
 	var confetti := load("res://scenes/ui/c_p_u_particles2_d.tscn").instantiate() as CPUParticles2D
 	confetti.one_shot = true
 	confetti.explosiveness = 1.0

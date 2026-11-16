@@ -5,8 +5,7 @@ extends Control
 @onready var quit_button: Button = $Buttons/QuitButton
 @onready var save_summary: Label = $SaveSummaryPanel/VBoxContainer/SaveSummary
 @onready var save_summary_panel: PanelContainer = $SaveSummaryPanel
-
-var _more_stats_button: Button = null
+@onready var more_stats_button: Button = $SaveSummaryPanel/VBoxContainer/MoreStatsButton
 
 const STATS_SCENE := "res://scenes/stats_menu.tscn"
 const WORLD_SCENE := "res://scenes/world.tscn"
@@ -24,15 +23,9 @@ func _wire_buttons() -> void:
 	load_save_button.disabled = not SaveManager.has_save()
 	load_save_button.pressed.connect(_on_load_save_pressed)
 	quit_button.pressed.connect(_on_quit_pressed)
-	_more_stats_button = Button.new()
-	_more_stats_button.text = "More stats →"
-	_more_stats_button.custom_minimum_size = Vector2(200, 36)
-	_more_stats_button.visible = SaveManager.has_save()
-	_more_stats_button.pressed.connect(_on_stats_pressed)
-	if save_summary_panel:
-		var vbox: VBoxContainer = save_summary_panel.get_node("VBoxContainer")
-		if vbox:
-			vbox.add_child(_more_stats_button)
+	if more_stats_button:
+		more_stats_button.visible = SaveManager.has_save()
+		more_stats_button.pressed.connect(_on_stats_pressed)
 
 func _refresh_summary() -> void:
 	save_summary.text = _summary_text()
@@ -44,7 +37,7 @@ func _summary_text() -> String:
 	GameState.restore()
 	return "Continue summary:\nScore %d (best %d)  |  Trash %d kg  |  Fish %d \nBest streak %d  |  Lifetime earnings %d  | %d$ \nInventory totals: %s" % [
 		GameState.upcycle_score, GameState.best_upcycle_score,
-		GameState.trash_inventory, GameState.reef_fish,
+		GameState.get_inventory_weight(), GameState.reef_fish,
 		GameState.best_sort_streak, GameState.lifetime_earnings,
 		GameState.money,
 		_format_inventory_totals()

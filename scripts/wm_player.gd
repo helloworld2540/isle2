@@ -13,6 +13,7 @@ var _path_highlight: Node2D
 
 func _ready() -> void:
 	add_to_group("player")
+	_restore_position()
 	global_target_pos = global_position
 	_path_highlight = load("res://scenes/ui/node2_d.tscn").instantiate() as Node2D
 	_path_highlight.top_level = true
@@ -20,9 +21,22 @@ func _ready() -> void:
 	add_child(_path_highlight)
 	_refresh_move_time()
 
+
+# The world map is re-entered from portals and the menu, so pick up the spot
+# the player left from instead of the scene's authored position.
+func _restore_position() -> void:
+	var saved: Variant = SaveManager.load_player_position()
+	if saved is Vector2:
+		global_position = saved
+
 func _refresh_move_time() -> void:
 	var mult: float = max(0.01, GameState.get_move_speed_multiplier())
 	MOVE_TIME = max(0.05, (0.3 / mult) * 0.5 + 0.15)
+
+
+# Called by the world menu after an upgrade purchase.
+func refresh_upgrades() -> void:
+	_refresh_move_time()
 
 func _clear_highlight() -> void:
 	if not _path_highlight:

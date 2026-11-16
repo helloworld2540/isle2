@@ -1,30 +1,29 @@
 extends CanvasLayer
 
-@export var title_text: String = "Tutorial"
-@export var body_text: String = ""
-@export var button_text: String = "Start!"
-@export var art_texture: Texture2D
+## First-run guide card. Authored in scenes/tutorial.tscn; the world map
+## decides when to show it (see wm_onboarding.gd).
 
-@onready var backdrop: ColorRect = $"Backdrop"
-@onready var title: Label = $"Title"
-@onready var body: Label = $"Body"
-@onready var btn: Button = $"Button"
-@onready var art: Sprite2D = $"Art"
+signal dismissed
+
+@export_multiline var title_text := "Tutorial"
+@export_multiline var body_text := ""
+@export var button_text := "Got it"
+
+@onready var title: Label = $Center/Panel/VBox/Title
+@onready var body: RichTextLabel = $Center/Panel/VBox/Body
+@onready var dismiss_button: Button = $Center/Panel/VBox/Button
+
 
 func _ready() -> void:
 	layer = 200
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	if title:
-		title.text = title_text
-	if body:
-		body.text = body_text
-	if btn:
-		btn.text = button_text
-		btn.pressed.connect(_on_dismiss)
-	if art:
-		art.texture = art_texture
+	title.text = title_text
+	body.text = body_text
+	dismiss_button.text = button_text
 	get_tree().paused = true
 
-func _on_dismiss() -> void:
+
+func _on_dismiss_pressed() -> void:
 	get_tree().paused = false
+	dismissed.emit()
 	queue_free()

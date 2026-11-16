@@ -1,0 +1,64 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/run_recap.gd" id="1_recap"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_recap"]
+content_margin_left = 18.0
+content_margin_top = 12.0
+content_margin_right = 18.0
+content_margin_bottom = 12.0
+bg_color = Color(0.05, 0.08, 0.12, 0.86)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4, 0.7, 0.9, 0.4)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="RunRecap" type="CanvasLayer"]
+layer = 40
+script = ExtResource("1_recap")
+
+[node name="Panel" type="PanelContainer" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -270.0
+offset_top = 84.0
+offset_right = 270.0
+offset_bottom = 184.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBox_recap")
+
+[node name="VBox" type="VBoxContainer" parent="Panel"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 4
+
+[node name="Title" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.65, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 22
+text = "Run complete"
+horizontal_alignment = 1
+
+[node name="Body" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 17
+text = ""
+horizontal_alignment = 1
+
+[node name="Hint" type="Label" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0.35, 1)
+theme_override_font_sizes/font_size = 16
+text = ""
+horizontal_alignment = 1
+
+[node name="HideTimer" type="Timer" parent="."]
+wait_time = 7.0
+one_shot = true

@@ -19,3 +19,17 @@ texture = ExtResource("1_gfb4s")
 position = Vector2(5.0000014, -0.7142911)
 scale = Vector2(0.9999998, 0.9999998)
 shape = SubResource("RectangleShape2D_nmirg")
+
+[node name="MaterialLabel" type="Label" parent="." unique_id=1696270004]
+top_level = true
+z_index = 30
+offset_left = -70.0
+offset_top = -22.0
+offset_right = 70.0
+offset_bottom = 22.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.85)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 0

@@ -2,10 +2,8 @@ extends Control
 
 const SCENE_MAIN_MENU: String = "res://scenes/main_menu.tscn"
 
-@onready var _stats_label: Label = $"StatsLabel"
-@onready var _back_button: Button = $"BackButton"
-@onready var _volume_slider: HSlider = $"VolumeSlider"
-@onready var _reduce_checkbox: CheckBox = $"ReduceMotion"
+@onready var _stats_label: Label = $"Margin/VBox/StatsLabel"
+@onready var _back_button: Button = $"Margin/VBox/BackButton"
 
 
 # ------------------------------------------------------------------------------
@@ -14,7 +12,6 @@ const SCENE_MAIN_MENU: String = "res://scenes/main_menu.tscn"
 
 func _ready() -> void:
 	GameState.restore()
-	_load_settings()
 	_update_stats_display()
 	_connect_signals()
 
@@ -25,26 +22,13 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 # ------------------------------------------------------------------------------
-# Initialization & Binding
+# Binding
 # ------------------------------------------------------------------------------
 
-func _load_settings() -> void:
-	var sd: Dictionary = SaveManager.load_game()
-
-	if _volume_slider:
-		var master_vol: float = float(sd.get("master_volume", AudioManager.get_master_volume()))
-		_volume_slider.value = master_vol * 100.0
-
-	if _reduce_checkbox:
-		_reduce_checkbox.button_pressed = bool(sd.get("reduce_motion", false))
-
-
 func _connect_signals() -> void:
-	if _back_button and not _back_button.pressed.is_connected(_on_back):
+	if _back_button:
 		_back_button.pressed.connect(_on_back)
 
-	if _volume_slider and not _volume_slider.value_changed.is_connected(_on_volume_changed):
-		_volume_slider.value_changed.connect(_on_volume_changed)
 
 # ------------------------------------------------------------------------------
 # Display & Formatting
@@ -56,42 +40,41 @@ func _update_stats_display() -> void:
 
 
 func _build_stats_text() -> String:
-	var sd: Dictionary = SaveManager.load_game()
 	var lines: Array[String] = [
 		"Stats",
-		"Score: %d  (best %d)" % [GameState.upcycle_score, GameState.best_upcycle_score],
-		"Money: %d" % GameState.money,
-		"Lifetime shop earnings: %d" % GameState.lifetime_earnings,
-		"Trash total: %d kg" % GameState.trash_inventory
+		"Upcycle score: %d  (best %d)" % [GameState.upcycle_score, GameState.best_upcycle_score],
+		"Money: %d$  (lifetime %d$)" % [GameState.money, GameState.lifetime_earnings],
+		"Bag: %d/%d kg" % [GameState.get_inventory_weight(), GameState.get_inventory_capacity()],
 	]
-
+	
+	var carried: Array[String] = []
 	for mat: String in GameState.trash_by_type.keys():
 		var count: int = int(GameState.trash_by_type[mat])
-		lines.append("  %s: %d" % [mat, count])
-
-	var reef_garb: int = int(GameState.reef_garbage)
-	var best_depth: int = int(GameState.best_reef_depth)
-	lines.append("Reef garbage: %d kg (best depth %d)" % [reef_garb, best_depth])
-	lines.append("Fish rescued: %d (best %d)" % [GameState.reef_fish, GameState.best_reef_fish])
+		if count > 0:
+			carried.append("%s %d" % [mat, count])
+	lines.append("  " + ("nothing yet" if carried.is_empty() else ", ".join(carried)))
+	
+	lines.append("Reef garbage: %d kg  (best depth %d m)" % [int(GameState.reef_garbage), int(GameState.best_reef_depth)])
+	lines.append("Fish bumps taken: %d  (best %d)" % [GameState.reef_fish, GameState.best_reef_fish])
 	lines.append("Best sort streak: %d" % GameState.best_sort_streak)
-
-	var saved_vol: float = float(sd.get("master_volume", AudioManager.get_master_volume()))
-	lines.append("Last save master volume: %d%%" % int(round(saved_vol * 100.0)))
-
+	lines.append("Deep Cache: %s" % ("tier %d" % GameState.deep_cache_tier if GameState.deep_cache else "not owned"))
+	lines.append("Quests turned in: %d" % GameState.quests_completed)
+	if GameState.is_harbor_hero():
+		var bonus_kg: int = GameState.HARBOR_HERO_CAPACITY_BONUS * 10
+		lines.append("Title: Harbor Hero — every quest tier cleared (+%d kg bag)." % bonus_kg)
+	elif GameState.quests_completed > 0:
+		lines.append("Title progress: Harbor Hero at %d turn-ins (%d/%d)" % [
+			GameState.HARBOR_HERO_TURNS,
+			GameState.quests_completed,
+			GameState.HARBOR_HERO_TURNS,
+		])
+	
 	return "\n".join(lines)
 
 
 # ------------------------------------------------------------------------------
-# Signal Handlers & Event Callbacks
+# Signal Handlers
 # ------------------------------------------------------------------------------
-
-func _on_volume_changed(value: float) -> void:
-	var normalized_vol: float = value / 100.0
-	AudioManager.set_master_volume(normalized_vol)
-
-	var sd: Dictionary = SaveManager.load_game()
-	sd["master_volume"] = normalized_vol
-	SaveManager.save_game(sd)
 
 func _on_back() -> void:
 	AudioManager.play_sfx("return")

@@ -1,0 +1,7 @@
+[gd_resource type="Theme" format=3 uid="uid://b3lluk0kntgej"]
+
+[ext_resource type="FontFile" uid="uid://b1txvn4cteyse" path="res://fonts/CenturyGothic.ttf" id="1_i71n2"]
+
+[resource]
+default_font = ExtResource("1_i71n2")
+default_font_size = 26

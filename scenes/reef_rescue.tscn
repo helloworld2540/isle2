@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bcx24d56s64oq"]
 
 [ext_resource type="Script" uid="uid://cvsq0ssl6il4b" path="res://scripts/reef_rescue.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://scenes/minigame_intro.tscn" id="5_intro"]
 [ext_resource type="Texture2D" uid="uid://bkpw6kp688eb3" path="res://sprites/rr_bg.png" id="2_bg"]
 [ext_resource type="Texture2D" uid="uid://bcjs57177ah7s" path="res://sprites/sub/sub0000.png" id="3_c7240"]
 [ext_resource type="Texture2D" uid="uid://b6kahajhmn7wm" path="res://sprites/sub/sub0001.png" id="4_jq4cv"]
@@ -70,6 +71,10 @@ position = Vector2(-1.4305115e-06, 13)
 rotation = -1.5820796
 scale = Vector2(1.0086355, 1.1629587)
 shape = SubResource("CapsuleShape2D_qp2yk")
+
+[node name="ShakeCamera" type="Camera2D" parent="." unique_id=1011]
+position = Vector2(576, 324)
+enabled = false
 
 [node name="Items" type="Node2D" parent="." unique_id=1007]
 
@@ -160,3 +165,7 @@ size_flags_horizontal = 4
 text = "Return to Map"
 
 [connection signal="body_entered" from="Drone/Area2D" to="." method="_on_area_2d_body_entered"]
+
+[node name="MinigameIntro" parent="." instance=ExtResource("5_intro")]
+intro_title = "Reef Rescue"
+intro_lines = PackedStringArray("Dive with your drone to collect floating garbage.", "Avoid jellyfish and fish - three bumps end the run.", "Garbage becomes Reef Debris when you return.", "Sort Reef Debris at the Upcycle bench into materials.", "Controls: drag to steer, momentum matters. ESC or Return finishes early.")

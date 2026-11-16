@@ -1,6 +1,7 @@
-[gd_scene format=3 uid="uid://kamvcjhav8w5"]
+[gd_scene load_steps=3 format=3 uid="uid://kamvcjhav8w5"]
 
 [ext_resource type="Script" uid="uid://cno3w2hkaq50n" path="res://scripts/stats_menu.gd" id="1_menu"]
+[ext_resource type="PackedScene" path="res://scenes/ui/settings_panel.tscn" id="2_settings"]
 
 [node name="StatsMenu" type="Control" unique_id=300000001]
 layout_mode = 3
@@ -20,47 +21,36 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.1, 0.12, 0.18, 1)
 
-[node name="StatsLabel" type="Label" parent="." unique_id=300000006]
+[node name="Margin" type="MarginContainer" parent="." unique_id=300000003]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -320.0
-offset_top = 40.0
-offset_right = 320.0
-offset_bottom = 420.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 24
+
+[node name="VBox" type="VBoxContainer" parent="Margin" unique_id=300000004]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="StatsLabel" type="Label" parent="Margin/VBox" unique_id=300000006]
+layout_mode = 2
+size_flags_vertical = 3
 theme_override_font_sizes/font_size = 16
 text = "Stats"
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="VolumeSlider" type="HSlider" parent="." unique_id=300000007]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -200.0
-offset_top = -170.0
-offset_right = 200.0
-offset_bottom = -140.0
-grow_horizontal = 2
-grow_vertical = 0
-value = 100.0
+[node name="SettingsPanel" parent="Margin/VBox" instance=ExtResource("2_settings")]
+layout_mode = 2
+size_flags_horizontal = 4
 
-[node name="BackButton" type="Button" parent="." unique_id=300000009]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -100.0
-offset_top = -90.0
-offset_right = 100.0
-offset_bottom = -50.0
-grow_horizontal = 2
-grow_vertical = 0
+[node name="BackButton" type="Button" parent="Margin/VBox" unique_id=300000009]
+custom_minimum_size = Vector2(200, 44)
+layout_mode = 2
+size_flags_horizontal = 4
 text = "Main Menu"

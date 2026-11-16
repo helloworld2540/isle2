@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/wm_loop_path.gd" id="1_loop"]
+
+[node name="LoopPath" type="Line2D"]
+modulate = Color(1, 1, 1, 0.8)
+width = 13.0
+default_color = Color(0.45, 0.9, 1, 0.45)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+antialiased = true
+script = ExtResource("1_loop")
+portal_paths = Array[NodePath]([NodePath("../PortalReefRescue"), NodePath("../PortalUpcycle"), NodePath("../PortalShop")])

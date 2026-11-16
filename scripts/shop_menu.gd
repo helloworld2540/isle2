@@ -1,25 +1,31 @@
 extends Node2D
 
+const NOTIFICATION_QUEUE := preload("res://scenes/ui/notification_queue.tscn")
+const FLOATING_TEXT_SCENE := preload("res://scenes/ui/floating_text.tscn")
+
 const RATES := {"Polyethylene":2,"Polypropylene":3,"Glass":5,"Nylon":4,"Reef Debris":1}
 const BULK_THRESHOLD := 5
 const BULK_MULTIPLIER := 1.25
 const FIVE_SELL_QTY := 5
 
-@onready var coins: Label = $"CanvasLayer/VBoxContainer/Coins"
-@onready var inv: Label = $"CanvasLayer/VBoxContainer/Inventory"
-@onready var preview: Label = $"CanvasLayer/VBoxContainer/Preview"
-@onready var tip: Label = $"CanvasLayer/VBoxContainer/Tip"
-@onready var capacity_status: Label = $"CanvasLayer/VBoxContainer/CapacityStatus"
-@onready var transaction_log: Label = $"CanvasLayer/VBoxContainer/TransactionLog"
+@onready var coins: Label = $"CanvasLayer/Scroll/VBoxContainer/Coins"
+@onready var inv: Label = $"CanvasLayer/Scroll/VBoxContainer/Inventory"
+@onready var preview: Label = $"CanvasLayer/Scroll/VBoxContainer/Preview"
+@onready var tip: Label = $"CanvasLayer/Scroll/VBoxContainer/Tip"
+@onready var capacity_status: Label = $"CanvasLayer/Scroll/VBoxContainer/CapacityStatus"
+@onready var transaction_log: Label = $"CanvasLayer/Scroll/VBoxContainer/TransactionLog"
 
-@onready var row_polyethylene: HBoxContainer = $"CanvasLayer/VBoxContainer/Rows/Row_Polyethylene"
-@onready var row_polypropylene: HBoxContainer = $"CanvasLayer/VBoxContainer/Rows/Row_Polypropylene"
-@onready var row_glass: HBoxContainer = $"CanvasLayer/VBoxContainer/Rows/Row_Glass"
-@onready var row_nylon: HBoxContainer = $"CanvasLayer/VBoxContainer/Rows/Row_Nylon"
-@onready var row_reef_debris: HBoxContainer = $"CanvasLayer/VBoxContainer/Rows/Row_Reef Debris"
+@onready var row_polyethylene: HBoxContainer = $"CanvasLayer/Scroll/VBoxContainer/Rows/Row_Polyethylene"
+@onready var row_polypropylene: HBoxContainer = $"CanvasLayer/Scroll/VBoxContainer/Rows/Row_Polypropylene"
+@onready var row_glass: HBoxContainer = $"CanvasLayer/Scroll/VBoxContainer/Rows/Row_Glass"
+@onready var row_nylon: HBoxContainer = $"CanvasLayer/Scroll/VBoxContainer/Rows/Row_Nylon"
+@onready var row_reef_debris: HBoxContainer = $"CanvasLayer/Scroll/VBoxContainer/Rows/Row_Reef Debris"
 
-@onready var back_button: Button = $"CanvasLayer/VBoxContainer/BackButton"
-@onready var undo_button: Button = $"CanvasLayer/VBoxContainer/UndoButton"
+@onready var buy_cap_button: Button = $"CanvasLayer/Scroll/VBoxContainer/Purchases/BuyRow/BuyCapButton"
+@onready var money_note: Label = $"CanvasLayer/Scroll/VBoxContainer/Purchases/MoneyNote"
+
+@onready var back_button: Button = $"CanvasLayer/Scroll/VBoxContainer/BackButton"
+@onready var undo_button: Button = $"CanvasLayer/Scroll/VBoxContainer/UndoButton"
 
 var _rows: Dictionary = {}
 var _last_sale: Dictionary = {}
@@ -55,6 +61,8 @@ func _wire_ui() -> void:
 		)
 	if undo_button:
 		undo_button.pressed.connect(_undo_last_sale)
+	if buy_cap_button:
+		buy_cap_button.pressed.connect(_buy_capacity)
 
 func _wire_row(row: HBoxContainer, mat: String, price: int) -> Dictionary:
 	var sell_one: Button = row.get_node("SellOne")
@@ -74,13 +82,14 @@ func _wire_row(row: HBoxContainer, mat: String, price: int) -> Dictionary:
 
 func _refresh() -> void:
 	if coins:
-		coins.text = "Score: %d" % GameState.upcycle_score
+		coins.text = "Money: %d$   |   Upcycle score: %d" % [GameState.money, GameState.upcycle_score]
 	if inv:
 		inv.text = _inv_text()
 	if preview:
 		preview.text = _preview_text()
 	_update_shop_tip()
 	_update_capacity_status()
+	_refresh_purchases()
 	for mat in RATES.keys():
 		_refresh_row(mat)
 
@@ -97,6 +106,30 @@ func _update_shop_tip() -> void:
 	else:
 		tip.text = "Tip: sort efficiently for combo bonuses."
 		tip.modulate = Color(0.85, 1.0, 0.75, 1.0)
+
+func _refresh_purchases() -> void:
+	var cost := GameState.get_capacity_money_cost()
+	if buy_cap_button:
+		buy_cap_button.text = "Bag +10 kg — %d$" % cost
+		buy_cap_button.disabled = not GameState.can_afford(cost)
+	if money_note:
+		money_note.text = "Bag %d kg  ·  next upgrade %d$  ·  you have %d$" % [
+			GameState.get_inventory_capacity(), cost, GameState.money
+		]
+
+
+func _buy_capacity() -> void:
+	var cost := GameState.get_capacity_money_cost()
+	if not GameState.purchase_capacity_with_money():
+		_play_denied("Need %d$ for a bigger bag" % cost, "")
+		_shake_control(buy_cap_button)
+		return
+	
+	AudioManager.play_sfx("upgrade", 1.05)
+	_spawn_receipt("BAG +10 kg  -%d$" % cost, Color(0.7, 0.95, 1.0, 1.0))
+	_log_sale("Bag expanded to %d kg for %d$" % [GameState.get_inventory_capacity(), cost])
+	_refresh()
+
 
 func _update_capacity_status() -> void:
 	if not capacity_status:
@@ -127,6 +160,8 @@ func _refresh_row(mat: String) -> void:
 	var btn_five: Button = row_data.get("sell_five", null)
 	if btn_five:
 		btn_five.text = "Sell 5 %s" % mat
+		if count >= FIVE_SELL_QTY:
+			btn_five.text += " (+25%)"
 		btn_five.disabled = count < FIVE_SELL_QTY
 	var value_lbl: Label = row_data.get("value", null)
 	if value_lbl:
@@ -154,19 +189,20 @@ func _refresh_row(mat: String) -> void:
 func _inv_text() -> String:
 	var used := GameState.get_inventory_weight()
 	var cap := GameState.get_inventory_capacity()
-	var t := "Inventory (weight %d/%d kg): " % [used, cap]
+	var parts: Array[String] = []
 	for k in GameState.trash_by_type.keys():
-		var count: int = int(GameState.trash_by_type.get(k, 0))
-		var weight: int = int(count) * int(GameState.TRASH_WEIGHTS.get(k, 1))
-		var rarity: String = str(GameState.TRASH_RARITY.get(k, "common"))
-		t += "%s[%s]=%d (w%d) " % [k, rarity.substr(0, 1).to_upper(), count, weight]
-	return t
+		var count := int(GameState.trash_by_type.get(k, 0))
+		if count > 0:
+			parts.append("%s x%d" % [k, count])
+	var held := "empty" if parts.is_empty() else ", ".join(parts)
+	return "Bag %d/%d kg · %s" % [used, cap, held]
+
 
 func _preview_text() -> String:
 	var total := 0
 	for mat in RATES.keys():
 		total += int(GameState.trash_by_type.get(mat, 0)) * int(RATES.get(mat, 0))
-	return "Potential base earnings if sold all: %d score" % total
+	return "Potential base earnings if sold all: %d$" % total
 
 func _sell_qty(mat: String, qty: int) -> void:
 	if qty < 1:
@@ -180,16 +216,18 @@ func _sell_qty(mat: String, qty: int) -> void:
 	if sell_qty <= 0:
 		_play_denied("No %s left" % mat, mat)
 		return
-	var earnings := sell_qty * price
-	var bulk := false
-	# bulk bonus applies to sell-all only
+	# Bulk bonus kicks in at BULK_THRESHOLD units for any sale size.
+	var bulk: bool = sell_qty >= BULK_THRESHOLD
+	var multiplier: float = BULK_MULTIPLIER if bulk else 1.0
+	var earnings := int(round(float(sell_qty) * float(price) * multiplier))
 	GameState.consume_trash_type(mat, sell_qty)
 	GameState.add_earnings(earnings)
 	_last_sale = {"mat": mat, "price": price, "qty": sell_qty, "earnings": earnings, "bulk": bulk}
-	_log_sale("%s x%d → %d score" % [mat, sell_qty, earnings])
+	var tag := " (bulk +25%)" if bulk else ""
+	_log_sale("%s x%d%s → %d$" % [mat, sell_qty, tag, earnings])
 	AudioManager.play_sfx("sale", 1.03)
-	_feedback("Sold %d %s +%d" % [sell_qty, mat, earnings])
-	_spawn_receipt("SOLD %s x%d  +%d" % [mat, sell_qty, earnings], Color(0.7, 1.0, 0.6, 1.0))
+	_feedback("Sold %d %s%s +%d$" % [sell_qty, mat, tag, earnings])
+	_spawn_receipt("SOLD %s x%d%s  +%d$" % [mat, sell_qty, tag, earnings], Color(1.0, 0.85, 0.35, 1.0) if bulk else Color(0.7, 1.0, 0.6, 1.0))
 	GameState._persist()
 	_refresh()
 
@@ -206,10 +244,10 @@ func _sell_all(mat: String) -> void:
 	var bulk: bool = multiplier > 1.0
 	_last_sale = {"mat": mat, "price": price, "qty": avail, "earnings": earnings, "bulk": bulk}
 	var tag := " (bulk +25%)" if bulk else ""
-	_log_sale("%s x%d %s→ %d score" % [mat, avail, tag, earnings])
+	_log_sale("%s x%d %s→ %d$" % [mat, avail, tag, earnings])
 	AudioManager.play_sfx("sale", 1.03)
-	_feedback("Sold %d %s%s for %d" % [avail, mat, tag, earnings])
-	_spawn_receipt("SOLD %s x%d%s  +%d" % [mat, avail, " (bulk)" if bulk else "", earnings], Color(1.0, 0.85, 0.35, 1.0) if bulk else Color(0.7, 1.0, 0.6, 1.0))
+	_feedback("Sold %d %s%s for %d$" % [avail, mat, tag, earnings])
+	_spawn_receipt("SOLD %s x%d%s  +%d$" % [mat, avail, " (bulk)" if bulk else "", earnings], Color(1.0, 0.85, 0.35, 1.0) if bulk else Color(0.7, 1.0, 0.6, 1.0))
 	GameState._persist()
 	_refresh()
 
@@ -229,6 +267,7 @@ func _undo_last_sale() -> void:
 	var mat := String(_last_sale.get("mat", ""))
 	var qty := int(_last_sale.get("qty", 0))
 	var earnings := int(_last_sale.get("earnings", 0))
+	var was_bulk := bool(_last_sale.get("bulk", false))
 	if mat == "" or qty <= 0:
 		_feedback("Nothing to undo")
 		return
@@ -241,7 +280,7 @@ func _undo_last_sale() -> void:
 		_feedback("Only %d/%d restored (capacity)" % [actual_units, qty])
 	if actual_units > 0:
 		GameState.trash_by_type[mat] = int(GameState.trash_by_type.get(mat, 0)) + actual_units
-	GameState.upcycle_score = max(0, GameState.upcycle_score - earnings)
+	GameState.money = max(0, GameState.money - earnings)
 	GameState.lifetime_earnings = max(0, GameState.lifetime_earnings - earnings)
 	_last_sale.clear()
 	GameState._recompute_inventory()
@@ -249,7 +288,7 @@ func _undo_last_sale() -> void:
 	_refresh()
 	_undo_in_progress = false
 	_feedback("Undo restored %d/%d %s" % [actual_units, qty, mat])
-	_spawn_receipt("UNDO -%d %s" % [earnings, mat], Color(1.0, 0.6, 0.4, 1.0))
+	_spawn_receipt("UNDO -%d$ %s%s" % [earnings, mat, " (bulk +25%)" if was_bulk else ""], Color(1.0, 0.6, 0.4, 1.0))
 	_flash_control(transaction_log)
 
 func _play_denied(feedback_text: String, mat: String) -> void:
@@ -281,7 +320,7 @@ func _shake_control(ctrl: Control) -> void:
 
 func _ensure_hud_queue() -> void:
 	if _hud_queue == null:
-		_hud_queue = load("res://scripts/ui/notification_queue.gd").new()
+		_hud_queue = NOTIFICATION_QUEUE.instantiate()
 		var parent := $"CanvasLayer" if $"CanvasLayer" else self
 		parent.add_child(_hud_queue)
 
@@ -291,26 +330,18 @@ func _feedback(text: String) -> void:
 
 func _spawn_receipt(text: String, col: Color) -> void:
 	_receipt_stack += 1
-	var canvas := $"CanvasLayer"
-	var parent: Node = canvas if canvas else self
-	var lbl := load("res://scenes/ui/label.tscn").instantiate() as Label
-	lbl.text = text
-	lbl.modulate = col
-	lbl.add_theme_font_size_override("font_size", 18)
-	lbl.z_index = 130 + _receipt_stack
-	parent.add_child(lbl)
+	var parent: Node = $"CanvasLayer" if has_node("CanvasLayer") else self
+	
+	var lbl := FLOATING_TEXT_SCENE.instantiate()
 	var vp := get_viewport_rect().size
-	lbl.position = Vector2(vp.x - 260.0, 60.0 + float(_receipt_stack - 1) * 26.0)
-	lbl.modulate.a = 0.0
-	var tw := lbl.create_tween()
-	tw.tween_property(lbl, "modulate:a", 1.0, 0.16).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	tw.parallel().tween_property(lbl, "position", lbl.position + Vector2(0, 8), 0.16)
-	tw.tween_interval(1.4)
-	tw.tween_property(lbl, "modulate:a", 0.0, 0.4).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
-	tw.tween_callback(func():
-		_receipt_stack = max(0, _receipt_stack - 1)
-		lbl.queue_free()
-	)
+	lbl.position = Vector2(vp.x - 260.0, 88.0 + float(_receipt_stack - 1) * 26.0)
+	lbl.z_index = 130 + _receipt_stack
+	lbl.rise_distance = 8.0
+	lbl.hold_time = 1.4
+	lbl.fade_out_time = 0.4
+	parent.add_child(lbl)
+	lbl.tree_exited.connect(func(): _receipt_stack = max(0, _receipt_stack - 1))
+	lbl.present(text, col, 18)
 
 func _flash_control(ctrl: Control) -> void:
 	if not ctrl:
