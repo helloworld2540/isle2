@@ -1,6 +1,11 @@
 # Current project todo:
 
 # done this pass
+- Save safety nets upgraded to three: writes rotate save.json -> .bak ->
+  .bak2 (second generation), and load_game falls back primary -> .bak ->
+  .bak2 with a warning each hop. new_save wipes all three. Verified by md5
+  across one _persist(): bak became a byte-identical copy of the save, bak2
+  took over the previous bak. Smoke 44/44.
 - Lifetime golden-scrap tracking: new save key `golden_finds` (schema-codec)
   feeds from both golden belt sorts and golden reef pickups (record_upcycle /
   record_reef gained a golden count), shown on the stats page ("Golden scraps

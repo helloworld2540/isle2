@@ -1,12 +1,19 @@
 extends Node
 
-## Read/write the save file, with two safety nets:
-##  1. Before every write the current save is copied to save.json.bak, so a
-##     torn or half-written file can never be the only copy.
-##  2. load_game falls back to the backup when the primary is missing or
-##     unreadable, and reports that it recovered so callers can log.
+## Read/write the save file, with three safety nets:
+##  1. Before every write the current save is rotated into save.json.bak and
+##     the previous backup into save.json.bak2, so a torn write can never be
+##     the only surviving copy.
+##  2. load_game falls back to the backup (and then the second-generation
+##     backup) when the primary is missing or unreadable, and reports that
+##     it recovered so callers can log.
+##  3. A schema version gate (`_check_version`) upgrades older saves on load.
 const SAVE_PATH := "user://save.json"
 const BACKUP_PATH := "user://save.json.bak"
+## Second-generation backup: every write parks the current save in .bak and
+## rotates the previous .bak into .bak2, so a torn write is never the only
+## surviving copy — and a torn write of the backup itself still leaves .bak2.
+const BACKUP2_PATH := "user://save.json.bak2"
 const SAVE_VERSION := 1
 
 func has_save() -> bool:
@@ -15,7 +22,7 @@ func has_save() -> bool:
 ## Player position is persisted through here as well, so deleting all progress
 ## removes the backup too; a fresh "New save" must never see it.
 func new_save() -> void:
-	for path in [SAVE_PATH, BACKUP_PATH]:
+	for path in [SAVE_PATH, BACKUP_PATH, BACKUP2_PATH]:
 		if FileAccess.file_exists(path):
 			DirAccess.remove_absolute(path)
 
@@ -23,8 +30,11 @@ func has_backup() -> bool:
 	return FileAccess.file_exists(BACKUP_PATH)
 
 func save_game(data: Dictionary) -> void:
-	# Park the previous save before overwriting it.
+	# Park the previous save before overwriting it. Rotate generations so a
+	# torn write of either file still leaves a readable copy behind.
 	if has_save():
+		if FileAccess.file_exists(BACKUP_PATH):
+			DirAccess.copy_absolute(BACKUP_PATH, BACKUP2_PATH)
 		var existing := FileAccess.open(SAVE_PATH, FileAccess.READ)
 		if existing:
 			var content := existing.get_as_text()
@@ -33,7 +43,7 @@ func save_game(data: Dictionary) -> void:
 			if backup:
 				backup.store_string(content)
 				backup.close()
-	
+
 	data["save_version"] = SAVE_VERSION
 	var file := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
 	if file == null:
@@ -68,6 +78,9 @@ func load_game() -> Dictionary:
 	if data.is_empty() and not _file_empty(SAVE_PATH):
 		push_warning("SaveManager: primary save unreadable, trying backup")
 		data = _read_json(BACKUP_PATH)
+	if data.is_empty() and not _file_empty(BACKUP_PATH):
+		push_warning("SaveManager: backup save unreadable, trying second-generation backup")
+		data = _read_json(BACKUP2_PATH)
 	if data.is_empty():
 		data = {"money": 0}
 	if not data.has("money"):
