@@ -34,6 +34,8 @@ func _on_body_entered(body: Node) -> void:
 		return
 	var total: int = GameState.mark_starfish_found(starfish_id)
 	AudioManager.play_sfx("pickup", 1.5)
+	if total == 1:
+		TutorialDirector.nudge("starfish")
 	set_deferred("monitoring", false)
 	if has_node("Sprite2D"):
 		var ap := create_tween()

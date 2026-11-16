@@ -81,6 +81,7 @@ const NUDGE_QUEST := "nudge_quest_shown"
 const NUDGE_MEET := "nudge_meet_shown"
 const NUDGE_LEDGER := "nudge_ledger_shown"
 const NUDGE_GOLD := "nudge_gold_shown"
+const NUDGE_STARFISH := "nudge_starfish_shown"
 
 var _step: int = 0
 var _active_hint: CanvasLayer = null
@@ -300,6 +301,7 @@ func nudge(kind: String) -> void:
 		"meet": key = NUDGE_MEET
 		"ledger": key = NUDGE_LEDGER
 		"gold": key = NUDGE_GOLD
+		"starfish": key = NUDGE_STARFISH
 		_: return
 	if not _nudge_state.has(key):
 		_nudge_state[key] = bool(SaveManager.load_game().get(key, false))
@@ -343,6 +345,12 @@ func nudge(kind: String) -> void:
 			_spawn_card("Someone needs a hand",
 				"[font_size=15]An islander is holding out for a trade.\nThe [color=#9fe2ff]quest tracker[/color] (left) shows who wants what, and a [color=#ffd27f]glowing sprite with a ★[/color] means you have enough to deliver right now.\nTalk to them on the map — the reward can go straight into your bag.[/font_size]",
 				"Let's go")
+		"starfish":
+			_spawn_card("A starfish!",
+				"[font_size=15]Starfish hide along the walkable coast.\n" +
+				"Five of them are out there — collect them all for a [color=#ffd27f]+$25 Tide Pool[/color] and a [color=#9fe2ff]STARLIGHT[/color] badge on your journal.\n" +
+				"The stats page keeps count next to the bottles.[/font_size]",
+				"Got it")
 		"gold":
 			_spawn_card("A golden find",
 				"[font_size=15]Something on the belt shines different.\n" +

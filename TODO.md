@@ -1,6 +1,11 @@
 # Current project todo:
 
 # done this pass
+- New one-shot nudge **A starfish!** (`nudge_starfish_shown`): fires the
+  moment the player collects their first starfish anywhere on the island,
+  pointing at the Journal count, the +$25 Tide Pool, and the STARLIGHT
+  badge. Verified in-game on a scratch save (card spawns, flag persists
+  after flush); smoke 45/45; player save restored afterwards.
 - Main-menu New Save flow verified with an existing save: hit the button,
   confirm panel shows (now correctly gated on a save file being present),
   confirm -> scene transitions to World with a fresh save. Player save
