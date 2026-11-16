@@ -873,3 +873,53 @@ BACKLOG (updated)
   - Achievement banner could also announce tier-2 clears per NPC, reusing
     present() with a shorter duration.
 ================================================================================
+
+[ITERATION 2+] 2026-11-16 - Sprint expansion sweep (this session)
+--------------------------------------------------------------------------------
+GOAL
+  Deepen the island: collectibles, clean-run mastery, persistence hardening,
+  export verification, and mobile/layout correctness — all verified in-game.
+
+SHIPPED
+  * Fish journal + Reef Registry: fish_met save key; species tag on spawn;
+    "New species: Goldie!" pops; stats page "Fish spotted N/4" and a Reef
+    Registry overlay (4 rows, re-readable); REEF REGISTRY achievement.
+  * Tide Ledger recap: bottle text centralised in bottle_catalog.gd; stats-page
+    overlay re-reads all four notes; bottle nudge points there after the
+    third note ("Every note found", nudge_ledger_shown).
+  * Mastery tags + lifetime trackers: FLAWLESS SHIFT (0-miss bench runs) and
+    CLEAN DIVE (0-bump 8 kg+ dives) on summary + recap cards; persistent
+    counters clean_dives / flawless_shifts / best_reef_haul / best_reef_combo /
+    golden_finds feeding CLEAN SWEEP, SILK TOUCH, HEAVY HARVEST,
+    RHYTHM OF THE REEF, HOT STREAK, GOLDEN TOUCH.
+  * Golden content in both minigames: golden belt scrap (+2 score) and golden
+    reef debris (+1 bonus on top of combo) at 12%; golden Goldie fish (10%,
+    any species) pays +5 for a graze and is marked gold on the edge marker
+    (never red); golden spawns chime and scale-shimmer; one-shot "A golden
+    find" tutorial nudge.
+  * ROUND THE ISLE (first_circuit) fills the gap before LOOP MASTER.
+  * Save hardening: schema version gate (_check_version, v0->v1), second-
+    generation backup rotation save.json -> .bak -> .bak2, load fallback
+    primary -> .bak -> .bak2; New Save asks for confirmation before wiping.
+  * Export verified three ways: Linux debug (headless boot clean), Web
+    (pack completes), Android (debug APK builds and signs, 174 MB).
+  * Mobile/layout fixes: shop content no longer overflows the viewport;
+    stats page stats text no longer clipped under sliders; 640->... sub-13 px
+    labels raised to 13 px; main-menu title no longer clips.
+  * Smoke test hardened: new _script_check fails scenes whose scripts do not
+    load AND compile (parse-error scripts no longer read as PASS);
+    CACHE_MODE_IGNORE everywhere so a stale compile cache cannot lie.
+  * Audio passes: harbor bell on circuit completion; distant foghorn from the
+    sailboat every 45-85 s; achievement chime on flawless shifts/clean dives;
+    "open" SFX for the confirm card. Reduced-motion guards swept to
+    FloatingText / typewriter / hint card / toasts.
+  * Docs: README, guide.md, TODO.md, PITCH.md synced to the code (four NPCs,
+    real spawn cadence, six autoloads, achievement registry, export notes).
+  * Bug fixes of the session: save-wipe without confirmation; golden item
+    double-fade tween; _popup() call that broke upcycle.gd parsing; reward
+    sparks never emitting (leak); deferred nudges that never delivered
+    behind a modal (0.4 s drain added); peak sort streak not banking
+    (recorded final streak instead).
+  * Verified by execution, not assumption: fresh-save tour end-to-end
+    (menu -> welcome -> bench/reef/shop circuit), ten-of-ten nudge delivery,
+    save round-trips restored to player data after every test.
