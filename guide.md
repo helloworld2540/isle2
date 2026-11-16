@@ -159,6 +159,8 @@ checked against this yield — nothing changed, deliberately.*
   *counted* dives still earns REEF REGULAR.
 - A muffled underwater current runs under the dive music; trim it with the
   Ambience slider without quieting pickup or combo feedback.
+- Closing a full island circuit (Reef → Upcycle → Shop) rings the harbor bell
+  on the next map load.
 
 ## Settings & touch
 - The island menu (☰) holds Master / Music / Ambience / SFX sliders and the
