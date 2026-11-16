@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- Web export rebuilt after the starfish collectathon landed (pck 57 MB,
+  pack completes, no errors). Linux and Android debug builds verified earlier.
 - Tide Pool payout: finding all five starfish grants a one-time +$25 with a
   "TIDE POOL" milestone card on the next world load (banner mirrors
   TIDE'S GIFT). Verified in-game (gift fires at 5, idempotent re-grant,
