@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- World Island Menu screenshot-verified: upgrades (Move/Range/Deep Cache),
+  Deep Cache tier-2 entry, Inv Cap, Resume + Save & Quit (52 px buttons),
+  Settings shortcut, ESC / Tab shortcut — all render cleanly and hit targets.
 - Web export rebuild verified after the latest asset changes (starfish,
   foghorn, legendary horn) — pack completes cleanly; Linux + Android debug
   builds verified earlier this sprint.
