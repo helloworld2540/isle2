@@ -1,4 +1,5 @@
 extends Control
+class_name MainMenu
 
 @onready var new_save_button: Button = $Buttons/NewSaveButton
 @onready var load_save_button: Button = $Buttons/LoadSaveButton

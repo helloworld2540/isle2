@@ -1,4 +1,5 @@
 extends Control
+class_name StatsMenu
 
 const SCENE_MAIN_MENU: String = "res://scenes/main_menu.tscn"
 const DIALOGUE_SCENE: PackedScene = preload("res://scenes/ui/npc_dialogue.tscn")

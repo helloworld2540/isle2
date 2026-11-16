@@ -1,4 +1,5 @@
 extends Node2D
+class_name ShopMenu
 
 const NOTIFICATION_QUEUE := preload("res://scenes/ui/notification_queue.tscn")
 const RECEIPT_STACK_SCENE := preload("res://scenes/ui/receipt_stack.tscn")

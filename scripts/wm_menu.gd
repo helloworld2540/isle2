@@ -1,4 +1,5 @@
 extends CanvasLayer
+class_name WorldMenu
 
 const NOTIFICATION_QUEUE := preload("res://scenes/ui/notification_queue.tscn")
 # World map pause/menu overlay.

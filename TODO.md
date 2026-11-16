@@ -1,6 +1,12 @@
 # Current project todo:
 
 # done this pass
+- Code-quality sweep: every top-level script now carries a class_name
+  (StatsMenu, WorldProgress, ReefRescue, ShopMenu, WorldMenu, MainMenu — the
+  rest already had one), and the Reef Rescue briefing now shows the heaviest
+  banked dive alongside depth and dive count ("Deepest: N m · Heaviest: N kg ·
+  Dives: N"). README architecture section gained the achievements catalogue and
+  bottle catalogue entries plus the new save keys. Smoke 44/44.
 - Reduced-motion audit sweep: four remaining unguarded motion paths now honor
   the setting — FloatingText no longer rises (fade stays), the NPC dialogue
   typewriter shows full text instantly, the tutorial hint card appears without

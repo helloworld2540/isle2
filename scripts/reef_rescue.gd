@@ -1,4 +1,5 @@
 extends Node2D
+class_name ReefRescue
 
 @export var MIN_BG_SPEED := 75.0
 @export var MAX_BG_SPEED := 120.0
@@ -61,7 +62,7 @@ func _ready() -> void:
 	if intro:
 		var dives := GameState.reef_dives
 		if dives > 0 or GameState.best_reef_depth > 0:
-			intro.set_stat_line("Deepest: %d m  ·  Dives finished: %d" % [GameState.best_reef_depth, dives])
+			intro.set_stat_line("Deepest: %d m  ·  Heaviest: %d kg  ·  Dives: %d" % [GameState.best_reef_depth, GameState.best_reef_haul, dives])
 		else:
 			intro.set_stat_line("First dive — nobody holds the record yet.")
 	if return_btn:

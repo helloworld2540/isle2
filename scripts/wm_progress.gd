@@ -1,4 +1,5 @@
 extends CanvasLayer
+class_name WorldProgress
 
 const RouteAdvisor := preload("res://scripts/route_advisor.gd")
 
