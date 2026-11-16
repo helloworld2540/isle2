@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- Upcycle bar tooltip: the world HUD's "Upcycle" bar now reads as progress
+  toward the next Deep Cache purchase (it counts down to the score price).
 - Reduced-motion coverage for the pop-in punch: the shop "SOLD ... (bulk)" receipt
   punched with a scale burst on every bulk sale (and every score popup using
   `FloatingText.punch_scale`). The scale burst is now skipped under **Reduce
