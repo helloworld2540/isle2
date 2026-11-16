@@ -45,6 +45,16 @@ func _spawn(e: Dictionary) -> void:
 	add_child(lbl)
 	_active = lbl
 	var dur := float(e.get("duration", 1.6))
+	if GameSettings.reduce_motion:
+		# No fade in/out under reduced motion: hold the toast solid, then drop it.
+		lbl.modulate.a = 1.0
+		var hold := get_tree().create_timer(max(0.2, dur))
+		hold.timeout.connect(func() -> void:
+			_active = null
+			lbl.queue_free()
+			_try_show_next()
+		)
+		return
 	var tw := lbl.create_tween()
 	tw.tween_property(lbl, "modulate:a", 1.0, 0.16).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	tw.tween_interval(max(0.2, dur))

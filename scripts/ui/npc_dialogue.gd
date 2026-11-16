@@ -97,6 +97,10 @@ func dismiss() -> void:
 
 func _type_out() -> void:
 	var chars := maxi(1, lines_label.get_total_character_count())
+	if GameSettings.reduce_motion:
+		# No typewriter crawl under reduced motion: show the full text at once.
+		lines_label.visible_characters = -1
+		return
 	lines_label.visible_characters = 0
 	
 	# Skip straight to full text when the player already pressed OK once.

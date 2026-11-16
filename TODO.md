@@ -1,6 +1,11 @@
 # Current project todo:
 
 # done this pass
+- Reduced-motion audit sweep: four remaining unguarded motion paths now honor
+  the setting — FloatingText no longer rises (fade stays), the NPC dialogue
+  typewriter shows full text instantly, the tutorial hint card appears without
+  its rise, and HUD toasts hold solid instead of fading (timed drop, not a
+  fade). Smoke 44/44.
 - **HOT STREAK achievement** (`hot_streak`, Upcycle, 15 correct sorts in a row)
   + a real bug fix it exposed: the bench banked the *final* streak at run end,
   so a 14-sort streak erased by one miss never counted toward the best — it now

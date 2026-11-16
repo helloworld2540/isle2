@@ -30,7 +30,7 @@ func present(text_value: String, color: Color = Color.WHITE, font_size: int = 18
 	tw.tween_property(self, "modulate:a", 1.0, fade_in_time).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	# rise_distance 0 means the caller owns positioning (e.g. receipt stacks that
 	# reflow when an older entry leaves); skip the rise tween so it cannot fight.
-	if rise_distance != 0.0:
+	if rise_distance != 0.0 and not GameSettings.reduce_motion:
 		tw.parallel().tween_property(self, "position", _rest_position + Vector2(0, -rise_distance), fade_in_time + hold_time).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
 	# The pop-in punch is pure motion; skip it under reduced motion and let

@@ -30,6 +30,10 @@ func _ready() -> void:
 	dismiss_button.text = button_text
 	# Gentle rise-and-fade entrance so the card reads as a nudge, not a wall.
 	panel.modulate.a = 0.0
+	if GameSettings.reduce_motion:
+		# No rise under reduced motion: the nudge card simply is there.
+		panel.modulate.a = 1.0
+		return
 	var tw := create_tween()
 	tw.tween_property(panel, "modulate:a", 1.0, 0.25).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
