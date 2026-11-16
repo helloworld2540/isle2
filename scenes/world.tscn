@@ -1001,7 +1001,7 @@ theme_override_colors/font_hover_pressed_color = Color(0.9, 0.98, 1, 1)
 theme_override_colors/font_pressed_color = Color(0.9, 0.98, 1, 1)
 text = "Save & Quit"
 
-[node name="JournalButton" type="Button" parent="Menu/MenuPanel/Center/Card/HBoxContainer/VBoxContainer" unique_id=410065433]
+[node name="JournalButton" type="Button" parent="Menu/MenuPanel/Center/Card/HBoxContainer/VBoxContainer" unique_id=410065470]
 custom_minimum_size = Vector2(232, 52)
 layout_mode = 2
 tooltip_text = "Open the stats page — bottles, starfish, species, achievements, and every stat on the island."

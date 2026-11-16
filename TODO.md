@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- In-game unique_id collision found and fixed: the new JournalButton node
+  accidentally reused unique_id 410065433 (UpgradesPanel). JournalButton
+  bumped to 410065470; all scenes re-scanned for duplicate unique_ids —
+  now zero across the project.
 - Editor log audit at current HEAD: zero new errors. All entries in the log
   are historical (pre-fix parse errors from this session's earlier state);
   the current build boots clean.
