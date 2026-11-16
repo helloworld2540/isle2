@@ -151,6 +151,7 @@ func _build_stats_text() -> String:
 	var fish_names: Array[String] = []
 	for id in GameState.fish_met:
 		fish_names.append(FishCatalog.name_of(id))
+	lines.append("Golden scraps collected: %d" % GameState.golden_finds)
 	lines.append("Fish spotted: %d / 4 species%s" % [GameState.fish_met.size(), "  ·  " + ", ".join(fish_names) if not fish_names.is_empty() else ""])
 	lines.append("Best sort streak: %d  ·  Flawless shifts: %d" % [GameState.best_sort_streak, GameState.flawless_shifts])
 	lines.append("Deep Cache: %s" % ("tier %d" % GameState.deep_cache_tier if GameState.deep_cache else "not owned"))

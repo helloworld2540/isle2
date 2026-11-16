@@ -640,7 +640,7 @@ func _game_over_summary(clean_finish: bool = false) -> void:
 	var prev_best := GameState.best_upcycle_score
 	if not empty_shift:
 		GameState.record_sort_streak(_peak_streak)
-		GameState.record_upcycle(score, _misses == 0 and _sorted_count >= 5)
+		GameState.record_upcycle(score, _misses == 0 and _sorted_count >= 5, _golden_sorted)
 		_record_run_card(prev_best)
 	
 	AudioManager.play_sfx("shift_complete" if clean_finish else "sort_bad")

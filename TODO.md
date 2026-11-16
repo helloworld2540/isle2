@@ -1,6 +1,12 @@
 # Current project todo:
 
 # done this pass
+- Lifetime golden-scrap tracking: new save key `golden_finds` (schema-codec)
+  feeds from both golden belt sorts and golden reef pickups (record_upcycle /
+  record_reef gained a golden count), shown on the stats page ("Golden scraps
+  collected: N"), and earns the **GOLDEN TOUCH** achievement at 10 total.
+  Verified in-game (both paths bump it, predicate fires at 10); player save
+  restored after testing; smoke 44/44.
 - Reef **golden debris** (mirror of the bench's golden scrap): 12% of garbage
   spawns render gold and grant +1 bonus score on top of the combo multiplier;
   "GOLD +N!" callout and a recap line ("✦ N golden debris hauled"). Rate
