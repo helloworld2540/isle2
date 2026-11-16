@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- Starfish HUD line verified visually behind the fresh-save welcome card:
+  the "★ Starfish 1/5" row renders under the route tracker on a fresh save
+  with one collected — the reveal-from-hidden logic works end-to-end on the
+  live world scene. Player save restored afterwards.
 - World Island Menu screenshot-verified: upgrades (Move/Range/Deep Cache),
   Deep Cache tier-2 entry, Inv Cap, Resume + Save & Quit (52 px buttons),
   Settings shortcut, ESC / Tab shortcut — all render cleanly and hit targets.
