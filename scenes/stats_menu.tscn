@@ -83,6 +83,94 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "Achievement Guide"
 
+[node name="LedgerButton" type="Button" parent="Margin/VBox" unique_id=300000012]
+custom_minimum_size = Vector2(220, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Tide Ledger (bottles)"
+
+[node name="LedgerOverlay" type="Control" parent="." unique_id=300000013]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+
+[node name="Dimmer" type="ColorRect" parent="LedgerOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.62)
+
+[node name="Panel" type="PanelContainer" parent="LedgerOverlay"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -230.0
+offset_right = 300.0
+offset_bottom = 230.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBox_guide")
+
+[node name="VBox" type="VBoxContainer" parent="LedgerOverlay/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="LedgerTitle" type="Label" parent="LedgerOverlay/Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.62, 0.86, 1, 1)
+theme_override_font_sizes/font_size = 22
+text = "Tide Ledger"
+horizontal_alignment = 1
+
+[node name="LedgerLegend" type="Label" parent="LedgerOverlay/Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.72, 0.9, 1)
+theme_override_font_sizes/font_size = 12
+text = "every note the tide ever left you — tap to read again"
+horizontal_alignment = 1
+
+[node name="BottleTideButton" type="Button" parent="LedgerOverlay/Panel/VBox"]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "· The Shorekeeper's Note"
+
+[node name="BottleGullButton" type="Button" parent="LedgerOverlay/Panel/VBox"]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "· Nina's Third Letter"
+
+[node name="BottleLightButton" type="Button" parent="LedgerOverlay/Panel/VBox"]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "· Kai's Stock Tip"
+
+[node name="BottlePactButton" type="Button" parent="LedgerOverlay/Panel/VBox"]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "· The Tidekeeper's Reply"
+
+[node name="LedgerClose" type="Button" parent="LedgerOverlay/Panel/VBox"]
+custom_minimum_size = Vector2(180, 46)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Close"
+
 [node name="GuideOverlay" type="Control" parent="." unique_id=300000011]
 visible = false
 layout_mode = 1

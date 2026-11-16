@@ -131,6 +131,7 @@ checked against this yield — nothing changed, deliberately.*
   with "★ NEW BEST DEPTH — N m! ★" and plays the achievement chime.
 - Debris payout breakdown on the summary card — haul, deep-cache bonus and
   "bag full −N kg" so the capacity cap reads as a rule, not a bug.
+- Bottles you have already read can be re-read from the stats page via the Tide Ledger overlay (undiscovered notes stay locked).
 - Depth is tracked in the stats page and feeds two achievements: DEEP DIVE (400 m) and TO THE ABYSS (900 m). Ten finished dives earns REEF REGULAR; the stats page keeps a running "Field log" of dives and bench runs.
 - Your longest single-dive garbage chain persists as "Best reef combo" (stats page) and feeds the RHYTHM OF THE REEF achievement at a 9-chain (a x4 score multiplier).
 - Long-game badges: BENCH MASTER (25 runs), REEF VETERAN (25 dives) and

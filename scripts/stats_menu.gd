@@ -1,6 +1,11 @@
 extends Control
 
 const SCENE_MAIN_MENU: String = "res://scenes/main_menu.tscn"
+const DIALOGUE_SCENE: PackedScene = preload("res://scenes/ui/npc_dialogue.tscn")
+const BottleCatalog := preload("res://scripts/bottle_catalog.gd")
+## Display order of the Tide Ledger buttons, matched to the scene's button nodes.
+const LEDGER_BUTTONS: Array[String] = ["BottleTideButton", "BottleGullButton", "BottleLightButton", "BottlePactButton"]
+const LEDGER_IDS: Array[String] = ["bottle_tide", "bottle_gull", "bottle_light", "bottle_pact"]
 ## Display order of the guide's station sections. Entries carry a "where" tag.
 const GUIDE_GROUPS: Array[String] = ["Reef Rescue", "Upcycle", "Shop", "Islanders", "Island"]
 
@@ -10,6 +15,9 @@ const GUIDE_GROUPS: Array[String] = ["Reef Rescue", "Upcycle", "Shop", "Islander
 @onready var _guide_overlay: Control = $"GuideOverlay"
 @onready var _guide_list: Label = $"GuideOverlay/Panel/VBox/Scroll/GuideList"
 @onready var _guide_close: Button = $"GuideOverlay/Panel/VBox/GuideClose"
+@onready var _ledger_button: Button = $"Margin/VBox/LedgerButton"
+@onready var _ledger_overlay: Control = $"LedgerOverlay"
+@onready var _ledger_close: Button = $"LedgerOverlay/Panel/VBox/LedgerClose"
 
 
 # ------------------------------------------------------------------------------
@@ -26,6 +34,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		# Escape closes the guide first, then leaves the stats page.
 		if _guide_overlay and _guide_overlay.visible:
 			_close_guide()
+		elif _ledger_overlay and _ledger_overlay.visible:
+			_close_ledger()
 		else:
 			_on_back()
 
@@ -41,6 +51,14 @@ func _connect_signals() -> void:
 		_guide_button.pressed.connect(_open_guide)
 	if _guide_close:
 		_guide_close.pressed.connect(_close_guide)
+	if _ledger_button:
+		_ledger_button.pressed.connect(_open_ledger)
+	if _ledger_close:
+		_ledger_close.pressed.connect(_close_ledger)
+	for i in LEDGER_BUTTONS.size():
+		var button := _ledger_overlay.get_node_or_null("Panel/VBox/" + LEDGER_BUTTONS[i]) as Button
+		if button:
+			button.pressed.connect(_on_ledger_bottle.bind(LEDGER_IDS[i]))
 
 
 # ------------------------------------------------------------------------------
@@ -194,6 +212,42 @@ func _build_guide_text() -> String:
 	
 	lines.append("%d of %d earned." % [GameState.achievement_count(), GameState.achievement_total()])
 	return "\n".join(lines)
+
+
+## Tide Ledger: re-read any bottle the player has already found. Undiscovered
+## notes stay as locked rows so the page doubles as a collection tracker.
+func _open_ledger() -> void:
+	if _ledger_overlay == null:
+		return
+	for i in LEDGER_BUTTONS.size():
+		var id := LEDGER_IDS[i]
+		var button := _ledger_overlay.get_node_or_null("Panel/VBox/" + LEDGER_BUTTONS[i]) as Button
+		if button == null:
+			continue
+		if GameState.is_story_read(id):
+			button.text = "✓  " + BottleCatalog.title_of(id)
+			button.disabled = false
+		else:
+			button.text = "·  ? ? ?  —  still out there"
+			button.disabled = true
+	_ledger_overlay.visible = true
+	AudioManager.play_sfx("pickup")
+
+
+func _close_ledger() -> void:
+	if _ledger_overlay == null:
+		return
+	_ledger_overlay.visible = false
+	AudioManager.play_sfx("return")
+
+
+func _on_ledger_bottle(id: String) -> void:
+	if not GameState.is_story_read(id):
+		return
+	var dialogue := DIALOGUE_SCENE.instantiate()
+	add_child(dialogue)
+	dialogue.present(BottleCatalog.title_of(id), BottleCatalog.lines_of(id))
+	AudioManager.play_sfx("pickup", 0.9)
 
 
 func _on_back() -> void:

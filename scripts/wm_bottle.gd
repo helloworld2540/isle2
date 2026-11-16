@@ -5,6 +5,7 @@ extends Area2D
 ## never respawn (their ids are saved under bottles_read).
 
 const DIALOGUE_SCENE := preload("res://scenes/ui/npc_dialogue.tscn")
+const BottleCatalog := preload("res://scripts/bottle_catalog.gd")
 
 ## The base collectathon is three bottles. The fourth appears only after the
 ## Tidekeeper's Pact is funded — a reply written for the keeper alone.
@@ -12,7 +13,9 @@ const BASE_BOTTLE_IDS := ["bottle_tide", "bottle_gull", "bottle_light"]
 const PACT_BOTTLE_ID := "bottle_pact"
 
 @export var bottle_id: String = "bottle_1"
-@export_multiline var story_lines: Array[String] = ["Hello, sailor."]
+## Optional override; when empty (the default) the canonical text comes from
+## BottleCatalog so the world pickup and the Tide Ledger never drift apart.
+@export_multiline var story_lines: Array[String] = []
 
 func _ready() -> void:
 	if bottle_id == PACT_BOTTLE_ID and not _pact_arc_complete():
@@ -60,7 +63,8 @@ func _read() -> void:
 	AudioManager.play_sfx("quest_complete", 0.95)
 	set_deferred("monitoring", false)
 	
+	var lines := story_lines if not story_lines.is_empty() else BottleCatalog.lines_of(bottle_id)
 	var dialogue = DIALOGUE_SCENE.instantiate()
 	get_tree().current_scene.add_child(dialogue)
-	dialogue.present("Message in a Bottle", story_lines)
+	dialogue.present(BottleCatalog.title_of(bottle_id), lines)
 	queue_free()

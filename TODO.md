@@ -1,6 +1,13 @@
 # Current project todo:
 
 # done this pass
+- Tide Ledger: bottle stories centralised into `scripts/bottle_catalog.gd`
+  (id -> title/lines; world bottles now place by id only, pickup + ledger read
+  from the same source), and the stats page gained a **Tide Ledger** overlay —
+  four 52 px rows (✓ found title / locked "? ? ?"), tap a found note to re-read
+  it via the dialogue card; Escape closes it before leaving the page. Verified
+  in-game (locked rows disabled, found row readable, dialogue opens); smoke
+  44/44.
 - Reef combo now persists: new save key `best_reef_combo` (longest single-dive
   pickup chain, schema-codec) tracks the peak chain at dive end and shows in
   the stats menu ("Best reef combo: N chain (×M multiplier)"). New achievement
