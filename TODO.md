@@ -1,6 +1,25 @@
 # Current project todo:
 
 # done this pass
+- Balance pass 5 — trash-upgrade payback, measured not guessed. Trash costs are
+  paid in **kg of held material**, and the bag is the hard cap on a loop's haul,
+  so one loop banks ≈ bag capacity: the live dive payout accepts exactly the free
+  capacity (10 kg at the starting bag, 20 kg at Bag Lv.1) for any haul ≥ capacity,
+  and each debris sorts 1:1. Payback therefore lands at **~1 loop** for the whole
+  first tier — Inv Cap Lv.1 (6 kg) ~0.6, Move Lv.1 (8) ~0.8 / Lv.2 (12) ~1.2,
+  Range Lv.1 (12) ~1.2 — and later tiers cost *fewer* loops as the bag grows
+  (+10 kg/level vs +3/+4/+6). It is deliberately cheap QoL, so **no prices
+  changed**; the measured table is now in guide.md. Verified the tune nudge
+  timing too: with the tour complete it stays silent at a 7 kg hold and appears
+  (quoting "8 trash", flag persisted) the moment the hold reaches 8 kg, never
+  mid-sale. Player save restored.
+- Shop redesign: `shop.tscn` is now a two-column counter (Sell material rows on
+  the left, Spend money + Activity on the right, footer with Return/Undo) inside
+  rounded panels, and `shop_menu.gd` addresses every row/button by scene-unique
+  name (`%Row_*`) instead of mirroring the layout tree. Verified in-game: rows
+  populate, Sell 1 / All and the +25% bulk math are right (6 Glass → 38$), undo
+  refunds money and returns the lot, purchases update, and the content fits
+  1152×648 without clipping.
 - Mobile touch pass 2: the in-run `ReturnToMapButton` in both minigames was
   40 px tall; it is now 48 px (verified both scenes report size.y = 48). The
   shared settings panel was rebuilt as four label+slider rows (Master / Music /
@@ -221,11 +240,11 @@
   Fixed deferred spawn (hint used to parent to a dying scene during transitions).
 
 # high priority
-- Balance pass 5 (measures, not guesses): drive a fresh-save loop plus the first
-  three upgrade purchases end-to-end via MCP; confirm Move L1/L2 and Range L1
-  land within the intended ~1/3/8-loop payback and that the new tune nudge fires
-  at a moment the player can actually act on it (hold ≥ cost, not mid-sale).
-  Record the measured numbers in guide.md; re-price only if they are off.
+- Shop touch pass: the redesigned shop keeps default (~31 px) button heights on
+  the row Sell 1/5/All buttons, the Buy buttons and the footer Return/Undo, all
+  below the 44 px touch guideline. Raise them to ≥44 px (and the +25% label
+  stays readable) and verify the two-column content still fits 1152×648 without
+  clipping, plus portrait.
 
 # medium priority
 # (shimmer item promoted to high priority)

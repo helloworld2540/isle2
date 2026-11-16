@@ -143,6 +143,27 @@ checked against this yield — nothing changed, deliberately.*
 - Deep Cache 30 score purchase and 15*tier upgrade increases reef debris.
 - Inventory capacity +10 level via trash.
 
+### Trash-upgrade payback audit (measured, pass 5)
+*Trash costs are paid in **kg of held material** (`Inventory.spend` compares inventory
+weight), and the bag is the hard cap on a loop's haul — so one loop banks at most your
+bag capacity in material. Measured on the live dive payout: accepted Reef Debris equals
+free capacity (10 kg at the starting bag, 20 kg at Bag Lv.1) for any haul ≥ capacity, and
+each debris sorts 1:1 into a material.*
+- **Inventory Capacity Lv.1 (6 kg):** ~0.6 loops. The cheapest first step on the terminal.
+- **Move Speed Lv.1 (8 kg):** ~0.8 loops; **Lv.2 (12 kg):** ~1.2 loops. This is what the
+  **Tune up the dock** nudge points at.
+- **Collection Range Lv.1 (12 kg):** ~1.2 loops.
+- Because bag income grows +10 kg/level while the costs grow only +3/+4/+6, every later
+  tier costs *fewer* loops than the one before (Move Lv.3 ≈ 0.5 loops at a 30 kg bag).
+  Note the cost is real, not trivial: paying 8–12 kg is most of a starting bag's haul,
+  so a trash upgrade is a roughly one-loop commitment of material you could have sold.
+  That is the intended first-upgrade shape — a modest, affordable step right after the
+  tour, not a money sink — so **no prices changed.**
+- **Tune-nudge timing (verified):** with the tour complete and an empty nudge history,
+  the card does **not** appear at a 7 kg hold (below the 8 kg cheapest tier) and appears
+  with the live cost ("8 trash") the moment the hold reaches 8 kg. It fires from the world
+  HUD, never mid-sale, and persists `nudge_tune_shown` so it is once per save.
+
 ## World map & dock ambience
 - Tap any walkable tile to walk there (BFS pathfinding); glowing pads are the
   portals to the bench, the reef dive, and the shop.

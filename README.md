@@ -57,7 +57,10 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 - Shop sell rates: Polyethylene 2, Polypropylene 3, Glass 5, Nylon 4, Reef Debris 1.
 - Bulk bonus: stock ≥ 5 → ×1.25 earnings.
 - Inventory capacity: `10 + 10 × inventory_capacity_level` kg (weighted by material).
-- Purchase capacity cost: `6 + 3 × level` (paid fromtrash mix; deducted via `spend_trash`).
+- Purchase capacity cost: `6 + 3 × level` (paid from trash mix; deducted via `spend_trash`).
+- Move/Range cost: `8 + 4 × move_level` / `12 + 6 × range_level` (also paid from the trash mix).
+- Trash-upgrade payback: one loop banks ≈ bag capacity in kg, so the whole first trash tier
+  (cap 6, move 8, range 12) lands at ≲1.2 loops; see guide.md for the measured table.
 - Reef rescue debris reward: `max(1, round(garbage)) + (deep_cache ? 5×tier + 3×capacity_level : 0)`, capped by free capacity.
 - Deep Cache purchase: 30 score; upgrade: 15 × tier.
 - Move speed mult: `1 + 0.08 × upgrade_move`; collection radius bonus: `12 × upgrade_range`.
