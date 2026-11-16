@@ -52,7 +52,7 @@ Warm, slightly cartoony crisp tiles with semi-transparent rounded UI panels. Red
 
 Target audience spans cozy-game fans, casual evening session players, and STEAM/ed-tech uplift layers (the inventory is intentionally legible in kg and material names are real polymer classes). Market opportunity is the gap between no-hazards cleaning sims and heavy economy shooters: a kind arcade game whose numbers feel like real throughput.
 
-Roadmap drawn from existing structure: additional NPC quest variants + tier branching, expanded inventory tiers and optional multi-slot saves, deeper minigame polish (e.g., new belt modifiers, new reef biomes), mobile export via `export_presets.cfg`, plus meta-features (more portals/worlds, seasonal events, shared ghost-leaderboards for best Upcycle streak / deepest Reef dive). Small additions already templated: POI bubbles, toast queue stacking, and the more-stats deep dive from the Continue summary.
+Roadmap drawn from existing structure: additional NPC quest variants + tier branching, expanded inventory tiers and optional multi-slot saves, deeper minigame polish (e.g., new belt modifiers, new reef biomes), mobile export via `export_presets.cfg`, plus meta-features (more portals/worlds, seasonal events, shared ghost-leaderboards for best Upcycle streak / deepest Reef dive). The island already hides its own collectathon — four message-in-a-bottle stories with a Tide Ledger overlay, five tidepool starfish that pay a one-time +$25 completion bonus, and four reef species logged in the Reef Registry. Small additions already templated: POI bubbles, toast queue stacking, and the more-stats deep dive from the Continue summary.
 
 ## Project Summary
 
