@@ -1,6 +1,13 @@
 # Current project todo:
 
 # done this pass
+- Balance pass 4 (payback audit, nothing re-priced blindly): re-derived every
+  money/plasticity sink from the measured ~$32/loop median — Bag L1 repays in
+  ~3 loops (best first buy, hence the new nudge), Market Contact L1 ~8 loops
+  (L2/L3 intentionally long-game), circuit $15 is the ~47% guaranteed
+  stabiliser, Patron 1500$ is the ~47-loop finish line, Charter priced by
+  feel. Numbers now live in guide.md next to the pacing notes. No constants
+  changed; the existing curve is honest.
 - Fresh-save end-to-end QA sweep passed: tutorial chain advances step 1→5 and
   lands on DONE with the bottle nudge armed afterwards; the upcycle wind-down
   on an empty save shows a gold "SHIFT COMPLETE — No Reef Debris banked"
@@ -106,10 +113,9 @@
   Fixed deferred spawn (hint used to parent to a dying scene during transitions).
 
 # high priority
-- Balance pass 4 (capacity & upgrade economy): bag upgrade (60+25$/level vs.
-  6+3 trash/level), Market Contact 80$ and Reef Charter 100$ are all still
-  guess-priced. Re-derive them from measured loop yields (~$32/loop) and the
-  10 kg/level bag curve; write the numbers down in guide.md.
+- Endgame hook: after ISLAND STEWARD (all 17 achievements) there is no chase
+  left. Add a capstone ladder pass — e.g. a prestige stat the island shows
+  (dives/sorts/circuits) or a final $-sink, so completion doesn't fall flat.
 
 # medium priority
 # (shimmer item promoted to high priority)

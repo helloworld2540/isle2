@@ -38,6 +38,29 @@ Welcome to Isle 2. Shared economy across world map, two minigames, shop, NPCs an
 - Patron of the Isle — 1500$ one time. Pure prestige title shown on the stats
   page, plus the PATRON OF THE ISLE achievement.
 
+## Money-sink payback audit (re-derived from measured $32/loop)
+*Measured on a fresh save, three consecutive full loops ≈ $32 each; a loop is
+dives → sortie → sell, ~$17 materials plus the $15 circuit bonus. All prices
+checked against this yield — nothing changed, deliberately.*
+- **Bag +10 kg (60+25$/level):** at a 10 kg hold, bag space is the binding
+  constraint. Level 1 roughly doubles cargo per run (≈$17→~$30 materials), so
+  it repays in **~3 loops** and every loop afterwards. The single best first
+  purchase — this is what the **Room for more?** nudge points at.
+- **Trash-priced bag (6+3 trash/level, island terminal):** the low-cash route.
+  One dive banks ~15–30 kg Reef Debris; converting that to capacity instead of
+  materials is the right deal when money is tight.
+- **Market Contact 80/140/200$:** each level is +$1 per unit. A 10-unit haul
+  earns +$10/level, so **Level 1 pays back in ~8 loops**; Levels 2–3 extend the
+  same economics over the mid-game. It is deliberately the slowest normal sink
+  per dollar — the $200 third level is the long-game stretch. Left as priced.
+- **Reef Charter 100/180$:** pure survival (one extra fish bump per level) —
+  it buys depth access rather than money, so it is priced by feel, not payback.
+- **Circuit bonus $15:** the flat, guaranteed component of loop income (~47%);
+  it is the stabiliser that stops the whole economy from depending on RNG
+  hauls. Not reduced.
+- **Patron of the Isle 1500$:** aspirational finish line, ~47 median loops —
+  the game's final money sink.
+
 ## First playthrough (interactive tutorial)
 - On a fresh save, world map load shows the "Welcome to Isle 2" card (once per save).
 - The TutorialDirector then arms a five-step tour, one hint card at a time:
