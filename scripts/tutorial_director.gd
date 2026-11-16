@@ -67,10 +67,12 @@ const STEP_SCENE_TAG := {
 }
 
 ## One-shot ambient nudges that live outside the linear tour: a bag-full
-## warning the first time the hold crosses 85%, and a bottle pointer once the
-## tour is done. Persisted flags make each fire exactly once per save.
+## warning the first time the hold crosses 85%, a bottle pointer once the
+## tour is done, and an upgrade pointer after your first sale. Persisted
+## flags make each fire exactly once per save.
 const NUDGE_BAG := "nudge_bag_shown"
 const NUDGE_BOTTLE := "nudge_bottle_shown"
+const NUDGE_UPGRADE := "nudge_upgrade_shown"
 
 var _step: int = 0
 var _active_hint: CanvasLayer = null
@@ -219,7 +221,7 @@ func _on_hint_dismissed() -> void:
 ## Public entry for ambient nudges. `kind` is "bag" or "bottle". Cheap to
 ## call every frame: after the first delivery the flag is cached in memory.
 func nudge(kind: String) -> void:
-	var key := NUDGE_BAG if kind == "bag" else NUDGE_BOTTLE if kind == "bottle" else ""
+	var key := NUDGE_BAG if kind == "bag" else NUDGE_BOTTLE if kind == "bottle" else NUDGE_UPGRADE if kind == "upgrade" else ""
 	if key == "":
 		return
 	if not _nudge_state.has(key):
@@ -241,6 +243,10 @@ func nudge(kind: String) -> void:
 			_spawn_card("Bottles on the shore",
 				"[font_size=15]Keep an eye on the waterline — [color=#9fe2ff]message bottles[/color] wash up along the beach.\nRead all three for a secret. (They sparkle. Usually.)[/font_size]",
 				"Nice")
+		"upgrade":
+			_spawn_card("Room for more?",
+				"[font_size=15]Your first sale — nice work.\nThe [color=#9fe2ff]shop[/color] sells a [color=#ffd27f]+10 kg bag[/color] for cash, and the terminal up on the [color=#9fe2ff]island map[/color] can grow it with trash instead.\nEither way, a bigger hold means fewer trips home.[/font_size]",
+				"Got it")
 
 
 func _clear_hint() -> void:

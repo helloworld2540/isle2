@@ -50,10 +50,11 @@ Welcome to Isle 2. Shared economy across world map, two minigames, shop, NPCs an
   where the current step can be acted on; they reappear on scene re-entry until done.
 - Progress saves as `tutorial_step`; the tour survives quitting mid-way and never
   re-arms on old saves.
-- Two one-shot ambient nudges also live here: a **Bag almost full!** card the
+- Three one-shot ambient nudges also live here: a **Bag almost full!** card the
   first time your hold crosses 85% (fires once per save, skipped while another
-  card is up), and a **Bottles on the shore** card shown right after the tour
-  finishes.
+  card is up), a **Bottles on the shore** card shown right after the tour
+  finishes, and a **Room for more?** card after your first sale — pointing at
+  both bag-expansion paths (shop cash or island-map trash).
 
 ## Upcycle
 - Sort belt trash into matching bins. Wrong/burned does not produce materials or score loss reward except streak reset.
@@ -63,6 +64,9 @@ Welcome to Isle 2. Shared economy across world map, two minigames, shop, NPCs an
   flags a new personal best. Ten finished runs earns BENCH REGULAR.
 - Combo milestones (every five clean sorts) add +5 score and a "FIVE ON THE
   BELT!" banner; a burned or wrong item resets the streak.
+- When only 5 Reef Debris remain the bench warns you once; when the pile runs
+  out it stops feeding the belt and lets you finish whatever is on it, then
+  closes on a gold **SHIFT COMPLETE** panel (nothing left unsorted).
 
 ## Reef Rescue
 - Dodge fish, collide with garbage to collect 1kg per hit, combos multiply debris bonus.

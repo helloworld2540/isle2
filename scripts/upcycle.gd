@@ -48,6 +48,8 @@ var spawn_timer: float = 0.0
 var belt_speed: float = 80.0
 var _belt_banner_shown: bool = false
 var _leaving: bool = false
+var _shift_exhausted: bool = false  ## No reef debris left to feed the belt.
+var _low_debris_warned: bool = false  ## One-shot "running low" callout.
 
 # Interaction & UI State
 var drag_start_pos: Vector2 = Vector2.ZERO
@@ -67,6 +69,7 @@ var _hud_queue: Node = null
 @onready var fire: Area2D = $"Fire"
 @onready var bins: Node2D = $"Bins"
 @onready var game_over_canvas: CanvasLayer = $"GameOverCanvas"
+@onready var go_title: Label = $"GameOverCanvas/GameOverPanel/VBox/Title"
 @onready var go_body: Label = $"GameOverCanvas/GameOverPanel/VBox/Body"
 @onready var go_return_btn: Button = $"GameOverCanvas/GameOverPanel/VBox/ReturnButton"
 @onready var highlight_node: Node2D = $"highlight_node"
@@ -119,7 +122,19 @@ func _process_conveyor(delta: float) -> void:
 			burn_item(item)
 
 func _process_spawning(delta: float) -> void:
+	# The bench only runs while there is debris to convert. Once the pile is
+	# empty the shift winds down gracefully: stop feeding the belt, let the
+	# player finish whatever is already on it, then close the run. Ending
+	# instantly used to strand half-sorted items on the conveyor.
+	if int(GameState.trash_by_type.get("Reef Debris", 0)) <= 0:
+		_process_shift_wind_down()
+		return
+	
 	spawn_timer += delta
+	var remaining := int(GameState.trash_by_type.get("Reef Debris", 0))
+	if remaining <= 5 and not _low_debris_warned:
+		_low_debris_warned = true
+		_notify_queue("%d Reef Debris left - clear the belt!" % remaining, Color(1.0, 0.84, 0.35, 1.0), 1.8)
 	
 	var belt_count := _count_belt_items()
 	if belt_count < 5:
@@ -135,6 +150,19 @@ func _process_spawning(delta: float) -> void:
 			if belt_count + 1 >= 5 and not _belt_banner_shown:
 				_belt_banner_shown = true
 				_spawn_streak_banner()
+
+
+## Called every frame once the debris pile is empty. The run ends only when
+## the belt is clear and nothing is in hand, so the last items still count.
+func _process_shift_wind_down() -> void:
+	if not _shift_exhausted:
+		_shift_exhausted = true
+		spawn_timer = 0.0
+		if _count_belt_items() > 0 or carried_item != null:
+			_notify_queue("Last of the debris - clear the belt!", Color(1.0, 0.84, 0.35, 1.0), 1.8)
+	
+	if _count_belt_items() == 0 and carried_item == null:
+		_game_over_summary(true)
 
 func _process_carried_item() -> void:
 	if not carried_item:
@@ -565,7 +593,9 @@ func _notify_queue(text: String, col: Color = Color(0.85, 1.0, 0.6, 1.0), durati
 
 # --- Game Over & Return Flows ---
 
-func _game_over_summary() -> void:
+## Ends the run. `clean_finish` is true when the shift ran dry and every last
+## item on the belt was processed — that reads as a completed shift, not a loss.
+func _game_over_summary(clean_finish: bool = false) -> void:
 	if _leaving: return
 	_leaving = true
 	
@@ -574,10 +604,19 @@ func _game_over_summary() -> void:
 	GameState.record_upcycle(score)
 	_record_run_card(prev_best)
 	
-	AudioManager.play_sfx("sort_bad")
+	AudioManager.play_sfx("achievement" if clean_finish else "sort_bad")
 	
 	if game_over_canvas and go_body:
-		go_body.text = "Out of Reef Debris\nScore: %d\nSorted %d items" % [score, _sorted_count]
+		if clean_finish:
+			if go_title:
+				go_title.text = "SHIFT COMPLETE"
+				go_title.modulate = Color(1.0, 0.86, 0.35, 1.0)
+			if _sorted_count > 0:
+				go_body.text = "Belt clear - all debris processed\nScore: %d\nSorted %d items" % [score, _sorted_count]
+			else:
+				go_body.text = "No Reef Debris banked\nDive at Reef Rescue first."
+		else:
+			go_body.text = "Out of Reef Debris\nScore: %d\nSorted %d items" % [score, _sorted_count]
 		game_over_canvas.layer = 110
 		game_over_canvas.visible = true
 	else:

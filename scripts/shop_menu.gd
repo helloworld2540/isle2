@@ -238,7 +238,7 @@ func _update_capacity_status() -> void:
 		color = Color(1.0, 0.45, 0.45, 1.0)
 	elif ratio >= 0.8:
 		color = Color(1.0, 0.85, 0.35, 1.0)
-	capacity_status.text = "Capacity: %d/%d kg (%d%%) — upgrade costs trash" % [used, cap, int(round(ratio * 100.0))]
+	capacity_status.text = "Capacity: %d/%d kg (%d%%) — +10 kg costs %d$ (shop) or trash (map)" % [used, cap, int(round(ratio * 100.0)), GameState.get_capacity_money_cost()]
 	capacity_status.modulate = color
 
 func _refresh_row(mat: String) -> void:
@@ -319,6 +319,7 @@ func _sell_qty(mat: String, qty: int) -> void:
 	_feedback("Sold %d %s%s +%d$" % [units, mat, tag, earnings])
 	_spawn_receipt("SOLD %s x%d%s  +%d$" % [mat, units, tag, earnings], Color(1.0, 0.85, 0.35, 1.0) if bulk else Color(0.7, 1.0, 0.6, 1.0), 1.35 if bulk else 1.0)
 	TutorialDirector.notify("sold")
+	TutorialDirector.nudge("upgrade")
 	GameState._persist()
 	_refresh()
 
@@ -343,6 +344,7 @@ func _sell_all(mat: String) -> void:
 	_feedback("Sold %d %s%s for %d$" % [units, mat, tag, earnings])
 	_spawn_receipt("SOLD %s x%d%s  +%d$" % [mat, units, tag, earnings], Color(1.0, 0.85, 0.35, 1.0) if bulk else Color(0.7, 1.0, 0.6, 1.0), 1.35 if bulk else 1.0)
 	TutorialDirector.notify("sold")
+	TutorialDirector.nudge("upgrade")
 	GameState._persist()
 	_refresh()
 

@@ -65,6 +65,7 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 - Belt: items spawn every 2.75s at score 0 (ramps down ~0.03s/point to a 0.75s floor), max 10 on belt; banner at ≥5.
 - Belt speed: `clamp(75 + score*0.3, 75, 180)`.
 - Bin match by material; fire hazard on body enter.
+- Debris-backed shift: each spawned item spends one banked Reef Debris. At 5 or fewer a one-shot "N Reef Debris left" callout fires; at zero the belt stops feeding but the run only ends once the belt is clear and nothing is in hand, closing with a gold "SHIFT COMPLETE" panel instead of a loss screen.
 - Streak tracked; on return, `record_sort_streak` and `record_upcycle(score)`.
 
 ## Reef Rescue Mechanics
@@ -107,6 +108,9 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 - Undo last sale is all-or-nothing: if the bag cannot fit the lot back it is denied (with a
   capacity hint in the button tooltip) instead of half-refunding. Undo plays a REVERSED
   stamp, an exiting receipt, and red flashes on the coin line / row count.
+- The capacity line shows both expansion routes (shop cash price and the island-map trash
+  cost), so the upgrade is discoverable wherever the player is looking. First sale in a save
+  also earns the one-shot **Room for more?** nudge.
 
 ## Files
 - `.godot/` — editor cache.

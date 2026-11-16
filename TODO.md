@@ -1,6 +1,14 @@
 # Current project todo:
 
 # done this pass
+- Upcycle "shift wind-down": the bench used to end the run the moment the
+  debris pile hit zero, stranding half-sorted items on the belt. Now at 5
+  Reef Debris a one-shot "N Reef Debris left" callout fires; at zero the belt
+  stops feeding but the shift only closes once the belt is clear and nothing is
+  in hand — a gold "SHIFT COMPLETE" panel (with its own body for the
+  nothing-to-sort case) instead of a red loss. Verified via MCP (1 debris:
+  exhausted but waits for the belt, clears, panel reads SHIFT COMPLETE with
+  correct body and the "Bench Run № 1 — Belt Sorted" recap card).
 - Two long-game achievements backed by the new run counters: BENCH REGULAR
   (10 Upcycle runs) and REEF REGULAR (10 Reef dives), catalogue now 17; the
   stats page gained a "Field log: N dives · M bench runs" line. Verified both
