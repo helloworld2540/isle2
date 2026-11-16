@@ -33,6 +33,7 @@ var score: int = 0
 var sort_streak: int = 0
 var _peak_streak: int = 0  ## Longest streak reached this run, for the summary card.
 var _sorted_count: int = 0
+var _misses: int = 0  ## Failed sorts / belt-burned items this run — 0 with a real haul earns the Flawless tag.
 var _recycled_total: int = 0
 var _recycled_by_mat: Dictionary = {
 	"Polyethylene": 0,
@@ -261,6 +262,7 @@ func spawn_item() -> void:
 	bob.tween_property(item, "position:y", item.position.y + 6.0, 0.6).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
 func burn_item(item: Node2D) -> void:
+	_misses += 1
 	sort_streak = 0
 	AudioManager.play_sfx("sort_bad", 0.88)
 	
@@ -387,6 +389,7 @@ func _process_successful_sort(mat: String, bin_pos: Vector2) -> void:
 
 func _process_failed_sort() -> void:
 	AudioManager.play_sfx("sort_bad", 0.92)
+	_misses += 1
 	sort_streak = 0
 	_shake_wrong_sort()
 
@@ -661,10 +664,14 @@ func _game_over_summary(clean_finish: bool = false) -> void:
 				go_title.modulate = Color(1.0, 0.86, 0.35, 1.0)
 			if _sorted_count > 0:
 				go_body.text = "Belt clear - all debris processed\nScore: %d\nSorted %d items" % [score, _sorted_count]
+				if _misses == 0 and _sorted_count >= 5:
+					go_body.text += "\nFLAWLESS SHIFT - not a single miss"
 			else:
 				go_body.text = "No Reef Debris banked\nDive at Reef Rescue first."
 		else:
 			go_body.text = "Out of Reef Debris\nScore: %d\nSorted %d items" % [score, _sorted_count]
+			if _misses == 0 and _sorted_count >= 5:
+				go_body.text += "\nFLAWLESS SHIFT - not a single miss"
 		game_over_canvas.layer = 110
 		game_over_canvas.visible = true
 	else:
@@ -698,6 +705,8 @@ func _record_run_card(prev_best: int) -> void:
 	var lines: Array[String] = [
 		"Score %d · %d sorted · peak streak %d" % [score, _sorted_count, _peak_streak],
 	]
+	if _misses == 0 and _sorted_count >= 5:
+		lines.append("✦ FLAWLESS SHIFT — not a single miss")
 	if score > prev_best:
 		lines.append("★ New personal best — %d (was %d)" % [score, prev_best])
 	lines.append(", ".join(material_parts) if not material_parts.is_empty() else "No materials sorted this run")

@@ -1,6 +1,11 @@
 # Current project todo:
 
 # done this pass
+- Upcycle "FLAWLESS SHIFT" tag: the bench now counts misses (wrong bin +
+  belt-burned items); a run with >=5 sorted and zero misses appends
+  "FLAWLESS SHIFT - not a single miss" to the game-over card and the
+  world-map recap line. Zero economy impact; verified in-game that failures
+  increment the counter (2/2) and suppress the tag. Smoke 44/44.
 - Export verification after the addon-filter fix: Web preset rebuilds clean
   (html/js/wasm/pck all emitted, pack completes); editor error log audited —
   every remaining entry is historical (pre-fix ReceiptStack parse errors, the
