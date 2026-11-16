@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- Fresh-save tour re-verified with current code: welcome dismissed ->
+  move/reef/sort/sell notifications advance the guide to step 5 (finale);
+  dismiss -> step 999 (DONE), and the atlas collectathon nudge fires once
+  per save after that. Player save restored afterwards.
 - Stats page Journal line annotates the starfish slot with "· tide pool
   paid" once the +$25 completion bonus has been claimed (save schema key
   tide_pool_granted). Verified clean build; smoke 45/45.
