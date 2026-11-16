@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- Fresh-save first-run screenshots verified the full onboarding flow at
+  current state: welcome card open, HUD shows the starfish line (1/5) after a
+  single pickup, bottle line (1/3), empty bag state — all render cleanly
+  against the world map. Player save restored afterwards.
 - NPC talk-to-trigger verified end to end on a fresh save: teleport player
   onto Mara -> body_entered -> dialogue card opens ("Hi! I'm Mara, island
   caretaker...
