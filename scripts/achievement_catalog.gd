@@ -129,6 +129,13 @@ const ENTRIES: Array[Dictionary] = [
 		"where": "Upcycle",
 	},
 	{
+		"id": "starlight",
+		"short": "Stars",
+		"title": "STARLIGHT",
+		"subtitle": "Found every hidden starfish on the island.",
+		"where": "Island",
+	},
+	{
 		"id": "first_circuit",
 		"short": "Circuit",
 		"title": "ROUND THE ISLE",
@@ -277,6 +284,8 @@ static func is_met(id: String, state: Node) -> bool:
 			return state.island_patron
 		"hot_streak":
 			return state.best_sort_streak >= 15
+		"starlight":
+			return state.starfish_found.size() >= 5
 		"first_circuit":
 			return state.circuits_completed >= 1
 		"golden_touch":

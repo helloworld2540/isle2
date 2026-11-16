@@ -131,6 +131,8 @@ var market_level: int = 0
 var reef_bonus_lives: int = 0
 ## Ids of "messages in a bottle" already read (saved, so they never respawn).
 var bottles_read: Array[String] = []
+## Starfish ids found around the island (saved). Five exist.
+var starfish_found: Array[String] = []
 ## Fish species the player has bumped into at least once (saved). Four exist;
 ## meeting all four earns the REEF REGISTRY achievement.
 var fish_met: Array[String] = []
@@ -459,6 +461,22 @@ func is_story_read(id: String) -> bool:
 	return bottles_read.has(id)
 
 
+## True once a starfish has been collected (used to keep pickups one-shot).
+func is_starfish_found(id: String) -> bool:
+	return starfish_found.has(id)
+
+
+## Collects a starfish. Returns the new total so callers can pop a "n / 5"
+## counter; the STARLIGHT achievement reads starfish_found.size() inside the
+## usual _persist() evaluation.
+func mark_starfish_found(id: String) -> int:
+	if id.is_empty() or starfish_found.has(id):
+		return starfish_found.size()
+	starfish_found.append(id)
+	_persist()
+	return starfish_found.size()
+
+
 ## Records a bumped fish species. Returns true when the species is new, so
 ## callers can celebrate the first sighting; the REEF REGISTRY achievement
 ## reads fish_met.size() inside the usual _persist() evaluation.
@@ -685,6 +703,7 @@ const SAVE_SCHEMA: Array = [
 	["island_patron", "island_patron", false, "bool"],
 	["tidekeeper", "tidekeeper", false, "bool"],
 	["bottles_read", "bottles_read", [], "string_array"],
+	["starfish_found", "starfish_found", [], "string_array"],
 	["fish_met", "fish_met", [], "string_array"],
 	["tide_gift_granted", "tide_gift_granted", false, "bool"],
 	["quests_completed", "quests_completed", 0, "int"],

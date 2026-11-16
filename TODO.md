@@ -1,6 +1,13 @@
 # Current project todo:
 
 # done this pass
+- **Tidepool Starfish collectathon**: five authored starfish hidden around
+  the island (walkable cells verified by tile-data query). Walk over one to
+  add it to the journal (`starfish_found`, string array in the save codec),
+  pop a floating "Starfish n/5" callout + sparkle burst, glint animation out
+  of the loop, counter on the stats page, and a new achievement **STARLIGHT**
+  at five. Verified in-game (5 placements persist, dedup, predicate fires).
+  Smoke 45/45 (new scene picked up).
 - Ambient world-life pass 4: the distant sailboat is now a working boat — a
   rare low foghorn sounds every 45–85 s while the boat is actually on the
   horizon (synthesized sound/sfx/foghorn.wav, ~2 Hz beat between two detuned

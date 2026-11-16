@@ -135,6 +135,7 @@ checked against this yield — nothing changed, deliberately.*
 - Quest economics audit (SALE_PRICES-weighted): turn-ins are deliberately slightly under market value — that is the price of quest progress and the Harbor Hero +10 kg cap — but the old numbers were punitive (Tom 24$->12$, Nina 30$->15$, Kai 25$->10$, Mara t2 25$->18$). Buffed: Tom t1 4->6 PP (18$), Nina t1 5->6 PP (18$), Kai t1 now 6 PP (18$), Mara t2 6->8 PP (24$). Nina t2 (+8$) and Kai t2 (+4$) remain the profitable tiers.
 - Depth is tracked in the stats page and feeds two achievements: DEEP DIVE (400 m) and TO THE ABYSS (900 m). Ten finished dives earns REEF REGULAR; the stats page keeps a running "Field log" of dives and bench runs.
 - Species you bump into are logged in the stats page ("Fish spotted") and in the Reef Registry overlay (tap a note to re-read what you know about that fish); meeting all four earns REEF REGISTRY.
+Five starfish hide around the island — walk over one to add it to the journal (stats page, "Starfish found"); collecting all five earns STARLIGHT.
 - A rare golden Goldie (10% of fish spawns, any species) pays +5 when bumped and costs no life — its edge marker shimmers gold, never red.
 - Rare golden debris in the reef (12% spawn) is worth +1 bonus score on top of the combo multiplier.
 - Rare golden belt items in Upcycle (12% spawn) are worth double score (+2) when sorted correctly.

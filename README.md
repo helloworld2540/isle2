@@ -55,6 +55,7 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
   lane, 24 px off the edge, lifted above any bottom card.
 - **Audio**: `scripts/audio_manager.gd`.
 - **Achievements**: `scripts/achievement_catalog.gd` — pure data + predicates (thresholds read straight off GameState fields); GameState owns the save, the pending-card queue and the `achievement_unlocked` signal. The stats page renders the compact roll and a grouped guide; the world banner celebrates unlocks.
+- **Starfish**: five hidden collectibles scattered across the map's walkable cells; saved in `starfish_found`, feed the STARLIGHT achievement.
 - **Bottles**: `scripts/bottle_catalog.gd` — canonical title/lines for every message in a bottle; the world pickup and the stats page's Tide Ledger both read it.
 - **Fish journal**: `scripts/fish_catalog.gd` — canonical names/blurbs for the four reef species; the dive pops "New species!" on a first sighting and the stats page's Reef Registry re-shows every earned note.
 - **Collectibles & streaks**: golden belt scrap (+2 score) and golden reef debris (+1 bonus) spawn at 12%; lifetime trackers (clean dives, flawless shifts, golden finds, best combo/haul) feed achievements — REEF REGISTRY, CLEAN SWEEP, SILK TOUCH, GOLDEN TOUCH, RHYTHM OF THE REEF, HEAVY HARVEST, HOT STREAK.

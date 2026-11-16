@@ -30,6 +30,7 @@
 [ext_resource type="PackedScene" path="res://scenes/wm_harbor_ambience.tscn" id="27_harbor"]
 [ext_resource type="PackedScene" path="res://scenes/wm_surf_bed.tscn" id="28_surf"]
 
+[ext_resource type="PackedScene" path="res://scenes/wm_starfish.tscn" id="26_starfish"]
 [sub_resource type="AtlasTexture" id="AtlasTexture_4wyf3"]
 atlas = ExtResource("1_rwgxs")
 region = Rect2(0, 0, 256, 384)
@@ -585,6 +586,26 @@ bottle_id = "bottle_light"
 [node name="BottlePact" parent="." instance=ExtResource("24_bottle")]
 position = Vector2(360, 1180)
 bottle_id = "bottle_pact"
+
+[node name="Starfish1" parent="." instance=ExtResource("26_starfish")]
+position = Vector2(240, -60)
+starfish_id = "sf_1"
+
+[node name="Starfish2" parent="." instance=ExtResource("26_starfish")]
+position = Vector2(160, 1310)
+starfish_id = "sf_2"
+
+[node name="Starfish3" parent="." instance=ExtResource("26_starfish")]
+position = Vector2(390, -630)
+starfish_id = "sf_3"
+
+[node name="Starfish4" parent="." instance=ExtResource("26_starfish")]
+position = Vector2(-380, -700)
+starfish_id = "sf_4"
+
+[node name="Starfish5" parent="." instance=ExtResource("26_starfish")]
+position = Vector2(1100, -1080)
+starfish_id = "sf_5"
 
 [node name="PortalMarkers" type="CanvasLayer" parent="." unique_id=310133525]
 script = ExtResource("10_markers")
