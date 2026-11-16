@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Stats page shows "Last saved: <iso datetime>" (via SaveManager.get_save_mtime
+  reading save.json's mtime) — handy for knowing how fresh the shown numbers
+  are. Verified visually; smoke 45/45.
 - Post-change screenshot regression across main menu / world: all layout
   still clean (starfish visible on the map, progress panel intact, title no
   longer clips). No defects found.

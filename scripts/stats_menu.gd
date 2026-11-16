@@ -141,9 +141,12 @@ func _era_tag() -> String:
 
 func _build_stats_text() -> String:
 	var journal := _build_journal_line()
+	var saved := SaveManager.get_save_mtime()
+	var saved_line := "Last saved: %s" % Time.get_datetime_string_from_unix_time(saved) if saved > 0 else "Last saved: unknown"
 	var lines: Array[String] = [
 		"Stats",
 		journal,
+		saved_line,
 		"Upcycle score: %d  (best %d)" % [GameState.upcycle_score, GameState.best_upcycle_score],
 		"Money: %d$  (lifetime %d$)" % [GameState.money, GameState.lifetime_earnings],
 		"Bag: %d/%d kg" % [GameState.get_inventory_weight(), GameState.get_inventory_capacity()],

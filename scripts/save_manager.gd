@@ -29,6 +29,11 @@ func new_save() -> void:
 func has_backup() -> bool:
 	return FileAccess.file_exists(BACKUP_PATH)
 
+## When the save was last written, in unix seconds — 0 if unknown. Useful for
+## stats pages that want to tell the player "this is from yesterday".
+func get_save_mtime() -> int:
+	return FileAccess.get_modified_time(SAVE_PATH)
+
 func save_game(data: Dictionary) -> void:
 	# Park the previous save before overwriting it. Rotate generations so a
 	# torn write of either file still leaves a readable copy behind.
