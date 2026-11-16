@@ -56,6 +56,9 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 - **Audio**: `scripts/audio_manager.gd`.
 - **Achievements**: `scripts/achievement_catalog.gd` — pure data + predicates (thresholds read straight off GameState fields); GameState owns the save, the pending-card queue and the `achievement_unlocked` signal. The stats page renders the compact roll and a grouped guide; the world banner celebrates unlocks.
 - **Bottles**: `scripts/bottle_catalog.gd` — canonical title/lines for every message in a bottle; the world pickup and the stats page's Tide Ledger both read it.
+- **Fish journal**: `scripts/fish_catalog.gd` — canonical names/blurbs for the four reef species; the dive pops "New species!" on a first sighting and the stats page's Reef Registry re-shows every earned note.
+- **Collectibles & streaks**: golden belt scrap (+2 score) and golden reef debris (+1 bonus) spawn at 12%; lifetime trackers (clean dives, flawless shifts, golden finds, best combo/haul) feed achievements — REEF REGISTRY, CLEAN SWEEP, SILK TOUCH, GOLDEN TOUCH, RHYTHM OF THE REEF, HEAVY HARVEST, HOT STREAK.
+- **Run identity**: zero-miss bench shifts earn FLAWLESS SHIFT, zero-bump dives earn CLEAN DIVE — printed on the summary and world-map recap cards.
 
 ## State & Save
 - Save path: `user://save.json` (Godot user dir).
@@ -64,7 +67,7 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
   add to it; it is spent on the Deep Cache) and `best_upcycle_score` as the best
   single bench run; plus `reef_garbage`, `reef_fish`, `trash_inventory`,
   `trash_by_type{}`, `inventory_capacity_level`, `best_sort_streak`,
-  `best_reef_depth`, `best_reef_fish`, `best_reef_combo`, `best_reef_haul`, `lifetime_earnings`, `sort_streak`,
+  `best_reef_depth`, `best_reef_fish`, `best_reef_combo`, `best_reef_haul`, `clean_dives`, `flawless_shifts`, `golden_finds`, `fish_met`, `bottles_read`, `lifetime_earnings`, `sort_streak`,
   `deep_cache`, `deep_cache_tier`.
 - Run counters: `reef_dives` and `upcycle_runs` number the map recap chapters ("Dive № 4 — Deep Dive", "Bench Run № 2 — Hot Streak") and feed the BENCH REGULAR / REEF REGULAR achievements; the 25-run badges (BENCH MASTER, REEF VETERAN, LOOP MASTER) and KEEPER OF THE TIDE land on the banner's legendary gold tier.
 - `restore()` rehydrates from save; `reset()` zeroes state. `persist()` merges into save data.
