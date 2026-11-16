@@ -20,8 +20,10 @@ func _try_show_next() -> void:
 	var e: Dictionary = _queue.pop_front()
 	_spawn(e)
 
+const LABEL_SCENE := preload("res://scenes/ui/label.tscn")
+
 func _spawn(e: Dictionary) -> void:
-	var lbl := load("res://scenes/ui/label.tscn").instantiate() as Label
+	var lbl := LABEL_SCENE.instantiate() as Label
 	lbl.text = str(e.get("text", ""))
 	lbl.modulate = e.get("color", Color(1.0, 1.0, 1.0, 1.0)) as Color
 	lbl.modulate.a = 0.0

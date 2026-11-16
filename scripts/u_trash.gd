@@ -17,6 +17,17 @@ const TRASH_MAP := {
 var mat := ""
 var size := 1
 
+const SPRITE_CACHE: Dictionary = {}
+
+func _sprite(path: String) -> Texture2D:
+	var cached := SPRITE_CACHE.get(path) as Texture2D
+	if cached:
+		return cached
+	var tex := load("res://sprites/rr/" + path) as Texture2D
+	if tex:
+		SPRITE_CACHE[path] = tex
+	return tex
+
 func init(texture: String) -> void:
 	if not TRASH_MAP.has(texture):
 		mat = "Polyethylene"
@@ -30,8 +41,8 @@ func init(texture: String) -> void:
 	set_meta("material", mat)
 	set_meta("size", size)
 	if sprite:
-		var tex := load("res://sprites/rr/" + texture)
-		if tex is Texture2D:
+		var tex := _sprite(texture)
+		if tex:
 			sprite.texture = tex
 	# Fixed on-screen size; the material-unit `size` no longer doubles as a
 	# logarithm so visual scale and economy stay decoupled.

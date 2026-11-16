@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- Texture-load caching pass: reef/garbage/upcycle sprites now resolve through
+  a SPRITE_CACHE dict with fall-back to load() on a miss — no per-spawn
+  resource lookup penalty on mobile. PathFollow and notification-label
+  instantiation promoted to const preload. Smoke 45/45.
 - Web preset rebuilt after the starfish-final nudge addition — still packs
   cleanly.
 - Main-menu confirm flow verified end to end on an existing save: New Save ->

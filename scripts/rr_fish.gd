@@ -9,6 +9,17 @@ const GARBAGE := {
 	"trash_straw.png": 17
 }
 
+const SPRITE_CACHE: Dictionary = {}
+
+func _sprite(path: String) -> Texture2D:
+	var cached := SPRITE_CACHE.get(path) as Texture2D
+	if cached:
+		return cached
+	var tex := load("res://sprites/rr/" + path) as Texture2D
+	if tex:
+		SPRITE_CACHE[path] = tex
+	return tex
+
 const FISH := {
 	"fish_gold.png": 20,
 	"fish_greyreefshark.png": 45,
@@ -44,8 +55,8 @@ func init_fish() -> void:
 	size = log(clamped) / log(100.0)
 	speed = Vector2(randfn(0.0, 75.0), randfn(1.0, 0.4))
 	if sprite:
-		var tex := load("res://sprites/rr/" + texture)
-		if tex is Texture2D:
+		var tex := _sprite(texture)
+		if tex:
 			sprite.texture = tex
 		if golden_fish:
 			sprite.modulate = Color(1.18, 1.08, 0.5, 1.0)
@@ -66,8 +77,8 @@ func init_garbage() -> void:
 		if sprite:
 			sprite.modulate = Color(1.15, 1.05, 0.55, 1.0)
 	if sprite:
-		var tex := load("res://sprites/rr/" + texture)
-		if tex is Texture2D:
+		var tex := _sprite(texture)
+		if tex:
 			sprite.texture = tex
 			if bool(get_meta("golden", false)):
 				sprite.modulate = Color(1.15, 1.05, 0.55, 1.0)

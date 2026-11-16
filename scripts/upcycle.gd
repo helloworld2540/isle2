@@ -2,6 +2,7 @@ extends Node2D
 class_name Upcycle
 
 const NOTIFICATION_QUEUE := preload("res://scenes/ui/notification_queue.tscn")
+const PATH_FOLLOW := preload("res://scenes/ui/path_follow2_d.tscn")
 const FxSparkle := preload("res://scripts/fx_sparkle.gd")
 const FLOATING_TEXT_SCENE := preload("res://scenes/ui/floating_text.tscn")
 
@@ -242,7 +243,7 @@ func spawn_item() -> void:
 	_items_fed += 1
 	
 	var item: Node2D = preload("res://scenes/u_trash.tscn").instantiate()
-	var follow := load("res://scenes/ui/path_follow2_d.tscn").instantiate() as PathFollow2D
+	var follow := PATH_FOLLOW.instantiate() as PathFollow2D
 	
 	follow.loop = false
 	follow.progress = 0.0
