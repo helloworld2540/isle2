@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- Clean re-import verified (`godot --headless --import` from a cold editor
+  pass): no new errors — the error log holds only the 20 known historical
+  entries (ReceiptStack/upcycle parse errors from before their fixes, the
+  scene_commands re-entrancy warning); nothing from the current tree.
 - Achievement banner legendary tier widened: HARBOR HERO, PATRON OF THE ISLE
   and the ISLAND STEWARD capstone now land on the loud gold style alongside
   the 25-run badges and KEEPER OF THE TIDE. Smoke 44/44.
