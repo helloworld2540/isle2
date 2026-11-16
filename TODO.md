@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Post-change screenshot regression across main menu / world: all layout
+  still clean (starfish visible on the map, progress panel intact, title no
+  longer clips). No defects found.
 - Legendary achievement banners now ring the harbor bell under the legendary
   chime (the island hears a big one). Plain achievement / milestone pitches
   unchanged. Smoke 45/45.
