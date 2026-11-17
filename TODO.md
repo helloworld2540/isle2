@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- Oda the tide-watcher added: a quest-free NPC west of Mara (walkable cell
+  verified via TileData Walkable probe). She is `tide_aware`, so she appends
+  the day's tide observation to her conversation; `WorldNPC.tide_aware` is a
+  reusable export for any future islander who would notice the water.
 - Keeper's Tide Almanac shipped on top of the daily tide: every claimed report
   logs that condition (`tides_logged`), the tide card shows progress
   ("almanac n/4"), and the stats page lists all four tides as a ✓/· checklist.

@@ -118,3 +118,19 @@ static func belt_speed_multiplier() -> float:
 ## Multiplier on the 10%/12% golden rolls in both minigames.
 static func golden_chance_multiplier() -> float:
 	return float(today().get("golden_chance_mult", 1.0))
+
+
+## One-line observation an islander might mutter about the sea today. All tide-
+## aware NPCs share the day's line, so the island reads as one place with one
+## opinion of the weather rather than four unrelated scripts.
+static func ambient_line() -> String:
+	match String(today().get("key", "")):
+		"glass_calm":
+			return "Sea's like glass. You can spot a lost fork from the dock."
+		"eel_run":
+			return "Eel run today. The fish are thinking twice before the shallows."
+		"slack_water":
+			return "Slack water. Nothing pushes, nothing hurries."
+		"night_drift":
+			return "Moon's doing tricks with the glitter today. Keep your eyes low."
+	return "Still tide. Good day for the old rhythms."

@@ -15,6 +15,11 @@ class_name WorldNPC
 @export_multiline var tier2_lines: Array[String] = ["Tier 2 unlocked. Bring more!"]
 @export_multiline var flavour_variants: Array[String] = ["The tides are calm today.", "Keep the shores clean!", "Every bit of trash helps."]
 @export_multiline var ambient_bubbles: Array[String] = ["*quietly humming*", "Cleanup in progress...", "Another shore, another day."]
+## When set, the NPC appends the day's tide observation (TideReport.ambient_line)
+## to the end of their conversation, so the island shares one opinion of the
+## sea today. Reserved for NPCs who would plausibly notice the water — Oda the
+## tide-watcher, mostly.
+@export var tide_aware: bool = false
 
 @export_group("First Visit Reward")
 @export var reward_trash: int = 5
@@ -250,10 +255,15 @@ func _flavour_lines() -> Array:
 	var out: Array = []
 	if not flavour_variants.is_empty():
 		out.append(str(flavour_variants[_visit_count % flavour_variants.size()]))
-		
+
 	var banter := _personality_banter()
 	if not banter.is_empty():
 		out.append(str(banter[_visit_count % banter.size()]))
+
+	# Tide-aware islanders sprinkle the day's sea into the conversation, as
+	# almanac Oda would; it costs no extra state and flips with the calendar.
+	if tide_aware:
+		out.append(TideReport.ambient_line())
 	return out
 
 func _show_dialogue(status: String = "", positive: bool = true) -> void:

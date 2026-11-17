@@ -571,6 +571,19 @@ quest2_amount = 8
 quest2_reward_mat = "Glass"
 quest2_reward_amount = 4
 
+[node name="WorldNPC_Oda" parent="NPCs" unique_id=900000026 instance=ExtResource("9_npc")]
+position = Vector2(-560, -725)
+npc_id = "npc_oda"
+npc_name = "Oda"
+npc_sprite_index = 2
+dialogue_lines = Array[String](["Name's Oda. I keep the island's almanac — every tide the sea has, I write it down.", "The sea turns through four moods over four days. Nobody knows the order until it arrives.", "Watch the water, keeper. It always tells the truth eventually."])
+repeat_dialogue_lines = Array[String](["The almanac's a little fatter every week. Come see what today's sea has decided."])
+flavour_variants = Array[String](["Four tides, four warnings.", "The almanac's a little fatter every week.", "Slack water gifts the patient."])
+ambient_bubbles = Array[String](["*scribbling in a salt-stained book*", "*holds a hand up to the wind*"])
+reward_trash = 0
+reward_mat = "Polyethylene"
+tide_aware = true
+
 [node name="BottleTide" parent="." instance=ExtResource("24_bottle")]
 position = Vector2(280, 1180)
 bottle_id = "bottle_tide"
