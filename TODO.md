@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- Oda notices THE FAR POINT ("Some of us watch the water. Some of us are
+  watched by it.") — she explains what the watcher is without naming him.
 - THE FAR POINT shipped: a mysterious hooded watcher at the island's
   far-east peninsula. First contact plays a low harbor bell and grants the
   38th achievement (THE FAR POINT) — Mira's rumour answered. Sprite painted
