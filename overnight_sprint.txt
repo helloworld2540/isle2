@@ -1036,3 +1036,8 @@ STATE
 - Exported clean (131 MB x86_64) with the preset's own defaults; headless boot
   smoke-test runs with zero script errors and keeps running (killed by timeout,
   exit 124 as expected). Export presets: Linux / Web / Android all present.
+
+## 2026-11-17 — Three platforms export clean
+- Linux (x86_64), Web (html5), Android (signed APK): all three presets build
+  end-to-end with stock templates; Linux headless boots with 0 errors.
+- Web artifact set complete (html/js/wasm/pck/worklets/icons).
