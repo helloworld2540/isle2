@@ -158,6 +158,9 @@ func _update_stats_display() -> void:
 		deeds.append("Tide streak: %d days running" % GameState.tide_streak)
 	if GameState.tide_best_streak > 1:
 		deeds.append("Best streak: %d days" % GameState.tide_best_streak)
+	var all_days := SaveManager.total_tide_days()
+	if all_days > GameState.tide_days_visited:
+		deeds.append("All islands, one keeper: %d days" % all_days)
 	# All six voices agree on one thing; the page says so, quietly.
 	if GameState.is_achievement_unlocked("silent_chorus"):
 		deeds.append("")

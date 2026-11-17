@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- The stats page now counts the keeper across all their islands:
+  "All islands, one keeper: N days" (only when it exceeds this island).
 - Reset island confirm copy rewritten warmer — "a clean book"
   acknowledges what a fresh keeper inherits, not only what they lose.
 - Live stats page render confirmed post-changes: journal reads "tides 4/4 ·

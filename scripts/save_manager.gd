@@ -113,6 +113,32 @@ func _migrate_legacy_save() -> void:
 
 ## Every slot the player owns, newest first. Pure directory scan — the legacy
 ## migration is handled once in ensure_bound(), so this never recurses.
+## Sum of `tide_days_visited` across every slot on this device. A keeper
+## juggling several islands is, in the end, one keeper with one habit.
+func total_tide_days() -> int:
+	var total := 0
+	if not DirAccess.dir_exists_absolute(SLOT_DIR):
+		return 0
+	var dir := DirAccess.open(SLOT_DIR)
+	if dir == null:
+		return 0
+	for name in dir.get_directories():
+		if name.begins_with("."):
+			continue
+		var sub := "%s/%s" % [SLOT_DIR, name]
+		if not DirAccess.dir_exists_absolute(sub):
+			continue
+		var f := FileAccess.open("%s/save.json" % sub, FileAccess.READ)
+		if f == null:
+			continue
+		var text := f.get_as_text()
+		f.close()
+		var parsed = JSON.parse_string(text)
+		if parsed is Dictionary:
+			total += int(parsed.get("tide_days_visited", 0))
+	return total
+
+
 func list_slots() -> Array:
 	var out: Array = []
 	if not DirAccess.dir_exists_absolute(SLOT_DIR):
