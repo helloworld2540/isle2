@@ -1020,3 +1020,14 @@ STATE
   Mara all murmur; Tide Ledger now seven rows (btn derives count live).
 - Window pinned to 1152x648 at boot; stats page drag-scroll on all lists;
   Fail-loud bench tests (slot/migration/tide, 39 unique achievements confirmed).
+
+## 2026-11-17 (deep night II) — The island's memory is complete
+- THE FIRST TIDE (#39), THE YEAR KEEPER (#40), THE STEADY KEEPER (#37),
+  best-streak tracking (tide_best_streak) — the arc now runs door to horizon.
+- Far point: Mara's rumour, the watcher (painterly lantern sprite, breathing
+  lantern swell, mist ring), THE FAR POINT (#38), THE WATCHER'S NOTE,
+  the one-shot "A page from the far point" card, Oda/Nina/Tom/Kai/Mara,
+  deeds lines, almanac HUD graduations (Almanac Is Kept -> Fifth Tide).
+- Tide Ledger button derives its count (0/7); the almanac card and the HUD
+  card read the streak; the pause board tooltips the full report; the HUD
+  swell returns on each fresh claim.
