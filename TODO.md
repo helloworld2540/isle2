@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- Live world boot confirmed after the tint pass: Slack Water blue confirmed,
+  day 1 HUD renders, welcome card legible.
 - tools/all_audits.sh: one-command pre-flight gate runs every harness and
   audit; refuses to run against player slots; exits 0 only when all green.
 - tools/unique_id_audit.py: any `.tscn` with a reused `unique_id=` fails
