@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Fix: About button was connected once per _refresh_summary (on every
+  slot change), so the About panel re-presented N times. Now wired once
+  in _wire_buttons; slot_ui_test no longer warns about duplicate connects.
 - The TIDE REPORT card title is now sea-foam instead of catalogue blue —
   the day's water, not a metric.
 - tools/fresh_clone.sh: one command to prove a cold checkout ships —

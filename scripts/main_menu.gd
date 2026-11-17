@@ -39,6 +39,8 @@ func _wire_buttons() -> void:
 		more_stats_button.pressed.connect(_on_stats_pressed)
 	if confirm_panel:
 		confirm_panel.confirmed.connect(_start_fresh_save)
+	if about_button:
+		about_button.pressed.connect(_on_about_pressed)
 	if slot_picker:
 		slot_picker.slot_picked.connect(_on_slot_picked)
 		slot_picker.slot_created.connect(_on_slot_created)
@@ -65,8 +67,6 @@ func _refresh_summary() -> void:
 		save_summary.text = _summary_text()
 	if tide_line:
 		tide_line.text = "≈ %s · day %d" % [TideReport.hud_line(), GameState.island_day()]
-	if about_button:
-		about_button.pressed.connect(_on_about_pressed)
 		tide_line.tooltip_text = "Today's tide. The stats page almanac lists all four — the rotation is four days, and every one comes round."
 
 
