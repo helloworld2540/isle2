@@ -1124,3 +1124,8 @@ STATE
 ## 2026-11-18 — The About page carries the watcher
 - The keeper's shrine now frames the credits: a watcher silhouette above the
   title — the island's final portrait in its own page.
+
+## 2026-11-18 — Hide the tide shipped
+- Settings toggle: every tide surface swaps to "The sea keeps its own counsel"
+  (HUD, pause menu, reef/bench, menu, shop, tide card never fires). Rules and
+  almanac unchanged. Gate green; all three platforms rebuilt at HEAD.
