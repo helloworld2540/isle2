@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- Oda notices THE YEAR KEEPER — a full year of tides. Her last word
+  belongs to those who stayed the longest.
 - THE YEAR KEEPER added (achievement #40): 365 days of tides kept. The
   whole arc has its horizon; docs to 40.
 - The island remembers its most punctual keeper: tide_best_streak
