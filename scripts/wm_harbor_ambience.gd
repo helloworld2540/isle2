@@ -48,6 +48,11 @@ func _process(delta: float) -> void:
 
 
 func _cry() -> void:
+	# Night Drift: a lone foghorn low on the water, once per cycle instead of
+	# half the time — the sea is doing tricks tonight.
+	if TideReport.today_key() == "night_drift" and randf() < 0.5:
+		AudioManager.play_sfx("foghorn", randf_range(0.8, 0.92), AudioManager.AMBIENCE_BUS)
+		return
 	# Lower and a touch slower than the flock — this is the bird on the far jetty.
 	var pitch := randf_range(0.78, 0.94)
 	AudioManager.play_sfx("gull", pitch, AudioManager.AMBIENCE_BUS)
