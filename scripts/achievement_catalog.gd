@@ -234,6 +234,13 @@ const ENTRIES: Array[Dictionary] = [
 		"where": "Island",
 	},
 	{
+		"id": "whispers",
+		"short": "Whispers",
+		"title": "THE WHISPERER",
+		"subtitle": "Bought seven days of tomorrow from Corl the dockhand.",
+		"where": "Shop",
+	},
+	{
 		"id": "island_steward",
 		"short": "Steward",
 		"title": "ISLAND STEWARD",
@@ -322,6 +329,8 @@ static func is_met(id: String, state: Node) -> bool:
 			return state.circuits_completed >= 25
 		"tide_keeper":
 			return state.tidekeeper
+		"whispers":
+			return state.harbor_tips_bought >= 7
 		"pact_reply":
 			return state.bottles_read.has("bottle_pact")
 		"keeper_letter":

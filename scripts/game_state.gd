@@ -152,6 +152,8 @@ var tides_logged: Array[String] = []
 ## Day index (TideReport.day_index() + 1) for which the keeper bought the
 ## dockhand's tip revealing tomorrow's tide. 0 means "no hint bought".
 var harbor_tip_day: int = 0
+## Lifetime count of dockhand's tips bought — feeds THE WHISPERER.
+var harbor_tips_bought: int = 0
 ## One-time reward for completing the almanac.
 var tide_almanac_granted: bool = false
 const TIDE_ALMANAC_MONEY := 30
@@ -579,6 +581,7 @@ func purchase_harbor_tip() -> bool:
 	if not spend_money(HARBOR_TIP_COST):
 		return false
 	harbor_tip_day = TideReport.day_index() + 1
+	harbor_tips_bought += 1
 	_persist()
 	return true
 
@@ -824,6 +827,7 @@ const SAVE_SCHEMA: Array = [
 	["tides_logged", "tides_logged", [], "string_array"],
 	["tide_almanac_granted", "tide_almanac_granted", false, "bool"],
 	["harbor_tip_day", "harbor_tip_day", 0, "int"],
+	["harbor_tips_bought", "harbor_tips_bought", 0, "int"],
 	["quests_completed", "quests_completed", 0, "int"],
 	["lifetime_garbage_kg", "lifetime_garbage_kg", 0, "int"],
 	["reef_dives", "reef_dives", 0, "int"],

@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- THE WHISPERER added (achievement #34): buy seven days of the dockhand's
+  tide tip (25$/day) and the tide itself bows — a long-game badge for the
+  foresight economy. New `harbor_tips_bought` counter (schema-persisted),
+  catalogue + legendary banner updated, docs updated.
 - The dockhand has a name and a legend: Corl, the shop-counter seeker
   who sells tomorrow's tide for $25. He never walks the map — his whole
   existence is the log line and the receipt. Lore added to guide.md plus a

@@ -13,6 +13,11 @@ class_name DragScrollContainer
 ##  - Honors the project-wide `reduce_motion` flag: no easing is used either
 ##    way, but the flag is respected by snapping drags 1:1 (no multiplier).
 ##
+## Input is handled in `_input` (before GUI), not `_gui_input`, because the
+## deepest child under the pointer (a Label with the default MOUSE_FILTER_STOP)
+## would otherwise swallow the event and the scroll container would never see
+## it — dragging worked only over the empty background, not the content.
+##
 ## Node-first: instanced by scenes (shop, guide overlay). No runtime node
 ## construction anywhere.
 
@@ -37,16 +42,48 @@ func _ready() -> void:
 		hbar.custom_minimum_size.y = 26
 
 
-func _gui_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
+	# Never steal input from something drawn over us (modal overlays, menus).
+	if not is_visible_in_tree():
+		return
 	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT:
-			if event.pressed:
-				_begin_press(event.position.y)
-			else:
-				_end_press(event)
+		if event.button_index != MOUSE_BUTTON_LEFT:
 			return
+		if event.pressed:
+			var hovered := get_viewport().gui_get_hovered_control()
+			if Rect2(global_position, size).has_point(event.position) and _can_drag_from(hovered):
+				_begin_press(event.position.y)
+		elif _dragging:
+			if _end_press():
+				get_viewport().set_input_as_handled()
 	elif event is InputEventMouseMotion and _dragging:
 		_drag_to(event)
+		if _is_scrolling():
+			get_viewport().set_input_as_handled()
+
+
+## Start a drag unless the press landed on something that needs the gesture
+## for itself. Labels/panels are fine; sliders and text editing need drags.
+func _can_drag_from(control: Control) -> bool:
+	if control == null:
+		# No hover info (press exactly at once): trust the rect check.
+		return true
+	if control is Range:
+		return false
+	if control is LineEdit or control is TextEdit or control is OptionButton:
+		return false
+	# Something outside our subtree — only allow it if we have no better
+	# target (e.g. the empty background of the container itself).
+	return not (hovered_is_foreign(control))
+
+
+func hovered_is_foreign(control: Control) -> bool:
+	# True when the hovered control is neither us nor a descendant — i.e. an
+	# overlay or sibling painted above us. Dragging must scroll only when the
+	# pointer is over our own content (or its empty background).
+	if control == self:
+		return false
+	return not is_ancestor_of(control)
 
 
 func _begin_press(y: float) -> void:
@@ -64,11 +101,15 @@ func _drag_to(event: InputEventMouseMotion) -> void:
 	if _drag_distance >= drag_threshold:
 		var mult := 1.0 if GameSettings.reduce_motion else drag_speed
 		scroll_vertical = int(round(float(_start_scroll) - offset * mult))
-		accept_event()
 
 
-func _end_press(event: InputEventMouseButton) -> void:
-	if _drag_distance >= drag_threshold:
-		# Eat the release so the widget under the finger does not also click.
-		accept_event()
+func _is_scrolling() -> bool:
+	return _drag_distance >= drag_threshold
+
+
+## Returns true when the release should be eaten (it ended a scroll drag).
+func _end_press() -> bool:
+	var was_scrolling := _is_scrolling()
 	_dragging = false
+	_drag_distance = 0.0
+	return was_scrolling
