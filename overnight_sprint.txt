@@ -1071,3 +1071,7 @@ STATE
 
 ## 2026-11-17 — Android APK re-verified after the restore-backup pass
 - APK rebuilt clean; signed and verifier-clean.
+
+## 2026-11-17 — Full green board
+- smoke 49/49, slot/migration/slot_ui/tide/restore 0 failures, touch_audit PASS.
+  The whole harness suite is green at HEAD.
