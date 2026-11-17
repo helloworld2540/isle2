@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- THE FIRST TIDE added (achievement #39): the very first daily claim.
+  A starter the whole tide arc starts from. Docs to 39.
 - Once THE FIFTH TIDE is granted, the HUD tide line graduates to
   "✦ The Fifth Tide" — the island stops scheduling weather for the keeper.
 - Deeds column closes the arc twice: "The far point: seen." and, if

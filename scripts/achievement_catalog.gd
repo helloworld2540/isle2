@@ -269,6 +269,13 @@ const ENTRIES: Array[Dictionary] = [
 		"where": "Island",
 	},
 	{
+		"id": "first_tide",
+		"short": "First word",
+		"title": "THE FIRST TIDE",
+		"subtitle": "The sea spoke first — you claimed the report.",
+		"where": "Island",
+	},
+	{
 		"id": "island_steward",
 		"short": "Steward",
 		"title": "ISLAND STEWARD",
@@ -371,6 +378,8 @@ static func is_met(id: String, state: Node) -> bool:
 			return state.watcher_seen
 		"steady_keeper":
 			return state.tide_streak >= 3
+		"first_tide":
+			return state.tide_days_visited >= 1
 		"tide_messages":
 			return state.bottles_read.size() >= 3
 		"tide_almanac":
