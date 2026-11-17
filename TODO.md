@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- The Achievement Guide overlay gains a THE TIDE appendix — a quick
+  reference for the four conditions, the almanac, and the dockhand tip — so
+  players get the cheat sheet in-game without the guide.md.
 - The Tide Ledger legend counts what remains ("every note the tide ever
   left you — n/7 — tap to read again"), refreshed on open. Mid-way fixups
   crashed on a parse error; the final state imports clean and passes 49/49.

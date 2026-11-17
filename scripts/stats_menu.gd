@@ -310,6 +310,16 @@ func _build_guide_text() -> String:
 		lines.append_array(section)
 		lines.append("")
 	
+	# The tide, spelled out for keepers who never read the harbour notice.
+	lines.append("— THE TIDE —")
+	lines.append("Glass Calm — more debris in the reef, fewer fish")
+	lines.append("The almanac logs each tide you witness (n/4)")
+	lines.append("Eel Run — reef fish dart about 28% faster")
+	lines.append("Slack Water — the belt runs about 18% slower")
+	lines.append("Night Drift — golden debris is twice as likely")
+	lines.append("The rotation is four days. The HUD shows today's reading;")
+	lines.append("for the price of a dockhand, tomorrow's too.")
+	lines.append("")
 	lines.append("%d of %d earned." % [GameState.achievement_count(), GameState.achievement_total()])
 	return "\n".join(lines)
 
