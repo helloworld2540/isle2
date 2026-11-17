@@ -1097,3 +1097,7 @@ STATE
 ## 2026-11-17 — App icon ready, Web + Linux re-verified
 - New icon ships (sand isle + message bottle in the game's palette); Web and
   Linux rebuilt clean against it; Linux headless boots with zero errors.
+
+## 2026-11-17 — Android re-verified with new launcher icon
+- APK rebuilt; signed and verifier-clean; launcher icons picked up the new
+  island art (main 192 / adaptive 432 / monochrome).
