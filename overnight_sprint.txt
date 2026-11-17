@@ -1121,3 +1121,6 @@ STATE
 
 ## 2026-11-18 — Gate re-run clean after the About-door wiring
 - All three platforms rebuilt with the About button wired exactly once.
+## 2026-11-18 — The About page carries the watcher
+- The keeper's shrine now frames the credits: a watcher silhouette above the
+  title — the island's final portrait in its own page.

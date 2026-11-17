@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- The About page carries the watcher silhouette above the title — the
+  island frames its own credits with the keeper at the threshold.
 - Fresh clone replay after About/door/motto work: still PASS — the repo
   alone builds, exports, and boots without error.
 - The About page whispers a sequel tease — "The far point is only the
