@@ -617,6 +617,10 @@ bottle_id = "bottle_corl"
 [node name="FarPointWatcher" parent="." instance=ExtResource("25_watcher")]
 position = Vector2(1536, -256)
 
+[node name="BottleWatcher" parent="." instance=ExtResource("24_bottle")]
+position = Vector2(1408, -256)
+bottle_id = "bottle_watcher"
+
 [node name="Starfish1" parent="." instance=ExtResource("26_starfish")]
 position = Vector2(240, -60)
 starfish_id = "sf_1"

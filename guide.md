@@ -215,7 +215,7 @@ checked against this yield — nothing changed, deliberately.*
   its keeper the one tide it never wrote in any almanac.
 - Earn every badge on the island (ISLAND STEWARD) and the world itself
   wears a faint golden hush — a quiet victory the map never announces.
-- The stats page opens with a single-line Keeper's Journal ledger: "Journal — bottles n/6 · starfish n/5 · tides n/4 · species n/4 · achievements n/39" — so you can see the whole completion board at a glance without scrolling.
+- The stats page opens with a single-line Keeper's Journal ledger: "Journal — bottles n/7 · starfish n/5 · tides n/4 · species n/4 · achievements n/39" — so you can see the whole completion board at a glance without scrolling.
 - Bottles you have already read can be re-read from the stats page via the Tide Ledger overlay (the game nudges you there once the third base bottle is read) (undiscovered notes stay locked).
 - Quest economics audit (SALE_PRICES-weighted): turn-ins are deliberately slightly under market value — that is the price of quest progress and the Harbor Hero +10 kg cap — but the old numbers were punitive (Tom 24$->12$, Nina 30$->15$, Kai 25$->10$, Mara t2 25$->18$). Buffed: Tom t1 4->6 PP (18$), Nina t1 5->6 PP (18$), Kai t1 now 6 PP (18$), Mara t2 6->8 PP (24$). Nina t2 (+8$) and Kai t2 (+4$) remain the profitable tiers.
 - Depth is tracked in the stats page and feeds two achievements: DEEP DIVE (400 m) and TO THE ABYSS (900 m). Ten finished dives earns REEF REGULAR; the stats page keeps a running "Field log" of dives and bench runs.
@@ -363,7 +363,7 @@ each debris sorts 1:1 into a material.*
   and the counter remembers every one of your visits; buy enough days and
   Corl will finally speak to you like a person — and a seventh whisper is
   rewarded with a Folded Paper on the shop path; the stats page ledger keeps
-  a re-readable copy (six bottles now).
+  a re-readable copy (six bottles plus the watcher's note).
   He marks the calendar too — day 10, 30 and 50 each earn exactly one
   line from the counter, and he never says any of them twice.
 
@@ -378,7 +378,7 @@ earned the relevant NPC appends a line to every later conversation:
   one dive), REEF VETERAN (25 dives), TO THE ABYSS (900 m).
 - **Nina** — the three shore notes read, SILK TOUCH (flawless shifts).
 - **Kai** — TIDEKEEPER's Pact funded, GOLDEN TOUCH (ten golden scraps),
-  THE WHISPERER (Corl's seven days), THE SILENT CHORUS (six bottles).
+  THE WHISPERER (Corl's seven days), THE SILENT CHORUS (six bottles), and the watcher's note tucks in after the far point.
 - **Oda** — THE KEEPER'S LETTER, THE SILENT CHORUS, THE LONG KEEPER (ten
   days on the almanac), ISLAND STEWARD.
 

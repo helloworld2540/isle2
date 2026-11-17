@@ -17,6 +17,9 @@ const KEEPER_BOTTLE_ID := "bottle_keeper"
 ## Corl's folded paper washes up once the keeper has bought seven days of
 ## tomorrow. The foresight arc's one physical artifact.
 const CORL_BOTTLE_ID := "bottle_corl"
+## The watcher's note washes up once the far point has been seen — the
+## rumour's paper tail, on the path you took to him.
+const WATCHER_BOTTLE_ID := "bottle_watcher"
 
 @export var bottle_id: String = "bottle_1"
 ## Optional override; when empty (the default) the canonical text comes from
@@ -35,6 +38,10 @@ func _ready() -> void:
 		return
 	if bottle_id == CORL_BOTTLE_ID and not _whisperer_complete():
 		# Corl only leaves the counter when he is paid seven days' worth.
+		queue_free()
+		return
+	if bottle_id == WATCHER_BOTTLE_ID and not GameState.watcher_seen:
+		# The watcher does not answer what has not been seen.
 		queue_free()
 		return
 	if GameState.is_story_read(bottle_id):
@@ -89,7 +96,7 @@ func _read() -> void:
 	# One-shot pointer to the Tide Ledger once the base set is complete.
 	var base_found := 0
 	for id in GameState.bottles_read:
-		if id != PACT_BOTTLE_ID and id != KEEPER_BOTTLE_ID and id != CORL_BOTTLE_ID:
+		if id != PACT_BOTTLE_ID and id != KEEPER_BOTTLE_ID and id != CORL_BOTTLE_ID and id != WATCHER_BOTTLE_ID:
 			base_found += 1
 	if base_found >= 3:
 		TutorialDirector.nudge("ledger")

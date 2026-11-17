@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- THE WATCHER'S NOTE added: bottle_watcher washes up on the east path
+  once THE FAR POINT is seen. Seventh ledger row; THE SILENT CHORUS still
+  needs six (the seventh is a blessing). Live-verified: spawn, pickup, found.
 - The watcher's lantern breathes: a slow warm swell (1.8 s in, 1.8 s out,
   sine ease) so he can be read from across the water. Reduced motion holds
   him perfectly still.

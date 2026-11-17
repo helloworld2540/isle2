@@ -62,6 +62,16 @@ const ENTRIES: Array[Dictionary] = [
 		],
 	},
 	{
+		"id": "bottle_watcher",
+		"title": "The Watcher's Note",
+		"lines": [
+			"You saw me. That was never supposed to happen — not here, not with a keeper who counts.",
+			"The fifth tide does not repeat. It only arrives, and only for the ones the island chooses.",
+			"Keep the shore. Keep the ledger. When you are done staying, you will understand.",
+			"— the watcher",
+		],
+	},
+	{
 		"id": "bottle_corl",
 		"title": "The Folded Paper",
 		"lines": [
