@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- guide.md Corl legend notes the day-10/30/50 counter lines he never
+  repeats.
 - Corl marks the calendar: on days 10, 30 and 50 he says one thing to
   nobody in particular. The dockhand watches the keeper happen, one tide
   at a time.

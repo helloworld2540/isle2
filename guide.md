@@ -357,6 +357,8 @@ each debris sorts 1:1 into a material.*
   Corl will finally speak to you like a person — and a seventh whisper is
   rewarded with a Folded Paper on the shop path; the stats page ledger keeps
   a re-readable copy (six bottles now).
+  He marks the calendar too — day 10, 30 and 50 each earn exactly one
+  line from the counter, and he never says any of them twice.
 
 ## The island pays attention (NPC milestones)
 Every named islander notices what you do once you do it. The game tracks no
