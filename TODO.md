@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- guide.md ends with a Version history digest — a player-facing timeline
+  of the arcs the island shipped.
 - Touch-target audit: slot row rename/delete buttons 36 → 44 px, settings
   sliders 40 → 44 px. All interactive controls in the mobile path are
   now ≥44 px (labels and decorative dividers exempt).
