@@ -1108,3 +1108,9 @@ STATE
 
 ## 2026-11-18 — Gate re-run clean after the About-door work
 - All three platforms rebuilt; About page ships inside every artifact.
+
+## 2026-11-18 — Fresh-clone proven end-to-end
+- git archive of HEAD -> import -> Linux export -> headless boot (0 bytes of
+  log output). The repo alone builds, runs, and exports clean.
+- Optional MCP autoload now guarded: fresh clones boot with zero script errors;
+  dev machine unchanged.

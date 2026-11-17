@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Fresh-clone proof: git archive -> import (2 benign warnings: font
+  ordering, missing addon) -> Linux export -> headless boot with zero
+  errors. Repo alone is sufficient.
 - Fresh-clone proof: git archive -> clean import (two benign warnings)
   -> Linux export -> headless boot (exit 124). The repo alone is sufficient
   to build and run the game.
