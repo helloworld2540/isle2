@@ -1009,3 +1009,14 @@ STATE
   point rumour (Mara) is now answered in-game.
 - Window pinned to 1152x648 at boot (GameSettings, not project.godot — the live
   editor rewrites that file on every headless import).
+
+## 2026-11-17 (deep night) — The island counts everything
+- THE FIRST TIDE (#39) and THE YEAR KEEPER (#40) — the arc's floor and horizon.
+- tide_best_streak (schema-persisted) — stats page shows the longest claim run.
+- THE FIFTH TIDE — the island's last gift: one legendary card, a low bell, +$250;
+  the HUD graduates to "✦ The Fifth Tide" forever; deeds column closes the arc.
+- Far point arc: THE FAR POINT (#38); the watcher (born scene, painterly sprite,
+  breathing lantern sway, mist ring); THE WATCHER'S NOTE; Oda / Nina / Tom / Kai /
+  Mara all murmur; Tide Ledger now seven rows (btn derives count live).
+- Window pinned to 1152x648 at boot; stats page drag-scroll on all lists;
+  Fail-loud bench tests (slot/migration/tide, 39 unique achievements confirmed).
