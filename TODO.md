@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- export_gate.sh --re-export after the About-from-the-door work: all
+  three platforms rebuilt clean; the About page is in every artifact.
 - The main menu gains 'About' (bottom-right) — the same credits card
   opens from the front door, not only the island's pause menu.
 - export_gate.sh --re-export ran end-to-end fresh: all three platforms

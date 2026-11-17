@@ -1105,3 +1105,6 @@ STATE
 ## 2026-11-17 — 1.0.0 sealed in export/
 - export_gate.sh --re-export: Linux (0-byte boot log), Web, Android combined
   — the release pipeline is a single command, proven end-to-end at HEAD.
+
+## 2026-11-18 — Gate re-run clean after the About-door work
+- All three platforms rebuilt; About page ships inside every artifact.
