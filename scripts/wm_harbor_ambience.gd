@@ -55,6 +55,9 @@ func _cry() -> void:
 		return
 	# Lower and a touch slower than the flock — this is the bird on the far jetty.
 	var pitch := randf_range(0.78, 0.94)
+	if TideReport.today_key() == "eel_run":
+		# Eel Run: the birds are keyed up for the hunt — pitch reads hotter.
+		pitch = randf_range(0.95, 1.08)
 	AudioManager.play_sfx("gull", pitch, AudioManager.AMBIENCE_BUS)
 	
 	if _echo_timer > 0.0:
