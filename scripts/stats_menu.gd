@@ -77,6 +77,7 @@ func _connect_signals() -> void:
 		_guide_close.pressed.connect(_close_guide)
 	if _ledger_button:
 		_ledger_button.pressed.connect(_open_ledger)
+		_refresh_ledger_button()
 	if _ledger_close:
 		_ledger_close.pressed.connect(_close_ledger)
 	for i in LEDGER_BUTTONS.size():
@@ -293,6 +294,18 @@ func _build_guide_text() -> String:
 	
 	lines.append("%d of %d earned." % [GameState.achievement_count(), GameState.achievement_total()])
 	return "\n".join(lines)
+
+
+## The ledger button advertises its own completion state — six slots, six
+## stories, no need to open the page to know where you stand.
+func _refresh_ledger_button() -> void:
+	if not _ledger_button:
+		return
+	var found := 0
+	for id in LEDGER_IDS:
+		if GameState.is_story_read(id):
+			found += 1
+	_ledger_button.text = "Tide Ledger (%d/6)" % found
 
 
 ## Tide Ledger: re-read any bottle the player has already found. Undiscovered

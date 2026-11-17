@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- The stats page Ledger button advertises its own completion — "Tide
+  Ledger (n/6)" — no need to open the page to know where you stand.
 - Main menu continue-summary now shows days on the island alongside
   achievements — the save's own clock on the boot screen.
 - Slot picker rows and the menu summary now show "day N" per island —
