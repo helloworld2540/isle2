@@ -93,7 +93,11 @@ func _read() -> void:
 			base_found += 1
 	if base_found >= 3:
 		TutorialDirector.nudge("ledger")
-	AudioManager.play_sfx("quest_complete", 0.95)
+	# Corl and the first keeper get the bell; everyone else gets the chime.
+	if bottle_id == CORL_BOTTLE_ID or bottle_id == KEEPER_BOTTLE_ID:
+		AudioManager.play_sfx("harbor_bell", 0.7)
+	else:
+		AudioManager.play_sfx("quest_complete", 0.95)
 	set_deferred("monitoring", false)
 	
 	var lines := story_lines if not story_lines.is_empty() else BottleCatalog.lines_of(bottle_id)
