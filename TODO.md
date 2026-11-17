@@ -1,6 +1,12 @@
 # Current project todo:
 
 # done this pass
+- 1.1.0 shipped: Android versionName 1.1.0 / versionCode 2, About page +
+  menu stamp + RELEASE_NOTES headline all in lockstep. Platforms re-built at
+  HEAD. Lode badge dump clean.
+- Version 1.1.0: Android preset (versionName=1.1.0, versionCode=2), About
+  page stamp, main menu stamp, RELEASE_NOTES, README, hidden-tide mode listed
+  in the box contents.
 - Platforms rebuilt after the quiet-keeper seal.
 - guide.md version history gains the hidden-tide entry.
 - Permanent harness: tools/hide_tide_test.gd asserts the flag flips,

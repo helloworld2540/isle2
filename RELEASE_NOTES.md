@@ -1,6 +1,6 @@
 # Isle 2 — Trash Island, release notes
 
-**Version 1.0.0** (signed, Linux / Web / Android)
+**Version 1.1.0** (signed, Linux / Web / Android)
 
 ## What it is
 
@@ -11,6 +11,12 @@ island economy of weighted materials, trash currency and upgrades. Multi-slot
 saves, reduced motion, drag-to-scroll everywhere, fully touch-friendly.
 
 ## What's inside the box
+
+- **Hidden-tide mode.** A full second playthrough style: every tide
+  surface goes quiet ("The sea keeps its own counsel — and so do you.").
+  The tide still runs, the almanac still fills, the keeper just reads the
+  water instead of the HUD. THE QUIET KEEPER and THE TIDE WALKER (41-42)
+  are only earnable here.
 
 - **The daily tide.** A deterministic four-day rotation bends the reef, the
   belt, the golden rolls and the shop's bulk bonus. The keeper's HUD keeps it
