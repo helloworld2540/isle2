@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Corl respects regulars: three days running and the dockhand's tip drops
+  from 25$ to 15$. tide_streak gates tip_cost(); shop texts/disabled state
+  read the shared accessor; harness still green.
 - The TIDE REPORT card now shows the live streak ("streak N") once it
   reaches two — the daily habit reads back at the player every claim.
 - tide_test now seeds a two-streak ending yesterday and asserts the

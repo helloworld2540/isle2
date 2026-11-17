@@ -574,6 +574,13 @@ func try_grant_tide_almanac() -> Dictionary:
 ## Cost of the dockhand's tip: a small money sink that pays off only for a
 ## keeper who plans ahead. Reveals tomorrow's condition, one day at a time.
 const HARBOR_TIP_COST := 25
+## Corl respects regulars — three days running and his price drops to 15$.
+const HARBOR_TIP_DISCOUNT := 15
+const HARBOR_TIP_DISCOUNT_STREAK := 3
+
+## Today's price for the dockhand's tip.
+func tip_cost() -> int:
+	return HARBOR_TIP_DISCOUNT if tide_streak >= HARBOR_TIP_DISCOUNT_STREAK else HARBOR_TIP_COST
 
 ## True once today's purchase covers tomorrow. Idempotent per day.
 func harbor_tip_purchased() -> bool:
@@ -584,7 +591,7 @@ func harbor_tip_purchased() -> bool:
 func purchase_harbor_tip() -> bool:
 	if harbor_tip_purchased():
 		return true
-	if not spend_money(HARBOR_TIP_COST):
+	if not spend_money(tip_cost()):
 		return false
 	harbor_tip_day = TideReport.day_index() + 1
 	harbor_tips_bought += 1

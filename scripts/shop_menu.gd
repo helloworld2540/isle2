@@ -225,9 +225,9 @@ func _refresh_purchases() -> void:
 			buy_tide_tip_button.text = "Dockhand's tip — bought today"
 			buy_tide_tip_button.disabled = true
 		else:
-			buy_tide_tip_button.text = "Dockhand's tide tip — %d$" % GameState.HARBOR_TIP_COST
+			buy_tide_tip_button.text = "Dockhand's tide tip — %d$" % GameState.tip_cost()
 			buy_tide_tip_button.tooltip_text = "Pay a dockhand to read tomorrow's tide to you."
-			buy_tide_tip_button.disabled = not GameState.can_afford(GameState.HARBOR_TIP_COST)
+			buy_tide_tip_button.disabled = not GameState.can_afford(GameState.tip_cost())
 	if tide_tip_note:
 		if GameState.harbor_tip_purchased():
 			tide_tip_note.text = "Tomorrow: %s — plan the dive and the belt accordingly. His ledger: %d/7 whispers." % [GameState.tomorrow_tide_title(), mini(GameState.harbor_tips_bought, 7)]
@@ -237,12 +237,12 @@ func _refresh_purchases() -> void:
 
 func _buy_tide_tip() -> void:
 	if not GameState.purchase_harbor_tip():
-		_play_denied("Need %d$ for the dockhand's tip" % GameState.HARBOR_TIP_COST, "")
+		_play_denied("Need %d$ for the dockhand's tip" % GameState.tip_cost(), "")
 		_shake_control(buy_tide_tip_button)
 		return
 	AudioManager.play_sfx("upgrade", 1.15)
 	var tip_text := "Tomorrow: %s" % GameState.tomorrow_tide_title()
-	_stack.sale("DOCKHAND'S TIP  -%d$\n%s" % [GameState.HARBOR_TIP_COST, tip_text], Color(0.6, 0.9, 1.0, 1.0))
+	_stack.sale("DOCKHAND'S TIP  -%d$\n%s" % [GameState.tip_cost(), tip_text], Color(0.6, 0.9, 1.0, 1.0))
 	_log_sale(_corl_line())
 	_refresh()
 

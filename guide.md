@@ -136,7 +136,8 @@ checked against this yield — nothing changed, deliberately.*
   centennial, and Corl polishes the counter unprompted.
 - The shop keeps a barometer above the spend rows — today's tide, one
   line, so the Glass Calm bulk premium is impossible to miss.
-- The shop sells a **dockhand's tide tip** for $25: it names tomorrow's
+- The shop sells a **dockhand's tide tip** for $25 ($15 for keepers on a
+  three-day streak — Corl respects regulars): it names tomorrow's
   tide for that one day, so a keeper who plans around the rotation can
   stock up, reposition or save the golden-scrap day for last — once bought,
   the world HUD's tide line grows a `Tomorrow:` line until midnight — and
