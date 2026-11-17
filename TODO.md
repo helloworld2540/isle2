@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- Mara marks THE YEAR KEEPER ("A whole year of mornings with the keeper.
+  The island keeps you now.") — the caretaker witnesses the long haul too.
 - The world wears the day's mood: a faint tide tint (Glass Calm warm
   sand, Eel Run sea-glass, Slack Water grey, Night Drift moon-blue) under
   the HUD. Verified live at 1152x648 on Slack Water.
