@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Kai and Mara join the milestone chorus: Kai notices GOLDEN TOUCH (ten
+  golden scraps), Mara notices LOOP MASTER (25 circuits) — every named
+  islander now comments on the keeper's craft, not just purchases.
 - Tom the shorekeeper notices diving: milestone lines for HEAVY HARVEST
   (30 kg single dive) and REEF VETERAN (25 dives) — the world reacts to
   commitment, not just purchases.
