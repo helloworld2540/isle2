@@ -54,11 +54,16 @@ func _initialize() -> void:
 	var gs = root.get_node_or_null("GameState")
 	_check(gs != null, "GameState autoload present")
 	if gs:
+		# Seed a two-streak ending yesterday: claiming today extends it to
+		# three. (gs resolves after the tree boots, so this stays here.)
+		gs.tide_streak = 2
+		gs.tide_report_day = day - 1
 		var first: Dictionary = gs.try_claim_tide_report()
 		_check(not first.is_empty(), "first claim returns a card")
 		_check(String(first.get("title", "")).begins_with("TIDE REPORT"), "card titled as a tide report")
 		_check(int(gs.tide_report_day) == day, "claim stamps today")
 		_check(int(gs.tide_days_visited) >= 1, "claim counts a day (%d)" % int(gs.tide_days_visited))
+		_check(int(gs.tide_streak) == 3, "consecutive claim extends streak to 3 (%d)" % int(gs.tide_streak))
 		var today_key := String(TideReport.today().get("key"))
 		_check(gs.tides_logged.has(today_key), "claim logs today's tide (%s)" % today_key)
 		_check(gs.try_claim_tide_report().is_empty(), "second claim is empty")
@@ -78,6 +83,7 @@ func _initialize() -> void:
 		gs.tides_logged.clear()
 		gs.tide_almanac_granted = false
 		gs.tide_days_visited = 0
+		gs.tide_streak = 0
 
 		# The catalogue advertises the new collectathon.
 		var has_almanac := false

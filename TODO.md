@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- tide_test now seeds a two-streak ending yesterday and asserts the
+  claim extends it to three — the streak mechanic is covered alongside the
+  rest of the day-claim behavior.
 - THE STEADY KEEPER added (achievement #37): claim the daily tide report
   three days running. tide_streak (schema-persisted) increments on
   consecutive claims, resets on a missed day; stats page shows the live
