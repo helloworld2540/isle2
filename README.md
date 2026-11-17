@@ -105,7 +105,9 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
   load / rename / delete (delete behind `ConfirmPanel`). The name field is the
   `scenes/ui/slot_name_field.tscn` scene. Picking a row closes the modal, then
   the menu switches slots, restores the island and enters the world. With a
-  single island, **Load Save** loads it directly.
+  single island, **Load Save** loads it directly. Each row also shows the
+  island's **day count** (`tide_days_visited`) alongside money/score, and the
+  main menu's continue summary includes it too.
 
 ### Files & codec
 - `SaveManager.has_save/new_save/save_game/load_game/list_slots/create_slot/rename_slot/switch_slot/delete_slot`.

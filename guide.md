@@ -249,7 +249,7 @@ checked against this yield — nothing changed, deliberately.*
 - The main menu shows which island you are on under the summary (**Slot: …**).
   **Load Save** loads it straight away when you have one island.
 - Once you own **two or more islands**, **Load Save** opens the island picker:
-  one row per island with its money, score, circuits and how long ago you
+  one row per island with its money, score, circuits, day count and how long ago you
   played, plus three actions — **Load island**, **✎ rename**, **✕ delete**.
   The list drag-scrolls on small screens or when the shelf fills up.
 - **+ New island** at the top of the picker asks for a name and drops you
