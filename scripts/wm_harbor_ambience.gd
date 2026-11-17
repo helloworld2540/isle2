@@ -59,7 +59,7 @@ func _cry() -> void:
 	
 	if _echo_timer > 0.0:
 		return
-	if randf() < echo_chance:
+	if randf() < echo_chance and TideReport.today_key() != "slack_water":
 		# The reply sits slightly higher, as if closer.
 		_echo_pitch = clampf(pitch + randf_range(0.05, 0.14), 0.5, 2.0)
 		_echo_timer = randf_range(echo_delay_min, echo_delay_max)
