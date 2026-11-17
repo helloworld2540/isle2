@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Oda speaks the clock myth aloud: alternating with her usual line, she
+  now tells keepers the island was a brass clock once ("I call it history.").
+  The myth lives in-world, not just in the guide.
 - Lore for the rotation itself: the four-tide cycle is now explained
   inside Oda's almanac cover — the island-as-clock myth, the disassembled
   brass keeper, the moon showing its other side. Four voices disagree; none
