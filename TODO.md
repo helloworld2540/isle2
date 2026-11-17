@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- README gains a Building & verifying section: Godot 4.7.2 stable and
+  matching templates are the only dependencies.
 - guide.md's version history now includes the 1.0.0 seal — fresh clone
   import, three platforms, the audit gate, the 44 px floor, the About door.
 - About-from-the-door wired exactly once; all three platforms re-verified.

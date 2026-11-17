@@ -258,6 +258,12 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 ## Running
 Open the project folder in Godot 4 and run from `main_menu.tscn`.
 
+## Building & verifying
+Requirements: Godot **4.7.2 stable** and the matching export templates
+(`4.7.2.stable`) for your target platforms. The repo is fully self-contained:
+`git clone`, open in the editor, or run the harnesses headless. See
+`RELEASE_NOTES.md` and `RELEASE_CHECKLIST.md` for the full build path.
+
 ## Verifying
 `godot --headless --path . -s tools/smoke_test.gd` — the smoke test walks every
 scene under `scenes/`, link-checks every `ext_resource` path (scenes and
