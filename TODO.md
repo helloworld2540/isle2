@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- Corl has witnesses: once THE WHISPERER is earned, Oda ("The sea made
+  him this way — I respect it. Mostly.") and Kai ("the till never turns him
+  down, though") both append a line. The dockhand exists in dialogue now,
+  entirely through the people who tolerate him.
 - THE WHISPERER added (achievement #34): buy seven days of the dockhand's
   tide tip (25$/day) and the tide itself bows — a long-game badge for the
   foresight economy. New `harbor_tips_bought` counter (schema-persisted),

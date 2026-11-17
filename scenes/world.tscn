@@ -559,7 +559,7 @@ npc_id = "npc_kai"
 portrait = ExtResource("23_kai")
 npc_name = "Kai"
 npc_sprite_index = 4
-milestone_beats = {"tide_keeper": "The Pact. Two and a half grand. The tidekeeper pays attention to who does that — so do I. Shelves are always open to you.", "island_steward": "Every achievement in the book, and not one shelf left untouched. You are the best customer I have ever had."}
+milestone_beats = {"tide_keeper": "The Pact. Two and a half grand. The tidekeeper pays attention to who does that — so do I. Shelves are always open to you.", "island_steward": "Every achievement in the book, and not one shelf left untouched. You are the best customer I have ever had.", "whispers": "Corl whispered you seven days of weather and you paid for every one. I have never understood him. The till never turns him down, though."}
 dialogue_lines = Array[String](["I run the shop across the way.", "Bring me Glass and I'll stock the shelves!"])
 repeat_dialogue_lines = Array[String](["Any Glass for the shop today?"])
 quest_complete_lines = Array[String](["Shelves fully stocked. Thank you!"])
@@ -587,7 +587,7 @@ ambient_bubbles = Array[String](["*scribbling in a salt-stained book*", "*holds 
 reward_trash = 0
 reward_mat = "Polyethylene"
 tide_aware = true
-milestone_beats = {"keeper_letter": "Found his note, did you? He stood right about there. Watched the same water you do.", "island_steward": "Every page of the journal, every badge the island has. I have watched a lot of keepers pass through — you are the first I would write down."}
+milestone_beats = {"keeper_letter": "Found his note, did you? He stood right about there. Watched the same water you do.", "island_steward": "Every page of the journal, every badge the island has. I have watched a lot of keepers pass through — you are the first I would write down.", "whispers": "Seven days of tomorrow from Corl, and he still will not take a compliment. The sea made him this way — I respect it. Mostly."}
 
 [node name="BottleTide" parent="." instance=ExtResource("24_bottle")]
 position = Vector2(280, 1180)
