@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- Eel Run keys up the gulls (pitch 0.95-1.08). All four tide voices are
+  now audible at the dock.
 - Glass Calm mobs the gulls: answer-chance doubles to 0.7 — every tide
   now tempers the dock chorus (clam: 0.7, slack: 0, night drift: foghorn).
 - Slack Water hushes the dock: the answering gull never returns the cry.

@@ -335,6 +335,7 @@ each debris sorts 1:1 into a material.*
   deal: the answering gull never returns your call — nothing pushes, nothing
   hurries. Glass Calm sends both birds back twice as often, because the
   flock mobs the easy pickings the reef let go of overnight.
+  Eel Run keys every gull up — hotter pitch, shorter patience.
 - Under it all runs a continuous **surf wash**, a seamless 12 s loop that fades
   in when you reach the map and keeps rolling while the pause menu is open. It
   has its own **Ambience** slider (settings: Master / Music / Ambience / SFX), so
