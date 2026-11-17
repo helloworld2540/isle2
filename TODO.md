@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- tools/all_audits.sh: one-command pre-flight gate runs every harness and
+  audit; refuses to run against player slots; exits 0 only when all green.
 - tools/unique_id_audit.py: any `.tscn` with a reused `unique_id=` fails
   loudly — silent node drops never slip in again. PASS at HEAD.
 - The menu's Tide almanac line now carries the streak too ("almanac

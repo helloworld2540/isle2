@@ -36,6 +36,13 @@ tide_test) refuse to run against existing player data and wipe their slots
 afterwards. `tools/count_ach.gd` (temporary) once-checked 39 unique
 achievement definitions.
 
+## Pre-flight
+
+Run `tools/all_audits.sh` before cutting or publishing a build. It runs
+every harness (smoke, slot, migration, slot_ui, tide, restore) and both
+Python audits (touch, unique_id); refuses to run against real player
+slots. Exits 0 only when everything is green.
+
 ## Known notes
 
 - Export packages include `res://tools/` (debug harnesses) and
