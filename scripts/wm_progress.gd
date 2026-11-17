@@ -183,8 +183,8 @@ func _refresh_tide_label() -> void:
 	# Hidden tide: the sea keeps its own counsel. Same rules, same rumors —
 	# just no cheating.
 	if GameSettings.hide_tide:
-		tide_label.text = "≈ The sea keeps its own counsel"
-		tide_label.tooltip_text = "Hide tide is on. The sea is doing what it always does; the HUD just won't say so."
+		tide_label.text = "≈ The sea keeps its own counsel — and so do you."
+		tide_label.tooltip_text = "Hide the tide is on. Earn it with your eyes."
 		return
 	# After the island shows its keeper the fifth tide, the HUD simply keeps it.
 	if GameState.fifth_tide_granted:

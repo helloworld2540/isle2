@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- The quiet line gained weight: "≈ The sea keeps its own counsel — and
+  so do you." across all surfaces.
 - The shop tip button, receipt and note flip to the quiet flavour when
   Hide the tide is on ("Dockhand's quiet", "A secret, kept", no tomorrow
   leaks). Corl keeps his ledger either way.
