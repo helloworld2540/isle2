@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Kai reacts to THE SILENT CHORUS — the counter-owner who stocks for
+  people who read everything first. Every major story beat now echoes in
+  at least two NPC voices.
 - Oda reacts to THE SILENT CHORUS ("Six voices the water ever had, and you
   heard every one.") — one line per major story beat completes her witness
   arc across bottles, almanac, Corl and now the full chorus.
