@@ -42,6 +42,9 @@ var _stack: ReceiptStack = null
 
 func _ready() -> void:
 	TutorialDirector.scene_started("shop")
+	# One-shot pointer to the dockhand's tip once the keeper can afford it.
+	if GameState.money >= 100 and not GameState.harbor_tip_purchased():
+		TutorialDirector.nudge("tip")
 	_spawn_receipt_stack()
 	_wire_ui()
 	_tx_log_lines.clear()

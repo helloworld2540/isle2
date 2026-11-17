@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Tutorial teaches the dockhand's tip: opening the shop with 100$+ and no
+  tip bought fires a one-shot NUDGE_TIP ("The dockhand knows the sea")
+  through the standard nudge queue.
 - Oda notices a paid dockhand tip: tide-aware NPCs who keep the water
   now append a sly line for the day when the player has bought tomorrow's
   tide. Flavor only, no new save state.

@@ -129,7 +129,8 @@ checked against this yield — nothing changed, deliberately.*
   tide for that one day, so a keeper who plans around the rotation can
   stock up, reposition or save the golden-scrap day for last — once bought,
   the world HUD's tide line grows a `Tomorrow:` line until midnight — and
-  Oda will notice you paid the dockhand, if you ask her nicely.
+  Oda will notice you paid the dockhand, if you ask her nicely — and the
+  shop points it out first for any keeper holding 100$ or more.
 - **Oda the tide-watcher** stands just west of Mara (she has no quests — she
   keeps the island's almanac). Every islander who notices the water repeats
   the day's observation, so dockside chatter always reflects the current tide.
