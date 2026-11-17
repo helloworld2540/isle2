@@ -50,7 +50,7 @@ const STEPS := {
 	},
 	STEP_FINALE: {
 		"title": "You know the loop!",
-		"body": "[font_size=20][color=#8fd0a0]Reef → Upcycle → Shop[/color] is the island circuit.\nClear all three stops for a [color=#ffd27f]$15 circuit bonus[/color] — then chase NPCs, bottles and achievements.[/font_size]",
+		"body": "[font_size=20][color=#8fd0a0]Reef → Upcycle → Shop[/color] is the island circuit.\nClear all three stops for a [color=#ffd27f]$15 circuit bonus[/color] — then chase the locals, the bottles on the shore, and the tide itself; it keeps four days and never repeats in a hurry.[/font_size]",
 		"button": "Let's clean up",
 	},
 }

@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Tutorial finale now gestures at the long game: the tide keeps four
+  days and never repeats in a hurry. New players are pointed at NPCs,
+  bottles and the tide from the very last card.
 - The Steward Era now tints the world: once ISLAND STEWARD is earned the
   map wears a subtle golden hush (alpha 0.12, no motion) — the completion
   state finally has a visual signature.
