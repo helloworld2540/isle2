@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- The world wears the day's mood: a faint tide tint (Glass Calm warm
+  sand, Eel Run sea-glass, Slack Water grey, Night Drift moon-blue) under
+  the HUD. Verified live at 1152x648 on Slack Water.
 - tools/touch_audit.py: Button-only touch-floor check across all scenes;
   PASS as of ea. Wired into the mobile mandate like the slot harness is for
   saves.

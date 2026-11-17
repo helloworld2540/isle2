@@ -23,6 +23,7 @@
 [ext_resource type="Texture2D" path="res://sprites/npc/portrait_nina.png" id="22_nina"]
 [ext_resource type="Texture2D" path="res://sprites/npc/portrait_kai.png" id="23_kai"]
 [ext_resource type="PackedScene" path="res://scenes/wm_bottle.tscn" id="24_bottle"]
+[ext_resource type="Script" path="res://scripts/wm_tide_tint.gd" id="29_tidetint"]
 [ext_resource type="PackedScene" path="res://scenes/watcher.tscn" id="25_watcher"]
 
 [ext_resource type="PackedScene" path="res://scenes/wm_gull.tscn" id="24_gull"]
@@ -640,6 +641,19 @@ starfish_id = "sf_4"
 [node name="Starfish5" parent="." instance=ExtResource("26_starfish")]
 position = Vector2(1100, -1080)
 starfish_id = "sf_5"
+
+[node name="TideTint" type="CanvasLayer" parent="." unique_id=900000028]
+layer = 2
+script = ExtResource("29_tidetint")
+
+[node name="TintRect" type="ColorRect" parent="TideTint" unique_id=900000029]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
 
 [node name="PortalMarkers" type="CanvasLayer" parent="." unique_id=310133525]
 script = ExtResource("10_markers")
