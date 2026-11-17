@@ -23,8 +23,6 @@ func _ready() -> void:
 	if bridge is PackedScene:
 		add_child((bridge as PackedScene).instantiate())
 	elif bridge is GDScript:
-		var instance := bridge.new()
-		if instance is Node:
+		var instance: Node = bridge.new()
+		if instance != null:
 			add_child(instance)
-		else:
-			instance.free()
