@@ -1,6 +1,7 @@
 # Current project todo:
 
 # done this pass
+- Oda notices THE LONG KEEPER ("Staying is the whole job, love. You stayed.") — her last of three arcs: letters, chorus, endurance.
 - THE LONG KEEPER added (achievement #36): ten fresh daily tide claims —
   the island sees its keeper first. tide_days_visited predicate, planner
   banner, docs to 36.
