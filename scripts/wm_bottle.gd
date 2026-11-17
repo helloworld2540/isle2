@@ -93,6 +93,9 @@ func _read() -> void:
 		queue_free()
 		return
 	GameState.mark_story_read(bottle_id)
+	# The far point writes back — one card, once.
+	if bottle_id == WATCHER_BOTTLE_ID:
+		TutorialDirector.nudge("watcher_note")
 	# One-shot pointer to the Tide Ledger once the base set is complete.
 	var base_found := 0
 	for id in GameState.bottles_read:

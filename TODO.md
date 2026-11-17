@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Reading the watcher's note fires a one-shot "A page from the far point"
+  card — the last reply of the far-point arc. Persisted like the other
+  nudges (nudge_watcher_note_shown).
 - Refactor: GameState.island_day() owns the max(1, tide_days_visited)
   floor for display — the HUD and the pause menu read one clamp instead of
   two copies.
