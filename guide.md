@@ -128,6 +128,8 @@ checked against this yield — nothing changed, deliberately.*
     forgiving day to practise precise sorting.
   - **Night Drift** — golden debris and golden belt scrap are twice as likely,
     so it is the best day to chase GOLDEN TOUCH and a fat bench score.
+- On Night Drift the shop log notes the moonlight on the till — Corl hums
+  something with too many verses. No bonus; some nights pay in atmosphere.
 - The shop keeps a barometer above the spend rows — today's tide, one
   line, so the Glass Calm bulk premium is impossible to miss.
 - The shop sells a **dockhand's tide tip** for $25: it names tomorrow's

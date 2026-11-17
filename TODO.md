@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- Night Drift at the till: opening the shop logs an atmosphere line —
+  salt, moonlight, too many verses. Flavor-only, tide-keyed.
 - The shop now shows today's tide inline above the spend rows — keepers
   can weigh the Glass Calm bulk premium or Slack Water belt day before
   buying. Verified live at 1152x648.
