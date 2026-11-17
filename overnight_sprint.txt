@@ -1089,3 +1089,7 @@ STATE
 
 ## 2026-11-17 — Web re-verified after tools exclude
 - Web rebuilt; 0 tools/ matches in the .pck. Linux/Android also rebuilt clean.
+
+## 2026-11-17 — Web shell with correct title
+- export/web_shell.html ships a proper favicon + <title>Trash Island</title>;
+  default shell read "isle2". The browser tab now names the game.
