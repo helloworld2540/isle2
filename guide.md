@@ -436,7 +436,7 @@ them — and a faint golden hush over the world.
 - Daily **Tide Report** + keeper's **almanac**; **THE FOUR TIDES**, **THE ALMANAC PAGE**.
 - **Keeper's Letter** bottle + **THE SILENT CHORUS**; **THE WHISPERER** (Corl's seven days of tomorrow).
 - **THE FIRST TIDE**, **THE STEADY KEEPER** (streaks + discounts), **THE LONG KEEPER**, **THE YEAR KEEPER**.
-- The island gets an **About** page behind the menu — engine, art, sound, writing, version.
+- The island gets an **About** page behind the menu — engine, art, sound, writing, version, license and an epilogue for those who earned the catalogue. — engine, art, sound, writing, version.
 - 1.0.0 sealed: fresh-clone import, three verified platforms, `tools/all_audits.sh`, a 44 px touch floor, and a discreet **About from the front door**.
 - The **far point**: Mara's rumour → the watcher → **THE FAR POINT** → his note; **THE FIFTH TIDE**, the island's last gift.
 - **39 → 40 achievements**; the tide bends reef, belt, golden rolls, the shop's bulk bonus and the gulls.
