@@ -1138,3 +1138,7 @@ STATE
   tide_quiet_best_streak schema-persisted; Oda notices; stats page gains
   The Quiet Era (and The Quiet Steward Era behind the capstone).
 - All three platforms rebuilt at HEAD.
+
+## 2026-11-18 — Quiet keeper sealed end-to-end
+- Hidden tide, THE QUIET KEEPER, THE TIDE WALKER, eras, Oda/quiet badge; bug
+  fix + permanent harness; all three platforms rebuilt at HEAD.

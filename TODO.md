@@ -1,6 +1,7 @@
 # Current project todo:
 
 # done this pass
+- Platforms rebuilt after the quiet-keeper seal.
 - guide.md version history gains the hidden-tide entry.
 - Permanent harness: tools/hide_tide_test.gd asserts the flag flips,
   persists, and restores — queued into all_audits.sh.
