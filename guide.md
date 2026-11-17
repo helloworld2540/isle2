@@ -375,7 +375,7 @@ each debris sorts 1:1 into a material.*
   and the counter remembers every one of your visits; buy enough days and
   Corl will finally speak to you like a person — and a seventh whisper is
   rewarded with a Folded Paper on the shop path; the stats page ledger keeps
-  a re-readable copy (six bottles plus the watcher's note).
+  a re-readable copy (six bottles plus the watcher's blessing).
   He marks the calendar too — day 10, 30 and 50 each earn exactly one
   line from the counter, and he never says any of them twice.
 
@@ -393,7 +393,7 @@ earned the relevant NPC appends a line to every later conversation:
 - **Nina** — the three shore notes read, SILK TOUCH (flawless shifts), THE
   FAR POINT (word travels at the counter).
 - **Kai** — TIDEKEEPER's Pact funded, GOLDEN TOUCH (ten golden scraps),
-  THE WHISPERER (Corl's seven days), THE SILENT CHORUS (six bottles), THE
+  THE WHISPERER (Corl's seven days), THE SILENT CHORUS (six bottles; the seventh note is a blessing, not a requirement), THE
   FAR POINT (he will not restock it).
 - **Oda** — THE KEEPER'S LETTER, THE SILENT CHORUS, THE LONG KEEPER (ten
   days on the almanac), ISLAND STEWARD, THE STEADY KEEPER (three running),
