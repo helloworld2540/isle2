@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- The stats-page almanac line now carries the streak too (e.g.,
+  "Tide almanac 2/4  ·  streak 6 — ...").
 - The Achievement Guide overlay gains a THE TIDE appendix — a quick
   reference for the four conditions, the almanac, and the dockhand tip — so
   players get the cheat sheet in-game without the guide.md.

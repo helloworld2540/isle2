@@ -221,7 +221,10 @@ func _build_almanac_line() -> String:
 		var key := String(condition.get("key", ""))
 		var mark := "✓" if GameState.tides_logged.has(key) else "·"
 		parts.append("%s %s" % [mark, String(condition.get("title", key)).capitalize()])
-	return "Tide almanac %d/4 — %s" % [GameState.tides_logged.size(), "  ".join(parts)]
+	var suffix := ""
+	if GameState.tide_streak > 1:
+		suffix = "  ·  streak %d" % GameState.tide_streak
+	return "Tide almanac %d/4%s — %s" % [GameState.tides_logged.size(), suffix, "  ".join(parts)]
 
 
 ## The scrap-journal reading of the page: which era of the island is the
