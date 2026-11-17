@@ -176,6 +176,8 @@ func _play_tide_almanac() -> void:
 	var gift := GameState.try_grant_tide_almanac()
 	if gift.is_empty():
 		return
+	# The almanac completes — the whole island hears it.
+	AudioManager.play_sfx("harbor_bell", 0.75)
 	present(
 		String(gift.get("title", "THE ALMANAC PAGE")),
 		String(gift.get("subtitle", "The keeper's last entry.")),
