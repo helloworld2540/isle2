@@ -1031,3 +1031,8 @@ STATE
 - Tide Ledger button derives its count (0/7); the almanac card and the HUD
   card read the streak; the pause board tooltips the full report; the HUD
   swell returns on each fresh claim.
+
+## 2026-11-17 — Linux export verified end-to-end
+- Exported clean (131 MB x86_64) with the preset's own defaults; headless boot
+  smoke-test runs with zero script errors and keeps running (killed by timeout,
+  exit 124 as expected). Export presets: Linux / Web / Android all present.
