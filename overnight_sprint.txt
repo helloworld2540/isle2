@@ -978,3 +978,11 @@ STATE
   45 scenes pass smoke; export matrix healthy (Linux / Web / Android verified);
   every collectathon persists, tutored, and discoverable; the markdown suite
   reflects the code exactly; no outstanding priority items.
+
+## 2026-11-17 — The tide arc, top to bottom (multi-slot, report, almanac, keeper)
+- Multi-slot saves: per-slot dirs, picker UI with drag-scroll, legacy migration, slot day counts.
+- Daily Tide Report: deterministic 4-day rotation; bends reef, belt, golden rolls, shop bulk (+35% on Glass Calm), NPC chatter, dock ambience, recaps, HUD.
+- Keeper's Tide Almanac: 4 tides logged across days; THE FOUR TIDES achievement; THE ALMANAC PAGE lore; THE KEEPER'S LETTER bottle + badge; THE SILENT CHORUS (6 bottles);
+  THE WHISPERER (Corl's 7-day tip); THE LONG KEEPER (10 days); ISLAND STEWARD + golden world hush.
+- Corl the dockhand lore thread: $25 foresight tip, bespoke purchase lines, HUD tomorrow line, whispers ledger.
+- Mobile/scroll/legibility sweep; migration harness covers legacy restores; all docs updated.
