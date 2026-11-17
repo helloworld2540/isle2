@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- The shop now shows today's tide inline above the spend rows — keepers
+  can weigh the Glass Calm bulk premium or Slack Water belt day before
+  buying. Verified live at 1152x648.
 - Tom and Nina round out the clock-myth quintet — Tom's grandfather quoting
   the tick, Nina calling the island furniture in four time signatures.
 - Mara and Kai echo the myth in their repeat lines (Mara: "a calendar,

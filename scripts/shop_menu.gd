@@ -28,6 +28,7 @@ const ShopLedger := preload("res://scripts/shop_ledger.gd")
 @onready var buy_tidekeeper_button: Button = %BuyTidekeeperButton
 @onready var buy_tide_tip_button: Button = %BuyTideTipButton
 @onready var tide_tip_note: Label = %TideTipNote
+@onready var tide_note: Label = %TideNote
 @onready var money_note: Label = %MoneyNote
 
 @onready var back_button: Button = %BackButton
@@ -209,6 +210,9 @@ func _refresh_purchases() -> void:
 			buy_tidekeeper_button.text = "Tidekeeper's Pact — %d$" % GameState.TIDEKEEPER_COST
 			buy_tidekeeper_button.tooltip_text = "+10 kg bag, permanently."
 			buy_tidekeeper_button.disabled = not GameState.can_afford(GameState.TIDEKEEPER_COST)
+
+	if tide_note:
+		tide_note.text = "Today: %s" % TideReport.summary()
 
 	if buy_tide_tip_button:
 		if GameState.harbor_tip_purchased():
