@@ -146,6 +146,8 @@ checked against this yield — nothing changed, deliberately.*
 - **Oda the tide-watcher** stands just west of Mara (she has no quests — she
   keeps the island's almanac). Every islander who notices the water repeats
   the day's observation, so dockside chatter always reflects the current tide.
+- Come back after two or more days away and the island greets you once with
+  a "Welcome back, keeper" card — the tide kept its four days without you.
 - The first time the report card appears, the onboarding guide pipes up once
   ("The sea has moods") and explains the HUD line — returning keepers never
   see it again.

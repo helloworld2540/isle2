@@ -10,6 +10,13 @@ func _ready() -> void:
 	TutorialDirector.scene_started("world")
 	var data := SaveManager.load_game()
 	if bool(data.get(SEEN_KEY, false)):
+		# The returning keeper gets greeted if they were away long enough —
+		# days, not hours. One-shot per save; the island remembers.
+		var mtime := SaveManager.get_save_mtime()
+		if mtime > 0:
+			var days_away := int((Time.get_unix_time_from_system() - float(mtime)) / 86400.0)
+			if days_away >= 2:
+				TutorialDirector.nudge("welcome_back")
 		return
 	# Deferred so the world map (HUD, player, camera) finishes ready first.
 	call_deferred("_show_guide")

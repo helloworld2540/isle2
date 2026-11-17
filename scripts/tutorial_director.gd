@@ -85,6 +85,7 @@ const NUDGE_STARFISH := "nudge_starfish_shown"
 const NUDGE_STARFISH_FINAL := "nudge_starfish_final_shown"
 const NUDGE_TIDE := "nudge_tide_shown"
 const NUDGE_TIP := "nudge_tip_shown"
+const NUDGE_WELCOME_BACK := "nudge_welcome_back_shown"
 
 var _step: int = 0
 var _active_hint: CanvasLayer = null
@@ -308,6 +309,7 @@ func nudge(kind: String) -> void:
 		"starfish_final": key = NUDGE_STARFISH_FINAL
 		"tide": key = NUDGE_TIDE
 		"tip": key = NUDGE_TIP
+		"welcome_back": key = NUDGE_WELCOME_BACK
 		_: return
 	if not _nudge_state.has(key):
 		_nudge_state[key] = bool(SaveManager.load_game().get(key, false))
@@ -355,6 +357,10 @@ func nudge(kind: String) -> void:
 			_spawn_card("The sea has moods",
 				"[font_size=20]The HUD line ([color=#9fe2ff]≈ …[/color]) is today's tide report.\nIt is the same for every keeper on that day — it bends the reef, the belt and the golden rolls.\nCheck the water before you work; it always tells the truth eventually.[/font_size]",
 				"Good to know")
+		"welcome_back":
+			_spawn_card("Welcome back, keeper",
+				"[font_size=20]The island held its breath while you were gone.\n				The tide kept its four days without you — here is where things stand, and who has been waiting.[/font_size]",
+				"Good to be home")
 		"tip":
 			_spawn_card("The dockhand knows the sea",
 				"[font_size=20]Look closely at the [color=#9fe2ff]Spend money[/color] column — a dockhand will tell you tomorrow's tide for [color=#ffd27f]25$[/color].\nOne day of foresight is all he sells. The HUD keeps it for the day, and the tide will make you rich or poor.[/font_size]",

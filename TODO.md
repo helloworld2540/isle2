@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- The island greets returning keepers: if the save is 2+ days old, a
+  one-shot "Welcome back, keeper" card lands on the first world load — the
+  tide kept its four days without you. Persisted like the other nudges.
 - The island pause menu now shows today's tide, the island day count,
   and the live streak — the pause card doubles as a weather board.
 - Oda notices a week-long tide streak ("You are the reason my almanac has
