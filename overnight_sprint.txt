@@ -996,3 +996,16 @@ STATE
 - NPC attention engine: milestones dict — every named islander reacts to 1-6 story beats (Tom, Nina, Kai, Mara, Oda).
 - Bottle arc closes: Founder's LETTER, Corl's Folded Paper (whisperer-gated), THE SILENT CHORUS, THE STEADY KEEPER, THE LONG KEEPER, THE WHISPERER.
 - Stats page: The Chorus Era, ledger n/6 gold button, benediction on completion.
+
+## 2026-11-17 (night) — THE FIFTH TIDE: the island's last gift
+- With ISLAND STEWARD unlocked, one final legendary card lands on the next world
+  load: a low harbor bell, +$250, schema-persisted (fifth_tide_granted) so it
+  fires exactly once per island.
+- THE FIRST TIDE added (#39): the very first daily claim — the doorway to the
+  whole tide arc; THE STEADY KEEPER (#37), THE LONG KEEPER (#36), THE WHISPERER
+  (#34), THE SILENT CHORUS (#35), THE FAR POINT (#38) complete it.
+- HUD graduates: steward ears leave "✦ The Fifth Tide" standing in the tide slot
+  forever; the stats page records both sightings in the deeds column; the far
+  point rumour (Mara) is now answered in-game.
+- Window pinned to 1152x648 at boot (GameSettings, not project.godot — the live
+  editor rewrites that file on every headless import).
