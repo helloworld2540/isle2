@@ -1,6 +1,7 @@
 # Current project todo:
 
 # done this pass
+- New isle-themed app icon; Web + Linux re-verified headless.
 - Web rebuilt after the tools/ exclude; 0 harness references in the .pck.
 - Export presets now exclude res://tools/ from release builds — debug
   harnesses no longer ship inside the APK/builds. Verified by unzip: 0 matches.
