@@ -180,6 +180,24 @@ checked against this yield — nothing changed, deliberately.*
   horizon (it stays silent when the boat fades out; it still sounds under
   reduced motion, since it is audio, not motion).
 
+## Saving & multiple islands
+- Your island saves automatically (debounced) and on **Save & quit**. Each save
+  also keeps two rolling backups, so a crash mid-write cannot eat your progress.
+- The main menu shows which island you are on under the summary (**Slot: …**).
+  **Load Save** loads it straight away when you have one island.
+- Once you own **two or more islands**, **Load Save** opens the island picker:
+  one row per island with its money, score, circuits and how long ago you
+  played, plus three actions — **Load island**, **✎ rename**, **✕ delete**.
+- **+ New island** at the top of the picker asks for a name and drops you
+  straight onto a fresh shore, leaving your existing islands untouched. Duplicate
+  names are fine — the folders get numbered.
+- Renaming changes the label only; the island keeps its history, backups and
+  achievements. Deleting asks for confirmation and wipes that island's save and
+  both backups for good. Deleting the island you are on moves you to the most
+  recent remaining one (or a fresh shore if none are left).
+- Old single-file saves from earlier builds are migrated into a slot called
+  **Island** the first time you launch, so nothing is lost on upgrade.
+
 ## Settings & touch
 - The island menu (☰) holds Master / Music / Ambience / SFX sliders and the
   **Reduce motion** toggle. Each slider sits on its own row with a big, fat

@@ -8,18 +8,23 @@ class_name MainMenu
 @onready var save_summary_panel: PanelContainer = $SaveSummaryPanel
 @onready var more_stats_button: Button = $SaveSummaryPanel/VBoxContainer/MoreStatsButton
 @onready var confirm_panel: CanvasLayer = $ConfirmPanel
+@onready var slot_picker: CanvasLayer = $SlotPicker
 
 const STATS_SCENE := "res://scenes/stats_menu.tscn"
 const WORLD_SCENE := "res://scenes/world.tscn"
 
 func _ready() -> void:
 	_wire_buttons()
+	# Bind the slot the player last used (migrating a legacy single-file save
+	# on first boot), then restore that island into GameState.
+	SaveManager.ensure_bound()
 	GameState.restore()
 	_refresh_summary()
 	_play_entrance_animation()
 	_spawn_ambient_motion()
 	AudioManager.play_bgm("menu")
 	_pulse_both_titles()
+
 
 func _wire_buttons() -> void:
 	new_save_button.pressed.connect(_on_new_save_pressed)
@@ -31,14 +36,31 @@ func _wire_buttons() -> void:
 		more_stats_button.pressed.connect(_on_stats_pressed)
 	if confirm_panel:
 		confirm_panel.confirmed.connect(_start_fresh_save)
+	if slot_picker:
+		slot_picker.slot_picked.connect(_on_slot_picked)
+		slot_picker.slot_created.connect(_on_slot_created)
+		slot_picker.closed.connect(_on_slot_picker_closed)
+
+
+## The picker may have changed slots, or deleted the one the summary showed.
+## Re-read the (possibly new) active slot before redrawing the summary.
+func _on_slot_picker_closed() -> void:
+	GameState.restore()
+	_refresh_summary()
+
 
 func _refresh_summary() -> void:
-	save_summary.text = _summary_text()
+	load_save_button.disabled = not SaveManager.has_save()
+	if more_stats_button:
+		more_stats_button.visible = SaveManager.has_save()
+	if save_summary:
+		save_summary.text = _summary_text()
+
 
 func _summary_text() -> String:
 	if not SaveManager.has_save():
 		return "No save found yet. Start a new save to begin cleaning."
-	
+
 	# GameState restored the save in _ready; nothing to re-read here.
 	var summary := "Continue summary:\nScore %d (best %d)  |  Trash %d kg  |  Fish %d \nBest streak %d  |  Lifetime earnings %d  | %d$ \nAchievements %d/%d  |  Inventory totals: %s" % [
 		GameState.upcycle_score, GameState.best_upcycle_score,
@@ -48,7 +70,10 @@ func _summary_text() -> String:
 		GameState.achievement_count(), GameState.achievement_total(),
 		_format_inventory_totals()
 	]
-	
+
+	# Which island is this? A one-line identity above the stats.
+	summary = "Slot: %s\n%s" % [GameState.slot_name, summary]
+
 	# How fresh is this save? Datestamp at the top of a continue screen.
 	var saved := SaveManager.get_save_mtime()
 	if saved > 0:
@@ -80,6 +105,7 @@ func _pulse_both_titles() -> void:
 	color_tw.tween_property(save_summary, "modulate", Color(1.35, 1.15, 0.5, 1.0), 0.16).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	color_tw.tween_property(save_summary, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.4).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
+
 func _format_inventory_totals() -> String:
 	var parts: Array = []
 	for k in GameState.trash_by_type.keys():
@@ -90,9 +116,10 @@ func _format_inventory_totals() -> String:
 		return "empty"
 	return ", ".join(parts)
 
+
 func _on_new_save_pressed() -> void:
-	# A fresh save wipes save.json AND its backup irreversibly — never let a
-	# stray tap on "New Save" destroy an existing island. Confirm first.
+	# A fresh save wipes the slot's save AND its backups irreversibly — never
+	# let a stray tap on "New Save" destroy an existing island. Confirm first.
 	if SaveManager.has_save() and confirm_panel:
 		AudioManager.play_sfx("open")
 		confirm_panel.present("Start over?", "Your saved island — bags, dives, achievements, quests, everything — will be wiped for good.", "Start over")
@@ -103,13 +130,47 @@ func _on_new_save_pressed() -> void:
 func _start_fresh_save() -> void:
 	SaveManager.new_save()
 	GameState.restore()
+	GameState.flush_save()
 	SceneTransition.change_scene(WORLD_SCENE)
+
 
 func _on_load_save_pressed() -> void:
 	if not SaveManager.has_save():
 		return
+	# More than one island: open the picker so the player chooses which one.
+	if slot_picker and SaveManager.list_slots().size() > 1:
+		AudioManager.play_sfx("open")
+		slot_picker.present()
+		return
+	_load_current()
+
+
+func _load_current() -> void:
 	GameState.restore()
 	SceneTransition.change_scene(WORLD_SCENE)
+
+
+## Picks a slot from the picker and loads its island.
+func _on_slot_picked(slot_id: String) -> void:
+	if slot_id.is_empty():
+		return
+	if not SaveManager.switch_slot(slot_id):
+		return
+	GameState.restore()
+	_refresh_summary()
+	SceneTransition.change_scene(WORLD_SCENE)
+
+
+## Creates a fresh slot from a name typed in the picker, then loads it.
+func _on_slot_created(slot_id: String) -> void:
+	if slot_id.is_empty():
+		return
+	if not SaveManager.switch_slot(slot_id):
+		return
+	GameState.restore()
+	_refresh_summary()
+	SceneTransition.change_scene(WORLD_SCENE)
+
 
 func _on_quit_pressed() -> void:
 	# Quitting bypasses SceneTransition's flush, so write out the debounced
@@ -117,9 +178,11 @@ func _on_quit_pressed() -> void:
 	GameState.flush_save()
 	get_tree().quit()
 
+
 func _on_stats_pressed() -> void:
 	AudioManager.play_sfx("return")
 	SceneTransition.change_scene(STATS_SCENE)
+
 
 func _spawn_ambient_motion() -> void:
 	var size := get_viewport_rect().size
@@ -139,12 +202,13 @@ func _spawn_ambient_motion() -> void:
 		tw.tween_property(dot, "position:x", dot.position.x + randf_range(-40.0, 40.0), randf_range(2.5, 4.5)).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 		tw.parallel().tween_property(dot, "position:y", dot.position.y + randf_range(-25.0, 25.0), randf_range(2.0, 4.0)).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
+
 func _play_entrance_animation() -> void:
 	var targets: Array = [
-		new_save_button, 
-		load_save_button, 
-		quit_button, 
-		save_summary_panel, 
+		new_save_button,
+		load_save_button,
+		quit_button,
+		save_summary_panel,
 	]
 	for t in targets:
 		if not t:

@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://slot_name_field"]
+
+[node name="SlotNameField" type="LineEdit"]
+custom_minimum_size = Vector2(180, 44)
+size_flags_horizontal = 3
+placeholder_text = "Island name"
+alignment = 1
+expire_on_enter = false
+theme_override_font_sizes/font_size = 18

@@ -14,7 +14,7 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 | Name | Script | Role |
 |---|---|---|
 | `GameState` | `scripts/game_state.gd` | Shared cross-scene state (score, inventory, bests, upgrades) |
-| `SaveManager` | `scripts/save_manager.gd` | JSON save/load at `user://save.json` |
+| `SaveManager` | `scripts/save_manager.gd` | JSON save/load, multi-slot storage at `user://slots/<slug>/` |
 | `AudioManager` | `scripts/audio_manager.gd` | SFX/BGM playback, buses, volumes, reduced motion |
 | `GameSettings` | `scripts/game_settings.gd` | Persisted per-player toggles (reduce motion) |
 | `SceneTransition` | `scripts/scene_transition.gd` | Fade overlay scene changes |
@@ -63,8 +63,39 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 - **Run identity**: zero-miss bench shifts earn FLAWLESS SHIFT, zero-bump dives earn CLEAN DIVE — printed on the summary and world-map recap cards.
 
 ## State & Save
-- Save path: `user://save.json` (Godot user dir).
-- `SaveManager.has_save/new_save/save_game/load_game`.
+### Multi-slot islands
+- Each save slot is a directory: `user://slots/<slug>/save.json` plus `.bak` and
+  `.bak2` rotations. Backups are per-slot, so a torn write or a corrupt file in
+  one island can never fall back into another island's story.
+- `SaveManager.current_slot` is the slot the autoloads read and write right now;
+  `ensure_bound()` is idempotent and runs from every public save method, so the
+  binding is correct even when a scene touches saves before the menu exists.
+  It binds the most recently played slot, migrates a legacy
+  `user://save.json` (and its backups) into the default `island` slot on first
+  boot, and otherwise binds the default id without writing a file.
+- Slot identity is persisted in the save itself (`slot_name`, `slot_id`,
+  `slot_created`, `slot_modified`). The **directory** is authoritative for
+  `slot_id`: `GameState.restore()` forces it from `current_slot`, so a copied or
+  hand-edited file cannot claim to be a different island.
+- `list_slots()` scans the directory and returns newest-first header dicts
+  (`id/name/created/modified` + the full save, so a row can show money/score in
+  one line). `create_slot`, `rename_slot` (keeps the slug, changes only the
+  label), `switch_slot`, and `delete_slot` (removes files + backups, then
+  re-binds to a surviving slot) round out the API.
+- Slug rules: `SaveSlot.slugify` lowercases and reduces a name to `[a-z0-9-]`;
+  `unique_slug` appends `-2`, `-3`… on collision. Display names may be anything,
+  including duplicates.
+- UI: `scenes/ui/slot_picker.tscn` (`SlotPicker`) is a permanent, hidden
+  `CanvasLayer` in the main menu. It opens from **Load Save** when more than one
+  island exists, rebuilds one `scenes/ui/slot_row.tscn` per slot, and supports
+  load / rename / delete (delete behind `ConfirmPanel`). The name field is the
+  `scenes/ui/slot_name_field.tscn` scene. Picking a row closes the modal, then
+  the menu switches slots, restores the island and enters the world. With a
+  single island, **Load Save** loads it directly.
+
+### Files & codec
+- `SaveManager.has_save/new_save/save_game/load_game/list_slots/create_slot/rename_slot/switch_slot/delete_slot`.
+- Legacy single-file saves remain readable: `user://save.json` is migrated once.
 - `GameState` keeps `upcycle_score` as a **bank** (both reef dives and bench runs
   add to it; it is spent on the Deep Cache) and `best_upcycle_score` as the best
   single bench run; plus `reef_garbage`, `reef_fish`, `trash_inventory`,
@@ -208,6 +239,16 @@ scene under `scenes/`, link-checks every `ext_resource` path (scenes and
 referenced `.tres`) and instantiates each scene headlessly; the exit code is
 the failure count (0 = clean). Run it after large scene/script edits — it
 catches broken sub-resources and bad `@onready` paths in one shot.
+
+Slot save regression harnesses (each owns the `user://slots` dir it creates and
+refuses to run if player data already exists):
+- `godot --headless --script tools/slot_test.gd` — slugify, create/list/switch/
+  rename/delete, identity round-trip, backup isolation.
+- `godot --headless --script tools/migration_test.gd` — legacy `save.json`
+  migrates into the `island` slot exactly once.
+- `godot --headless --script tools/slot_ui_test.gd` — boots the real main menu,
+  seeds two islands, and drives picker show/rows/rename/close.
+
 `tools/` also holds the PIL sprite/ambience generation scripts.
 
 ## Exporting

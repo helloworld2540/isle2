@@ -614,6 +614,14 @@ func has_visited_station(station_id: String) -> bool:
 ## main menu, e.g. the world HUD's Journal button).
 var return_to_scene: String = ""
 
+## Identity of the save slot this state belongs to. Written by
+## SaveManager when a slot is created or renamed; the menu reads these to
+## label slot rows without opening the whole file.
+var slot_name: String = "Island"
+var slot_id: String = "island"
+var slot_created: int = 0
+var slot_modified: int = 0
+
 # --- Achievements ---
 # One evaluation point: _persist() already runs after every state change, so
 # achievements need no call sites. Conditions read the same public fields the
@@ -742,6 +750,12 @@ const SAVE_SCHEMA: Array = [
 	["harbor_hero_granted", "harbor_hero_granted", false, "bool"],
 	["circuits_completed", "circuits_completed", 0, "int"],
 	["achievements", "unlocked_achievements", [], "string_array"],
+	# Slot identity. Written by SaveManager when a slot is created or
+	# renamed; read back by the menu so a slot row can label itself.
+	["slot_name", "slot_name", "Island", "string"],
+	["slot_id", "slot_id", "island", "string"],
+	["slot_created", "slot_created", 0, "int"],
+	["slot_modified", "slot_modified", 0, "int"],
 ]
 
 # --- Save & Load ---
@@ -775,12 +789,27 @@ func flush_save() -> void:
 
 
 func _write_save() -> void:
+	# Stamp the slot's modified time on every write so the menu can sort and
+	# age its rows without opening the file.
+	slot_modified = int(Time.get_unix_time_from_system())
+	if slot_created <= 0:
+		slot_created = slot_modified
 	var out := {}
 	for e in SAVE_SCHEMA:
 		out[e[0]] = get(String(e[1]))
 	out["trash_inventory"] = trash_inventory
 	out["trash_by_type"] = trash_by_type
 	SaveManager.update_game(out)
+
+
+## Hands SaveManager the identity it needs to (re)write a slot file. Called
+## before any save that should belong to a particular slot.
+func slot_identity() -> Dictionary:
+	return {
+		"name": slot_name,
+		"id": slot_id,
+		"created": slot_created,
+	}
 
 
 func restore() -> void:
@@ -797,6 +826,8 @@ func restore() -> void:
 				set(prop, float(data.get(key, default)))
 			"bool":
 				set(prop, bool(data.get(key, default)))
+			"string":
+				set(prop, str(data.get(key, default)))
 			"dict":
 				var d: Variant = data.get(key, default)
 				if d is Dictionary:
@@ -808,6 +839,11 @@ func restore() -> void:
 				current.clear()
 				for id in data.get(key, []):
 					current.append(str(id))
+
+	# The slot directory is the source of truth for the id: a wiped, migrated
+	# or hand-copied file must never claim another slot's identity.
+	if not SaveManager.current_slot.is_empty():
+		slot_id = SaveManager.current_slot
 	# Old saves predate achievements: bank whatever they already earned
 	# without firing cards, then persist the backfill with the rest of the
 	# save (callers write after restore anyway).
@@ -845,6 +881,10 @@ func reset() -> void:
 	circuit_visits.clear()
 	_pending_circuit_celebrations = 0
 	_pending_achievement_ids.clear()
+
+	# A reset wipes the island but keeps the slot itself — identity fields are
+	# deliberately not touched here, so a named slot keeps its name after a
+	# reset and never borrows another slot's id.
 
 	trash_inventory = 0
 	trash_by_type.clear()

@@ -1,6 +1,22 @@
 # Current project todo:
 
 # done this pass
+- Multi-slot saves shipped: every island now lives in
+  `user://slots/<slug>/save.json` with its own `.bak`/`.bak2` rotation, so
+  backups never cross islands. `SaveManager.ensure_bound()` migrates a legacy
+  `user://save.json` into the default `island` slot exactly once and otherwise
+  binds the newest island without writing anything on a fresh boot.
+- Slot picker UI: permanent hidden `SlotPicker` CanvasLayer in the main menu,
+  one `SlotRow` per island (name, money/score one-liner, age), load / rename /
+  delete (delete behind the shared confirm card), inline name entry via the
+  new `slot_name_field.tscn`. "Load Save" opens the picker only when more than
+  one island exists; the menu summary shows the active slot's name.
+- Slot identity persisted (`slot_name/slot_id/slot_created/slot_modified`);
+  the directory is authoritative for the id, so copied files cannot claim
+  another island. Rename keeps the slug and only changes the label.
+- Verified: import clean, smoke 48/48; `tools/slot_test.gd` (0 failures),
+  `tools/migration_test.gd` (PASS), `tools/slot_ui_test.gd` (0 failures);
+  fresh headless boot writes no save file.
 - World menu re-verified after the Journal addition: panel opens/closes
   cleanly; Journal button visible, fits in-scene on a 1152x648 screen,
   tree unpauses on close.

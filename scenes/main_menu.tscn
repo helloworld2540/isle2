@@ -5,6 +5,7 @@
 [ext_resource type="Theme" uid="uid://bug5wlu7yvs7w" path="res://resources/control_theme.tres" id="2_ekxnf"]
 [ext_resource type="PackedScene" path="res://scenes/ui/world_preview.tscn" id="3_preview"]
 [ext_resource type="PackedScene" path="res://scenes/ui/confirm_panel.tscn" id="4_confirm"]
+[ext_resource type="PackedScene" path="res://scenes/ui/slot_picker.tscn" id="5_picker"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_nmirg"]
 font_size = 84
@@ -137,3 +138,5 @@ size_flags_horizontal = 4
 text = "More stats →"
 
 [node name="ConfirmPanel" parent="." instance=ExtResource("4_confirm")]
+
+[node name="SlotPicker" parent="." instance=ExtResource("5_picker")]
