@@ -368,6 +368,8 @@ each debris sorts 1:1 into a material.*
   portals to the bench, the reef dive, and the shop.
 - Completing all three stations in a lap pays the **$15 island-circuit** bonus
   and the return card names your lap "Circuit No N".
+- Once your almanac is filled, the far sailboat wears a warm gold trim —
+  the sailors know the keeper walks the shore.
 - The dock is alive even when you stand still: a **harbor cry** sounds every
   40–75 s (a lone, lower-pitched gull answering itself across the water), on top
   of the four gulls patrolling the open water east of the island. The harbor cry
