@@ -59,7 +59,7 @@ func _ready() -> void:
 	if collect_shape and collect_shape.shape is CircleShape2D:
 		(collect_shape.shape as CircleShape2D).radius = 66.27 + GameState.get_collection_radius_bonus()
 	if tide_label:
-		tide_label.text = "≈ %s" % TideReport.summary()
+		tide_label.text = "≈ The sea keeps its own counsel" if GameSettings.hide_tide else "≈ %s" % TideReport.summary()
 	AudioManager.play_bgm("reef")
 	_update_ui()
 	_update_low_health()

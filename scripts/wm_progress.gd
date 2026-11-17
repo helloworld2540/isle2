@@ -180,6 +180,12 @@ func _refresh_tide_label() -> void:
 	# A fresh island is, by definition, on its first day — the claim lands
 	# after this HUD is built, so never show a nonsense "day 0".
 	var days: int = GameState.island_day()
+	# Hidden tide: the sea keeps its own counsel. Same rules, same rumors —
+	# just no cheating.
+	if GameSettings.hide_tide:
+		tide_label.text = "≈ The sea keeps its own counsel"
+		tide_label.tooltip_text = "Hide tide is on. The sea is doing what it always does; the HUD just won't say so."
+		return
 	# After the island shows its keeper the fifth tide, the HUD simply keeps it.
 	if GameState.fifth_tide_granted:
 		tide_label.text = "✦ The Fifth Tide"

@@ -1,6 +1,16 @@
 # Current project todo:
 
 # done this pass
+- **Hide the tide** shipped (settings toggle, hard mode): every tide
+  surface swaps to "The sea keeps its own counsel" instead of the day's
+  reading — HUD, pause menu, both minigame HUDs, main menu, shop barometer,
+  tide report card (suppressed entirely). The almanac still counts; the
+  tide still bends the world; the keeper just pays full attention.
+- **Hide the tide** shipped (settings toggle, hard mode): every tide
+  surface swaps to "The sea keeps its own counsel" instead of the day's
+  reading — HUD, pause menu, both minigame HUDs, main menu, shop barometer,
+  tide report card (suppressed entirely). The almanac still counts; the
+  tide still bends the world; the keeper just pays full attention.
 - Full fresh-clone proof re-run after the About/motto/epilogue run —
   cold checkout still imports, exports and boots with zero errors.
 - The About page's close becomes the island's last word to you:

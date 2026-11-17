@@ -218,7 +218,7 @@ func _refresh_purchases() -> void:
 			buy_tidekeeper_button.disabled = not GameState.can_afford(GameState.TIDEKEEPER_COST)
 
 	if tide_note:
-		tide_note.text = "Today: %s" % TideReport.summary()
+		tide_note.text = "Today: the sea keeps its own counsel" if GameSettings.hide_tide else "Today: %s" % TideReport.summary()
 
 	if buy_tide_tip_button:
 		if GameState.harbor_tip_purchased():

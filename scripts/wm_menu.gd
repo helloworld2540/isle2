@@ -291,7 +291,10 @@ func _buy_inv_cap() -> void:
 
 func _refresh_upgrade_ui() -> void:
 	if upgrade_status: upgrade_status.text = _upgrade_status_text()
-	if tide_status:
+	if tide_status and GameSettings.hide_tide:
+		tide_status.text = "Today: the sea keeps its own counsel"
+		tide_status.tooltip_text = "Hide the tide is on. The sea is doing what it always does — the HUD just won't say so."
+	elif tide_status:
 		tide_status.text = "Today: %s · day %d%s" % [TideReport.hud_line(), GameState.island_day(), ("  ·  streak %d" % GameState.tide_streak) if GameState.tide_streak > 1 else ""]
 		tide_status.tooltip_text = "Tide report — %s
 %s" % [TideReport.summary(), TideReport.blurb()]

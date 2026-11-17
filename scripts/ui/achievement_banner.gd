@@ -162,6 +162,8 @@ func _play_tide_pool() -> void:
 ## rewards so a tide card never buries a payout; the HUD keeps a reminder for
 ## the rest of the session.
 func _play_tide_report() -> void:
+	if GameSettings.hide_tide:
+		return
 	var report := GameState.try_claim_tide_report()
 	if report.is_empty():
 		return

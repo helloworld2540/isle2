@@ -4,13 +4,20 @@ extends Node
 ## Volume settings live in AudioManager; this covers presentation options.
 
 const KEY_REDUCE_MOTION := "reduce_motion"
+const KEY_HIDE_TIDE := "hide_tide_hud"
 
 ## When true, shake effects, confetti bursts and pad pulses are skipped.
 var reduce_motion: bool = false
+## When true, the tide is not shown anywhere on the HUD. The game plays
+## exactly the same underneath — keepers who want the sea to stay a mystery
+## can read the water themselves.
+var hide_tide: bool = false
 
 
 func _ready() -> void:
-	reduce_motion = bool(SaveManager.load_game().get(KEY_REDUCE_MOTION, false))
+	var data := SaveManager.load_game()
+	reduce_motion = bool(data.get(KEY_REDUCE_MOTION, false))
+	hide_tide = bool(data.get(KEY_HIDE_TIDE, false))
 	# Desktop: pin the window to the designed resolution and never let it
 	# shrink below it. The game lays out for 1152x648; smaller windows clip
 	# single-line labels (the shop header used to shear at the right edge).
@@ -27,3 +34,9 @@ func set_reduce_motion(enabled: bool) -> void:
 	
 	reduce_motion = enabled
 	SaveManager.update_game({KEY_REDUCE_MOTION: enabled})
+
+func set_hide_tide(enabled: bool) -> void:
+	if hide_tide == enabled:
+		return
+		hide_tide = enabled
+	SaveManager.update_game({KEY_HIDE_TIDE: enabled})

@@ -12,6 +12,7 @@ extends VBoxContainer
 @onready var sfx_label: Label = $SfxRow/SfxLabel
 @onready var sfx_slider: HSlider = $SfxRow/SfxSlider
 @onready var reduce_motion_checkbox: CheckBox = $ReduceMotion
+@onready var hide_tide_checkbox: CheckBox = $HideTide
 
 
 func _ready() -> void:
@@ -22,6 +23,7 @@ func _ready() -> void:
 	ambience_slider.value_changed.connect(_on_ambience_changed)
 	sfx_slider.value_changed.connect(_on_sfx_changed)
 	reduce_motion_checkbox.toggled.connect(_on_reduce_motion_toggled)
+	hide_tide_checkbox.toggled.connect(_on_hide_tide_toggled)
 
 
 func sync_from_settings() -> void:
@@ -30,6 +32,7 @@ func sync_from_settings() -> void:
 	ambience_slider.value = AudioManager.get_ambience_volume() * 100.0
 	sfx_slider.value = AudioManager.get_sfx_volume() * 100.0
 	reduce_motion_checkbox.button_pressed = GameSettings.reduce_motion
+	hide_tide_checkbox.button_pressed = GameSettings.hide_tide
 	_refresh_labels()
 
 
@@ -62,3 +65,6 @@ func _on_sfx_changed(value: float) -> void:
 
 func _on_reduce_motion_toggled(pressed: bool) -> void:
 	GameSettings.set_reduce_motion(pressed)
+
+func _on_hide_tide_toggled(pressed: bool) -> void:
+	GameSettings.set_hide_tide(pressed)

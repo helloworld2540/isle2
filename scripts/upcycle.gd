@@ -86,7 +86,7 @@ var _hud_queue: Node = null
 
 func _ready() -> void:
 	if tide_label:
-		tide_label.text = "≈ %s" % TideReport.summary()
+		tide_label.text = "≈ The sea keeps its own counsel" if GameSettings.hide_tide else "≈ %s" % TideReport.summary()
 	TutorialDirector.scene_started("upcycle")
 	if go_return_btn:
 		go_return_btn.pressed.connect(_game_over_leave)

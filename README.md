@@ -17,6 +17,10 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
   credits the keeper earned the page: engine, art, sound, writings, version,
   license, and a private line for anyone who finished the catalogue.
 
+### Game modes
+- **Normal** — tide always visible, almanac fills, conditions bend the world.
+- **Hide the tide** (settings toggle) — every surface goes quiet ("The sea keeps its own counsel"). Same rules, same world, no cheats.
+
 ### Autoloads (singletons)
 | Name | Script | Role |
 |---|---|---|

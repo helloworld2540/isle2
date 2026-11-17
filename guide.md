@@ -19,10 +19,11 @@ Welcome to Isle 2. Shared economy across world map, two minigames, shop, NPCs an
 
 - The main menu's continue panel and the HUD both carry today's tide
   ("≈ <tide> · day N") — the sea greets you before you press Continue.
-
-
-- The main menu's continue panel and the HUD both carry today's tide
-  ("≈ <tide> · day N") — the sea greets you before you press Continue.
+- **Hide the tide** — settings toggle for keepers who trust their own eyes.
+  Every surface goes quiet ("The sea keeps its own counsel") instead of
+  reading the day's tide — the rules, the rotation and the almanac all
+  stay exactly the same. For people who want the sea in front of them,
+  not behind them.
 
 
 - **World map** — tap anywhere to walk there; the trail and flow dots point
