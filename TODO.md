@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- The shop tip button, receipt and note flip to the quiet flavour when
+  Hide the tide is on ("Dockhand's quiet", "A secret, kept", no tomorrow
+  leaks). Corl keeps his ledger either way.
 - Platforms rebuilt after the Hidden-tide pass.
 - The stats page gains The Quiet Era (and The Quiet Steward Era behind
   the catalogue capstone) — unlocks when THE QUIET KEEPER is earned.

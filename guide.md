@@ -164,6 +164,8 @@ checked against this yield — nothing changed, deliberately.*
   is filled it glows gold and the daily report says "almanac kept".
 - The stats page's almanac line also carries your streak; once the book
   is filled it glows gold and the daily report says "almanac kept".
+- With Hide the tide on, Corl sells "the quiet" instead — same tip, same
+  tomorrow, no name ever spoken.
 - The shop sells a **dockhand's tide tip** for $25 ($15 for keepers on a
   three-day streak — Corl respects regulars): it names tomorrow's
   tide for that one day, so a keeper who plans around the rotation can

@@ -221,14 +221,17 @@ func _refresh_purchases() -> void:
 		tide_note.text = "Today: the sea keeps its own counsel" if GameSettings.hide_tide else "Today: %s" % TideReport.summary()
 
 	if buy_tide_tip_button:
+		var quiet := GameSettings.hide_tide
 		if GameState.harbor_tip_purchased():
-			buy_tide_tip_button.text = "Dockhand's tip — bought today"
+			buy_tide_tip_button.text = "Dockhand's secret — taken today" if quiet else "Dockhand's tip — bought today"
 			buy_tide_tip_button.disabled = true
 		else:
-			buy_tide_tip_button.text = "Dockhand's tide tip — %d$" % GameState.tip_cost()
-			buy_tide_tip_button.tooltip_text = "Pay a dockhand to read tomorrow's tide to you."
+			buy_tide_tip_button.text = "Dockhand's quiet — %d$" % GameState.tip_cost() if quiet else "Dockhand's tide tip — %d$" % GameState.tip_cost()
+			buy_tide_tip_button.tooltip_text = "Corl tells you tomorrow's tide without naming it aloud." if quiet else "Pay a dockhand to read tomorrow's tide to you."
 			buy_tide_tip_button.disabled = not GameState.can_afford(GameState.tip_cost())
-	if tide_tip_note:
+	if tide_tip_note and GameSettings.hide_tide:
+		tide_tip_note.text = "Tomorrow's a secret, keeper. Corl's ledger: %d/7 whispers." % mini(GameState.harbor_tips_bought, 7) if not GameState.harbor_tip_purchased() else "Tomorrow's a secret. Corl's ledger: %d/7 whispers." % mini(GameState.harbor_tips_bought, 7)
+	elif tide_tip_note:
 		if GameState.harbor_tip_purchased():
 			tide_tip_note.text = "Tomorrow: %s — plan the dive and the belt accordingly. His ledger: %d/7 whispers." % [GameState.tomorrow_tide_title(), mini(GameState.harbor_tips_bought, 7)]
 		else:
@@ -242,8 +245,13 @@ func _buy_tide_tip() -> void:
 		_shake_control(buy_tide_tip_button)
 		return
 	AudioManager.play_sfx("upgrade", 1.15)
-	var tip_text := "Tomorrow: %s" % GameState.tomorrow_tide_title()
-	_stack.sale("DOCKHAND'S TIP  -%d$\n%s" % [GameState.tip_cost(), tip_text], Color(0.6, 0.9, 1.0, 1.0))
+	if GameSettings.hide_tide:
+		# No spoilers: the keeper pays a dockhand for a tide they cannot see.
+		# The receipt gives them the fare and hands over nothing.
+		_stack.sale("DOCKHAND'S QUIET  -%d$\nA secret, kept." % GameState.tip_cost(), Color(0.6, 0.85, 0.95, 1.0))
+	else:
+		var tip_text := "Tomorrow: %s" % GameState.tomorrow_tide_title()
+		_stack.sale("DOCKHAND'S TIP  -%d$\n%s" % [GameState.tip_cost(), tip_text], Color(0.6, 0.9, 1.0, 1.0))
 	_log_sale(_corl_line())
 	# Corl marks the keeper's milestones — he counts days, and he counts you.
 	var day := GameState.tide_days_visited
