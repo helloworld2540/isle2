@@ -69,7 +69,7 @@ theme_override_constants/separation = 10
 [node name="StatsLabel" type="Label" parent="Margin/VBox/StatsScroll/Content" unique_id=300000006]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 20
 text = "Stats"
 autowrap_mode = 2
 
@@ -105,7 +105,7 @@ text = "Reef Registry (fish)"
 custom_minimum_size = Vector2(220, 48)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 20
 theme_override_colors/font_color = Color(0.95, 0.55, 0.5, 1)
 text = "Reset island…"
 
@@ -159,7 +159,7 @@ horizontal_alignment = 1
 [node name="LedgerLegend" type="Label" parent="LedgerOverlay/Panel/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6, 0.72, 0.9, 1)
-theme_override_font_sizes/font_size = 13
+theme_override_font_sizes/font_size = 20
 text = "every note the tide ever left you — tap to read again"
 horizontal_alignment = 1
 
@@ -241,7 +241,7 @@ horizontal_alignment = 1
 [node name="RegistryLegend" type="Label" parent="RegistryOverlay/Panel/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6, 0.72, 0.9, 1)
-theme_override_font_sizes/font_size = 13
+theme_override_font_sizes/font_size = 20
 text = "every species you have bumped into — tap to read what you know"
 horizontal_alignment = 1
 
@@ -323,7 +323,7 @@ horizontal_alignment = 1
 [node name="GuideLegend" type="Label" parent="GuideOverlay/Panel/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6, 0.72, 0.9, 1)
-theme_override_font_sizes/font_size = 13
+theme_override_font_sizes/font_size = 20
 text = "✓ earned    ·    still to earn"
 horizontal_alignment = 1
 
@@ -337,7 +337,7 @@ horizontal_scroll_mode = 0
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 20
 text = ""
 autowrap_mode = 2
 

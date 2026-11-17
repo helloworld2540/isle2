@@ -50,7 +50,7 @@ func _on_body_entered(body: Node) -> void:
 	lbl.hold_time = 1.1
 	lbl.z_index = 40
 	get_tree().current_scene.add_child(lbl)
-	lbl.present("Starfish %d/5" % total, Color(1.0, 0.75, 0.4, 1.0), 17)
+	lbl.present("Starfish %d/5" % total, Color(1.0, 0.75, 0.4, 1.0), 20)
 	FxSparkle.burst(get_tree().current_scene, global_position, Color(1.0, 0.75, 0.4, 1.0), {"amount": 10, "lifetime": 0.5})
 	# Let the pop play before the node leaves the tree.
 	await get_tree().create_timer(0.45).timeout

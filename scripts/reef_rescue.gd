@@ -306,7 +306,7 @@ func _popup(msg: String, col: Color) -> void:
 		items.add_child(lbl)
 	else:
 		add_child(lbl)
-	lbl.present(msg, col, 18)
+	lbl.present(msg, col, 20)
 
 func _sparkle(at: Vector2, col: Color) -> void:
 	FxSparkle.burst(self, at, col, {"amount": 16, "lifetime": 0.45, "spread": 180.0, "vel_min": 40.0, "vel_max": 120.0, "gravity": 120.0})

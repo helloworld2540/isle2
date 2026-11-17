@@ -31,7 +31,7 @@ func sale(text: String, col: Color, punch: float = 1.0) -> void:
 
 	var vp := _vp_size()
 	lbl.modulate.a = 0.0
-	lbl.present(text, col, 18)
+	lbl.present(text, col, 20)
 	# Right-aligned text hugging the right margin: fixed-width label with
 	# HORIZONTAL_ALIGNMENT_RIGHT means no off-screen clipping regardless of
 	# how long the bulk line gets, without measuring the font at runtime.
@@ -79,7 +79,7 @@ func undo(text: String, col: Color) -> void:
 	lbl.punch_scale = 1.3
 	add_child(lbl)
 	var vp := _vp_size()
-	lbl.present(text, col, 18)
+	lbl.present(text, col, 20)
 	lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	lbl.custom_minimum_size = Vector2(RECEIPT_WIDTH, 0)
 	lbl.size = Vector2(RECEIPT_WIDTH, 24.0)

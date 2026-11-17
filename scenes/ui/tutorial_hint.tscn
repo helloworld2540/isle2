@@ -65,7 +65,7 @@ scroll_active = false
 custom_minimum_size = Vector2(170, 46)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 19
+theme_override_font_sizes/font_size = 20
 text = "Got it"
 
 [connection signal="pressed" from="Margin/Column/Panel/VBox/Button" to="." method="_on_dismiss_pressed"]

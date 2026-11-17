@@ -27,7 +27,7 @@ func _spawn(e: Dictionary) -> void:
 	lbl.text = str(e.get("text", ""))
 	lbl.modulate = e.get("color", Color(1.0, 1.0, 1.0, 1.0)) as Color
 	lbl.modulate.a = 0.0
-	lbl.add_theme_font_size_override("font_size", 18)
+	lbl.add_theme_font_size_override("font_size", 20)
 	# Dark outline keeps the toast legible over bright water and busy UI.
 	lbl.add_theme_constant_override("outline_size", 6)
 	lbl.add_theme_color_override("font_outline_color", Color(0.02, 0.05, 0.09, 0.9))

@@ -19,7 +19,7 @@ func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 
-func present(text_value: String, color: Color = Color.WHITE, font_size: int = 18) -> void:
+func present(text_value: String, color: Color = Color.WHITE, font_size: int = 20) -> void:
 	text = text_value
 	modulate = color
 	modulate.a = 0.0

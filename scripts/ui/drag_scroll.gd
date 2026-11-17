@@ -25,6 +25,18 @@ var _press_y := 0.0
 var _start_scroll := 0
 
 
+func _ready() -> void:
+	# Chunky scrollbars: a bigger grabber target for fingers and small
+	# windows. Height matters little — the bar fills the container — so the
+	# width/height is what we fatten up.
+	var bar := get_v_scroll_bar()
+	if bar:
+		bar.custom_minimum_size.x = 26
+	var hbar := get_h_scroll_bar()
+	if hbar:
+		hbar.custom_minimum_size.y = 26
+
+
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
