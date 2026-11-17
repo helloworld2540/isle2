@@ -276,6 +276,13 @@ const ENTRIES: Array[Dictionary] = [
 		"where": "Island",
 	},
 	{
+		"id": "double_keeper",
+		"short": "Double",
+		"title": "THE TIDE WALKER",
+		"subtitle": "Both badges held at once — once for listening and once for not.",
+		"where": "Island",
+	},
+	{
 		"id": "quiet_keeper",
 		"short": "Quiet",
 		"title": "THE QUIET KEEPER",
@@ -394,6 +401,8 @@ static func is_met(id: String, state: Node) -> bool:
 			return state.tide_streak >= 3
 		"quiet_keeper":
 			return state.tide_quiet_best_streak >= 3
+		"double_keeper":
+			return state.unlocked_achievements.has("steady_keeper") and state.unlocked_achievements.has("quiet_keeper")
 		"year_keeper":
 			return state.tide_days_visited >= 365
 		"first_tide":

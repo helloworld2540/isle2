@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- THE TIDE WALKER added (achievement #42): holding THE STEADY KEEPER
+  and THE QUIET KEEPER at once. Legendary banner, Oda notices ("once for
+  listening, once for not. Either way, you stayed."). Docs to 42.
 - The quiet line gained weight: "≈ The sea keeps its own counsel — and
   so do you." across all surfaces.
 - The shop tip button, receipt and note flip to the quiet flavour when
