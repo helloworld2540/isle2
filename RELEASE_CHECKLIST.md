@@ -10,7 +10,7 @@ Export presets: `Web`, `Android`, `Linux` (`export_presets.cfg`).
 - **Web** (HTML5) exports clean; artifact set complete (`.html`/`.js`/`.wasm`/
   `.pck`/icons/worklets).
 - **Android** exports clean; APK is signed and passes Godot's own verifier.
-- **Headless harnesses** (`tools/`): `smoke_test` 49 scenes / 0 failures;
+- **Headless harnesses** (`tools/`): `smoke_test` 50 scenes / 0 failures;
   `slot_test` 0 failures; `migration_test` PASS; `slot_ui_test` 0 failures;
   `tide_test` 0 failures. (`tide_test`, `migration_test` exit non-zero on
   failure; each harness wipes `user://slots` itself.)
