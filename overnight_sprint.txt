@@ -1068,3 +1068,6 @@ STATE
 ## 2026-11-17 — Web export re-verified after the restore-backup pass
 - Web rebuilt from the current tree; full artifact set produced cleanly
   (html/wasm/pck/js/icons/worklets).
+
+## 2026-11-17 — Android APK re-verified after the restore-backup pass
+- APK rebuilt clean; signed and verifier-clean.

@@ -1,6 +1,7 @@
 # Current project todo:
 
 # done this pass
+- Android APK re-verified against the current tree (signed, verifier-clean).
 - The menu summary line now includes the almanac ("Tide almanac n/4" or
   "almanac kept") — a finish-line the keeper sees on the boot screen.
 - RELEASE_CHECKLIST.md gains the backup-chain harness evidence.
