@@ -34,7 +34,7 @@ Welcome to Isle 2. Shared economy across world map, two minigames, shop, NPCs an
 - Bag capacity starts at 10kg and grows by +10kg per level. Two ways to upgrade:
   trash-paid at the world menu (6 + 3*level), or money-paid at the shop (60 + 25*level).
 - Shop sells at rates: Polyethylene 2, Polypropylene 3, Glass 5, Nylon 4, Reef Debris 1.
-- Bulk bonus: selling 5+ of a type gives +25%.
+- Bulk bonus: selling 5+ of a type gives +25% — and +35% on **Glass Calm** days (the harbor pays over the odds for a full load while the reef emptied out overnight).
 - Sell controls: Sell 1, Sell 5, Sell All. Undo last sale is all-or-nothing — if the
   bag cannot fit the whole lot back in, the undo is refused (tooltip tells you how
   many kg you need free) rather than returning partial goods for the full price.
@@ -118,7 +118,7 @@ checked against this yield — nothing changed, deliberately.*
   island's save like everything else.
 - Four conditions rotate:
   - **Glass Calm** — the reef lets go of its litter: noticeably more debris
-    and fewer fish in Reef Rescue.
+    and fewer fish in Reef Rescue, and the shop's bulk bonus rises to +35%.
   - **Eel Run** — a warm current: reef fish dart about 28% faster. Lead your
     drag a little more.
   - **Slack Water** — the upcycle belt runs about 18% slower, which is the

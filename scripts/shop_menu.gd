@@ -294,11 +294,11 @@ func _refresh_row(mat: String) -> void:
 		name_lbl.text = "%s · %d$" % [mat, unit_value]
 	var btn_all: Button = row_data.get("sell_all", null)
 	if btn_all:
-		btn_all.text = "Sell All" + (" +25%" if bulk else "")
+		btn_all.text = "Sell All" + (" " + ShopLedger.bulk_label() if bulk else "")
 		btn_all.disabled = count <= 0
 	var btn_five: Button = row_data.get("sell_five", null)
 	if btn_five:
-		btn_five.text = "Sell 5" + (" +25%" if bulk else "")
+		btn_five.text = "Sell 5" + (" " + ShopLedger.bulk_label() if bulk else "")
 		btn_five.disabled = count < ShopLedger.BULK_THRESHOLD
 	var value_lbl: Label = row_data.get("value", null)
 	if value_lbl:
@@ -350,7 +350,7 @@ func _sell_qty(mat: String, qty: int) -> void:
 	var units := int(sale.get("units", 0))
 	var earnings := int(sale.get("earnings", 0))
 	var bulk := bool(sale.get("bulk", false))
-	var tag := " (bulk +25%)" if bulk else ""
+	var tag := " (bulk %s)" % ShopLedger.bulk_label() if bulk else ""
 	_last_sale = {"mat": mat, "price": int(sale.get("price", 0)), "qty": units, "earnings": earnings, "bulk": bulk}
 	_log_sale("%s x%d%s → %d$" % [mat, units, tag, earnings])
 	AudioManager.play_sfx("sale", 1.03)
@@ -378,7 +378,7 @@ func _sell_all(mat: String) -> void:
 	var units := int(sale.get("units", 0))
 	var earnings := int(sale.get("earnings", 0))
 	var bulk := bool(sale.get("bulk", false))
-	var tag := " (bulk +25%)" if bulk else ""
+	var tag := " (bulk %s)" % ShopLedger.bulk_label() if bulk else ""
 	_last_sale = {"mat": mat, "price": int(sale.get("price", 0)), "qty": units, "earnings": earnings, "bulk": bulk}
 	_log_sale("%s x%d%s → %d$" % [mat, units, tag, earnings])
 	AudioManager.play_sfx("sale", 1.03)
@@ -483,7 +483,7 @@ func _feedback(text: String) -> void:
 ## effects live in scenes/ui/receipt_stack.tscn (ReceiptStack) — instantiated
 ## once in _ready and reused for every sale and undo.
 func _play_undo_animation(mat: String, restored_qty: int, earnings: int, was_bulk: bool) -> void:
-	var bulk_tag := " (bulk +25%)" if was_bulk else ""
+	var bulk_tag := " (bulk %s)" % ShopLedger.bulk_label() if was_bulk else ""
 	_stack.stamp("REVERSED", Color(1.0, 0.42, 0.38, 1.0))
 	_stack.undo("UNDO %s x%d%s  -%d$" % [mat, restored_qty, bulk_tag, earnings], Color(1.0, 0.55, 0.4, 1.0))
 	ReceiptStack.punch(undo_button)

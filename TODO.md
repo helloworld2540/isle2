@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- Glass Calm trading day: the harbor pays over the odds on full loads —
+  the bulk multiplier reads the tide (1.35x on Glass Calm vs 1.25x otherwise).
+  Shop buttons, receipts and undo tags all read the shared `bulk_label()`,
+  so preview and payout can never drift.
 - The tutorial now teaches the tide: the first time the TIDE REPORT card
   lands, a one-shot "The sea has moods" nudge explains the HUD line and that
   the tide bends the reef, the belt and the golden rolls (new NUDGE_TIDE,
