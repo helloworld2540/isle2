@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- The game now pins its desktop window to 1152x648 at boot (GameSettings
+  sizes the root window and clamps the minimum, Linux/Windows/macOS only —
+  mobile owns the window). project.godot stays clean on disk: the running
+  editor rewrites it on import.
 - The shop note teaches the streak discount before it lands — "Regulars
   (3-day streak) pay \$15" / "You are a regular — \$15 today" at 3.
 - Corl respects regulars: three days running and the dockhand's tip drops
