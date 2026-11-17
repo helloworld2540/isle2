@@ -12,6 +12,11 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 
 ## Architecture
 
+### In-game extras
+- **About page** behind the pause menu (and the main menu bottom-right) —
+  credits the keeper earned the page: engine, art, sound, writings, version,
+  license, and a private line for anyone who finished the catalogue.
+
 ### Autoloads (singletons)
 | Name | Script | Role |
 |---|---|---|
