@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- guide.md's version history now includes the 1.0.0 seal — fresh clone
+  import, three platforms, the audit gate, the 44 px floor, the About door.
 - About-from-the-door wired exactly once; all three platforms re-verified.
 - Fix: About button was connected once per _refresh_summary (on every
   slot change), so the About panel re-presented N times. Now wired once
