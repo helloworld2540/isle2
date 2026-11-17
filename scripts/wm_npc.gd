@@ -20,6 +20,11 @@ class_name WorldNPC
 ## sea today. Reserved for NPCs who would plausibly notice the water — Oda the
 ## tide-watcher, mostly.
 @export var tide_aware: bool = false
+## Optional story beat: when the named achievement is earned, this line is
+## appended to every later conversation. Lets an NPC notice what the player
+## did without any bespoke state machine.
+@export var milestone_achievement: String = ""
+@export_multiline var milestone_line: String = ""
 
 @export_group("First Visit Reward")
 @export var reward_trash: int = 5
@@ -264,6 +269,11 @@ func _flavour_lines() -> Array:
 	# almanac Oda would; it costs no extra state and flips with the calendar.
 	if tide_aware:
 		out.append(TideReport.ambient_line())
+
+	# A milestone the island noticed — appended once the badge is earned, so
+	# the moment lands without any new save flag of its own.
+	if not milestone_achievement.is_empty() and GameState.unlocked_achievements.has(milestone_achievement) and not milestone_line.is_empty():
+		out.append(milestone_line)
 	return out
 
 func _show_dialogue(status: String = "", positive: bool = true) -> void:

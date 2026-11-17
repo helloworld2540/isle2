@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- WorldNPC gained a reusable `milestone_achievement` / `milestone_line`
+  pair: once the named badge is earned, the line is appended to every later
+  conversation. Oda now notices the keeper's letter ("Found his note,
+  did you? He stood right about there. Watched the same water you do.").
 - THE KEEPER'S LETTER shipped: once the tide almanac is complete, the first
   keeper's bottle washes up on the west shore beside Oda. Reading it unlocks
   the 33rd achievement (catalogue and banner updated) and pays a short lore

@@ -137,7 +137,8 @@ checked against this yield — nothing changed, deliberately.*
   Log all four and the keeper finally writes back: **THE KEEPER'S LETTER** is
   tucked on the west shore beside Oda, and reading it unlocks the 33rd and
   last collection badge. The Tide Ledger on the stats page keeps a re-readable
-  copy either way.
+  copy either way, and Oda will mention the first keeper finding his
+  note — once you have it, she never stops mentioning him.
   The rotation is
   four days, so a full almanac takes four visits spread across at least four
   calendar days — every tide is guaranteed to come round.

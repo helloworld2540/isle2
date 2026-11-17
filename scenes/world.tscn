@@ -583,6 +583,8 @@ ambient_bubbles = Array[String](["*scribbling in a salt-stained book*", "*holds 
 reward_trash = 0
 reward_mat = "Polyethylene"
 tide_aware = true
+milestone_achievement = "keeper_letter"
+milestone_line = "Found his note, did you? He stood right about there. Watched the same water you do."
 
 [node name="BottleTide" parent="." instance=ExtResource("24_bottle")]
 position = Vector2(280, 1180)
