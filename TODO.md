@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- Bottle milestones wired into the cast: once TIDE KEEPER (all three shore
+  notes read) is earned, Nina appends a line about her letters and the glass
+  tide gardens, and Tom appends one about his sign-off — both via the shared
+  `milestone_achievement` export, no new save state.
 - WorldNPC gained a reusable `milestone_achievement` / `milestone_line`
   pair: once the named badge is earned, the line is appended to every later
   conversation. Oda now notices the keeper's letter ("Found his note,
