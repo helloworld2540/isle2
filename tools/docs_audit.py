@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-"""docs_audit: the markdown suite is load-bearing — README.md, guide.md,
-TODO.md must each exist with non-trivial content and carry the sections the
-game advertises. Fails loudly; prints PASS otherwise."""
+"""docs_audit: the markdown and shipping suite is load-bearing — every
+document a publisher or player will find in the repo must exist with
+non-trivial content and carry the sections it advertises. Fails loudly;
+prints PASS otherwise."""
 
 import os
 import sys
@@ -11,6 +12,8 @@ REQUIRED = {
     "guide.md": ["## Controls", "## Quick reference"],
     "TODO.md": ["# Current project todo:"],
     "PITCH.md": ["## Development", "## Future Development"],
+    "RELEASE_NOTES.md": ["## What it is", "## What's inside", "## Building it"],
+    "RELEASE_CHECKLIST.md": ["## Verified", "## Pre-flight", "## Pending"],
     "overnight_sprint.txt": ["## 2026-11-17"],
 }
 

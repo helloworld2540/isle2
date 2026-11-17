@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- docs_audit now guards RELEASE_NOTES.md and RELEASE_CHECKLIST.md too —
+  every document a publisher would find is checked for existence, size and
+  advertised anchors. Whole gate green.
 - The About page whispers a private line to keepers who earned ISLAND
   STEWARD — the keeper who kept it all — the credits page now has an
   epilogue of its own.
