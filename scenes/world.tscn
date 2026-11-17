@@ -14,6 +14,7 @@
 [ext_resource type="Script" path="res://scripts/wm_onboarding.gd" id="13_onboarding"]
 [ext_resource type="PackedScene" path="res://scenes/wm_loop_path.tscn" id="14_loop"]
 [ext_resource type="PackedScene" path="res://scenes/ui/settings_panel.tscn" id="15_settings"]
+[ext_resource type="PackedScene" path="res://scenes/ui/about.tscn" id="16_about"]
 [ext_resource type="PackedScene" path="res://scenes/ui/quest_tracker.tscn" id="16_tracker"]
 [ext_resource type="PackedScene" path="res://scenes/wm_flow_dots.tscn" id="17_flow"]
 [ext_resource type="PackedScene" path="res://scenes/ui/confirm_panel.tscn" id="18_confirm"]
@@ -1070,6 +1071,19 @@ theme_override_colors/font_focus_color = Color(0.9, 0.98, 1, 1)
 theme_override_colors/font_hover_pressed_color = Color(0.9, 0.98, 1, 1)
 theme_override_colors/font_pressed_color = Color(0.9, 0.98, 1, 1)
 text = "Save & Quit"
+
+[node name="AboutButton" type="Button" parent="Menu/MenuPanel/Center/Card/HBoxContainer/VBoxContainer" unique_id=410065460]
+custom_minimum_size = Vector2(232, 44)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBox_ghost")
+theme_override_styles/hover = SubResource("StyleBox_ghost_hover")
+theme_override_styles/pressed = SubResource("StyleBox_ghost_hover")
+theme_override_styles/focus = SubResource("StyleBox_ghost_hover")
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.66, 0.78, 0.88, 0.9)
+text = "About"
+
+[node name="AboutCanvas" parent="Menu" instance=ExtResource("16_about")]
 
 [node name="JournalButton" type="Button" parent="Menu/MenuPanel/Center/Card/HBoxContainer/VBoxContainer" unique_id=410065470]
 custom_minimum_size = Vector2(232, 52)

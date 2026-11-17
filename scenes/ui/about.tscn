@@ -1,0 +1,95 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/about.gd" id="1_about"]
+[ext_resource type="Script" path="res://scripts/ui/drag_scroll.gd" id="2_drag"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_about"]
+content_margin_left = 24.0
+content_margin_top = 18.0
+content_margin_right = 24.0
+content_margin_bottom = 18.0
+bg_color = Color(0.06, 0.08, 0.12, 0.96)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.55, 0.85, 1.0, 0.85)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+
+[node name="About" type="CanvasLayer"]
+layer = 170
+script = ExtResource("1_about")
+
+[node name="Dimmer" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.02, 0.04, 0.07, 0.55)
+
+[node name="Margin" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="Column" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+alignment = 2
+
+[node name="Panel" type="PanelContainer" parent="Margin/Column"]
+custom_minimum_size = Vector2(540, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBox_about")
+
+[node name="VBox" type="VBoxContainer" parent="Margin/Column/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="Margin/Column/Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.93, 1, 1)
+theme_override_font_sizes/font_size = 26
+horizontal_alignment = 1
+text = "Trash Island"
+
+[node name="BodyScroll" type="ScrollContainer" parent="Margin/Column/Panel/VBox"]
+custom_minimum_size = Vector2(0, 240)
+layout_mode = 2
+horizontal_scroll_mode = 0
+script = ExtResource("2_drag")
+
+[node name="Body" type="RichTextLabel" parent="Margin/Column/Panel/VBox/BodyScroll"]
+layout_mode = 2
+custom_minimum_size = Vector2(516, 0)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true
+fit_content = true
+
+[node name="CloseBtn" type="Button" parent="Margin/Column/Panel/VBox"]
+custom_minimum_size = Vector2(150, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 20
+text = "Close"
+
+[node name="FreeCredit" type="Label" parent="Margin/Column/Panel/VBox"]
+layout_mode = 2
+horizontal_alignment = 1
+theme_override_colors/font_color = Color(0.55, 0.65, 0.75, 0.9)
+theme_override_font_sizes/font_size = 16
+text = "The island is always watching."
+
+[connection signal="pressed" from="Margin/Column/Panel/VBox/CloseBtn" to="." method="_on_close_pressed"]

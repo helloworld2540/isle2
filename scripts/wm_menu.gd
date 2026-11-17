@@ -34,6 +34,8 @@ const FxSparkle := preload("res://scripts/fx_sparkle.gd")
 @onready var reef_progress: ProgressBar = $MenuPanel/Center/Card/HBoxContainer/Infobox/ReefProgressBox/ReefProgress
 
 @onready var settings_button: Button = $MenuPanel/Center/Card/HBoxContainer/Infobox/SettingsButton
+@onready var about_button: Button = $MenuPanel/Center/Card/HBoxContainer/VBoxContainer/AboutButton
+@onready var about_canvas: CanvasLayer = $Menu/AboutCanvas
 @onready var settings_view: PanelContainer = $MenuPanel/Center/Card/HBoxContainer/Infobox/SettingsView
 @onready var settings_panel: VBoxContainer = $MenuPanel/Center/Card/HBoxContainer/Infobox/SettingsView/SettingsPanel
 @onready var confirm_panel = $ConfirmPanel
@@ -66,6 +68,9 @@ func _process(_delta: float) -> void:
 func _wire_signals() -> void:
 	if resume_button: resume_button.pressed.connect(_on_resume_pressed)
 	if save_button: save_button.pressed.connect(_on_save_pressed)
+	if about_button: about_button.pressed.connect(_on_about_pressed)
+	if about_canvas and about_canvas.has_signal("closed"):
+		about_canvas.closed.connect(_on_about_closed)
 	if journal_button: journal_button.pressed.connect(_on_journal_pressed)
 	if confirm_panel: confirm_panel.confirmed.connect(_do_save_and_leave)
 	if hud_menu_button: hud_menu_button.pressed.connect(_toggle)
@@ -167,6 +172,16 @@ func _unhandled_input(event: InputEvent) -> void:
 func _prepare_overlay() -> void:
 	if panel: panel.visible = false
 	get_tree().paused = false
+
+func _on_about_pressed() -> void:
+	# The keeper's own page — one press, no cost.
+	if about_canvas and about_canvas.has_method("present"):
+		about_canvas.present()
+
+
+func _on_about_closed() -> void:
+	pass
+
 
 func _on_save_pressed() -> void:
 	# Destructive-feeling action gets one confirmation first.

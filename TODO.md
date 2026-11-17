@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- The island menu gains an About card: credits page — who built it,
+  which engines, which art, and the version. Wraps the island's earned life
+  into 600 words. Diogenes-style: one press, no cost.
 - New isle-themed app icon; Web + Linux re-verified headless.
 - Web rebuilt after the tools/ exclude; 0 harness references in the .pck.
 - Export presets now exclude res://tools/ from release builds — debug
