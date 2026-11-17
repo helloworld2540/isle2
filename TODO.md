@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- Oda notices THE FOUR TIDES ("You have the four. Ancient news — and the
+  only news I will ever need.") — the keeper completes the book at her elbow.
 - Once the keeper's almanac is complete, the far sailboat gains a warm
   gold trim — the harbour's sailors know the keeper walks the shore.
 - Mara marks THE YEAR KEEPER ("A whole year of mornings with the keeper.
