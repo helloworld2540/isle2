@@ -462,8 +462,14 @@ func _game_over_summary(reason: String = "manual") -> void:
 			milestone_line = "DEEP DIVE earned · %d m to TO THE ABYSS (900 m)." % (900 - best_depth)
 		var clean_dive := fish == 0 and dive_happened and int(garbage) >= 8
 		var clean_line := "\n✦ CLEAN DIVE — not a single bump" if clean_dive else ""
+		var tide_line := ""
+		match String(TideReport.today().get("key", "")):
+			"glass_calm":
+				tide_line = "\nGlass Calm — the reef let go of its litter today."
+			"eel_run":
+				tide_line = "\nEel Run — the fish were quick about it today."
 		go_body.text = "%s\n\nFish bumps: %d / %d\nGarbage collected: %d kg\nDepth reached: %d m\n%s\n\nReef debris earned: %d kg\n(%s)%s" % [
-			cause_msg, fish, _fish_limit, int(garbage), int(depth), milestone_line, accepted, breakdown, clean_line
+			cause_msg, fish, _fish_limit, int(garbage), int(depth), milestone_line, accepted, breakdown, clean_line + tide_line
 		]
 		
 	if game_over_canvas:
