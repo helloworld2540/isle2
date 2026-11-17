@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- Main menu carries a discreet version stamp (v1.0.0) bottom-left — the
+  box names its own edition.
 - docs_audit now guards RELEASE_NOTES.md and RELEASE_CHECKLIST.md too —
   every document a publisher would find is checked for existence, size and
   advertised anchors. Whole gate green.
