@@ -1075,3 +1075,7 @@ STATE
 ## 2026-11-17 — Full green board
 - smoke 49/49, slot/migration/slot_ui/tide/restore 0 failures, touch_audit PASS.
   The whole harness suite is green at HEAD.
+
+## 2026-11-17 — All audits green
+- smoke 49/49, slot/migration/slot_ui/tide/restore 0 failures, touch_audit
+  PASS, unique_id_audit PASS. The full verification board is green at HEAD.
