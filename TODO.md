@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Mara and Kai echo the myth in their repeat lines (Mara: "a calendar,
+  not a chronometer"; Kai: shelf-space crack). The trio now argues about the
+  clock unprompted.
 - Oda speaks the clock myth aloud: alternating with her usual line, she
   now tells keepers the island was a brass clock once ("I call it history.").
   The myth lives in-world, not just in the guide.
