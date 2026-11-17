@@ -39,6 +39,7 @@ const LEGENDARY_ACHIEVEMENTS := {
 	"long_keeper": true,
 	"year_keeper": true,
 	"steady_keeper": true,
+	"quiet_keeper": true,
 	"far_point": true,
 	"harbor_hero": true,
 	"island_patron": true,

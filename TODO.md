@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- THE QUIET KEEPER added (achievement #41): three tides claimed with
+  Hide the tide on — a streak kept without help. tide_quiet_best_streak
+  (schema-persisted) tracks it; legendary banner; docs to 41.
 - **Hide the tide** shipped (settings toggle, hard mode): every tide
   surface swaps to "The sea keeps its own counsel" instead of the day's
   reading — HUD, pause menu, both minigame HUDs, main menu, shop barometer,
