@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- All three platforms re-verified against the current tree again: Linux
+  x86_64 (0-byte boot log, exit 124 healthy), Web artifact set (html/wasm/
+  pck), Android signed APK (verifier-clean). One wrinkle: the export target
+  dir must exist or the Linux export fails — documented in the checklist.
 - Live world boot confirmed after the tint pass: Slack Water blue confirmed,
   day 1 HUD renders, welcome card legible.
 - tools/all_audits.sh: one-command pre-flight gate runs every harness and

@@ -1079,3 +1079,7 @@ STATE
 ## 2026-11-17 — All audits green
 - smoke 49/49, slot/migration/slot_ui/tide/restore 0 failures, touch_audit
   PASS, unique_id_audit PASS. The full verification board is green at HEAD.
+
+## 2026-11-17 — All three re-exported at HEAD
+- Linux x86_64 (0-byte boot log, exit 124 healthy), Web artifact set, Android
+  signed APK; export target dirs must pre-exist or the Linux export fails.
