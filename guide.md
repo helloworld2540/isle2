@@ -199,6 +199,7 @@ checked against this yield — nothing changed, deliberately.*
   enough.
 
 ## Upcycle
+- The bench HUD shows today's tide inline — read the belt before you commit.
 - Sort belt trash into matching bins. Wrong/burned does not produce materials or score loss reward except streak reset.
 - Correct sort gains that material and updates recycled counter/belt counter HUD.
 - Back on the map the run is titled like a chapter — "Bench Run № 2 —
