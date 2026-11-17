@@ -8,12 +8,21 @@ const DIALOGUE_SCENE := preload("res://scenes/ui/npc_dialogue.tscn")
 
 
 func _ready() -> void:
+
+	# The lantern breathes — a slow warm swell you can spot across the water.
+	# Reduced motion holds it still; he was never about the light.
+	if not GameSettings.reduce_motion:
+		var sprite := get_node_or_null("Sprite2D") as Sprite2D
+		if sprite:
+			var tw := create_tween().set_loops()
+			tw.tween_property(sprite, "modulate", Color(1.0, 0.95, 0.8, 1.0), 1.8).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+			tw.tween_property(sprite, "modulate", Color(0.85, 0.9, 1.0, 0.96), 1.8).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+
 	if GameState.watcher_seen:
 		# He is still there. He does not walk, does not announce, does not
 		# leave. He was never going to be caught twice.
 		return
 	body_entered.connect(_on_body_entered)
-
 
 func _on_body_entered(body: Node) -> void:
 	if not (body is Node2D and body.is_in_group("player")):

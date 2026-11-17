@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- The watcher's lantern breathes: a slow warm swell (1.8 s in, 1.8 s out,
+  sine ease) so he can be read from across the water. Reduced motion holds
+  him perfectly still.
 - THE FIRST TIDE added (achievement #39): the very first daily claim.
   A starter the whole tide arc starts from. Docs to 39.
 - Once THE FIFTH TIDE is granted, the HUD tide line graduates to
