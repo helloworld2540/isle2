@@ -1,0 +1,18 @@
+# License
+
+Isle 2 — Trash Island is an original game. All rights reserved by the
+author (see icon and git history).
+
+You may:
+- Play it. That's why it exists.
+- Build it from source for your own machine (see README and the export
+  presets).
+- Fork it to learn how the loop fits together — the code is instructive,
+  check `guide.md` and `overnight_sprint.txt` for the design story.
+
+You may not:
+- Re-publish or sell the whole, or any substantial part, without
+  permission.
+
+The sound set is a placeholder library and the art is hand-built with
+generation assistance. All original parts are covered by this license.

@@ -1,6 +1,7 @@
 # Current project todo:
 
 # done this pass
+- LICENSE added — the box ships with its terms.
 - Fresh-clone proof: git archive -> import (2 benign warnings: font
   ordering, missing addon) -> Linux export -> headless boot with zero
   errors. Repo alone is sufficient.
