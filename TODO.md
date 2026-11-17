@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- Deeds column closes the arc twice: "The far point: seen." and, if
+  granted, "The fifth tide: seen."
 - THE FIFTH TIDE shipped: with every badge earned (ISLAND STEWARD), one
   last legendary card lands on the next world load — a low bell, +$250 and
   the island's last secret. Fifth_tide_granted (schema-persisted), paid once
