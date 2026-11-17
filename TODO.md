@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- The stats page gains The Quiet Era (and The Quiet Steward Era behind
+  the catalogue capstone) — unlocks when THE QUIET KEEPER is earned.
 - Oda notices THE QUIET KEEPER ("Three held without help. The sea makes
   keepers like you by way of the horizon.") — the far-water hidden
   milestone.

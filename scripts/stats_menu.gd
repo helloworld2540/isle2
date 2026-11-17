@@ -244,7 +244,11 @@ func _build_almanac_line() -> String:
 ## earned by what the save has actually done.
 func _era_name() -> String:
 	if GameState.is_achievement_unlocked("island_steward"):
+		if GameState.is_achievement_unlocked("quiet_keeper"):
+			return "The Quiet Steward Era"
 		return "The Steward Era"
+	if GameState.is_achievement_unlocked("quiet_keeper"):
+		return "The Quiet Era"
 	if GameState.is_achievement_unlocked("silent_chorus"):
 		return "The Chorus Era"
 	if GameState.tidekeeper:
@@ -265,7 +269,11 @@ func _era_name() -> String:
 ## One line of what the name means for the bench, the reef and the till.
 func _era_tag() -> String:
 	if GameState.is_achievement_unlocked("island_steward"):
+		if GameState.is_achievement_unlocked("quiet_keeper"):
+			return "the keeper is unwitnessed by the tide, and stays unwitnessed"
 		return "every page of the journal is blank except yours"
+	if GameState.is_achievement_unlocked("quiet_keeper"):
+		return "the sea does not say where it is going; you follow anyway"
 	if GameState.is_achievement_unlocked("silent_chorus"):
 		return "six voices, one shoreline"
 	if GameState.tidekeeper:
