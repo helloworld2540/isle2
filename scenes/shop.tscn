@@ -408,6 +408,21 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Tidekeeper's Pact — 2500$"
 
+[node name="BuyTideTipButton" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SpendColumn/SpendPanel/SpendBox"]
+custom_minimum_size = Vector2(0, 44)
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Dockhand's tide tip — 25$"
+
+[node name="TideTipNote" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SpendColumn/SpendPanel/SpendBox"]
+unique_name_in_owner = true
+layout_mode = 2
+autowrap_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.85, 0.95, 1)
+theme_override_font_sizes/font_size = 18
+text = ""
+
 [node name="MoneyNote" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SpendColumn/SpendPanel/SpendBox"]
 unique_name_in_owner = true
 layout_mode = 2

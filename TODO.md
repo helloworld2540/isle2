@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- New money sink in the shop: the dockhand's tide tip (25$) reveals
+  tomorrow's tide for today only. Saved per island/day (`harbor_tip_day`),
+  persists through restore, and the shop shows the readout once bought.
+  Verified live (purchase, idempotency, tomorrow title) and headless import.
 - World HUD tide line no longer clips on small screens: shows just the
   tide's name (`hud_line()`), with the full summary and blurb moved into the
   richer tooltip.

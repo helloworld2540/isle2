@@ -26,6 +26,8 @@ const ShopLedger := preload("res://scripts/shop_ledger.gd")
 @onready var buy_reef_button: Button = %BuyReefButton
 @onready var buy_patron_button: Button = %BuyPatronButton
 @onready var buy_tidekeeper_button: Button = %BuyTidekeeperButton
+@onready var buy_tide_tip_button: Button = %BuyTideTipButton
+@onready var tide_tip_note: Label = %TideTipNote
 @onready var money_note: Label = %MoneyNote
 
 @onready var back_button: Button = %BackButton
@@ -84,6 +86,8 @@ func _wire_ui() -> void:
 		buy_patron_button.pressed.connect(_buy_patron)
 	if buy_tidekeeper_button:
 		buy_tidekeeper_button.pressed.connect(_buy_tidekeeper)
+	if buy_tide_tip_button:
+		buy_tide_tip_button.pressed.connect(_buy_tide_tip)
 
 func _wire_row(row: HBoxContainer, mat: String, price: int) -> Dictionary:
 	var name_lbl: Label = row.get_node("Name")
@@ -202,6 +206,32 @@ func _refresh_purchases() -> void:
 			buy_tidekeeper_button.text = "Tidekeeper's Pact — %d$" % GameState.TIDEKEEPER_COST
 			buy_tidekeeper_button.tooltip_text = "+10 kg bag, permanently."
 			buy_tidekeeper_button.disabled = not GameState.can_afford(GameState.TIDEKEEPER_COST)
+
+	if buy_tide_tip_button:
+		if GameState.harbor_tip_purchased():
+			buy_tide_tip_button.text = "Dockhand's tip — bought today"
+			buy_tide_tip_button.disabled = true
+		else:
+			buy_tide_tip_button.text = "Dockhand's tide tip — %d$" % GameState.HARBOR_TIP_COST
+			buy_tide_tip_button.tooltip_text = "Pay a dockhand to read tomorrow's tide to you."
+			buy_tide_tip_button.disabled = not GameState.can_afford(GameState.HARBOR_TIP_COST)
+	if tide_tip_note:
+		if GameState.harbor_tip_purchased():
+			tide_tip_note.text = "Tomorrow: %s — plan the dive and the belt accordingly." % GameState.tomorrow_tide_title()
+		else:
+			tide_tip_note.text = "A dockhand can tell you tomorrow's tide — for a price."
+
+
+func _buy_tide_tip() -> void:
+	if not GameState.purchase_harbor_tip():
+		_play_denied("Need %d$ for the dockhand's tip" % GameState.HARBOR_TIP_COST, "")
+		_shake_control(buy_tide_tip_button)
+		return
+	AudioManager.play_sfx("upgrade", 1.15)
+	var tip_text := "Tomorrow: %s" % GameState.tomorrow_tide_title()
+	_stack.sale("DOCKHAND'S TIP  -%d$\n%s" % [GameState.HARBOR_TIP_COST, tip_text], Color(0.6, 0.9, 1.0, 1.0))
+	_log_sale("Dockhand whispers: %s tomorrow" % GameState.tomorrow_tide_title())
+	_refresh()
 
 
 func _buy_market() -> void:

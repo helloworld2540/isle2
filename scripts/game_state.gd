@@ -149,6 +149,9 @@ var tide_report_day: int = 0
 ## Tide conditions the keeper has logged, by stable key (TideReport.CONDITIONS).
 ## Four exist; logging all four completes the almanac.
 var tides_logged: Array[String] = []
+## Day index (TideReport.day_index() + 1) for which the keeper bought the
+## dockhand's tip revealing tomorrow's tide. 0 means "no hint bought".
+var harbor_tip_day: int = 0
 ## One-time reward for completing the almanac.
 var tide_almanac_granted: bool = false
 const TIDE_ALMANAC_MONEY := 30
@@ -559,6 +562,33 @@ func try_grant_tide_almanac() -> Dictionary:
 	}
 
 
+# --- Tomorrow's tide (dockhand's tip) ---------------------------------------
+## Cost of the dockhand's tip: a small money sink that pays off only for a
+## keeper who plans ahead. Reveals tomorrow's condition, one day at a time.
+const HARBOR_TIP_COST := 25
+
+## True once today's purchase covers tomorrow. Idempotent per day.
+func harbor_tip_purchased() -> bool:
+	return harbor_tip_day == TideReport.day_index() + 1
+
+
+## True while the bought tip still applies (i.e. it has not rolled over).
+func purchase_harbor_tip() -> bool:
+	if harbor_tip_purchased():
+		return true
+	if not spend_money(HARBOR_TIP_COST):
+		return false
+	harbor_tip_day = TideReport.day_index() + 1
+	_persist()
+	return true
+
+
+## Title-cased name of tomorrow's tide, for the shop readout.
+func tomorrow_tide_title() -> String:
+	return String(TideReport.for_day(TideReport.day_index() + 1).get("title", "Still tide")).capitalize()
+
+
+
 ## The day's tide card, at most once per island per local day. Returns {} when
 ## this island has already seen today's report. Idempotent: claiming stamps the
 ## day before the banner plays, so a scene reload cannot replay it.
@@ -793,6 +823,7 @@ const SAVE_SCHEMA: Array = [
 	["tide_report_day", "tide_report_day", 0, "int"],
 	["tides_logged", "tides_logged", [], "string_array"],
 	["tide_almanac_granted", "tide_almanac_granted", false, "bool"],
+	["harbor_tip_day", "harbor_tip_day", 0, "int"],
 	["quests_completed", "quests_completed", 0, "int"],
 	["lifetime_garbage_kg", "lifetime_garbage_kg", 0, "int"],
 	["reef_dives", "reef_dives", 0, "int"],
