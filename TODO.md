@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Tom also knows about the far point — "Oda sees him. I keep to my
+  fishing." — the island's knowledge about the watcher is now spread out
+  properly.
 - Tide Ledger button now counts from the LEDGER_IDS list itself — fixed
   a stale hardcoded /6 after the seventh note was added (verified live:
   0/7).
