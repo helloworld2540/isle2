@@ -21,7 +21,14 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 | `TutorialDirector` | `scripts/tutorial_director.gd` | Step-by-step first-playthrough guide (walk → dive → sort → sell) | (plus one-shot nudges incl. the tide report and the dockhand's tip)
 
 ### Modules
-- **World map** (`scripts/wm_*`) — player movement (BFS pathfinding on TileMapLayer), portals, NPCs, menus, settings, progress bars, and ambient life (gull flock, sea sparkle, distant fishing sailboat that drifts past every few minutes, rare foghorn cries, harbor cries tempered per tide, a starfish collectathon, and an in-game journal of bottles and species).
+- **Tide** (`scripts/tide_report.gd`, global `TideReport`) — the deterministic
+  four-day weather: `today()`/`for_day()`, typed accessors (`garbage_bias`,
+  `fish_speed_multiplier`, `belt_speed_multiplier`, `golden_chance_multiplier`,
+  `hud_line()`, `summary()`, `blurb()`, `ambient_line()`, `today_key()`), the
+  calendar rotation plus the seller of tomorrow's foresight (`tip_cost()` on
+  `GameState`).
+- **World map** (`scripts/wm_*`) — player movement (BFS pathfinding on TileMapLayer), portals, NPCs (milestone beats per achievement), menus, settings, progress bars, ambient life (gulls tempered by tide, sea sparkle, a distant sailboat, foghorn, harbor cries, starfish collectathon, bottle journal, a far-point watcher and his note), and the tide HUD/report banner.
+
 - **Minigames**
   - Upcycle: `upcycle.tscn` (`scripts/upcycle.gd`) — belt sorting into material bins, over a low workshop-hum bed.
   - Reef Rescue: `reef_rescue.tscn` (`scripts/reef_rescue.gd`) + `rr_fish.tscn` (`scripts/rr_fish.gd`) — drone collection, combo, fish hazard, over a muffled underwater current.
