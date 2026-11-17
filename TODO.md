@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- The About page says something to the hidden keeper: "The sea keeps
+  its own counsel — And so do you." Distinct line from the steward one.
 - 1.1.0 shipped: Android versionName 1.1.0 / versionCode 2, About page +
   menu stamp + RELEASE_NOTES headline all in lockstep. Platforms re-built at
   HEAD. Lode badge dump clean.

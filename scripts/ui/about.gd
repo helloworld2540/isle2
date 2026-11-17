@@ -14,6 +14,10 @@ func _ready() -> void:
 	visible = false
 	if body and credits.is_empty():
 		body.text = _default_credits()
+		if GameSettings.hide_tide:
+			body.text += "
+[color=#9fd0e8]— The sea keeps its own counsel —[/color]
+[color=#8fb6c9]And so do you. The keeper this island never hears is the one that listens hardest.[/color]"
 		if GameState.is_achievement_unlocked("island_steward"):
 			body.text += "
 [color=#ffd27f]— The keeper who kept it all —[/color]
