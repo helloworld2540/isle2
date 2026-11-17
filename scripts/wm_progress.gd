@@ -165,10 +165,13 @@ func _refresh_tide_label() -> void:
 	# second line — tooltips don't exist on touch. Day-stamped, so it lapses
 	# on its own when the day rolls over. Two short lines beat one wide one
 	# in this 264 px-wide panel.
+	# A fresh island is, by definition, on its first day — the claim lands
+	# after this HUD is built, so never show a nonsense "day 0".
+	var days: int = maxi(GameState.tide_days_visited, 1)
 	if GameState.harbor_tip_purchased():
-		tide_label.text = "≈ %s · day %d\nTomorrow: %s" % [TideReport.hud_line(), GameState.tide_days_visited, GameState.tomorrow_tide_title()]
+		tide_label.text = "≈ %s · day %d\nTomorrow: %s" % [TideReport.hud_line(), days, GameState.tomorrow_tide_title()]
 	else:
-		tide_label.text = "≈ %s · day %d" % [TideReport.hud_line(), GameState.tide_days_visited]
+		tide_label.text = "≈ %s · day %d" % [TideReport.hud_line(), days]
 	var tooltip := "Tide report — %s\n%s" % [TideReport.summary(), TideReport.blurb()]
 	if GameState.harbor_tip_purchased():
 		tooltip += "\nTomorrow (paid tip): %s" % GameState.tomorrow_tide_title()

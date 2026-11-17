@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- Fresh-save boot fix: the tide HUD never shows "day 0" — the daily
+  claim lands after the HUD is built, so the counter floors at 1.
 - The island marks its 100th tide: visiting the shop on day 100 logs a
   quiet centennial line — Corl polishes the counter unprompted.
 - The stats page closes the bottle arc in writing: with THE SILENT CHORUS
