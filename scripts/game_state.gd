@@ -154,6 +154,9 @@ var tides_logged: Array[String] = []
 var harbor_tip_day: int = 0
 ## Lifetime count of dockhand's tips bought — feeds THE WHISPERER.
 var harbor_tips_bought: int = 0
+## Days of the island this save has reported — incremented once per fresh
+## tide claim, so the HUD can whisper how long the keeper has been keeping.
+var tide_days_visited: int = 0
 ## One-time reward for completing the almanac.
 var tide_almanac_granted: bool = false
 const TIDE_ALMANAC_MONEY := 30
@@ -603,6 +606,7 @@ func try_claim_tide_report() -> Dictionary:
 	if tide_report_day == day:
 		return {}
 	tide_report_day = day
+	tide_days_visited += 1
 	var report := TideReport.today()
 	var key := String(report.get("key", ""))
 	if not key.is_empty() and not tides_logged.has(key):
@@ -828,6 +832,7 @@ const SAVE_SCHEMA: Array = [
 	["tide_almanac_granted", "tide_almanac_granted", false, "bool"],
 	["harbor_tip_day", "harbor_tip_day", 0, "int"],
 	["harbor_tips_bought", "harbor_tips_bought", 0, "int"],
+	["tide_days_visited", "tide_days_visited", 0, "int"],
 	["quests_completed", "quests_completed", 0, "int"],
 	["lifetime_garbage_kg", "lifetime_garbage_kg", 0, "int"],
 	["reef_dives", "reef_dives", 0, "int"],

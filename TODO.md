@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- The tide HUD line now carries a day count ("≈ Glass Calm · day 12",
+  "≈ Slack Water · day 12\nTomorrow: Night Drift") — the island remembers
+  how long the keeper has been keeping. Saved per-island (tide_days_visited,
+  schema-persisted, bumped once per fresh claim).
 - migration_test now also restores the legacy save through GameState:
   every modern key (harbor_tips_bought, tides_logged) backfills from defaults
   and money survives the schema round-trip. Old saves are load-bearing

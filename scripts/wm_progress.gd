@@ -166,9 +166,9 @@ func _refresh_tide_label() -> void:
 	# on its own when the day rolls over. Two short lines beat one wide one
 	# in this 264 px-wide panel.
 	if GameState.harbor_tip_purchased():
-		tide_label.text = "≈ %s\nTomorrow: %s" % [TideReport.hud_line(), GameState.tomorrow_tide_title()]
+		tide_label.text = "≈ %s · day %d\nTomorrow: %s" % [TideReport.hud_line(), GameState.tide_days_visited, GameState.tomorrow_tide_title()]
 	else:
-		tide_label.text = "≈ %s" % TideReport.hud_line()
+		tide_label.text = "≈ %s · day %d" % [TideReport.hud_line(), GameState.tide_days_visited]
 	var tooltip := "Tide report — %s\n%s" % [TideReport.summary(), TideReport.blurb()]
 	if GameState.harbor_tip_purchased():
 		tooltip += "\nTomorrow (paid tip): %s" % GameState.tomorrow_tide_title()
