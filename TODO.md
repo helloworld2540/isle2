@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- The Reset confirm names the island ("Reset <name>?") — destructive
+  decisions never reach an anonymous shore.
 - All three platforms re-verified against the current tree again: Linux
   x86_64 (0-byte boot log, exit 124 healthy), Web artifact set (html/wasm/
   pck), Android signed APK (verifier-clean). One wrinkle: the export target
