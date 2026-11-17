@@ -1,6 +1,7 @@
 # Current project todo:
 
 # done this pass
+- Android APK re-exported at HEAD; verifier-clean.
 - Live bench boot confirmed: the tide line renders beneath the intro overlay
   ("≈ Slack wat—"), no layout breakage.
 - The bench HUD now shows today's tide inline too — all three stations

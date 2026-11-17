@@ -1083,3 +1083,6 @@ STATE
 ## 2026-11-17 — All three re-exported at HEAD
 - Linux x86_64 (0-byte boot log, exit 124 healthy), Web artifact set, Android
   signed APK; export target dirs must pre-exist or the Linux export fails.
+
+## 2026-11-17 — Android re-verified at HEAD after the tide-line pass
+- APK rebuilt clean; signed and verifier-clean against the current tree.
