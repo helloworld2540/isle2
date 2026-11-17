@@ -261,6 +261,28 @@ func has_backup() -> bool:
 	return FileAccess.file_exists(_slot_paths()[1])
 
 
+## Compact summary of what the backup holds, for a restore button's preview
+## text — never mutates anything. Empty dictionary when no backup exists or
+## the file is unreadable.
+func backup_summary() -> Dictionary:
+	ensure_bound()
+	var paths := _slot_paths()
+	if not FileAccess.file_exists(paths[1]):
+		return {}
+	var text := FileAccess.get_file_as_string(paths[1])
+	if text.is_empty():
+		return {}
+	var parsed = JSON.parse_string(text)
+	if not (parsed is Dictionary):
+		return {}
+	return {
+		"money": int(parsed.get("money", 0)),
+		"score": int(parsed.get("upcycle_score", 0)),
+		"circuits": int(parsed.get("circuits_completed", 0)),
+		"mtime": FileAccess.get_modified_time(paths[1]),
+	}
+
+
 ## Overwrite the current save with the first backup. The pre-restore state is
 ## rotated into save.json.bak2 first, so no data is silently lost. Returns
 ## false when no backup exists. Callers refresh state themselves after a

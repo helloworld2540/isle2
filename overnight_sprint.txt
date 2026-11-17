@@ -1053,3 +1053,8 @@ STATE
 - Stats page gains a "Restore backup" confirm-button (greyed when no backup),
   sharing the shared confirm with reset via _pending_action; verified live:
   money 999 / 50 / restore / 999 round-trip end-to-end.
+
+## 2026-11-17 — Restore preview
+- SaveManager.backup_summary(): read-only peek at save.bak (money, score,
+  circuits, mtime) for the confirm text. The restore confirm now shows what
+  the backup holds before committing — never an unknown island.

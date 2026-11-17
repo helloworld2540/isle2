@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- The Restore backup confirm now previews the backup before committing —
+  money, score, circuits and the file's modification date — so rolling back
+  never lands on an unknown island. SaveManager gained backup_summary()
+  (read-only).
 - Restore backup button on the stats page: rolls the island back to its
   previous save, behind the shared confirm card, shares _pending_action with
   reset, greyed when no backup exists. SaveManager gains restore_backup().

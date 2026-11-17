@@ -467,7 +467,14 @@ func _on_registry_fish(id: String) -> void:
 func _on_restore_pressed() -> void:
 	_pending_action = "restore"
 	AudioManager.play_sfx("open")
-	_confirm_panel.present("Restore backup?", "Roll this island back to its previous save. The current state is kept as the second backup.", "Restore")
+	var s := SaveManager.backup_summary()
+	var details := "Roll this island back to its previous save. The current state is kept as the second backup."
+	if not s.is_empty():
+		var m := int(s.get("mtime", 0))
+		var when := Time.get_datetime_string_from_unix_time(m, false) if m > 0 else "unknown"
+		details = "Backup: %d$  ·  score %d  ·  %d circuits  ·  %s
+Roll this island back? The current state is kept as the second backup." % [int(s.get("money", 0)), int(s.get("score", 0)), int(s.get("circuits", 0)), when]
+	_confirm_panel.present("Restore backup?", details, "Restore")
 
 
 func _refresh_restore_button() -> void:
