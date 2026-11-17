@@ -220,8 +220,9 @@ func _build_journal_line() -> String:
 	var total := GameState.achievement_total()
 	var paid_out := " · tide pool paid" if GameState.tide_pool_granted else ""
 	var almanac := " · tide almanac paid" if GameState.tide_almanac_granted else ""
+	var quiet := " · tide hidden" if GameSettings.hide_tide else ""
 	var tides := GameState.tides_logged.size()
-	return "Journal — bottles %d/7 · starfish %d/5%s · tides %d/4%s · species %d/4 · achievements %d/%d" % [bottles, starfish, paid_out, tides, almanac, fish, ach, total]
+	return "Journal — bottles %d/7 · starfish %d/5%s · tides %d/4%s%s · species %d/4 · achievements %d/%d" % [bottles, starfish, paid_out, tides, almanac, quiet, fish, ach, total]
 
 
 ## The keeper's almanac as a checklist: every tide in rotation order with a

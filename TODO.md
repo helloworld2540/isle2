@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- The keeper's journal line on the stats page now reads 'tides · · tide
+  hidden' when the Hard-tide mode is active — the folder of the book is
+  re-spelled for the quiet wager.
 - THE TIDE WALKER added (achievement #42): holding THE STEADY KEEPER
   and THE QUIET KEEPER at once. Legendary banner, Oda notices ("once for
   listening, once for not. Either way, you stayed."). Docs to 42.
