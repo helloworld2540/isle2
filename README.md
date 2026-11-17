@@ -7,6 +7,7 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 - Type: 2D game project (single-player, local save)
 - Entry scenes: `main_menu.tscn` → `world.tscn`
 - Working directory: `/media/seethathuman/data/godotProjects/isle2`
+- Shipped builds: Linux (`export/linux/build.x86_64`), Web (`export/linux/` HTML5 set), Android (`export/android/` signed APK) — presets in `export_presets.cfg`, all three verified end-to-end (see `overnight_sprint.txt`).
 
 ## Architecture
 
