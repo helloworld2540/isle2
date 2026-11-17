@@ -1101,3 +1101,7 @@ STATE
 ## 2026-11-17 — Android re-verified with new launcher icon
 - APK rebuilt; signed and verifier-clean; launcher icons picked up the new
   island art (main 192 / adaptive 432 / monochrome).
+
+## 2026-11-17 — 1.0.0 sealed in export/
+- export_gate.sh --re-export: Linux (0-byte boot log), Web, Android combined
+  — the release pipeline is a single command, proven end-to-end at HEAD.

@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- export_gate.sh --re-export ran end-to-end fresh: all three platforms
+  rebuilt into export/ (Linux boots with 0-byte log; Web holds; Android
+  APK signed).
 - Main menu carries a discreet version stamp (v1.0.0) bottom-left — the
   box names its own edition.
 - docs_audit now guards RELEASE_NOTES.md and RELEASE_CHECKLIST.md too —
