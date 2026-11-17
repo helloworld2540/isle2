@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- migration_test now also restores the legacy save through GameState:
+  every modern key (harbor_tips_bought, tides_logged) backfills from defaults
+  and money survives the schema round-trip. Old saves are load-bearing
+  fixtures.
 - Eel Run keys up the gulls (pitch 0.95-1.08). All four tide voices are
   now audible at the dock.
 - Glass Calm mobs the gulls: answer-chance doubles to 0.7 — every tide

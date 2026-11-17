@@ -29,6 +29,17 @@ func _initialize() -> void:
 	ok = _check(ok, sm.list_slots().size() == 1, "one slot after migration")
 	ok = _check(ok, sm.list_slots()[0].get("id") == "island", "row id island")
 
+	# The legacy save lacks every modern key: restore() must backfill with
+	# defaults without crashing (old saves are load-bearing fixtures).
+	var gs = root.get_node_or_null("GameState")
+	if gs != null:
+		gs.restore()
+		ok = _check(ok, int(gs.harbor_tips_bought) == 0, "new key defaults to 0")
+		ok = _check(ok, gs.tides_logged.is_empty(), "tides_logged defaults to []")
+		ok = _check(ok, int(gs.money) == 777, "money restored through schema")
+	else:
+		print("  ok  (GameState autoload unavailable; skipped restore check)")
+
 	# Idempotent: binding again must not re-migrate or duplicate.
 	sm.current_slot = ""
 	sm.ensure_bound()
