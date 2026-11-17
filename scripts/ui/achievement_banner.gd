@@ -33,6 +33,7 @@ const LEGENDARY_ACHIEVEMENTS := {
 	"tide_messages": true,
 	"whispers": true,
 	"keeper_letter": true,
+	"silent_chorus": true,
 	"harbor_hero": true,
 	"island_patron": true,
 	"island_steward": true,

@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- THE SILENT CHORUS added (achievement #35): read all six bottles — the
+  sea's complete chorus. Catalogue predicate, legendary banner, docs to 35.
 - Corl's Folded Paper: a whisperer-gated bottle on the shop path (cell
   verified walkable). Reading it pays his legend's final reveal; it joins
   the Tide Ledger (six rows) and the journal line reads bottles n/6.
