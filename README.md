@@ -18,10 +18,10 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 | `AudioManager` | `scripts/audio_manager.gd` | SFX/BGM playback, buses, volumes, reduced motion |
 | `GameSettings` | `scripts/game_settings.gd` | Persisted per-player toggles (reduce motion) |
 | `SceneTransition` | `scripts/scene_transition.gd` | Fade overlay scene changes |
-| `TutorialDirector` | `scripts/tutorial_director.gd` | Step-by-step first-playthrough guide (walk → dive → sort → sell) |
+| `TutorialDirector` | `scripts/tutorial_director.gd` | Step-by-step first-playthrough guide (walk → dive → sort → sell) | (plus one-shot nudges incl. the tide report and the dockhand's tip)
 
 ### Modules
-- **World map** (`scripts/wm_*`) — player movement (BFS pathfinding on TileMapLayer), portals, NPCs, menus, settings, progress bars, and ambient life (gull flock, sea sparkle, distant fishing sailboat that drifts past every few minutes, rare foghorn cries, harbor cries, a starfish collectathon, and an in-game journal of bottles and species).
+- **World map** (`scripts/wm_*`) — player movement (BFS pathfinding on TileMapLayer), portals, NPCs, menus, settings, progress bars, and ambient life (gull flock, sea sparkle, distant fishing sailboat that drifts past every few minutes, rare foghorn cries, harbor cries tempered per tide, a starfish collectathon, and an in-game journal of bottles and species).
 - **Minigames**
   - Upcycle: `upcycle.tscn` (`scripts/upcycle.gd`) — belt sorting into material bins, over a low workshop-hum bed.
   - Reef Rescue: `reef_rescue.tscn` (`scripts/reef_rescue.gd`) + `rr_fish.tscn` (`scripts/rr_fish.gd`) — drone collection, combo, fish hazard, over a muffled underwater current.
