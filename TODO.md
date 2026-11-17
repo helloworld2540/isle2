@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Restore backup button on the stats page: rolls the island back to its
+  previous save, behind the shared confirm card, shares _pending_action with
+  reset, greyed when no backup exists. SaveManager gains restore_backup().
 - guide.md notes the tease-rows in the ledger and registry.
 - Reef Registry locked rows hint at the species — machine-agnostic and
   spoiler-free (golden/gold, the heavy gray, the orange, the crab).

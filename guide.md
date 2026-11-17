@@ -296,6 +296,10 @@ checked against this yield — nothing changed, deliberately.*
   **Island** the first time you launch, so nothing is lost on upgrade.
 
 ## Settings & touch
+- The stats page's **Restore backup** button rolls the island back to its
+  previous save (with a confirm). The current state is kept as the second
+  backup.
+
 - The island menu (☰) holds Master / Music / Ambience / SFX sliders and the
   **Reduce motion** toggle. Each slider sits on its own row with a big, fat
   touch track, so it is easy to grab on a phone without the labels moving.
