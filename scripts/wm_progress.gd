@@ -180,6 +180,11 @@ func _refresh_tide_label() -> void:
 	# A fresh island is, by definition, on its first day — the claim lands
 	# after this HUD is built, so never show a nonsense "day 0".
 	var days: int = maxi(GameState.tide_days_visited, 1)
+	# After the island shows its keeper the fifth tide, the HUD simply keeps it.
+	if GameState.fifth_tide_granted:
+		tide_label.text = "✦ The Fifth Tide"
+		tide_label.tooltip_text = "THE FIFTH TIDE — the island's own.\nThe keeper keeps the water now."
+		return
 	if GameState.harbor_tip_purchased():
 		tide_label.text = "≈ %s · day %d\nTomorrow: %s" % [TideReport.hud_line(), days, GameState.tomorrow_tide_title()]
 	else:

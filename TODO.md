@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- Once THE FIFTH TIDE is granted, the HUD tide line graduates to
+  "✦ The Fifth Tide" — the island stops scheduling weather for the keeper.
 - Deeds column closes the arc twice: "The far point: seen." and, if
   granted, "The fifth tide: seen."
 - THE FIFTH TIDE shipped: with every badge earned (ISLAND STEWARD), one
