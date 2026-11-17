@@ -5,6 +5,7 @@ non-trivial content and carry the sections it advertises. Fails loudly;
 prints PASS otherwise."""
 
 import os
+import subprocess
 import sys
 
 REQUIRED = {
@@ -18,6 +19,15 @@ REQUIRED = {
 }
 
 failures = []
+
+# No build artifacts may ever be tracked in git — the working dir may hold
+# them, but a project someone is asked to clone must never serve them.
+for path in subprocess.run(
+    ["git", "ls-files"], text=True, capture_output=True, check=True
+).stdout.splitlines():
+    if path.startswith("export/") or path.lower().endswith((".apk", ".pck", ".wasm", ".x86_64", ".sig", ".idsig")):
+        failures.append(f"tracked build artifact: {path}")
+
 for path, anchors in REQUIRED.items():
     if not os.path.exists(path):
         failures.append(f"missing: {path}")

@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- docs_audit now refuses to pass while any build artifact is tracked in
+  git (export/, .apk, .pck, .wasm, .x86_64, .sig, .idsig) — the repo only
+  ever carries sources, never binaries. PASS.
 - About page cites the license in one line — readers know what it is
   before they even leave the menu.
 - The About page credits the tooling honestly: AI in the loop, defended
