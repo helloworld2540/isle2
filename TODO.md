@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- The stats page Ledger button goes gold at 6/6 — the completed collection
+  announces itself without opening the page.
 - guide.md Corl legend notes the day-10/30/50 counter lines he never
   repeats.
 - Corl marks the calendar: on days 10, 30 and 50 he says one thing to

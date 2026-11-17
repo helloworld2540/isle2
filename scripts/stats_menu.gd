@@ -313,6 +313,10 @@ func _refresh_ledger_button() -> void:
 		if GameState.is_story_read(id):
 			found += 1
 	_ledger_button.text = "Tide Ledger (%d/6)" % found
+	if found >= LEDGER_IDS.size():
+		_ledger_button.modulate = Color(1.0, 0.85, 0.42, 1.0)
+	else:
+		_ledger_button.modulate = Color(1.0, 1.0, 1.0, 1.0)
 
 
 ## Tide Ledger: re-read any bottle the player has already found. Undiscovered
