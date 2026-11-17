@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- The stats page gained The Chorus Era (era name + tag) shown between
+  the Pact Era and the Steward Era for keepers who have read all six notes.
 - Kai reacts to THE SILENT CHORUS — the counter-owner who stocks for
   people who read everything first. Every major story beat now echoes in
   at least two NPC voices.

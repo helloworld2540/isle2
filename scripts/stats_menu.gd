@@ -204,6 +204,8 @@ func _build_almanac_line() -> String:
 func _era_name() -> String:
 	if GameState.is_achievement_unlocked("island_steward"):
 		return "The Steward Era"
+	if GameState.is_achievement_unlocked("silent_chorus"):
+		return "The Chorus Era"
 	if GameState.tidekeeper:
 		return "The Pact Era"
 	if GameState.market_level >= GameState.MARKET_MAX_LEVEL:
@@ -223,6 +225,8 @@ func _era_name() -> String:
 func _era_tag() -> String:
 	if GameState.is_achievement_unlocked("island_steward"):
 		return "every page of the journal is blank except yours"
+	if GameState.is_achievement_unlocked("silent_chorus"):
+		return "six voices, one shoreline"
 	if GameState.tidekeeper:
 		return "the tide answers its keeper"
 	if GameState.market_level >= GameState.MARKET_MAX_LEVEL:
