@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- The About page credits the tooling honestly: AI in the loop, defended
+  by a green harness.
 - README gains a Building & verifying section: Godot 4.7.2 stable and
   matching templates are the only dependencies.
 - guide.md's version history now includes the 1.0.0 seal — fresh clone
