@@ -1058,3 +1058,9 @@ STATE
 - SaveManager.backup_summary(): read-only peek at save.bak (money, score,
   circuits, mtime) for the confirm text. The restore confirm now shows what
   the backup holds before committing — never an unknown island.
+
+## 2026-11-17 — Recovery visible
+- SaveManager.load_game() now records last_recovery ("" / "first backup" /
+  "second-generation backup") when it stands a backup in for the primary.
+- The stats page surfaces a "Recovered from the <n> backup this session"
+  deed line when it happens — silent recoveries never surprise anymore.

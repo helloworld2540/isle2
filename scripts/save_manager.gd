@@ -357,16 +357,27 @@ func update_nested(dict_key: String, sub_patch: Dictionary) -> Dictionary:
 	save_game(data)
 	return data
 
+## Which backup, if any, the last load_game() had to stand in for the primary.
+## "" when the primary read fine. "first backup" / "second-generation backup"
+## otherwise — the UI surfaces this so a silent recovery never surprises.
+var last_recovery: String = ""
+
+
 func load_game() -> Dictionary:
 	ensure_bound()
 	var paths := _slot_paths()
+	last_recovery = ""
 	var data := _read_json(paths[0])
 	if data.is_empty() and not _file_empty(paths[0]):
 		push_warning("SaveManager: primary save unreadable, trying backup")
 		data = _read_json(paths[1])
+		if not data.is_empty():
+			last_recovery = "first backup"
 	if data.is_empty() and not _file_empty(paths[1]):
 		push_warning("SaveManager: backup save unreadable, trying second-generation backup")
 		data = _read_json(paths[2])
+		if not data.is_empty():
+			last_recovery = "second-generation backup"
 	if data.is_empty():
 		data = {"money": 0}
 	if not data.has("money"):

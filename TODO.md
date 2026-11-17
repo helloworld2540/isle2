@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- SaveManager now reports when it had to stand a backup in for the
+  primary (last_recovery). Stats page shows "Recovered from the <n> backup
+  this session" when it does — silent recoveries never surprise.
 - The Restore backup confirm now previews the backup before committing —
   money, score, circuits and the file's modification date — so rolling back
   never lands on an unknown island. SaveManager gained backup_summary()

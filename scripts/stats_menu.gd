@@ -164,6 +164,8 @@ func _update_stats_display() -> void:
 		deeds.append("Six voices, one shoreline — and every one of them said the tide is not a clock.")
 		deeds.append("It is a heart, and it beats in four, and you learned the rhythm.")
 	# Corl keeps his own ledger; the page notices regulars.
+	if not SaveManager.last_recovery.is_empty():
+		deeds.append("Recovered from the %s this session" % SaveManager.last_recovery)
 	if GameState.is_achievement_unlocked("far_point"):
 		deeds.append("The far point: seen.")
 	if GameState.fifth_tide_granted:
