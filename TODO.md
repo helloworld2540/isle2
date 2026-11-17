@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- Full fresh-clone proof re-run after the About/motto/epilogue run —
+  cold checkout still imports, exports and boots with zero errors.
 - The About page's close becomes the island's last word to you:
   "Keep the shore" — the motto as the leaving salute.
 - Stats page deeds column now lists THE ALMANAC KEEPER as a named deed.
