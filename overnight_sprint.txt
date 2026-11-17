@@ -1041,3 +1041,8 @@ STATE
 - Linux (x86_64), Web (html5), Android (signed APK): all three presets build
   end-to-end with stock templates; Linux headless boots with 0 errors.
 - Web artifact set complete (html/js/wasm/pck/worklets/icons).
+
+## 2026-11-17 — Export re-verified after the ledger/hint pass
+- Linux rebuilt from the current tree (131 MB) and re-booted headless with
+  zero errors and zero output; the release claim in RELEASE_CHECKLIST.md is
+  accurate for the current codebase.
