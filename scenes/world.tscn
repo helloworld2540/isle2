@@ -825,6 +825,12 @@ theme_override_font_sizes/font_size = 20
 theme_override_colors/font_color = Color(0.72, 0.93, 1, 0.9)
 text = "Move 0 | Range 0 | -"
 
+[node name="TideStatus" type="Label" parent="Menu/MenuPanel/Center/Card/HBoxContainer/Infobox/Header/TitleCol" unique_id=410065461]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.68, 0.9, 0.95, 0.95)
+text = ""
+
 [node name="UpgradesLabel" type="Label" parent="Menu/MenuPanel/Center/Card/HBoxContainer/Infobox" unique_id=410065455]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20

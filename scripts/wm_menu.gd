@@ -18,6 +18,7 @@ const FxSparkle := preload("res://scripts/fx_sparkle.gd")
 @onready var upgrades_panel: PanelContainer = $MenuPanel/Center/Card/HBoxContainer/Infobox/UpgradesPanel
 @onready var upgrade_panel: VBoxContainer = $MenuPanel/Center/Card/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel
 @onready var upgrade_status: Label = $MenuPanel/Center/Card/HBoxContainer/Infobox/Header/TitleCol/UpgradeStatus
+@onready var tide_status: Label = $MenuPanel/Center/Card/HBoxContainer/Infobox/Header/TitleCol/TideStatus
 @onready var move_faster_btn: Button = $MenuPanel/Center/Card/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel/MoveFasterBtn
 @onready var collection_range_btn: Button = $MenuPanel/Center/Card/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel/CollectionRangeBtn
 @onready var deep_cache_btn: Button = $MenuPanel/Center/Card/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel/DeepCacheBtn
@@ -274,6 +275,8 @@ func _buy_inv_cap() -> void:
 
 func _refresh_upgrade_ui() -> void:
 	if upgrade_status: upgrade_status.text = _upgrade_status_text()
+	if tide_status:
+		tide_status.text = "Today: %s · day %d%s" % [TideReport.hud_line(), maxi(GameState.tide_days_visited, 1), ("  ·  streak %d" % GameState.tide_streak) if GameState.tide_streak > 1 else ""]
 	
 	if deep_cache_btn:
 		deep_cache_btn.text = _deep_cache_text()

@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- The island pause menu now shows today's tide, the island day count,
+  and the live streak — the pause card doubles as a weather board.
 - Oda notices a week-long tide streak ("You are the reason my almanac has
   a spine.") — tide-aware NPCs now react to staying power, not just one-
   off purchases.
