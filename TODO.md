@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- Tom reacts to TO THE ABYSS — the deepest reef honor gets a voice from
+  the shore.
 - Nina notices SILK TOUCH (flawless shifts — bench craft), Mara notices
   CLEAN SWEEP (perfect dives). The whole cast now grades the keeper's work,
   not just their wallet.
