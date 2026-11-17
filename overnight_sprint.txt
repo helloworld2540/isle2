@@ -986,3 +986,13 @@ STATE
   THE WHISPERER (Corl's 7-day tip); THE LONG KEEPER (10 days); ISLAND STEWARD + golden world hush.
 - Corl the dockhand lore thread: $25 foresight tip, bespoke purchase lines, HUD tomorrow line, whispers ledger.
 - Mobile/scroll/legibility sweep; migration harness covers legacy restores; all docs updated.
+
+## 2026-11-17 (late) — The island keeps count (attention engine complete)
+- Day counter per island (tide_days_visited) — HUD, pause menu, menu summary, slot picker, stats deeds.
+- tide_streak: consecutive claims; THE STEADY KEEPER (#37); streak shown on card + stats; $15 tip discount at 3+.
+- Tide voices at the dock: Glass Calm mobs gulls, Eel Run pitch hot, Slack Water hush, Night Drift foghorn.
+- Tide report card: own swell SFX; HUD tide swell animation (back-ease); almanac bell ceremony.
+- Window pinned at boot to 1152x648 (editor clobbers project.godot; GameSettings owns it).
+- NPC attention engine: milestones dict — every named islander reacts to 1-6 story beats (Tom, Nina, Kai, Mara, Oda).
+- Bottle arc closes: Founder's LETTER, Corl's Folded Paper (whisperer-gated), THE SILENT CHORUS, THE STEADY KEEPER, THE LONG KEEPER, THE WHISPERER.
+- Stats page: The Chorus Era, ledger n/6 gold button, benediction on completion.
