@@ -78,6 +78,7 @@ func _summary_text() -> String:
 
 	# Which island is this? A one-line identity above the stats.
 	summary = "Slot: %s\n%s" % [GameState.slot_name, summary]
+	summary += "\nTide almanac %d/4%s" % [GameState.tides_logged.size(), ("  ·  almanac kept" if GameState.tide_almanac_granted else "")]
 
 	# How fresh is this save? Datestamp at the top of a continue screen.
 	var saved := SaveManager.get_save_mtime()

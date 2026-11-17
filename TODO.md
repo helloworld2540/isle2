@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- The menu summary line now includes the almanac ("Tide almanac n/4" or
+  "almanac kept") — a finish-line the keeper sees on the boot screen.
 - RELEASE_CHECKLIST.md gains the backup-chain harness evidence.
 - tools/restore_test.gd — regression coverage for the backup story:
   fresh boot has none, rotation creates .bak on the second write,
