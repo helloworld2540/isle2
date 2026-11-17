@@ -153,6 +153,15 @@ checked against this yield — nothing changed, deliberately.*
   The rotation is
   four days, so a full almanac takes four visits spread across at least four
   calendar days — every tide is guaranteed to come round.
+- **Why is there a rotation at all?** Nobody agrees. Oda's version — the one
+  written on the inside cover of her almanac — says the island was once a
+  clock: a brass-hearted tide-keeper whom the sea adopted and the sea then
+  disassembled, wheel by wheel, as a gift to time. Four wheels, four tides,
+  four days. Mara rolls her eyes at it. Corl refuses to comment. Kai calls it
+  "bad inventory timing." The keeper before you wrote his last entry the week
+  the moon began showing its other side. Make of that what you will — and if
+  the HUD line blinks twice in the same day, you have not taken it seriously
+  enough.
 
 ## Upcycle
 - Sort belt trash into matching bins. Wrong/burned does not produce materials or score loss reward except streak reset.

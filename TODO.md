@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- Lore for the rotation itself: the four-tide cycle is now explained
+  inside Oda's almanac cover — the island-as-clock myth, the disassembled
+  brass keeper, the moon showing its other side. Four voices disagree; none
+  of them matters.
 - The stats page gained The Chorus Era (era name + tag) shown between
   the Pact Era and the Steward Era for keepers who have read all six notes.
 - Kai reacts to THE SILENT CHORUS — the counter-owner who stocks for
