@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Oda notices THE QUIET KEEPER ("Three held without help. The sea makes
+  keepers like you by way of the horizon.") — the far-water hidden
+  milestone.
 - THE QUIET KEEPER added (achievement #41): three tides claimed with
   Hide the tide on — a streak kept without help. tide_quiet_best_streak
   (schema-persisted) tracks it; legendary banner; docs to 41.
