@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- The Pact now echoes through the cast: once KEEPER OF THE TIDE is earned
+  (Tidekeeper's Pact funded, 2500$), Mara and Kai both append their own line
+  (Mara: belief in the island; Kai: the shop stays open for you). Every
+  named islander now reacts to at least one story beat.
 - Bottle milestones wired into the cast: once TIDE KEEPER (all three shore
   notes read) is earned, Nina appends a line about her letters and the glass
   tide gardens, and Tom appends one about his sign-off — both via the shared
