@@ -260,6 +260,21 @@ func has_backup() -> bool:
 	ensure_bound()
 	return FileAccess.file_exists(_slot_paths()[1])
 
+
+## Overwrite the current save with the first backup. The pre-restore state is
+## rotated into save.json.bak2 first, so no data is silently lost. Returns
+## false when no backup exists. Callers refresh state themselves after a
+## truthy return.
+func restore_backup() -> bool:
+	ensure_bound()
+	var paths := _slot_paths()
+	if not FileAccess.file_exists(paths[1]):
+		return false
+	if FileAccess.file_exists(paths[0]):
+		DirAccess.copy_absolute(paths[0], paths[2])
+	DirAccess.copy_absolute(paths[1], paths[0])
+	return true
+
 ## When the save was last written, in unix seconds — 0 if unknown. Useful for
 ## stats pages that want to tell the player "this is from yesterday".
 func get_save_mtime() -> int:

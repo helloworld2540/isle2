@@ -549,6 +549,21 @@ theme_override_colors/font_hover_pressed_color = Color(0.9, 0.98, 1, 1)
 theme_override_colors/font_pressed_color = Color(0.9, 0.98, 1, 1)
 text = "Reef Registry"
 
+[node name="RestoreButton" type="Button" parent="Margin/VBox/ButtonRow" unique_id=300000033]
+custom_minimum_size = Vector2(190, 48)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBox_ghost")
+theme_override_styles/hover = SubResource("StyleBox_ghost_hover")
+theme_override_styles/pressed = SubResource("StyleBox_ghost_hover")
+theme_override_styles/focus = SubResource("StyleBox_ghost_hover")
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.78, 0.9, 1, 0.95)
+theme_override_colors/font_hover_color = Color(0.9, 0.96, 1, 1)
+theme_override_colors/font_focus_color = Color(0.9, 0.96, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.9, 0.96, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.9, 0.96, 1, 1)
+text = "Restore backup"
+
 [node name="ResetButton" type="Button" parent="Margin/VBox/ButtonRow" unique_id=300000031]
 custom_minimum_size = Vector2(190, 48)
 layout_mode = 2

@@ -1046,3 +1046,10 @@ STATE
 - Linux rebuilt from the current tree (131 MB) and re-booted headless with
   zero errors and zero output; the release claim in RELEASE_CHECKLIST.md is
   accurate for the current codebase.
+
+## 2026-11-17 — Restore backup shipped
+- SaveManager.restore_backup(): overwrites save.json with save.bak, rotating the
+  pre-restore state into save.json.bak2 (no blind copy over the only backup).
+- Stats page gains a "Restore backup" confirm-button (greyed when no backup),
+  sharing the shared confirm with reset via _pending_action; verified live:
+  money 999 / 50 / restore / 999 round-trip end-to-end.

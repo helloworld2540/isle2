@@ -26,6 +26,8 @@ const GUIDE_GROUPS: Array[String] = ["Reef Rescue", "Upcycle", "Shop", "Islander
 @onready var _achievements_body: Label = $"Margin/VBox/StatsScroll/Content/AchievementsPanel/AchievementsBox/AchievementsBody"
 @onready var _back_button: Button = $"Margin/VBox/ButtonRow/BackButton"
 @onready var _reset_button: Button = $"Margin/VBox/ButtonRow/ResetButton"
+@onready var _restore_button: Button = $"Margin/VBox/ButtonRow/RestoreButton"
+var _pending_action := ""
 @onready var _confirm_panel: CanvasLayer = $"ConfirmPanel"
 @onready var _guide_button: Button = $"Margin/VBox/ButtonRow/GuideButton"
 @onready var _guide_overlay: Control = $"GuideOverlay"
@@ -69,6 +71,9 @@ func _unhandled_input(event: InputEvent) -> void:
 func _connect_signals() -> void:
 	if _back_button:
 		_back_button.pressed.connect(_on_back)
+	if _restore_button and _confirm_panel:
+		_restore_button.pressed.connect(_on_restore_pressed)
+		_refresh_restore_button()
 	if _reset_button and _confirm_panel:
 		_reset_button.pressed.connect(_on_reset_pressed)
 		_confirm_panel.confirmed.connect(_on_reset_confirmed)
@@ -457,12 +462,42 @@ func _on_registry_fish(id: String) -> void:
 
 ## Reset island: wipe and start fresh, straight from the stats page. Reuses
 ## the shared ConfirmPanel so the copy matches the main menu's guard.
+## The two destructive-ish actions share the confirm card; which one fires
+## is gated on _pending_action.
+func _on_restore_pressed() -> void:
+	_pending_action = "restore"
+	AudioManager.play_sfx("open")
+	_confirm_panel.present("Restore backup?", "Roll this island back to its previous save. The current state is kept as the second backup.", "Restore")
+
+
+func _refresh_restore_button() -> void:
+	if not _restore_button:
+		return
+	_restore_button.disabled = not SaveManager.has_backup()
+
+
 func _on_reset_pressed() -> void:
+	_pending_action = "reset"
 	AudioManager.play_sfx("open")
 	_confirm_panel.present("Reset island?", "Every dive, sort, sale, quest and achievement will be wiped for good. You will land back on the main menu.", "Reset island")
 
 
 func _on_reset_confirmed() -> void:
+	if _pending_action == "restore":
+		if not SaveManager.restore_backup():
+			_pending_action = ""
+			return
+		GameState.restore()
+		_refresh_restore_button()
+		_update_stats_display()
+		AudioManager.play_sfx("return")
+		_pending_action = ""
+		return
+	_pending_action = ""
+	_on_reset_confirmed_real()
+
+
+func _on_reset_confirmed_real() -> void:
 	AudioManager.play_sfx("return")
 	SaveManager.new_save()
 	GameState.restore()
