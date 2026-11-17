@@ -68,3 +68,5 @@ func _on_reduce_motion_toggled(pressed: bool) -> void:
 
 func _on_hide_tide_toggled(pressed: bool) -> void:
 	GameSettings.set_hide_tide(pressed)
+	# The whole setting says what it is: a quiet sea.
+	AudioManager.play_sfx("return", 0.7) if not pressed else AudioManager.play_sfx("reef_swell", 0.55, AudioManager.AMBIENCE_BUS)

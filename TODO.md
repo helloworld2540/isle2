@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Settings toggle for Hide-the-tide now rings the harbor bell faintly
+  ('reef_swell' through the ambience bus) on enabling, and a soft return
+  on disabling — the toggle itself tells you what you chose.
 - Achievement Guide gains a HIDDEN section listing THE QUIET KEEPER
   and THE TIDE WALKER — catalogue discretion for the hunter.
 - Fresh clone at HEAD re-proven clean after the 1.1.0 seal.
