@@ -83,6 +83,7 @@ const NUDGE_LEDGER := "nudge_ledger_shown"
 const NUDGE_GOLD := "nudge_gold_shown"
 const NUDGE_STARFISH := "nudge_starfish_shown"
 const NUDGE_STARFISH_FINAL := "nudge_starfish_final_shown"
+const NUDGE_TIDE := "nudge_tide_shown"
 
 var _step: int = 0
 var _active_hint: CanvasLayer = null
@@ -304,6 +305,7 @@ func nudge(kind: String) -> void:
 		"gold": key = NUDGE_GOLD
 		"starfish": key = NUDGE_STARFISH
 		"starfish_final": key = NUDGE_STARFISH_FINAL
+		"tide": key = NUDGE_TIDE
 		_: return
 	if not _nudge_state.has(key):
 		_nudge_state[key] = bool(SaveManager.load_game().get(key, false))
@@ -347,6 +349,10 @@ func nudge(kind: String) -> void:
 			_spawn_card("Someone needs a hand",
 				"[font_size=20]An islander is holding out for a trade.\nThe [color=#9fe2ff]quest tracker[/color] (left) shows who wants what, and a [color=#ffd27f]glowing sprite with a ★[/color] means you have enough to deliver right now.\nTalk to them on the map — the reward can go straight into your bag.[/font_size]",
 				"Let's go")
+		"tide":
+			_spawn_card("The sea has moods",
+				"[font_size=20]The HUD line ([color=#9fe2ff]≈ …[/color]) is today's tide report.\nIt is the same for every keeper on that day — it bends the reef, the belt and the golden rolls.\nCheck the water before you work; it always tells the truth eventually.[/font_size]",
+				"Good to know")
 		"starfish_final":
 			_spawn_card("One more…",
 				"[font_size=20]Four starfish down. One still hides on the island.\n" +

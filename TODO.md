@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- The tutorial now teaches the tide: the first time the TIDE REPORT card
+  lands, a one-shot "The sea has moods" nudge explains the HUD line and that
+  the tide bends the reef, the belt and the golden rolls (new NUDGE_TIDE,
+  fires through the same queue-behind-cards mechanism as the other nudges).
 - The Pact now echoes through the cast: once KEEPER OF THE TIDE is earned
   (Tidekeeper's Pact funded, 2500$), Mara and Kai both append their own line
   (Mara: belief in the island; Kai: the shop stays open for you). Every

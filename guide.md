@@ -128,6 +128,9 @@ checked against this yield — nothing changed, deliberately.*
 - **Oda the tide-watcher** stands just west of Mara (she has no quests — she
   keeps the island's almanac). Every islander who notices the water repeats
   the day's observation, so dockside chatter always reflects the current tide.
+- The first time the report card appears, the onboarding guide pipes up once
+  ("The sea has moods") and explains the HUD line — returning keepers never
+  see it again.
 - The report card appears once per island per day; the HUD line stays up for
   the session, and its tooltip repeats the full explanation.
 - Each new tide you witness is ticked into the **keeper's almanac** (the card

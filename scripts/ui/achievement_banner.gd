@@ -162,6 +162,9 @@ func _play_tide_report() -> void:
 		SHOW_SECONDS,
 		{"accent": "achievement", "tide": String(report.get("key", ""))}
 	)
+	# First-tide pointer: explain the HUD line the first time the card appears.
+	# Nudge queues behind the active card rather than smothering it.
+	TutorialDirector.nudge("tide")
 
 
 ## Almanac epilogue: the four-tide payout. Runs after the report card, so the
