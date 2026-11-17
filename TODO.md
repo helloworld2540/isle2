@@ -1,6 +1,7 @@
 # Current project todo:
 
 # done this pass
+- RELEASE_CHECKLIST.md gains the backup-chain harness evidence.
 - tools/restore_test.gd — regression coverage for the backup story:
   fresh boot has none, rotation creates .bak on the second write,
   backup_summary reads the .bak (money 100), load_game stands the .bak in
