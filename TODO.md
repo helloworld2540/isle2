@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- The pause menu's leave-confirm now names the island ("\"Island\" will be
+  waiting.") — multi-island players never guess which keeper they are
+  putting down.
 - The pause menu tide line now tooltips the full report (summary +
   blurb) on hover — the weather-board is as rich as the HUD.
 - The HUD tide line graduates a second time: with THE FOUR TIDES earned

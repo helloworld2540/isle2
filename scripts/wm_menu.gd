@@ -171,7 +171,8 @@ func _prepare_overlay() -> void:
 func _on_save_pressed() -> void:
 	# Destructive-feeling action gets one confirmation first.
 	if confirm_panel:
-		confirm_panel.present("Save & leave?", "Progress is saved automatically. Return to the main menu?", "Leave")
+		var island := GameState.slot_name if not GameState.slot_name.is_empty() else "this island"
+		confirm_panel.present("Save & leave?", "Progress is saved automatically. \"%s\" will be waiting." % island, "Leave")
 		return
 	_do_save_and_leave()
 
