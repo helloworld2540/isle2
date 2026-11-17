@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- THE YEAR KEEPER added (achievement #40): 365 days of tides kept. The
+  whole arc has its horizon; docs to 40.
 - The island remembers its most punctual keeper: tide_best_streak
   (schema-persisted) tracks the longest claim run ever; the stats page shows
   it beside the live streak.
