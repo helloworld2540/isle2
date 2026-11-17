@@ -132,6 +132,8 @@ checked against this yield — nothing changed, deliberately.*
     so it is the best day to chase GOLDEN TOUCH and a fat bench score.
 - On Night Drift the shop log notes the moonlight on the till — Corl hums
   something with too many verses. No bonus; some nights pay in atmosphere.
+- Day 100 on the island gets noted at the till — the island has a
+  centennial, and Corl polishes the counter unprompted.
 - The shop keeps a barometer above the spend rows — today's tide, one
   line, so the Glass Calm bulk premium is impossible to miss.
 - The shop sells a **dockhand's tide tip** for $25: it names tomorrow's
