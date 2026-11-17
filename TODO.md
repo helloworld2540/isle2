@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- Live bench boot confirmed: the tide line renders beneath the intro overlay
+  ("≈ Slack wat—"), no layout breakage.
 - The bench HUD now shows today's tide inline too — all three stations
   speak the weather before you commit depth, belt or ledger.
 - Reef HUD now shows today's tide inline ("≈ Slack water — the belt turns
