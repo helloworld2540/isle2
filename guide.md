@@ -329,7 +329,9 @@ each debris sorts 1:1 into a material.*
   40–75 s (a lone, lower-pitched gull answering itself across the water), on top
   of the four gulls patrolling the open water east of the island. The harbor cry
   is audio-only, so it keeps playing even with **Reduced motion** on — where the
-  birds hold still, the water still sounds like water.
+  birds hold still, the water still sounds like water. On Night Drift the
+  sea answers with a low foghorn from somewhere out there, half the time —
+  the one tide with a voice of its own.
 - Under it all runs a continuous **surf wash**, a seamless 12 s loop that fades
   in when you reach the map and keeps rolling while the pause menu is open. It
   has its own **Ambience** slider (settings: Master / Music / Ambience / SFX), so

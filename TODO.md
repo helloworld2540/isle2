@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- Night Drift at the dock: half the distant harbor cries become a low
+  foghorn (Ambience bus). The tide with tricks now sounds like it.
 - The TIDE REPORT card has its own voice: it rings the harbor swell
   (reef_swell) instead of the generic milestone chime. New "tide" accent on
   the banner (blue style, low chime pitch underneath the swell).
