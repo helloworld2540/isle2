@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- guide.md gained the sound of the four tides — the dock chorus is
+  now part of the written island.
 - Live-verified the gold trim: with the almanac granted, a fresh world
   boot renders SeaBoat at (1.0, 0.88, 0.55).
 - Oda notices THE FOUR TIDES ("You have the four. Ancient news — and the

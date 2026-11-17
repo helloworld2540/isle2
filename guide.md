@@ -424,6 +424,12 @@ Milestones stack: an NPC can notice several things at once. Completing the
 whole catalogue (ISLAND STEWARD) earns a personal send-off from every one of
 them — and a faint golden hush over the world.
 
+## The sound of the tide
+- **Glass Calm** — the harbor cries back twice as often; the flock mobs the easy pickings.
+- **Eel Run** — every gull in the sky runs hot (0.95–1.08 pitch). The hunt is on.
+- **Slack Water** — the answering gull never returns your call. Nothing pushes, nothing hurries.
+- **Night Drift** — half the distant cries become a low foghorn, far out on the water.
+
 ## Version history (as shipped)
 - Multi-slot islands (per-slot backups, picker, day counters).
 - Daily **Tide Report** + keeper's **almanac**; **THE FOUR TIDES**, **THE ALMANAC PAGE**.
