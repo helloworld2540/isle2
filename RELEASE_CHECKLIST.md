@@ -33,8 +33,8 @@ Export presets: `Web`, `Android`, `Linux` (`export_presets.cfg`).
 
 Harnesses that own `user://slots` (slot_test, migration_test, slot_ui_test,
 tide_test) refuse to run against existing player data and wipe their slots
-afterwards. `tools/count_ach.gd` (temporary) once-checked 39 unique
-achievement definitions.
+afterwards. Catalogue counts (currently 40) come from the dynamic
+AchievementCatalog, never hardcoded.
 
 ## Pre-flight
 
