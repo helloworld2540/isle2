@@ -79,6 +79,30 @@ loads the optional MCP bridge when present, so fresh clones boot with zero
 script errors; the only remaining cold-start noise is the font-import ordering
 warning, which goes away after the first run.
 
+## Fresh-run tour (for manual reviewers)
+
+Point-by-point path through the island on a fresh profile; each step lists
+the surface a reviewer sees and the persistence it touches:
+
+1. Boot -> main menu renders "v1.0.0", island letters + About bottom-right.
+2. Continue / New Save -> world boots; HUD shows Trash, Money, tide line
+   ("≈ <tide> · day 1"), next stop, starfish and bottle counts.
+3. South portal -> Reef Rescue; HUDStats show banked materials + tide line.
+4. Dock -> Upcycle; HUDStats shows the same tide line under Recycled.
+5. North portal -> Shop; "Today: <tide>" line visible above spend rows;
+   pay the dockhand 25$ (15$ on a 3-day streak) for tomorrow's tide.
+6. Next world load: TIDE REPORT card -> log an almanac entry; the card
+   shows "almanac n/4"; THE FOUR TIDES fires on the last.
+7. Stats page: ledger button reads "Tide Ledger (n/7)", almanac checklist
+   shows the four tides, almanac banner goes gold at 4/4.
+8. THE KEEPER'S LETTER appears west of Oda; reading it earns THE KEEPER'S
+   LETTER; Oda appends a note to every later conversation.
+9. Restore backup button is previewed state — disabled with no backup,
+   enabled after the second write.
+
+A reviewer walking those nine steps exercises tide, almanac, ledger,
+backup, milestone dialogue and the three stations in under five minutes.
+
 ## Pending (not verified)
 
 - Web/Android runtime smoke on actual browsers/devices (exports compile;
