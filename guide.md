@@ -14,6 +14,9 @@ Welcome to Isle 2. Shared economy across world map, two minigames, shop, NPCs an
   blinks.
 
 ## Controls
+- The main menu carries the island's one-line motto under the buttons:
+  "Keep the shore" — the keeper's whole job, one sentence.
+
 - The main menu's continue panel and the HUD both carry today's tide
   ("≈ <tide> · day N") — the sea greets you before you press Continue.
 
