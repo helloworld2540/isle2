@@ -18,7 +18,7 @@ layout_mode = 2
 text = "Master Volume: 100%"
 
 [node name="MasterSlider" type="HSlider" parent="MasterRow"]
-custom_minimum_size = Vector2(0, 40)
+custom_minimum_size = Vector2(0, 44)
 layout_mode = 2
 size_flags_horizontal = 3
 value = 100.0
@@ -34,7 +34,7 @@ layout_mode = 2
 text = "Music Volume: 65%"
 
 [node name="MusicSlider" type="HSlider" parent="MusicRow"]
-custom_minimum_size = Vector2(0, 40)
+custom_minimum_size = Vector2(0, 44)
 layout_mode = 2
 size_flags_horizontal = 3
 value = 65.0
@@ -50,7 +50,7 @@ layout_mode = 2
 text = "Ambience Volume: 70%"
 
 [node name="AmbienceSlider" type="HSlider" parent="AmbienceRow"]
-custom_minimum_size = Vector2(0, 40)
+custom_minimum_size = Vector2(0, 44)
 layout_mode = 2
 size_flags_horizontal = 3
 value = 70.0
@@ -66,7 +66,7 @@ layout_mode = 2
 text = "SFX Volume: 100%"
 
 [node name="SfxSlider" type="HSlider" parent="SfxRow"]
-custom_minimum_size = Vector2(0, 40)
+custom_minimum_size = Vector2(0, 44)
 layout_mode = 2
 size_flags_horizontal = 3
 value = 100.0

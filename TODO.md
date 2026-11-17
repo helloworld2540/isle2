@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Touch-target audit: slot row rename/delete buttons 36 → 44 px, settings
+  sliders 40 → 44 px. All interactive controls in the mobile path are
+  now ≥44 px (labels and decorative dividers exempt).
 - Android APK re-verified against the current tree (signed, verifier-clean).
 - The menu summary line now includes the almanac ("Tide almanac n/4" or
   "almanac kept") — a finish-line the keeper sees on the boot screen.
