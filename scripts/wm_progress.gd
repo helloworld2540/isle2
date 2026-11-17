@@ -126,7 +126,12 @@ func _refresh_bottle_label(_count: int = -1) -> void:
 	if base_count <= 0 and not pact_read:
 		bottle_label.visible = false
 		return
-	if pact_read:
+	var chorus := GameState.is_achievement_unlocked("silent_chorus")
+	if chorus:
+		# The full chorus never needs counting — it is the weather now.
+		bottle_label.text = "✦ The Silent Chorus"
+		bottle_label.modulate = Color(1.0, 0.84, 0.32, 1.0)
+	elif pact_read:
 		bottle_label.text = "✦ The Pact is Kept"
 		bottle_label.modulate = Color(0.55, 0.95, 0.85, 1.0)
 	elif base_count >= 3:

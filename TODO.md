@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- World HUD bottle line graduates: with THE SILENT CHORUS earned it
+  reads "✦ The Silent Chorus" instead of tallying.
 - Fresh-save boot fix: the tide HUD never shows "day 0" — the daily
   claim lands after the HUD is built, so the counter floors at 1.
 - The island marks its 100th tide: visiting the shop on day 100 logs a
