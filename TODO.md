@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- The main menu carries a quiet motto — "Keep the shore" — above the
+  version stamp; the island says what it is for before it says hello.
 - docs_audit now refuses to pass while any build artifact is tracked in
   git (export/, .apk, .pck, .wasm, .x86_64, .sig, .idsig) — the repo only
   ever carries sources, never binaries. PASS.
