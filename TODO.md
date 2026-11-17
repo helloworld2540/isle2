@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- Tom and Nina round out the clock-myth quintet — Tom's grandfather quoting
+  the tick, Nina calling the island furniture in four time signatures.
 - Mara and Kai echo the myth in their repeat lines (Mara: "a calendar,
   not a chronometer"; Kai: shelf-space crack). The trio now argues about the
   clock unprompted.
