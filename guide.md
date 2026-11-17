@@ -134,6 +134,8 @@ checked against this yield — nothing changed, deliberately.*
 ## Daily tide (why today feels different)
 - The HUD line counts your days on the island (day N) — the keeper-'s
   almanac reads the calendar, the HUD reads your history.
+- The island itself wears the day's mood as a wash of colour over the
+  map — you feel which tide it is before you read the HUD.
 - The island has a new tide every local calendar day, shown as a line on the
   world HUD (`≈ <tide>` — hover it for the full reading) and announced by a **TIDE REPORT** card the first time you
   enter the world each day. The tide is the same for every player on that day
