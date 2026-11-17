@@ -1110,4 +1110,13 @@ position = Vector2(700, 640)
 
 [node name="HarborAmbience" parent="." instance=ExtResource("27_harbor")]
 
+[node name="WatcherMist" parent="." instance=ExtResource("25_sparkles")]
+position = Vector2(1536, -216)
+emission_rect_extents = Vector2(110, 150)
+amount = 14
+lifetime = 3.5
+preprocess = 3.5
+initial_velocity_min = 2.0
+initial_velocity_max = 7.0
+
 [node name="SurfBed" parent="." instance=ExtResource("28_surf")]

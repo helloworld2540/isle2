@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- The far point breathes: a tight ring of drifting motes (WatcherMist,
+  reused sparkle system, smaller rect, fewer/slower motes) hangs around the
+  watcher as sea haze catching his lantern.
 - Nina gossips about the far point: once THE FAR POINT is earned, word
   travels at the counter — nobody speaks of it, and everyone counts it as
   true anyway.
