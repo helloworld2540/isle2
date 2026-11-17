@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- When Hide the tide is on, Oda's tide-aware line goes with her instead
+  of naming the day's weather: "(She does not say the tide. She does not
+  say where the light comes from.)"
 - The keeper's journal line on the stats page now reads 'tides · · tide
   hidden' when the Hard-tide mode is active — the folder of the book is
   re-spelled for the quiet wager.

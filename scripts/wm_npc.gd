@@ -267,7 +267,11 @@ func _flavour_lines() -> Array:
 	# Tide-aware islanders sprinkle the day's sea into the conversation, as
 	# almanac Oda would; it costs no extra state and flips with the calendar.
 	if tide_aware:
-		out.append(TideReport.ambient_line())
+		if GameSettings.hide_tide:
+			# The sea keeps its own counsel — and so does every watcher on it.
+			out.append("(She does not say the tide. She does not say where the light comes from.)")
+		else:
+			out.append(TideReport.ambient_line())
 		# If the keeper paid the dockhand for tomorrow's tide, the watcher
 		# notices — foresight is the one thing she respects.
 		if GameState.harbor_tip_purchased():
