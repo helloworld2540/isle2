@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Corl marks the calendar: on days 10, 30 and 50 he says one thing to
+  nobody in particular. The dockhand watches the keeper happen, one tide
+  at a time.
 - The tide HUD label does a small swell (1.25 -> 1.0 back-ease, 0.45 s)
   on the first world load of the day — the card lands in the HUD too.
   Skipped under Reduced motion.

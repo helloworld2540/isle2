@@ -245,6 +245,15 @@ func _buy_tide_tip() -> void:
 	var tip_text := "Tomorrow: %s" % GameState.tomorrow_tide_title()
 	_stack.sale("DOCKHAND'S TIP  -%d$\n%s" % [GameState.tip_cost(), tip_text], Color(0.6, 0.9, 1.0, 1.0))
 	_log_sale(_corl_line())
+	# Corl marks the keeper's milestones — he counts days, and he counts you.
+	var day := GameState.tide_days_visited
+	match day:
+		10:
+			_log_sale('Corl taps the ledger once: "Ten days. You are not a customer anymore."')
+		30:
+			_log_sale('Corl slides an empty receipt: "Thirty days. Same time tomorrow."')
+		50:
+			_log_sale('Corl says nothing for a long time: "Fifty days. I stopped asking questions around the fortieth."')
 	_refresh()
 
 
