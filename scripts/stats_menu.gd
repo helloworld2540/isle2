@@ -6,8 +6,8 @@ const DIALOGUE_SCENE: PackedScene = preload("res://scenes/ui/npc_dialogue.tscn")
 const BottleCatalog := preload("res://scripts/bottle_catalog.gd")
 const FishCatalog := preload("res://scripts/fish_catalog.gd")
 ## Display order of the Tide Ledger buttons, matched to the scene's button nodes.
-const LEDGER_BUTTONS: Array[String] = ["BottleTideButton", "BottleGullButton", "BottleLightButton", "BottlePactButton", "BottleKeeperButton"]
-const LEDGER_IDS: Array[String] = ["bottle_tide", "bottle_gull", "bottle_light", "bottle_pact", "bottle_keeper"]
+const LEDGER_BUTTONS: Array[String] = ["BottleTideButton", "BottleGullButton", "BottleLightButton", "BottlePactButton", "BottleKeeperButton", "BottleCorlButton"]
+const LEDGER_IDS: Array[String] = ["bottle_tide", "bottle_gull", "bottle_light", "bottle_pact", "bottle_keeper", "bottle_corl"]
 ## Reef Registry rows, matched to the scene's button nodes and FishCatalog.
 const REGISTRY_BUTTONS: Array[String] = ["FishGoldButton", "FishGreyreefsharkButton", "FishNemoButton", "FishCrabButton"]
 const REGISTRY_IDS: Array[String] = ["fish_gold", "fish_greyreefshark", "fish_nemo", "fish_crab"]
@@ -183,7 +183,7 @@ func _build_journal_line() -> String:
 	var paid_out := " · tide pool paid" if GameState.tide_pool_granted else ""
 	var almanac := " · tide almanac paid" if GameState.tide_almanac_granted else ""
 	var tides := GameState.tides_logged.size()
-	return "Journal — bottles %d/5 · starfish %d/5%s · tides %d/4%s · species %d/4 · achievements %d/%d" % [bottles, starfish, paid_out, tides, almanac, fish, ach, total]
+	return "Journal — bottles %d/6 · starfish %d/5%s · tides %d/4%s · species %d/4 · achievements %d/%d" % [bottles, starfish, paid_out, tides, almanac, fish, ach, total]
 
 
 ## The keeper's almanac as a checklist: every tide in rotation order with a

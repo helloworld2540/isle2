@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Corl's Folded Paper: a whisperer-gated bottle on the shop path (cell
+  verified walkable). Reading it pays his legend's final reveal; it joins
+  the Tide Ledger (six rows) and the journal line reads bottles n/6.
 - The shop note now shows Corl's ledger progress (n/7 whispers) toward
   THE WHISPERER — visible whether or not today's tip is bought.
 - Corl notices regulars: the shop log now prints a unique line per

@@ -14,6 +14,9 @@ const PACT_BOTTLE_ID := "bottle_pact"
 ## The keeper's own note appears only once the tide almanac is finished —
 ## the first keeper's answer to the player who learned the sea.
 const KEEPER_BOTTLE_ID := "bottle_keeper"
+## Corl's folded paper washes up once the keeper has bought seven days of
+## tomorrow. The foresight arc's one physical artifact.
+const CORL_BOTTLE_ID := "bottle_corl"
 
 @export var bottle_id: String = "bottle_1"
 ## Optional override; when empty (the default) the canonical text comes from
@@ -28,6 +31,10 @@ func _ready() -> void:
 		return
 	if bottle_id == KEEPER_BOTTLE_ID and not _almanac_complete():
 		# The keeper only writes back once the almanac is complete.
+		queue_free()
+		return
+	if bottle_id == CORL_BOTTLE_ID and not _whisperer_complete():
+		# Corl only leaves the counter when he is paid seven days' worth.
 		queue_free()
 		return
 	if GameState.is_story_read(bottle_id):
@@ -62,10 +69,16 @@ func _pact_arc_complete() -> bool:
 	return true
 
 
-## The keeper's note exists once the player has logged all four tides in the
-## almanac. Like the pact reply it is earned, not stumbled upon.
+## The almanac gate for the keeper's note.
 func _almanac_complete() -> bool:
 	return GameState.tides_logged.size() >= 4
+
+
+## Seven days of tomorrow, bought and paid for — the flag Corl's bottle
+## reads. Achieves alongside THE WHISPERER (the catalogue reads the same
+## counter), so the two land in the same breath.
+func _whisperer_complete() -> bool:
+	return GameState.harbor_tips_bought >= 7
 
 
 func _read() -> void:
@@ -76,7 +89,7 @@ func _read() -> void:
 	# One-shot pointer to the Tide Ledger once the base set is complete.
 	var base_found := 0
 	for id in GameState.bottles_read:
-		if id != PACT_BOTTLE_ID and id != KEEPER_BOTTLE_ID:
+		if id != PACT_BOTTLE_ID and id != KEEPER_BOTTLE_ID and id != CORL_BOTTLE_ID:
 			base_found += 1
 	if base_found >= 3:
 		TutorialDirector.nudge("ledger")

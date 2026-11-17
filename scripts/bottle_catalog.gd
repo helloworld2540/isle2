@@ -61,6 +61,16 @@ const ENTRIES: Array[Dictionary] = [
 			"— The Keeper",
 		],
 	},
+	{
+		"id": "bottle_corl",
+		"title": "The Folded Paper",
+		"lines": [
+			"Seven mornings I sold you tomorrow. You never once asked my name. It's Corl. It was always Corl.",
+			"The first seven are cheap. The eighth day — the one where you stop buying — that one is free.",
+			"Keep this one. Not for the price. For the record.",
+			"— Corl, dockhand. Counter, more or less.",
+		],
+	},
 ]
 
 
