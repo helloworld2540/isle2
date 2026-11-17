@@ -131,6 +131,13 @@ custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 autowrap_mode = 3
 
+[node name="TideLine" type="Label" parent="SaveSummaryPanel/VBoxContainer" unique_id=1000005]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.68, 0.9, 0.95, 1)
+theme_override_font_sizes/font_size = 20
+text = ""
+
 [node name="MoreStatsButton" type="Button" parent="SaveSummaryPanel/VBoxContainer" unique_id=1000004]
 custom_minimum_size = Vector2(220, 46)
 layout_mode = 2

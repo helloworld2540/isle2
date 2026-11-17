@@ -5,6 +5,7 @@ class_name MainMenu
 @onready var load_save_button: Button = $Buttons/LoadSaveButton
 @onready var quit_button: Button = $Buttons/QuitButton
 @onready var save_summary: Label = $SaveSummaryPanel/VBoxContainer/SaveSummary
+@onready var tide_line: Label = $SaveSummaryPanel/VBoxContainer/TideLine
 @onready var save_summary_panel: PanelContainer = $SaveSummaryPanel
 @onready var more_stats_button: Button = $SaveSummaryPanel/VBoxContainer/MoreStatsButton
 @onready var confirm_panel: CanvasLayer = $ConfirmPanel
@@ -55,6 +56,8 @@ func _refresh_summary() -> void:
 		more_stats_button.visible = SaveManager.has_save()
 	if save_summary:
 		save_summary.text = _summary_text()
+	if tide_line:
+		tide_line.text = "≈ %s · day %d" % [TideReport.hud_line(), GameState.island_day()]
 
 
 func _summary_text() -> String:

@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- The main menu's continue panel now shows today's tide and day count —
+  a returning keeper sees the weather before they even press Continue.
 - The stats-page almanac line now carries the streak too (e.g.,
   "Tide almanac 2/4  ·  streak 6 — ...").
 - The Achievement Guide overlay gains a THE TIDE appendix — a quick
