@@ -640,7 +640,7 @@ func purchase_harbor_tip() -> bool:
 
 ## Title-cased name of tomorrow's tide, for the shop readout.
 func tomorrow_tide_title() -> String:
-	return String(TideReport.for_day(TideReport.day_index() + 1).get("title", "Still tide")).capitalize()
+	return TideReport.title_case(String(TideReport.for_day(TideReport.day_index() + 1).get("title", "Still tide")))
 
 
 

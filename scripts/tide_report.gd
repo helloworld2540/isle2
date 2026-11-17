@@ -97,10 +97,21 @@ static func summary() -> String:
 	return String(today().get("summary", "Still tide — a steady day"))
 
 
-## Short HUD line: just the tide's name. The world HUD panel is narrow —
-## detail lives in the tooltip and the banner card, not a cramped Label.
+## Short HUD line: just the tide's name, title-cased word by word. The world
+## HUD panel is narrow — detail lives in the tooltip and the banner card.
+static func title_case(raw: String) -> String:
+	## Title-case a tide title word by word ("GLASS CALM" -> "Glass Calm").
+	var parts := raw.to_lower().split(" ")
+	for i in parts.size():
+		var word := String(parts[i])
+		if word.is_empty():
+			continue
+		parts[i] = word.left(1).to_upper() + word.substr(1)
+	return " ".join(parts)
+
+
 static func hud_line() -> String:
-	return String(today().get("title", "Still tide")).capitalize()
+	return title_case(String(today().get("title", "Still tide")))
 
 
 ## The full sentence the banner card shows under the title.

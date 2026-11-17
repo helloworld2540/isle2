@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Tide titles now title-case properly: "Glass Calm", "Eel Run",
+  "Slack Water", "Night Drift" — shared TideReport.title_case() owns it
+  (HUD line and the tomorrow readout both read it).
 - Slot picker now carries a footer hint: islands save automatically,
   quitting never costs progress. Docs parity for the multi-slot UX.
 - The pause menu's leave-confirm now names the island ("\"Island\" will be
