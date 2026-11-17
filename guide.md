@@ -373,14 +373,19 @@ new flags for this — it reads the achievement catalogue, and once a badge is
 earned the relevant NPC appends a line to every later conversation:
 
 - **Mara** — TIDEKEEPER's Pact funded (belief), LOOP MASTER (25 circuits),
-  CLEAN SWEEP (five perfect dives).
+  CLEAN SWEEP (five perfect dives), THE FAR POINT (she started the rumour;
+  she raised you right).
 - **Tom** — the three shore notes read (TIDE KEEPER), HEAVY HARVEST (30 kg in
-  one dive), REEF VETERAN (25 dives), TO THE ABYSS (900 m).
-- **Nina** — the three shore notes read, SILK TOUCH (flawless shifts).
+  one dive), REEF VETERAN (25 dives), TO THE ABYSS (900 m), THE FAR POINT
+  ("I keep to my fishing").
+- **Nina** — the three shore notes read, SILK TOUCH (flawless shifts), THE
+  FAR POINT (word travels at the counter).
 - **Kai** — TIDEKEEPER's Pact funded, GOLDEN TOUCH (ten golden scraps),
-  THE WHISPERER (Corl's seven days), THE SILENT CHORUS (six bottles), and the watcher's note tucks in after the far point.
+  THE WHISPERER (Corl's seven days), THE SILENT CHORUS (six bottles), THE
+  FAR POINT (he will not restock it).
 - **Oda** — THE KEEPER'S LETTER, THE SILENT CHORUS, THE LONG KEEPER (ten
-  days on the almanac), ISLAND STEWARD.
+  days on the almanac), ISLAND STEWARD, THE STEADY KEEPER (three running),
+  THE FAR POINT ("Some of us watch the water. Some of us are watched by it.").
 
 Milestones stack: an NPC can notice several things at once. Completing the
 whole catalogue (ISLAND STEWARD) earns a personal send-off from every one of

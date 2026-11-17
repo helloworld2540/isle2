@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- guide.md attention roster synced: far point and steady keeper entries
+  everywhere they belong — the five-voice rumour is now documented.
 - Kai butts against the far point too ("I do not stock the far point.
   Never a good day out there.") — five voices run the rumour now.
 - Tom also knows about the far point — "Oda sees him. I keep to my
