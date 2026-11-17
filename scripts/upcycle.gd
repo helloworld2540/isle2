@@ -71,6 +71,7 @@ var _hud_queue: Node = null
 @onready var recycled_label: Label = $"UI/HUDStats/RecycledLabel"
 @onready var belt_label: Label = $"UI/HUDStats/BeltLabel"
 @onready var debris_label: Label = $"UI/HUDStats/DebrisLabel"
+@onready var tide_label: Label = $"UI/HUDStats/TideLine"
 @onready var return_btn: Button = $"UI/ReturnToMapButton"
 @onready var player: CharacterBody2D = $"Player"
 @onready var conveyor: Path2D = $"Conveyor"
@@ -84,6 +85,8 @@ var _hud_queue: Node = null
 @onready var arrow: Polygon2D = $"Arrow"
 
 func _ready() -> void:
+	if tide_label:
+		tide_label.text = "≈ %s" % TideReport.summary()
 	TutorialDirector.scene_started("upcycle")
 	if go_return_btn:
 		go_return_btn.pressed.connect(_game_over_leave)

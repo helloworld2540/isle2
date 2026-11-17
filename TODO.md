@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- The bench HUD now shows today's tide inline too — all three stations
+  speak the weather before you commit depth, belt or ledger.
 - Reef HUD now shows today's tide inline ("≈ Slack water — the belt turns
   slow"). Verified live: the line renders under the dive stats.
 - The Reset confirm names the island ("Reset <name>?") — destructive
