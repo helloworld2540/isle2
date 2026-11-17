@@ -1,6 +1,7 @@
 # Current project todo:
 
 # done this pass
+- guide.md version history gains the hidden-tide entry.
 - Permanent harness: tools/hide_tide_test.gd asserts the flag flips,
   persists, and restores — queued into all_audits.sh.
 - Fixed a real bug the probe caught: set_hide_tide() had the assignment
