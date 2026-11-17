@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- Stats page deeds column now lists THE ALMANAC KEEPER as a named deed.
+  THE FOUR TIDES finalised the book — the journal says so.
 - The About page carries the watcher silhouette above the title — the
   island frames its own credits with the keeper at the threshold.
 - Fresh clone replay after About/door/motto work: still PASS — the repo

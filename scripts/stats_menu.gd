@@ -184,6 +184,8 @@ func _update_stats_display() -> void:
 		deeds.append("Title: Harbor Hero — every quest tier cleared (+%d kg bag)." % bonus_kg)
 	if GameState.island_patron:
 		deeds.append("✦ Patron of the Isle — 1500$ given back.")
+	if GameState.tide_almanac_granted:
+		deeds.append("✦ The Almanac Is Kept — four tides, one patient keeper.")
 	if GameState.tidekeeper:
 		deeds.append("✦ Tidekeeper of the Isle — 2500$ pact funded (+10 kg bag).")
 	elif GameState.quests_completed > 0:
