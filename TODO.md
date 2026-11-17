@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- Fresh clone replay after About/door/motto work: still PASS — the repo
+  alone builds, exports, and boots without error.
 - The About page whispers a sequel tease — "The far point is only the
   beginning." — the island points at the horizon without promising a port.
 - The main menu carries a quiet motto — "Keep the shore" — above the
