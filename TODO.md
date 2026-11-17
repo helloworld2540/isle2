@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- The menu's Tide almanac line now carries the streak too ("almanac
+  kept  ·  best streak N") — the boot screen's own ledger line.
 - The main-menu continue summary also shows the cross-island total —
   "All islands: N days one keeper" — only when it exceeds the current island.
 - The stats page now counts the keeper across all their islands:

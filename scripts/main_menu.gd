@@ -82,7 +82,10 @@ All islands: %d days one keeper" % all_days
 
 	# Which island is this? A one-line identity above the stats.
 	summary = "Slot: %s\n%s" % [GameState.slot_name, summary]
-	summary += "\nTide almanac %d/4%s" % [GameState.tides_logged.size(), ("  ·  almanac kept" if GameState.tide_almanac_granted else "")]
+	var almanac_suffix := "  ·  almanac kept" if GameState.tide_almanac_granted else ""
+	if GameState.tide_best_streak > 1:
+		almanac_suffix += "  ·  best streak %d" % GameState.tide_best_streak
+	summary += "\nTide almanac %d/4%s" % [GameState.tides_logged.size(), almanac_suffix]
 
 	# How fresh is this save? Datestamp at the top of a continue screen.
 	var saved := SaveManager.get_save_mtime()
