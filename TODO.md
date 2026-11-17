@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- The tide HUD label does a small swell (1.25 -> 1.0 back-ease, 0.45 s)
+  on the first world load of the day — the card lands in the HUD too.
+  Skipped under Reduced motion.
 - PITCH.md brought up to date: five NPCs, dep-ps multi-slot save path,
   the tide arc (daily tide, almanac, six bottles, 37 achievements, the
   whispers ledger), sprint log path.

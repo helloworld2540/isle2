@@ -55,6 +55,13 @@ func _ready() -> void:
 	_refresh_starfish_label()
 	_refresh_tide_label()
 	_refresh_next_stop()
+	# On the first world load of the day the tide line arrives fresh — swell
+	# it gently so the keeper feels the card land in the HUD too. Reduced
+	# motion holds perfectly still.
+	if tide_label and GameState.tide_report_day == TideReport.day_index() and not GameSettings.reduce_motion:
+		tide_label.scale = Vector2(1.25, 1.25)
+		var tw := create_tween()
+		tw.tween_property(tide_label, "scale", Vector2.ONE, 0.45).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 func _process(delta: float) -> void:
 	# Calculate shared variables once per frame
