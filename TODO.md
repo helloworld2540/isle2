@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Corl notices regulars: the shop log now prints a unique line per
+  lifetime tip purchase (7 unique beats + rotating close), turning the $25
+  tip into a slow-burn character thread that ends exactly at THE WHISPERER.
 - Corl has witnesses: once THE WHISPERER is earned, Oda ("The sea made
   him this way — I respect it. Mostly.") and Kai ("the till never turns him
   down, though") both append a line. The dockhand exists in dialogue now,

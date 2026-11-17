@@ -233,8 +233,33 @@ func _buy_tide_tip() -> void:
 	AudioManager.play_sfx("upgrade", 1.15)
 	var tip_text := "Tomorrow: %s" % GameState.tomorrow_tide_title()
 	_stack.sale("DOCKHAND'S TIP  -%d$\n%s" % [GameState.HARBOR_TIP_COST, tip_text], Color(0.6, 0.9, 1.0, 1.0))
-	_log_sale("Corl the dockhand whispers: %s tomorrow" % GameState.tomorrow_tide_title())
+	_log_sale(_corl_line())
 	_refresh()
+
+
+## Corl is never seen; he exists as lines in the log. He notices regulars.
+## One line per lifetime purchase, rotating at the end — the cheapest
+## characterisation in the game, and the most expensive per word.
+func _corl_line() -> String:
+	var n := GameState.harbor_tips_bought
+	var tomorrow := GameState.tomorrow_tide_title()
+	match n:
+		1:
+			return "Corl slides a folded paper across the counter: %s tomorrow. \"First one's on the house. It isn't.\"" % tomorrow
+		2:
+			return "Corl nods once: %s tomorrow. \"Small talk costs extra. The weather doesn't.\"" % tomorrow
+		3:
+			return "Corl taps the ledger: %s tomorrow. \"You keep coming back. The tide talks, I listen, everybody eats.\"" % tomorrow
+		4:
+			return "Corl without looking up: %s tomorrow. \"You're drinking tomorrow's weather like it's fresh fish. It is.\"" % tomorrow
+		5:
+			return "Corl, pencil behind his ear: %s tomorrow. \"Five mornings I sold you. You've never once asked my name.\"" % tomorrow
+		6:
+			return "Corl exhales at the ledger: %s tomorrow. \"Six. You're buying what I charge for the wind. Partly.\"" % tomorrow
+		7:
+			return "Corl finally looks at you: %s tomorrow. \"Seven days of tomorrow. You're the most patient fool I know. Tomorrow's free — 25$ anyway.\"" % tomorrow
+		_:
+			return "Corl folds the day away without a word: %s tomorrow." % tomorrow
 
 
 func _buy_market() -> void:

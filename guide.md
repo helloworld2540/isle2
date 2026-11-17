@@ -326,4 +326,6 @@ each debris sorts 1:1 into a material.*
   cash, one day. Nobody asked him to — the sea started telling him, and Corl
   being Corl, he decided to share it at a price. He is never seen on the map;
   his only lines live in the shop's transaction log and the receipt. Oda, who
-  watches the water for a living, finds this both hilarious and irritating.
+  watches the water for a living, finds this both hilarious and irritating —
+  and the counter remembers every one of your visits; buy enough days and
+  Corl will finally speak to you like a person.
