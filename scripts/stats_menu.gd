@@ -32,6 +32,7 @@ const GUIDE_GROUPS: Array[String] = ["Reef Rescue", "Upcycle", "Shop", "Islander
 @onready var _guide_list: Label = $"GuideOverlay/Panel/VBox/Scroll/GuideList"
 @onready var _guide_close: Button = $"GuideOverlay/Panel/VBox/GuideClose"
 @onready var _ledger_button: Button = $"Margin/VBox/ButtonRow/LedgerButton"
+@onready var _ledger_legend: Label = $"LedgerOverlay/Panel/VBox/LedgerLegend"
 @onready var _ledger_overlay: Control = $"LedgerOverlay"
 @onready var _ledger_close: Button = $"LedgerOverlay/Panel/VBox/LedgerClose"
 @onready var _registry_button: Button = $"Margin/VBox/ButtonRow/RegistryButton"
@@ -313,6 +314,17 @@ func _build_guide_text() -> String:
 	return "\n".join(lines)
 
 
+## The legend counts what remains behind the overlay.
+func _refresh_ledger_legend() -> void:
+	if not _ledger_legend:
+		return
+	var found := 0
+	for id in LEDGER_IDS:
+		if GameState.is_story_read(id):
+			found += 1
+	_ledger_legend.text = "every note the tide ever left you — %d/%d — tap to read again" % [found, LEDGER_IDS.size()]
+
+
 ## The ledger button advertises its own completion state — six slots, six
 ## stories, no need to open the page to know where you stand.
 func _refresh_ledger_button() -> void:
@@ -334,6 +346,7 @@ func _refresh_ledger_button() -> void:
 func _open_ledger() -> void:
 	if _ledger_overlay == null:
 		return
+	_refresh_ledger_legend()
 	for i in LEDGER_BUTTONS.size():
 		var id := LEDGER_IDS[i]
 		var button := _ledger_overlay.get_node_or_null("Panel/VBox/" + LEDGER_BUTTONS[i]) as Button

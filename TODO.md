@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- The Tide Ledger legend counts what remains ("every note the tide ever
+  left you — n/7 — tap to read again"), refreshed on open. Mid-way fixups
+  crashed on a parse error; the final state imports clean and passes 49/49.
 - The Tide Report card says "almanac kept" once the book is filled — "almanac
   kept  ·  streak N" — a small milestone on the daily readout.
 - Tide titles now title-case properly: "Glass Calm", "Eel Run",
