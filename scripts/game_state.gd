@@ -157,6 +157,8 @@ var tides_logged: Array[String] = []
 var harbor_tip_day: int = 0
 ## Lifetime count of dockhand's tips bought — feeds THE WHISPERER.
 var harbor_tips_bought: int = 0
+## The far point: the watcher has been seen once. One-time, permanent.
+var watcher_seen: bool = false
 ## Days of the island this save has reported — incremented once per fresh
 ## tide claim, so the HUD can whisper how long the keeper has been keeping.
 var tide_days_visited: int = 0
@@ -570,6 +572,13 @@ func try_grant_tide_almanac() -> Dictionary:
 	}
 
 
+## The far point: record the catch, once, forever.
+func mark_watcher_seen() -> void:
+	watcher_seen = true
+	_persist()
+
+
+
 # --- Tomorrow's tide (dockhand's tip) ---------------------------------------
 ## Cost of the dockhand's tip: a small money sink that pays off only for a
 ## keeper who plans ahead. Reveals tomorrow's condition, one day at a time.
@@ -845,6 +854,7 @@ const SAVE_SCHEMA: Array = [
 	["harbor_tip_day", "harbor_tip_day", 0, "int"],
 	["harbor_tips_bought", "harbor_tips_bought", 0, "int"],
 	["tide_days_visited", "tide_days_visited", 0, "int"],
+	["watcher_seen", "watcher_seen", false, "bool"],
 	["quests_completed", "quests_completed", 0, "int"],
 	["lifetime_garbage_kg", "lifetime_garbage_kg", 0, "int"],
 	["reef_dives", "reef_dives", 0, "int"],

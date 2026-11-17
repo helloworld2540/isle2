@@ -1,0 +1,37 @@
+extends Area2D
+
+## The far point: a rumour with a body. A hooded figure who never speaks,
+## only watches. Meeting them once is remembered by the island — and by the
+## achievement catalogue.
+
+const DIALOGUE_SCENE := preload("res://scenes/ui/npc_dialogue.tscn")
+
+
+func _ready() -> void:
+	if GameState.watcher_seen:
+		# He is still there. He does not walk, does not announce, does not
+		# leave. He was never going to be caught twice.
+		return
+	body_entered.connect(_on_body_entered)
+
+
+func _on_body_entered(body: Node) -> void:
+	if not (body is Node2D and body.is_in_group("player")):
+		return
+	if GameState.watcher_seen:
+		return
+	GameState.mark_watcher_seen()
+	# The harbor bell, far away and low — the island noticed you noticed.
+	AudioManager.play_sfx("harbor_bell", 0.6)
+	set_deferred("monitoring", false)
+	var dialogue := DIALOGUE_SCENE.instantiate()
+	get_tree().current_scene.add_child(dialogue)
+	dialogue.present(
+		"THE FAR POINT",
+		[
+			"You turned around fast enough to catch him. Nobody ever does.",
+			"He watches the water because he has to. The island shows you four tides; it keeps the fifth to itself.",
+			"He does not ask you to leave. He never wanted anything moved — only kept.",
+			"The lantern stays lit. That is all you can know, and all you should.",
+		]
+	)

@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- THE FAR POINT shipped: a mysterious hooded watcher at the island's
+  far-east peninsula. First contact plays a low harbor bell and grants the
+  38th achievement (THE FAR POINT) — Mira's rumour answered. Sprite painted
+  in-repo (sprites/watcher.png, mist + lantern + void face).
 - Mara plants the seed of something unseen: "They say someone watches
   from the far point. Nobody has caught them yet." — a hook for future
   story without committing to it.

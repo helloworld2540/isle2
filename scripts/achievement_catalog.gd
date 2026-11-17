@@ -255,6 +255,13 @@ const ENTRIES: Array[Dictionary] = [
 		"where": "Island",
 	},
 	{
+		"id": "far_point",
+		"short": "Watcher",
+		"title": "THE FAR POINT",
+		"subtitle": "Saw the one who watches. Once.",
+		"where": "Island",
+	},
+	{
 		"id": "silent_chorus",
 		"short": "Chorus",
 		"title": "THE SILENT CHORUS",
@@ -360,6 +367,8 @@ static func is_met(id: String, state: Node) -> bool:
 			return state.bottles_read.size() >= 6
 		"long_keeper":
 			return state.tide_days_visited >= 10
+		"far_point":
+			return state.watcher_seen
 		"steady_keeper":
 			return state.tide_streak >= 3
 		"tide_messages":
