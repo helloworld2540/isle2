@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- Stats page: deeds column now counts days on the island — the save's
+  own clock, next to the field log and Deep Cache tier.
 - The tide HUD line now carries a day count ("≈ Glass Calm · day 12",
   "≈ Slack Water · day 12\nTomorrow: Night Drift") — the island remembers
   how long the keeper has been keeping. Saved per-island (tide_days_visited,
