@@ -83,6 +83,24 @@ func _initialize() -> void:
 			if String(def.get("id", "")) == "tide_almanac":
 				has_almanac = true
 		_check(has_almanac, "catalogue includes tide_almanac")
+
+		# The dockhand's tip: costs 25$, pays for foresight, idempotent re-buy,
+		# survives a persist/restore cycle, and lapses the moment the day rolls.
+		gs.harbor_tip_day = 0
+		var money_before: int = gs.money
+		gs.money = 10
+		_check(not gs.purchase_harbor_tip(), "tip refused without 25$")
+		_check(int(gs.money) == 10, "failed tip purchase costs nothing")
+		gs.money = 30
+		_check(gs.purchase_harbor_tip(), "tip purchased with 25$+")
+		_check(int(gs.money) == 5, "tip deducts exactly 25$")
+		_check(gs.harbor_tip_purchased(), "tip applies after purchase")
+		_check(String(gs.tomorrow_tide_title()).length() > 0, "tomorrow has a title")
+		_check(gs.purchase_harbor_tip(), "re-buy is idempotent (free)")
+		_check(int(gs.money) == 5, "re-buy does not charge twice")
+		gs.harbor_tip_day = 0
+		_check(not gs.harbor_tip_purchased(), "tip lapses when reset")
+		gs.money = money_before
 	_wipe_slots()
 	print("tide_test: %d failure(s)" % _fails)
 	quit(_fails)

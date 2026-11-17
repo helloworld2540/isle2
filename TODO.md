@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- tide_test now covers the dockhand's tip: refusal under 25$ (no charge),
+  exact deduction, idempotent re-buy, lapse semantics. Harness at 0 failures.
 - Bought the dockhand's tip and it shows on the world HUD too: the tide
   line grows a second `Tomorrow: <tide>` line (and the tooltip repeats it).
   Reads on touch, not just hover; lapses by itself at midnight.
