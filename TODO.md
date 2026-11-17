@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- About scene verified by smoke (50/50) — the editor was unreachable at
+  the moment of visual check, but the scene is instantiated by the harness.
 - The island menu gains an About card: credits page — who built it,
   which engines, which art, and the version. Wraps the island's earned life
   into 600 words. Diogenes-style: one press, no cost.
