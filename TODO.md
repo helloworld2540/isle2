@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- The menu tide line tooltips the almanac rule — the four-day rotation
+  and that every one comes round.
 - guide.md notes the menu tide line, the almanac line's streak, the gold
   glow at 4/4, and the "almanac kept" daily report wording.
 - The main menu's continue panel now shows today's tide and day count —
