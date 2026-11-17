@@ -70,6 +70,7 @@ func _ready() -> void:
 	_play_tide_gift()
 	_play_tide_pool()
 	_play_tide_report()
+	_play_tide_almanac()
 
 
 # --- Announcement Sources ---
@@ -159,6 +160,20 @@ func _play_tide_report() -> void:
 		String(report.get("subtitle", "The sea is quiet today.")),
 		SHOW_SECONDS,
 		{"accent": "achievement", "tide": String(report.get("key", ""))}
+	)
+
+
+## Almanac epilogue: the four-tide payout. Runs after the report card, so the
+## card that completes the almanac is immediately followed by its reward.
+func _play_tide_almanac() -> void:
+	var gift := GameState.try_grant_tide_almanac()
+	if gift.is_empty():
+		return
+	present(
+		String(gift.get("title", "ALMANAC COMPLETE")),
+		String(gift.get("subtitle", "The keeper's almanac is complete.")),
+		NPC_LINE_SECONDS,
+		{"accent": "milestone"}
 	)
 
 

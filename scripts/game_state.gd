@@ -146,6 +146,12 @@ var tide_pool_granted: bool = false
 ## this island. 0 means "never", so the first world load of a new island always
 ## gets the day's report.
 var tide_report_day: int = 0
+## Tide conditions the keeper has logged, by stable key (TideReport.CONDITIONS).
+## Four exist; logging all four completes the almanac.
+var tides_logged: Array[String] = []
+## One-time reward for completing the almanac.
+var tide_almanac_granted: bool = false
+const TIDE_ALMANAC_MONEY := 30
 const TIDE_GIFT_MONEY := 25
 const TIDE_POOL_MONEY := 25
 ## Prestige purchase: a one-time island benefactor gift. No stat effect, only
@@ -539,19 +545,40 @@ func try_grant_tide_pool() -> Dictionary:
 	}
 
 
+## One-time payout for completing the keeper's four-tide almanac. Mirrors the
+## bottle/starfish gifts: idempotent, drained by the world banner so the reward
+## plays as a card.
+func try_grant_tide_almanac() -> Dictionary:
+	if tide_almanac_granted or tides_logged.size() < 4:
+		return {}
+	tide_almanac_granted = true
+	add_earnings(TIDE_ALMANAC_MONEY)
+	return {
+		"title": "ALMANAC COMPLETE",
+		"subtitle": "The keeper's four-tide almanac is filled. +$%d" % TIDE_ALMANAC_MONEY,
+	}
+
+
 ## The day's tide card, at most once per island per local day. Returns {} when
 ## this island has already seen today's report. Idempotent: claiming stamps the
 ## day before the banner plays, so a scene reload cannot replay it.
+##
+## Claiming also logs the tide in the keeper's almanac (deduplicated), so the
+## four-day rotation doubles as a slow collectathon across real days.
 func try_claim_tide_report() -> Dictionary:
 	var day := TideReport.day_index()
 	if tide_report_day == day:
 		return {}
 	tide_report_day = day
+	var report := TideReport.today()
+	var key := String(report.get("key", ""))
+	if not key.is_empty() and not tides_logged.has(key):
+		tides_logged.append(key)
 	_persist()
 	return {
 		"title": "TIDE REPORT · %s" % TideReport.title(),
-		"subtitle": TideReport.blurb(),
-		"key": String(TideReport.today().get("key", "")),
+		"subtitle": "%s  ·  almanac %d/4" % [TideReport.blurb(), tides_logged.size()],
+		"key": key,
 	}
 
 
@@ -764,6 +791,8 @@ const SAVE_SCHEMA: Array = [
 	["tide_gift_granted", "tide_gift_granted", false, "bool"],
 	["tide_pool_granted", "tide_pool_granted", false, "bool"],
 	["tide_report_day", "tide_report_day", 0, "int"],
+	["tides_logged", "tides_logged", [], "string_array"],
+	["tide_almanac_granted", "tide_almanac_granted", false, "bool"],
 	["quests_completed", "quests_completed", 0, "int"],
 	["lifetime_garbage_kg", "lifetime_garbage_kg", 0, "int"],
 	["reef_dives", "reef_dives", 0, "int"],

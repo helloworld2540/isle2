@@ -58,8 +58,31 @@ func _initialize() -> void:
 		_check(not first.is_empty(), "first claim returns a card")
 		_check(String(first.get("title", "")).begins_with("TIDE REPORT"), "card titled as a tide report")
 		_check(int(gs.tide_report_day) == day, "claim stamps today")
+		var today_key := String(TideReport.today().get("key"))
+		_check(gs.tides_logged.has(today_key), "claim logs today's tide (%s)" % today_key)
 		_check(gs.try_claim_tide_report().is_empty(), "second claim is empty")
+
+		# Almanac reward gates on the full four-tide set and pays only once.
+		gs.tides_logged.clear()
+		for k in ["glass_calm", "eel_run", "slack_water"]:
+			gs.tides_logged.append(k)
+		gs.tide_almanac_granted = false
+		_check(gs.try_grant_tide_almanac().is_empty(), "no almanac reward at 3/4")
+		gs.tides_logged.append("night_drift")
+		var gift: Dictionary = gs.try_grant_tide_almanac()
+		_check(not gift.is_empty(), "almanac reward at 4/4")
+		_check(not String(gift.get("title", "")).is_empty(), "almanac card title")
+		_check(gs.try_grant_tide_almanac().is_empty(), "almanac reward is one-time")
 		gs.tide_report_day = 0
+		gs.tides_logged.clear()
+		gs.tide_almanac_granted = false
+
+		# The catalogue advertises the new collectathon.
+		var has_almanac := false
+		for def in gs.achievement_definitions():
+			if String(def.get("id", "")) == "tide_almanac":
+				has_almanac = true
+		_check(has_almanac, "catalogue includes tide_almanac")
 	_wipe_slots()
 	print("tide_test: %d failure(s)" % _fails)
 	quit(_fails)

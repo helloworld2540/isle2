@@ -102,7 +102,21 @@ func _build_journal_line() -> String:
 	var ach := GameState.achievement_count()
 	var total := GameState.achievement_total()
 	var paid_out := " · tide pool paid" if GameState.tide_pool_granted else ""
-	return "Journal — bottles %d/4 · starfish %d/5%s · species %d/4 · achievements %d/%d" % [bottles, starfish, paid_out, fish, ach, total]
+	var almanac := " · tide almanac paid" if GameState.tide_almanac_granted else ""
+	var tides := GameState.tides_logged.size()
+	return "Journal — bottles %d/4 · starfish %d/5%s · tides %d/4%s · species %d/4 · achievements %d/%d" % [bottles, starfish, paid_out, tides, almanac, fish, ach, total]
+
+
+## The keeper's almanac as a checklist: every tide in rotation order with a
+## tick for the days already logged, so a player can see what weather they are
+## still owed. Reads TideReport's table directly — no duplicated titles.
+func _build_almanac_line() -> String:
+	var parts: Array[String] = []
+	for condition in TideReport.CONDITIONS:
+		var key := String(condition.get("key", ""))
+		var mark := "✓" if GameState.tides_logged.has(key) else "·"
+		parts.append("%s %s" % [mark, String(condition.get("title", key)).capitalize()])
+	return "Tide almanac %d/4 — %s" % [GameState.tides_logged.size(), "  ".join(parts)]
 
 
 ## The scrap-journal reading of the page: which era of the island is the
@@ -175,6 +189,7 @@ func _build_stats_text() -> String:
 		fish_names.append(FishCatalog.name_of(id))
 	lines.append("Golden scraps collected: %d" % GameState.golden_finds)
 	lines.append("Starfish found: %d / 5" % GameState.starfish_found.size())
+	lines.append(_build_almanac_line())
 	lines.append("Fish spotted: %d / 4 species%s" % [GameState.fish_met.size(), "  ·  " + ", ".join(fish_names) if not fish_names.is_empty() else ""])
 	lines.append("Best sort streak: %d  ·  Flawless shifts: %d" % [GameState.best_sort_streak, GameState.flawless_shifts])
 	lines.append("Deep Cache: %s" % ("tier %d" % GameState.deep_cache_tier if GameState.deep_cache else "not owned"))

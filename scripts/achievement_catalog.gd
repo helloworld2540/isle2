@@ -220,6 +220,13 @@ const ENTRIES: Array[Dictionary] = [
 		"where": "Island",
 	},
 	{
+		"id": "tide_almanac",
+		"short": "Almanac",
+		"title": "THE FOUR TIDES",
+		"subtitle": "Logged every sea condition in the keeper's almanac.",
+		"where": "Island",
+	},
+	{
 		"id": "island_steward",
 		"short": "Steward",
 		"title": "ISLAND STEWARD",
@@ -312,6 +319,8 @@ static func is_met(id: String, state: Node) -> bool:
 			return state.bottles_read.has("bottle_pact")
 		"tide_messages":
 			return state.bottles_read.size() >= 3
+		"tide_almanac":
+			return state.tides_logged.size() >= 4
 		"island_steward":
 			# Capstone: every other goal in the catalogue is already earned.
 			for def in ENTRIES:

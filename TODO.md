@@ -1,6 +1,11 @@
 # Current project todo:
 
 # done this pass
+- Keeper's Tide Almanac shipped on top of the daily tide: every claimed report
+  logs that condition (`tides_logged`), the tide card shows progress
+  ("almanac n/4"), and the stats page lists all four tides as a ✓/· checklist.
+  Completing it fires THE FOUR TIDES achievement (32 total) and a one-time +$30
+  card; the journal ledger line now includes tides n/4.
 - Daily Tide Report shipped: a deterministic four-day rotation
   (`scripts/tide_report.gd`) that bends the loop — Glass Calm (more reef
   debris), Eel Run (fish 1.28× faster), Slack Water (belt 0.82×), Night Drift

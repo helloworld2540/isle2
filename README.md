@@ -63,7 +63,10 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
   drift 1.28×), **Slack Water** (belt 0.82×), **Night Drift** (golden rolls 2×).
   The banner announces the day's report once per island per day
   (`tide_report_day` save flag, claimed by `GameState.try_claim_tide_report`);
-  the world HUD keeps a one-line `≈ …` reminder. Minigames read the typed
+  the world HUD keeps a one-line `≈ …` reminder. Each claim also ticks that
+  tide off the keeper's **almanac** (`tides_logged`): all four earn THE FOUR
+  TIDES achievement, a one-time +$30 card, and a checklist line on the stats
+  page. Minigames read the typed
   accessors (`garbage_bias`, `fish_speed_multiplier`, `belt_speed_multiplier`,
   `golden_chance_multiplier`) rather than raw keys, so there is no per-scene RNG.
 - **Bottles**: `scripts/bottle_catalog.gd` — canonical title/lines for every message in a bottle; the world pickup and the stats page's Tide Ledger both read it.
@@ -276,13 +279,13 @@ is excluded) so exported builds still autoload cleanly. Verified headless builds
 ## Writing changes
 Changes land as the overnight loop cycles — see `overnight_sprint.txt` for a running log of iterations. The game is fully playable from a fresh save: menu → world map → reef rescue → upcycle bench → shop → circuit complete, with NPCs, bottles, starfish and achievements as optional flavour that persists between sessions.
 
-## Full achievement list (31)
+## Full achievement list (32)
 An island for every title the stats page tracks:
 
 - **Reef & Bench starters** — FIRST DIVE, FIRST SORT, FIRST SALE, FIRST FAVOUR, ROUND THE ISLE.
 - **Bench regulars** — BENCH REGULAR (10 runs), BENCH MASTER (25 runs), HOT STREAK (15-sort streak), SILK TOUCH (5 flawless shifts).
 - **Dive regulars** — REEF REGULAR (10 dives), REEF VETERAN (25 dives), DEEP DIVE (400 m), TO THE ABYSS (900 m), HEAVY HARVEST (30 kg in one dive), RHYTHM OF THE REEF (9-chain combo, x4 score), CLEAN SWEEP (5 clean dives), REEF CHARTER.
-- **Collections** — REEF REGISTRY (meet all four species), STARLIGHT (five hidden starfish), TIDE MESSAGES (all three bottles), THE PACT'S REPLY (the hidden pact bottle), TIDE KEEPER (all four messages the tide left).
+- **Collections** — REEF REGISTRY (meet all four species), STARLIGHT (five hidden starfish), TIDE MESSAGES (all three bottles), THE PACT'S REPLY (the hidden pact bottle), TIDE KEEPER (all four messages the tide left), THE FOUR TIDES (log all four daily tides in the keeper's almanac).
 - **Island quests** — HARBOR HERO (every quest tier turned in), PATRON OF THE ISLE (1500$ gift), KEEPER OF THE TIDE (2500$ pact), LOOP MASTER (25 circuits).
 - **Economy** — WELL OFF (lifetime 300$), MARKET CONTACT (+1$/unit), CACHE FOUND (buy the Deep Cache), ROOM TO SPARE (reach a 30 kg cap), GOLDEN TOUCH (10 golden scraps).
 - **Capstone** — ISLAND STEWARD: every other achievement earned.
