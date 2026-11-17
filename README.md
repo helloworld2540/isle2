@@ -41,7 +41,8 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
   card or a modal owns the screen is queued and fires when that card closes.
 - **UI**: `scripts/ui/*`, `scenes/ui/*` — reused overlay primitives. `DragScrollContainer`
   (`scripts/ui/drag_scroll.gd`) adds finger-speed mouse drag-to-scroll on top of
-  ScrollContainer's native touch scrolling (shop, stats guide list). Touch targets
+  ScrollContainer's native touch scrolling (shop, stats guide list, slot
+  picker). Touch targets
   ≥ 44 px — the in-run **Return to Map** buttons are 48 px, every shop button (the
   Sell 1 / 5 / All rows, the Buy buttons and Return / Undo) is ≥ 44 px tall, the
   world-menu upgrade buttons (Move / Range / Deep Cache / Inv Cap) plus the Settings

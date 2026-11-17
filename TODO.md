@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- Slot picker now wraps its island rows in a DragScrollContainer (`ListScroll`)
+  with touch drag-scrolling for players juggling many islands; the footer and
+  header stay fixed and the list scrolls inside a bounded 320 px area. Verified
+  at 1152x648 with 8 islands (footer reachable, scrollbar visible).
 - Oda the tide-watcher added: a quest-free NPC west of Mara (walkable cell
   verified via TileData Walkable probe). She is `tide_aware`, so she appends
   the day's tide observation to her conversation; `WorldNPC.tide_aware` is a

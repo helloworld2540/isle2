@@ -215,6 +215,7 @@ checked against this yield — nothing changed, deliberately.*
 - Once you own **two or more islands**, **Load Save** opens the island picker:
   one row per island with its money, score, circuits and how long ago you
   played, plus three actions — **Load island**, **✎ rename**, **✕ delete**.
+  The list drag-scrolls on small screens or when the shelf fills up.
 - **+ New island** at the top of the picker asks for a name and drops you
   straight onto a fresh shore, leaving your existing islands untouched. Duplicate
   names are fine — the folders get numbered.

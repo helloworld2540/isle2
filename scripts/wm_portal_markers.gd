@@ -17,9 +17,13 @@ func _ready() -> void:
 
 func _collect_targets() -> void:
 	_targets.clear()
-	var root := get_tree().current_scene
-	if root:
-		_collect_from(root)
+	# Fall back to our own parent (the world root) when the scene launches
+	# directly and current_scene is not assigned yet.
+	var root_node := get_tree().current_scene
+	if root_node == null:
+		root_node = get_parent()
+	if root_node:
+		_collect_from(root_node)
 
 
 func _collect_from(node: Node) -> void:

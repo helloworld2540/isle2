@@ -28,7 +28,7 @@ func _initialize() -> void:
 	await process_frame
 	_check(picker.get_node("Dimmer").visible, "dimmer shown")
 	_check(picker.get_node("Center").visible, "panel shown")
-	var rows := picker.get_node("Center/Panel/VBox/SlotList").get_children()
+	var rows := picker.get_node("Center/Panel/VBox/ListScroll/SlotList").get_children()
 	_check(rows.size() == 2, "two rows (%d)" % rows.size())
 	var names: Array[String] = []
 	for r in rows:

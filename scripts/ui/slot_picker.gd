@@ -22,7 +22,7 @@ const NAME_FIELD_SCENE := preload("res://scenes/ui/slot_name_field.tscn")
 @onready var panel: PanelContainer = $Center/Panel
 @onready var title_label: Label = $Center/Panel/VBox/Header/Title
 @onready var new_slot_btn: Button = $Center/Panel/VBox/Header/NewSlotBtn
-@onready var slot_list: VBoxContainer = $Center/Panel/VBox/SlotList
+@onready var slot_list: VBoxContainer = $Center/Panel/VBox/ListScroll/SlotList
 @onready var empty_hint: Label = $Center/Panel/VBox/EmptyHint
 @onready var close_btn: Button = $Center/Panel/VBox/Footer/CloseBtn
 

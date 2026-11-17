@@ -27,7 +27,15 @@ func _show_guide() -> void:
 		+ "[color=#ffd27f]Click to walk  ·  Tab / Esc opens the menu  ·  NPCs hand out quests[/color]\n" \
 		+ "[color=#8fd0a0]Look for bottles along the shore — they hold stories. Blue cards are achievements.[/color]"
 	guide.dismissed.connect(_on_guide_dismissed)
-	get_tree().current_scene.add_child(guide)
+	# current_scene is not always assigned yet (e.g. when the world scene is
+	# launched directly via F6 or a frozen run) — fall back to our own parent
+	# (the world root) and finally the window root.
+	var target := get_tree().current_scene
+	if target == null:
+		target = get_parent()
+	if target == null:
+		target = get_tree().root
+	target.add_child(guide)
 
 
 func _on_guide_dismissed() -> void:
