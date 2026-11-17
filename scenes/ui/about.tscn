@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/ui/about.gd" id="1_about"]
 [ext_resource type="Script" path="res://scripts/ui/drag_scroll.gd" id="2_drag"]
+[ext_resource type="Texture2D" path="res://sprites/watcher.png" id="3_watcher"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_about"]
 content_margin_left = 24.0
@@ -56,6 +57,14 @@ theme_override_styles/panel = SubResource("StyleBox_about")
 [node name="VBox" type="VBoxContainer" parent="Margin/Column/Panel"]
 layout_mode = 2
 theme_override_constants/separation = 8
+
+[node name="Portrait" type="TextureRect" parent="Margin/Column/Panel/VBox"]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
+size_flags_horizontal = 4
+expand_mode = 1
+stretch_mode = 5
+texture = ExtResource("3_watcher")
 
 [node name="Title" type="Label" parent="Margin/Column/Panel/VBox"]
 layout_mode = 2
