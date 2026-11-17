@@ -3,6 +3,16 @@
 
 Welcome to Isle 2. Shared economy across world map, two minigames, shop, NPCs and upgrades.
 
+## Quick reference
+- The loop is **Reef → Upcycle → Shop**, north→south→east, marked by the flow dots.
+- Every day has a **Tide**: Glass Calm / Eel Run / Slack Water / Night Drift.
+  The almanac logs each you witness (`almanac n/4`).
+- The dock sells a **dockhand's tip** ($25, $15 on a 3-day streak) for
+  tomorrow's tide.
+- **Tide Ledger** on the stats page holds the seven notes — read them all.
+- Watch the island stretch you thin, then come back tomorrow. The tide never
+  blinks.
+
 ## Controls
 - The main menu's continue panel and the HUD both carry today's tide
   ("≈ <tide> · day N") — the sea greets you before you press Continue.

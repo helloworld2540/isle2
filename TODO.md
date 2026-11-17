@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- guide.md gains a top-line Quick reference for new keepers (loop,
+  tide, tip, ledger, the invitation to come back).
 - RELEASE_CHECKLIST.md ticks the frame-soak evidence.
 - Frame-soak sanity: world booted frozen and stepped 120 frames at
   once — no crash, no errors.
