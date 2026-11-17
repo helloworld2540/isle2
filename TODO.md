@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- Glass Calm mobs the gulls: answer-chance doubles to 0.7 — every tide
+  now tempers the dock chorus (clam: 0.7, slack: 0, night drift: foghorn).
 - Slack Water hushes the dock: the answering gull never returns the cry.
   The tide's moods now shape sound as well as the HUD and the till.
 - Night Drift at the dock: half the distant harbor cries become a low

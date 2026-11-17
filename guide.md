@@ -333,7 +333,8 @@ each debris sorts 1:1 into a material.*
   sea answers with a low foghorn from somewhere out there, half the time —
   the one tide with a voice of its own. Slack Water takes the opposite
   deal: the answering gull never returns your call — nothing pushes, nothing
-  hurries.
+  hurries. Glass Calm sends both birds back twice as often, because the
+  flock mobs the easy pickings the reef let go of overnight.
 - Under it all runs a continuous **surf wash**, a seamless 12 s loop that fades
   in when you reach the map and keeps rolling while the pause menu is open. It
   has its own **Ambience** slider (settings: Master / Music / Ambience / SFX), so
