@@ -272,6 +272,9 @@ func _flavour_lines() -> Array:
 		# notices — foresight is the one thing she respects.
 		if GameState.harbor_tip_purchased():
 			out.append("Paid the dockhand for tomorrow, did you? Sly. Tomorrow keeps its own hours — but tell me, what did the water whisper?")
+		# A century of tides earns a single line in her private book.
+		if GameState.tide_days_visited == 100:
+			out.append("A hundred tides. I put you in the book — there is room for very few names.")
 		# A week with the tide is a long-standing joke between two people who
 		# take staying seriously.
 		if GameState.tide_streak >= 7:

@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- Oda marks the centennial: exactly on day 100, tide-aware NPCs append
+  "I put you in the book — there is room for very few names."
 - The menu tide line tooltips the almanac rule — the four-day rotation
   and that every one comes round.
 - guide.md notes the menu tide line, the almanac line's streak, the gold
