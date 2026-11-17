@@ -148,6 +148,11 @@ func _update_stats_display() -> void:
 	var deeds: Array[String] = ["Era: %s — %s" % [_era_name(), _era_tag()], "Field log: %d dives · %d bench runs" % [GameState.reef_dives, GameState.upcycle_runs]]
 	deeds.append("Deep Cache: %s" % ("tier %d" % GameState.deep_cache_tier if GameState.deep_cache else "not owned"))
 	deeds.append("Days on the island: %d" % GameState.tide_days_visited)
+	# All six voices agree on one thing; the page says so, quietly.
+	if GameState.is_achievement_unlocked("silent_chorus"):
+		deeds.append("")
+		deeds.append("Six voices, one shoreline — and every one of them said the tide is not a clock.")
+		deeds.append("It is a heart, and it beats in four, and you learned the rhythm.")
 	# Corl keeps his own ledger; the page notices regulars.
 	if GameState.harbor_tips_bought > 0:
 		if GameState.is_achievement_unlocked("whispers"):

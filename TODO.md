@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- The stats page closes the bottle arc in writing: with THE SILENT CHORUS
+  earned, a quiet two-line benediction appears in the deeds column — six
+  voices, one shoreline, and the tide is a heart, not a clock.
 - The stats page Ledger button advertises its own completion — "Tide
   Ledger (n/6)" — no need to open the page to know where you stand.
 - Main menu continue-summary now shows days on the island alongside
