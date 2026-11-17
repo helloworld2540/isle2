@@ -24,6 +24,8 @@ Welcome to Isle 2. Shared economy across world map, two minigames, shop, NPCs an
   reading the day's tide — the rules, the rotation and the almanac all
   stay exactly the same. For people who want the sea in front of them,
   not behind them.
+  The hidden horizon stays legal: THE QUIET KEEPER rewards three such
+  runs, and THE TIDE WALKER belongs to those who tried both ways.
 
 
 - **World map** — tap anywhere to walk there; the trail and flow dots point

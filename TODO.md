@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- guide.md hide-tide paragraph now names THE QUIET KEEPER and THE TIDE
+  WALKER, the hidden horizon rewards.
 - Settings toggle for Hide-the-tide now rings the harbor bell faintly
   ('reef_swell' through the ambience bus) on enabling, and a soft return
   on disabling — the toggle itself tells you what you chose.
