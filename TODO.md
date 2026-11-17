@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- ISLAND STEWARD now echoes from the whole cast: Mara, Tom, Nina, Kai and
+  Oda each append their own endgame line once the catalogue is complete.
 - WorldNPC milestones generalized to a `milestone_beats` dictionary
   (achievement id → line, any number per NPC). Oda now also reacts to
   ISLAND STEWARD ("you are the first I would write down") — the capstone
