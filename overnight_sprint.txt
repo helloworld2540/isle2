@@ -1146,3 +1146,7 @@ STATE
 ## 2026-11-18 — Fresh clone at 1.1.0
 - Cold checkout at HEAD imports, exports, boots with zero script errors;
   about: 1.1.0 with hidden tide and THE TIDE WALKER sealed end to end.
+
+## 2026-11-18 — 1.1.0 sealed across all three platforms
+- Hidden tide, THE QUIET KEEPER, THE TIDE WALKER — the whole arc ships in one
+  build. Pre-flight green; Linux boots with zero-byte log.

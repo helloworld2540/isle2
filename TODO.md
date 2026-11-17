@@ -1,6 +1,7 @@
 # Current project todo:
 
 # done this pass
+- 1.1.0 rebuilt clean: hidden tide + keeper badges in the shipped build.
 - guide.md hide-tide paragraph now names THE QUIET KEEPER and THE TIDE
   WALKER, the hidden horizon rewards.
 - Settings toggle for Hide-the-tide now rings the harbor bell faintly
