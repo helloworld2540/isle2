@@ -1,6 +1,7 @@
 # Current project todo:
 
 # done this pass
+- RELEASE_CHECKLIST.md ticks the frame-soak evidence.
 - Frame-soak sanity: world booted frozen and stepped 120 frames at
   once — no crash, no errors.
 - Oda marks the centennial: exactly on day 100, tide-aware NPCs append
