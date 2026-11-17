@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- Stats page now registers Corl's regulars: a deed line shows the whispers
+  ledger (n/7, or the 7/7 "you are known at the counter" line once earned).
 - Tutorial finale now gestures at the long game: the tide keeps four
   days and never repeats in a hurry. New players are pointed at NPCs,
   bottles and the tide from the very last card.

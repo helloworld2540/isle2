@@ -146,6 +146,12 @@ func _update_stats_display() -> void:
 
 	var deeds: Array[String] = ["Era: %s — %s" % [_era_name(), _era_tag()], "Field log: %d dives · %d bench runs" % [GameState.reef_dives, GameState.upcycle_runs]]
 	deeds.append("Deep Cache: %s" % ("tier %d" % GameState.deep_cache_tier if GameState.deep_cache else "not owned"))
+	# Corl keeps his own ledger; the page notices regulars.
+	if GameState.harbor_tips_bought > 0:
+		if GameState.is_achievement_unlocked("whispers"):
+			deeds.append("Corl's ledger: 7/7 whispers — you are known at the counter")
+		else:
+			deeds.append("Corl's ledger: %d/7 whispers" % GameState.harbor_tips_bought)
 	deeds.append("Reef Charter: %d dive bumps" % (3 + GameState.get_reef_bonus_lives()))
 	if GameState.is_harbor_hero():
 		var bonus_kg: int = GameState.HARBOR_HERO_CAPACITY_BONUS * 10
