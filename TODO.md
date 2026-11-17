@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Tide Ledger button now counts from the LEDGER_IDS list itself — fixed
+  a stale hardcoded /6 after the seventh note was added (verified live:
+  0/7).
 - THE WATCHER'S NOTE added: bottle_watcher washes up on the east path
   once THE FAR POINT is seen. Seventh ledger row; THE SILENT CHORUS still
   needs six (the seventh is a blessing). Live-verified: spawn, pickup, found.

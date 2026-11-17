@@ -316,7 +316,7 @@ func _refresh_ledger_button() -> void:
 	for id in LEDGER_IDS:
 		if GameState.is_story_read(id):
 			found += 1
-	_ledger_button.text = "Tide Ledger (%d/6)" % found
+	_ledger_button.text = "Tide Ledger (%d/%d)" % [found, LEDGER_IDS.size()]
 	if found >= LEDGER_IDS.size():
 		_ledger_button.modulate = Color(1.0, 0.85, 0.42, 1.0)
 	else:
