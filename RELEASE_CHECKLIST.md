@@ -23,8 +23,8 @@ Export presets: `Web`, `Android`, `Linux` (`export_presets.cfg`).
   rolls the island back intact. 0 failures.
 - **Tide Ledger** verified live: button counts from `LEDGER_IDS` (0/7) and
   the legend counts what remains; seven rows wired in the scene.
-- **Scene identity** verified by unique_id audit: PASS: no repeated
-   in any . PASS.
+- **Scene identity** verified by `tools/unique_id_audit.py`: no repeated
+  `unique_id=` in any `.tscn`. PASS.
 - **Mobile touch floor** verified by Touch-target audit: PASS: every Button
   carries a >=44 px minimum in both axes. PASS.
 - **Fresh-save boot** at the designed 1152x648 renders the welcome card,
