@@ -1142,3 +1142,7 @@ STATE
 ## 2026-11-18 — Quiet keeper sealed end-to-end
 - Hidden tide, THE QUIET KEEPER, THE TIDE WALKER, eras, Oda/quiet badge; bug
   fix + permanent harness; all three platforms rebuilt at HEAD.
+
+## 2026-11-18 — Fresh clone at 1.1.0
+- Cold checkout at HEAD imports, exports, boots with zero script errors;
+  about: 1.1.0 with hidden tide and THE TIDE WALKER sealed end to end.

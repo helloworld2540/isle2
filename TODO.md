@@ -1,6 +1,7 @@
 # Current project todo:
 
 # done this pass
+- Fresh clone at HEAD re-proven clean after the 1.1.0 seal.
 - The About page says something to the hidden keeper: "The sea keeps
   its own counsel — And so do you." Distinct line from the steward one.
 - 1.1.0 shipped: Android versionName 1.1.0 / versionCode 2, About page +
