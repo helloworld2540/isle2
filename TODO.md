@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- The Tide Report card says "almanac kept" once the book is filled — "almanac
+  kept  ·  streak N" — a small milestone on the daily readout.
 - Tide titles now title-case properly: "Glass Calm", "Eel Run",
   "Slack Water", "Night Drift" — shared TideReport.title_case() owns it
   (HUD line and the tomorrow readout both read it).

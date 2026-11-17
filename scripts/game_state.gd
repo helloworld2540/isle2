@@ -666,7 +666,7 @@ func try_claim_tide_report() -> Dictionary:
 	_persist()
 	return {
 		"title": "TIDE REPORT · %s" % TideReport.title(),
-		"subtitle": "%s  ·  almanac %d/4%s" % [TideReport.blurb(), tides_logged.size(), ("  ·  streak %d" % tide_streak) if tide_streak > 1 else ""],
+		"subtitle": "%s  ·  %s%s" % [TideReport.blurb(), ("almanac kept" if tides_logged.size() >= 4 else "almanac %d/4" % tides_logged.size()), ("  ·  streak %d" % tide_streak) if tide_streak > 1 else ""],
 		"key": key,
 	}
 
