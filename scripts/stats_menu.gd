@@ -12,7 +12,7 @@ const LEDGER_IDS: Array[String] = ["bottle_tide", "bottle_gull", "bottle_light",
 const REGISTRY_BUTTONS: Array[String] = ["FishGoldButton", "FishGreyreefsharkButton", "FishNemoButton", "FishCrabButton"]
 const REGISTRY_IDS: Array[String] = ["fish_gold", "fish_greyreefshark", "fish_nemo", "fish_crab"]
 ## Display order of the guide's station sections. Entries carry a "where" tag.
-const GUIDE_GROUPS: Array[String] = ["Reef Rescue", "Upcycle", "Shop", "Islanders", "Island"]
+const GUIDE_GROUPS: Array[String] = ["Reef Rescue", "Upcycle", "Shop", "Islanders", "Island", "Hidden"]
 
 @onready var _journal_label: Label = $"Margin/VBox/StatsScroll/Content/JournalBanner/JournalLabel"
 @onready var _saved_label: Label = $"Margin/VBox/Header/SavedLabel"

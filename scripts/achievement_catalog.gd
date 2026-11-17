@@ -280,14 +280,14 @@ const ENTRIES: Array[Dictionary] = [
 		"short": "Double",
 		"title": "THE TIDE WALKER",
 		"subtitle": "Both badges held at once — once for listening and once for not.",
-		"where": "Island",
+		"where": "Hidden",
 	},
 	{
 		"id": "quiet_keeper",
 		"short": "Quiet",
 		"title": "THE QUIET KEEPER",
 		"subtitle": "Three tides, no help — stayed without the sea naming it.",
-		"where": "Island",
+		"where": "Hidden",
 	},
 	{
 		"id": "first_tide",
