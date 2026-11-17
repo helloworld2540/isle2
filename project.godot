@@ -25,7 +25,7 @@ AudioManager="*res://scenes/audio_manager.tscn"
 GameSettings="*res://scripts/game_settings.gd"
 SceneTransition="*res://scripts/scene_transition.gd"
 TutorialDirector="*res://scripts/tutorial_director.gd"
-MCPGameBridge="res://tools/mcp_bridge_guard.gd"
+MCPGameBridge="res://scripts/mcp_bridge_guard.gd"
 
 [display]
 
