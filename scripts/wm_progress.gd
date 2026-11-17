@@ -156,8 +156,18 @@ func _refresh_starfish_label(_id: String = "") -> void:
 func _refresh_tide_label() -> void:
 	if not tide_label:
 		return
-	tide_label.text = "≈ %s" % TideReport.hud_line()
-	tide_label.tooltip_text = "Tide report — %s\n%s" % [TideReport.summary(), TideReport.blurb()]
+	# The dockhand's bought foresight: tomorrow goes right on the HUD as a
+	# second line — tooltips don't exist on touch. Day-stamped, so it lapses
+	# on its own when the day rolls over. Two short lines beat one wide one
+	# in this 264 px-wide panel.
+	if GameState.harbor_tip_purchased():
+		tide_label.text = "≈ %s\nTomorrow: %s" % [TideReport.hud_line(), GameState.tomorrow_tide_title()]
+	else:
+		tide_label.text = "≈ %s" % TideReport.hud_line()
+	var tooltip := "Tide report — %s\n%s" % [TideReport.summary(), TideReport.blurb()]
+	if GameState.harbor_tip_purchased():
+		tooltip += "\nTomorrow (paid tip): %s" % GameState.tomorrow_tide_title()
+	tide_label.tooltip_text = tooltip
 
 
 ## The earned title lives on the always-visible progress card, not only in the

@@ -14,18 +14,27 @@ const REGISTRY_IDS: Array[String] = ["fish_gold", "fish_greyreefshark", "fish_ne
 ## Display order of the guide's station sections. Entries carry a "where" tag.
 const GUIDE_GROUPS: Array[String] = ["Reef Rescue", "Upcycle", "Shop", "Islanders", "Island"]
 
-@onready var _stats_label: Label = $"Margin/VBox/StatsScroll/Content/StatsLabel"
-@onready var _back_button: Button = $"Margin/VBox/BackButton"
-@onready var _reset_button: Button = $"Margin/VBox/ResetButton"
+@onready var _journal_label: Label = $"Margin/VBox/StatsScroll/Content/JournalBanner/JournalLabel"
+@onready var _saved_label: Label = $"Margin/VBox/Header/SavedLabel"
+@onready var _bench_body: Label = $"Margin/VBox/StatsScroll/Content/SectionGrid/BenchPanel/BenchBox/BenchBody"
+@onready var _till_body: Label = $"Margin/VBox/StatsScroll/Content/SectionGrid/TillPanel/TillBox/TillBody"
+@onready var _reef_body: Label = $"Margin/VBox/StatsScroll/Content/SectionGrid/ReefPanel/ReefBox/ReefBody"
+@onready var _bag_body: Label = $"Margin/VBox/StatsScroll/Content/SectionGrid/BagPanel/BagBox/BagBody"
+@onready var _collections_body: Label = $"Margin/VBox/StatsScroll/Content/SectionGrid/CollectionsPanel/CollectionsBox/CollectionsBody"
+@onready var _deeds_body: Label = $"Margin/VBox/StatsScroll/Content/SectionGrid/DeedsPanel/DeedsBox/DeedsBody"
+@onready var _almanac_body: Label = $"Margin/VBox/StatsScroll/Content/AlmanacBanner/AlmanacBox/AlmanacBody"
+@onready var _achievements_body: Label = $"Margin/VBox/StatsScroll/Content/AchievementsPanel/AchievementsBox/AchievementsBody"
+@onready var _back_button: Button = $"Margin/VBox/ButtonRow/BackButton"
+@onready var _reset_button: Button = $"Margin/VBox/ButtonRow/ResetButton"
 @onready var _confirm_panel: CanvasLayer = $"ConfirmPanel"
-@onready var _guide_button: Button = $"Margin/VBox/GuideButton"
+@onready var _guide_button: Button = $"Margin/VBox/ButtonRow/GuideButton"
 @onready var _guide_overlay: Control = $"GuideOverlay"
 @onready var _guide_list: Label = $"GuideOverlay/Panel/VBox/Scroll/GuideList"
 @onready var _guide_close: Button = $"GuideOverlay/Panel/VBox/GuideClose"
-@onready var _ledger_button: Button = $"Margin/VBox/LedgerButton"
+@onready var _ledger_button: Button = $"Margin/VBox/ButtonRow/LedgerButton"
 @onready var _ledger_overlay: Control = $"LedgerOverlay"
 @onready var _ledger_close: Button = $"LedgerOverlay/Panel/VBox/LedgerClose"
-@onready var _registry_button: Button = $"Margin/VBox/RegistryButton"
+@onready var _registry_button: Button = $"Margin/VBox/ButtonRow/RegistryButton"
 @onready var _registry_overlay: Control = $"RegistryOverlay"
 @onready var _registry_close: Button = $"RegistryOverlay/Panel/VBox/RegistryClose"
 
@@ -89,8 +98,78 @@ func _connect_signals() -> void:
 # ------------------------------------------------------------------------------
 
 func _update_stats_display() -> void:
-	if _stats_label:
-		_stats_label.text = _build_stats_text()
+	_journal_label.text = _build_journal_line()
+	var saved := SaveManager.get_save_mtime()
+	_saved_label.text = "Last saved: %s" % Time.get_datetime_string_from_unix_time(saved) if saved > 0 else "Last saved: unknown"
+
+	_bench_body.text = "Upcycle score: %d  (best %d)\nBest sort streak: %d  ·  Flawless shifts: %d\nBench runs: %d" % [
+		GameState.upcycle_score, GameState.best_upcycle_score,
+		GameState.best_sort_streak, GameState.flawless_shifts,
+		GameState.upcycle_runs,
+	]
+
+	_till_body.text = "Money: %d$  (lifetime %d$)\nMarket Contact: +%d$/unit\nQuests turned in: %d\nCircuits completed: %d  (+$%d each)" % [
+		GameState.money, GameState.lifetime_earnings,
+		GameState.get_market_bonus(),
+		GameState.quests_completed,
+		GameState.circuits_completed, GameState.CIRCUIT_BONUS_MONEY,
+	]
+
+	_reef_body.text = "Reef garbage: %d kg  (best depth %d m)\nFish bumps taken: %d  (best %d)\nBest combo: %d chain  (×%d)\nHeaviest dive: %d kg  ·  Clean dives: %d\nDives: %d" % [
+		int(GameState.reef_garbage), int(GameState.best_reef_depth),
+		GameState.reef_fish, GameState.best_reef_fish,
+		GameState.best_reef_combo, 1 + int(GameState.best_reef_combo / 3),
+		GameState.best_reef_haul, GameState.clean_dives,
+		GameState.reef_dives,
+	]
+
+	var carried: Array[String] = []
+	for mat: String in GameState.trash_by_type.keys():
+		var count: int = int(GameState.trash_by_type[mat])
+		if count > 0:
+			carried.append("%s %d" % [mat, count])
+	_bag_body.text = "Bag: %d/%d kg\nCarried: %s\nLifetime garbage: %d kg" % [
+		GameState.get_inventory_weight(), GameState.get_inventory_capacity(),
+		"nothing yet" if carried.is_empty() else ", ".join(carried),
+		GameState.lifetime_garbage_kg,
+	]
+
+	var fish_names: Array[String] = []
+	for id in GameState.fish_met:
+		fish_names.append(FishCatalog.name_of(id))
+	_collections_body.text = "Starfish found: %d / 5\nGolden scraps: %d\nFish spotted: %d / 4 species%s" % [
+		GameState.starfish_found.size(),
+		GameState.golden_finds,
+		GameState.fish_met.size(),
+		"  ·  " + ", ".join(fish_names) if not fish_names.is_empty() else "",
+	]
+
+	var deeds: Array[String] = ["Era: %s — %s" % [_era_name(), _era_tag()], "Field log: %d dives · %d bench runs" % [GameState.reef_dives, GameState.upcycle_runs]]
+	deeds.append("Deep Cache: %s" % ("tier %d" % GameState.deep_cache_tier if GameState.deep_cache else "not owned"))
+	deeds.append("Reef Charter: %d dive bumps" % (3 + GameState.get_reef_bonus_lives()))
+	if GameState.is_harbor_hero():
+		var bonus_kg: int = GameState.HARBOR_HERO_CAPACITY_BONUS * 10
+		deeds.append("Title: Harbor Hero — every quest tier cleared (+%d kg bag)." % bonus_kg)
+	if GameState.island_patron:
+		deeds.append("✦ Patron of the Isle — 1500$ given back.")
+	if GameState.tidekeeper:
+		deeds.append("✦ Tidekeeper of the Isle — 2500$ pact funded (+10 kg bag).")
+	elif GameState.quests_completed > 0:
+		deeds.append("Harbor Hero at %d turn-ins (%d/%d)" % [
+			GameState.HARBOR_HERO_TURNS, GameState.quests_completed, GameState.HARBOR_HERO_TURNS,
+		])
+	_deeds_body.text = "\n".join(deeds)
+
+	_almanac_body.text = _build_almanac_line().trim_prefix("Tide almanac ")
+
+	var marks: Array[String] = []
+	for def in GameState.achievement_definitions():
+		var id := String(def.get("id", ""))
+		var mark := "✓" if GameState.is_achievement_unlocked(id) else "·"
+		marks.append("%s %s" % [mark, String(def.get("short", id))])
+	_achievements_body.text = "%d of %d earned —  %s" % [
+		GameState.achievement_count(), GameState.achievement_total(), "  ".join(marks),
+	]
 
 
 ## One-line completion ledger across every collectathon on the island, so a
@@ -157,77 +236,6 @@ func _era_tag() -> String:
 	if GameState.lifetime_earnings > 0:
 		return "the till has its first song"
 	return "every page still blank"
-
-
-func _build_stats_text() -> String:
-	var journal := _build_journal_line()
-	var saved := SaveManager.get_save_mtime()
-	var saved_line := "Last saved: %s" % Time.get_datetime_string_from_unix_time(saved) if saved > 0 else "Last saved: unknown"
-	var lines: Array[String] = [
-		"Stats",
-		journal,
-		saved_line,
-		"Upcycle score: %d  (best %d)" % [GameState.upcycle_score, GameState.best_upcycle_score],
-		"Money: %d$  (lifetime %d$)" % [GameState.money, GameState.lifetime_earnings],
-		"Bag: %d/%d kg" % [GameState.get_inventory_weight(), GameState.get_inventory_capacity()],
-	]
-	
-	var carried: Array[String] = []
-	for mat: String in GameState.trash_by_type.keys():
-		var count: int = int(GameState.trash_by_type[mat])
-		if count > 0:
-			carried.append("%s %d" % [mat, count])
-	lines.append("  " + ("nothing yet" if carried.is_empty() else ", ".join(carried)))
-	
-	lines.append("Reef garbage: %d kg  (best depth %d m)" % [int(GameState.reef_garbage), int(GameState.best_reef_depth)])
-	lines.append("Lifetime garbage: %d kg" % GameState.lifetime_garbage_kg)
-	lines.append("Fish bumps taken: %d  (best %d)" % [GameState.reef_fish, GameState.best_reef_fish])
-	lines.append("Best reef combo: %d chain  (×%d multiplier)" % [GameState.best_reef_combo, 1 + int(GameState.best_reef_combo / 3)])
-	lines.append("Heaviest dive: %d kg  ·  Clean dives: %d" % [GameState.best_reef_haul, GameState.clean_dives])
-	var fish_names: Array[String] = []
-	for id in GameState.fish_met:
-		fish_names.append(FishCatalog.name_of(id))
-	lines.append("Golden scraps collected: %d" % GameState.golden_finds)
-	lines.append("Starfish found: %d / 5" % GameState.starfish_found.size())
-	lines.append(_build_almanac_line())
-	lines.append("Fish spotted: %d / 4 species%s" % [GameState.fish_met.size(), "  ·  " + ", ".join(fish_names) if not fish_names.is_empty() else ""])
-	lines.append("Best sort streak: %d  ·  Flawless shifts: %d" % [GameState.best_sort_streak, GameState.flawless_shifts])
-	lines.append("Deep Cache: %s" % ("tier %d" % GameState.deep_cache_tier if GameState.deep_cache else "not owned"))
-	lines.append("Market Contact: +%d$/unit  ·  Reef Charter: %d dive bumps" % [
-		GameState.get_market_bonus(), 3 + GameState.get_reef_bonus_lives()
-	])
-	lines.append("Quests turned in: %d" % GameState.quests_completed)
-	lines.append("Island circuits completed: %d  (+$%d each)" % [GameState.circuits_completed, GameState.CIRCUIT_BONUS_MONEY])
-	lines.append("Field log: %d dives · %d bench runs" % [GameState.reef_dives, GameState.upcycle_runs])
-	lines.append("Era: %s — %s" % [_era_name(), _era_tag()])
-	
-	# Compact achievement roll: the banner cards carry the full text, this is
-	# the checklist players scroll to when they want to know what is left.
-	var marks: Array[String] = []
-	for def in GameState.achievement_definitions():
-		var id := String(def.get("id", ""))
-		var mark := "✓" if GameState.is_achievement_unlocked(id) else "·"
-		marks.append("%s %s" % [mark, String(def.get("short", id))])
-	lines.append("Achievements %d/%d: %s" % [
-		GameState.achievement_count(),
-		GameState.achievement_total(),
-		"  ".join(marks),
-	])
-	if GameState.is_harbor_hero():
-		var bonus_kg: int = GameState.HARBOR_HERO_CAPACITY_BONUS * 10
-		lines.append("Title: Harbor Hero — every quest tier cleared (+%d kg bag)." % bonus_kg)
-	if GameState.island_patron:
-		lines.append("✦ Patron of the Isle — 1500$ given back to keep the island clean.")
-	if GameState.tidekeeper:
-		lines.append("✦ Tidekeeper of the Isle — 2500$ pact funded; the reef keeps your bag (+10 kg).")
-	elif GameState.quests_completed > 0:
-		lines.append("Title progress: Harbor Hero at %d turn-ins (%d/%d)" % [
-			GameState.HARBOR_HERO_TURNS,
-			GameState.quests_completed,
-			GameState.HARBOR_HERO_TURNS,
-		])
-	
-	return "\n".join(lines)
 
 
 # ------------------------------------------------------------------------------

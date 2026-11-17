@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Bought the dockhand's tip and it shows on the world HUD too: the tide
+  line grows a second `Tomorrow: <tide>` line (and the tooltip repeats it).
+  Reads on touch, not just hover; lapses by itself at midnight.
 - New money sink in the shop: the dockhand's tide tip (25$) reveals
   tomorrow's tide for today only. Saved per island/day (`harbor_tip_day`),
   persists through restore, and the shop shows the readout once bought.

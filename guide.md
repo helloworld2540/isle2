@@ -127,7 +127,8 @@ checked against this yield — nothing changed, deliberately.*
     so it is the best day to chase GOLDEN TOUCH and a fat bench score.
 - The shop sells a **dockhand's tide tip** for $25: it names tomorrow's
   tide for that one day, so a keeper who plans around the rotation can
-  stock up, reposition or save the golden-scrap day for last.
+  stock up, reposition or save the golden-scrap day for last — once bought,
+  the world HUD's tide line grows a `Tomorrow:` line until midnight.
 - **Oda the tide-watcher** stands just west of Mara (she has no quests — she
   keeps the island's almanac). Every islander who notices the water repeats
   the day's observation, so dockside chatter always reflects the current tide.

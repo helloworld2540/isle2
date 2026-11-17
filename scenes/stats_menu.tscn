@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://kamvcjhav8w5"]
+[gd_scene load_steps=16 format=3 uid="uid://kamvcjhav8w5"]
 
 [ext_resource type="Script" uid="uid://cno3w2hkaq50n" path="res://scripts/stats_menu.gd" id="1_menu"]
 [ext_resource type="PackedScene" path="res://scenes/ui/settings_panel.tscn" id="2_settings"]
@@ -21,6 +21,188 @@ corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
+[sub_resource type="StyleBoxFlat" id="StyleBox_section"]
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
+bg_color = Color(0.06, 0.10, 0.16, 0.92)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.7, 0.9, 0.4)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_banner"]
+content_margin_left = 18.0
+content_margin_top = 12.0
+content_margin_right = 18.0
+content_margin_bottom = 12.0
+bg_color = Color(0.07, 0.14, 0.2, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4, 0.75, 0.95, 0.7)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_gold"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(1, 0.84, 0.35, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.92, 0.55, 0.9)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color(0, 0, 0, 0.35)
+shadow_size = 6
+shadow_offset = Vector2(0, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_gold_hover"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(1, 0.9, 0.5, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.96, 0.7, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color(0, 0, 0, 0.35)
+shadow_size = 6
+shadow_offset = Vector2(0, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_gold_pressed"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(0.82, 0.66, 0.2, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.95, 0.8, 0.4, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_ghost"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(0.08, 0.13, 0.19, 0.55)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4, 0.7, 0.9, 0.55)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_ghost_hover"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(0.12, 0.20, 0.28, 0.85)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.6, 0.88, 1, 0.9)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_ghost_pressed"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(0.10, 0.16, 0.23, 1.0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.55, 0.85, 1, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_danger"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(0.16, 0.07, 0.08, 0.6)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.9, 0.45, 0.4, 0.6)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_danger_hover"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(0.24, 0.10, 0.10, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.55, 0.5, 0.95)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_danger_pressed"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(0.30, 0.12, 0.12, 1.0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.6, 0.55, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
 [node name="StatsMenu" type="Control" unique_id=300000001]
 layout_mode = 3
 anchors_preset = 15
@@ -37,7 +219,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.1, 0.12, 0.18, 1)
+color = Color(0.07, 0.09, 0.14, 1)
 
 [node name="Margin" type="MarginContainer" parent="." unique_id=300000003]
 layout_mode = 1
@@ -47,13 +229,37 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 24
-theme_override_constants/margin_top = 24
+theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 24
-theme_override_constants/margin_bottom = 24
+theme_override_constants/margin_bottom = 20
 
 [node name="VBox" type="VBoxContainer" parent="Margin" unique_id=300000004]
 layout_mode = 2
-theme_override_constants/separation = 14
+theme_override_constants/separation = 12
+
+[node name="Header" type="HBoxContainer" parent="Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="Margin/VBox/Header"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 0.84, 0.35, 1)
+theme_override_font_sizes/font_size = 30
+text = "ISLAND STATS"
+vertical_alignment = 1
+
+[node name="Spacer" type="Control" parent="Margin/VBox/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SavedLabel" type="Label" parent="Margin/VBox/Header"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.6, 0.78, 0.9, 1)
+theme_override_font_sizes/font_size = 20
+text = ""
+vertical_alignment = 1
 
 [node name="StatsScroll" type="ScrollContainer" parent="Margin/VBox" unique_id=300000005]
 layout_mode = 2
@@ -66,47 +272,296 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 10
 
-[node name="StatsLabel" type="Label" parent="Margin/VBox/StatsScroll/Content" unique_id=300000006]
+[node name="JournalBanner" type="PanelContainer" parent="Margin/VBox/StatsScroll/Content"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBox_banner")
+
+[node name="JournalLabel" type="Label" parent="Margin/VBox/StatsScroll/Content/JournalBanner"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.93, 1, 1)
 theme_override_font_sizes/font_size = 20
-text = "Stats"
+text = ""
+autowrap_mode = 2
+
+[node name="SectionGrid" type="GridContainer" parent="Margin/VBox/StatsScroll/Content"]
+layout_mode = 2
+columns = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+size_flags_horizontal = 3
+
+[node name="BenchPanel" type="PanelContainer" parent="Margin/VBox/StatsScroll/Content/SectionGrid"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBox_section")
+
+[node name="BenchBox" type="VBoxContainer" parent="Margin/VBox/StatsScroll/Content/SectionGrid/BenchPanel"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="BenchHeader" type="Label" parent="Margin/VBox/StatsScroll/Content/SectionGrid/BenchPanel/BenchBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0.35, 1)
+theme_override_font_sizes/font_size = 20
+text = "THE BENCH"
+
+[node name="BenchBody" type="Label" parent="Margin/VBox/StatsScroll/Content/SectionGrid/BenchPanel/BenchBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = ""
+autowrap_mode = 2
+
+[node name="TillPanel" type="PanelContainer" parent="Margin/VBox/StatsScroll/Content/SectionGrid"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBox_section")
+
+[node name="TillBox" type="VBoxContainer" parent="Margin/VBox/StatsScroll/Content/SectionGrid/TillPanel"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="TillHeader" type="Label" parent="Margin/VBox/StatsScroll/Content/SectionGrid/TillPanel/TillBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0.35, 1)
+theme_override_font_sizes/font_size = 20
+text = "THE TILL"
+
+[node name="TillBody" type="Label" parent="Margin/VBox/StatsScroll/Content/SectionGrid/TillPanel/TillBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = ""
+autowrap_mode = 2
+
+[node name="ReefPanel" type="PanelContainer" parent="Margin/VBox/StatsScroll/Content/SectionGrid"]
+custom_minimum_size = Vector2(0, 170)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBox_section")
+
+[node name="ReefBox" type="VBoxContainer" parent="Margin/VBox/StatsScroll/Content/SectionGrid/ReefPanel"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="ReefHeader" type="Label" parent="Margin/VBox/StatsScroll/Content/SectionGrid/ReefPanel/ReefBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0.35, 1)
+theme_override_font_sizes/font_size = 20
+text = "THE REEF"
+
+[node name="ReefBody" type="Label" parent="Margin/VBox/StatsScroll/Content/SectionGrid/ReefPanel/ReefBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = ""
+autowrap_mode = 2
+
+[node name="BagPanel" type="PanelContainer" parent="Margin/VBox/StatsScroll/Content/SectionGrid"]
+custom_minimum_size = Vector2(0, 170)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBox_section")
+
+[node name="BagBox" type="VBoxContainer" parent="Margin/VBox/StatsScroll/Content/SectionGrid/BagPanel"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="BagHeader" type="Label" parent="Margin/VBox/StatsScroll/Content/SectionGrid/BagPanel/BagBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0.35, 1)
+theme_override_font_sizes/font_size = 20
+text = "THE BAG"
+
+[node name="BagBody" type="Label" parent="Margin/VBox/StatsScroll/Content/SectionGrid/BagPanel/BagBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = ""
+autowrap_mode = 2
+
+[node name="CollectionsPanel" type="PanelContainer" parent="Margin/VBox/StatsScroll/Content/SectionGrid"]
+custom_minimum_size = Vector2(0, 170)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBox_section")
+
+[node name="CollectionsBox" type="VBoxContainer" parent="Margin/VBox/StatsScroll/Content/SectionGrid/CollectionsPanel"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="CollectionsHeader" type="Label" parent="Margin/VBox/StatsScroll/Content/SectionGrid/CollectionsPanel/CollectionsBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0.35, 1)
+theme_override_font_sizes/font_size = 20
+text = "COLLECTIONS"
+
+[node name="CollectionsBody" type="Label" parent="Margin/VBox/StatsScroll/Content/SectionGrid/CollectionsPanel/CollectionsBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = ""
+autowrap_mode = 2
+
+[node name="DeedsPanel" type="PanelContainer" parent="Margin/VBox/StatsScroll/Content/SectionGrid"]
+custom_minimum_size = Vector2(0, 170)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBox_section")
+
+[node name="DeedsBox" type="VBoxContainer" parent="Margin/VBox/StatsScroll/Content/SectionGrid/DeedsPanel"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="DeedsHeader" type="Label" parent="Margin/VBox/StatsScroll/Content/SectionGrid/DeedsPanel/DeedsBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0.35, 1)
+theme_override_font_sizes/font_size = 20
+text = "DEEDS & TITLES"
+
+[node name="DeedsBody" type="Label" parent="Margin/VBox/StatsScroll/Content/SectionGrid/DeedsPanel/DeedsBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = ""
+autowrap_mode = 2
+
+[node name="AlmanacBanner" type="PanelContainer" parent="Margin/VBox/StatsScroll/Content"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBox_section")
+
+[node name="AlmanacBox" type="VBoxContainer" parent="Margin/VBox/StatsScroll/Content/AlmanacBanner"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="AlmanacHeader" type="Label" parent="Margin/VBox/StatsScroll/Content/AlmanacBanner/AlmanacBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0.35, 1)
+theme_override_font_sizes/font_size = 20
+text = "TIDE ALMANAC"
+
+[node name="AlmanacBody" type="Label" parent="Margin/VBox/StatsScroll/Content/AlmanacBanner/AlmanacBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = ""
+autowrap_mode = 2
+
+[node name="AchievementsPanel" type="PanelContainer" parent="Margin/VBox/StatsScroll/Content"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBox_section")
+
+[node name="AchievementsBox" type="VBoxContainer" parent="Margin/VBox/StatsScroll/Content/AchievementsPanel"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="AchievementsHeader" type="Label" parent="Margin/VBox/StatsScroll/Content/AchievementsPanel/AchievementsBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0.35, 1)
+theme_override_font_sizes/font_size = 20
+text = "ACHIEVEMENTS"
+
+[node name="AchievementsBody" type="Label" parent="Margin/VBox/StatsScroll/Content/AchievementsPanel/AchievementsBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = ""
 autowrap_mode = 2
 
 [node name="SettingsPanel" parent="Margin/VBox/StatsScroll/Content" instance=ExtResource("2_settings")]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="BackButton" type="Button" parent="Margin/VBox" unique_id=300000009]
-custom_minimum_size = Vector2(200, 44)
+[node name="ButtonRow" type="HBoxContainer" parent="Margin/VBox"]
 layout_mode = 2
-size_flags_horizontal = 4
+theme_override_constants/separation = 10
+
+[node name="BackButton" type="Button" parent="Margin/VBox/ButtonRow" unique_id=300000009]
+custom_minimum_size = Vector2(160, 48)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBox_ghost")
+theme_override_styles/hover = SubResource("StyleBox_ghost_hover")
+theme_override_styles/pressed = SubResource("StyleBox_ghost_pressed")
+theme_override_styles/focus = SubResource("StyleBox_ghost_hover")
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.72, 0.93, 1, 0.95)
+theme_override_colors/font_hover_color = Color(0.9, 0.98, 1, 1)
+theme_override_colors/font_focus_color = Color(0.9, 0.98, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.9, 0.98, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.9, 0.98, 1, 1)
 text = "Main Menu"
 
-[node name="GuideButton" type="Button" parent="Margin/VBox" unique_id=300000010]
-custom_minimum_size = Vector2(220, 48)
+[node name="GuideButton" type="Button" parent="Margin/VBox/ButtonRow" unique_id=300000010]
+custom_minimum_size = Vector2(250, 48)
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBox_gold")
+theme_override_styles/hover = SubResource("StyleBox_gold_hover")
+theme_override_styles/pressed = SubResource("StyleBox_gold_pressed")
+theme_override_styles/focus = SubResource("StyleBox_gold_hover")
+theme_override_font_sizes/font_size = 21
+theme_override_colors/font_color = Color(0.28, 0.18, 0.04, 1)
+theme_override_colors/font_hover_color = Color(0.28, 0.18, 0.04, 1)
+theme_override_colors/font_focus_color = Color(0.28, 0.18, 0.04, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.28, 0.18, 0.04, 1)
+theme_override_colors/font_pressed_color = Color(0.28, 0.18, 0.04, 1)
 text = "Achievement Guide"
 
-[node name="LedgerButton" type="Button" parent="Margin/VBox" unique_id=300000012]
-custom_minimum_size = Vector2(220, 48)
+[node name="LedgerButton" type="Button" parent="Margin/VBox/ButtonRow" unique_id=300000012]
+custom_minimum_size = Vector2(190, 48)
 layout_mode = 2
-size_flags_horizontal = 4
-text = "Tide Ledger (bottles)"
-
-[node name="RegistryButton" type="Button" parent="Margin/VBox" unique_id=300000020]
-custom_minimum_size = Vector2(220, 48)
-layout_mode = 2
-size_flags_horizontal = 4
-text = "Reef Registry (fish)"
-
-[node name="ResetButton" type="Button" parent="Margin/VBox" unique_id=300000031]
-custom_minimum_size = Vector2(220, 48)
-layout_mode = 2
-size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBox_ghost")
+theme_override_styles/hover = SubResource("StyleBox_ghost_hover")
+theme_override_styles/pressed = SubResource("StyleBox_ghost_pressed")
+theme_override_styles/focus = SubResource("StyleBox_ghost_hover")
 theme_override_font_sizes/font_size = 20
-theme_override_colors/font_color = Color(0.95, 0.55, 0.5, 1)
+theme_override_colors/font_color = Color(0.72, 0.93, 1, 0.95)
+theme_override_colors/font_hover_color = Color(0.9, 0.98, 1, 1)
+theme_override_colors/font_focus_color = Color(0.9, 0.98, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.9, 0.98, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.9, 0.98, 1, 1)
+text = "Tide Ledger"
+
+[node name="RegistryButton" type="Button" parent="Margin/VBox/ButtonRow" unique_id=300000020]
+custom_minimum_size = Vector2(190, 48)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBox_ghost")
+theme_override_styles/hover = SubResource("StyleBox_ghost_hover")
+theme_override_styles/pressed = SubResource("StyleBox_ghost_pressed")
+theme_override_styles/focus = SubResource("StyleBox_ghost_hover")
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.72, 0.93, 1, 0.95)
+theme_override_colors/font_hover_color = Color(0.9, 0.98, 1, 1)
+theme_override_colors/font_focus_color = Color(0.9, 0.98, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.9, 0.98, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.9, 0.98, 1, 1)
+text = "Reef Registry"
+
+[node name="ResetButton" type="Button" parent="Margin/VBox/ButtonRow" unique_id=300000031]
+custom_minimum_size = Vector2(190, 48)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBox_danger")
+theme_override_styles/hover = SubResource("StyleBox_danger_hover")
+theme_override_styles/pressed = SubResource("StyleBox_danger_pressed")
+theme_override_styles/focus = SubResource("StyleBox_danger_hover")
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.95, 0.62, 0.58, 1)
+theme_override_colors/font_hover_color = Color(1, 0.72, 0.68, 1)
+theme_override_colors/font_focus_color = Color(1, 0.72, 0.68, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 0.72, 0.68, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.72, 0.68, 1)
 text = "Reset island…"
 
 [node name="ConfirmPanel" parent="." instance=ExtResource("5_confirm")]
@@ -137,10 +592,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -300.0
-offset_top = -230.0
-offset_right = 300.0
-offset_bottom = 230.0
+offset_left = -320.0
+offset_top = -260.0
+offset_right = 320.0
+offset_bottom = 260.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBox_guide")
@@ -197,6 +652,16 @@ text = "· The Keeper's Own Note"
 custom_minimum_size = Vector2(180, 46)
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBox_ghost")
+theme_override_styles/hover = SubResource("StyleBox_ghost_hover")
+theme_override_styles/pressed = SubResource("StyleBox_ghost_pressed")
+theme_override_styles/focus = SubResource("StyleBox_ghost_hover")
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.72, 0.93, 1, 0.95)
+theme_override_colors/font_hover_color = Color(0.9, 0.98, 1, 1)
+theme_override_colors/font_focus_color = Color(0.9, 0.98, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.9, 0.98, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.9, 0.98, 1, 1)
 text = "Close"
 
 [node name="RegistryOverlay" type="Control" parent="." unique_id=300000021]
@@ -225,10 +690,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -300.0
-offset_top = -230.0
-offset_right = 300.0
-offset_bottom = 230.0
+offset_left = -320.0
+offset_top = -240.0
+offset_right = 320.0
+offset_bottom = 240.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBox_guide")
@@ -279,6 +744,16 @@ text = "· Crab"
 custom_minimum_size = Vector2(180, 46)
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBox_ghost")
+theme_override_styles/hover = SubResource("StyleBox_ghost_hover")
+theme_override_styles/pressed = SubResource("StyleBox_ghost_pressed")
+theme_override_styles/focus = SubResource("StyleBox_ghost_hover")
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.72, 0.93, 1, 0.95)
+theme_override_colors/font_hover_color = Color(0.9, 0.98, 1, 1)
+theme_override_colors/font_focus_color = Color(0.9, 0.98, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.9, 0.98, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.9, 0.98, 1, 1)
 text = "Close"
 
 [node name="GuideOverlay" type="Control" parent="." unique_id=300000011]
@@ -307,10 +782,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -300.0
-offset_top = -230.0
-offset_right = 300.0
-offset_bottom = 230.0
+offset_left = -340.0
+offset_top = -280.0
+offset_right = 340.0
+offset_bottom = 280.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBox_guide")
@@ -351,4 +826,14 @@ autowrap_mode = 2
 custom_minimum_size = Vector2(180, 46)
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBox_ghost")
+theme_override_styles/hover = SubResource("StyleBox_ghost_hover")
+theme_override_styles/pressed = SubResource("StyleBox_ghost_pressed")
+theme_override_styles/focus = SubResource("StyleBox_ghost_hover")
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.72, 0.93, 1, 0.95)
+theme_override_colors/font_hover_color = Color(0.9, 0.98, 1, 1)
+theme_override_colors/font_focus_color = Color(0.9, 0.98, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.9, 0.98, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.9, 0.98, 1, 1)
 text = "Close"
