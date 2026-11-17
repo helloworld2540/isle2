@@ -68,6 +68,14 @@ outright when its output directory is missing.
   `/tmp/opencode/isle2-smoke/` during verification, freeing the repo from
   binaries.
 
+## Fresh-clone build proof (2026-11-18)
+
+`git archive HEAD` extracted to a clean directory, `--import` ran (two
+warnings, both benign: godot_mcp addon absent — it is gitignored by design —
+and the first-pass font parse before artifacts generate). Linux export
+completed; headless boot remained alive (exit 124, ~470 bytes of harness
+chatter). The repo is self-sufficient.
+
 ## Pending (not verified)
 
 - Web/Android runtime smoke on actual browsers/devices (exports compile;

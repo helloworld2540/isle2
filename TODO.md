@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Fresh-clone proof: git archive -> clean import (two benign warnings)
+  -> Linux export -> headless boot (exit 124). The repo alone is sufficient
+  to build and run the game.
 - export_gate.sh --re-export after the About-from-the-door work: all
   three platforms rebuilt clean; the About page is in every artifact.
 - The main menu gains 'About' (bottom-right) — the same credits card
