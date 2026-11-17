@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- The main-menu continue summary also shows the cross-island total —
+  "All islands: N days one keeper" — only when it exceeds the current island.
 - The stats page now counts the keeper across all their islands:
   "All islands, one keeper: N days" (only when it exceeds this island).
 - Reset island confirm copy rewritten warmer — "a clean book"

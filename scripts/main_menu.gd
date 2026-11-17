@@ -75,6 +75,10 @@ func _summary_text() -> String:
 		GameState.tide_days_visited,
 		_format_inventory_totals()
 	]
+	var all_days := SaveManager.total_tide_days()
+	if all_days > GameState.tide_days_visited:
+		summary += "
+All islands: %d days one keeper" % all_days
 
 	# Which island is this? A one-line identity above the stats.
 	summary = "Slot: %s\n%s" % [GameState.slot_name, summary]
