@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Refactor: GameState.island_day() owns the max(1, tide_days_visited)
+  floor for display — the HUD and the pause menu read one clamp instead of
+  two copies.
 - Oda notices THE YEAR KEEPER — a full year of tides. Her last word
   belongs to those who stayed the longest.
 - THE YEAR KEEPER added (achievement #40): 365 days of tides kept. The

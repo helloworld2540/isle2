@@ -602,6 +602,13 @@ func mark_watcher_seen() -> void:
 
 
 
+# --- The island's clock ---
+## Days of the island this save has kept, floored at 1 for display — a fresh
+## island is on its first day whether or not the HUD watched it land.
+func island_day() -> int:
+	return maxi(tide_days_visited, 1)
+
+
 # --- Tomorrow's tide (dockhand's tip) ---------------------------------------
 ## Cost of the dockhand's tip: a small money sink that pays off only for a
 ## keeper who plans ahead. Reveals tomorrow's condition, one day at a time.

@@ -276,7 +276,7 @@ func _buy_inv_cap() -> void:
 func _refresh_upgrade_ui() -> void:
 	if upgrade_status: upgrade_status.text = _upgrade_status_text()
 	if tide_status:
-		tide_status.text = "Today: %s · day %d%s" % [TideReport.hud_line(), maxi(GameState.tide_days_visited, 1), ("  ·  streak %d" % GameState.tide_streak) if GameState.tide_streak > 1 else ""]
+		tide_status.text = "Today: %s · day %d%s" % [TideReport.hud_line(), GameState.island_day(), ("  ·  streak %d" % GameState.tide_streak) if GameState.tide_streak > 1 else ""]
 	
 	if deep_cache_btn:
 		deep_cache_btn.text = _deep_cache_text()
