@@ -423,7 +423,17 @@ func _open_registry() -> void:
 			button.text = "✓  " + FishCatalog.name_of(id)
 			button.disabled = false
 		else:
-			button.text = "·  ? ? ?  —  still out there"
+			match id:
+				"fish_gold":
+					button.text = "·  Something sunlit in the reef"
+				"fish_greyreefshark":
+					button.text = "·  Something grayer and heavier"
+				"fish_nemo":
+					button.text = "·  Something small and orange"
+				"fish_crab":
+					button.text = "·  Something wearing somebody else's name"
+				_:
+					button.text = "·  ? ? ?  —  still out there"
 			button.disabled = true
 	_registry_overlay.visible = true
 	AudioManager.play_sfx("pickup")
