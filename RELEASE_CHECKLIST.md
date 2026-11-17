@@ -74,7 +74,10 @@ outright when its output directory is missing.
 warnings, both benign: godot_mcp addon absent — it is gitignored by design —
 and the first-pass font parse before artifacts generate). Linux export
 completed; headless boot remained alive (exit 124, ~470 bytes of harness
-chatter). The repo is self-sufficient.
+chatter). The repo is self-sufficient — an autoload guard (`scripts/mcp_bridge_guard.gd`)
+loads the optional MCP bridge when present, so fresh clones boot with zero
+script errors; the only remaining cold-start noise is the font-import ordering
+warning, which goes away after the first run.
 
 ## Pending (not verified)
 
