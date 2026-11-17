@@ -1,6 +1,7 @@
 # Current project todo:
 
 # done this pass
+- Platforms rebuilt after the Hidden-tide pass.
 - The stats page gains The Quiet Era (and The Quiet Steward Era behind
   the catalogue capstone) — unlocks when THE QUIET KEEPER is earned.
 - Oda notices THE QUIET KEEPER ("Three held without help. The sea makes

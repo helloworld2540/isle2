@@ -1129,3 +1129,12 @@ STATE
 - Settings toggle: every tide surface swaps to "The sea keeps its own counsel"
   (HUD, pause menu, reef/bench, menu, shop, tide card never fires). Rules and
   almanac unchanged. Gate green; all three platforms rebuilt at HEAD.
+
+## 2026-11-18 — Hide the tide shipped
+- Settings toggle: every surface swaps to "The sea keeps its own counsel"
+  (HUD, pause menu, reef/bench HUDs, menu, shop, tide report card).
+  Rules and rotation unchanged; almanac still counts.
+- THE QUIET KEEPER (#41): three tides claimed with the tide hidden.
+  tide_quiet_best_streak schema-persisted; Oda notices; stats page gains
+  The Quiet Era (and The Quiet Steward Era behind the capstone).
+- All three platforms rebuilt at HEAD.
