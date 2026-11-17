@@ -11,6 +11,9 @@ const BottleCatalog := preload("res://scripts/bottle_catalog.gd")
 ## Tidekeeper's Pact is funded — a reply written for the keeper alone.
 const BASE_BOTTLE_IDS := ["bottle_tide", "bottle_gull", "bottle_light"]
 const PACT_BOTTLE_ID := "bottle_pact"
+## The keeper's own note appears only once the tide almanac is finished —
+## the first keeper's answer to the player who learned the sea.
+const KEEPER_BOTTLE_ID := "bottle_keeper"
 
 @export var bottle_id: String = "bottle_1"
 ## Optional override; when empty (the default) the canonical text comes from
@@ -21,6 +24,10 @@ func _ready() -> void:
 	if bottle_id == PACT_BOTTLE_ID and not _pact_arc_complete():
 		# The pact message only exists for keepers who funded the Pact — it is
 		# not a fourth bottle to squint at from a distance.
+		queue_free()
+		return
+	if bottle_id == KEEPER_BOTTLE_ID and not _almanac_complete():
+		# The keeper only writes back once the almanac is complete.
 		queue_free()
 		return
 	if GameState.is_story_read(bottle_id):
@@ -55,6 +62,12 @@ func _pact_arc_complete() -> bool:
 	return true
 
 
+## The keeper's note exists once the player has logged all four tides in the
+## almanac. Like the pact reply it is earned, not stumbled upon.
+func _almanac_complete() -> bool:
+	return GameState.tides_logged.size() >= 4
+
+
 func _read() -> void:
 	if GameState.is_story_read(bottle_id):
 		queue_free()
@@ -63,7 +76,7 @@ func _read() -> void:
 	# One-shot pointer to the Tide Ledger once the base set is complete.
 	var base_found := 0
 	for id in GameState.bottles_read:
-		if id != PACT_BOTTLE_ID:
+		if id != PACT_BOTTLE_ID and id != KEEPER_BOTTLE_ID:
 			base_found += 1
 	if base_found >= 3:
 		TutorialDirector.nudge("ledger")

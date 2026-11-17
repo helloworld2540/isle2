@@ -600,6 +600,10 @@ bottle_id = "bottle_light"
 position = Vector2(360, 1180)
 bottle_id = "bottle_pact"
 
+[node name="BottleKeeper" parent="." instance=ExtResource("24_bottle")]
+position = Vector2(-448, -725)
+bottle_id = "bottle_keeper"
+
 [node name="Starfish1" parent="." instance=ExtResource("26_starfish")]
 position = Vector2(240, -60)
 starfish_id = "sf_1"

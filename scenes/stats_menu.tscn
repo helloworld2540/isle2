@@ -187,6 +187,12 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "· The Tidekeeper's Reply"
 
+[node name="BottleKeeperButton" type="Button" parent="LedgerOverlay/Panel/VBox"]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "· The Keeper's Own Note"
+
 [node name="LedgerClose" type="Button" parent="LedgerOverlay/Panel/VBox"]
 custom_minimum_size = Vector2(180, 46)
 layout_mode = 2

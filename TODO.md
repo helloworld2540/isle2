@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- THE KEEPER'S LETTER shipped: once the tide almanac is complete, the first
+  keeper's bottle washes up on the west shore beside Oda. Reading it unlocks
+  the 33rd achievement (catalogue and banner updated) and pays a short lore
+  note; the stats page's Tide Ledger re-reads it, now with five rows.
 - Completing the tide almanac now pays off narratively: THE ALMANAC PAGE,
   the lost last entry of the keeper who never left the island, is handed
   over with the +$30 reward ("The tide is not a clock, it is a heart.

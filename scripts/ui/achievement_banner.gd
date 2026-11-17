@@ -31,6 +31,7 @@ const LEGENDARY_ACHIEVEMENTS := {
 	"loop_master": true,
 	"tide_keeper": true,
 	"tide_messages": true,
+	"keeper_letter": true,
 	"harbor_hero": true,
 	"island_patron": true,
 	"island_steward": true,

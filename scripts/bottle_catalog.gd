@@ -50,6 +50,17 @@ const ENTRIES: Array[Dictionary] = [
 			"— The Tidekeeper",
 		],
 	},
+	{
+		"id": "bottle_keeper",
+		"title": "The Keeper's Own Note",
+		"lines": [
+			"If you are reading this, you finished the almanac — four tides, four days, one patient pair of hands.",
+			"I was the keeper before you. I never left, and the island never let me. That is the job: staying.",
+			"The almanac is not a record of the sea. It is a record of you, learning to wait.",
+			"Leave the last page blank when you go. The next keeper will need somewhere to write.",
+			"— The Keeper",
+		],
+	},
 ]
 
 
