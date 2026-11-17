@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Fixed a real bug the probe caught: set_hide_tide() had the assignment
+  inside a dead branch — hide_tide never actually changed in memory even
+  though persistence succeeded. Flip/reset round-trip now works.
 - When Hide the tide is on, Oda's tide-aware line goes with her instead
   of naming the day's weather: "(She does not say the tide. She does not
   say where the light comes from.)"

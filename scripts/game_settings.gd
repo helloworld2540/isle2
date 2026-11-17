@@ -38,5 +38,5 @@ func set_reduce_motion(enabled: bool) -> void:
 func set_hide_tide(enabled: bool) -> void:
 	if hide_tide == enabled:
 		return
-		hide_tide = enabled
+	hide_tide = enabled
 	SaveManager.update_game({KEY_HIDE_TIDE: enabled})
