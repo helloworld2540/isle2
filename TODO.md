@@ -1,6 +1,7 @@
 # Current project todo:
 
 # done this pass
+- guide.md notes the new app icon.
 - sprites/icon.png replaced: a real island-and-bottle crest replaces the
   Godot default engine logo the Android launcher was shipping.
 - 1.1.0 rebuilt clean: hidden tide + keeper badges in the shipped build.

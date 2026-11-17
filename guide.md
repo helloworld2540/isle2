@@ -440,6 +440,7 @@ them — and a faint golden hush over the world.
 - **Night Drift** — half the distant cries become a low foghorn, far out on the water.
 
 ## Version history (as shipped)
+- **New app icon** — the sand isle and its bottle now greet the keeper at the launcher.
 - **1.1.0** — Hidden-tide mode, THE QUIET KEEPER, THE TIDE WALKER, THE QUIET ERA, About page speaks to the hidden keeper, the About page cites its license and its tooling.
 - Multi-slot islands (per-slot backups, picker, day counters).
 - Daily **Tide Report** + keeper's **almanac**; **THE FOUR TIDES**, **THE ALMANAC PAGE**.
