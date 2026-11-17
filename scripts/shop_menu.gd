@@ -43,6 +43,9 @@ var _stack: ReceiptStack = null
 
 func _ready() -> void:
 	TutorialDirector.scene_started("shop")
+	# Flavor for the night shift: Night Drift nights smell different at the till.
+	if String(TideReport.today().get("key", "")) == "night_drift":
+		_log_sale("The till smells of salt and moonlight tonight. Corl is humming something with too many verses.")
 	# One-shot pointer to the dockhand's tip once the keeper can afford it.
 	if GameState.money >= 100 and not GameState.harbor_tip_purchased():
 		TutorialDirector.nudge("tip")
