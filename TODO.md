@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- Slot picker now carries a footer hint: islands save automatically,
+  quitting never costs progress. Docs parity for the multi-slot UX.
 - The pause menu's leave-confirm now names the island ("\"Island\" will be
   waiting.") — multi-island players never guess which keeper they are
   putting down.
