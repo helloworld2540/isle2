@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- Slack Water hushes the dock: the answering gull never returns the cry.
+  The tide's moods now shape sound as well as the HUD and the till.
 - Night Drift at the dock: half the distant harbor cries become a low
   foghorn (Ambience bus). The tide with tricks now sounds like it.
 - The TIDE REPORT card has its own voice: it rings the harbor swell

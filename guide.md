@@ -331,7 +331,9 @@ each debris sorts 1:1 into a material.*
   is audio-only, so it keeps playing even with **Reduced motion** on — where the
   birds hold still, the water still sounds like water. On Night Drift the
   sea answers with a low foghorn from somewhere out there, half the time —
-  the one tide with a voice of its own.
+  the one tide with a voice of its own. Slack Water takes the opposite
+  deal: the answering gull never returns your call — nothing pushes, nothing
+  hurries.
 - Under it all runs a continuous **surf wash**, a seamless 12 s loop that fades
   in when you reach the map and keeps rolling while the pause menu is open. It
   has its own **Ambience** slider (settings: Master / Music / Ambience / SFX), so
