@@ -128,12 +128,13 @@ checked against this yield — nothing changed, deliberately.*
 - **Oda the tide-watcher** stands just west of Mara (she has no quests — she
   keeps the island's almanac). Every islander who notices the water repeats
   the day's observation, so dockside chatter always reflects the current tide.
-- Every new tide you witness is ticked into the **keeper's almanac** (the card
 - The report card appears once per island per day; the HUD line stays up for
   the session, and its tooltip repeats the full explanation.
 - Each new tide you witness is ticked into the **keeper's almanac** (the card
   says `almanac n/4`, the stats page lists all four with ✓/·). Log all four and
-  THE FOUR TIDES achievement fires with a one-time +$30 card. The rotation is
+  THE FOUR TIDES achievement fires, followed by **THE ALMANAC PAGE** — the lost
+  last entry of the keeper who never left the island — and a one-time +$30.
+  The rotation is
   four days, so a full almanac takes four visits spread across at least four
   calendar days — every tide is guaranteed to come round.
 

@@ -554,8 +554,8 @@ func try_grant_tide_almanac() -> Dictionary:
 	tide_almanac_granted = true
 	add_earnings(TIDE_ALMANAC_MONEY)
 	return {
-		"title": "ALMANAC COMPLETE",
-		"subtitle": "The keeper's four-tide almanac is filled. +$%d" % TIDE_ALMANAC_MONEY,
+		"title": "THE ALMANAC PAGE",
+		"subtitle": "The last entry in the keeper's book:\n“The tide is not a clock, it is a heart.\nTend the reef that tends you.”\n+$%d" % TIDE_ALMANAC_MONEY,
 	}
 
 

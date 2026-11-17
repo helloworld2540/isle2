@@ -170,9 +170,9 @@ func _play_tide_almanac() -> void:
 	if gift.is_empty():
 		return
 	present(
-		String(gift.get("title", "ALMANAC COMPLETE")),
-		String(gift.get("subtitle", "The keeper's almanac is complete.")),
-		NPC_LINE_SECONDS,
+		String(gift.get("title", "THE ALMANAC PAGE")),
+		String(gift.get("subtitle", "The keeper's last entry.")),
+		NPC_LINE_SECONDS + 1.4,
 		{"accent": "milestone"}
 	)
 

@@ -66,8 +66,9 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
   (`tide_report_day` save flag, claimed by `GameState.try_claim_tide_report`);
   the world HUD keeps a one-line `≈ …` reminder. Each claim also ticks that
   tide off the keeper's **almanac** (`tides_logged`): all four earn THE FOUR
-  TIDES achievement, a one-time +$30 card, and a checklist line on the stats
-  page. Minigames read the typed
+  TIDES achievement, **THE ALMANAC PAGE** lore card (the lost last entry of the
+  keeper who never left the island), a one-time +$30, and a checklist line on
+  the stats page. Minigames read the typed
   accessors (`garbage_bias`, `fish_speed_multiplier`, `belt_speed_multiplier`,
   `golden_chance_multiplier`) rather than raw keys, so there is no per-scene RNG.
 - **Bottles**: `scripts/bottle_catalog.gd` — canonical title/lines for every message in a bottle; the world pickup and the stats page's Tide Ledger both read it.

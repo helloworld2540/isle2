@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- Completing the tide almanac now pays off narratively: THE ALMANAC PAGE,
+  the lost last entry of the keeper who never left the island, is handed
+  over with the +$30 reward ("The tide is not a clock, it is a heart.
+  Tend the reef that tends you.").
 - Slot picker now wraps its island rows in a DragScrollContainer (`ListScroll`)
   with touch drag-scrolling for players juggling many islands; the footer and
   header stay fixed and the list scrolls inside a bounded 320 px area. Verified
