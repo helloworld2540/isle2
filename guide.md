@@ -158,7 +158,7 @@ checked against this yield — nothing changed, deliberately.*
   THE FOUR TIDES achievement fires, followed by **THE ALMANAC PAGE** — the lost
   last entry of the keeper who never left the island — and a one-time +$30.
   Log all four and the keeper finally writes back: **THE KEEPER'S LETTER** is
-  tucked on the west shore beside Oda, and reading it unlocks a collection badge (36 with THE WHISPERER, THE SILENT CHORUS and THE LONG KEEPER). The Tide Ledger on the stats page keeps a re-readable
+  tucked on the west shore beside Oda, and reading it unlocks a collection badge (with THE WHISPERER, THE SILENT CHORUS, THE LONG KEEPER and THE YEAR KEEPER). The Tide Ledger on the stats page keeps a re-readable
   copy either way, and Oda will mention the first keeper finding his
   note — once you have it, she never stops mentioning him.
   The rotation is
