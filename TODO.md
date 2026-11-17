@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- The dockhand has a name and a legend: Corl, the shop-counter seeker
+  who sells tomorrow's tide for $25. He never walks the map — his whole
+  existence is the log line and the receipt. Lore added to guide.md plus a
+  price-rationale entry in the money-sink audit.
 - Tutorial teaches the dockhand's tip: opening the shop with 100$+ and no
   tip bought fires a one-shot NUDGE_TIP ("The dockhand knows the sea")
   through the standard nudge queue.

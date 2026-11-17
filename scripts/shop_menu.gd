@@ -233,7 +233,7 @@ func _buy_tide_tip() -> void:
 	AudioManager.play_sfx("upgrade", 1.15)
 	var tip_text := "Tomorrow: %s" % GameState.tomorrow_tide_title()
 	_stack.sale("DOCKHAND'S TIP  -%d$\n%s" % [GameState.HARBOR_TIP_COST, tip_text], Color(0.6, 0.9, 1.0, 1.0))
-	_log_sale("Dockhand whispers: %s tomorrow" % GameState.tomorrow_tide_title())
+	_log_sale("Corl the dockhand whispers: %s tomorrow" % GameState.tomorrow_tide_title())
 	_refresh()
 
 

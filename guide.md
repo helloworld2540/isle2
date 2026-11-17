@@ -79,6 +79,9 @@ checked against this yield — nothing changed, deliberately.*
   hauls. Not reduced.
 - **Patron of the Isle 1500$:** aspirational finish line, ~47 median loops —
   the game's final money sink.
+- **Dockhand's tide tip 25$:** not an investment but information — one day of
+  tomorrow's weather, paid once, gone at midnight. Cheap enough to buy every
+  few days (~1 loop's income), priced to stay tempting rather than strategic.
 
 ## First playthrough (interactive tutorial)
 - On a fresh save, world map load shows the "Welcome to Isle 2" card (once per save).
@@ -319,3 +322,9 @@ each debris sorts 1:1 into a material.*
   you can quiet the wash and wildlife without softening the sort/sale feedback.
 - Bottles wash up on the shore with lore; after the Tidekeeper's Pact is funded
   and all base bottles are read, a hidden fourth bottle surfaces.
+- The island has one more character nobody cast. **Corl**, the dockhand, works
+  the shop counter with Kai and sells exactly one thing: tomorrow's tide, $25,
+  cash, one day. Nobody asked him to — the sea started telling him, and Corl
+  being Corl, he decided to share it at a price. He is never seen on the map;
+  his only lines live in the shop's transaction log and the receipt. Oda, who
+  watches the water for a living, finds this both hilarious and irritating.
