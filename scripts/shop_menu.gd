@@ -46,6 +46,9 @@ func _ready() -> void:
 	# Flavor for the night shift: Night Drift nights smell different at the till.
 	if TideReport.today_key() == "night_drift":
 		_log_sale("The till smells of salt and moonlight tonight. Corl is humming something with too many verses.")
+	# The island notices its keepers' centennials.
+	if GameState.tide_days_visited == 100:
+		_log_sale("The island marks its 100th tide today. Corl polishes the counter without being asked.")
 	# One-shot pointer to the dockhand's tip once the keeper can afford it.
 	if GameState.money >= 100 and not GameState.harbor_tip_purchased():
 		TutorialDirector.nudge("tip")

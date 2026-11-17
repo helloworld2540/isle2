@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- The island marks its 100th tide: visiting the shop on day 100 logs a
+  quiet centennial line — Corl polishes the counter unprompted.
 - The stats page closes the bottle arc in writing: with THE SILENT CHORUS
   earned, a quiet two-line benediction appears in the deeds column — six
   voices, one shoreline, and the tide is a heart, not a clock.
