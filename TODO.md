@@ -1,6 +1,7 @@
 # Current project todo:
 
 # done this pass
+- guide.md notes the tease-rows in the ledger and registry.
 - Reef Registry locked rows hint at the species — machine-agnostic and
   spoiler-free (golden/gold, the heavy gray, the orange, the crab).
 - Tide Ledger locked rows now show spoiler-free hints instead of blank
