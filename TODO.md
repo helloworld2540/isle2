@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- The TIDE REPORT card has its own voice: it rings the harbor swell
+  (reef_swell) instead of the generic milestone chime. New "tide" accent on
+  the banner (blue style, low chime pitch underneath the swell).
 - Stats page now registers Corl's regulars: a deed line shows the whispers
   ledger (n/7, or the 7/7 "you are known at the counter" line once earned).
 - Tutorial finale now gestures at the long game: the tide keeps four

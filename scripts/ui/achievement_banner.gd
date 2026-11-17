@@ -162,7 +162,7 @@ func _play_tide_report() -> void:
 		String(report.get("title", "TIDE REPORT")),
 		String(report.get("subtitle", "The sea is quiet today.")),
 		SHOW_SECONDS,
-		{"accent": "achievement", "tide": String(report.get("key", ""))}
+		{"accent": "tide", "tide": String(report.get("key", ""))}
 	)
 	# First-tide pointer: explain the HUD line the first time the card appears.
 	# Nudge queues behind the active card rather than smothering it.
@@ -263,6 +263,10 @@ func _show_next() -> void:
 	var pitch := 0.9
 	if accent == "achievement":
 		pitch = 1.0
+	elif accent == "tide":
+		pitch = 0.7
+		# The tide gets the sea's own voice, not the chime.
+		AudioManager.play_sfx("reef_swell", 0.9)
 	elif accent == "legendary":
 		pitch = 1.25
 	if accent == "legendary":
@@ -299,7 +303,7 @@ func _apply_accent(accent: String) -> void:
 			_title.add_theme_color_override("font_color", TITLE_LEGEND)
 		return
 
-	var achievement := accent == "achievement"
+	var achievement := accent == "achievement" or accent == "tide"
 	var style: StyleBox = blue_style if achievement else gold_style
 	if style and _panel:
 		_panel.add_theme_stylebox_override("panel", style)
