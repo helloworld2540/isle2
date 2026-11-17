@@ -331,7 +331,7 @@ func nudge(kind: String) -> void:
 				"Got it")
 		"bottle":
 			_spawn_card("Bottles on the shore",
-				"[font_size=20]Keep an eye on the waterline — [color=#9fe2ff]message bottles[/color] wash up along the beach.\nRead all three for a secret. (They sparkle. Usually.)\nFive [color=#ffd27f]starfish[/color] also hide around the island — worth a poke while you are wandering.[/font_size]",
+				"[font_size=20]Keep an eye on the waterline — [color=#9fe2ff]message bottles[/color] wash up along the beach.\nRead the six notes for a secret. (They sparkle. Usually.)\nFive [color=#ffd27f]starfish[/color] also hide around the island — worth a poke while you are wandering.[/font_size]",
 				"Nice")
 		"upgrade":
 			_spawn_card("Room for more?",

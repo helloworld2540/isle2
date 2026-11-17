@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- Fixed stale tutorial copy: the shore-bottles nudge said "read all
+  three" — it now correctly points at six notes.
 - The island greets returning keepers: if the save is 2+ days old, a
   one-shot "Welcome back, keeper" card lands on the first world load — the
   tide kept its four days without you. Persisted like the other nudges.
