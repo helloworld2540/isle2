@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- NPC dialogue body now scrolls: the lines area is a DragScrollContainer
+  (200 px, 46 px touch-friendly) so long milestone-stacked conversations no
+  longer overflow the card — touch drag works, the OK button stays put.
 - Refactor: TideReport gains typed accessor today_key(); four call sites
   (shop night-drift flavor, shop ledger glass_calm bonus, both recap screens)
   now use it instead of poking the dictionary.

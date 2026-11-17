@@ -1,6 +1,7 @@
 [gd_scene load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/npc_dialogue.gd" id="1_dialogue"]
+[ext_resource type="Script" path="res://scripts/ui/drag_scroll.gd" id="2_drag"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_dialogue"]
 content_margin_left = 24.0
@@ -69,11 +70,18 @@ theme_override_colors/font_color = Color(0.7, 0.92, 1, 1)
 theme_override_font_sizes/font_size = 26
 text = "NPC"
 
-[node name="Lines" type="RichTextLabel" parent="Center/Panel/VBox"]
-custom_minimum_size = Vector2(470, 0)
+[node name="LinesScroll" type="ScrollContainer" parent="Center/Panel/VBox"]
+custom_minimum_size = Vector2(470, 200)
 layout_mode = 2
-fit_content = true
-scroll_active = false
+size_flags_horizontal = 3
+horizontal_scroll_mode = 0
+script = ExtResource("2_drag")
+
+[node name="Lines" type="RichTextLabel" parent="Center/Panel/VBox/LinesScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_minimum_size = Vector2(452, 0)
 
 [node name="Reward" type="Label" parent="Center/Panel/VBox"]
 layout_mode = 2
