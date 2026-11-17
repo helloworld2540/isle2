@@ -6,6 +6,8 @@ class_name MainMenu
 @onready var quit_button: Button = $Buttons/QuitButton
 @onready var save_summary: Label = $SaveSummaryPanel/VBoxContainer/SaveSummary
 @onready var tide_line: Label = $SaveSummaryPanel/VBoxContainer/TideLine
+@onready var about_button: Button = $AboutButton
+@onready var about_canvas: CanvasLayer = $AboutCanvas
 @onready var save_summary_panel: PanelContainer = $SaveSummaryPanel
 @onready var more_stats_button: Button = $SaveSummaryPanel/VBoxContainer/MoreStatsButton
 @onready var confirm_panel: CanvasLayer = $ConfirmPanel
@@ -50,6 +52,11 @@ func _on_slot_picker_closed() -> void:
 	_refresh_summary()
 
 
+func _on_about_pressed() -> void:
+	if about_canvas and about_canvas.has_method("present"):
+		about_canvas.call("present")
+
+
 func _refresh_summary() -> void:
 	load_save_button.disabled = not SaveManager.has_save()
 	if more_stats_button:
@@ -58,6 +65,8 @@ func _refresh_summary() -> void:
 		save_summary.text = _summary_text()
 	if tide_line:
 		tide_line.text = "≈ %s · day %d" % [TideReport.hud_line(), GameState.island_day()]
+	if about_button:
+		about_button.pressed.connect(_on_about_pressed)
 		tide_line.tooltip_text = "Today's tide. The stats page almanac lists all four — the rotation is four days, and every one comes round."
 
 

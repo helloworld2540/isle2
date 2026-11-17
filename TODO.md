@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- The main menu gains 'About' (bottom-right) — the same credits card
+  opens from the front door, not only the island's pause menu.
 - export_gate.sh --re-export ran end-to-end fresh: all three platforms
   rebuilt into export/ (Linux boots with 0-byte log; Web holds; Android
   APK signed).

@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/world_preview.tscn" id="3_preview"]
 [ext_resource type="PackedScene" path="res://scenes/ui/confirm_panel.tscn" id="4_confirm"]
 [ext_resource type="PackedScene" path="res://scenes/ui/slot_picker.tscn" id="5_picker"]
+[ext_resource type="PackedScene" path="res://scenes/ui/about.tscn" id="6_about"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_nmirg"]
 font_size = 84
@@ -109,6 +110,19 @@ offset_bottom = -8.0
 theme_override_font_sizes/font_size = 16
 theme_override_colors/font_color = Color(0.72, 0.85, 0.92, 0.55)
 text = "v1.0.0"
+
+[node name="AboutButton" type="Button" parent="." unique_id=7000003]
+anchors_preset = 13
+anchor_bottom = 1.0
+anchor_right = 1.0
+grow_horizontal = 0
+offset_right = -12.0
+offset_bottom = -8.0
+custom_minimum_size = Vector2(220, 44)
+theme_override_font_sizes/font_size = 18
+text = "About"
+
+[node name="AboutCanvas" parent="." instance=ExtResource("6_about")]
 
 [node name="WorldPreviewPanel" parent="." instance=ExtResource("3_preview")]
 layout_mode = 1
