@@ -587,7 +587,7 @@ ambient_bubbles = Array[String](["*scribbling in a salt-stained book*", "*holds 
 reward_trash = 0
 reward_mat = "Polyethylene"
 tide_aware = true
-milestone_beats = {"keeper_letter": "Found his note, did you? He stood right about there. Watched the same water you do.", "island_steward": "Every page of the journal, every badge the island has. I have watched a lot of keepers pass through — you are the first I would write down.", "whispers": "Seven days of tomorrow from Corl, and he still will not take a compliment. The sea made him this way — I respect it. Mostly.", "silent_chorus": "Six voices the water ever had, and you heard every one. Half the keepers think the tide is weather. You know better now.", "long_keeper": "Ten tides on one island. Staying is the whole job, love. You stayed."}
+milestone_beats = {"keeper_letter": "Found his note, did you? He stood right about there. Watched the same water you do.", "island_steward": "Every page of the journal, every badge the island has. I have watched a lot of keepers pass through — you are the first I would write down.", "whispers": "Seven days of tomorrow from Corl, and he still will not take a compliment. The sea made him this way — I respect it. Mostly.", "silent_chorus": "Six voices the water ever had, and you heard every one. Half the keepers think the tide is weather. You know better now.", "long_keeper": "Ten tides on one island. Staying is the whole job, love. You stayed.", "steady_keeper": "Three tides running. You show up. That is the whole trick."}
 
 [node name="BottleTide" parent="." instance=ExtResource("24_bottle")]
 position = Vector2(280, 1180)
