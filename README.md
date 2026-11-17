@@ -289,6 +289,9 @@ dependencies, and the editor bridge still works when present. Verified headless 
 - `godot --headless --export-debug "Web" export/web/index.html` — builds clean; serve over HTTP(S) with cross-origin-isolation headers for threads.
 - `godot --headless --export-debug "Android" export/android/build.apk` — builds and signs cleanly (no device install from this machine).
 `export/` is git-ignored.
+## License
+All rights reserved. See `LICENSE` for what you may and may not do with the source. Fork it to learn. Do not sell it back.
+
 ## Writing changes
 Changes land as the overnight loop cycles — see `overnight_sprint.txt` for a running log of iterations. The game is fully playable from a fresh save: menu → world map → reef rescue → upcycle bench → shop → circuit complete, with NPCs, bottles, starfish and achievements as optional flavour that persists between sessions.
 
