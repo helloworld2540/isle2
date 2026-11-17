@@ -62,12 +62,13 @@ func _summary_text() -> String:
 		return "No save found yet. Start a new save to begin cleaning."
 
 	# GameState restored the save in _ready; nothing to re-read here.
-	var summary := "Continue summary:\nScore %d (best %d)  |  Trash %d kg  |  Fish %d \nBest streak %d  |  Lifetime earnings %d  | %d$ \nAchievements %d/%d  |  Inventory totals: %s" % [
+	var summary := "Continue summary:\nScore %d (best %d)  |  Trash %d kg  |  Fish %d \nBest streak %d  |  Lifetime earnings %d  | %d$ \nAchievements %d/%d  |  Days on the island: %d  |  Inventory totals: %s" % [
 		GameState.upcycle_score, GameState.best_upcycle_score,
 		GameState.get_inventory_weight(), GameState.reef_fish,
 		GameState.best_sort_streak, GameState.lifetime_earnings,
 		GameState.money,
 		GameState.achievement_count(), GameState.achievement_total(),
+		GameState.tide_days_visited,
 		_format_inventory_totals()
 	]
 

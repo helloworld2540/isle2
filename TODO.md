@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- Main menu continue-summary now shows days on the island alongside
+  achievements — the save's own clock on the boot screen.
 - Slot picker rows and the menu summary now show "day N" per island —
   SaveSlot.summary carries tide_days_visited, so a keeper can see which
   island has been lived in longest.
