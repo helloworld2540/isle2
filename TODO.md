@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- tools/unique_id_audit.py: any `.tscn` with a reused `unique_id=` fails
+  loudly — silent node drops never slip in again. PASS at HEAD.
 - The menu's Tide almanac line now carries the streak too ("almanac
   kept  ·  best streak N") — the boot screen's own ledger line.
 - The main-menu continue summary also shows the cross-island total —
