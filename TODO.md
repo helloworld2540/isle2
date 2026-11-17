@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Live stats page render confirmed post-changes: journal reads "tides 4/4 ·
+  Tide almanac paid", ledger button "Tide Ledger (0/7)", Restore backup enabled
+  when a backup exists, achievements 2/40 complete.
 - guide.md gained the sound of the four tides — the dock chorus is
   now part of the written island.
 - Live-verified the gold trim: with the almanac granted, a fresh world
