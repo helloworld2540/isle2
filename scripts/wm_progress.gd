@@ -183,6 +183,8 @@ func _refresh_tide_label() -> void:
 	# After the island shows its keeper the fifth tide, the HUD simply keeps it.
 	if GameState.fifth_tide_granted:
 		tide_label.text = "✦ The Fifth Tide"
+	elif GameState.tide_almanac_granted:
+		tide_label.text = "✦ The Almanac Is Kept"
 		tide_label.tooltip_text = "THE FIFTH TIDE — the island's own.\nThe keeper keeps the water now."
 		return
 	if GameState.harbor_tip_purchased():

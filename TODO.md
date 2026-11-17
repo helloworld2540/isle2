@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- The HUD tide line graduates a second time: with THE FOUR TIDES earned
+  (almanac complete) it stands at "✦ The Almanac Is Kept" — beneath The
+  Fifth Tide's final graduation.
 - The stats page almanac banner glows gold when all four tides are
   logged — the journal acknowledges the completed book.
 - guide.md far-point paragraph now tells the whole arc: rumour, sight,
