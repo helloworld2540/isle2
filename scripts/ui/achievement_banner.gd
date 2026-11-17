@@ -34,6 +34,7 @@ const LEGENDARY_ACHIEVEMENTS := {
 	"whispers": true,
 	"keeper_letter": true,
 	"silent_chorus": true,
+	"long_keeper": true,
 	"harbor_hero": true,
 	"island_patron": true,
 	"island_steward": true,

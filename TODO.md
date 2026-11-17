@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- THE LONG KEEPER added (achievement #36): ten fresh daily tide claims —
+  the island sees its keeper first. tide_days_visited predicate, planner
+  banner, docs to 36.
 - Stats page: deeds column now counts days on the island — the save's
   own clock, next to the field log and Deep Cache tier.
 - The tide HUD line now carries a day count ("≈ Glass Calm · day 12",
