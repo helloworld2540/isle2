@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- The About page whispers a sequel tease — "The far point is only the
+  beginning." — the island points at the horizon without promising a port.
 - The main menu carries a quiet motto — "Keep the shore" — above the
   version stamp; the island says what it is for before it says hello.
 - docs_audit now refuses to pass while any build artifact is tracked in
