@@ -1150,3 +1150,7 @@ STATE
 ## 2026-11-18 — 1.1.0 sealed across all three platforms
 - Hidden tide, THE QUIET KEEPER, THE TIDE WALKER — the whole arc ships in one
   build. Pre-flight green; Linux boots with zero-byte log.
+
+## 2026-11-18 — A real app icon at the launcher
+- sprites/icon.png repainted in-repo (PIL): midnight squircle, sand isle,
+  bottle, sun. The stock Godot logo no longer ships at the launcher.

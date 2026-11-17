@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- sprites/icon.png replaced: a real island-and-bottle crest replaces the
+  Godot default engine logo the Android launcher was shipping.
 - 1.1.0 rebuilt clean: hidden tide + keeper badges in the shipped build.
 - guide.md hide-tide paragraph now names THE QUIET KEEPER and THE TIDE
   WALKER, the hidden horizon rewards.
