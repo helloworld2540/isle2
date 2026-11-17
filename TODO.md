@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Oda notices a paid dockhand tip: tide-aware NPCs who keep the water
+  now append a sly line for the day when the player has bought tomorrow's
+  tide. Flavor only, no new save state.
 - tide_test now covers the dockhand's tip: refusal under 25$ (no charge),
   exact deduction, idempotent re-buy, lapse semantics. Harness at 0 failures.
 - Bought the dockhand's tip and it shows on the world HUD too: the tide

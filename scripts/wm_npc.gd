@@ -268,6 +268,10 @@ func _flavour_lines() -> Array:
 	# almanac Oda would; it costs no extra state and flips with the calendar.
 	if tide_aware:
 		out.append(TideReport.ambient_line())
+		# If the keeper paid the dockhand for tomorrow's tide, the watcher
+		# notices — foresight is the one thing she respects.
+		if GameState.harbor_tip_purchased():
+			out.append("Paid the dockhand for tomorrow, did you? Sly. Tomorrow keeps its own hours — but tell me, what did the water whisper?")
 
 	# Milestones the island noticed — one line per earned badge, appended once
 	# the unlock lands, so each beat needs no bespoke state machine.
