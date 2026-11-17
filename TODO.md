@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- Kai butts against the far point too ("I do not stock the far point.
+  Never a good day out there.") — five voices run the rumour now.
 - Tom also knows about the far point — "Oda sees him. I keep to my
   fishing." — the island's knowledge about the watcher is now spread out
   properly.
