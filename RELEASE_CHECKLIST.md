@@ -51,6 +51,13 @@ outright when its output directory is missing.
 
 ## Known notes
 
+- APK badge dump clean: `versionName=1.0.0`, `minSdk=24`,
+  `targetSdk=36`, label `Trash Island`, signer DN `CN=seethathuman`.
+  One benign warning about the Godot-template themed icon path; safe
+  to ignore.
+
+## Known notes
+
 - `res://tools/` (debug harnesses) is excluded from release builds;
   `res://addons/` is excluded by the `addons/` gitignore rule for source,
   though the packed game is a build artifact anyway.
