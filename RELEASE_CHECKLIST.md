@@ -51,7 +51,7 @@ outright when its output directory is missing.
 
 ## Known notes
 
-- Export packages include `res://tools/` (debug harnesses) and
+- `res://tools/` (debug harnesses) is excluded from release builds;
   `res://addons/` is excluded by the `addons/` gitignore rule for source,
   though the packed game is a build artifact anyway.
 - The editor writes `project.godot` on import/save; the [display] pin could

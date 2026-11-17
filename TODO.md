@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- Export presets now exclude res://tools/ from release builds — debug
+  harnesses no longer ship inside the APK/builds. Verified by unzip: 0 matches.
 - tools/docs_audit.py: the markdown suite is load-bearing — existence, size,
   and key anchors in README/guide/TODO/PITCH/overnight_sprint. Wired into
   all_audits.sh. All green.
