@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- tools/restore_test.gd — regression coverage for the backup story:
+  fresh boot has none, rotation creates .bak on the second write,
+  backup_summary reads the .bak (money 100), load_game stands the .bak in
+  for a corrupt primary, restore_backup rolls the island back. 0 failures.
 - SaveManager now reports when it had to stand a backup in for the
   primary (last_recovery). Stats page shows "Recovered from the <n> backup
   this session" when it does — silent recoveries never surprise.
