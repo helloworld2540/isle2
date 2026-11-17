@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- Live-verified the gold trim: with the almanac granted, a fresh world
+  boot renders SeaBoat at (1.0, 0.88, 0.55).
 - Oda notices THE FOUR TIDES ("You have the four. Ancient news — and the
   only news I will ever need.") — the keeper completes the book at her elbow.
 - Once the keeper's almanac is complete, the far sailboat gains a warm
