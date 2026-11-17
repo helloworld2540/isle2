@@ -640,6 +640,16 @@ script = ExtResource("10_markers")
 layer = 35
 script = ExtResource("8_progress")
 
+[node name="StewardTint" type="ColorRect" parent="WorldProgress" unique_id=900000027]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1.0, 0.85, 0.45, 0.12)
+visible = false
+
 [node name="Panel" type="PanelContainer" parent="WorldProgress" unique_id=900000021]
 modulate = Color(1, 1, 1, 0.85)
 offset_left = 24.0

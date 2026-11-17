@@ -35,6 +35,11 @@ var _advice_tick := 0.0
 
 func _ready() -> void:
 	# GameState restores the save itself on boot; the HUD only reads it.
+	# The Steward Era earns a golden hush over the world — subtle, alpha 0.12,
+	# no motion, reduced-motion safe (it is not motion at all).
+	var tint := get_node_or_null("StewardTint") as ColorRect
+	if tint:
+		tint.visible = GameState.is_achievement_unlocked("island_steward")
 	if main_label:
 		main_label.modulate = Color(0.9, 0.95, 1.0, 0.9)
 	if uc_bar:

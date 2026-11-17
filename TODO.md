@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- The Steward Era now tints the world: once ISLAND STEWARD is earned the
+  map wears a subtle golden hush (alpha 0.12, no motion) — the completion
+  state finally has a visual signature.
 - NPC dialogue body now scrolls: the lines area is a DragScrollContainer
   (200 px, 46 px touch-friendly) so long milestone-stacked conversations no
   longer overflow the card — touch drag works, the OK button stays put.
