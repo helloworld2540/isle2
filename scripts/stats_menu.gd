@@ -488,7 +488,7 @@ func _refresh_restore_button() -> void:
 func _on_reset_pressed() -> void:
 	_pending_action = "reset"
 	AudioManager.play_sfx("open")
-	_confirm_panel.present("Reset island?", "Every dive, sort, sale, quest and achievement will be wiped for good. You will land back on the main menu.", "Reset island")
+	_confirm_panel.present("Reset island?", "The island resets — dive, sort, sale, quest and badge all gone. You will land back on the main menu with an empty shore and a clean book.", "Reset island")
 
 
 func _on_reset_confirmed() -> void:

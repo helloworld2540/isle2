@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- Reset island confirm copy rewritten warmer — "a clean book"
+  acknowledges what a fresh keeper inherits, not only what they lose.
 - Live stats page render confirmed post-changes: journal reads "tides 4/4 ·
   Tide almanac paid", ledger button "Tide Ledger (0/7)", Restore backup enabled
   when a backup exists, achievements 2/40 complete.
