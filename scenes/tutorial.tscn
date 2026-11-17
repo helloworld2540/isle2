@@ -67,9 +67,8 @@ script = ExtResource("2_drag")
 [node name="Body" type="RichTextLabel" parent="Center/Panel/VBox/BodyScroll"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
 bbcode_enabled = true
-fit_content = true
-scroll_active = false
 
 [node name="Button" type="Button" parent="Center/Panel/VBox"]
 custom_minimum_size = Vector2(210, 46)

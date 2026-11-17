@@ -1,6 +1,11 @@
 # Current project todo:
 
 # done this pass
+- Fixed the welcome card after the legibility bump: the body RichTextLabel
+  inside the ScrollContainer clipped both horizontally (fit_content sizing)
+  and vertically (scroll disabled). Removed fit_content, enabled scrolling
+  (DragScroll already attached) — text wraps and the card scrolls on small
+  screens. Verified live at 1152x648.
 - ISLAND STEWARD now echoes from the whole cast: Mara, Tom, Nina, Kai and
   Oda each append their own endgame line once the catalogue is complete.
 - WorldNPC milestones generalized to a `milestone_beats` dictionary
