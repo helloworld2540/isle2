@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Tom the shorekeeper notices diving: milestone lines for HEAVY HARVEST
+  (30 kg single dive) and REEF VETERAN (25 dives) — the world reacts to
+  commitment, not just purchases.
 - World HUD bottle line graduates: with THE SILENT CHORUS earned it
   reads "✦ The Silent Chorus" instead of tallying.
 - Fresh-save boot fix: the tide HUD never shows "day 0" — the daily
