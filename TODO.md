@@ -1,6 +1,7 @@
 # Current project todo:
 
 # done this pass
+- Deeds column records the sighting: "The far point: seen." in full-completion saves.
 - Oda notices THE FAR POINT ("Some of us watch the water. Some of us are
   watched by it.") — she explains what the watcher is without naming him.
 - THE FAR POINT shipped: a mysterious hooded watcher at the island's

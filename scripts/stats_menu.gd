@@ -156,6 +156,8 @@ func _update_stats_display() -> void:
 		deeds.append("Six voices, one shoreline — and every one of them said the tide is not a clock.")
 		deeds.append("It is a heart, and it beats in four, and you learned the rhythm.")
 	# Corl keeps his own ledger; the page notices regulars.
+	if GameState.is_achievement_unlocked("far_point"):
+		deeds.append("The far point: seen.")
 	if GameState.harbor_tips_bought > 0:
 		if GameState.is_achievement_unlocked("whispers"):
 			deeds.append("Corl's ledger: 7/7 whispers — you are known at the counter")
