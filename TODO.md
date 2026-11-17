@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Oda reacts to THE SILENT CHORUS ("Six voices the water ever had, and you
+  heard every one.") — one line per major story beat completes her witness
+  arc across bottles, almanac, Corl and now the full chorus.
 - THE SILENT CHORUS added (achievement #35): read all six bottles — the
   sea's complete chorus. Catalogue predicate, legendary banner, docs to 35.
 - Corl's Folded Paper: a whisperer-gated bottle on the shop path (cell
