@@ -1118,3 +1118,6 @@ STATE
 ## 2026-11-18 — LICENSE shipped
 - All rights reserved; the box ships with its terms; authorship and
   placeholder-credit provenance recorded.
+
+## 2026-11-18 — Gate re-run clean after the About-door wiring
+- All three platforms rebuilt with the About button wired exactly once.

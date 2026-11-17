@@ -1,6 +1,7 @@
 # Current project todo:
 
 # done this pass
+- About-from-the-door wired exactly once; all three platforms re-verified.
 - Fix: About button was connected once per _refresh_summary (on every
   slot change), so the About panel re-presented N times. Now wired once
   in _wire_buttons; slot_ui_test no longer warns about duplicate connects.
