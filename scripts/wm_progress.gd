@@ -20,6 +20,7 @@ const RouteAdvisor := preload("res://scripts/route_advisor.gd")
 @onready var hero_label: Label = $Panel/VBox/HeroTitle
 @onready var bottle_label: Label = $Panel/VBox/BottleTitle
 @onready var starfish_label: Label = $Panel/VBox/StarfishTitle
+@onready var tide_label: Label = $Panel/VBox/TideTitle
 
 var _pulse_state: float = 0.0
 var _circuit_text := ""
@@ -47,6 +48,7 @@ func _ready() -> void:
 	_refresh_circuit_label()
 	_refresh_bottle_label()
 	_refresh_starfish_label()
+	_refresh_tide_label()
 	_refresh_next_stop()
 
 func _process(delta: float) -> void:
@@ -147,6 +149,15 @@ func _refresh_starfish_label(_id: String = "") -> void:
 		starfish_label.text = "★ Starfish %d/5" % found
 		starfish_label.modulate = Color(1.0, 0.82, 0.55, 1.0)
 	starfish_label.visible = true
+
+
+## Today's sea conditions, always visible: the player should know why the belt
+## or the reef feels different before they walk into a portal.
+func _refresh_tide_label() -> void:
+	if not tide_label:
+		return
+	tide_label.text = "≈ %s" % TideReport.summary()
+	tide_label.tooltip_text = "Tide report — %s" % TideReport.blurb()
 
 
 ## The earned title lives on the always-visible progress card, not only in the

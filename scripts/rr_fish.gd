@@ -47,13 +47,15 @@ func init_fish() -> void:
 	var texture: String = str(texture_keys.pick_random())
 	set_meta("species", texture.get_basename())
 	# Rare golden Goldie: grazes are rewards, not penalties. Tinted bright gold.
-	var golden_fish := randf() < 0.10
+	# The daily Night Drift tide doubles this roll.
+	var golden_fish := randf() < 0.10 * TideReport.golden_chance_multiplier()
 	if golden_fish:
 		set_meta("golden_fish", true)
 	var raw_size := randfn(float(FISH.get(texture, 10)), 10.0)
 	var clamped := clampf(raw_size, 1.0, 99.0)
 	size = log(clamped) / log(100.0)
-	speed = Vector2(randfn(0.0, 75.0), randfn(1.0, 0.4))
+	# Eel Run speeds the whole school up.
+	speed = Vector2(randfn(0.0, 75.0), randfn(1.0, 0.4)) * TideReport.fish_speed_multiplier()
 	if sprite:
 		var tex := _sprite(texture)
 		if tex:
@@ -71,8 +73,9 @@ func init_garbage() -> void:
 	var clamped := clampf(raw_size, 1.0, 99.0)
 	size = log(clamped) / log(100.0)
 	speed = Vector2(randfn(0.0, 25.0), randfn(1.0, 0.2))
-	# Rare golden debris: worth a bonus point when vacuumed up.
-	if randf() < 0.12:
+	# Rare golden debris: worth a bonus point when vacuumed up. Night Drift
+	# doubles the roll.
+	if randf() < 0.12 * TideReport.golden_chance_multiplier():
 		set_meta("golden", true)
 		if sprite:
 			sprite.modulate = Color(1.15, 1.05, 0.55, 1.0)

@@ -110,6 +110,24 @@ checked against this yield — nothing changed, deliberately.*
   one card at a time: if a card or modal owns the screen, the nudge waits
   for it to close instead of evaporating.
 
+## Daily tide (why today feels different)
+- The island has a new tide every local calendar day, shown as a line on the
+  world HUD (`≈ …`) and announced by a **TIDE REPORT** card the first time you
+  enter the world each day. The tide is the same for every player on that day
+  — it is a calendar rotation, not a random roll — and it resets with the
+  island's save like everything else.
+- Four conditions rotate:
+  - **Glass Calm** — the reef lets go of its litter: noticeably more debris
+    and fewer fish in Reef Rescue.
+  - **Eel Run** — a warm current: reef fish dart about 28% faster. Lead your
+    drag a little more.
+  - **Slack Water** — the upcycle belt runs about 18% slower, which is the
+    forgiving day to practise precise sorting.
+  - **Night Drift** — golden debris and golden belt scrap are twice as likely,
+    so it is the best day to chase GOLDEN TOUCH and a fat bench score.
+- The report card appears once per island per day; the HUD line stays up for
+  the session, and its tooltip repeats the full explanation.
+
 ## Upcycle
 - Sort belt trash into matching bins. Wrong/burned does not produce materials or score loss reward except streak reset.
 - Correct sort gains that material and updates recycled counter/belt counter HUD.

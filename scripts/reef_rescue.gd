@@ -139,7 +139,9 @@ func _spawn_item() -> void:
 	var tw := item.create_tween()
 	tw.tween_property(item, "modulate:a", 1.0, 0.35)
 	tw.parallel().tween_property(item, "scale", Vector2(1.0, 1.0), 0.35).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-	if randfn(depth / 1000.0, 0.5) > 0.5:
+	# Tide (Glass Calm / Eel Run) shifts the fish threshold: a positive bias
+	# sends more of the spawn budget to garbage, a negative one to fish.
+	if randfn(depth / 1000.0, 0.5) > 0.5 + TideReport.garbage_bias():
 		item.init_fish()
 	else:
 		item.init_garbage()

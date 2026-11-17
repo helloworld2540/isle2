@@ -69,6 +69,7 @@ func _ready() -> void:
 	_flush_pending_achievements()
 	_play_tide_gift()
 	_play_tide_pool()
+	_play_tide_report()
 
 
 # --- Announcement Sources ---
@@ -143,6 +144,21 @@ func _play_tide_pool() -> void:
 		String(gift.get("subtitle", "The island's coastline thanks its keeper.")),
 		NPC_LINE_SECONDS,
 		{"accent": "milestone"}
+	)
+
+
+## The day's sea conditions, once per island per local day. It plays after the
+## rewards so a tide card never buries a payout; the HUD keeps a reminder for
+## the rest of the session.
+func _play_tide_report() -> void:
+	var report := GameState.try_claim_tide_report()
+	if report.is_empty():
+		return
+	present(
+		String(report.get("title", "TIDE REPORT")),
+		String(report.get("subtitle", "The sea is quiet today.")),
+		SHOW_SECONDS,
+		{"accent": "achievement", "tide": String(report.get("key", ""))}
 	)
 
 

@@ -142,6 +142,10 @@ var fish_met: Array[String] = []
 var tide_gift_granted: bool = false
 ## One-time payout for finding every starfish on the island.
 var tide_pool_granted: bool = false
+## The local day index (TideReport.day_index) whose tide card was last shown on
+## this island. 0 means "never", so the first world load of a new island always
+## gets the day's report.
+var tide_report_day: int = 0
 const TIDE_GIFT_MONEY := 25
 const TIDE_POOL_MONEY := 25
 ## Prestige purchase: a one-time island benefactor gift. No stat effect, only
@@ -535,6 +539,22 @@ func try_grant_tide_pool() -> Dictionary:
 	}
 
 
+## The day's tide card, at most once per island per local day. Returns {} when
+## this island has already seen today's report. Idempotent: claiming stamps the
+## day before the banner plays, so a scene reload cannot replay it.
+func try_claim_tide_report() -> Dictionary:
+	var day := TideReport.day_index()
+	if tide_report_day == day:
+		return {}
+	tide_report_day = day
+	_persist()
+	return {
+		"title": "TIDE REPORT · %s" % TideReport.title(),
+		"subtitle": TideReport.blurb(),
+		"key": String(TideReport.today().get("key", "")),
+	}
+
+
 # --- Minigame Hand-off ---
 # Minigames call this on their summary screen so the world map can show what
 # just happened the moment the player walks back out of the portal.
@@ -743,6 +763,7 @@ const SAVE_SCHEMA: Array = [
 	["fish_met", "fish_met", [], "string_array"],
 	["tide_gift_granted", "tide_gift_granted", false, "bool"],
 	["tide_pool_granted", "tide_pool_granted", false, "bool"],
+	["tide_report_day", "tide_report_day", 0, "int"],
 	["quests_completed", "quests_completed", 0, "int"],
 	["lifetime_garbage_kg", "lifetime_garbage_kg", 0, "int"],
 	["reef_dives", "reef_dives", 0, "int"],
@@ -770,6 +791,11 @@ var _save_scheduled := false
 func _persist() -> void:
 	_evaluate_achievements()
 	if _save_scheduled:
+		return
+	# Very early calls (autoload boot, headless harnesses) have no SceneTree
+	# yet, so there is no timer to debounce on — write straight through.
+	if not is_inside_tree():
+		_write_save()
 		return
 	_save_scheduled = true
 	get_tree().create_timer(SAVE_DEBOUNCE_SECONDS).timeout.connect(_on_save_timer)

@@ -57,6 +57,15 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 - **Audio**: `scripts/audio_manager.gd`.
 - **Achievements**: `scripts/achievement_catalog.gd` — pure data + predicates (thresholds read straight off GameState fields); GameState owns the save, the pending-card queue and the `achievement_unlocked` signal. The stats page renders the compact roll and a grouped guide; the world banner celebrates unlocks.
 - **Starfish**: five hidden collectibles scattered across the map's walkable cells; saved in `starfish_found`, feed the STARLIGHT achievement.
+- **Daily tide**: `scripts/tide_report.gd` — a pure, deterministic four-day rotation
+  keyed on the local unix day (`TideReport.day_index`). Each day bends one axis of
+  the loop: **Glass Calm** (+0.16 garbage bias at the reef), **Eel Run** (fish
+  drift 1.28×), **Slack Water** (belt 0.82×), **Night Drift** (golden rolls 2×).
+  The banner announces the day's report once per island per day
+  (`tide_report_day` save flag, claimed by `GameState.try_claim_tide_report`);
+  the world HUD keeps a one-line `≈ …` reminder. Minigames read the typed
+  accessors (`garbage_bias`, `fish_speed_multiplier`, `belt_speed_multiplier`,
+  `golden_chance_multiplier`) rather than raw keys, so there is no per-scene RNG.
 - **Bottles**: `scripts/bottle_catalog.gd` — canonical title/lines for every message in a bottle; the world pickup and the stats page's Tide Ledger both read it.
 - **Fish journal**: `scripts/fish_catalog.gd` — canonical names/blurbs for the four reef species; the dive pops "New species!" on a first sighting and the stats page's Reef Registry re-shows every earned note.
 - **Collectibles & streaks**: golden belt scrap (+2 score) and golden reef debris (+1 bonus) spawn at 12%; lifetime trackers (clean dives, flawless shifts, golden finds, best combo/haul) feed achievements — REEF REGISTRY, CLEAN SWEEP, SILK TOUCH, GOLDEN TOUCH, RHYTHM OF THE REEF, HEAVY HARVEST, HOT STREAK.
@@ -248,6 +257,9 @@ refuses to run if player data already exists):
   migrates into the `island` slot exactly once.
 - `godot --headless --script tools/slot_ui_test.gd` — boots the real main menu,
   seeds two islands, and drives picker show/rows/rename/close.
+
+`godot --headless --script tools/tide_test.gd` — deterministic tide rotation,
+modifier bounds, and the once-per-day claim.
 
 `tools/` also holds the PIL sprite/ambience generation scripts.
 

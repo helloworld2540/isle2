@@ -1,6 +1,16 @@
 # Current project todo:
 
 # done this pass
+- Daily Tide Report shipped: a deterministic four-day rotation
+  (`scripts/tide_report.gd`) that bends the loop — Glass Calm (more reef
+  debris), Eel Run (fish 1.28× faster), Slack Water (belt 0.82×), Night Drift
+  (golden rolls 2×). Announced once per island per local day via
+  `GameState.try_claim_tide_report` + the world banner; the world HUD keeps a
+  `≈ …` line with a tooltip explanation. Minigames read typed accessors, no
+  per-scene RNG.
+- Verified: import clean, smoke 48/48; `tools/tide_test.gd` (0 failures) covers
+  rotation, modifier bounds, cycle wrap and once-per-day claim; a real headless
+  world load persists `tide_report_day` into the slot save.
 - Multi-slot saves shipped: every island now lives in
   `user://slots/<slug>/save.json` with its own `.bak`/`.bak2` rotation, so
   backups never cross islands. `SaveManager.ensure_bound()` migrates a legacy

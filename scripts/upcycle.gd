@@ -122,7 +122,8 @@ func _process(delta: float) -> void:
 func _process_conveyor(delta: float) -> void:
 	if not conveyor: return
 	
-	belt_speed = clampf(base_belt_speed + float(score) * 0.3, base_belt_speed, max_belt_speed)
+	# The tide slows or hurries the belt (Slack Water is the forgiving day).
+	belt_speed = clampf(base_belt_speed + float(score) * 0.3, base_belt_speed, max_belt_speed) * TideReport.belt_speed_multiplier()
 	
 	for follow in conveyor.get_children():
 		if follow.get_child_count() == 0:
@@ -258,7 +259,8 @@ func spawn_item() -> void:
 		item.init(str(TRASH_SPRITES.pick_random()))
 	# Rare golden scrap: worth +1 bonus score when it lands in the right bin.
 	# The gold tint is purely cosmetic; the belt position logic is unchanged.
-	if randf() < 0.12:
+	# Night Drift doubles the roll.
+	if randf() < 0.12 * TideReport.golden_chance_multiplier():
 		item.set_meta("golden", true)
 		item.modulate = Color(1.15, 1.05, 0.55, 1.0)
 		AudioManager.play_sfx("pickup", 1.6)
