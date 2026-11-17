@@ -81,6 +81,12 @@ static func today() -> Dictionary:
 	return for_day(day_index())
 
 
+## Stable key of today's tide, e.g. "glass_calm". The one-liner every caller
+## wants instead of poking the dictionary.
+static func today_key() -> String:
+	return String(today().get("key", ""))
+
+
 ## Name of today's tide, e.g. "GLASS CALM".
 static func title() -> String:
 	return String(today().get("title", "STILL TIDE"))

@@ -668,7 +668,7 @@ func _game_over_summary(clean_finish: bool = false) -> void:
 				go_body.text = "Belt clear - all debris processed\nScore: %d\nSorted %d items" % [score, _sorted_count]
 				if _misses == 0 and _sorted_count >= 5:
 					go_body.text += "\nFLAWLESS SHIFT - not a single miss"
-				match String(TideReport.today().get("key", "")):
+				match TideReport.today_key():
 					"slack_water":
 						go_body.text += "\nSlack Water — the belt gave you an easy day."
 					"night_drift":

@@ -463,7 +463,7 @@ func _game_over_summary(reason: String = "manual") -> void:
 		var clean_dive := fish == 0 and dive_happened and int(garbage) >= 8
 		var clean_line := "\n✦ CLEAN DIVE — not a single bump" if clean_dive else ""
 		var tide_line := ""
-		match String(TideReport.today().get("key", "")):
+		match TideReport.today_key():
 			"glass_calm":
 				tide_line = "\nGlass Calm — the reef let go of its litter today."
 			"eel_run":

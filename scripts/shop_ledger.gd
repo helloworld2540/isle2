@@ -16,7 +16,7 @@ const GLASS_CALM_BULK_BONUS := 0.10
 ## Bulk multiplier for the sales happening today. Reads the deterministic
 ## tide rather than rolling anything, so preview and payout always agree.
 static func bulk_multiplier() -> float:
-	if String(TideReport.today().get("key", "")) == "glass_calm":
+	if TideReport.today_key() == "glass_calm":
 		return BULK_MULTIPLIER + GLASS_CALM_BULK_BONUS
 	return BULK_MULTIPLIER
 
