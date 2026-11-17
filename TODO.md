@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Nina notices SILK TOUCH (flawless shifts — bench craft), Mara notices
+  CLEAN SWEEP (perfect dives). The whole cast now grades the keeper's work,
+  not just their wallet.
 - Kai and Mara join the milestone chorus: Kai notices GOLDEN TOUCH (ten
   golden scraps), Mara notices LOOP MASTER (25 circuits) — every named
   islander now comments on the keeper's craft, not just purchases.
