@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- guide.md gained "The island pays attention" — a compact roster of
+  every NPC milestone beat.
 - Tom reacts to TO THE ABYSS — the deepest reef honor gets a voice from
   the shore.
 - Nina notices SILK TOUCH (flawless shifts — bench craft), Mara notices

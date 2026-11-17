@@ -356,3 +356,22 @@ each debris sorts 1:1 into a material.*
   Corl will finally speak to you like a person — and a seventh whisper is
   rewarded with a Folded Paper on the shop path; the stats page ledger keeps
   a re-readable copy (six bottles now).
+
+## The island pays attention (NPC milestones)
+Every named islander notices what you do once you do it. The game tracks no
+new flags for this — it reads the achievement catalogue, and once a badge is
+earned the relevant NPC appends a line to every later conversation:
+
+- **Mara** — TIDEKEEPER's Pact funded (belief), LOOP MASTER (25 circuits),
+  CLEAN SWEEP (five perfect dives).
+- **Tom** — the three shore notes read (TIDE KEEPER), HEAVY HARVEST (30 kg in
+  one dive), REEF VETERAN (25 dives), TO THE ABYSS (900 m).
+- **Nina** — the three shore notes read, SILK TOUCH (flawless shifts).
+- **Kai** — TIDEKEEPER's Pact funded, GOLDEN TOUCH (ten golden scraps),
+  THE WHISPERER (Corl's seven days), THE SILENT CHORUS (six bottles).
+- **Oda** — THE KEEPER'S LETTER, THE SILENT CHORUS, THE LONG KEEPER (ten
+  days on the almanac), ISLAND STEWARD.
+
+Milestones stack: an NPC can notice several things at once. Completing the
+whole catalogue (ISLAND STEWARD) earns a personal send-off from every one of
+them — and a faint golden hush over the world.
