@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- Permanent harness: tools/hide_tide_test.gd asserts the flag flips,
+  persists, and restores — queued into all_audits.sh.
 - Fixed a real bug the probe caught: set_hide_tide() had the assignment
   inside a dead branch — hide_tide never actually changed in memory even
   though persistence succeeded. Flip/reset round-trip now works.
