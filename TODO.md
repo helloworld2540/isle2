@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- About page cites the license in one line — readers know what it is
+  before they even leave the menu.
 - The About page credits the tooling honestly: AI in the loop, defended
   by a green harness.
 - README gains a Building & verifying section: Godot 4.7.2 stable and

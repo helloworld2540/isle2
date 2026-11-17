@@ -29,6 +29,7 @@ func _default_credits() -> String:
 		+ "[color=#9fd0e8]Art and world: Krita-drawn, hand-built, slightly wet.[/color]\n" \
 		+ "[color=#9fd0e8]Sound: placeholder library; ambience mixed in-game.[/color]\n" \
 		+ "[color=#9fd0e8]Writing: a keeper's tide, a dockhand, and a man on the far point.[/color]\n\n" \
+		+ "[color=#8fa6b3]All rights reserved — see LICENSE\n[/color]" \
 		+ "[color=#8fa6b3]Built with heavy tooling assistance — AI in the loop for design, code, art and words, defended by a green harness.[/color]\n" \
 		+ "[color=#8fa6b3]Version 1.0.0  ·  Linux  ·  Web  ·  Android\nAll three verified before the day the box opened.[/color]\n" \
 		+ "[/center]"
