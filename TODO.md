@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- PITCH.md brought up to date: five NPCs, dep-ps multi-slot save path,
+  the tide arc (daily tide, almanac, six bottles, 37 achievements, the
+  whispers ledger), sprint log path.
 - The game now pins its desktop window to 1152x648 at boot (GameSettings
   sizes the root window and clamps the minimum, Linux/Windows/macOS only —
   mobile owns the window). project.godot stays clean on disk: the running
