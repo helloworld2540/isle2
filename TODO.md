@@ -1,6 +1,11 @@
 # Current project todo:
 
 # done this pass
+- WorldNPC milestones generalized to a `milestone_beats` dictionary
+  (achievement id → line, any number per NPC). Oda now also reacts to
+  ISLAND STEWARD ("you are the first I would write down") — the capstone
+  finally speaks in-world. Migrated all five NPCs; one export replaces the
+  previous single-beat pair.
 - Glass Calm trading day: the harbor pays over the odds on full loads —
   the bulk multiplier reads the tide (1.35x on Glass Calm vs 1.25x otherwise).
   Shop buttons, receipts and undo tags all read the shared `bulk_label()`,

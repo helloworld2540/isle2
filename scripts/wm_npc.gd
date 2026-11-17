@@ -20,11 +20,10 @@ class_name WorldNPC
 ## sea today. Reserved for NPCs who would plausibly notice the water — Oda the
 ## tide-watcher, mostly.
 @export var tide_aware: bool = false
-## Optional story beat: when the named achievement is earned, this line is
-## appended to every later conversation. Lets an NPC notice what the player
-## did without any bespoke state machine.
-@export var milestone_achievement: String = ""
-@export_multiline var milestone_line: String = ""
+## Optional story beats: achievement id → line. Every earned entry is
+## appended to later conversations, so an NPC can notice several things at
+## once. Reads the unlock list — no dedicated save state.
+@export var milestone_beats: Dictionary = {}
 
 @export_group("First Visit Reward")
 @export var reward_trash: int = 5
@@ -270,10 +269,13 @@ func _flavour_lines() -> Array:
 	if tide_aware:
 		out.append(TideReport.ambient_line())
 
-	# A milestone the island noticed — appended once the badge is earned, so
-	# the moment lands without any new save flag of its own.
-	if not milestone_achievement.is_empty() and GameState.unlocked_achievements.has(milestone_achievement) and not milestone_line.is_empty():
-		out.append(milestone_line)
+	# Milestones the island noticed — one line per earned badge, appended once
+	# the unlock lands, so each beat needs no bespoke state machine.
+	for beat_id in milestone_beats:
+		if GameState.unlocked_achievements.has(String(beat_id)):
+			var line := String(milestone_beats[beat_id])
+			if not line.is_empty():
+				out.append(line)
 	return out
 
 func _show_dialogue(status: String = "", positive: bool = true) -> void:
