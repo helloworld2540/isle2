@@ -4,6 +4,14 @@
 Welcome to Isle 2. Shared economy across world map, two minigames, shop, NPCs and upgrades.
 
 ## Controls
+- The main menu's continue panel and the HUD both carry today's tide
+  ("≈ <tide> · day N") — the sea greets you before you press Continue.
+
+
+- The main menu's continue panel and the HUD both carry today's tide
+  ("≈ <tide> · day N") — the sea greets you before you press Continue.
+
+
 - **World map** — tap anywhere to walk there; the trail and flow dots point
   at the recommended next stop on the circuit.
 - **Upcycle bench** — swipe to move between bins; tap the carried item to
@@ -136,6 +144,10 @@ checked against this yield — nothing changed, deliberately.*
   centennial, and Corl polishes the counter unprompted.
 - The shop keeps a barometer above the spend rows — today's tide, one
   line, so the Glass Calm bulk premium is impossible to miss.
+- The stats page's almanac line also carries your streak; once the book
+  is filled it glows gold and the daily report says "almanac kept".
+- The stats page's almanac line also carries your streak; once the book
+  is filled it glows gold and the daily report says "almanac kept".
 - The shop sells a **dockhand's tide tip** for $25 ($15 for keepers on a
   three-day streak — Corl respects regulars): it names tomorrow's
   tide for that one day, so a keeper who plans around the rotation can

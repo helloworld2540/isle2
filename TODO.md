@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- guide.md notes the menu tide line, the almanac line's streak, the gold
+  glow at 4/4, and the "almanac kept" daily report wording.
 - The main menu's continue panel now shows today's tide and day count —
   a returning keeper sees the weather before they even press Continue.
 - The stats-page almanac line now carries the streak too (e.g.,
