@@ -1086,3 +1086,6 @@ STATE
 
 ## 2026-11-17 — Android re-verified at HEAD after the tide-line pass
 - APK rebuilt clean; signed and verifier-clean against the current tree.
+
+## 2026-11-17 — Web re-verified after tools exclude
+- Web rebuilt; 0 tools/ matches in the .pck. Linux/Android also rebuilt clean.
