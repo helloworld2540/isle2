@@ -38,15 +38,16 @@ achievement definitions.
 
 ## Pre-flight
 
-Target directories must exist before exporting — the Linux export fails
-outright when its output directory is missing.
-
-## Pre-flight
-
 Run `tools/all_audits.sh` before cutting or publishing a build. It runs
 every harness (smoke, slot, migration, slot_ui, tide, restore) and both
 Python audits (touch, unique_id); refuses to run against real player
 slots. Exits 0 only when everything is green.
+
+`tools/export_gate.sh` wraps the same audits and, with `--re-export`,
+rebuilds all three platforms into `export/{linux,web,android}/`.
+
+Target directories must exist before exporting — the Linux export fails
+outright when its output directory is missing.
 
 ## Known notes
 
