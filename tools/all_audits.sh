@@ -30,6 +30,8 @@ echo "== touch_audit"
 python3 tools/touch_audit.py || fail=1
 echo "== unique_id_audit"
 python3 tools/unique_id_audit.py || fail=1
+echo "== docs_audit"
+python3 tools/docs_audit.py || fail=1
 
 if [ "$fail" -ne 0 ]; then
   echo "ALL-AUDITS: FAIL"

@@ -39,8 +39,8 @@ achievement definitions.
 ## Pre-flight
 
 Run `tools/all_audits.sh` before cutting or publishing a build. It runs
-every harness (smoke, slot, migration, slot_ui, tide, restore) and both
-Python audits (touch, unique_id); refuses to run against real player
+every harness (smoke, slot, migration, slot_ui, tide, restore) and three
+Python audits (touch, unique_id, docs); refuses to run against real player
 slots. Exits 0 only when everything is green.
 
 `tools/export_gate.sh` wraps the same audits and, with `--re-export`,

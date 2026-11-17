@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- tools/docs_audit.py: the markdown suite is load-bearing — existence, size,
+  and key anchors in README/guide/TODO/PITCH/overnight_sprint. Wired into
+  all_audits.sh. All green.
 - Android APK re-exported at HEAD; verifier-clean.
 - Live bench boot confirmed: the tide line renders beneath the intro overlay
   ("≈ Slack wat—"), no layout breakage.
