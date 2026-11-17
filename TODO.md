@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- tools/fresh_clone.sh: one command to prove a cold checkout ships —
+  archive -> import -> Linux export -> headless boot; benign warnings
+  filtered against the checklist list. PASS at HEAD.
 - README gains a License section pointing at LICENSE.
 - Kai notices THE FOUR TIDES — "Booked every tide and never once argued
   with the water. Shelves never full enough for a keeper who reads the sea."
