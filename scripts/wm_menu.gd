@@ -277,6 +277,8 @@ func _refresh_upgrade_ui() -> void:
 	if upgrade_status: upgrade_status.text = _upgrade_status_text()
 	if tide_status:
 		tide_status.text = "Today: %s · day %d%s" % [TideReport.hud_line(), GameState.island_day(), ("  ·  streak %d" % GameState.tide_streak) if GameState.tide_streak > 1 else ""]
+		tide_status.tooltip_text = "Tide report — %s
+%s" % [TideReport.summary(), TideReport.blurb()]
 	
 	if deep_cache_btn:
 		deep_cache_btn.text = _deep_cache_text()

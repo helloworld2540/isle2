@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- The pause menu tide line now tooltips the full report (summary +
+  blurb) on hover — the weather-board is as rich as the HUD.
 - The HUD tide line graduates a second time: with THE FOUR TIDES earned
   (almanac complete) it stands at "✦ The Almanac Is Kept" — beneath The
   Fifth Tide's final graduation.
