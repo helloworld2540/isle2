@@ -159,6 +159,8 @@ var harbor_tip_day: int = 0
 var harbor_tips_bought: int = 0
 ## The far point: the watcher has been seen once. One-time, permanent.
 var watcher_seen: bool = false
+## The island final gift: THE FIFTH TIDE card has landed. One-time.
+var fifth_tide_granted: bool = false
 ## Days of the island this save has reported — incremented once per fresh
 ## tide claim, so the HUD can whisper how long the keeper has been keeping.
 var tide_days_visited: int = 0
@@ -572,6 +574,24 @@ func try_grant_tide_almanac() -> Dictionary:
 	}
 
 
+## The island's last gift: THE FIFTH TIDE. Once ISLAND STEWARD lands, the
+## island shows the keeper the one it never wrote in any almanac. One card,
+## one payout, the end of staying.
+const FIFTH_TIDE_MONEY := 250
+
+func try_grant_fifth_tide() -> Dictionary:
+	if fifth_tide_granted:
+		return {}
+	if not is_achievement_unlocked("island_steward"):
+		return {}
+	fifth_tide_granted = true
+	add_earnings(FIFTH_TIDE_MONEY)
+	return {
+		"title": "THE FIFTH TIDE",
+		"subtitle": "The one the island kept to itself.\nYou kept everything else.\nWalk proud, keeper.\n+$%d" % FIFTH_TIDE_MONEY,
+	}
+
+
 ## The far point: record the catch, once, forever.
 func mark_watcher_seen() -> void:
 	watcher_seen = true
@@ -855,6 +875,7 @@ const SAVE_SCHEMA: Array = [
 	["harbor_tips_bought", "harbor_tips_bought", 0, "int"],
 	["tide_days_visited", "tide_days_visited", 0, "int"],
 	["watcher_seen", "watcher_seen", false, "bool"],
+	["fifth_tide_granted", "fifth_tide_granted", false, "bool"],
 	["quests_completed", "quests_completed", 0, "int"],
 	["lifetime_garbage_kg", "lifetime_garbage_kg", 0, "int"],
 	["reef_dives", "reef_dives", 0, "int"],

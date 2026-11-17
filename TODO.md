@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- THE FIFTH TIDE shipped: with every badge earned (ISLAND STEWARD), one
+  last legendary card lands on the next world load — a low bell, +$250 and
+  the island's last secret. Fifth_tide_granted (schema-persisted), paid once
+  per island. Verified live: reload granted the gift and the HUD showers 250$.
 - The far point breathes: a tight ring of drifting motes (WatcherMist,
   reused sparkle system, smaller rect, fewer/slower motes) hangs around the
   watcher as sea haze catching his lantern.

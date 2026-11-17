@@ -210,6 +210,9 @@ checked against this yield — nothing changed, deliberately.*
   "bag full −N kg" so the capacity cap reads as a rule, not a bug.
 - Rumour (Mara, if you ask nicely): someone watches the island from the
   far point. Nobody has caught them yet. Stand at the far-east peninsula and they will not run — they never do. Catching them once earns THE FAR POINT, the 38th badge.
+- The completion of the catalogue earns one last gift: THE FIFTH TIDE —
+  a single legendary card, a low harbor bell and +$250. The island shows
+  its keeper the one tide it never wrote in any almanac.
 - Earn every badge on the island (ISLAND STEWARD) and the world itself
   wears a faint golden hush — a quiet victory the map never announces.
 - The stats page opens with a single-line Keeper's Journal ledger: "Journal — bottles n/6 · starfish n/5 · tides n/4 · species n/4 · achievements n/38" — so you can see the whole completion board at a glance without scrolling.

@@ -77,6 +77,7 @@ func _ready() -> void:
 	_play_tide_pool()
 	_play_tide_report()
 	_play_tide_almanac()
+	_play_fifth_tide()
 
 
 # --- Announcement Sources ---
@@ -185,6 +186,22 @@ func _play_tide_almanac() -> void:
 		String(gift.get("subtitle", "The keeper's last entry.")),
 		NPC_LINE_SECONDS + 1.4,
 		{"accent": "milestone"}
+	)
+
+
+## THE FIFTH TIDE: the island's last gift. Runs dead last so it lands after
+## THE STEWARD'S legendary card has finished ringing.
+func _play_fifth_tide() -> void:
+	var gift := GameState.try_grant_fifth_tide()
+	if gift.is_empty():
+		return
+	# The harbor bell rings — the island's whole shore heard that one.
+	AudioManager.play_sfx("harbor_bell", 0.65)
+	present(
+		String(gift.get("title", "THE FIFTH TIDE")),
+		String(gift.get("subtitle", "The fifth tide.")),
+		NPC_LINE_SECONDS + 1.6,
+		{"accent": "legendary"}
 	)
 
 
