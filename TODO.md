@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- tools/touch_audit.py: Button-only touch-floor check across all scenes;
+  PASS as of ea. Wired into the mobile mandate like the slot harness is for
+  saves.
 - guide.md ends with a Version history digest — a player-facing timeline
   of the arcs the island shipped.
 - Touch-target audit: slot row rename/delete buttons 36 → 44 px, settings
