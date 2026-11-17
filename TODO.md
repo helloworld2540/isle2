@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- THE STEADY KEEPER added (achievement #37): claim the daily tide report
+  three days running. tide_streak (schema-persisted) increments on
+  consecutive claims, resets on a missed day; stats page shows the live
+  streak; legendary banner; docs to 37.
 - guide.md gained "The island pays attention" — a compact roster of
   every NPC milestone beat.
 - Tom reacts to TO THE ABYSS — the deepest reef honor gets a voice from

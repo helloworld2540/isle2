@@ -148,6 +148,8 @@ func _update_stats_display() -> void:
 	var deeds: Array[String] = ["Era: %s — %s" % [_era_name(), _era_tag()], "Field log: %d dives · %d bench runs" % [GameState.reef_dives, GameState.upcycle_runs]]
 	deeds.append("Deep Cache: %s" % ("tier %d" % GameState.deep_cache_tier if GameState.deep_cache else "not owned"))
 	deeds.append("Days on the island: %d" % GameState.tide_days_visited)
+	if GameState.tide_streak > 1:
+		deeds.append("Tide streak: %d days running" % GameState.tide_streak)
 	# All six voices agree on one thing; the page says so, quietly.
 	if GameState.is_achievement_unlocked("silent_chorus"):
 		deeds.append("")

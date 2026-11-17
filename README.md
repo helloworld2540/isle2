@@ -283,13 +283,13 @@ is excluded) so exported builds still autoload cleanly. Verified headless builds
 ## Writing changes
 Changes land as the overnight loop cycles — see `overnight_sprint.txt` for a running log of iterations. The game is fully playable from a fresh save: menu → world map → reef rescue → upcycle bench → shop → circuit complete, with NPCs, bottles, starfish and achievements as optional flavour that persists between sessions.
 
-## Full achievement list (36)
+## Full achievement list (37)
 An island for every title the stats page tracks:
 
 - **Reef & Bench starters** — FIRST DIVE, FIRST SORT, FIRST SALE, FIRST FAVOUR, ROUND THE ISLE.
 - **Bench regulars** — BENCH REGULAR (10 runs), BENCH MASTER (25 runs), HOT STREAK (15-sort streak), SILK TOUCH (5 flawless shifts).
 - **Dive regulars** — REEF REGULAR (10 dives), REEF VETERAN (25 dives), DEEP DIVE (400 m), TO THE ABYSS (900 m), HEAVY HARVEST (30 kg in one dive), RHYTHM OF THE REEF (9-chain combo, x4 score), CLEAN SWEEP (5 clean dives), REEF CHARTER.
-- **Collections** — REEF REGISTRY (meet all four species), STARLIGHT (five hidden starfish), TIDE MESSAGES (all three bottles), THE PACT'S REPLY (the hidden pact bottle), TIDE KEEPER (all four messages the tide left), THE FOUR TIDES (log all four daily tides in the keeper's almanac), THE KEEPER'S LETTER (find the note the first keeper left, at Oda's spot on the west shore, once the almanac is complete), and Corl's Folded Paper washes up near the shop path for keepers who bought him seven days of tomorrow (THE WHISPERER). Read all six and THE SILENT CHORUS is yours — every voice the sea ever sent. THE LONG KEEPER is yours after ten daily tide reports — the island sees its keeper first.
+- **Collections** — REEF REGISTRY (meet all four species), STARLIGHT (five hidden starfish), TIDE MESSAGES (all three bottles), THE PACT'S REPLY (the hidden pact bottle), TIDE KEEPER (all four messages the tide left), THE FOUR TIDES (log all four daily tides in the keeper's almanac), THE KEEPER'S LETTER (find the note the first keeper left, at Oda's spot on the west shore, once the almanac is complete), and Corl's Folded Paper washes up near the shop path for keepers who bought him seven days of tomorrow (THE WHISPERER). Read all six and THE SILENT CHORUS is yours — every voice the sea ever sent. THE LONG KEEPER is yours after ten daily tide reports — the island sees its keeper first. THE STEADY KEEPER is three daily tide reports in a row.
 - **Island quests** — HARBOR HERO (every quest tier turned in), PATRON OF THE ISLE (1500$ gift), KEEPER OF THE TIDE (2500$ pact), LOOP MASTER (25 circuits). THE WHISPERER (buy seven days of tomorrow from Corl the dockhand, 25$ a day).
 - **Economy** — WELL OFF (lifetime 300$), MARKET CONTACT (+1$/unit), CACHE FOUND (buy the Deep Cache), ROOM TO SPARE (reach a 30 kg cap), GOLDEN TOUCH (10 golden scraps).
 - **Capstone** — ISLAND STEWARD: every other achievement earned.
