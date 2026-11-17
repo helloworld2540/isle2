@@ -182,6 +182,10 @@ func _update_stats_display() -> void:
 	_deeds_body.text = "\n".join(deeds)
 
 	_almanac_body.text = _build_almanac_line().trim_prefix("Tide almanac ")
+	# Completed almanac glows gold — the journal acknowledges the book.
+	if _almanac_body:
+		_almanac_body.modulate = Color(1.0, 0.84, 0.32, 1.0) if GameState.tides_logged.size() >= 4 else Color(1.0, 1.0, 1.0, 1.0)
+
 
 	var marks: Array[String] = []
 	for def in GameState.achievement_definitions():

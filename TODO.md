@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- The stats page almanac banner glows gold when all four tides are
+  logged — the journal acknowledges the completed book.
 - guide.md far-point paragraph now tells the whole arc: rumour, sight,
   badge, the note, and the last card.
 - Reading the watcher's note fires a one-shot "A page from the far point"
