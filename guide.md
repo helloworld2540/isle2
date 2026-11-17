@@ -208,6 +208,8 @@ checked against this yield — nothing changed, deliberately.*
   with "★ NEW BEST DEPTH — N m! ★" and plays the achievement chime.
 - Debris payout breakdown on the summary card — haul, deep-cache bonus and
   "bag full −N kg" so the capacity cap reads as a rule, not a bug.
+- Rumour (Mara, if you ask nicely): someone watches the island from the
+  far point. Nobody has caught them yet.
 - Earn every badge on the island (ISLAND STEWARD) and the world itself
   wears a faint golden hush — a quiet victory the map never announces.
 - The stats page opens with a single-line Keeper's Journal ledger: "Journal — bottles n/6 · starfish n/5 · tides n/4 · species n/4 · achievements n/37" — so you can see the whole completion board at a glance without scrolling.

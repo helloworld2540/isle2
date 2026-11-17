@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Mara plants the seed of something unseen: "They say someone watches
+  from the far point. Nobody has caught them yet." — a hook for future
+  story without committing to it.
 - Fixed stale tutorial copy: the shore-bottles nudge said "read all
   three" — it now correctly points at six notes.
 - The island greets returning keepers: if the save is 2+ days old, a
