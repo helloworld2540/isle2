@@ -92,7 +92,7 @@ custom_minimum_size = Vector2(150, 48)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 20
-text = "Close"
+text = "Keep the shore"
 
 [node name="FreeCredit" type="Label" parent="Margin/Column/Panel/VBox"]
 layout_mode = 2

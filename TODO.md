@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- The About page's close becomes the island's last word to you:
+  "Keep the shore" — the motto as the leaving salute.
 - Stats page deeds column now lists THE ALMANAC KEEPER as a named deed.
   THE FOUR TIDES finalised the book — the journal says so.
 - The About page carries the watcher silhouette above the title — the
