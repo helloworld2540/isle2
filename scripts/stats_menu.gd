@@ -369,7 +369,24 @@ func _open_ledger() -> void:
 			button.text = "✓  " + BottleCatalog.title_of(id)
 			button.disabled = false
 		else:
-			button.text = "·  ? ? ?  —  still out there"
+			# A hint that spoils nothing — the page is a collection tracker.
+			match id:
+				"bottle_tide":
+					button.text = "·  A shore note — it talks back"
+				"bottle_gull":
+					button.text = "·  A letter with three signings"
+				"bottle_light":
+					button.text = "·  Something glinting off the shop"
+				"bottle_pact":
+					button.text = "·  The tide keeps your name"
+				"bottle_keeper":
+					button.text = "·  The keeper before you"
+				"bottle_corl":
+					button.text = "·  A folded paper, cash up front"
+				"bottle_watcher":
+					button.text = "·  Something on the far point"
+				_:
+					button.text = "·  ? ? ?  —  still out there"
 			button.disabled = true
 	_ledger_overlay.visible = true
 	AudioManager.play_sfx("pickup")

@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- Tide Ledger locked rows now show spoiler-free hints instead of blank
+  question marks — each bottle earns its own mystery tease.
 - guide.md gains a top-line Quick reference for new keepers (loop,
   tide, tip, ledger, the invitation to come back).
 - RELEASE_CHECKLIST.md ticks the frame-soak evidence.
