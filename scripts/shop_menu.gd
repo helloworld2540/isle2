@@ -220,9 +220,9 @@ func _refresh_purchases() -> void:
 			buy_tide_tip_button.disabled = not GameState.can_afford(GameState.HARBOR_TIP_COST)
 	if tide_tip_note:
 		if GameState.harbor_tip_purchased():
-			tide_tip_note.text = "Tomorrow: %s — plan the dive and the belt accordingly." % GameState.tomorrow_tide_title()
+			tide_tip_note.text = "Tomorrow: %s — plan the dive and the belt accordingly. His ledger: %d/7 whispers." % [GameState.tomorrow_tide_title(), mini(GameState.harbor_tips_bought, 7)]
 		else:
-			tide_tip_note.text = "A dockhand can tell you tomorrow's tide — for a price."
+			tide_tip_note.text = "A dockhand can tell you tomorrow's tide — for a price. His ledger: %d/7 whispers." % mini(GameState.harbor_tips_bought, 7)
 
 
 func _buy_tide_tip() -> void:

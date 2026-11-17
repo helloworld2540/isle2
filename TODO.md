@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- The shop note now shows Corl's ledger progress (n/7 whispers) toward
+  THE WHISPERER — visible whether or not today's tip is bought.
 - Corl notices regulars: the shop log now prints a unique line per
   lifetime tip purchase (7 unique beats + rotating close), turning the $25
   tip into a slow-burn character thread that ends exactly at THE WHISPERER.
