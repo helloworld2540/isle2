@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- The TIDE REPORT card now shows the live streak ("streak N") once it
+  reaches two — the daily habit reads back at the player every claim.
 - tide_test now seeds a two-streak ending yesterday and asserts the
   claim extends it to three — the streak mechanic is covered alongside the
   rest of the day-claim behavior.
