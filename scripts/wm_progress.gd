@@ -156,8 +156,8 @@ func _refresh_starfish_label(_id: String = "") -> void:
 func _refresh_tide_label() -> void:
 	if not tide_label:
 		return
-	tide_label.text = "≈ %s" % TideReport.summary()
-	tide_label.tooltip_text = "Tide report — %s" % TideReport.blurb()
+	tide_label.text = "≈ %s" % TideReport.hud_line()
+	tide_label.tooltip_text = "Tide report — %s\n%s" % [TideReport.summary(), TideReport.blurb()]
 
 
 ## The earned title lives on the always-visible progress card, not only in the

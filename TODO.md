@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- World HUD tide line no longer clips on small screens: shows just the
+  tide's name (`hud_line()`), with the full summary and blurb moved into the
+  richer tooltip.
 - Fixed the welcome card after the legibility bump: the body RichTextLabel
   inside the ScrollContainer clipped both horizontally (fit_content sizing)
   and vertically (scroll disabled). Removed fit_content, enabled scrolling

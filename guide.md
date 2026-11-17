@@ -112,7 +112,7 @@ checked against this yield — nothing changed, deliberately.*
 
 ## Daily tide (why today feels different)
 - The island has a new tide every local calendar day, shown as a line on the
-  world HUD (`≈ …`) and announced by a **TIDE REPORT** card the first time you
+  world HUD (`≈ <tide>` — hover it for the full reading) and announced by a **TIDE REPORT** card the first time you
   enter the world each day. The tide is the same for every player on that day
   — it is a calendar rotation, not a random roll — and it resets with the
   island's save like everything else.

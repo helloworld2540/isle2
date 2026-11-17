@@ -91,6 +91,12 @@ static func summary() -> String:
 	return String(today().get("summary", "Still tide — a steady day"))
 
 
+## Short HUD line: just the tide's name. The world HUD panel is narrow —
+## detail lives in the tooltip and the banner card, not a cramped Label.
+static func hud_line() -> String:
+	return String(today().get("title", "Still tide")).capitalize()
+
+
 ## The full sentence the banner card shows under the title.
 static func blurb() -> String:
 	return String(today().get("blurb", "The sea is quiet today."))
