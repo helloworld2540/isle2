@@ -209,7 +209,7 @@ checked against this yield — nothing changed, deliberately.*
 - Debris payout breakdown on the summary card — haul, deep-cache bonus and
   "bag full −N kg" so the capacity cap reads as a rule, not a bug.
 - Rumour (Mara, if you ask nicely): someone watches the island from the
-  far point. Nobody has caught them yet. Stand at the far-east peninsula and they will not run — they never do. Catching them once earns THE FAR POINT, the 38th badge.
+  far point. Nobody has caught them yet. Stand at the far-east peninsula and they will not run — they never do. Catching them once earns THE FAR POINT, the 38th badge — and the watcher sends a note east, waiting on the path you took to him. Reading it answers the whole arc: the island counts those the keeper keeps.
 - The completion of the catalogue earns one last gift: THE FIFTH TIDE —
   a single legendary card, a low harbor bell and +$250. The island shows
   its keeper the one tide it never wrote in any almanac.

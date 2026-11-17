@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- guide.md far-point paragraph now tells the whole arc: rumour, sight,
+  badge, the note, and the last card.
 - Reading the watcher's note fires a one-shot "A page from the far point"
   card — the last reply of the far-point arc. Persisted like the other
   nudges (nudge_watcher_note_shown).
