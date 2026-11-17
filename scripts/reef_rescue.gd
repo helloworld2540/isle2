@@ -26,6 +26,7 @@ var _combo_timer := 0.0
 @onready var fish_label: Label = $"UI/HUDStats/FishLabel"
 @onready var depth_label: Label = $"UI/HUDStats/DepthLabel"
 @onready var combo_label: Label = $"UI/HUDStats/ComboLabel"
+@onready var tide_label: Label = $"UI/HUDStats/TideLine"
 @onready var low_health_vignette: TextureRect = $"UI/LowHealthVignette"
 @onready var return_btn: Button = $"UI/ReturnToMapButton"
 
@@ -57,6 +58,8 @@ func _ready() -> void:
 	var collect_shape: CollisionShape2D = $"Drone/Area2D/CollisionShape2D"
 	if collect_shape and collect_shape.shape is CircleShape2D:
 		(collect_shape.shape as CircleShape2D).radius = 66.27 + GameState.get_collection_radius_bonus()
+	if tide_label:
+		tide_label.text = "≈ %s" % TideReport.summary()
 	AudioManager.play_bgm("reef")
 	_update_ui()
 	_update_low_health()

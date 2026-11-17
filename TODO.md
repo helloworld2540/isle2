@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- Reef HUD now shows today's tide inline ("≈ Slack water — the belt turns
+  slow"). Verified live: the line renders under the dive stats.
 - The Reset confirm names the island ("Reset <name>?") — destructive
   decisions never reach an anonymous shore.
 - All three platforms re-verified against the current tree again: Linux
