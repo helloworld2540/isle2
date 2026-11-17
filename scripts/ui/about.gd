@@ -14,6 +14,10 @@ func _ready() -> void:
 	visible = false
 	if body and credits.is_empty():
 		body.text = _default_credits()
+		if GameState.is_achievement_unlocked("island_steward"):
+			body.text += "
+[color=#ffd27f]— The keeper who kept it all —[/color]
+[color=#c9a86c]The island is tidy because you made it so. Walk proud.[/color]"
 
 
 ## The text, if nothing else was wired up. Kept short — it is a keeper's

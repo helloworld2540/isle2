@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- The About page whispers a private line to keepers who earned ISLAND
+  STEWARD — the keeper who kept it all — the credits page now has an
+  epilogue of its own.
 - About scene verified by smoke (50/50) — the editor was unreachable at
   the moment of visual check, but the scene is instantiated by the harness.
 - The island menu gains an About card: credits page — who built it,
