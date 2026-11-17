@@ -1064,3 +1064,7 @@ STATE
   "second-generation backup") when it stands a backup in for the primary.
 - The stats page surfaces a "Recovered from the <n> backup this session"
   deed line when it happens — silent recoveries never surprise anymore.
+
+## 2026-11-17 — Web export re-verified after the restore-backup pass
+- Web rebuilt from the current tree; full artifact set produced cleanly
+  (html/wasm/pck/js/icons/worklets).
