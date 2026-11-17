@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- Frame-soak sanity: world booted frozen and stepped 120 frames at
+  once — no crash, no errors.
 - Oda marks the centennial: exactly on day 100, tide-aware NPCs append
   "I put you in the book — there is room for very few names."
 - The menu tide line tooltips the almanac rule — the four-day rotation
