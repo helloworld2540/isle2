@@ -272,6 +272,10 @@ func _flavour_lines() -> Array:
 		# notices — foresight is the one thing she respects.
 		if GameState.harbor_tip_purchased():
 			out.append("Paid the dockhand for tomorrow, did you? Sly. Tomorrow keeps its own hours — but tell me, what did the water whisper?")
+		# A week with the tide is a long-standing joke between two people who
+		# take staying seriously.
+		if GameState.tide_streak >= 7:
+			out.append("A whole week of tides. You are the reason my almanac has a spine.")
 
 	# Milestones the island noticed — one line per earned badge, appended once
 	# the unlock lands, so each beat needs no bespoke state machine.
