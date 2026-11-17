@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- Slot picker rows and the menu summary now show "day N" per island —
+  SaveSlot.summary carries tide_days_visited, so a keeper can see which
+  island has been lived in longest.
 - Oda notices THE LONG KEEPER ("Staying is the whole job, love. You stayed.") — her last of three arcs: letters, chorus, endurance.
 - THE LONG KEEPER added (achievement #36): ten fresh daily tide claims —
   the island sees its keeper first. tide_days_visited predicate, planner

@@ -59,6 +59,7 @@ static func summary(data: Dictionary) -> Dictionary:
 	var runs := int(data.get("upcycle_runs", 0))
 	var starfish := int(data.get("starfish_found", []).size()) if data.get("starfish_found") is Array else 0
 	var ach := int(data.get("achievements", []).size()) if data.get("achievements") is Array else 0
+	var days := int(data.get("tide_days_visited", 0))
 	var last_run: Dictionary = data.get("last_run", {})
 	var last_title := String(last_run.get("title", "")) if last_run is Dictionary else ""
 	return {
@@ -69,6 +70,7 @@ static func summary(data: Dictionary) -> Dictionary:
 		"runs": runs,
 		"starfish": starfish,
 		"achievements": ach,
+		"days": days,
 		"last_run_title": last_title,
 	}
 
@@ -79,6 +81,8 @@ static func one_liner(data: Dictionary) -> String:
 	var bits: Array[String] = []
 	bits.append("%d$" % s["money"])
 	bits.append("score %d" % s["score"])
+	if s["days"] > 0:
+		bits.append("day %d" % s["days"])
 	if s["circuits"] > 0:
 		bits.append("%d circuits" % s["circuits"])
 	if s["starfish"] > 0:
