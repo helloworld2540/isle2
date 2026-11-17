@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- The shop note teaches the streak discount before it lands — "Regulars
+  (3-day streak) pay \$15" / "You are a regular — \$15 today" at 3.
 - Corl respects regulars: three days running and the dockhand's tip drops
   from 25$ to 15$. tide_streak gates tip_cost(); shop texts/disabled state
   read the shared accessor; harness still green.

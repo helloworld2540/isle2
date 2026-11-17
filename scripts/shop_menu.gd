@@ -232,7 +232,8 @@ func _refresh_purchases() -> void:
 		if GameState.harbor_tip_purchased():
 			tide_tip_note.text = "Tomorrow: %s — plan the dive and the belt accordingly. His ledger: %d/7 whispers." % [GameState.tomorrow_tide_title(), mini(GameState.harbor_tips_bought, 7)]
 		else:
-			tide_tip_note.text = "A dockhand can tell you tomorrow's tide — for a price. His ledger: %d/7 whispers." % mini(GameState.harbor_tips_bought, 7)
+			var streak_hint := " Regulars (3-day streak) pay $15." if GameState.tide_streak < GameState.HARBOR_TIP_DISCOUNT_STREAK else " You are a regular — $15 today."
+			tide_tip_note.text = "A dockhand can tell you tomorrow's tide — for a price. His ledger: %d/7 whispers.%s" % [mini(GameState.harbor_tips_bought, 7), streak_hint]
 
 
 func _buy_tide_tip() -> void:
