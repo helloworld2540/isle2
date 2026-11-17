@@ -17,6 +17,9 @@ Export presets: `Web`, `Android`, `Linux` (`export_presets.cfg`).
 - **Editor import** is clean (no errors on full reimport).
 - **Frame-soak**: world boots frozen and steps 120 frames at once with
   no crash (heavy first-paint pass).
+- **Hidden-tide** verified by `tools/hide_tide_test.gd`: the flag flips
+  in memory, survives a fresh save, restores cleanly — a dead-indent
+  bug was caught by this probe originally.
 - **Backup chain** verified by `tools/restore_test.gd`: rotation creates
   `.bak` on the second write; `backup_summary()` reads the backup (money);
   `load_game()` stands the `.bak` in for a corrupt primary; `restore_backup()`
