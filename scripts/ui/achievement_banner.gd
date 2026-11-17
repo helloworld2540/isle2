@@ -23,6 +23,8 @@ const MODAL_CLEAR_DELAY := 0.2
 const TITLE_GOLD := Color(1.0, 0.86, 0.35, 1.0)
 const TITLE_BLUE := Color(0.62, 0.86, 1.0, 1.0)
 const TITLE_LEGEND := Color(1.0, 0.93, 0.6, 1.0)
+## Sea-foam for the tide card — the day's water, not a meter's worth of gold.
+const TITLE_TIDE := Color(0.68, 0.95, 0.88, 1.0)
 
 ## Endgame badges that get the loud treatment when they land.
 const LEGENDARY_ACHIEVEMENTS := {
@@ -331,7 +333,12 @@ func _apply_accent(accent: String) -> void:
 	if style and _panel:
 		_panel.add_theme_stylebox_override("panel", style)
 	if _title:
-		_title.add_theme_color_override("font_color", TITLE_BLUE if achievement else TITLE_GOLD)
+		var title_color := TITLE_GOLD
+		if accent == "tide":
+			title_color = TITLE_TIDE
+		elif achievement:
+			title_color = TITLE_BLUE
+		_title.add_theme_color_override("font_color", title_color)
 
 
 func _dismiss() -> void:

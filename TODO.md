@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- The TIDE REPORT card title is now sea-foam instead of catalogue blue —
+  the day's water, not a metric.
 - tools/fresh_clone.sh: one command to prove a cold checkout ships —
   archive -> import -> Linux export -> headless boot; benign warnings
   filtered against the checklist list. PASS at HEAD.
