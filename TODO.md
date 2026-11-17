@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- Once the keeper's almanac is complete, the far sailboat gains a warm
+  gold trim — the harbour's sailors know the keeper walks the shore.
 - Mara marks THE YEAR KEEPER ("A whole year of mornings with the keeper.
   The island keeps you now.") — the caretaker witnesses the long haul too.
 - The world wears the day's mood: a faint tide tint (Glass Calm warm

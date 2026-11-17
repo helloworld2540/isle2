@@ -26,6 +26,10 @@ func _ready() -> void:
 	centered = true
 	position = Vector2(x_start, base_y)
 	_t = randf() * TAU
+	# Once the keeper's almanac is filled, the harbor's far boat gains a warm
+	# trim — the island's sailors know the keeper walks the shore.
+	if GameState.tide_almanac_granted:
+		modulate = Color(1.0, 0.88, 0.55, 1.0)
 
 func _process(delta: float) -> void:
 	_t += delta
