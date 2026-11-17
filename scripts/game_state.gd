@@ -149,6 +149,9 @@ var tide_report_day: int = 0
 ## Consecutive days the keeper has claimed the tide report. Resets on any
 ## missed day. Feeds THE STEADY KEEPER and the shop's day-billboard.
 var tide_streak: int = 0
+## Longest streak of claim days this island has seen — the keeper at their most
+## punctual.
+var tide_best_streak: int = 0
 ## Tide conditions the keeper has logged, by stable key (TideReport.CONDITIONS).
 ## Four exist; logging all four completes the almanac.
 var tides_logged: Array[String] = []
@@ -645,6 +648,8 @@ func try_claim_tide_report() -> Dictionary:
 	if tide_report_day == day:
 		return {}
 	tide_streak = (tide_streak + 1) if tide_report_day == day - 1 else 1
+	if tide_streak > tide_best_streak:
+		tide_best_streak = tide_streak
 	tide_report_day = day
 	tide_days_visited += 1
 	var report := TideReport.today()
@@ -869,6 +874,7 @@ const SAVE_SCHEMA: Array = [
 	["tide_pool_granted", "tide_pool_granted", false, "bool"],
 	["tide_report_day", "tide_report_day", 0, "int"],
 	["tide_streak", "tide_streak", 0, "int"],
+	["tide_best_streak", "tide_best_streak", 0, "int"],
 	["tides_logged", "tides_logged", [], "string_array"],
 	["tide_almanac_granted", "tide_almanac_granted", false, "bool"],
 	["harbor_tip_day", "harbor_tip_day", 0, "int"],

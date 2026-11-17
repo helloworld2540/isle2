@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- The island remembers its most punctual keeper: tide_best_streak
+  (schema-persisted) tracks the longest claim run ever; the stats page shows
+  it beside the live streak.
 - guide.md attention roster synced: far point and steady keeper entries
   everywhere they belong — the five-voice rumour is now documented.
 - Kai butts against the far point too ("I do not stock the far point.

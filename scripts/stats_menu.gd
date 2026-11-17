@@ -150,6 +150,8 @@ func _update_stats_display() -> void:
 	deeds.append("Days on the island: %d" % GameState.tide_days_visited)
 	if GameState.tide_streak > 1:
 		deeds.append("Tide streak: %d days running" % GameState.tide_streak)
+	if GameState.tide_best_streak > 1:
+		deeds.append("Best streak: %d days" % GameState.tide_best_streak)
 	# All six voices agree on one thing; the page says so, quietly.
 	if GameState.is_achievement_unlocked("silent_chorus"):
 		deeds.append("")
