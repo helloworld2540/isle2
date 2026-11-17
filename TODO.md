@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- Kai notices THE FOUR TIDES — "Booked every tide and never once argued
+  with the water. Shelves never full enough for a keeper who reads the sea."
 - LICENSE added — the box ships with its terms.
 - Fresh-clone proof: git archive -> import (2 benign warnings: font
   ordering, missing addon) -> Linux export -> headless boot with zero
