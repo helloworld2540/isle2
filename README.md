@@ -117,7 +117,10 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
   (`id/name/created/modified` + the full save, so a row can show money/score in
   one line). `create_slot`, `rename_slot` (keeps the slug, changes only the
   label), `switch_slot`, and `delete_slot` (removes files + backups, then
-  re-binds to a surviving slot) round out the API.
+  re-binds to a surviving slot) round out the API. Slot rows sign themselves
+  with the island's two quiet signatures: ✳ once the courier has been met
+  (Silverfin logged), ✦ once THE WHOLE SEA is earned — read straight from
+  the save, no extra state.
 - Slug rules: `SaveSlot.slugify` lowercases and reduces a name to `[a-z0-9-]`;
   `unique_slug` appends `-2`, `-3`… on collision. Display names may be anything,
   including duplicates.

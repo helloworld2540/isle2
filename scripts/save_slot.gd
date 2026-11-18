@@ -60,6 +60,11 @@ static func summary(data: Dictionary) -> Dictionary:
 	var starfish := int(data.get("starfish_found", []).size()) if data.get("starfish_found") is Array else 0
 	var ach := int(data.get("achievements", []).size()) if data.get("achievements") is Array else 0
 	var days := int(data.get("tide_days_visited", 0))
+	var fish_met: Array = data.get("fish_met", []) if data.get("fish_met") is Array else []
+	var achievements: Array = data.get("achievements", []) if data.get("achievements") is Array else []
+	# The island's two quiet signatures, for the row glyphs.
+	var courier := fish_met.has("fish_silverfin")
+	var whole_sea := achievements.has("whole_sea")
 	var last_run: Dictionary = data.get("last_run", {})
 	var last_title := String(last_run.get("title", "")) if last_run is Dictionary else ""
 	return {
@@ -71,6 +76,8 @@ static func summary(data: Dictionary) -> Dictionary:
 		"starfish": starfish,
 		"achievements": ach,
 		"days": days,
+		"courier": courier,
+		"whole_sea": whole_sea,
 		"last_run_title": last_title,
 	}
 
@@ -87,6 +94,10 @@ static func one_liner(data: Dictionary) -> String:
 		bits.append("%d circuits" % s["circuits"])
 	if s["starfish"] > 0:
 		bits.append("★%d" % s["starfish"])
+	if s["courier"]:
+		bits.append("✳")
+	if s["whole_sea"]:
+		bits.append("✦")
 	if s["last_run_title"] != "":
 		bits.append("\"%s\"" % s["last_run_title"])
 	return "  ·  ".join(bits) if not bits.is_empty() else "a fresh shore"
