@@ -1,4 +1,9 @@
 
+## 2026-11-18 — The empty drawer's last note
+- shop_menu: after the fourteenth page the counter's note reads "Every page was
+  read at this counter — the courier still crosses the strait for you", tying
+  the closed drawer to the Eel Run gratitude flyby. guide.md updated.
+
 ## 2026-11-18 — The courier's day, everywhere the keeper looks
 - `stats_menu.gd`: the Filled Almanac marks Eel Run rows with "✳ courier's
   day" — the book notes the one tide the courier keeps an appointment for.

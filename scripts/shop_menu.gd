@@ -249,7 +249,7 @@ func _refresh_purchases() -> void:
 	if courier_letter_note:
 		var letter_i: int = GameState.courier_letters_bought
 		if letter_i >= CourierLetters.count():
-			courier_letter_note.text = "The drawer is empty. Every page the courier left was read at this counter."
+			courier_letter_note.text = "The drawer is empty. Every page was read at this counter — the courier still crosses the strait for you."
 		elif GameState.courier_letter_bought_today():
 			courier_letter_note.text = "You read today's page at the counter. It did not keep."
 		else:

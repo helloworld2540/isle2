@@ -1,6 +1,10 @@
 # Current project todo:
 
 ## done this pass
+- **The empty drawer's last note** — once all fourteen pages are read the shop
+  note now closes the arc warmly ("...the courier still crosses the strait for
+  you"), matching the Eel Run gratitude flyby. guide.md updated.
+
 - **The courier's day appears in the almanac and the briefings** — the
   Filled Almanac marks Eel Run rows with "✳ courier's day", and on Eel Run
   the first keeper's margin note on both minigame briefings turns to a third
