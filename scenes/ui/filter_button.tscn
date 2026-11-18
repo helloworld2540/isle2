@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://new-filter-button"]
+
+[ext_resource type="Script" path="res://scripts/ui/filter_button.gd" id="1_btn"]
+
+[node name="FilterButton" type="Button" script = ExtResource("1_btn")]
+toggle_mode = false
+custom_minimum_size = Vector2(0, 44)
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+mouse_default_cursor_shape = 7

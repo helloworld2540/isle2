@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://new-guide-footer"]
+
+[ext_resource type="Script" path="res://scripts/ui/guide_footer.gd" id="1_footer"]
+
+[node name="GuideFooter" type="Label" script = ExtResource("1_footer")]

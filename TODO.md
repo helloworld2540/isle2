@@ -679,3 +679,24 @@
   new `keeper_star_found` save flag, Hidden-track catalogue entry, wired
   into `tools/keeper_star_test.gd` + all_audits.sh. guide.md, README and
   PITCH.md updated to 43.
+
+- done this pass
+- **stats_menu.gd scene-first refactor** — eliminated all dynamic Control
+  node creation from the stats-page guide overlay. Achievement rows, station
+  filter chips, tide condition chips, section headers, the TIDE section and
+  the closing footer label are now authored `.tscn` scenes (`guide_row`,
+  `filter_button`, `tide_chip`, `guide_header`, `guide_section`,
+  `tide_section`, `guide_footer`) instanced via `preload().instantiate()`
+  instead of `Control.new()`/`Label.new()`. Removed the now-unused
+  `_guide_row_style`, `_guide_chip_style`, `_guide_title_colour`,
+  `_guide_subtitle_colour` helpers and the style cache dictionaries. No
+  Node-derived `.new()` calls remain in shipping code. Touch-target audit
+  updated: filter buttons declare 44 px minimum height. All 59 smoke-test
+  scenes pass, layout audit passes, touch audit passes.
+
+- done this pass
+- **guide_footer.tscn authored scene** — the stats-page guide's closing
+  footer label ("✦ Legends glow gold — the island's last words.") moved
+  from `Label.new()` in `_build_guide_footer()` to an authored
+  `GuideFooter` scene instanced via `preload().instantiate()`.
+
