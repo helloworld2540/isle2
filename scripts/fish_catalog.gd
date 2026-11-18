@@ -9,22 +9,22 @@ const ENTRIES: Array[Dictionary] = [
 	{
 		"id": "fish_gold",
 		"name": "Goldie",
-		"blurb": "A sunlit scrap of brass and scales.",
+		"blurb": "A sunlit scrap of brass and scales. The reef sheds its coins; the keeper spends them.",
 	},
 	{
 		"id": "fish_greyreefshark",
 		"name": "Grey Reef Shark",
-		"blurb": "The bump you feel through the hull.",
+		"blurb": "The bump you feel through the hull. Broader than the shelf, older than the buoy.",
 	},
 	{
 		"id": "fish_nemo",
 		"name": "Nemo",
-		"blurb": "Small, orange, faster than he looks.",
+		"blurb": "Small, orange, faster than he looks. He knows the current by name; you'll notice by the third night.",
 	},
 	{
 		"id": "fish_crab",
 		"name": "Crab",
-		"blurb": "Not a fish. The reef doesn't care.",
+		"blurb": "Not a fish. The reef doesn't care. Neither, after a few dives, do you.",
 	},
 	{
 		"id": "fish_silverfin",
