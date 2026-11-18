@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- **The courier's chime** — new synthesized two-note glass chime
+  (sound/sfx/silverfin.wav, python wave synth) plays when the Silverfin
+  is first logged; the registry sighting now has its own voice.
 - **THE FILLED ALMANAC** — the almanac's own prize: once all four tides are
   logged the stats page offers The Almanac, a gold card laying out the next
   seven days of the rotation (today in sea-foam). Hide-the-tide opens it to

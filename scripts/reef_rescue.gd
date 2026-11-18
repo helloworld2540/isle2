@@ -348,6 +348,9 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		fish += 1
 		if GameState.mark_fish_met(species):
 			_popup("New species: %s!" % FishCatalog.name_of(species), Color(0.6, 0.9, 1.0, 1.0))
+			if species == "fish_silverfin":
+				# The Pale Courier earns its own two-note glass chime.
+				AudioManager.play_sfx("silverfin", 1.0)
 		_update_ui()
 		_update_low_health()
 		AudioManager.play_sfx("sort_bad")

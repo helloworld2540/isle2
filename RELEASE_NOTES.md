@@ -24,6 +24,21 @@
   beat names a real achievement, all five notice the watcher, no duplicate
   pairs), both wired into `tools/all_audits.sh`.
 
+## HEAD — shipped since the 1.2.0 seal (not yet packaged)
+
+- **The Silverfin** — a fifth reef species joins the water. Pale, quick,
+  gone by dawn; it pays the biggest sighting in the Reef Registry. FishCatalog,
+  the Registry overlay and the stats journal all read five species now.
+- **THE PALE COURIER** — the 45th badge: spot the Silverfin at least once.
+  Tom the shorekeeper notices, in his own register; the world HUD celebrates it.
+- **The Filled Almanac** — once the keeper's book is full (all four tides
+  logged), the stats page offers **The Almanac**: the next seven days of the
+  rotation laid out in one gold card, today in sea-foam — no dockhand required.
+  Under Hide the tide it opens to one quiet line, like every other surface.
+- **RELEASE_CHECKLIST** records the current catalogue count (45) and the
+  verified APK values; **PITCH.md**, **README.md**, **guide.md** track the
+  five species and 45 badges.
+
 ## Prior releases
 
 **Version 1.1.0** (signed, Linux / Web / Android)
@@ -43,18 +58,16 @@ saves, reduced motion, drag-to-scroll everywhere, fully touch-friendly.
   The tide still runs, the almanac still fills, the keeper just reads the
   water instead of the HUD. THE QUIET KEEPER and THE TIDE WALKER (41-42)
   are only earnable here.
-
 - **The daily tide.** A deterministic four-day rotation bends the reef, the
   belt, the golden rolls and the shop's bulk bonus. The keeper's HUD keeps it
   in view; the shop sells tomorrow's reading for a dockhand's fee.
 - **The keeper's almanac.** Four tides logged across real calendar days.
   Earning it unlocks THE FOUR TIDES, a lore page and a secret
   (`THE KEEPER'S LETTER`).
-- **Eight shoreline bottles** (seven washes up when you've earned it; the
-  eighth washes up only for the keeper the island kept). The Tide Ledger on
-  the stats page keeps them re-readable.
+- **Six shoreline bottles** plus a seventh that only washes up when you've
+  earned it. The Tide Ledger on the stats page keeps them re-readable.
 - **The far point.** A rumour nobody repeats all the way through. It ends.
-- **44 achievements**, a keeper's journal that records everything you did,
+- **40 achievements**, a keeper's journal that records everything you did,
   and a stats page that writes the ending.
 
 ## What the keeper should know before diving in
