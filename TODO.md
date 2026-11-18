@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- **The Last Page** — earning THE WHOLE SEA queues a one-time world-map
+  card (via the run-recap system): "The keeper before you left the last
+  page blank on purpose." Never clobbers a pending run recap, never fires
+  on silent restore; the banner still celebrates either way.
 - **THE WHOLE SEA** — the hidden 44th badge: all eight bottles read.
   Legendary banner, Oda milestone beat ("You listened to the very end."),
   excluded from the ISLAND STEWARD capstone alongside keeper_star (else the

@@ -816,6 +816,21 @@ func _evaluate_achievements(silent: bool = false) -> void:
 			continue
 		
 		unlocked_achievements.append(id)
+		if id == "whole_sea" and not silent and last_run.is_empty():
+			# The far point's reply deserves more than a banner: the world map
+			# gets one quiet card, once, the next time the keeper walks back in.
+			# Never clobbers a pending run recap — the sea can wait one more
+			# walk. The banner still fires either way.
+			record_run(
+				"story",
+				"The Last Page",
+				[
+					"Every bottle the sea ever sent — read, kept, and shelved in one ledger.",
+					"The keeper before you left the last page blank on purpose.",
+					"You may keep it that way too. Nobody is counting anymore.",
+				],
+				"The island is finished talking — and you heard it all.",
+			)
 		if not silent:
 			_pending_achievement_ids.append(id)
 			achievement_unlocked.emit(id, String(def.get("title", id)), String(def.get("subtitle", "")))

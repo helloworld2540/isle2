@@ -11,9 +11,10 @@
   *not* counted toward the STARLIGHT set — the epilogue is a separate,
   quieter beat for a keeper who proved they could keep everything else.
   One per island, exactly once.
-- **The Far Point's Reply** — an eighth bottle washes up once the keeper's
-  star is found. The Tide Ledger grows a row, the journal reads bottles n/8,
-  and the chorus gains its paper tail.
+- **The Far Point's Reply & THE WHOLE SEA** — an eighth and final bottle washes
+  up once THE KEEPER'S STAR is found; the Tide Ledger grows a row, the
+  journal reads bottles n/8. Reading all eight notes earns THE WHOLE SEA,
+  the hidden 44th badge — the keeper who listened to the very end.
 - **All five islanders now notice THE FAR POINT** — the guide promised every
   named islander would speak of the one on the far point once seen; Mara, Tom
   and Kai were silent. They each got a line in their own register.
@@ -53,7 +54,7 @@ saves, reduced motion, drag-to-scroll everywhere, fully touch-friendly.
   eighth washes up only for the keeper the island kept). The Tide Ledger on
   the stats page keeps them re-readable.
 - **The far point.** A rumour nobody repeats all the way through. It ends.
-- **43 achievements**, a keeper's journal that records everything you did,
+- **44 achievements**, a keeper's journal that records everything you did,
   and a stats page that writes the ending.
 
 ## What the keeper should know before diving in

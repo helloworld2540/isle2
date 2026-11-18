@@ -441,6 +441,8 @@ them — and a faint golden hush over the world.
 - **Night Drift** — half the distant cries become a low foghorn, far out on the water.
 
 ## Version history (as shipped)
+- **1.2.0** — THE KEEPER'S STAR (the epilogue, his sixth star), THE WHOLE SEA (the hidden 44th badge: all eight bottles), the far point's reply bottle, and all five islanders noticing the watcher.
+- **The Last Page** — earning THE WHOLE SEA queues a one-time world-map card: the keeper before you left the last page blank on purpose. Never overwrites a pending run recap and never fires on silent restore.
 - **THE WHOLE SEA** — the hidden 44th badge: all eight bottles read, including the far point's reply. Legendary banner, Oda notices ("The water talks, love — you listened to the very end."), excluded from the ISLAND STEWARD capstone like the star, and the world HUD bottle line flips to "✦ The Whole Sea".
 - **The Far Point's Reply** — an eighth and final bottle, shown only once THE KEEPER'S STAR is found; the Tide Ledger keeps it with the rest, and the journal counts bottles n/8.
 - **New app icon** — the sand isle and its bottle now greet the keeper at the launcher.
