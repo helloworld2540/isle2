@@ -6,8 +6,8 @@ const DIALOGUE_SCENE: PackedScene = preload("res://scenes/ui/npc_dialogue.tscn")
 const BottleCatalog := preload("res://scripts/bottle_catalog.gd")
 const FishCatalog := preload("res://scripts/fish_catalog.gd")
 ## Display order of the Tide Ledger buttons, matched to the scene's button nodes.
-const LEDGER_BUTTONS: Array[String] = ["BottleTideButton", "BottleGullButton", "BottleLightButton", "BottlePactButton", "BottleKeeperButton", "BottleCorlButton", "BottleWatcherButton"]
-const LEDGER_IDS: Array[String] = ["bottle_tide", "bottle_gull", "bottle_light", "bottle_pact", "bottle_keeper", "bottle_corl", "bottle_watcher"]
+const LEDGER_BUTTONS: Array[String] = ["BottleTideButton", "BottleGullButton", "BottleLightButton", "BottlePactButton", "BottleKeeperButton", "BottleCorlButton", "BottleWatcherButton", "BottleFarPointButton"]
+const LEDGER_IDS: Array[String] = ["bottle_tide", "bottle_gull", "bottle_light", "bottle_pact", "bottle_keeper", "bottle_corl", "bottle_watcher", "bottle_far_point"]
 ## Reef Registry rows, matched to the scene's button nodes and FishCatalog.
 const REGISTRY_BUTTONS: Array[String] = ["FishGoldButton", "FishGreyreefsharkButton", "FishNemoButton", "FishCrabButton"]
 const REGISTRY_IDS: Array[String] = ["fish_gold", "fish_greyreefshark", "fish_nemo", "fish_crab"]
@@ -224,7 +224,7 @@ func _build_journal_line() -> String:
 	var almanac := " · tide almanac paid" if GameState.tide_almanac_granted else ""
 	var quiet := " · tide hidden" if GameSettings.hide_tide else ""
 	var tides := GameState.tides_logged.size()
-	return "Journal — bottles %d/7 · starfish %d/5%s · tides %d/4%s%s · species %d/4 · achievements %d/%d" % [bottles, starfish, paid_out, tides, almanac, quiet, fish, ach, total]
+	return "Journal — bottles %d/8 · starfish %d/5%s · tides %d/4%s%s · species %d/4 · achievements %d/%d" % [bottles, starfish, paid_out, tides, almanac, quiet, fish, ach, total]
 
 
 ## The keeper's almanac as a checklist: every tide in rotation order with a
@@ -408,6 +408,8 @@ func _open_ledger() -> void:
 					button.text = "·  A folded paper, cash up front"
 				"bottle_watcher":
 					button.text = "·  Something on the far point"
+				"bottle_far_point":
+					button.text = "·  The far point's own hand"
 				_:
 					button.text = "·  ? ? ?  —  still out there"
 			button.disabled = true

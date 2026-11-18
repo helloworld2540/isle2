@@ -647,6 +647,10 @@ starfish_id = "sf_5"
 [node name="KeeperStar" parent="." instance=ExtResource("30_keeperstar")]
 position = Vector2(1704, -256)
 
+[node name="BottleFarPoint" parent="." instance=ExtResource("24_bottle")]
+position = Vector2(1600, -180)
+bottle_id = "bottle_far_point"
+
 [node name="TideTint" type="CanvasLayer" parent="." unique_id=900000028]
 layer = 2
 script = ExtResource("29_tidetint")

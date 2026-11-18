@@ -72,6 +72,17 @@ const ENTRIES: Array[Dictionary] = [
 		],
 	},
 	{
+		"id": "bottle_far_point",
+		"title": "The Far Point's Reply",
+		"lines": [
+			"You found the star. Of course you did — you always did.",
+			"I put it there the day I understood the island does not keep keepers. Keepers keep keepers.",
+			"The watcher was never the far point. He was the keeper before him, and the one before that — a long line of us, staying so the next one could.",
+			"You are the last page now. Write it well. Leave it blank when you go.",
+			"— the far point, at last",
+		],
+	},
+	{
 		"id": "bottle_corl",
 		"title": "The Folded Paper",
 		"lines": [

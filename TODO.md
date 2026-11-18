@@ -1,6 +1,11 @@
 # Current project todo:
 
 # done this pass
+- **THE FAR POINT'S REPLY** — an eighth bottle, the epilogue's paper tail.
+  Washes up at the island's tip only after THE KEEPER'S STAR is found; the
+  Tide Ledger gains a row for it (panel grown to fit), the journal ledger
+  reads bottles n/8, and the far point finally signs his own name. guide.md,
+  README and PITCH updated.
 - **Far-point beats** — all five named islanders now speak of THE FAR POINT.
   Mara, Tom and Kai were missing the `far_point` milestone beat in
   `scenes/world.tscn` while the guide promised it of every one of them; each

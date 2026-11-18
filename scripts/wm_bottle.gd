@@ -20,6 +20,9 @@ const CORL_BOTTLE_ID := "bottle_corl"
 ## The watcher's note washes up once the far point has been seen — the
 ## rumour's paper tail, on the path you took to him.
 const WATCHER_BOTTLE_ID := "bottle_watcher"
+## The far point's reply washes up once the keeper's star is found — the
+## epilogue's own paper tail, at the tip of the island.
+const FAR_POINT_BOTTLE_ID := "bottle_far_point"
 
 @export var bottle_id: String = "bottle_1"
 ## Optional override; when empty (the default) the canonical text comes from
@@ -42,6 +45,10 @@ func _ready() -> void:
 		return
 	if bottle_id == WATCHER_BOTTLE_ID and not GameState.watcher_seen:
 		# The watcher does not answer what has not been seen.
+		queue_free()
+		return
+	if bottle_id == FAR_POINT_BOTTLE_ID and not GameState.keeper_star_found:
+		# The far point only replies to the keeper who found the star.
 		queue_free()
 		return
 	if GameState.is_story_read(bottle_id):
@@ -99,12 +106,12 @@ func _read() -> void:
 	# One-shot pointer to the Tide Ledger once the base set is complete.
 	var base_found := 0
 	for id in GameState.bottles_read:
-		if id != PACT_BOTTLE_ID and id != KEEPER_BOTTLE_ID and id != CORL_BOTTLE_ID and id != WATCHER_BOTTLE_ID:
+		if id != PACT_BOTTLE_ID and id != KEEPER_BOTTLE_ID and id != CORL_BOTTLE_ID and id != WATCHER_BOTTLE_ID and id != FAR_POINT_BOTTLE_ID:
 			base_found += 1
 	if base_found >= 3:
 		TutorialDirector.nudge("ledger")
-	# Corl and the first keeper get the bell; everyone else gets the chime.
-	if bottle_id == CORL_BOTTLE_ID or bottle_id == KEEPER_BOTTLE_ID:
+	# Corl and the first keeper get the bell; the far point gets the deep swell.
+	if bottle_id == CORL_BOTTLE_ID or bottle_id == KEEPER_BOTTLE_ID or bottle_id == FAR_POINT_BOTTLE_ID:
 		AudioManager.play_sfx("harbor_bell", 0.7)
 	else:
 		AudioManager.play_sfx("quest_complete", 0.95)
