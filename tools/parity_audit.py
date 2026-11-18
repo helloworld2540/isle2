@@ -39,6 +39,7 @@ PAIRS = [
     ("slot-row signatures", ["Slot rows sign themselves", "✳ once the Silverfin"], ("file", "scripts/save_slot.gd", "\"courier\"")),
     ("schema relic audit", ["schema_audit"], ("file", "tools/schema_audit.py", "")),
     ("silverfin species", ["Silverfin"], ("file", "scripts/fish_catalog.gd", "\"fish_silverfin\"")),
+    ("courier's letter", ["courier's letter", "CourierLetters", "COURIER_LETTER_COST"], ("file", "scripts/courier_letters.gd", "")),
 ]
 
 def read(name):
