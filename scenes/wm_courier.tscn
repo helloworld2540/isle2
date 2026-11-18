@@ -1,0 +1,6 @@
+[gd_scene format=4]
+
+[ext_resource type="Script" path="res://scripts/wm_courier.gd" id="1_courier"]
+
+[node name="WorldCourier" type="Sprite2D"]
+script = ExtResource("1_courier")

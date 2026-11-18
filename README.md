@@ -90,6 +90,7 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
   accessors (`garbage_bias`, `fish_speed_multiplier`, `belt_speed_multiplier`,
   `golden_chance_multiplier`) rather than raw keys, so there is no per-scene RNG. The shop sells a **dockhand's tide tip** ($25) that names tomorrow's tide — the only way to look ahead, bought one day at a time.
 - **Bottles**: `scripts/bottle_catalog.gd` — canonical title/lines for every message in a bottle; the world pickup and the stats page's Tide Ledger both read it.
+- **The courier flies**: on Eel Run days only, a silvery streak crosses the strait on the world map every 30–65 s (`scenes/wm_courier.tscn` + `scripts/wm_courier.gd`) — pure ambience; gone on other tides.
 - **Fish journal**: `scripts/fish_catalog.gd` — canonical names/blurbs for the five reef species; the dive pops "New species!" on a first sighting and the stats page's Reef Registry re-shows every earned note.
 - **Collectibles & streaks**: golden belt scrap (+2 score) and golden reef debris (+1 bonus) spawn at 12%; lifetime trackers (clean dives, flawless shifts, golden finds, best combo/haul) feed achievements — REEF REGISTRY, CLEAN SWEEP, SILK TOUCH, GOLDEN TOUCH, RHYTHM OF THE REEF, HEAVY HARVEST, HOT STREAK.
 - **The first keeper's margin notes**: rotating handwritten lines on every briefing card — locked in by `tools/margin_notes_test.gd` (distinct notes, card-safe lengths, rotation wraps).
