@@ -72,6 +72,9 @@ Welcome to Isle 2. Shared economy across world map, two minigames, shop, NPCs an
   many kg you need free) rather than returning partial goods for the full price.
   Undo plays a short rewind animation (REVERSED stamp, exiting receipt).
 
+- **The courier's letter** ($10) — once per tide day, a page from the Silverfin
+  is left on the counter. No re-read, no archive — the sea does not file its
+  post. It tells you nothing useful, which is its own kind of useful.
 ## Shop conveniences (money sinks)
 - Bag +10 kg — 60 + 25 per level. The only way to buy space with money.
 - Market Contact — 80/140/200. Each level adds +1$ to every unit sold, on top of
@@ -246,8 +249,6 @@ checked against this yield — nothing changed, deliberately.*
   each — 400 m is DEEP DIVE, 900 m is TO THE ABYSS.
 - Off-screen edge markers: fish markers flare red and swell/throb as they
   close on the drone (proximity + depth-scaled shimmer); garbage markers stay calm yellow.
-- The Silverfin glints once as it enters the water (a small blue-white
-  sparkle) — a rumour on the tide, never a chime; the Registry earns that.
 - Fish telegraph: a red wake blooms at the bottom edge in the fish's lane ~1.15s
   before it rises into view (swells and fades; skipped under reduced motion).
 - One bump left from the fish limit: the screen edges breathe a soft red
@@ -265,9 +266,7 @@ checked against this yield — nothing changed, deliberately.*
   wears a faint golden hush — a quiet victory the map never announces.
 - The stats page's Tide Ledger and Reef Registry tease locked rows
   instead of printing question marks — each bottle and fish has its own
-  spoiler-free hint; the page is the island's clue board. Both overlays carry
-  their own count in the legend and on the button ("Tide Ledger (n/8)",
-  "Reef Registry (n/5)"), and both turn gold when full.
+  spoiler-free hint; the page is the island's clue board.
 - The stats page opens with a single-line Keeper's Journal ledger: "Journal — bottles n/8 · starfish n/5 · tides n/4 · species n/5 · achievements n/45" — so you can see the whole completion board at a glance without scrolling.
 - Bottles you have already read can be re-read from the stats page via the Tide Ledger overlay (the game nudges you there once the third base bottle is read) (undiscovered notes stay locked).
 - Quest economics audit (SALE_PRICES-weighted): turn-ins are deliberately slightly under market value — that is the price of quest progress and the Harbor Hero +10 kg cap — but the old numbers were punitive (Tom 24$->12$, Nina 30$->15$, Kai 25$->10$, Mara t2 25$->18$). Buffed: Tom t1 4->6 PP (18$), Nina t1 5->6 PP (18$), Kai t1 now 6 PP (18$), Mara t2 6->8 PP (24$). Nina t2 (+8$) and Kai t2 (+4$) remain the profitable tiers.
@@ -439,25 +438,19 @@ new flags for this — it reads the achievement catalogue, and once a badge is
 earned the relevant NPC appends a line to every later conversation:
 
 - **Mara** — TIDEKEEPER's Pact funded (belief), LOOP MASTER (25 circuits),
-  CLEAN SWEEP (five perfect dives), THE PALE COURIER ("The strait pays its
-  own postage"), THE WHOLE SEA (she started the rumour;
-  she never said the chorus had an eighth voice), THE FAR POINT (she started the rumour;
+  CLEAN SWEEP (five perfect dives), THE FAR POINT (she started the rumour;
   she raised you right).
 - **Tom** — the three shore notes read (TIDE KEEPER), HEAVY HARVEST (30 kg in
-  one dive), REEF VETERAN (25 dives), TO THE ABYSS (900 m), THE PALE
-  COURIER (the beat), THE WHOLE SEA ("The sea kept writing; you kept reading"), THE FAR POINT
+  one dive), REEF VETERAN (25 dives), TO THE ABYSS (900 m), THE FAR POINT
   ("I keep to my fishing").
 - **Nina** — the three shore notes read, SILK TOUCH (flawless shifts), THE
-  PALE COURIER (something low and quick on the flight path), THE
-  WHOLE SEA ("My letters finally make sense in the sequence"), THE
   FAR POINT (word travels at the counter).
 - **Kai** — TIDEKEEPER's Pact funded, GOLDEN TOUCH (ten golden scraps),
-  THE WHISPERER (Corl's seven days), THE SILENT CHORUS (six bottles; the seventh note is a blessing, not a requirement),
-  THE WHOLE SEA (the till's best regular — "tell the sea it can stop
-  writing"), THE PALE COURIER ("Shame it does not sit on a shelf"), THE FAR POINT (he will not restock it).
+  THE WHISPERER (Corl's seven days), THE SILENT CHORUS (six bottles; the seventh note is a blessing, not a requirement), THE
+  FAR POINT (he will not restock it).
 - **Oda** — THE KEEPER'S LETTER, THE SILENT CHORUS, THE WHOLE SEA (all eight bottles, the hidden 44th badge), THE LONG KEEPER (ten
   days on the almanac), ISLAND STEWARD, THE STEADY KEEPER (three running),
-  THE PALE COURIER ("You made the page."), THE FAR POINT ("Some of us watch the water. Some of us are watched by it.").
+  THE FAR POINT ("Some of us watch the water. Some of us are watched by it.").
 
 Milestones stack: an NPC can notice several things at once. Completing the
 whole catalogue (ISLAND STEWARD) earns a personal send-off from every one of
@@ -470,13 +463,7 @@ them — and a faint golden hush over the world.
 - **Night Drift** — half the distant cries become a low foghorn, far out on the water.
 
 ## Version history (as shipped)
-- **The courier flies** — on Eel Run days only, a silvery streak crosses the strait on the world map every 30–65 seconds. The courier keeps its own calendar.
-- **The Courier's Passage** — every Silverfin bump is counted (`courier_passes`, saved) and shows in the stats page's deeds column ("The courier passed by N times"). No achievement hangs on it — just the island's memory of the rare fish.
-- **The tide has a voice on the card** — the TIDE REPORT banner's swell now pitches with the day: bright on Glass Calm, quick on Eel Run, lowest on Slack Water and Night Drift.
-- **The courier is spoken of everywhere** — all five named islanders now notice THE PALE COURIER, each in their own register.
-- **The registry keeps count** — the Reef Registry overlay legend and button now show n/5 ("Reef Registry (n/5)"), gold at five, matching the Tide Ledger.
-- **1.3.0** — the Silverfin and THE PALE COURIER (the 45th badge), weighted reef spawns (the shark a spice, the courier rare — and twice as common on Eel Run), The Filled Almanac, the quiet harbor, the courier's chime, the Courier's Wake and the Last Page cards, the front door remembering, and every islander closing the chorus together.
-- **Every voice goes quiet at once** — all five named islanders now notice THE WHOLE SEA (Mara, Tom, Nina, Kai join Oda), each in their own register. The chorus closes together.
+- **The courier's letter** — a $10 counter page, once per tide day: a line from the Silverfin itself, handed over in a drag-scroll dialogue card. Pure lore; the dockhand keeps tomorrow's secret.
 - **The courier's chime** — the first Silverfin logged plays its own two-note glass chime (synthesized in-repo); the Reef Registry has a voice.
 - **The Courier's Wake** — earning THE PALE COURIER queues a one-time world-map card about the Silverfin; never overwrites a pending run recap.
 - **THE PALE COURIER** — the 45th badge: spotted the Silverfin at least once. Tom the shorekeeper notices ("Nobody's ever kept up with it — but you saw it.").

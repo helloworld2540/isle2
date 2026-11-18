@@ -1,53 +1,9 @@
 # Current project todo:
 
 # done this pass
-- **The courier flies** — on Eel Run days only, WorldCourier crosses the
-  strait on a rare timer (8–20 s first pass, then 30–65 s): a fast silvery
-  streak with a quiet high chime. Frees itself on every other tide;
-  reduce-motion skips the flyby. 52 scenes in smoke.
-- **The margin notes grew a courier** — two new first-keeper lines (bench +
-  water) referencing the courier. New tools/margin_notes_test.gd asserts
-  distinct notes, sane lengths and clean rotation; wired into all_audits.sh.
-- **The Courier's Passage** — every Silverfin bump increments courier_passes
-  (schema-persisted); the stats deeds column remembers how many times the
-  courier crossed paths with you. Deliberately no achievement.
-- **The tide has a voice on the card** — the TIDE REPORT banner's swell
-  now pitches with the day (glass calm 1.05, eel run 1.2, slack 0.6, night drift 0.5).
-- **1.3.0 sealed** — version bumped in the Android preset (versionName=1.3.0 /
-  versionCode=4), main-menu stamp, About page, README, RELEASE_NOTES,
-  RELEASE_CHECKLIST (verified values), guide.md version history. All three
-  platforms rebuilt at HEAD via `tools/export_gate.sh --re-export`; fresh-clone
-  proof re-run clean; APK badging dumped: versionName=1.3.0 / versionCode=4 /
-  minSdk=24 / targetSdk=36 / label Trash Island. Ships the Silverfin,
-  THE PALE COURIER (the 45th badge), weighted reef spawns, The Filled
-  Almanac, the quiet harbor, the front door remembering, the courier's
-  chime, the margin notes and the chorus closing together.
-- **The tide card names the courier** — Eel Run's summary reads "Eel run —
-  the courier rides the current" on the HUD and the banner, and its blurb
-  tells you the courier rides the fast water. tide_test green.
-- **The courier is spoken of everywhere** — all five named islanders now
-  notice THE PALE COURIER (Mara, Tom, Nina, Kai, Oda), each in register;
-  npc_beat_audit covers them.
-- **The registry keeps count** — Reef Registry overlay legend and button
-  show n/5 (button reads "Reef Registry (n/5)", gold at five), matching
-  the Tide Ledger's self-advertising pattern.
-- **The courier glints** — a Silverfin spawn now sparks a small blue-white
-  burst as it enters the reef (visual tell only, no SFX — the Registry
-  sighting keeps the chime).
-- **Slot rows sign themselves** — SaveSlot.summary/one_liner gain the island's
-  two quiet signatures: ✳ once the Silverfin is logged (fish_met), ✦ once
-  THE WHOLE SEA is earned (achievements). Slot rows read them straight
-  from the save header; no new state.
-- **spawn_weight_test** — permanent harness: spawn table covers every
-  species, ordinary days keep the Silverfin rare, Eel Run doubles it,
-  the shark stays a spice. Wired into all_audits.sh; also fixed a
-  shadowed loop variable that broke rr_fish.gd compilation.
 - **Weighted reef spawns** — fish spawns were uniform; now Goldie/Nemo are
   regulars, Crab common, Grey Reef Shark rare (14), Silverfin rare (10,
   doubled to 20 on Eel Run). TideReport drives the courier's day.
-- **Every voice goes quiet at once** — all five named islanders now
-  carry a THE WHOLE SEA milestone beat (Mara, Tom, Nina, Kai joined Oda),
-  each in their own register; npc_beat_audit covers them.
 - **The courier's chime** — new synthesized two-note glass chime
   (sound/sfx/silverfin.wav, python wave synth) plays when the Silverfin
   is first logged; the registry sighting now has its own voice.

@@ -3,8 +3,10 @@ class_name ShopMenu
 
 const NOTIFICATION_QUEUE := preload("res://scenes/ui/notification_queue.tscn")
 const RECEIPT_STACK_SCENE := preload("res://scenes/ui/receipt_stack.tscn")
+const DIALOGUE_SCENE := preload("res://scenes/ui/npc_dialogue.tscn")
 
 const ShopLedger := preload("res://scripts/shop_ledger.gd")
+const CourierLetters := preload("res://scripts/courier_letters.gd")
 
 # Scene-unique names (the scene sets unique_name_in_owner) so this list no
 # longer has to track the layout tree.
@@ -28,6 +30,8 @@ const ShopLedger := preload("res://scripts/shop_ledger.gd")
 @onready var buy_tidekeeper_button: Button = %BuyTidekeeperButton
 @onready var buy_tide_tip_button: Button = %BuyTideTipButton
 @onready var tide_tip_note: Label = %TideTipNote
+@onready var buy_courier_letter_button: Button = %BuyCourierLetterButton
+@onready var courier_letter_note: Label = %CourierLetterNote
 @onready var tide_note: Label = %TideNote
 @onready var money_note: Label = %MoneyNote
 
@@ -98,6 +102,8 @@ func _wire_ui() -> void:
 		buy_tidekeeper_button.pressed.connect(_buy_tidekeeper)
 	if buy_tide_tip_button:
 		buy_tide_tip_button.pressed.connect(_buy_tide_tip)
+	if buy_courier_letter_button:
+		buy_courier_letter_button.pressed.connect(_buy_courier_letter)
 
 func _wire_row(row: HBoxContainer, mat: String, price: int) -> Dictionary:
 	var name_lbl: Label = row.get_node("Name")
@@ -220,7 +226,23 @@ func _refresh_purchases() -> void:
 	if tide_note:
 		tide_note.text = "Today: the sea keeps its own counsel — and so do you." if GameSettings.hide_tide else "Today: %s" % TideReport.summary()
 
-	if buy_tide_tip_button:
+	if buy_courier_letter_button:
+		if GameState.courier_letter_bought_today():
+			buy_courier_letter_button.text = "Courier's letter — read for today"
+			buy_courier_letter_button.tooltip_text = "One page a tide day. Come back on the next tide."
+			buy_courier_letter_button.disabled = true
+		else:
+			buy_courier_letter_button.text = "Courier's letter — %d$" % GameState.COURIER_LETTER_COST
+			buy_courier_letter_button.tooltip_text = "One page a tide day, from the fin that passes by."
+			buy_courier_letter_button.disabled = not GameState.can_afford(GameState.COURIER_LETTER_COST)
+	if courier_letter_note:
+		if GameState.courier_letter_bought_today():
+			courier_letter_note.text = "You read today's page at the counter. It did not keep."
+		else:
+			courier_letter_note.text = "A page, sand-grained and sealed with a small fin. The counter keeps it for %d$." % GameState.COURIER_LETTER_COST
+
+
+if buy_tide_tip_button:
 		var quiet := GameSettings.hide_tide
 		if GameState.harbor_tip_purchased():
 			buy_tide_tip_button.text = "Dockhand's secret — taken today" if quiet else "Dockhand's tip — bought today"
@@ -237,6 +259,22 @@ func _refresh_purchases() -> void:
 		else:
 			var streak_hint := " Regulars (3-day streak) pay $15." if GameState.tide_streak < GameState.HARBOR_TIP_DISCOUNT_STREAK else " You are a regular — $15 today."
 			tide_tip_note.text = "A dockhand can tell you tomorrow's tide — for a price. His ledger: %d/7 whispers.%s" % [mini(GameState.harbor_tips_bought, 7), streak_hint]
+
+
+func _buy_courier_letter() -> void:
+	if not GameState.purchase_courier_letter():
+		_play_denied("Need %d$ for the courier's letter" % GameState.COURIER_LETTER_COST, "")
+		_shake_control(buy_courier_letter_button)
+		return
+	AudioManager.play_sfx("pickup", 1.5)
+	var letter := CourierLetters.letter_at(GameState.courier_letter_index())
+	_stack.sale("COURIER'S LETTER  -%d$\nA page, kept." % GameState.COURIER_LETTER_COST, Color(0.72, 0.94, 1.0, 1.0))
+	_log_sale("A page from the courier, read at the counter.")
+	if DIALOGUE_SCENE:
+		var dialogue = DIALOGUE_SCENE.instantiate()
+		get_tree().current_scene.add_child(dialogue)
+		dialogue.present("The Courier's Letter", [letter])
+	_refresh()
 
 
 func _buy_tide_tip() -> void:

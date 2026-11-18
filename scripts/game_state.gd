@@ -193,6 +193,12 @@ const KEEPER_STAR_MONEY := 50
 ## the keeper. Pure ledger: no achievement hangs on it, just the island's
 ## quiet memory of a rare fish. Bumped on every Silverfin graze.
 var courier_passes: int = 0
+## The courier's letter: one page per tide day, $10 a page, left at the shop
+## counter. -1 means "never bought"; otherwise it is the tide day of the last
+## letter read. Pure lore — no mechanics, no tide forecast; the dockhand
+## sells tomorrow for that.
+var courier_letter_day: int = -1
+const COURIER_LETTER_COST := 10
 
 # Most recent minigame run, handed to the world map for its recap card.
 # Shape: { "kind": String, "title": String, "lines": Array[String], "hint": String }
@@ -652,6 +658,32 @@ const HARBOR_TIP_DISCOUNT_STREAK := 3
 func tip_cost() -> int:
 	return HARBOR_TIP_DISCOUNT if tide_streak >= HARBOR_TIP_DISCOUNT_STREAK else HARBOR_TIP_COST
 
+
+## --- The courier's letter (shop, once per tide day, $10) ---
+## The courier writes one page per tide day and leaves it at the counter.
+## Buying it is the only way to read it: no archive, no re-read — the sea
+## keeps things that were never meant to be kept. The dockhand's tip stays
+## the thing that tells you tomorrow; this tells you nothing useful,
+## which is its own kind of useful.
+
+func courier_letter_bought_today() -> bool:
+	return courier_letter_day != -1 and courier_letter_day == tide_days_visited
+
+
+func courier_letter_index() -> int:
+	# The counter hands out the pages in the order the sea wrote them.
+	return maxi(tide_days_visited, 0)
+
+
+func purchase_courier_letter() -> bool:
+	if courier_letter_bought_today():
+		return false
+	if not spend_money(COURIER_LETTER_COST):
+		return false
+	courier_letter_day = tide_days_visited
+	_persist()
+	return true
+
 ## True once today's purchase covers tomorrow. Idempotent per day.
 func harbor_tip_purchased() -> bool:
 	return harbor_tip_day == TideReport.day_index() + 1
@@ -951,6 +983,7 @@ const SAVE_SCHEMA: Array = [
 	["tide_almanac_granted", "tide_almanac_granted", false, "bool"],
 	["harbor_tip_day", "harbor_tip_day", 0, "int"],
 	["harbor_tips_bought", "harbor_tips_bought", 0, "int"],
+	["courier_letter_day", "courier_letter_day", -1, "int"],
 	["tide_days_visited", "tide_days_visited", 0, "int"],
 	["watcher_seen", "watcher_seen", false, "bool"],
 	["fifth_tide_granted", "fifth_tide_granted", false, "bool"],
