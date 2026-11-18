@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- **font_size_audit.py** — permanent mobile legibility gate: fails on any
+  explicit font_size under 17 px anywhere in scenes/ or scripts/. PASS.
 - **Almanac footer legibility** — the Filled Almanac's whisper footnote
   was 14px (the only sub-17px font in the project); now 17px (fog-lifted
   too). Touch floor holds everywhere.
