@@ -9,23 +9,118 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/about.tscn" id="6_about"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_nmirg"]
-font_size = 84
+font_size = 64
+font_color = Color(1, 0.84, 0.35, 1)
+outline_size = 6
+outline_color = Color(0.05, 0.08, 0.12, 0.9)
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_summary"]
 content_margin_left = 22.0
 content_margin_top = 18.0
 content_margin_right = 22.0
 content_margin_bottom = 18.0
-bg_color = Color(0.05, 0.08, 0.12, 0.82)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.4, 0.7, 0.9, 0.35)
-corner_radius_top_left = 14
-corner_radius_top_right = 14
-corner_radius_bottom_right = 14
-corner_radius_bottom_left = 14
+bg_color = Color(0.05, 0.08, 0.12, 0.88)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4, 0.7, 0.9, 0.5)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0, 0, 0, 0.35)
+shadow_size = 6
+shadow_offset = Vector2(0, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_gold"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(1, 0.84, 0.35, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.92, 0.55, 0.9)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color(0, 0, 0, 0.35)
+shadow_size = 6
+shadow_offset = Vector2(0, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_gold_hover"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(1, 0.9, 0.5, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_gold_pressed"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(0.82, 0.66, 0.2, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_ghost"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(0.08, 0.13, 0.19, 0.62)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4, 0.7, 0.9, 0.6)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_ghost_hover"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(0.12, 0.20, 0.28, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.6, 0.88, 1, 0.95)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_ghost_pressed"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(0.10, 0.16, 0.23, 1.0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.55, 0.85, 1, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
 
 [node name="Control" type="Control" unique_id=772106938]
 layout_mode = 3
@@ -44,19 +139,19 @@ centered = false
 [node name="Title" type="Label" parent="." unique_id=1987671865]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.21
-anchor_right = 0.5
-anchor_bottom = 0.21
-offset_left = -378.0
-offset_top = -52.0
-offset_right = 378.0
-offset_bottom = 101.0
-grow_horizontal = 2
+anchor_left = 0.0
+anchor_top = 0.16
+anchor_right = 0.0
+anchor_bottom = 0.16
+offset_left = 24.0
+offset_top = -46.0
+offset_right = 770.0
+offset_bottom = 92.0
+grow_horizontal = 0
 theme = ExtResource("2_ekxnf")
 text = "Trash Island 2"
 label_settings = SubResource("LabelSettings_nmirg")
-horizontal_alignment = 1
+horizontal_alignment = 0
 vertical_alignment = 1
 
 [node name="Buttons" type="VBoxContainer" parent="." unique_id=7000001]
@@ -76,62 +171,113 @@ theme = ExtResource("2_ekxnf")
 theme_override_constants/separation = 16
 
 [node name="NewSaveButton" type="Button" parent="Buttons" unique_id=875779408]
-custom_minimum_size = Vector2(300, 52)
+custom_minimum_size = Vector2(300, 58)
 layout_mode = 2
 size_flags_horizontal = 4
 theme = ExtResource("2_ekxnf")
+theme_override_styles/normal = SubResource("StyleBox_ghost")
+theme_override_styles/hover = SubResource("StyleBox_ghost_hover")
+theme_override_styles/pressed = SubResource("StyleBox_ghost_pressed")
+theme_override_styles/focus = SubResource("StyleBox_ghost_hover")
 theme_override_font_sizes/font_size = 27
+theme_override_colors/font_color = Color(0.72, 0.93, 1, 0.95)
+theme_override_colors/font_hover_color = Color(0.9, 0.98, 1, 1)
+theme_override_colors/font_focus_color = Color(0.9, 0.98, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.9, 0.98, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.9, 0.98, 1, 1)
 text = "New Save"
 
 [node name="LoadSaveButton" type="Button" parent="Buttons" unique_id=875779409]
-custom_minimum_size = Vector2(300, 52)
+custom_minimum_size = Vector2(300, 58)
 layout_mode = 2
 size_flags_horizontal = 4
 theme = ExtResource("2_ekxnf")
+theme_override_styles/normal = SubResource("StyleBox_gold")
+theme_override_styles/hover = SubResource("StyleBox_gold_hover")
+theme_override_styles/pressed = SubResource("StyleBox_gold_pressed")
+theme_override_styles/focus = SubResource("StyleBox_gold_hover")
 theme_override_font_sizes/font_size = 27
+theme_override_colors/font_color = Color(0.28, 0.18, 0.04, 1)
+theme_override_colors/font_hover_color = Color(0.28, 0.18, 0.04, 1)
+theme_override_colors/font_focus_color = Color(0.28, 0.18, 0.04, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.28, 0.18, 0.04, 1)
+theme_override_colors/font_pressed_color = Color(0.28, 0.18, 0.04, 1)
 text = "Load Save"
 
 [node name="QuitButton" type="Button" parent="Buttons" unique_id=678783011]
-custom_minimum_size = Vector2(300, 52)
+custom_minimum_size = Vector2(300, 58)
 layout_mode = 2
 size_flags_horizontal = 4
 theme = ExtResource("2_ekxnf")
+theme_override_styles/normal = SubResource("StyleBox_ghost")
+theme_override_styles/hover = SubResource("StyleBox_ghost_hover")
+theme_override_styles/pressed = SubResource("StyleBox_ghost_pressed")
+theme_override_styles/focus = SubResource("StyleBox_ghost_hover")
 theme_override_font_sizes/font_size = 27
+theme_override_colors/font_color = Color(0.72, 0.93, 1, 0.95)
+theme_override_colors/font_hover_color = Color(0.9, 0.98, 1, 1)
+theme_override_colors/font_focus_color = Color(0.9, 0.98, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.9, 0.98, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.9, 0.98, 1, 1)
 text = "Quit"
 
 [node name="VersionStamp" type="Label" parent="." unique_id=7000002]
-anchors_preset = 12
+layout_mode = 1
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 0.0
 anchor_bottom = 1.0
 grow_horizontal = 1
 grow_vertical = 0
 offset_left = 12.0
-offset_right = 220.0
+offset_top = -30.0
+offset_right = 232.0
 offset_bottom = -8.0
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 20
 theme_override_colors/font_color = Color(0.72, 0.85, 0.92, 0.55)
-text = "v1.3.0"
+text = "v1.2.0"
 
 [node name="AboutButton" type="Button" parent="." unique_id=7000003]
+layout_mode = 1
 anchors_preset = 13
-anchor_bottom = 1.0
+anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 0
+grow_vertical = 0
+offset_left = -232.0
+offset_top = -52.0
 offset_right = -12.0
 offset_bottom = -8.0
 custom_minimum_size = Vector2(220, 44)
-theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBox_ghost")
+theme_override_styles/hover = SubResource("StyleBox_ghost_hover")
+theme_override_styles/pressed = SubResource("StyleBox_ghost_pressed")
+theme_override_styles/focus = SubResource("StyleBox_ghost_hover")
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.72, 0.93, 1, 0.95)
+theme_override_colors/font_hover_color = Color(0.9, 0.98, 1, 1)
+theme_override_colors/font_focus_color = Color(0.9, 0.98, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.9, 0.98, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.9, 0.98, 1, 1)
 text = "About"
 
 [node name="AboutCanvas" parent="." instance=ExtResource("6_about")]
 
 [node name="Motto" type="Label" parent="." unique_id=7000004]
-anchors_preset = 12
+layout_mode = 1
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 0.0
 anchor_bottom = 1.0
 grow_horizontal = 1
+grow_vertical = 0
 offset_left = 12.0
-offset_right = 220.0
-offset_bottom = -40.0
-theme_override_font_sizes/font_size = 16
+offset_top = -64.0
+offset_right = 232.0
+offset_bottom = -36.0
+theme_override_font_sizes/font_size = 20
 theme_override_colors/font_color = Color(0.72, 0.85, 0.92, 0.42)
 horizontal_alignment = 0
 text = "Keep the shore"
@@ -150,14 +296,17 @@ grow_horizontal = 0
 [node name="SaveSummaryPanel" type="PanelContainer" parent="." unique_id=1000001]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 1
-anchors_preset = 1
+anchors_preset = 6
 anchor_left = 1.0
 anchor_right = 1.0
+anchor_top = 0.37
+anchor_bottom = 1.0
 offset_left = -555.0
-offset_top = 264.0
+offset_top = 0.0
 offset_right = -24.0
-offset_bottom = 523.0
+offset_bottom = -72.0
 grow_horizontal = 0
+grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBox_summary")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="SaveSummaryPanel" unique_id=1000002]
@@ -168,6 +317,7 @@ theme_override_constants/separation = 4
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 autowrap_mode = 3
+theme_override_font_sizes/font_size = 20
 
 [node name="TideLine" type="Label" parent="SaveSummaryPanel/VBoxContainer" unique_id=1000005]
 custom_minimum_size = Vector2(300, 0)
@@ -180,6 +330,16 @@ text = ""
 custom_minimum_size = Vector2(220, 46)
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBox_ghost")
+theme_override_styles/hover = SubResource("StyleBox_ghost_hover")
+theme_override_styles/pressed = SubResource("StyleBox_ghost_pressed")
+theme_override_styles/focus = SubResource("StyleBox_ghost_hover")
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.72, 0.93, 1, 0.95)
+theme_override_colors/font_hover_color = Color(0.9, 0.98, 1, 1)
+theme_override_colors/font_focus_color = Color(0.9, 0.98, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.9, 0.98, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.9, 0.98, 1, 1)
 text = "More stats →"
 
 [node name="ConfirmPanel" parent="." instance=ExtResource("4_confirm")]

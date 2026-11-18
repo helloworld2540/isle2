@@ -1,4 +1,54 @@
 
+## 2026-11-18 — BGM cache evicts on switch (mobile memory)
+- `AudioManager.play_bgm` now keeps only the incoming track cached and evicts
+  the previous one when the bed changes — otherwise every scene's loop pins
+  its MP3 in RAM for the whole session (~45 MB across menu/world/upcycle/shop/
+  reef), which mobile budgets cannot absorb. SFX streams are small and stay
+  cached. `stop_bgm` clears the path too.
+
+## 2026-11-18 — The world-courier flyby: back on the water
+- The `WorldCourier` node is back in `scenes/world.tscn` (position 300, 1050,
+  `res://scenes/wm_courier.tscn`), so the Silverfin crosses the strait on Eel
+  Run days — a slow, deliberate flyby that fades in, sweeps, and re-arms on a
+  30–65 s timer. It frees itself on every other tide and under reduced motion,
+  and it never spawns a card or a chime; the registry earns its own voice.
+- `scripts/wm_courier.gd` gained a `force_tide_key` export so the harness can
+  stand the scene on any tide without touching the calendar, and it now looks
+  up `GameSettings`/`AudioManager` at runtime through `/root` instead of by
+  bare autoload name — the tool harnesses compile without those identifiers.
+- `tools/courier_flight_test.gd` walks the whole flyby: wrong tide frees it,
+  Eel Run survives and starts hidden, a pass fades in and sweeps, the timer
+  re-arms on the long interval, and reduced motion skips it. 0 failures.
+- `tools/all_audits.sh` regains the harness; `tools/README.md` catalogues it.
+
+## 2026-11-18 — Reef Registry button: its own count, like the ledger
+- The stats page's Reef Registry button now advertises its own completion —
+  "Reef Registry (n/5)" — and turns gold at 5/5, the same way the Tide Ledger
+  button does. No need to open the page to know where the reef stands.
+- The overlay's legend line reads "every species you have bumped into — n/5 —
+  tap to read what you know", refreshed on open.
+- `scripts/stats_menu.gd`: `_refresh_registry_button` + `_refresh_registry_legend`,
+  wired once in `_connect_signals` and called from `_update_stats_display` and
+  `_open_registry`. The scene keeps its `RegistryLegend` label
+  (`unique_id=300000022`).
+
+## 2026-11-18 — 1.3.0 sealed across all three platforms
+- Version bumped everywhere in lockstep: Android preset (versionName=1.3.0 /
+  versionCode=4), main-menu stamp ("v1.3.0"), About page ("Version 1.3.0"),
+  README, RELEASE_NOTES, RELEASE_CHECKLIST, guide.md version history.
+- `tools/export_gate.sh --re-export` green: Linux, Web and Android all
+  rebuilt at HEAD. Signed APK badging verified (versionName=1.3.0,
+  versionCode=4, minSdk=24, targetSdk=36, label `Trash Island`). Fresh-clone
+  proof re-run clean at HEAD (cold import → Linux export → headless boot with
+  an empty log).
+- Ships on top of 1.2.0: the Silverfin, THE PALE COURIER (the 45th badge),
+  weighted reef spawns (the shark a spice, the courier rare), The Filled
+  Almanac, the quiet harbor, the courier's chime, the Courier's Wake and
+  The Last Page cards, the front door remembering, the first keeper's margin
+  notes, and THE WHOLE SEA closing the chorus across every islander.
+- Concurrent loop kept working past the seal (the 1.3.0 tag is a HEAD seal,
+  not a frozen tree) — HEAD at the time of sealing is c1167f0.
+
 ## 2026-11-18 — THE KEEPER'S STAR: the island's epilogue, earned
 - A hidden **sixth starfish** lives at the far point east of the watcher
   (`scenes/wm_keeper_star.tscn` + `scripts/wm_keeper_star.gd`). It frees
@@ -40,23 +90,6 @@
   (ec72ce2); the committed state on HEAD carries AlmanacButton/AlmanacOverlay
   plus the Silverfin/PALE COURIER work, verified consistent by a fresh
   ALL-AUDITS PASS.
-
-## 2026-11-18 — 1.3.0 sealed across all three platforms
-- Version bumped everywhere in lockstep: Android preset (versionName=1.3.0 /
-  versionCode=4), main-menu stamp ("v1.3.0"), About page ("Version 1.3.0"),
-  README, RELEASE_NOTES, RELEASE_CHECKLIST, guide.md version history.
-- `tools/export_gate.sh --re-export` green: Linux, Web and Android all
-  rebuilt at HEAD. Signed APK badging verified (versionName=1.3.0,
-  versionCode=4, minSdk=24, targetSdk=36, label `Trash Island`). Fresh-clone
-  proof re-run clean at HEAD (cold import → Linux export → headless boot with
-  an empty log).
-- Ships on top of 1.2.0: the Silverfin, THE PALE COURIER (the 45th badge),
-  weighted reef spawns (the shark a spice, the courier rare), The Filled
-  Almanac, the quiet harbor, the courier's chime, the Courier's Wake and
-  The Last Page cards, the front door remembering, the first keeper's margin
-  notes, and THE WHOLE SEA closing the chorus across every islander.
-- Concurrent loop kept working past the seal (the 1.3.0 tag is a HEAD seal,
-  not a frozen tree) — HEAD at the time of sealing is c1167f0.
 
 ## 2026-11-18 — 1.2.0 sealed across all three platforms
 - Version bumped everywhere in lockstep: Android preset (versionName=1.2.0 /

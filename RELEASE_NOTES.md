@@ -1,8 +1,6 @@
 # Isle 2 — Trash Island, release notes
 
-## Signed: Version 1.3.0 (Linux / Web / Android)
-
-Everything below shipped and is packaged in 1.3.0.
+**Version 1.3.0** (signed, Linux / Web / Android)
 
 ## What's new since 1.2.0
 
@@ -10,12 +8,6 @@ Everything below shipped and is packaged in 1.3.0.
   gone by dawn; it pays the biggest sighting in the Reef Registry. FishCatalog,
   the Registry overlay and the stats journal all read five species now;
   REEF REGISTRY is earned on five.
-- **Weighted reef spawns** — fish spawns were uniform; now Goldie/Nemo are
-  regulars, Crab common, the Grey Reef Shark rare (14), and the Silverfin a
-  deliberate, rare sighting (10) — doubled to 20 on Eel Run, the courier's
-  day on the water. Spawn selection is a weighted pick; TideReport drives the
-  odds. `tools/spawn_weight_test.gd` covers every roll lands on a known
-  species and the Eel Run double.
 - **THE PALE COURIER** — the 45th badge: spot the Silverfin at least once.
   Tom the shorekeeper notices, in his own register; the world HUD celebrates it.
 - **The Courier's Wake** — the first sighting queues a one-time world-map card

@@ -78,19 +78,18 @@ func _summary_text() -> String:
 		return "No save found yet. Start a new save to begin cleaning."
 
 	# GameState restored the save in _ready; nothing to re-read here.
-	var summary := "Continue summary:\nScore %d (best %d)  |  Trash %d kg  |  Fish %d \nBest streak %d  |  Lifetime earnings %d  | %d$ \nAchievements %d/%d  |  Days on the island: %d  |  Inventory totals: %s" % [
+	var summary := "Score %d (best %d)  ·  Trash %d kg\nFish bumps %d  ·  Best streak %d\nMoney %d$  ·  Lifetime %d$\nAchievements %d/%d  ·  Days on the island: %d" % [
 		GameState.upcycle_score, GameState.best_upcycle_score,
-		GameState.get_inventory_weight(), GameState.reef_fish,
-		GameState.best_sort_streak, GameState.lifetime_earnings,
-		GameState.money,
+		GameState.get_inventory_weight(),
+		GameState.reef_fish, GameState.best_sort_streak,
+		GameState.money, GameState.lifetime_earnings,
 		GameState.achievement_count(), GameState.achievement_total(),
 		GameState.tide_days_visited,
-		_format_inventory_totals()
 	]
+	summary += "\nInventory: %s" % _format_inventory_totals()
 	var all_days := SaveManager.total_tide_days()
 	if all_days > GameState.tide_days_visited:
-		summary += "
-All islands: %d days one keeper" % all_days
+		summary += "\nAll islands: %d days one keeper" % all_days
 
 	# Which island is this? A one-line identity above the stats.
 	summary = "Slot: %s\n%s" % [GameState.slot_name, summary]

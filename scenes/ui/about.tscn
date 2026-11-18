@@ -9,16 +9,108 @@ content_margin_left = 24.0
 content_margin_top = 18.0
 content_margin_right = 24.0
 content_margin_bottom = 18.0
-bg_color = Color(0.06, 0.08, 0.12, 0.96)
+bg_color = Color(0.05, 0.08, 0.12, 0.97)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.55, 0.85, 1.0, 0.85)
-corner_radius_top_left = 14
-corner_radius_top_right = 14
-corner_radius_bottom_right = 14
-corner_radius_bottom_left = 14
+border_color = Color(0.4, 0.7, 0.9, 0.6)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_color = Color(0, 0, 0, 0.4)
+shadow_size = 8
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_gold"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(1, 0.84, 0.35, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.92, 0.55, 0.9)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color(0, 0, 0, 0.35)
+shadow_size = 6
+shadow_offset = Vector2(0, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_gold_hover"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(1, 0.9, 0.5, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_gold_pressed"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(0.82, 0.66, 0.2, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_ghost"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(0.08, 0.13, 0.19, 0.62)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4, 0.7, 0.9, 0.6)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_ghost_hover"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(0.12, 0.20, 0.28, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.6, 0.88, 1, 0.95)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_ghost_pressed"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(0.10, 0.16, 0.23, 1.0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.55, 0.85, 1, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
 
 [node name="About" type="CanvasLayer"]
 layer = 170
@@ -30,8 +122,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
-color = Color(0.02, 0.04, 0.07, 0.55)
+color = Color(0.02, 0.04, 0.07, 0.6)
 
 [node name="Margin" type="MarginContainer" parent="."]
 anchors_preset = 15
@@ -59,17 +150,17 @@ layout_mode = 2
 theme_override_constants/separation = 8
 
 [node name="Portrait" type="TextureRect" parent="Margin/Column/Panel/VBox"]
-custom_minimum_size = Vector2(0, 120)
+custom_minimum_size = Vector2(360, 120)
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 3
 expand_mode = 1
 stretch_mode = 5
 texture = ExtResource("3_watcher")
 
 [node name="Title" type="Label" parent="Margin/Column/Panel/VBox"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.72, 0.93, 1, 1)
-theme_override_font_sizes/font_size = 26
+theme_override_colors/font_color = Color(1, 0.84, 0.35, 1)
+theme_override_font_sizes/font_size = 28
 horizontal_alignment = 1
 text = "Trash Island"
 
@@ -81,24 +172,34 @@ script = ExtResource("2_drag")
 
 [node name="Body" type="RichTextLabel" parent="Margin/Column/Panel/VBox/BodyScroll"]
 layout_mode = 2
-custom_minimum_size = Vector2(516, 0)
+custom_minimum_size = Vector2(440, 0)
 size_flags_horizontal = 3
 size_flags_vertical = 3
 bbcode_enabled = true
 fit_content = true
+theme_override_font_sizes/font_size = 20
 
 [node name="CloseBtn" type="Button" parent="Margin/Column/Panel/VBox"]
-custom_minimum_size = Vector2(150, 48)
+custom_minimum_size = Vector2(190, 48)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBox_gold")
+theme_override_styles/hover = SubResource("StyleBox_gold_hover")
+theme_override_styles/pressed = SubResource("StyleBox_gold_pressed")
+theme_override_styles/focus = SubResource("StyleBox_gold_hover")
+theme_override_font_sizes/font_size = 21
+theme_override_colors/font_color = Color(0.28, 0.18, 0.04, 1)
+theme_override_colors/font_hover_color = Color(0.28, 0.18, 0.04, 1)
+theme_override_colors/font_focus_color = Color(0.28, 0.18, 0.04, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.28, 0.18, 0.04, 1)
+theme_override_colors/font_pressed_color = Color(0.28, 0.18, 0.04, 1)
 text = "Keep the shore"
 
 [node name="FreeCredit" type="Label" parent="Margin/Column/Panel/VBox"]
 layout_mode = 2
 horizontal_alignment = 1
 theme_override_colors/font_color = Color(0.55, 0.65, 0.75, 0.9)
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 20
 text = "The island is always watching."
 
 [connection signal="pressed" from="Margin/Column/Panel/VBox/CloseBtn" to="." method="_on_close_pressed"]

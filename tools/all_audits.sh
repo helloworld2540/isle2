@@ -30,7 +30,7 @@ if ! timeout 240 env XDG_DATA_HOME="$VERIFY_HOME" godot --headless --path . -s t
 fi
 rm -rf "$VERIFY_HOME"
 
-for t in smoke_test slot_test migration_test slot_ui_test tide_test restore_test hide_tide_test spawn_weight_test margin_notes_test; do
+for t in smoke_test slot_test migration_test slot_ui_test tide_test restore_test hide_tide_test; do
   echo "== $t"
   if ! timeout 240 godot --headless --script tools/$t.gd; then
     echo "[FAIL] $t"

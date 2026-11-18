@@ -522,7 +522,7 @@ them — and a faint golden hush over the world.
 - **THE PALE COURIER** — the 45th badge: spotted the Silverfin at least once. Tom the shorekeeper notices ("Nobody's ever kept up with it — but you saw it.").
 - **The Silverfin** — a fifth reef species joins the water: pale, quick, and gone by dawn. REEF REGISTRY now demands all five; the Reef Registry overlay covers it; species counts read n/5.
 - **The first keeper's margin notes** — every briefing card (bench and reef) now carries a quiet handwritten line from the keeper who came before, rotating with your run/dive count. Save some for the almanac; it deserves the company.
-- **1.2.0** — THE KEEPER'S STAR (the epilogue, his sixth star), THE WHOLE SEA (the hidden 44th badge: all eight bottles), the far point's reply bottle, and all five islanders noticing the watcher.
+- **1.3.0** — THE KEEPER'S STAR (the epilogue, his sixth star), THE WHOLE SEA (the hidden 44th badge: all eight bottles), the far point's reply bottle, and all five islanders noticing the watcher.
 - **The quiet harbor** — once THE WHOLE SEA is earned, the gull flock cries ~80% less often, the far-jetty calls stretch and never draw an answer. The dock keeps the silence for the keeper who heard it all.
 - **The Last Page** — earning THE WHOLE SEA queues a one-time world-map card: the keeper before you left the last page blank on purpose. Never overwrites a pending run recap and never fires on silent restore.
 - **THE WHOLE SEA** — the hidden 44th badge: all eight bottles read, including the far point's reply. Legendary banner, Oda notices ("The water talks, love — you listened to the very end."), excluded from the ISLAND STEWARD capstone like the star, and the world HUD bottle line flips to "✦ The Whole Sea".

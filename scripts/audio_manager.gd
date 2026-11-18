@@ -25,6 +25,7 @@ var sound_path := "res://sound/"
 
 var _stream_cache: Dictionary = {}
 var _current_bgm_track := ""
+var _current_bgm_path := ""
 var _bgm_fade_tween: Tween = null
 var _duck_tween: Tween = null
 var _music_volume_before_duck := -1.0
@@ -142,6 +143,13 @@ func play_bgm(track: String) -> void:
 		stop_bgm()
 		return
 	
+	# The BGM cache would otherwise pin every track ever played in RAM for the
+	# whole session — ~45 MB of MP3s that mobile memory budgets cannot absorb.
+	# Keep only the incoming track cached; evict the previous one. SFX streams
+	# are small and stay cached.
+	if _current_bgm_path != "" and _current_bgm_path != resolved:
+		_stream_cache.erase(_current_bgm_path)
+	
 	if _bgm_fade_tween:
 		_bgm_fade_tween.kill()
 	
@@ -166,6 +174,7 @@ func play_bgm(track: String) -> void:
 			bgm_player.play()
 	
 	_current_bgm_track = track
+	_current_bgm_path = resolved
 
 
 func _resolve_bgm(track: String) -> String:
@@ -183,6 +192,7 @@ func stop_bgm() -> void:
 	if bgm_player:
 		bgm_player.stop()
 	_current_bgm_track = ""
+	_current_bgm_path = ""
 
 
 func duck_music(target: float = 0.18, duration: float = 0.25) -> void:

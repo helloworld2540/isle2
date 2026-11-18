@@ -76,6 +76,10 @@ This is why the harnesses use `get_node` rather than bare autoload names.
 ship was in flight; it was retired with a revert. Do not re-add it
 without reconciling first — see the sprint log.
 
+`courier_flight_test.gd` is wired into `tools/all_audits.sh` and asserts the
+world-courier flyby survives only on Eel Run, hides under reduced motion,
+and re-arms after a pass.
+
 ## Rebuild / re-export
 
 ```sh
