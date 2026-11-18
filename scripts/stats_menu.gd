@@ -73,6 +73,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			_close_ledger()
 		elif _registry_overlay and _registry_overlay.visible:
 			_close_registry()
+		elif _almanac_overlay and _almanac_overlay.visible:
+			_close_almanac()
 		else:
 			_on_back()
 
@@ -220,6 +222,7 @@ func _update_stats_display() -> void:
 	# Completed almanac glows gold — the journal acknowledges the book.
 	if _almanac_body:
 		_almanac_body.modulate = Color(1.0, 0.84, 0.32, 1.0) if GameState.tides_logged.size() >= 4 else Color(1.0, 1.0, 1.0, 1.0)
+	_refresh_almanac_button()
 
 
 	var marks: Array[String] = []
@@ -490,6 +493,64 @@ func _close_registry() -> void:
 	if _registry_overlay == null:
 		return
 	_registry_overlay.visible = false
+	AudioManager.play_sfx("return")
+
+
+## THE FILLED ALMANAC — the almanac's own prize for its keeper. Hidden until
+## all four tides are logged; once the book is filled the stats page offers
+## the rotation itself, day by day, no dockhand required.
+const ALMANAC_DAY_LABELS: Array[String] = ["Today", "Tomorrow", "In 2 days", "In 3 days", "In 4 days", "In 5 days", "In 6 days"]
+
+func _refresh_almanac_button() -> void:
+	if not _almanac_button:
+		return
+	_almanac_button.visible = GameState.tides_logged.size() >= 4
+
+
+func _open_almanac() -> void:
+	if _almanac_overlay == null:
+		return
+	if GameSettings.hide_tide:
+		# The sea keeps its own counsel — even its keeper's. The card says so
+		# and nothing else; the book stays shut while the quiet holds.
+		for day_label in _almanac_days:
+			day_label.text = ""
+			day_label.visible = false
+		_almanac_days[0].text = "≈ The sea keeps its own counsel — even for its keeper."
+		_almanac_days[0].visible = true
+		_almanac_days[0].modulate = Color(0.72, 0.8, 0.88, 1)
+		_almanac_footer.text = "hide-the-tide holds: even the almanac's own writer goes unread."
+		_almanac_overlay.visible = true
+		AudioManager.play_sfx("pickup")
+		return
+	var today := TideReport.day_index()
+	for i in _almanac_days.size():
+		var condition := TideReport.for_day(today + i)
+		var label: Label = _almanac_days[i]
+		var title := TideReport.title_case(String(condition.get("title", "Still tide")))
+		var summary := String(condition.get("summary", "A steady day"))
+		label.text = "%s — %s · %s" % [ALMANAC_DAY_LABELS[i], title, _trim_tide_blurb(summary)]
+		label.visible = true
+		# Today keeps the sea-foam highlight; the rest reads quieter.
+		label.modulate = Color(0.92, 0.97, 1, 1) if i == 0 else Color(0.72, 0.8, 0.88, 1)
+	_almanac_footer.text = "the rotation is four days — every page here comes round on its own tide."
+	_almanac_overlay.visible = true
+	AudioManager.play_sfx("pickup")
+
+
+## TideReport summaries arrive as "Glass calm — debris drifts loose"; the
+## panel already prints the tide name, so keep only the tail half.
+func _trim_tide_blurb(summary: String) -> String:
+	var pieces := summary.split("—", false, 1)
+	if pieces.size() == 2:
+		return pieces[1].strip_edges()
+	return summary
+
+
+func _close_almanac() -> void:
+	if _almanac_overlay == null:
+		return
+	_almanac_overlay.visible = false
 	AudioManager.play_sfx("return")
 
 
