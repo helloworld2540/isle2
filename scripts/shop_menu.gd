@@ -241,8 +241,7 @@ func _refresh_purchases() -> void:
 		else:
 			courier_letter_note.text = "A page, sand-grained and sealed with a small fin. The counter keeps it for %d$." % GameState.COURIER_LETTER_COST
 
-
-if buy_tide_tip_button:
+	if buy_tide_tip_button:
 		var quiet := GameSettings.hide_tide
 		if GameState.harbor_tip_purchased():
 			buy_tide_tip_button.text = "Dockhand's secret — taken today" if quiet else "Dockhand's tip — bought today"
