@@ -1,6 +1,17 @@
 # Current project todo:
 
 # done this pass
+- **Slot rows sign themselves** — SaveSlot.summary/one_liner gain the island's
+  two quiet signatures: ✳ once the Silverfin is logged (fish_met), ✦ once
+  THE WHOLE SEA is earned (achievements). Slot rows read them straight
+  from the save header; no new state.
+- **spawn_weight_test** — permanent harness: spawn table covers every
+  species, ordinary days keep the Silverfin rare, Eel Run doubles it,
+  the shark stays a spice. Wired into all_audits.sh; also fixed a
+  shadowed loop variable that broke rr_fish.gd compilation.
+- **Weighted reef spawns** — fish spawns were uniform; now Goldie/Nemo are
+  regulars, Crab common, Grey Reef Shark rare (14), Silverfin rare (10,
+  doubled to 20 on Eel Run). TideReport drives the courier's day.
 - **Every voice goes quiet at once** — all five named islanders now
   carry a THE WHOLE SEA milestone beat (Mara, Tom, Nina, Kai joined Oda),
   each in their own register; npc_beat_audit covers them.

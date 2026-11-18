@@ -158,8 +158,9 @@ checked against this yield — nothing changed, deliberately.*
 - Four conditions rotate:
   - **Glass Calm** — the reef lets go of its litter: noticeably more debris
     and fewer fish in Reef Rescue, and the shop's bulk bonus rises to +35%.
-  - **Eel Run** — a warm current: reef fish dart about 28% faster. Lead your
-    drag a little more.
+  - **Eel Run** — a warm current: reef fish dart about 28% faster, and the
+    Silverfin rides the fast water — the courier surfaces twice as often.
+    Lead your drag a little more.
   - **Slack Water** — the upcycle belt runs about 18% slower, which is the
     forgiving day to practise precise sorting.
   - **Night Drift** — golden debris and golden belt scrap are twice as likely,
