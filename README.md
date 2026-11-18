@@ -148,6 +148,7 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
   three hand-mirrored blocks. Verified byte-identical round-trip (md5) against a
   real player save, plus a full `reset()` → `restore()` field sweep.
 - Upgrades stored directly as save keys: `upgrade_move`, `upgrade_range`, audio/volume keys.
+- Story-arc persisted state worth knowing about: `bottles_read`, `starfish_found`, `fish_met`, `keeper_star_found`, `courier_passes`, `courier_letter_day`, `courier_letters_bought`, `tides_logged`, `tide_almanac_granted`, `fifth_tide_granted`, `watcher_seen`, `harbor_tips_bought`, `harbor_tip_day` — every one of these feeds at least one achievement predicate. `tools/schema_audit.py` walks the table and flags relics that lost their external readers, which is the signature of a partially-reverted feature.
 
 ## Economy Formulas (weighted inventory)
 - Inventory capacity is in **kg**: `10 + 10 × inventory_capacity_level`.
