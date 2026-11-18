@@ -549,6 +549,22 @@ theme_override_colors/font_hover_pressed_color = Color(0.9, 0.98, 1, 1)
 theme_override_colors/font_pressed_color = Color(0.9, 0.98, 1, 1)
 text = "Reef Registry"
 
+[node name="AlmanacButton" type="Button" parent="Margin/VBox/ButtonRow" unique_id=300000050]
+custom_minimum_size = Vector2(190, 48)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBox_gold")
+theme_override_styles/hover = SubResource("StyleBox_gold_hover")
+theme_override_styles/pressed = SubResource("StyleBox_gold_pressed")
+theme_override_styles/focus = SubResource("StyleBox_gold_hover")
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.28, 0.18, 0.04, 1)
+theme_override_colors/font_hover_color = Color(0.28, 0.18, 0.04, 1)
+theme_override_colors/font_focus_color = Color(0.28, 0.18, 0.04, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.28, 0.18, 0.04, 1)
+theme_override_colors/font_pressed_color = Color(0.28, 0.18, 0.04, 1)
+text = "The Almanac"
+visible = false
+
 [node name="RestoreButton" type="Button" parent="Margin/VBox/ButtonRow" unique_id=300000033]
 custom_minimum_size = Vector2(190, 48)
 layout_mode = 2
@@ -780,6 +796,131 @@ size_flags_horizontal = 4
 text = "· Silverfin"
 
 [node name="RegistryClose" type="Button" parent="RegistryOverlay/Panel/VBox"]
+custom_minimum_size = Vector2(180, 46)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBox_ghost")
+theme_override_styles/hover = SubResource("StyleBox_ghost_hover")
+theme_override_styles/pressed = SubResource("StyleBox_ghost_pressed")
+theme_override_styles/focus = SubResource("StyleBox_ghost_hover")
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.72, 0.93, 1, 0.95)
+theme_override_colors/font_hover_color = Color(0.9, 0.98, 1, 1)
+theme_override_colors/font_focus_color = Color(0.9, 0.98, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.9, 0.98, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.9, 0.98, 1, 1)
+text = "Close"
+
+[node name="AlmanacOverlay" type="Control" parent="." unique_id=300000051]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+
+[node name="Dimmer" type="ColorRect" parent="AlmanacOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.62)
+
+[node name="Panel" type="PanelContainer" parent="AlmanacOverlay"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -340.0
+offset_top = -344.0
+offset_right = 340.0
+offset_bottom = 344.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBox_guide")
+
+[node name="VBox" type="VBoxContainer" parent="AlmanacOverlay/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="AlmanacTitle" type="Label" parent="AlmanacOverlay/Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0.32, 1)
+theme_override_font_sizes/font_size = 22
+text = "THE ALMANAC, FILLED"
+horizontal_alignment = 1
+
+[node name="AlmanacLegend" type="Label" parent="AlmanacOverlay/Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.8, 0.88, 1)
+theme_override_font_sizes/font_size = 17
+text = "the order the sea keeps, spelled out for its keeper"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Day0" type="Label" parent="AlmanacOverlay/Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.92, 0.97, 1, 1)
+theme_override_font_sizes/font_size = 19
+text = ""
+horizontal_alignment = 1
+
+[node name="Day1" type="Label" parent="AlmanacOverlay/Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.8, 0.88, 1)
+theme_override_font_sizes/font_size = 17
+text = ""
+horizontal_alignment = 1
+
+[node name="Day2" type="Label" parent="AlmanacOverlay/Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.8, 0.88, 1)
+theme_override_font_sizes/font_size = 17
+text = ""
+horizontal_alignment = 1
+
+[node name="Day3" type="Label" parent="AlmanacOverlay/Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.8, 0.88, 1)
+theme_override_font_sizes/font_size = 17
+text = ""
+horizontal_alignment = 1
+
+[node name="Day4" type="Label" parent="AlmanacOverlay/Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.8, 0.88, 1)
+theme_override_font_sizes/font_size = 17
+text = ""
+horizontal_alignment = 1
+
+[node name="Day5" type="Label" parent="AlmanacOverlay/Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.8, 0.88, 1)
+theme_override_font_sizes/font_size = 17
+text = ""
+horizontal_alignment = 1
+
+[node name="Day6" type="Label" parent="AlmanacOverlay/Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.8, 0.88, 1)
+theme_override_font_sizes/font_size = 17
+text = ""
+horizontal_alignment = 1
+
+[node name="AlmanacFooter" type="Label" parent="AlmanacOverlay/Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.62, 0.7, 1)
+theme_override_font_sizes/font_size = 14
+text = "the rotation is four days — the sea never forgets its own book"
+horizontal_alignment = 1
+
+[node name="AlmanacClose" type="Button" parent="AlmanacOverlay/Panel/VBox"]
 custom_minimum_size = Vector2(180, 46)
 layout_mode = 2
 size_flags_horizontal = 4

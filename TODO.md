@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- **THE PALE COURIER** — the 45th badge: spotted the Silverfin at least
+  once. Tom milestone beat ("Nobody's ever kept up with it."). Docs to 45.
 - **The Silverfin** — a fifth reef species (fish_silverfin.png, drawn
   in-repo after the image pipeline credential failed). Spawns at weight
   18; FishCatalog, Reef Registry overlay (new row, panel grown), stats

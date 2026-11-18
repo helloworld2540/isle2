@@ -254,7 +254,7 @@ checked against this yield — nothing changed, deliberately.*
 - The stats page's Tide Ledger and Reef Registry tease locked rows
   instead of printing question marks — each bottle and fish has its own
   spoiler-free hint; the page is the island's clue board.
-- The stats page opens with a single-line Keeper's Journal ledger: "Journal — bottles n/8 · starfish n/5 · tides n/4 · species n/4 · achievements n/44" — so you can see the whole completion board at a glance without scrolling.
+- The stats page opens with a single-line Keeper's Journal ledger: "Journal — bottles n/8 · starfish n/5 · tides n/4 · species n/5 · achievements n/45" — so you can see the whole completion board at a glance without scrolling.
 - Bottles you have already read can be re-read from the stats page via the Tide Ledger overlay (the game nudges you there once the third base bottle is read) (undiscovered notes stay locked).
 - Quest economics audit (SALE_PRICES-weighted): turn-ins are deliberately slightly under market value — that is the price of quest progress and the Harbor Hero +10 kg cap — but the old numbers were punitive (Tom 24$->12$, Nina 30$->15$, Kai 25$->10$, Mara t2 25$->18$). Buffed: Tom t1 4->6 PP (18$), Nina t1 5->6 PP (18$), Kai t1 now 6 PP (18$), Mara t2 6->8 PP (24$). Nina t2 (+8$) and Kai t2 (+4$) remain the profitable tiers.
 - Depth is tracked in the stats page and feeds two achievements: DEEP DIVE (400 m) and TO THE ABYSS (900 m). Ten finished dives earns REEF REGULAR; the stats page keeps a running "Field log" of dives and bench runs.
@@ -444,6 +444,7 @@ them — and a faint golden hush over the world.
 - **Night Drift** — half the distant cries become a low foghorn, far out on the water.
 
 ## Version history (as shipped)
+- **THE PALE COURIER** — the 45th badge: spotted the Silverfin at least once. Tom the shorekeeper notices ("Nobody's ever kept up with it — but you saw it.").
 - **The Silverfin** — a fifth reef species joins the water: pale, quick, and gone by dawn. REEF REGISTRY now demands all five; the Reef Registry overlay covers it; species counts read n/5.
 - **The first keeper's margin notes** — every briefing card (bench and reef) now carries a quiet handwritten line from the keeper who came before, rotating with your run/dive count. Save some for the almanac; it deserves the company.
 - **1.2.0** — THE KEEPER'S STAR (the epilogue, his sixth star), THE WHOLE SEA (the hidden 44th badge: all eight bottles), the far point's reply bottle, and all five islanders noticing the watcher.

@@ -40,6 +40,19 @@ var _pending_action := ""
 @onready var _registry_button: Button = $"Margin/VBox/ButtonRow/RegistryButton"
 @onready var _registry_overlay: Control = $"RegistryOverlay"
 @onready var _registry_close: Button = $"RegistryOverlay/Panel/VBox/RegistryClose"
+@onready var _almanac_button: Button = $"Margin/VBox/ButtonRow/AlmanacButton"
+@onready var _almanac_overlay: Control = $"AlmanacOverlay"
+@onready var _almanac_close: Button = $"AlmanacOverlay/Panel/VBox/AlmanacClose"
+@onready var _almanac_days: Array[Label] = [
+	$"AlmanacOverlay/Panel/VBox/Day0",
+	$"AlmanacOverlay/Panel/VBox/Day1",
+	$"AlmanacOverlay/Panel/VBox/Day2",
+	$"AlmanacOverlay/Panel/VBox/Day3",
+	$"AlmanacOverlay/Panel/VBox/Day4",
+	$"AlmanacOverlay/Panel/VBox/Day5",
+	$"AlmanacOverlay/Panel/VBox/Day6",
+]
+@onready var _almanac_footer: Label = $"AlmanacOverlay/Panel/VBox/AlmanacFooter"
 
 
 # ------------------------------------------------------------------------------
@@ -98,6 +111,11 @@ func _connect_signals() -> void:
 		var button := _registry_overlay.get_node_or_null("Panel/VBox/" + REGISTRY_BUTTONS[i]) as Button
 		if button:
 			button.pressed.connect(_on_registry_fish.bind(REGISTRY_IDS[i]))
+	if _almanac_button:
+		_almanac_button.pressed.connect(_open_almanac)
+		_refresh_almanac_button()
+	if _almanac_close:
+		_almanac_close.pressed.connect(_close_almanac)
 
 
 # ------------------------------------------------------------------------------

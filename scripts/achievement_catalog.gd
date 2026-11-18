@@ -317,6 +317,13 @@ const ENTRIES: Array[Dictionary] = [
 		"subtitle": "Every note the sea ever sent — all eight bottles, read.",
 		"where": "Hidden",
 	},
+	{
+		"id": "pale_courier",
+		"short": "Courier",
+		"title": "THE PALE COURIER",
+		"subtitle": "Spotted the Silverfin — the courier that outruns the current.",
+		"where": "Island",
+	},
 ]
 
 
@@ -441,4 +448,6 @@ static func is_met(id: String, state: Node) -> bool:
 			return state.keeper_star_found
 		"whole_sea":
 			return state.bottles_read.size() >= 8
+		"pale_courier":
+			return state.fish_met.has("fish_silverfin")
 	return false
