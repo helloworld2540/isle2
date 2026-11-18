@@ -6,7 +6,7 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 - Engine: Godot 4.x
 - Type: 2D game project (single-player, local save)
 - Entry scenes: `main_menu.tscn` → `world.tscn`
-- Shipping version: 1.2.0 — see RELEASE_NOTES.md
+- Shipping version: 1.3.0 — see RELEASE_NOTES.md
 - Working directory: `/media/seethathuman/data/godotProjects/isle2`
 - Shipped builds: Linux (`export/linux/build.x86_64`), Web (`export/linux/` HTML5 set), Android (`export/android/` signed APK) — presets in `export_presets.cfg`, all three verified end-to-end (see `overnight_sprint.txt`).
 
@@ -191,7 +191,7 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 - Drone inertia; wall bounce × -0.3; clamped 60 px inset.
 - Collection radius 66.27 + 12×upgrade_range.
 - Combos: 3 garbage in 2s → multiplier `1 + floor(combo/3)`; bonus = weight × (mult-1).
-- Fish limit 3 ends run; spawns edge markers for off-screen items.
+- Fish limit 3 ends run; spawns edge markers for off-screen items. Silverfin spawns glint once on entry (no audio cue).
 - Spawns are weighted, not uniform: Goldie 20 / Nemo 26 / Crab 22 (regulars), Grey Reef Shark 14, Silverfin 10 — doubled to 20 on Eel Run, the courier's day. `tools/spawn_weight_test.gd` (in all_audits.sh) locks the odds in.
 - A dive with no pickups and no fish bumps is not counted (no dive counter, depth best, recap card or haul).
 - Game over: camera shake + confetti, summary panel.

@@ -246,6 +246,8 @@ checked against this yield — nothing changed, deliberately.*
   each — 400 m is DEEP DIVE, 900 m is TO THE ABYSS.
 - Off-screen edge markers: fish markers flare red and swell/throb as they
   close on the drone (proximity + depth-scaled shimmer); garbage markers stay calm yellow.
+- The Silverfin glints once as it enters the water (a small blue-white
+  sparkle) — a rumour on the tide, never a chime; the Registry earns that.
 - Fish telegraph: a red wake blooms at the bottom edge in the fish's lane ~1.15s
   before it rises into view (swells and fades; skipped under reduced motion).
 - One bump left from the fish limit: the screen edges breathe a soft red

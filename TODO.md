@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- **The courier glints** — a Silverfin spawn now sparks a small blue-white
+  burst as it enters the reef (visual tell only, no SFX — the Registry
+  sighting keeps the chime).
 - **Slot rows sign themselves** — SaveSlot.summary/one_liner gain the island's
   two quiet signatures: ✳ once the Silverfin is logged (fish_met), ✦ once
   THE WHOLE SEA is earned (achievements). Slot rows read them straight

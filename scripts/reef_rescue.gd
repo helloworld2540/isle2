@@ -157,6 +157,10 @@ func _spawn_item() -> void:
 			tw2.tween_interval(0.4)
 			tw2.tween_property(item, "scale", Vector2(1.18, 1.18), 0.24).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 			tw2.tween_property(item, "scale", Vector2(1.0, 1.0), 0.24).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	# The courier glints once as it enters the water — a rumour on the tide,
+	# not a guarantee. A small sparkle, no chime here (the registry earns that).
+	if str(item.get_meta("species", "")) == "fish_silverfin" and not GameSettings.reduce_motion:
+		_sparkle(item.global_position, Color(0.75, 0.95, 1.0, 0.9))
 
 func _update_edge_markers() -> void:
 	var vp := get_viewport_rect().size
