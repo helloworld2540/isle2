@@ -198,6 +198,8 @@ var courier_passes: int = 0
 ## letter read. Pure lore — no mechanics, no tide forecast; the dockhand
 ## sells tomorrow for that.
 var courier_letter_day: int = -1
+## Total letters read at the counter — the grind behind THE REGULAR.
+var courier_letters_bought: int = 0
 const COURIER_LETTER_COST := 10
 
 # Most recent minigame run, handed to the world map for its recap card.
@@ -681,6 +683,7 @@ func purchase_courier_letter() -> bool:
 	if not spend_money(COURIER_LETTER_COST):
 		return false
 	courier_letter_day = tide_days_visited
+	courier_letters_bought += 1
 	_persist()
 	return true
 
@@ -984,6 +987,7 @@ const SAVE_SCHEMA: Array = [
 	["harbor_tip_day", "harbor_tip_day", 0, "int"],
 	["harbor_tips_bought", "harbor_tips_bought", 0, "int"],
 	["courier_letter_day", "courier_letter_day", -1, "int"],
+	["courier_letters_bought", "courier_letters_bought", 0, "int"],
 	["tide_days_visited", "tide_days_visited", 0, "int"],
 	["watcher_seen", "watcher_seen", false, "bool"],
 	["fifth_tide_granted", "fifth_tide_granted", false, "bool"],

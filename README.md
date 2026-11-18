@@ -6,7 +6,7 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 - Engine: Godot 4.x
 - Type: 2D game project (single-player, local save)
 - Entry scenes: `main_menu.tscn` → `world.tscn`
-- Shipping version: 1.3.0 — see RELEASE_NOTES.md
+- Shipping version: 1.2.0 — see RELEASE_NOTES.md
 - Working directory: `/media/seethathuman/data/godotProjects/isle2`
 - Shipped builds: Linux (`export/linux/build.x86_64`), Web (`export/linux/` HTML5 set), Android (`export/android/` signed APK) — presets in `export_presets.cfg`, all three verified end-to-end (see `overnight_sprint.txt`).
 
@@ -90,10 +90,8 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
   accessors (`garbage_bias`, `fish_speed_multiplier`, `belt_speed_multiplier`,
   `golden_chance_multiplier`) rather than raw keys, so there is no per-scene RNG. The shop sells a **dockhand's tide tip** ($25) that names tomorrow's tide — the only way to look ahead, bought one day at a time.
 - **Bottles**: `scripts/bottle_catalog.gd` — canonical title/lines for every message in a bottle; the world pickup and the stats page's Tide Ledger both read it.
-- **The courier flies**: on Eel Run days only, a silvery streak crosses the strait on the world map every 30–65 s (`scenes/wm_courier.tscn` + `scripts/wm_courier.gd`) — pure ambience; gone on other tides.
 - **Fish journal**: `scripts/fish_catalog.gd` — canonical names/blurbs for the five reef species; the dive pops "New species!" on a first sighting and the stats page's Reef Registry re-shows every earned note.
 - **Collectibles & streaks**: golden belt scrap (+2 score) and golden reef debris (+1 bonus) spawn at 12%; lifetime trackers (clean dives, flawless shifts, golden finds, best combo/haul) feed achievements — REEF REGISTRY, CLEAN SWEEP, SILK TOUCH, GOLDEN TOUCH, RHYTHM OF THE REEF, HEAVY HARVEST, HOT STREAK.
-- **The first keeper's margin notes**: rotating handwritten lines on every briefing card — locked in by `tools/margin_notes_test.gd` (distinct notes, card-safe lengths, rotation wraps).
 - **The courier's chime**: first Silverfin sighting plays a synthesized two-note glass chime (`sound/sfx/silverfin.wav`) — the registry has its own voice.
 - **The front door remembers**: the main-menu Continue summary now badges ✳ The Pale Courier and ✦ The Whole Sea alongside Harbor Hero and Patron of the Isle.
 - **The Courier's Wake**: earning THE PALE COURIER queues a one-time world-map recap card (same path as The Last Page) — the Silverfin earns ink, not just a badge.
@@ -119,10 +117,7 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
   (`id/name/created/modified` + the full save, so a row can show money/score in
   one line). `create_slot`, `rename_slot` (keeps the slug, changes only the
   label), `switch_slot`, and `delete_slot` (removes files + backups, then
-  re-binds to a surviving slot) round out the API. Slot rows sign themselves
-  with the island's two quiet signatures: ✳ once the courier has been met
-  (Silverfin logged), ✦ once THE WHOLE SEA is earned — read straight from
-  the save, no extra state.
+  re-binds to a surviving slot) round out the API.
 - Slug rules: `SaveSlot.slugify` lowercases and reduces a name to `[a-z0-9-]`;
   `unique_slug` appends `-2`, `-3`… on collision. Display names may be anything,
   including duplicates.
@@ -193,8 +188,8 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 - Drone inertia; wall bounce × -0.3; clamped 60 px inset.
 - Collection radius 66.27 + 12×upgrade_range.
 - Combos: 3 garbage in 2s → multiplier `1 + floor(combo/3)`; bonus = weight × (mult-1).
-- Fish limit 3 ends run; spawns edge markers for off-screen items. Silverfin spawns glint once on entry (no audio cue).
-- Eel Run's tide card names the courier: "Eel run — the courier rides the current" (HUD line and banner both read the same table). Spawns are weighted, not uniform: Goldie 20 / Nemo 26 / Crab 22 (regulars), Grey Reef Shark 14, Silverfin 10 — doubled to 20 on Eel Run, the courier's day. `tools/spawn_weight_test.gd` (in all_audits.sh) locks the odds in.
+- Fish limit 3 ends run; spawns edge markers for off-screen items.
+- Spawns are weighted, not uniform: Goldie 20 / Nemo 26 / Crab 22 (regulars), Grey Reef Shark 14, Silverfin 10 — doubled to 20 on Eel Run, the courier's day.
 - A dive with no pickups and no fish bumps is not counted (no dive counter, depth best, recap card or haul).
 - Game over: camera shake + confetti, summary panel.
 
@@ -327,13 +322,13 @@ All rights reserved. See `LICENSE` for what you may and may not do with the sour
 ## Writing changes
 Changes land as the overnight loop cycles — see `overnight_sprint.txt` for a running log of iterations. The game is fully playable from a fresh save: menu → world map → reef rescue → upcycle bench → shop → circuit complete, with NPCs, bottles, starfish and achievements as optional flavour that persists between sessions.
 
-## Full achievement list (45)
+## Full achievement list (46)
 An island for every title the stats page tracks:
 
 - **Reef & Bench starters** — FIRST DIVE, FIRST SORT, FIRST SALE, FIRST FAVOUR, ROUND THE ISLE, THE FIRST TIDE. THE YEAR KEEPER is 365 days of tides kept. THE QUIET KEEPER is three tides held without the sea naming them. THE TIDE WALKER is both badges at once.
 - **Bench regulars** — BENCH REGULAR (10 runs), BENCH MASTER (25 runs), HOT STREAK (15-sort streak), SILK TOUCH (5 flawless shifts).
 - **Dive regulars** — REEF REGULAR (10 dives), REEF VETERAN (25 dives), DEEP DIVE (400 m), TO THE ABYSS (900 m), HEAVY HARVEST (30 kg in one dive), RHYTHM OF THE REEF (9-chain combo, x4 score), CLEAN SWEEP (5 clean dives), REEF CHARTER.
-- **Collections** — REEF REGISTRY (meet all five species), THE PALE COURIER (spot the Silverfin), STARLIGHT (five hidden starfish), TIDE MESSAGES (all three bottles), THE PACT'S REPLY (the hidden pact bottle), TIDE KEEPER (all four messages the tide left), THE FOUR TIDES (log all four daily tides in the keeper's almanac), THE KEEPER'S LETTER (find the note the first keeper left, at Oda's spot on the west shore, once the almanac is complete), and Corl's Folded Paper washes up near the shop path for keepers who bought him seven days of tomorrow (THE WHISPERER). THE FAR POINT itself sends a note east — a watcher's page, for those who caught him (THE FAR POINT). Read the six and THE SILENT CHORUS is yours — every voice the sea ever sent; the seventh is a blessing, not a requirement. Find THE KEEPER'S STAR and the far point answers in kind: an eighth note washes up at the island's tip, the epilogue's paper tail — and reading all eight earns THE WHOLE SEA, the hidden 44th badge. THE LONG KEEPER is yours after ten daily tide reports — the island sees its keeper first. THE STEADY KEEPER is three daily tide reports in a row. THE FAR POINT is yours if you stand at the island's eastern tip. ISLAND STEWARD additionally triggers THE FIFTH TIDE — a one-time +$250 parting card, the island showing its keeper the one tide it never wrote down.
+- **Collections** — REEF REGISTRY (meet all five species), THE PALE COURIER (spot the Silverfin), THE REGULAR (read ten courier's letters at the counter), STARLIGHT (five hidden starfish), TIDE MESSAGES (all three bottles), THE PACT'S REPLY (the hidden pact bottle), TIDE KEEPER (all four messages the tide left), THE FOUR TIDES (log all four daily tides in the keeper's almanac), THE KEEPER'S LETTER (find the note the first keeper left, at Oda's spot on the west shore, once the almanac is complete), and Corl's Folded Paper washes up near the shop path for keepers who bought him seven days of tomorrow (THE WHISPERER). THE FAR POINT itself sends a note east — a watcher's page, for those who caught him (THE FAR POINT). Read the six and THE SILENT CHORUS is yours — every voice the sea ever sent; the seventh is a blessing, not a requirement. Find THE KEEPER'S STAR and the far point answers in kind: an eighth note washes up at the island's tip, the epilogue's paper tail — and reading all eight earns THE WHOLE SEA, the hidden 44th badge. THE LONG KEEPER is yours after ten daily tide reports — the island sees its keeper first. THE STEADY KEEPER is three daily tide reports in a row. THE FAR POINT is yours if you stand at the island's eastern tip. ISLAND STEWARD additionally triggers THE FIFTH TIDE — a one-time +$250 parting card, the island showing its keeper the one tide it never wrote down.
 - **Island quests** — HARBOR HERO (every quest tier turned in), PATRON OF THE ISLE (1500$ gift), KEEPER OF THE TIDE (2500$ pact), LOOP MASTER (25 circuits). THE WHISPERER (buy seven days of tomorrow from Corl the dockhand, 25$ a day).
 - **Economy** — WELL OFF (lifetime 300$), MARKET CONTACT (+1$/unit), CACHE FOUND (buy the Deep Cache), ROOM TO SPARE (reach a 30 kg cap), GOLDEN TOUCH (10 golden scraps).
 - **Capstone** — ISLAND STEWARD: every other achievement earned. Behind it waits **THE KEEPER'S STAR**: the sixth star at the far point east of the watcher, the one the island held back for its keeper. Walking over it pays $50, rings a bell and earns THE KEEPER'S STAR — an epilogue, not a checklist item. Behind the far point's reply waits THE WHOLE SEA: every bottle the sea ever sent, read.

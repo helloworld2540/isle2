@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- **THE REGULAR** — the 46th badge: read ten courier's letters at the
+  shop counter (courier_letters_bought, schema-persisted). Legendary
+  banner; counted from the tide-day purchases.
 - **The finale now names the courier** — the tutorial's last card gestures
   at the courier's letter at the shop counter ("that is not a rumour").
 - **Weighted reef spawns** — fish spawns were uniform; now Goldie/Nemo are

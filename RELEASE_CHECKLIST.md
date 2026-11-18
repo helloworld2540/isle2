@@ -36,7 +36,7 @@ Export presets: `Web`, `Android`, `Linux` (`export_presets.cfg`).
 
 Harnesses that own `user://slots` (slot_test, migration_test, slot_ui_test,
 tide_test) refuse to run against existing player data and wipe their slots
-afterwards. Catalogue counts (currently 45) come from the dynamic
+afterwards. Catalogue counts (currently 46) come from the dynamic
 AchievementCatalog, never hardcoded.
 
 ## Pre-flight
@@ -54,7 +54,7 @@ outright when its output directory is missing.
 
 ## Known notes
 
-- APK badge dump clean: `versionName=1.3.0`, `versionCode=4`, `minSdk=24`,
+- APK badge dump clean: `versionName=1.2.0`, `versionCode=3`, `minSdk=24`,
   `targetSdk=36`, label `Trash Island`, signer DN `CN=seethathuman`.
   One benign warning about the Godot-template themed icon path; safe
   to ignore.

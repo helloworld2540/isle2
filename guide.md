@@ -270,7 +270,7 @@ checked against this yield — nothing changed, deliberately.*
 - The stats page's Tide Ledger and Reef Registry tease locked rows
   instead of printing question marks — each bottle and fish has its own
   spoiler-free hint; the page is the island's clue board.
-- The stats page opens with a single-line Keeper's Journal ledger: "Journal — bottles n/8 · starfish n/5 · tides n/4 · species n/5 · achievements n/45" — so you can see the whole completion board at a glance without scrolling.
+- The stats page opens with a single-line Keeper's Journal ledger: "Journal — bottles n/8 · starfish n/5 · tides n/4 · species n/5 · achievements n/46" — so you can see the whole completion board at a glance without scrolling.
 - Bottles you have already read can be re-read from the stats page via the Tide Ledger overlay (the game nudges you there once the third base bottle is read) (undiscovered notes stay locked).
 - Quest economics audit (SALE_PRICES-weighted): turn-ins are deliberately slightly under market value — that is the price of quest progress and the Harbor Hero +10 kg cap — but the old numbers were punitive (Tom 24$->12$, Nina 30$->15$, Kai 25$->10$, Mara t2 25$->18$). Buffed: Tom t1 4->6 PP (18$), Nina t1 5->6 PP (18$), Kai t1 now 6 PP (18$), Mara t2 6->8 PP (24$). Nina t2 (+8$) and Kai t2 (+4$) remain the profitable tiers.
 - Depth is tracked in the stats page and feeds two achievements: DEEP DIVE (400 m) and TO THE ABYSS (900 m). Ten finished dives earns REEF REGULAR; the stats page keeps a running "Field log" of dives and bench runs.
@@ -466,6 +466,7 @@ them — and a faint golden hush over the world.
 - **Night Drift** — half the distant cries become a low foghorn, far out on the water.
 
 ## Version history (as shipped)
+- **THE REGULAR** — the 46th badge: read ten courier's letters at the counter. A grind for the devoted keeper.
 - **The courier's letter** — a $10 counter page, once per tide day: a line from the Silverfin itself, handed over in a drag-scroll dialogue card. Pure lore; the dockhand keeps tomorrow's secret.
 - **The courier's chime** — the first Silverfin logged plays its own two-note glass chime (synthesized in-repo); the Reef Registry has a voice.
 - **The Courier's Wake** — earning THE PALE COURIER queues a one-time world-map card about the Silverfin; never overwrites a pending run recap.
