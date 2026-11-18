@@ -295,8 +295,20 @@ func _show_next() -> void:
 		pitch = 1.0
 	elif accent == "tide":
 		pitch = 0.7
-		# The tide gets the sea's own voice, not the chime.
-		AudioManager.play_sfx("reef_swell", 0.9)
+		# The tide gets the sea's own voice, not the chime — and the voice
+		# carries the day's mood: bright on Glass Calm, quick on Eel Run,
+		# lowest on Slack Water and Night Drift.
+		var tide_pitch := 0.9
+		match TideReport.today_key():
+			"glass_calm":
+				tide_pitch = 1.05
+			"eel_run":
+				tide_pitch = 1.2
+			"slack_water":
+				tide_pitch = 0.6
+			"night_drift":
+				tide_pitch = 0.5
+		AudioManager.play_sfx("reef_swell", tide_pitch)
 	elif accent == "legendary":
 		pitch = 1.25
 	if accent == "legendary":

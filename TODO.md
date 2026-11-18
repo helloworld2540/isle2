@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- **The tide has a voice on the card** — the TIDE REPORT banner's swell
+  now pitches with the day (glass calm 1.05, eel run 1.2, slack 0.6, night drift 0.5).
 - **1.3.0 sealed** — version bumped in the Android preset (versionName=1.3.0 /
   versionCode=4), main-menu stamp, About page, README, RELEASE_NOTES,
   RELEASE_CHECKLIST (verified values), guide.md version history. All three

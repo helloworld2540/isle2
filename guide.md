@@ -470,6 +470,7 @@ them — and a faint golden hush over the world.
 - **Night Drift** — half the distant cries become a low foghorn, far out on the water.
 
 ## Version history (as shipped)
+- **The tide has a voice on the card** — the TIDE REPORT banner's swell now pitches with the day: bright on Glass Calm, quick on Eel Run, lowest on Slack Water and Night Drift.
 - **The courier is spoken of everywhere** — all five named islanders now notice THE PALE COURIER, each in their own register.
 - **The registry keeps count** — the Reef Registry overlay legend and button now show n/5 ("Reef Registry (n/5)"), gold at five, matching the Tide Ledger.
 - **1.3.0** — the Silverfin and THE PALE COURIER (the 45th badge), weighted reef spawns (the shark a spice, the courier rare — and twice as common on Eel Run), The Filled Almanac, the quiet harbor, the courier's chime, the Courier's Wake and the Last Page cards, the front door remembering, and every islander closing the chorus together.
