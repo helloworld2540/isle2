@@ -63,6 +63,7 @@ This is why the harnesses use `get_node` rather than bare autoload names.
 | `ship_audit.sh` | shell | The release verdict: runs all_audits + all hygiene gates + a clean-tree check. `NOT READY` until the worktree is clean |
 | `courier_arc_test.gd` | runtime | Arc-level: first letter purchase, counter increment, Silverfin log, safe world re-entry |
 | `tutorial_tour_test.gd` | runtime | The five-step tour advances in order on a fresh save — move → reef → sort → sell → finale, no re-arm, no auto-complete |
+| `courier_flight_test.gd` | runtime | The courier's flyby (scenes/wm_courier.tscn): survives only on Eel Run, hides under reduced motion, re-arms after a pass |
 | `courier_letters_test.gd` | static | The courier's letters: ≥12 pages, distinct, card-safe lengths, rotation wraps |
 | `courier_letter_test.gd` | runtime | The courier's letter: buy spends $10, marks the tide day, refuses the same-day re-buy; new tide day re-opens |
 | `parity_audit.py` | static | Doc-vs-code parity: every named-mechanic marker must have either docs+code or neither. Reports OVERCLAIM (documented but not in code) and informational silents, plus beat-coverage counts for the five islanders |
