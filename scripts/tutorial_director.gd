@@ -251,9 +251,12 @@ func _spawn_card(title: String, body: String, button: String) -> void:
 	hint.dismissed.connect(_on_hint_dismissed)
 	var scene := get_tree().current_scene
 	if scene:
-		scene.add_child(hint)
+		# Deferred: the banner calls a nudge from its own _ready, while the
+		# tree is still setting up — a direct add_child here fails loudly
+		# and the card (and its nudge) silently never lands.
+		scene.call_deferred("add_child", hint)
 	else:
-		get_tree().root.add_child(hint)
+		get_tree().root.call_deferred("add_child", hint)
 	_active_hint = hint
 
 

@@ -1,6 +1,12 @@
 # Current project todo:
 
 # done this pass
+- **Two real boot bugs fixed** — caught by headless scene boots:
+  (1) the world menu's About canvas pointed at `Menu/Menu/AboutCanvas`
+  (always null — About button was silently dead); now `$AboutCanvas`.
+  (2) the tide-nudge card fired add_child while the banner was still in
+  _ready, so the card never spawned; _spawn_card now defers add_child.
+  world.tscn boots with zero script errors; smoke 52/52.
 - **THE LAST LETTER** — the hidden 47th badge: read all fourteen pages of
   the courier's post (courier_letters_bought >= 14). Legendary banner.
 - **A letter from above** — log the Silverfin once; the next world load

@@ -35,7 +35,7 @@ const FxSparkle := preload("res://scripts/fx_sparkle.gd")
 
 @onready var settings_button: Button = $MenuPanel/Center/Card/HBoxContainer/Infobox/SettingsButton
 @onready var about_button: Button = $MenuPanel/Center/Card/HBoxContainer/VBoxContainer/AboutButton
-@onready var about_canvas: CanvasLayer = $Menu/AboutCanvas
+@onready var about_canvas: CanvasLayer = $AboutCanvas
 @onready var settings_view: PanelContainer = $MenuPanel/Center/Card/HBoxContainer/Infobox/SettingsView
 @onready var settings_panel: VBoxContainer = $MenuPanel/Center/Card/HBoxContainer/Infobox/SettingsView/SettingsPanel
 @onready var confirm_panel = $ConfirmPanel
