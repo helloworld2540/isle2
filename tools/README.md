@@ -56,6 +56,7 @@ This is why the harnesses use `get_node` rather than bare autoload names.
 | `margin_notes_test.gd` | static | Margin notes: distinct, card-safe, rotation wraps |
 | `npc_beat_audit.py` | static | Every milestone beat id is a real achievement; all five islanders carry required notices |
 | `schema_audit.py` | static | Save schema: no duplicate keys, valid codecs, defaults match, and warns on save keys referenced nowhere outside `game_state.gd` — the rotting-relic signature of a reverted feature |
+| `parity_audit.py` | static | Doc-vs-code parity: every named-mechanic marker must have either docs+code or neither. Reports OVERCLAIM (documented but not in code) and informational silents, plus beat-coverage counts for the five islanders |
 | `touch_audit.py` | static | Every Button ≥ 44 px in both axes |
 | `unique_id_audit.py` | static | No repeated `unique_id=` in any `.tscn` |
 | `docs_audit.py` | static | Docs parse; no stale placeholders |
