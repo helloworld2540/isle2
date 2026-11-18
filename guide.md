@@ -513,6 +513,7 @@ them — and a faint golden hush over the world.
 - **The last whisper got loud enough** — the Filled Almanac's footnote went from a 14px whisper to a legible 18px line. The smallest font in the project is gone.
 - **Two boot fixes** — the world menu's About button now finds its canvas (it was dead by a wrong relative path), and the tide-nudge card defers its spawn until the banner's _ready unwinds instead of dying in the nursery.
 - **Corl counts the pages** — the first letter earns him a quiet nod ("I do not ask about that one"), the tenth earns a ledger tap. The counter sees everything.
+- **THE LAST LETTER** — the hidden 47th badge: fourteen tide days, fourteen pages, the courier's whole post read at the counter. Legendary banner. THE DRAWER IS EMPTY, the final recap card, queues with it.
 - **THE REGULAR** — the 46th badge: read ten courier's letters at the counter. A grind for the devoted keeper.
 - **The courier's letter** — a $10 counter page, once per tide day: a line from the Silverfin itself, handed over in a drag-scroll dialogue card. Pure lore; the dockhand keeps tomorrow's secret.
 - **The courier's chime** — the first Silverfin logged plays its own two-note glass chime (synthesized in-repo); the Reef Registry has a voice.
