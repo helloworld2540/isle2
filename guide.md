@@ -442,7 +442,35 @@ each debris sorts 1:1 into a material.*
   He marks the calendar too — day 10, 30 and 50 each earn exactly one
   line from the counter, and he never says any of them twice.
 
-## The island pays attention (NPC milestones)
+## The courier (the hidden arc under everything)
+The island keeps a fish that nobody keeps. On the tide table it is Eel Run —
+the rush of fish through the reef that come and go too fast to count, the
+one that **beats** you when you feel it. Every keeper who spots it once
+learns its name from the Reef Registry: the courier. Nobody fishes the
+courier; nobody farms it; it passes through the strait the way mail passes
+through a door.
+
+The courier's post arrives at the shop counter, not the reef. Once a tide
+day a single page is left behind — sand-grained, sealed with a small fin,
+and it costs $10. Buying the first page does two quiet things: it fills
+the courier's page counter in the shop (this is the only number the shop
+ever shows you), and it sends a nudge to the Reef Registry, the one place
+on the island that names the courier. A second nudge rides the next world
+load — Nina, the pilot, saw something cross beneath her.
+
+Each letter is deliberate. Fourteen pages, in order. Reading them all is
+THE LAST LETTER (hidden badge) and the counter keeps exactly one page per
+tide day so you cannot rush the ending — the sea does not spam its keeper.
+Reading ten of them is THE REGULAR. Buying neither, and the courier still
+passes through your reef anyway; ignoring the courier is its own small act
+of quiet rebellion, and the game notices only the first time.
+
+Tom knows the courier exists and keeps to his fishing. Mara considers it
+"the strait's own postage". Kai would stock it, if he could. Oda writes it
+in the almanac margin by hand, never reads it aloud, and answers the
+keeper's question with silence, every time.
+
+
 Every named islander notices what you do once you do it. The game tracks no
 new flags for this — it reads the achievement catalogue, and once a badge is
 earned the relevant NPC appends a line to every later conversation:
