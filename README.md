@@ -76,6 +76,9 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 - **Wrapping rows**: the stats page's action row is an `HFlowContainer`, so
   Back / Guide / Ledger / Registry / Almanac / Restore / Reset wrap onto a
   second line instead of overflowing a narrow (mobile/1152 px) window.
+- **Layout gate**: `tools/layout_audit.gd` boots every screen at 1152×648 and
+  fails if any visible UI control extends past the window (scroll content and
+  world-space labels excluded). Run it with the other harnesses before a cut.
 - **Card lane**: `scripts/ui/card_queue.gd` (`CardQueue`, a static RefCounted)
   serialises every popup card island-wide — the welcome guide, NPC
   conversations, tutorial step hints, the achievement/tide banner and the

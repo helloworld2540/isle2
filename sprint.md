@@ -1,4 +1,14 @@
 
+## 2026-11-18 — layout_audit: the mobile screen gate
+- New `tools/layout_audit.gd`: instantiates every screen at 1152×648 and fails
+  on any visible screen-space Control past the window (skips ScrollContainer
+  content and world-space labels). Runs with an isolated profile; wired into
+  `all_audits.sh`; catalogued in `tools/README.md`.
+- The gate caught a real overflow: `wm_portal_markers.gd` clamped only the
+  marker's origin, so a "42m ►" label ran ~56 px past the right edge and the
+  distance line clipped at the bottom. Markers now clamp by the text's
+  measured size, keeping the whole label on screen.
+
 ## 2026-11-18 — Stats button row wraps instead of overflowing
 - `scenes/stats_menu.tscn`: `Margin/VBox/ButtonRow` changed from
   `HBoxContainer` to `HFlowContainer`. The seven buttons summed to ~1360 px

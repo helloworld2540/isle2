@@ -91,9 +91,13 @@ func _update_marker(marker: Label, target: Node2D, screen_pos: Vector2, vp: Vect
 	marker.text = arrow
 	if dist_text != "":
 		marker.text = dist_text.strip_edges() + " " + arrow
+	# Clamp the whole label inside the screen, not just its origin: a "42m ►"
+	# text is ~80 px wide, and clamping only the origin pushed the right edge
+	# (and the bottom edge on the distance line) past the window.
+	var text_size: Vector2 = marker.get_combined_minimum_size()
 	marker.position = Vector2(
-		clampf(screen_pos.x, 8.0, vp.x - 22.0),
-		clampf(screen_pos.y, 8.0, vp.y - 22.0)
+		clampf(screen_pos.x, 8.0, maxf(8.0, vp.x - text_size.x - 8.0)),
+		clampf(screen_pos.y, 8.0, maxf(8.0, vp.y - text_size.y - 8.0))
 	)
 
 

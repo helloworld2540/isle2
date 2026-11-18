@@ -38,6 +38,18 @@ if ! timeout 240 godot --headless --path . -s tools/card_queue_test.gd; then
   fail=1
 fi
 
+# Layout audit instantiates every screen against a fresh profile and measures
+# screen-space Controls; isolated so it never reads player saves.
+VERIFY_HOME="/tmp/isle2_layout_$$"
+rm -rf "$VERIFY_HOME"
+mkdir -p "$VERIFY_HOME"
+echo "== layout_audit"
+if ! timeout 240 env XDG_DATA_HOME="$VERIFY_HOME" godot --headless --path . -s tools/layout_audit.gd; then
+  echo "[FAIL] layout_audit"
+  fail=1
+fi
+rm -rf "$VERIFY_HOME"
+
 for t in smoke_test slot_test migration_test slot_ui_test tide_test restore_test hide_tide_test; do
   echo "== $t"
   if ! timeout 240 godot --headless --script tools/$t.gd; then

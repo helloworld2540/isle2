@@ -1,6 +1,17 @@
 # Current project todo:
 
 ## done this pass
+- **`tools/layout_audit.gd` — the mobile layout gate.** Instantiates every
+  screen (menu, world, both minigames, shop, stats, tutorial, briefing, About,
+  recap, hint, dialogue, settings) at 1152×648 and fails on any visible
+  screen-space Control that extends past the window, skipping ScrollContainer
+  content and world-space labels. Found and fixed one real bug: the portal
+  edge markers clamped only their origin, so "42m ►" ran ~56 px off the right
+  edge and labels clipped at the bottom — they now clamp using the text's
+  measured size. Wired into `all_audits.sh` (fresh profile), catalogued in
+  `tools/README.md`, README + guide layout sections updated. 0 failures.
+
+## done this pass
 - **Stats button row no longer overflows** — `Margin/VBox/ButtonRow` was an
   `HBoxContainer` whose children summed to ~1360 px of minimum width on a
   1152 px screen (Reset/Restore were pushed off the edge). It is now an
