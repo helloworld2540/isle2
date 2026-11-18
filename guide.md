@@ -117,6 +117,10 @@ checked against this yield — nothing changed, deliberately.*
 - **Dockhand's tide tip 25$:** not an investment but information — one day of
   tomorrow's weather, paid once, gone at midnight. Cheap enough to buy every
   few days (~1 loop's income), priced to stay tempting rather than strategic.
+- **Courier's letter 10$/day:** pure lore, not information — a page from the
+  Silverfin's counter post, gone by midnight. One third of a loop's yield for
+  a line of prose you cannot re-read; deliberately cheaper than the tip, and
+  bought for exactly the reasons the tip is bought for: the island talks.
 
 ## First playthrough (interactive tutorial)
 - On a fresh save, world map load shows the "Welcome to Isle 2" card (once per save).
