@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- **Every voice goes quiet at once** — all five named islanders now
+  carry a THE WHOLE SEA milestone beat (Mara, Tom, Nina, Kai joined Oda),
+  each in their own register; npc_beat_audit covers them.
 - **The courier's chime** — new synthesized two-note glass chime
   (sound/sfx/silverfin.wav, python wave synth) plays when the Silverfin
   is first logged; the registry sighting now has its own voice.

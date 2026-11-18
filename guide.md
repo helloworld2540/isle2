@@ -434,16 +434,19 @@ new flags for this — it reads the achievement catalogue, and once a badge is
 earned the relevant NPC appends a line to every later conversation:
 
 - **Mara** — TIDEKEEPER's Pact funded (belief), LOOP MASTER (25 circuits),
-  CLEAN SWEEP (five perfect dives), THE FAR POINT (she started the rumour;
+  CLEAN SWEEP (five perfect dives), THE WHOLE SEA (she started the rumour;
+  she never said the chorus had an eighth voice), THE FAR POINT (she started the rumour;
   she raised you right).
 - **Tom** — the three shore notes read (TIDE KEEPER), HEAVY HARVEST (30 kg in
-  one dive), REEF VETERAN (25 dives), TO THE ABYSS (900 m), THE FAR POINT
+  one dive), REEF VETERAN (25 dives), TO THE ABYSS (900 m), THE WHOLE SEA ("The sea kept writing; you kept reading"), THE FAR POINT
   ("I keep to my fishing").
 - **Nina** — the three shore notes read, SILK TOUCH (flawless shifts), THE
+  WHOLE SEA ("My letters finally make sense in the sequence"), THE
   FAR POINT (word travels at the counter).
 - **Kai** — TIDEKEEPER's Pact funded, GOLDEN TOUCH (ten golden scraps),
-  THE WHISPERER (Corl's seven days), THE SILENT CHORUS (six bottles; the seventh note is a blessing, not a requirement), THE
-  FAR POINT (he will not restock it).
+  THE WHISPERER (Corl's seven days), THE SILENT CHORUS (six bottles; the seventh note is a blessing, not a requirement),
+  THE WHOLE SEA (the till's best regular — "tell the sea it can stop
+  writing"), THE FAR POINT (he will not restock it).
 - **Oda** — THE KEEPER'S LETTER, THE SILENT CHORUS, THE WHOLE SEA (all eight bottles, the hidden 44th badge), THE LONG KEEPER (ten
   days on the almanac), ISLAND STEWARD, THE STEADY KEEPER (three running),
   THE FAR POINT ("Some of us watch the water. Some of us are watched by it.").
@@ -459,6 +462,7 @@ them — and a faint golden hush over the world.
 - **Night Drift** — half the distant cries become a low foghorn, far out on the water.
 
 ## Version history (as shipped)
+- **Every voice goes quiet at once** — all five named islanders now notice THE WHOLE SEA (Mara, Tom, Nina, Kai join Oda), each in their own register. The chorus closes together.
 - **The courier's chime** — the first Silverfin logged plays its own two-note glass chime (synthesized in-repo); the Reef Registry has a voice.
 - **The Courier's Wake** — earning THE PALE COURIER queues a one-time world-map card about the Silverfin; never overwrites a pending run recap.
 - **THE PALE COURIER** — the 45th badge: spotted the Silverfin at least once. Tom the shorekeeper notices ("Nobody's ever kept up with it — but you saw it.").
