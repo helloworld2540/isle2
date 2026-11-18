@@ -73,6 +73,9 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
   which the toast queue and tutorial director use to stack above / wait for
   them instead of overlapping. Toast notifications live in a bottom-centre
   lane, 24 px off the edge, lifted above any bottom card.
+- **Wrapping rows**: the stats page's action row is an `HFlowContainer`, so
+  Back / Guide / Ledger / Registry / Almanac / Restore / Reset wrap onto a
+  second line instead of overflowing a narrow (mobile/1152 px) window.
 - **Card lane**: `scripts/ui/card_queue.gd` (`CardQueue`, a static RefCounted)
   serialises every popup card island-wide — the welcome guide, NPC
   conversations, tutorial step hints, the achievement/tide banner and the

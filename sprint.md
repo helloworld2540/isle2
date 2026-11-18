@@ -1,4 +1,12 @@
 
+## 2026-11-18 — Stats button row wraps instead of overflowing
+- `scenes/stats_menu.tscn`: `Margin/VBox/ButtonRow` changed from
+  `HBoxContainer` to `HFlowContainer`. The seven buttons summed to ~1360 px
+  of minimum width on a 1152 px window, pushing Restore/Reset off the edge;
+  now Back / Guide / Ledger / Registry fill the first line and Reset (and
+  Almanac, when earned) wrap to a second — 104 px tall, paths unchanged.
+  Verified with a headless layout probe at 1152×648.
+
 ## 2026-11-18 — The courier's gratitude (the post is all read)
 - `scripts/wm_courier.gd`: once THE LAST LETTER is read (checked off the live
   GameState at runtime) the Eel Run flyby comes sooner — first pass 4–9 s and

@@ -1,6 +1,15 @@
 # Current project todo:
 
 ## done this pass
+- **Stats button row no longer overflows** — `Margin/VBox/ButtonRow` was an
+  `HBoxContainer` whose children summed to ~1360 px of minimum width on a
+  1152 px screen (Reset/Restore were pushed off the edge). It is now an
+  `HFlowContainer`: Back / Guide / Ledger / Registry sit on the first line and
+  Reset wraps to a second (Almanac joins when earned), row height 104 px.
+  Node paths are unchanged, so `stats_menu.gd` needs no edits. Verified by a
+  headless layout probe at 1152×648.
+
+## done this pass
 - **The courier's gratitude** — once THE LAST LETTER is read, the Eel Run
   world-map flyby stops being a stranger: first pass 4–9 s, re-arm 16–34 s
   instead of 8–20 / 30–65. Pure ambience (no card, no prompt); a test hook

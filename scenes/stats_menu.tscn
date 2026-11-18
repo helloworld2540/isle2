@@ -484,9 +484,10 @@ autowrap_mode = 2
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="ButtonRow" type="HBoxContainer" parent="Margin/VBox"]
+[node name="ButtonRow" type="HFlowContainer" parent="Margin/VBox"]
 layout_mode = 2
-theme_override_constants/separation = 10
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 8
 
 [node name="BackButton" type="Button" parent="Margin/VBox/ButtonRow" unique_id=300000009]
 custom_minimum_size = Vector2(160, 48)
