@@ -473,6 +473,7 @@ them — and a faint golden hush over the world.
 - **Night Drift** — half the distant cries become a low foghorn, far out on the water.
 
 ## Version history (as shipped)
+- **The counter's drawer** — the courier's letter button shows its page number and the stash counts down; after the fourteenth, the drawer is empty and the counter refuses the sale. The sea does not spam its keeper.
 - **The last whisper got loud enough** — the Filled Almanac's footnote went from a 14px whisper to a legible 18px line. The smallest font in the project is gone.
 - **Two boot fixes** — the world menu's About button now finds its canvas (it was dead by a wrong relative path), and the tide-nudge card defers its spawn until the banner's _ready unwinds instead of dying in the nursery.
 - **Corl counts the pages** — the first letter earns him a quiet nod ("I do not ask about that one"), the tenth earns a ledger tap. The counter sees everything.
