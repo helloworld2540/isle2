@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- **A letter from above** — log the Silverfin once; the next world load
+  surfaces a one-shot nudge from Nina (the pilot): "Something pale crossed
+  beneath me on the way in…" Persisted, once per save, defers behind any
+  open card.
 - **Corl counts the pages** — first letter: "I do not ask about that one."
   Tenth: "You pay for paper like it is gospel." Deterministic by
   courier_letters_bought, no new state.
