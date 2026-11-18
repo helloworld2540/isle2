@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- **import_audit.py** — release hygiene gate: every importable asset must
+  have a fresh .import sidecar naming it. 86 assets checked, 0 failures.
+  (.kra Krita sources are not Godot-importable and are excluded.)
 - **font_size_audit.py** — permanent mobile legibility gate: fails on any
   explicit font_size under 17 px anywhere in scenes/ or scripts/. PASS.
 - **Almanac footer legibility** — the Filled Almanac's whisper footnote
