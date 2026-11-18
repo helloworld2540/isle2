@@ -24,7 +24,8 @@ const FISH := {
 	"fish_gold.png": 20,
 	"fish_greyreefshark.png": 45,
 	"fish_nemo.png": 25,
-	"fish_crab.png": 15
+	"fish_crab.png": 15,
+	"fish_silverfin.png": 18
 }
 
 @onready var sprite: Sprite2D = $CharacterBody2D/Sprite2D

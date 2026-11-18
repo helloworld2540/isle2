@@ -724,9 +724,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -320.0
-offset_top = -240.0
+offset_top = -280.0
 offset_right = 320.0
-offset_bottom = 240.0
+offset_bottom = 280.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBox_guide")
@@ -772,6 +772,12 @@ custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "· Crab"
+
+[node name="FishSilverfinButton" type="Button" parent="RegistryOverlay/Panel/VBox"]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "· Silverfin"
 
 [node name="RegistryClose" type="Button" parent="RegistryOverlay/Panel/VBox"]
 custom_minimum_size = Vector2(180, 46)

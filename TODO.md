@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- **The Silverfin** — a fifth reef species (fish_silverfin.png, drawn
+  in-repo after the image pipeline credential failed). Spawns at weight
+  18; FishCatalog, Reef Registry overlay (new row, panel grown), stats
+  journal and collections read n/5; REEF REGISTRY now demands all five.
 - **1.2.0 sealed** — version bumped in the Android preset (versionName=1.2.0 /
   versionCode=3), main-menu stamp, About page, README, RELEASE_NOTES,
   RELEASE_CHECKLIST (verified values), guide.md version history. All three

@@ -11,3 +11,6 @@ export/
 
 # OpenCode harness state
 .opencode/
+
+# Editor scene backups
+*.tscn.bak
