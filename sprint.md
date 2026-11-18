@@ -21,6 +21,26 @@
   (43 achievements, build/verify notes, epilogue in the capstone bullet),
   PITCH.md (living arc carries the epilogue star).
 
+## 2026-11-18 — THE FILLED ALMANAC: the book's own prize
+- Once `tides_logged.size() >= 4` the stats page grows a gold-rimmed
+  **The Almanac** button (`stats_menu.tscn`: `AlmanacButton`, unique_id=300000050,
+  plus `AlmanacOverlay`, unique_id=300000051 — Day0..Day6 rows, Close, gold
+  title). Hidden otherwise; ESC closes it like the other overlays.
+- Opening it fills the next seven days of the sea's rotation
+  (`TideReport.for_day(day_index + i)`): today in sea-foam white, the rest
+  below — "Glass Calm · tomorrow — debris drifts loose", and so on. The
+  dockhand's $15 tip is untouched — this is the almanac's prize, not a fee
+  bypass.
+- Under **Hide the tide** the card opens to one quiet line instead: the sea
+  keeps its own counsel, even for its keeper — consistent with every other
+  tide surface going silent.
+- guide.md: Quick reference entry, almanac section paragraph (and removed a
+  duplicated bullet I found there). Smoke 51/51, ALL-AUDITS PASS.
+- Caveat: a concurrent loop committed the `.tscn` half first
+  (ec72ce2); the committed state on HEAD carries AlmanacButton/AlmanacOverlay
+  plus the Silverfin/PALE COURIER work, verified consistent by a fresh
+  ALL-AUDITS PASS.
+
 ## 2026-11-18 — 1.2.0 sealed across all three platforms
 - Version bumped everywhere in lockstep: Android preset (versionName=1.2.0 /
   versionCode=3), main-menu stamp ("v1.2.0"), About page ("Version 1.2.0"),

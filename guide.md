@@ -9,6 +9,14 @@ Welcome to Isle 2. Shared economy across world map, two minigames, shop, NPCs an
   The almanac logs each you witness (`almanac n/4`).
 - The dock sells a **dockhand's tip** ($25, $15 on a 3-day streak) for
   tomorrow's tide.
+- **The Filled Almanac** — once all four tides are recorded in the book, the
+  stats page grows a gold-rimmed **The Almanac** card. It lays the next seven
+  days of the sea's rotation out in one place: today marked in sea-foam
+  white, the rest below it — `Glass Calm · tomorrow — debris drifts loose`,
+  and so on — no dockhand required. Under **Hide the tide** the card opens
+  to one quiet line instead; the sea keeps its own counsel, even for its
+  keeper. The dockhand's $15 tip is untouched — this is the almanac's own
+  prize, not a shortcut past the fee.
 - **Tide Ledger** on the stats page holds the eight notes — read them all.
 - Watch the island stretch you thin, then come back tomorrow. The tide never
   blinks.
@@ -164,8 +172,9 @@ checked against this yield — nothing changed, deliberately.*
   line, so the Glass Calm bulk premium is impossible to miss.
 - The stats page's almanac line also carries your streak; once the book
   is filled it glows gold and the daily report says "almanac kept".
-- The stats page's almanac line also carries your streak; once the book
-  is filled it glows gold and the daily report says "almanac kept".
+- **The Filled Almanac** — once the book is full, the stats page offers
+  **The Almanac**: the next seven days of the rotation laid out in one
+  card, today in sea-foam. Hidden-tide keeps it shut.
 - With Hide the tide on, Corl sells "the quiet" instead — same tip, same
   tomorrow, no name ever spoken.
 - The shop sells a **dockhand's tide tip** for $25 ($15 for keepers on a

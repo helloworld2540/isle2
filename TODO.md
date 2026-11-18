@@ -1,6 +1,12 @@
 # Current project todo:
 
 # done this pass
+- **THE FILLED ALMANAC** — the almanac's own prize: once all four tides are
+  logged the stats page offers The Almanac, a gold card laying out the next
+  seven days of the rotation (today in sea-foam). Hide-the-tide opens it to
+  one quiet line, like every other surface. guide.md covers it (Quick
+  reference + almanac section; a duplicated bullet removed). Smoke 51/51,
+  ALL-AUDITS PASS.
 - **The front door remembers** — the main-menu Continue summary badges
   line gains ✳ The Pale Courier and ✦ The Whole Sea for keepers who earned
   them; the island's bookends now greet you at the boot screen.
