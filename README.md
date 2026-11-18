@@ -323,6 +323,11 @@ refuses to run if player data already exists):
 `godot --headless --script tools/tide_test.gd` — deterministic tide rotation,
 modifier bounds, and the once-per-day claim.
 
+`godot --headless --script tools/reef_registry_test.gd` — the Reef Registry's
+four tables agree: every catalogue species has a size row, a spawn weight, a
+stats-page registry row and a scene button, and REEF REGISTRY demands the full
+six (including the Starfish's slower drift).
+
 `godot --headless --script tools/keeper_star_test.gd` — THE KEEPER'S STAR's
 scene loads, the Hidden-track catalogue entry is real, and the ISLAND STEWARD
 capstone does not depend on the epilogue star (nor the other way round).

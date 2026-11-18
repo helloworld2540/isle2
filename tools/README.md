@@ -51,6 +51,7 @@ This is why the harnesses use `get_node` rather than bare autoload names.
 | `courier_flight_test.gd` | runtime | WorldCourier survives only on Eel Run, hidden under reduced motion, re-arms after a pass |
 | `migration_test.gd` | runtime | Legacy-save restore backfills every modern key; money survives the schema round-trip |
 | `tide_test.gd` | static | Tide rotation is deterministic, modifiers in bounds, tip purchase applies/lapses |
+| `reef_registry_test.gd` | static | The Reef Registry's four-way agreement: FishCatalog, FISH sizes + spawn weights, stats registry rows/buttons, and the REEF REGISTRY predicate all name the same species set (incl. the Starfish's drift speed) |
 | `slot_test.gd` | runtime | Slot create/delete/re-bind, multi-island save independence |
 | `slot_ui_test.gd` | runtime | Slot picker rows render from headers; rename keeps id, changes label |
 | `restore_test.gd` | runtime | Backup rotation (`save.json` → `.bak` → `.bak2`) and corrupt-primary recovery |
