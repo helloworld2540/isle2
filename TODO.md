@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- **The margin notes grew a courier** — two new first-keeper lines (bench +
+  water) referencing the courier. New tools/margin_notes_test.gd asserts
+  distinct notes, sane lengths and clean rotation; wired into all_audits.sh.
 - **The Courier's Passage** — every Silverfin bump increments courier_passes
   (schema-persisted); the stats deeds column remembers how many times the
   courier crossed paths with you. Deliberately no achievement.
