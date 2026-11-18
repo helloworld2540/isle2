@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- **The quiet harbor** — once THE WHOLE SEA is earned, the world map's
+  gull flock cries ~80% less often, the far-jetty calls stretch to
+  1.6–1.8× their cadence and never draw an answer. The sea is finished
+  talking; the dock keeps the silence.
 - **The Last Page** — earning THE WHOLE SEA queues a one-time world-map
   card (via the run-recap system): "The keeper before you left the last
   page blank on purpose." Never clobbers a pending run recap, never fires

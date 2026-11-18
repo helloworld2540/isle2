@@ -44,7 +44,13 @@ func _process(delta: float) -> void:
 		return
 	
 	_cry()
-	_timer = randf_range(min_interval, max_interval)
+	# THE WHOLE SEA: the sea is finished talking. The harbor keeps its
+	# distance — no echo, longer silences — for the keeper who heard it all.
+	var whole_sea := GameState.is_achievement_unlocked("whole_sea")
+	if whole_sea:
+		_timer = randf_range(min_interval * 1.6, max_interval * 1.8)
+	else:
+		_timer = randf_range(min_interval, max_interval)
 
 
 func _cry() -> void:
@@ -65,6 +71,8 @@ func _cry() -> void:
 	# Tide tempers the chorus: Glass Calm's gulls are mobbed to the water,
 	# Slack Water's never answer — nothing pushes, nothing hurries.
 	var echo := echo_chance
+	if GameState.is_achievement_unlocked("whole_sea"):
+		echo = 0.0
 	match TideReport.today_key():
 		"glass_calm":
 			echo = 0.7

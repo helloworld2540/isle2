@@ -34,8 +34,12 @@ func _ready() -> void:
 		set_process(false)
 		return
 	_t = randf() * TAU  # desync a flock spawned together
+	# THE WHOLE SEA: the flock keeps its cries rare — the sea is done talking.
+	var quiet := GameState.is_achievement_unlocked("whole_sea")
+	var lo := cry_min_interval * (1.8 if quiet else 1.0)
+	var hi := cry_max_interval * (1.8 if quiet else 1.0)
 	# Offset the first cry so a fresh world doesn't yelp immediately.
-	_cry_timer = randf_range(cry_min_interval * 0.5, cry_max_interval * 0.8)
+	_cry_timer = randf_range(lo * 0.5, hi * 0.8)
 
 
 func _process(delta: float) -> void:
@@ -49,4 +53,5 @@ func _process(delta: float) -> void:
 	_cry_timer -= delta
 	if _cry_timer <= 0.0:
 		AudioManager.play_sfx("gull", randf_range(0.85, 1.15), AudioManager.AMBIENCE_BUS)
-		_cry_timer = randf_range(cry_min_interval, cry_max_interval)
+		var span := 1.8 if GameState.is_achievement_unlocked("whole_sea") else 1.0
+		_cry_timer = randf_range(cry_min_interval * span, cry_max_interval * span)
