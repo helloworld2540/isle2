@@ -171,6 +171,8 @@ func _update_stats_display() -> void:
 		deeds.append("Recovered from the %s this session" % SaveManager.last_recovery)
 	if GameState.is_achievement_unlocked("far_point"):
 		deeds.append("The far point: seen.")
+	if GameState.keeper_star_found:
+		deeds.append("The keeper's star: found.")
 	if GameState.fifth_tide_granted:
 		deeds.append("The fifth tide: seen.")
 	if GameState.harbor_tips_bought > 0:

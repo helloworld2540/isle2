@@ -297,6 +297,13 @@ const ENTRIES: Array[Dictionary] = [
 		"where": "Island",
 	},
 	{
+		"id": "keeper_star",
+		"short": "Star",
+		"title": "THE KEEPER'S STAR",
+		"subtitle": "Found the star the island held back for its keeper.",
+		"where": "Hidden",
+	},
+	{
 		"id": "island_steward",
 		"short": "Steward",
 		"title": "ISLAND STEWARD",
@@ -413,9 +420,16 @@ static func is_met(id: String, state: Node) -> bool:
 			return state.tides_logged.size() >= 4
 		"island_steward":
 			# Capstone: every other goal in the catalogue is already earned.
+			# THE KEEPER'S STAR is excluded — it is the island's epilogue, not
+			# a prerequisite for the capstone. The star would deadlock the
+			# capstone if it counted.
 			for def in ENTRIES:
 				var other := String(def.get("id", ""))
-				if other != "island_steward" and not state.unlocked_achievements.has(other):
+				if other in ["island_steward", "keeper_star"]:
+					continue
+				if not state.unlocked_achievements.has(other):
 					return false
 			return true
+		"keeper_star":
+			return state.keeper_star_found
 	return false

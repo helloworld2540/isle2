@@ -292,6 +292,13 @@ refuses to run if player data already exists):
 `godot --headless --script tools/tide_test.gd` — deterministic tide rotation,
 modifier bounds, and the once-per-day claim.
 
+`godot --headless --script tools/keeper_star_test.gd` — THE KEEPER'S STAR's
+scene loads, the Hidden-track catalogue entry is real, and the ISLAND STEWARD
+capstone does not depend on the epilogue star (nor the other way round).
+`python3 tools/npc_beat_audit.py` — every NPC milestone beat names a real
+achievement and all five islanders notice THE FAR POINT; wired into
+`tools/all_audits.sh`.
+
 `tools/` also holds the PIL sprite/ambience generation scripts.
 
 ## Exporting
@@ -310,7 +317,7 @@ All rights reserved. See `LICENSE` for what you may and may not do with the sour
 ## Writing changes
 Changes land as the overnight loop cycles — see `overnight_sprint.txt` for a running log of iterations. The game is fully playable from a fresh save: menu → world map → reef rescue → upcycle bench → shop → circuit complete, with NPCs, bottles, starfish and achievements as optional flavour that persists between sessions.
 
-## Full achievement list (42)
+## Full achievement list (43)
 An island for every title the stats page tracks:
 
 - **Reef & Bench starters** — FIRST DIVE, FIRST SORT, FIRST SALE, FIRST FAVOUR, ROUND THE ISLE, THE FIRST TIDE. THE YEAR KEEPER is 365 days of tides kept. THE QUIET KEEPER is three tides held without the sea naming them. THE TIDE WALKER is both badges at once.
@@ -319,4 +326,4 @@ An island for every title the stats page tracks:
 - **Collections** — REEF REGISTRY (meet all four species), STARLIGHT (five hidden starfish), TIDE MESSAGES (all three bottles), THE PACT'S REPLY (the hidden pact bottle), TIDE KEEPER (all four messages the tide left), THE FOUR TIDES (log all four daily tides in the keeper's almanac), THE KEEPER'S LETTER (find the note the first keeper left, at Oda's spot on the west shore, once the almanac is complete), and Corl's Folded Paper washes up near the shop path for keepers who bought him seven days of tomorrow (THE WHISPERER). THE FAR POINT itself sends a note east — a watcher's page, for those who caught him (THE FAR POINT). Read the six and THE SILENT CHORUS is yours — every voice the sea ever sent; the seventh is a blessing, not a requirement. THE LONG KEEPER is yours after ten daily tide reports — the island sees its keeper first. THE STEADY KEEPER is three daily tide reports in a row. THE FAR POINT is yours if you stand at the island's eastern tip. ISLAND STEWARD additionally triggers THE FIFTH TIDE — a one-time +$250 parting card, the island showing its keeper the one tide it never wrote down.
 - **Island quests** — HARBOR HERO (every quest tier turned in), PATRON OF THE ISLE (1500$ gift), KEEPER OF THE TIDE (2500$ pact), LOOP MASTER (25 circuits). THE WHISPERER (buy seven days of tomorrow from Corl the dockhand, 25$ a day).
 - **Economy** — WELL OFF (lifetime 300$), MARKET CONTACT (+1$/unit), CACHE FOUND (buy the Deep Cache), ROOM TO SPARE (reach a 30 kg cap), GOLDEN TOUCH (10 golden scraps).
-- **Capstone** — ISLAND STEWARD: every other achievement earned.
+- **Capstone** — ISLAND STEWARD: every other achievement earned. Behind it waits **THE KEEPER'S STAR**: the sixth star at the far point east of the watcher, the one the island held back for its keeper. Walking over it pays $50, rings a bell and earns THE KEEPER'S STAR — an epilogue, not a checklist item.

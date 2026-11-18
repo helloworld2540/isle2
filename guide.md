@@ -251,12 +251,13 @@ checked against this yield — nothing changed, deliberately.*
 - The stats page's Tide Ledger and Reef Registry tease locked rows
   instead of printing question marks — each bottle and fish has its own
   spoiler-free hint; the page is the island's clue board.
-- The stats page opens with a single-line Keeper's Journal ledger: "Journal — bottles n/7 · starfish n/5 · tides n/4 · species n/4 · achievements n/42" — so you can see the whole completion board at a glance without scrolling.
+- The stats page opens with a single-line Keeper's Journal ledger: "Journal — bottles n/7 · starfish n/5 · tides n/4 · species n/4 · achievements n/43" — so you can see the whole completion board at a glance without scrolling.
 - Bottles you have already read can be re-read from the stats page via the Tide Ledger overlay (the game nudges you there once the third base bottle is read) (undiscovered notes stay locked).
 - Quest economics audit (SALE_PRICES-weighted): turn-ins are deliberately slightly under market value — that is the price of quest progress and the Harbor Hero +10 kg cap — but the old numbers were punitive (Tom 24$->12$, Nina 30$->15$, Kai 25$->10$, Mara t2 25$->18$). Buffed: Tom t1 4->6 PP (18$), Nina t1 5->6 PP (18$), Kai t1 now 6 PP (18$), Mara t2 6->8 PP (24$). Nina t2 (+8$) and Kai t2 (+4$) remain the profitable tiers.
 - Depth is tracked in the stats page and feeds two achievements: DEEP DIVE (400 m) and TO THE ABYSS (900 m). Ten finished dives earns REEF REGULAR; the stats page keeps a running "Field log" of dives and bench runs.
 - Species you bump into are logged in the stats page ("Fish spotted") and in the Reef Registry overlay (tap a note to re-read what you know about that fish); meeting all four earns REEF REGISTRY.
 - Five starfish hide around the island (the game nudges on your first and on your fourth) — walk over one to add it to the journal (stats page, "Starfish found"); collecting all five earns STARLIGHT; once you find your first starfish the world HUD keeps a running count (bottle-style line under the route tracker), flipping gold as STARLIGHT KEEPER at five; collecting every starfish also pays a one-time +$25 Tide Pool card.
+- Once ISLAND STEWARD is earned, one more star appears at the far point east of the watcher: **THE KEEPER'S STAR** — the sixth star the island held back for the keeper who kept everything. Walking over it delivers the island's last card, a low bell, +$50 and the 43rd badge. It is not counted toward STARLIGHT, it never appears before the capstone, and it fires exactly once. The stats page's deeds column records it when found.
 - A rare golden Goldie (10% of fish spawns, any species) pays +5 when bumped and costs no life — its edge marker shimmers gold, never red.
 - Rare golden debris in the reef (12% spawn) is worth +1 bonus score on top of the combo multiplier.
 - Rare golden belt items in Upcycle (12% spawn) are worth double score (+2) when sorted correctly.
@@ -451,3 +452,4 @@ them — and a faint golden hush over the world.
 - Hidden-tide mode (THE QUIET KEEPER, THE TIDE WALKER): every surface swaps to "The sea keeps its own counsel"; the tide ceremony stays; the almanac fills anyway.
 - The **far point**: Mara's rumour → the watcher → **THE FAR POINT** → his note; **THE FIFTH TIDE**, the island's last gift.
 - **39 → 40 achievements**; the tide bends reef, belt, golden rolls, the shop's bulk bonus and the gulls.
+- **43rd badge — THE KEEPER'S STAR**: the island's epilogue, a sixth star at the far point east of the watcher, waiting for a keeper who kept everything. Not counted toward STARLIGHT; never shown before ISLAND STEWARD.

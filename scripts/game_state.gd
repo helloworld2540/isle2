@@ -183,6 +183,13 @@ var island_patron: bool = false
 ## purchase), so the flag is only needed for the shop button and the title.
 var tidekeeper: bool = false
 
+## THE KEEPER'S STAR — the island's last secret, earned only after the whole
+## catalogue is kept (ISLAND STEWARD). One-time, +$50, not counted toward the
+## five-star STARLIGHT set. The node reads this flag and frees itself when
+## the star is already found or the steward capstone is not yet earned.
+var keeper_star_found: bool = false
+const KEEPER_STAR_MONEY := 50
+
 # Most recent minigame run, handed to the world map for its recap card.
 # Shape: { "kind": String, "title": String, "lines": Array[String], "hint": String }
 var last_run: Dictionary = {}
@@ -604,6 +611,16 @@ func mark_watcher_seen() -> void:
 	_persist()
 
 
+## The island's last secret: the star it held back for the keeper who kept
+## everything. Grants the money inside the same save write, so the card and
+## the wallet never disagree on what the island meant by it.
+func mark_keeper_star_found() -> void:
+	if keeper_star_found:
+		return
+	keeper_star_found = true
+	add_earnings(KEEPER_STAR_MONEY)
+
+
 
 # --- The island's clock ---
 ## Days of the island this save has kept, floored at 1 for display — a fresh
@@ -897,6 +914,7 @@ const SAVE_SCHEMA: Array = [
 	["tide_days_visited", "tide_days_visited", 0, "int"],
 	["watcher_seen", "watcher_seen", false, "bool"],
 	["fifth_tide_granted", "fifth_tide_granted", false, "bool"],
+	["keeper_star_found", "keeper_star_found", false, "bool"],
 	["quests_completed", "quests_completed", 0, "int"],
 	["lifetime_garbage_kg", "lifetime_garbage_kg", 0, "int"],
 	["reef_dives", "reef_dives", 0, "int"],

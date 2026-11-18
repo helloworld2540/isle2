@@ -430,3 +430,11 @@
 
 # low priority backlog
 - (none outstanding.)
+
+- done this pass
+- **THE KEEPER'S STAR** — the 43rd badge and the island's epilogue: a hidden
+  sixth starfish at the far point east of the watcher, shown only after
+  ISLAND STEWARD. Not counted toward STARLIGHT, paid exactly once (+$50),
+  new `keeper_star_found` save flag, Hidden-track catalogue entry, wired
+  into `tools/keeper_star_test.gd` + all_audits.sh. guide.md, README and
+  PITCH.md updated to 43.

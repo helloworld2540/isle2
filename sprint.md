@@ -1,4 +1,26 @@
 
+## 2026-11-18 — THE KEEPER'S STAR: the island's epilogue, earned
+- A hidden **sixth starfish** lives at the far point east of the watcher
+  (`scenes/wm_keeper_star.tscn` + `scripts/wm_keeper_star.gd`). It frees
+  itself for any keeper who has not earned ISLAND STEWARD, it is not counted
+  toward the STARLIGHT five-star set, and collecting it delivers the island's
+  last card: a hooded-keeper dialogue from the island itself, a low bell,
+  a floating "+50$" callout, a bright indigo spark burst and the 43rd badge,
+  THE KEEPER'S STAR. Save flag `keeper_star_found` (schema-persisted, one
+  per island, paid exactly once). THE KEEPER'S STAR achievement appended to
+  the catalogue on the Hidden track (the capstone explicitly excludes it —
+  no circular dependency).
+- Deeds column gains "The keeper's star: found."
+- Sprite painted in-repo (`sprites/keeper_star.png`, indigo body with one
+  warm gold point). Distinct palette from the tidepool starfish.
+- `tools/keeper_star_test.gd` asserts the scene loads, the catalogue entry
+  is real and on the Hidden track, the capstone does not depend on the star,
+  and the save schema carries the flag; wired into `tools/all_audits.sh`.
+  Smoke 51/51. Full audit board green.
+- Docs: guide.md (star section + 43rd badge version-history entry), README
+  (43 achievements, build/verify notes, epilogue in the capstone bullet),
+  PITCH.md (living arc carries the epilogue star).
+
 ## 2026-11-18 — Far-point beats: all five islanders notice the watcher
 - The guide names THE FAR POINT as noticed by every named islander, but three
   of the five `milestone_beats` dictionaries in `scenes/world.tscn` were
