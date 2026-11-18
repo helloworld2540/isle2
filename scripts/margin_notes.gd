@@ -18,6 +18,7 @@ const BENCH: Array[String] = [
 	"Every bottle you shelve teaches the sea you are listening.",
 	"Leave the bench better than you found it. It always remembers.",
 	"The courier crossed my window once. I wrote it on the wall.",
+	"The courier has never once surprised a bin. Rare trait, out there.",
 ]
 
 const WATER: Array[String] = [
@@ -30,6 +31,7 @@ const WATER: Array[String] = [
 	"The reef is not a warehouse. It is a neighbour.",
 	"Surface slow. Let the sea decide what you keep.",
 	"If something pale crosses ahead of you, do not chase it. It arrives for its own reasons.",
+	"The courier never bumps into anything. Learn from the courier.",
 ]
 
 
