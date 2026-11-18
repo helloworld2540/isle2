@@ -88,6 +88,7 @@ const NUDGE_TIP := "nudge_tip_shown"
 const NUDGE_WELCOME_BACK := "nudge_welcome_back_shown"
 const NUDGE_WATCHER_NOTE := "nudge_watcher_note_shown"
 const NUDGE_COURIER := "nudge_courier_shown"
+const NUDGE_NINA_COURIER := "nudge_nina_courier_shown"
 
 var _step: int = 0
 var _active_hint: CanvasLayer = null
@@ -136,6 +137,10 @@ func scene_started(tag: String) -> void:
 		"reef":
 			notify("reef_entered")
 		_: pass
+	if tag == "world" and GameState.fish_met.has("fish_silverfin"):
+		# The first world-load after the courier is logged carries a letter
+		# from above. One-time, persisted, defers behind any open card.
+		nudge("nina_courier")
 	if _step >= DONE or _step == 0:
 		return
 	var wanted: Variant = STEP_SCENE_TAG.get(_step, [])
@@ -314,6 +319,7 @@ func nudge(kind: String) -> void:
 		"welcome_back": key = NUDGE_WELCOME_BACK
 		"watcher_note": key = NUDGE_WATCHER_NOTE
 		"courier": key = NUDGE_COURIER
+		"nina_courier": key = NUDGE_NINA_COURIER
 		_: return
 	if not _nudge_state.has(key):
 		_nudge_state[key] = bool(SaveManager.load_game().get(key, false))
@@ -369,6 +375,10 @@ func nudge(kind: String) -> void:
 			_spawn_card("The courier is real",
 				"[font_size=20]The counter keeps a page from the Silverfin itself.\nThe reef knows this fish — the [color=#9fe2ff]Reef Registry[/color] keeps its name.\nDive on an [color=#9fe2ff]Eel Run[/color] tide: the courier rides the fast water.[/font_size]",
 				"I'll look")
+		"nina_courier":
+			_spawn_card("A letter from above",
+				"[font_size=20]Something pale crossed beneath me on the way in.\nYou log it in your journal, don't you? The [color=#9fe2ff]Reef Registry[/color].\n— Nina[/font_size]",
+				"That I do")
 		"welcome_back":
 			_spawn_card("Welcome back, keeper",
 				"[font_size=20]The island held its breath while you were gone.\n				The tide kept its four days without you — here is where things stand, and who has been waiting.[/font_size]",

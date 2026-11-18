@@ -133,6 +133,7 @@ checked against this yield — nothing changed, deliberately.*
 - Cards are non-modal (they never pause or block play) and only appear in the scene
   where the current step can be acted on; they reappear on scene re-entry until done.
 - After the first courier's letter, a one-shot "The courier is real" nudge points at the Reef Registry and Eel Run (saved per-island, never repeats).
+- Log the Silverfin once, and the next time you walk out onto the map a letter from Nina arrives — "A letter from above" — the courier's flight path crosses hers, and she knows you'd notice.
 - The finale card gestures at the long game — the tide, the NPCs, the bottles,
   and now the courier's letter: "if the shop counter mentions a page the
   courier left, that is not a rumour."
