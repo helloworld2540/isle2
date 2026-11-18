@@ -1,8 +1,54 @@
 # Isle 2 — Trash Island, release notes
 
-**Version 1.2.0** (signed, Linux / Web / Android)
+**Version 1.3.0** (signed, Linux / Web / Android)
 
-## What's new since 1.1.0
+## What's new since 1.2.0
+
+- **The Silverfin** — a fifth reef species joins the water. Pale, quick,
+  gone by dawn; it pays the biggest sighting in the Reef Registry. FishCatalog,
+  the Registry overlay and the stats journal all read five species now;
+  REEF REGISTRY is earned on five.
+- **Weighted reef spawns** — fish spawns were uniform; now Goldie/Nemo are
+  regulars, Crab common, the Grey Reef Shark rare (14), and the Silverfin a
+  deliberate, rare sighting (10) — doubled to 20 on Eel Run, the courier's
+  day on the water. Spawn selection is a weighted pick; TideReport drives the
+  odds. `tools/spawn_weight_test.gd` covers every roll lands on a known
+  species and the Eel Run double.
+- **THE PALE COURIER** — the 45th badge: spot the Silverfin at least once.
+  Tom the shorekeeper notices, in his own register; the world HUD celebrates it.
+- **The Courier's Wake** — the first sighting queues a one-time world-map card
+  (same run-recap path as The Last Page): the Silverfin earns ink, not just a
+  badge.
+- **Lore: the courier of the strait** — guide and World map & dock ambience
+  carry the Silverfin's story (the courier's strait, the first keeper's
+  margin note, Tom's word).
+- **The Filled Almanac & the quiet harbor** — the keeper's book
+  fills out in two directions: once all four tides are logged the stats page
+  offers **The Almanac** (the next seven days of the rotation laid out, today
+  in sea-foam), and once THE WHOLE SEA is earned the dock hushes — the gull
+  flock cries ~80% less often and the far-jetty calls stretch and fall silent.
+  Under **Hide the tide** every tide surface stays quiet; the almanac card
+  opens to one line.
+- **Every voice goes quiet at once** — earning THE WHOLE SEA now lands a
+  wordless milestone beat in all five named islanders at once, not only Oda.
+- **The Last Page & The Courier's Wake** — two one-time world-map cards
+  (never clobbering a pending recap, never firing on silent restore): the
+  keeper before you left the last page blank on purpose.
+- **The front door remembers** — the main-menu Continue summary gains ✳ The
+  Pale Courier and ✦ The Whole Sea for keepers who earned them; the island's
+  bookends greet you at the boot screen.
+- **The first keeper's margin notes** — every minigame briefing card now
+  carries a quiet handwritten line from the first keeper, rotating by
+  run/dive count (two voices: BENCH and WATER).
+- **RELEASE_CHECKLIST** records the current catalogue count (45) and the
+  verified APK values; **PITCH.md**, **README.md**, **guide.md** track the
+  five species and 45 badges.
+- **A permanent harness for the above**: `tools/keeper_star_test.gd`,
+  `tools/npc_beat_audit.py`, both wired into `tools/all_audits.sh`.
+
+## Prior releases
+
+**Version 1.2.0** (signed, Linux / Web / Android)
 
 - **THE KEEPER'S STAR** — the island's epilogue, and the 43rd badge. After
   ISLAND STEWARD is earned, a sixth starfish appears at the far point east of
@@ -18,26 +64,8 @@
 - **All five islanders now notice THE FAR POINT** — the guide promised every
   named islander would speak of the one on the far point once seen; Mara, Tom
   and Kai were silent. They each got a line in their own register.
-- **A permanent harness for the above**: `tools/keeper_star_test.gd` (scene
-  loads, catalogue entry is real and on the Hidden track, capstone does not
-  depend on the star, schema round-trip) and `tools/npc_beat_audit.py` (every
-  beat names a real achievement, all five notice the watcher, no duplicate
-  pairs), both wired into `tools/all_audits.sh`.
-
-## HEAD — shipped since the 1.2.0 seal (not yet packaged)
-
-- **The Silverfin** — a fifth reef species joins the water. Pale, quick,
-  gone by dawn; it pays the biggest sighting in the Reef Registry. FishCatalog,
-  the Registry overlay and the stats journal all read five species now.
-- **THE PALE COURIER** — the 45th badge: spot the Silverfin at least once.
-  Tom the shorekeeper notices, in his own register; the world HUD celebrates it.
-- **The Filled Almanac** — once the keeper's book is full (all four tides
-  logged), the stats page offers **The Almanac**: the next seven days of the
-  rotation laid out in one gold card, today in sea-foam — no dockhand required.
-  Under Hide the tide it opens to one quiet line, like every other surface.
-- **RELEASE_CHECKLIST** records the current catalogue count (45) and the
-  verified APK values; **PITCH.md**, **README.md**, **guide.md** track the
-  five species and 45 badges.
+- **A permanent harness for the above**: `tools/keeper_star_test.gd` and
+  `tools/npc_beat_audit.py`, both wired into `tools/all_audits.sh`.
 
 ## Prior releases
 
