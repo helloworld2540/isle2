@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- **The courier is spoken of everywhere** — all five named islanders now
+  notice THE PALE COURIER (Mara, Tom, Nina, Kai, Oda), each in register;
+  npc_beat_audit covers them.
 - **The registry keeps count** — Reef Registry overlay legend and button
   show n/5 (button reads "Reef Registry (n/5)", gold at five), matching
   the Tide Ledger's self-advertising pattern.
