@@ -1,6 +1,12 @@
 # Current project todo:
 
 # done this pass
+- **Letter drawer closes** — the shop button and note now show the page
+  counter ("Letter 7 of 14") and the stash counts down ("6 pages left in
+  the counter's stash"). Once the last letter is read the drawer is
+  empty: purchase refused, button disabled, note says so plainly.
+  (Fresh find: a missing % argument on the countdown line crashed the
+  shop's _refresh — caught by the scene-boot audit, fixed in place.)
 - **tutorial_tour_test.gd** — the whole first-playthrough tour walked
   headless on a fresh save: all five steps advance in order, no re-arm
   after DONE, no FINALE auto-complete. 0 failures.

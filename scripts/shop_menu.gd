@@ -227,19 +227,30 @@ func _refresh_purchases() -> void:
 		tide_note.text = "Today: the sea keeps its own counsel — and so do you." if GameSettings.hide_tide else "Today: %s" % TideReport.summary()
 
 	if buy_courier_letter_button:
-		if GameState.courier_letter_bought_today():
-			buy_courier_letter_button.text = "Courier's letter — read for today"
+		var letter_i: int = GameState.courier_letters_bought
+		var drawer_empty := letter_i >= CourierLetters.count()
+		if drawer_empty:
+			buy_courier_letter_button.text = "Courier's letter — the drawer is empty"
+			buy_courier_letter_button.tooltip_text = "All %d pages read. The courier wrote nothing after that." % CourierLetters.count()
+			buy_courier_letter_button.disabled = true
+		elif GameState.courier_letter_bought_today():
+			buy_courier_letter_button.text = "Courier's letter %d of %d — read for today" % [letter_i + 1, CourierLetters.count()]
 			buy_courier_letter_button.tooltip_text = "One page a tide day. Come back on the next tide."
 			buy_courier_letter_button.disabled = true
 		else:
-			buy_courier_letter_button.text = "Courier's letter — %d$" % GameState.COURIER_LETTER_COST
+			buy_courier_letter_button.text = "Courier's letter %d of %d — %d$" % [letter_i + 1, CourierLetters.count(), GameState.COURIER_LETTER_COST]
 			buy_courier_letter_button.tooltip_text = "One page a tide day, from the fin that passes by."
 			buy_courier_letter_button.disabled = not GameState.can_afford(GameState.COURIER_LETTER_COST)
 	if courier_letter_note:
-		if GameState.courier_letter_bought_today():
+		var letter_i: int = GameState.courier_letters_bought
+		if letter_i >= CourierLetters.count():
+			courier_letter_note.text = "The drawer is empty. Every page the courier left was read at this counter."
+		elif GameState.courier_letter_bought_today():
 			courier_letter_note.text = "You read today's page at the counter. It did not keep."
 		else:
-			courier_letter_note.text = "A page, sand-grained and sealed with a small fin. The counter keeps it for %d$." % GameState.COURIER_LETTER_COST
+			var remaining: int = CourierLetters.count() - GameState.courier_letters_bought
+			courier_letter_note.text = "%d page%s left in the counter's stash. The counter keeps them for %d$." % [
+				remaining, "s" if remaining != 1 else "", GameState.COURIER_LETTER_COST]
 
 	if buy_tide_tip_button:
 		var quiet := GameSettings.hide_tide
@@ -261,6 +272,10 @@ func _refresh_purchases() -> void:
 
 
 func _buy_courier_letter() -> void:
+	if GameState.courier_letters_bought >= CourierLetters.count():
+		_stack.sale("COURIER'S LETTER\nThe drawer is empty.", Color(0.7, 0.85, 0.95, 1.0))
+		_log_sale("The counter's letter drawer is empty. All %d pages read." % CourierLetters.count())
+		return
 	if not GameState.purchase_courier_letter():
 		_play_denied("Need %d$ for the courier's letter" % GameState.COURIER_LETTER_COST, "")
 		_shake_control(buy_courier_letter_button)
