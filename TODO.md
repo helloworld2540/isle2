@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- **The courier flies** — on Eel Run days only, WorldCourier crosses the
+  strait on a rare timer (8–20 s first pass, then 30–65 s): a fast silvery
+  streak with a quiet high chime. Frees itself on every other tide;
+  reduce-motion skips the flyby. 52 scenes in smoke.
 - **The margin notes grew a courier** — two new first-keeper lines (bench +
   water) referencing the courier. New tools/margin_notes_test.gd asserts
   distinct notes, sane lengths and clean rotation; wired into all_audits.sh.
