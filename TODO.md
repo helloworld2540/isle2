@@ -1,6 +1,19 @@
 # Current project todo:
 
 ## done this pass
+- **The courier's gratitude** — once THE LAST LETTER is read, the Eel Run
+  world-map flyby stops being a stranger: first pass 4–9 s, re-arm 16–34 s
+  instead of 8–20 / 30–65. Pure ambience (no card, no prompt); a test hook
+  `force_gratitude` lets the harness assert both interval bands.
+- **The courier's closing beats** — Oda's pale_courier line was still missing
+  from the rollback and is restored; Oda and Tom now also notice
+  THE REGULAR (ten pages) and Oda notices THE LAST LETTER (fourteen pages) —
+  the courier arc's closing badges finally have islander voices.
+- **courier_flight_test** gains the gratitude case (sooner arrival, short
+  re-arm). npc_beat_audit green; all five islanders still notice THE FAR
+  POINT.
+
+## done this pass
 - **CardQueue: one card at a time, island-wide** — a static RefCounted
   (`scripts/ui/card_queue.gd`) serialises every popup: the welcome guide,
   NPC conversations, tutorial hints, the achievement/tide banner and the

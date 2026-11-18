@@ -478,6 +478,12 @@ Tom knows the courier exists and keeps to his fishing. Mara considers it
 in the almanac margin by hand, never reads it aloud, and answers the
 keeper's question with silence, every time.
 
+The courier also crosses the world map itself on Eel Run days — a pale,
+fast streak over the strait, never a card, never a prompt. Once you have
+read the whole post (THE LAST LETTER), it stops being a stranger: the flyby
+comes sooner and more often. Nothing is said about it. The sea just keeps
+you company.
+
 The courier, like every genuinely strange thing on the island, quietly
 shows up in the almanac. Once all four tides have been logged, the book
 is full and the island sends its keeper a private note: THE ALMANAC PAGE.

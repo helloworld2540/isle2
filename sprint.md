@@ -1,4 +1,15 @@
 
+## 2026-11-18 — The courier's gratitude (the post is all read)
+- `scripts/wm_courier.gd`: once THE LAST LETTER is read (checked off the live
+  GameState at runtime) the Eel Run flyby comes sooner — first pass 4–9 s and
+  a 16–34 s re-arm, versus the base 8–20 / 30–65. `force_gratitude` is a
+  debug hook for the harness. No card, no prompt: the sea just keeps the
+  keeper company.
+- `scenes/world.tscn`: Oda's `pale_courier` beat (dropped in the rollback) is
+  restored, and Oda + Tom notice THE REGULAR; Oda notices THE LAST LETTER.
+  The courier arc's closing badges now have islander voices.
+- `tools/courier_flight_test.gd` asserts the grateful intervals; green.
+
 ## 2026-11-18 — CardQueue: one voice at a time, island-wide
 - New `scripts/ui/card_queue.gd` (`CardQueue`, a static RefCounted): every
   popup asks the same lane for the screen and either activates at once or

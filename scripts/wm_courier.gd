@@ -5,20 +5,31 @@ class_name WorldCourier
 ## silvery streak along the water — pure ambience, no interaction. On any
 ## other day the node frees itself; the courier does not make appointments.
 ## Reduced motion skips the flyby entirely (like the gulls freeze).
+##
+## Once the keeper has read the whole courier's post (THE LAST LETTER), the
+## courier keeps the keeper's company: it arrives sooner after each pass.
+## Nothing is said about it — the sea just stops being a stranger.
 
 const TEX := preload("res://sprites/rr/fish_silverfin.png")
 const SWEEP_PIXELS := 1100.0    ## how far the streak travels, px
 const SWEEP_SECONDS := 2.4      ## the whole crossing
 const MIN_INTERVAL := 30.0      ## seconds between passes (min)
 const MAX_INTERVAL := 65.0      ## seconds between passes (max)
+## Intervals once THE LAST LETTER is read — the courier shows off a little.
+const GRATITUDE_MIN_INTERVAL := 16.0
+const GRATITUDE_MAX_INTERVAL := 34.0
 
 ## Debug/test hook: pretend the tide is this key (empty = real tide). Lets a
 ## harness exercise the eel-run path without changing the calendar.
 @export var force_tide_key := ""
+## Debug/test hook: force the gratitude interval without a save. Otherwise the
+## scene reads THE LAST LETTER off the live GameState and stays quiet.
+@export var force_gratitude := false
 
 var _center: Vector2 = Vector2.ZERO
 var _timer: float = 0.0
 var _passing: bool = false
+var _grateful := false
 
 
 func _ready() -> void:
@@ -34,12 +45,24 @@ func _ready() -> void:
 	if gs != null and bool(gs.get("reduce_motion")):
 		queue_free()
 		return
+	_grateful = _read_gratitude()
 	texture = TEX
 	centered = true
 	scale = Vector2(0.5, 0.5)
 	modulate.a = 0.0
 	_center = position
-	_timer = randf_range(8.0, 20.0)  # first pass comes soon, then rarely
+	_timer = randf_range(4.0, 9.0) if _grateful else randf_range(8.0, 20.0)
+
+
+## True once the keeper has read all fourteen pages. Everything is looked up at
+## runtime so the harness (which has no save) simply defaults to false.
+func _read_gratitude() -> bool:
+	if force_gratitude:
+		return true
+	var state := get_tree().root.get_node_or_null("GameState")
+	if state == null or not state.has_method("is_achievement_unlocked"):
+		return false
+	return bool(state.call("is_achievement_unlocked", "last_letter"))
 
 
 func _process(delta: float) -> void:
@@ -78,4 +101,8 @@ func _end_pass() -> void:
 	_passing = false
 	position = _center
 	modulate.a = 0.0
-	_timer = randf_range(MIN_INTERVAL, MAX_INTERVAL)
+	if _grateful:
+		# The post is all read; the courier lingers a little nearer.
+		_timer = randf_range(GRATITUDE_MIN_INTERVAL, GRATITUDE_MAX_INTERVAL)
+	else:
+		_timer = randf_range(MIN_INTERVAL, MAX_INTERVAL)

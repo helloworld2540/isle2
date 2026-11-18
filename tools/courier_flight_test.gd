@@ -58,6 +58,22 @@ func _initialize() -> void:
 	_check(not is_instance_valid(still), "courier frees itself under reduced motion")
 	_gs.set("reduce_motion", false)
 
+	# 5) Gratitude: once the whole post is read, the courier comes nearer.
+	var gifted := CourierScene.instantiate()
+	gifted.set("force_tide_key", "eel_run")
+	gifted.set("force_gratitude", true)
+	gifted.position = Vector2(300, 1050)
+	get_root().add_child(gifted)
+	await process_frame
+	_check(not gifted.is_queued_for_deletion(), "grateful courier survives on Eel Run")
+	var first := float(gifted.get("_timer"))
+	_check(first >= 4.0 and first <= 9.0, "grateful courier arrives sooner (%.1f)" % first)
+	gifted.call("_pass")
+	gifted.call("_end_pass")
+	var short_timer := float(gifted.get("_timer"))
+	_check(short_timer >= 16.0 and short_timer <= 34.0,
+		"grateful courier re-arms on the short interval (%.1f)" % short_timer)
+
 	print("courier_flight_test: %d failure(s)" % _fails)
 	quit(_fails)
 
