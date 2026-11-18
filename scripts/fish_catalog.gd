@@ -29,7 +29,7 @@ const ENTRIES: Array[Dictionary] = [
 	{
 		"id": "fish_silverfin",
 		"name": "Silverfin",
-		"blurb": "The strait's quiet courier — quick, pale, and gone by dawn.",
+		"blurb": "The strait's quiet courier — quick, pale, and gone by dawn. The counter sells its post by the page; the reef registry keeps its name. Nobody has ever kept up with it.",
 	},
 ]
 
