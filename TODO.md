@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- **The empty drawer hides itself** — once every courier's letter is read
+  the shop hides the button instead of greying it; the note still says
+  the drawer is empty and why.
 - **Letter drawer closes** — the shop button and note now show the page
   counter ("Letter 7 of 14") and the stash counts down ("6 pages left in
   the counter's stash"). Once the last letter is read the drawer is
