@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- **tutorial_tour_test.gd** — the whole first-playthrough tour walked
+  headless on a fresh save: all five steps advance in order, no re-arm
+  after DONE, no FINALE auto-complete. 0 failures.
 - **economy_audit.py** — the payback audit in guide.md is now a gate:
   sale prices, bulk math, every money-sink curve, dockhand tip, circuit
   bonus, the four tide conditions' exact modifiers and the spawn table.
