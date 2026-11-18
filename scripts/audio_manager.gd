@@ -85,7 +85,10 @@ func _apply_bus_volume(bus_name: String, linear: float) -> void:
 
 # --- SFX ---
 
-func play_sfx(sound: String, pitch_scale: float = 1.0, bus_name: String = SFX_BUS) -> void:
+## `volume_db` is an offset from the player's authored level (the pool ships at
+## -2 dB). The players are pooled, so it is written on every call — otherwise a
+## quiet cry would leak into the next sound that shares its player.
+func play_sfx(sound: String, pitch_scale: float = 1.0, bus_name: String = SFX_BUS, volume_db: float = 0.0) -> void:
 	var stream := _resolve_sfx(sound)
 	if stream == null or sfx_pool == null:
 		return
@@ -94,8 +97,12 @@ func play_sfx(sound: String, pitch_scale: float = 1.0, bus_name: String = SFX_BU
 	if player == null:
 		return
 	
+	# Remember the authored level once; every call is an offset from it.
+	if not player.has_meta("base_db"):
+		player.set_meta("base_db", player.volume_db)
 	player.stream = stream
 	player.bus = bus_name
+	player.volume_db = float(player.get_meta("base_db")) + volume_db
 	player.pitch_scale = clampf(pitch_scale * randf_range(0.96, 1.04), 0.5, 2.0)
 	player.play()
 

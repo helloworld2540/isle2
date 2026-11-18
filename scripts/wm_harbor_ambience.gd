@@ -10,9 +10,12 @@ class_name HarborAmbience
 ## as different birds rather than an echo. Rendered through the Ambience bus by
 ## AudioManager, so the player's ambience volume setting applies.
 
-## Sparse by design: 40–75 s between calls. The flock fills the gaps.
-@export var min_interval: float = 40.0
-@export var max_interval: float = 75.0
+## Sparse by design: 90–170 s between calls, and quiet — this is the far jetty,
+## not a bird on your shoulder. The flock fills the gaps.
+@export var min_interval: float = 90.0
+@export var max_interval: float = 170.0
+## Trim under the flock: distance, not just rarity, keeps it out of the way.
+@export var cry_volume_db: float = -12.0
 ## Quiet stretch after the world loads before the first cry, so entering a
 ## scene never yelps on frame one.
 @export var first_delay: float = 16.0
@@ -37,7 +40,7 @@ func _process(delta: float) -> void:
 	if _echo_timer > 0.0:
 		_echo_timer -= delta
 		if _echo_timer <= 0.0:
-			AudioManager.play_sfx("gull", _echo_pitch, AudioManager.AMBIENCE_BUS)
+			AudioManager.play_sfx("gull", _echo_pitch, AudioManager.AMBIENCE_BUS, cry_volume_db)
 	
 	_timer -= delta
 	if _timer > 0.0:
@@ -64,7 +67,7 @@ func _cry() -> void:
 	if TideReport.today_key() == "eel_run":
 		# Eel Run: the birds are keyed up for the hunt — pitch reads hotter.
 		pitch = randf_range(0.95, 1.08)
-	AudioManager.play_sfx("gull", pitch, AudioManager.AMBIENCE_BUS)
+	AudioManager.play_sfx("gull", pitch, AudioManager.AMBIENCE_BUS, cry_volume_db)
 	
 	if _echo_timer > 0.0:
 		return

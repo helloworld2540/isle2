@@ -422,7 +422,7 @@ each debris sorts 1:1 into a material.*
 - Once your almanac is filled, the far sailboat wears a warm gold trim —
   the sailors know the keeper walks the shore.
 - The dock is alive even when you stand still: a **harbor cry** sounds every
-  40–75 s (a lone, lower-pitched gull answering itself across the water), on top
+  90–170 s, quiet and far (a lone, lower-pitched gull answering itself across the water), on top
   of the four gulls patrolling the open water east of the island. The harbor cry
   is audio-only, so it keeps playing even with **Reduced motion** on — where the
   birds hold still, the water still sounds like water. On Night Drift the

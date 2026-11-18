@@ -18,8 +18,10 @@ const BOB_AMPLITUDE := 0.5   ## fraction of ry used by the bob term
 @export var ry: float = 44.0      ## vertical patrol radius, px
 @export var period: float = 11.0  ## seconds per full patrol loop
 @export var bank_amount: float = 0.16  ## max roll (radians) when turning
-@export var cry_min_interval: float = 25.0  ## min seconds between cries
-@export var cry_max_interval: float = 60.0  ## max seconds between cries
+@export var cry_min_interval: float = 75.0  ## min seconds between cries
+@export var cry_max_interval: float = 180.0  ## max seconds between cries
+## Distant birds, not a chorus: cries sit well under the ambience bed.
+@export var cry_volume_db: float = -9.0
 
 var _t: float = 0.0
 var _center: Vector2 = Vector2.ZERO
@@ -52,6 +54,6 @@ func _process(delta: float) -> void:
 	texture = FRAMES[int(Time.get_ticks_msec() / int(FLAP_SECONDS * 1000.0)) % FRAMES.size()]
 	_cry_timer -= delta
 	if _cry_timer <= 0.0:
-		AudioManager.play_sfx("gull", randf_range(0.85, 1.15), AudioManager.AMBIENCE_BUS)
+		AudioManager.play_sfx("gull", randf_range(0.85, 1.15), AudioManager.AMBIENCE_BUS, cry_volume_db)
 		var span := 1.8 if GameState.is_achievement_unlocked("whole_sea") else 1.0
 		_cry_timer = randf_range(cry_min_interval * span, cry_max_interval * span)
