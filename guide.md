@@ -9,7 +9,7 @@ Welcome to Isle 2. Shared economy across world map, two minigames, shop, NPCs an
   The almanac logs each you witness (`almanac n/4`).
 - The dock sells a **dockhand's tip** ($25, $15 on a 3-day streak) for
   tomorrow's tide.
-- **Tide Ledger** on the stats page holds the seven notes — read them all.
+- **Tide Ledger** on the stats page holds the eight notes — read them all.
 - Watch the island stretch you thin, then come back tomorrow. The tide never
   blinks.
 
@@ -381,6 +381,12 @@ each debris sorts 1:1 into a material.*
   portals to the bench, the reef dive, and the shop.
 - Completing all three stations in a lap pays the **$15 island-circuit** bonus
   and the return card names your lap "Circuit No N".
+- **The Silverfin** is the courier of the strait: the same current that carries
+  the message bottles east is the one it rides, and the islanders will tell you
+  it has never been kept up with. The first keeper wrote it into the almanac's
+  margin, not the ledger — \"the reef's own postman, paid in nothing.\" Bump
+  into it on a dive and the Reef Registry remembers your name; Tom keeps a
+  word for the keeper who saw it.
 - Once your almanac is filled, the far sailboat wears a warm gold trim —
   the sailors know the keeper walks the shore.
 - The dock is alive even when you stand still: a **harbor cry** sounds every

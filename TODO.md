@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- **The Courier's Lore** — guide.md gains the Silverfin's story under
+  World map & dock ambience (the courier of the strait, the first
+  keeper's margin note, Tom's word); quick-reference bottle count fixed
+  to eight (it still said seven). RELEASE_CHECKLIST catalogue count 44→45.
 - **The Courier's Wake** — earning THE PALE COURIER queues a one-time
   world-map card (same run-recap path as The Last Page; never clobbers
   a pending recap, never fires on silent restore).
