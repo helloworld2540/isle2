@@ -53,6 +53,9 @@ func _ready() -> void:
 	# The island notices its keepers' centennials.
 	if GameState.tide_days_visited == 100:
 		_log_sale("The island marks its 100th tide today. Corl polishes the counter without being asked.")
+	# The courier is done writing. Corl notices that too.
+	if GameState.courier_letters_bought >= CourierLetters.count():
+		_log_sale('Corl adds a note to the ledger: "The courier\'s post is done. Thank you."')
 	# One-shot pointer to the dockhand's tip once the keeper can afford it.
 	if GameState.money >= 100 and not GameState.harbor_tip_purchased():
 		TutorialDirector.nudge("tip")

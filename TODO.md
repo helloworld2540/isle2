@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- **Corl closes the ledger** — after THE LAST LETTER lands, the shop
+  prints a one-liner: "Corl adds a note to the ledger: 'The courier's
+  post is done. Thank you.'" No new state; just a man who was always
+  counting, counting one last thing.
 - **The Drawer is Empty** — the final courier-arc recap card queued
   when THE LAST LETTER fires: fourteen pages, the sea's complete works,
   the drawer shuts for good. Never clobbers a pending run recap.
