@@ -58,6 +58,17 @@ func _initialize() -> void:
 	_check(drift.has("fish_star.png"), "Starfish has a drift-speed row")
 	_check(float(drift.get("fish_star.png", 1.0)) < 1.0, "Starfish drifts slower than a fish")
 
+	# Every weighted species must actually be reachable: run the real picker a
+	# few thousand times and confirm each texture comes up. A species with a
+	# zero (or unreachable) weight is a row nobody can ever unlock.
+	seed(20261118)
+	var seen_spawns: Dictionary = {}
+	for _i in range(3000):
+		var picked := String(FishScript._pick_fish_texture())
+		seen_spawns[picked] = int(seen_spawns.get(picked, 0)) + 1
+	for id in ids:
+		_check(int(seen_spawns.get(id + ".png", 0)) > 0, "%s is reachable in 3000 spawns" % id)
+
 	# Stats page rows: ids and scene buttons must match the catalogue 1:1.
 	var registry_ids: Array = StatsMenuScript.REGISTRY_IDS
 	var registry_buttons: Array = StatsMenuScript.REGISTRY_BUTTONS
