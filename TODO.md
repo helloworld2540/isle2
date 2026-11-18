@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- **courier_arc_test.gd** — arc-level harness: fresh profile → first
+  letter purchase, counter increments, Silverfin logged, clean world
+  re-entry, cost and contract intact. 0 failures.
 - **The empty drawer hides itself** — once every courier's letter is read
   the shop hides the button instead of greying it; the note still says
   the drawer is empty and why.
