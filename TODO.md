@@ -1,6 +1,12 @@
 # Current project todo:
 
 # done this pass
+- **1.2.0 sealed** — version bumped in the Android preset (versionName=1.2.0 /
+  versionCode=3), main-menu stamp, About page, README, RELEASE_NOTES,
+  RELEASE_CHECKLIST (verified values), guide.md version history. All three
+  platforms rebuilt at HEAD via `tools/export_gate.sh --re-export`; fresh-clone
+  proof re-run and clean; APK badging dumped: versionName=1.2.0 /
+  versionCode=3 / minSdk=24 / targetSdk=36 / label Trash Island.
 - **The first keeper's margin notes** — every minigame briefing card
   (Upcycle bench and Reef Rescue) now carries a quiet handwritten line
   from the first keeper, rotating by run/dive count via new

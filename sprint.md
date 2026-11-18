@@ -21,6 +21,25 @@
   (43 achievements, build/verify notes, epilogue in the capstone bullet),
   PITCH.md (living arc carries the epilogue star).
 
+## 2026-11-18 — 1.2.0 sealed across all three platforms
+- Version bumped everywhere in lockstep: Android preset (versionName=1.2.0 /
+  versionCode=3), main-menu stamp ("v1.2.0"), About page ("Version 1.2.0"),
+  README, RELEASE_NOTES, RELEASE_CHECKLIST, guide.md version history.
+- `tools/export_gate.sh --re-export` green: Linux, Web and Android all
+  rebuilt at HEAD. Signed APK badging verified (versionName=1.2.0,
+  versionCode=3, targetSdk=36, label `Trash Island`). Fresh-clone proof
+  re-run clean at HEAD (cold import → Linux export → headless boot with an
+  empty log).
+
+## 2026-11-18 — THE WHOLE SEA: the hidden 44th badge
+- All eight bottles read — the seventh washes up after THE KEEPER'S STAR,
+  and reading them all earns the hidden 44th badge. Legendary banner, Oda
+  notices, capstone exclusion like the star, world HUD bottle line flips to
+  "✦ The Whole Sea". The first keeper's margin notes also rotate across the
+  two minigame briefings (two voices: BENCH and WATER), and the world dock
+  goes quiet once the sea finishes talking.
+- See the e22818a commit for the ledger/registry pins and the world HUD flip.
+
 ## 2026-11-18 — Far-point beats: all five islanders notice the watcher
 - The guide names THE FAR POINT as noticed by every named islander, but three
   of the five `milestone_beats` dictionaries in `scenes/world.tscn` were

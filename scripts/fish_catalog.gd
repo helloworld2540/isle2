@@ -26,6 +26,11 @@ const ENTRIES: Array[Dictionary] = [
 		"name": "Crab",
 		"blurb": "Not a fish. The reef doesn't care.",
 	},
+	{
+		"id": "fish_silverfin",
+		"name": "Silverfin",
+		"blurb": "The strait's quiet courier — quick, pale, and gone by dawn.",
+	},
 ]
 
 
