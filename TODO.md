@@ -1,6 +1,40 @@
 # Current project todo:
 
-# done this pass
+## done this pass
+- **CardQueue: one card at a time, island-wide** — a static RefCounted
+  (`scripts/ui/card_queue.gd`) serialises every popup: the welcome guide,
+  NPC conversations, tutorial hints, the achievement/tide banner and the
+  world-map run recap. Cards call `request(self, priority)`, get
+  `_card_activate()` when their turn comes, and `release()`/`withdraw()` on
+  close or tree exit. Modals jump ahead of ambient cards; cards owned outside
+  the queue (pause menu, briefing, confirm panel) block activation through
+  `ui_modal_card` until they close. Wired into `tutorial.gd`,
+  `npc_dialogue.gd`, `tutorial_hint.gd`, `achievement_banner.gd` and
+  `run_recap.gd`; `wm_npc.gd` no longer lets keys close an unshown dialogue.
+- **Two real CardQueue bugs caught by its harness** — `_prune()` tested
+  `node is Node` *before* `is_instance_valid`, and `_drain()` assigned a
+  possibly-freed Variant to a typed `Node`; both threw on a card freed while
+  waiting. Validity is now checked first and the drain value stays untyped.
+- **`tools/card_queue_test.gd`** — 17 checks over inline probe cards: immediate
+  activation, FIFO waiting, modal priority, withdraw, foreign-modal blocking,
+  duplicate-request no-op and waiter cancellation. 0 failures; wired into
+  `all_audits.sh` and catalogued in `tools/README.md`.
+
+## done this pass
+- **1.3.0 sealed from a clean HEAD** — the in-flight rollback is undone and
+  the tree is committed: world-courier flyby back on the water, the six
+  milestone beats restored, the Reef Registry button advertising its own
+  count, the slot-row glyphs, the BGM cache evict, and `export/web_shell.html`
+  restored (the Web preset references it, so the fresh-clone path's Web
+  export failed to read its shell). All three platforms re-exported at HEAD;
+  Linux boots clean, Web shell titles "Trash Island", APK signed v2+v3,
+  fresh-clone proof PASS. `ship_audit` READY; `git status` clean.
+- **BGM cache evicts on switch** — `AudioManager.play_bgm` now keeps only
+  the incoming track cached and evicts the previous one when the bed
+  changes, so a session stops pinning ~45 MB of loops in RAM (mobile
+  memory budgets). SFX streams stay cached; `stop_bgm` clears the path.
+
+## done this pass
 - **Corl closes the ledger** — after THE LAST LETTER lands, the shop
   prints a one-liner: "Corl adds a note to the ledger: 'The courier's
   post is done. Thank you.'" No new state; just a man who was always

@@ -73,6 +73,15 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
   which the toast queue and tutorial director use to stack above / wait for
   them instead of overlapping. Toast notifications live in a bottom-centre
   lane, 24 px off the edge, lifted above any bottom card.
+- **Card lane**: `scripts/ui/card_queue.gd` (`CardQueue`, a static RefCounted)
+  serialises every popup card island-wide — the welcome guide, NPC
+  conversations, tutorial step hints, the achievement/tide banner and the
+  world-map run recap. A card calls `CardQueue.request(self, priority)`, gets
+  `_card_activate()` when its turn comes, and calls `release()` / `withdraw()`
+  on close or tree exit. Modals (PRIORITY_MODAL) jump ahead of ambient cards
+  (PRIORITY_AMBIENT); cards owned outside the queue (pause menu, briefing,
+  confirm panel) block activation through the `ui_modal_card` group, so two
+  voices never speak at once and a hint never lands under a conversation.
 - **Audio**: `scripts/audio_manager.gd`.
 - **Achievements**: `scripts/achievement_catalog.gd` — pure data + predicates (thresholds read straight off GameState fields); GameState owns the save, the pending-card queue and the `achievement_unlocked` signal. The stats page renders the compact roll and a grouped guide; the world banner celebrates unlocks.
 - **Starfish**: five hidden collectibles scattered across the map's walkable cells; saved in `starfish_found`, feed the STARLIGHT achievement.

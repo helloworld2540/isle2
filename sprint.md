@@ -1,4 +1,27 @@
 
+## 2026-11-18 — CardQueue: one voice at a time, island-wide
+- New `scripts/ui/card_queue.gd` (`CardQueue`, a static RefCounted): every
+  popup asks the same lane for the screen and either activates at once or
+  waits until the card ahead closes. Modals (welcome guide, conversations)
+  jump ahead of ambient cards (hints, achievement/tide banners, run recaps);
+  cards owned outside the queue (pause menu, minigame briefing, confirm
+  panel) hold the lane through the `ui_modal_card` group.
+- Wired: `tutorial.gd` (pauses the tree only once it is on screen),
+  `npc_dialogue.gd` (ducks music/joins the group on activation, not on
+  creation), `tutorial_hint.gd`, `achievement_banner.gd` (parks its entry in
+  `_pending` and hands it back on tree exit), and `run_recap.gd` (presents and
+  releases on activation / fade-out). `wm_npc.gd` ignores keys for a
+  conversation that is still queued.
+- Fixed two real bugs the harness found: `_prune()` tested `is Node` before
+  `is_instance_valid` (throws on a freed instance), and `_drain()` assigned a
+  possibly-freed Variant to a typed `Node`. Validity is now checked first and
+  the drain value is untyped.
+- `tools/card_queue_test.gd`: 17 checks over inline probe cards — immediate
+  activation, FIFO waiting, modal priority, withdraw, foreign-modal blocking,
+  duplicate-request no-op, waiter cancellation. 0 failures; wired into
+  `all_audits.sh`, catalogued in `tools/README.md`.
+- Docs: README (Card lane), guide.md (Screen layout & toasts).
+
 ## 2026-11-18 — BGM cache evicts on switch (mobile memory)
 - `AudioManager.play_bgm` now keeps only the incoming track cached and evicts
   the previous one when the bed changes — otherwise every scene's loop pins

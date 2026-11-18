@@ -82,6 +82,12 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_minimum_size = Vector2(452, 0)
+# Grow to the full text height and let the outer DragScrollContainer own the
+# scroll. Without fit_content the label keeps the 200 px viewport height and
+# scrolls internally, so the container has zero range and dragging does
+# nothing.
+scroll_active = false
+fit_content = true
 
 [node name="Reward" type="Label" parent="Center/Panel/VBox"]
 layout_mode = 2

@@ -46,6 +46,7 @@ This is why the harnesses use `get_node` rather than bare autoload names.
 | --- | --- | --- |
 | `smoke_test.gd` | scenes | Every `.tscn` loads and its scripts compile |
 | `keeper_star_test.gd` | runtime | THE KEEPER'S STAR scene/badge logic, schema round-trip |
+| `card_queue_test.gd` | runtime | The island-wide card lane: immediate activation, FIFO waiting, modal priority, withdraw, foreign-modal blocking |
 | `courier_flight_test.gd` | runtime | WorldCourier survives only on Eel Run, hidden under reduced motion, re-arms after a pass |
 | `migration_test.gd` | runtime | Legacy-save restore backfills every modern key; money survives the schema round-trip |
 | `tide_test.gd` | static | Tide rotation is deterministic, modifiers in bounds, tip purchase applies/lapses |

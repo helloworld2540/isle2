@@ -27,27 +27,35 @@ var _quest_tier := 0
 
 
 func _ready() -> void:
-	# Milestone banners watch this group so celebrations never play underneath
-	# a conversation. Registered here, not by the caller, so every dialogue
-	# (NPC, tutorial, future vendors) is covered by the same contract.
-	add_to_group("ui_modal_card")
-	# A conversation should not fight the BGM; duck while the card is up and
-	# let the AudioManager fade it back in when the card closes.
-	AudioManager.duck_music()
-	
 	reward_label.visible = false
 	quest_box.visible = false
 	status_label.visible = false
 	
 	panel.modulate.a = 0.0
 	panel.scale = Vector2(0.96, 0.96)
+	# A conversation never opens on top of another card. Wait for the shared
+	# queue; it calls `_card_activate()` when this conversation is next.
+	visible = false
+	CardQueue.request(self, CardQueue.PRIORITY_MODAL)
+
+
+## The queue granted us the screen: become the visible conversation.
+func _card_activate() -> void:
+	visible = true
+	# Milestone banners watch this group so celebrations never play underneath
+	# a conversation. Joined on activation, so a *waiting* card is never
+	# mistaken for one that is open.
+	add_to_group("ui_modal_card")
+	# A conversation should not fight the BGM; duck while the card is up and
+	# let the AudioManager fade it back in when the card closes.
+	AudioManager.duck_music()
 	if GameSettings.reduce_motion:
 		panel.modulate.a = 1.0
 		panel.scale = Vector2.ONE
-	else:
-		var intro := create_tween().set_parallel(true)
-		intro.tween_property(panel, "modulate:a", 1.0, 0.14).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-		intro.tween_property(panel, "scale", Vector2.ONE, 0.18).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+		return
+	var intro := create_tween().set_parallel(true)
+	intro.tween_property(panel, "modulate:a", 1.0, 0.14).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	intro.tween_property(panel, "scale", Vector2.ONE, 0.18).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 
 # --- Content ---
@@ -89,8 +97,15 @@ func dismiss() -> void:
 		return
 	remove_from_group("ui_modal_card")
 	AudioManager.restore_music()
+	CardQueue.release(self)
 	closed.emit()
 	queue_free()
+
+
+func _exit_tree() -> void:
+	# Left the tree without a close (scene change): the queue must not try to
+	# show a conversation that no longer exists.
+	CardQueue.withdraw(self)
 
 
 # --- Presentation ---

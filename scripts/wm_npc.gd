@@ -106,7 +106,9 @@ func _process(delta: float) -> void:
 			TutorialDirector.nudge("meet")
 
 func _unhandled_input(event: InputEvent) -> void:
-	if not _dialogue: return
+	# A queued card (waiting behind another popup) is not on screen yet; keys
+	# must not close a conversation the player has not seen.
+	if not _dialogue or not _dialogue.visible: return
 	
 	if event.is_action_pressed("ui_cancel") or \
 		(event is InputEventKey and event.pressed and not event.echo and event.keycode in [KEY_ENTER, KEY_KP_ENTER, KEY_SPACE]):

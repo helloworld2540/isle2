@@ -367,6 +367,14 @@ checked against this yield — nothing changed, deliberately.*
   the 24 px safe margin (20 px type).
 - Toast notifications live in a bottom-centre lane, 24 px off the edge, 18 px
   type with a dark outline, and lift clear of any visible bottom-centre card.
+- **One card at a time.** Every popup — the welcome guide, a conversation, a
+  tutorial hint, an achievement or tide banner, a run recap — asks the shared
+  card lane for the screen. If something is already up it waits its turn
+  instead of stacking underneath. Conversations and the welcome guide jump
+  ahead of decorative cards (hints, banners, recaps) because you are standing
+  in them; the pause menu, minigame briefings and confirm panels hold the lane
+  until they close. So two voices never speak at once, and a hint never slides
+  under a conversation.
 
 ## Upgrades
 - Move speed +8% / level via trash.

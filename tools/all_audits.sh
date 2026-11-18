@@ -30,6 +30,14 @@ if ! timeout 240 env XDG_DATA_HOME="$VERIFY_HOME" godot --headless --path . -s t
 fi
 rm -rf "$VERIFY_HOME"
 
+# CardQueue walks the island-wide card lane with inline probe cards — no
+# autoload globals, but it still runs with --path . like every SceneTree test.
+echo "== card_queue_test"
+if ! timeout 240 godot --headless --path . -s tools/card_queue_test.gd; then
+  echo "[FAIL] card_queue_test"
+  fail=1
+fi
+
 for t in smoke_test slot_test migration_test slot_ui_test tide_test restore_test hide_tide_test; do
   echo "== $t"
   if ! timeout 240 godot --headless --script tools/$t.gd; then

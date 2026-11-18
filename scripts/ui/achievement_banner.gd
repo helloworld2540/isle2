@@ -63,6 +63,8 @@ const LEGENDARY_ACHIEVEMENTS := {
 
 var _queue: Array[Dictionary] = []
 var _showing := false
+## Entry pulled off `_queue` that is waiting for the shared card lane.
+var _pending: Dictionary = {}
 var _fade_tween: Tween = null
 
 ## Set once a modal has been observed while a card is queued; the clear timer
@@ -230,8 +232,12 @@ func present(title: String, subtitle: String, seconds: float = SHOW_SECONDS, own
 
 
 func _exit_tree() -> void:
+	CardQueue.withdraw(self)
 	# Cards that never got on screen go back to the state queue: walking into
 	# a portal a second after earning something must not eat the celebration.
+	if not _pending.is_empty():
+		_queue.push_front(_pending)
+		_pending = {}
 	for entry in _queue:
 		var achievement_id := String(entry.get("achievement_id", ""))
 		if not achievement_id.is_empty():
@@ -281,11 +287,27 @@ func _show_next() -> void:
 		set_process(true)
 		return
 	
-	var entry: Dictionary = _queue.pop_front()
+	_pending = _queue.pop_front()
 	if _queue.is_empty():
 		set_process(false)
 	
 	_showing = true
+	# Ask the shared lane for the screen. A hint, a conversation or the welcome
+	# guide may already be up; CardQueue calls `_card_activate` when it is our
+	# turn, so two voices never speak at once.
+	CardQueue.request(self, CardQueue.PRIORITY_AMBIENT)
+
+
+## The lane granted us the screen: present the queued entry.
+func _card_activate() -> void:
+	var entry := _pending
+	_pending = {}
+	if entry.is_empty():
+		# Nothing to present (entry lost to a scene change): hand the lane back.
+		_showing = false
+		CardQueue.release(self)
+		_show_next()
+		return
 	_title.text = str(entry.get("title", ""))
 	_subtitle.text = str(entry.get("subtitle", ""))
 	_apply_accent(String(entry.get("accent", "milestone")))
@@ -360,6 +382,7 @@ func _dismiss() -> void:
 	
 	if GameSettings.reduce_motion:
 		_panel.visible = false
+		CardQueue.release(self)
 		_show_next()
 		return
 	
@@ -367,5 +390,6 @@ func _dismiss() -> void:
 	_fade_tween.tween_property(_panel, "modulate:a", 0.0, 0.35).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 	_fade_tween.tween_callback(func():
 		_panel.visible = false
+		CardQueue.release(self)
 		_show_next()
 	)
