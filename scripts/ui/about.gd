@@ -36,7 +36,7 @@ func _default_credits() -> String:
 		+ "[color=#8fa6b3]All rights reserved — see LICENSE\n[/color]" \
 		+ "[color=#c9a86c]The far point is only the beginning.[/color]\n" \
 		+ "[color=#8fa6b3]Built with heavy tooling assistance — AI in the loop for design, code, art and words, defended by a green harness.[/color]\n" \
-		+ "[color=#8fa6b3]Version 1.2.0  ·  Linux  ·  Web  ·  Android\nAll three verified before the day the box opened.[/color]\n" \
+		+ "[color=#8fa6b3]Version 1.3.0  ·  Linux  ·  Web  ·  Android\nAll three verified before the day the box opened.[/color]\n" \
 		+ "[/center]"
 
 

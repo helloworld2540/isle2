@@ -1,14 +1,10 @@
 # Isle 2 — Trash Island, release notes
 
-## Signed: Version 1.2.0 (Linux / Web / Android)
+## Signed: Version 1.3.0 (Linux / Web / Android)
 
-The sealed, shipped build is 1.2.0. The next signed build carries everything
-on HEAD — see below.
+Everything below shipped and is packaged in 1.3.0.
 
-## What's new since 1.2.0 (on HEAD, packaged with the next release)
-
-The items below are all committed and green (ALL-AUDITS passes), and ship
-inside the next signed build.
+## What's new since 1.2.0
 
 - **The Silverfin** — a fifth reef species joins the water. Pale, quick,
   gone by dawn; it pays the biggest sighting in the Reef Registry. FishCatalog,
