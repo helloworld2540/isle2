@@ -59,6 +59,7 @@ This is why the harnesses use `get_node` rather than bare autoload names.
 | `font_size_audit.py` | static | Mobile legibility: every explicit `font_size` must clear 17 px (excludes `.bak` files) |
 | `import_audit.py` | static | Release hygiene: every importable asset has a fresh `.import` sidecar naming it — nothing ships blank (Krita `.kra` sources are not importable and are skipped) |
 | `scene_boot_audit.sh` | shell | Boots every interactive scene headless with an isolated profile; fails on script errors (parse errors, node-not-found, _ready errors). What smoke_test can't see |
+| `economy_audit.py` | static | Release-time check that every number the guide promises (prices, sinks, tide modifiers, spawn weights) still matches the code — no silent rebalances |
 | `ship_audit.sh` | shell | The release verdict: runs all_audits + all hygiene gates + a clean-tree check. `NOT READY` until the worktree is clean |
 | `courier_letters_test.gd` | static | The courier's letters: ≥12 pages, distinct, card-safe lengths, rotation wraps |
 | `courier_letter_test.gd` | runtime | The courier's letter: buy spends $10, marks the tide day, refuses the same-day re-buy; new tide day re-opens |

@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- **economy_audit.py** — the payback audit in guide.md is now a gate:
+  sale prices, bulk math, every money-sink curve, dockhand tip, circuit
+  bonus, the four tide conditions' exact modifiers and the spawn table.
+  29 checks, 0 failures. Run it whenever a price moves.
 - **ship_audit.sh** — one command answering "is this tree releasable?":
   all_audits + scene boot + font floor + import sidecars + schema +
   docs parity + a clean-tree check. Correctly reports NOT READY today
