@@ -50,18 +50,19 @@ const WAKE_SCENE := preload("res://scenes/rr_fish_wake.tscn")
 
 ## Weighted spawn pick. Reads the deterministic tide, so Eel Run days are the
 ## courier's day on the water — preview and payout never disagree about the odds.
-static func _pick_fish_texture() -> String:
+static func _pick_fish_texture(tide_key: String = "") -> String:
+	var key := tide_key if not tide_key.is_empty() else TideReport.today_key()
 	var weights := SPAWN_WEIGHTS.duplicate()
-	if TideReport.today_key() == "eel_run":
+	if key == "eel_run":
 		weights["fish_silverfin.png"] = EEL_RUN_SILVERFIN_WEIGHT
 	var total := 0.0
 	for w in weights.values():
 		total += float(w)
 	var roll := randf() * total
-	for key in weights:
-		roll -= float(weights[key])
+	for fish_key in weights:
+		roll -= float(weights[fish_key])
 		if roll <= 0.0:
-			return str(key)
+			return str(fish_key)
 	return "fish_nemo.png"
 
 
