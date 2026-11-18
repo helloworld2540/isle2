@@ -1,4 +1,25 @@
 
+## 2026-11-18 — Far-point beats: all five islanders notice the watcher
+- The guide names THE FAR POINT as noticed by every named islander, but three
+  of the five `milestone_beats` dictionaries in `scenes/world.tscn` were
+  missing the `far_point` entry — Mara, Tom and Kai never spoke of the
+  watcher even though the rumour started with Mara and Kai already knew not
+  to restock it. Nina and Oda had the line; the other three were silent.
+- Added the beats, each in that NPC's own register:
+  - **Mara** — "You caught the one I told you about. I raised you right,
+    didn't I? Nobody has ever caught him before."
+  - **Tom** — "Oda sees him. I keep to my fishing. But I saw the look on your
+    face when you came back — you saw something too."
+  - **Kai** — "I do not stock the far point — never a good day out there. But
+    word travels, and the shelves have been lighter since you came back. You
+    went there. You came back."
+- New `tools/npc_beat_audit.py`: parses `world.tscn`'s NPC overrides and
+  asserts every beat id is a real catalogue achievement, that all five NPCs
+  carry a `far_point` beat, and that no (NPC, beat) pair is duplicated. Wired
+  into `tools/all_audits.sh`. 0 failures.
+- Smoke 50/50, full audit board green. Docs parity: the roster in guide.md
+  already matched the code — the code was the one that lagged.
+
 ## 2026-11-02 — NPC ambient bubble jitter pass
 - NPC idle bubble cadence now jitters ±0.5s over a 3.5-7s base to avoid predictable loops.
 - Fade-in tightened to 0.14s for a snappier but gentle bubble entrance.

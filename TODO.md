@@ -1,6 +1,12 @@
 # Current project todo:
 
 # done this pass
+- **Far-point beats** — all five named islanders now speak of THE FAR POINT.
+  Mara, Tom and Kai were missing the `far_point` milestone beat in
+  `scenes/world.tscn` while the guide promised it of every one of them; each
+  got a line in their own register. New `tools/npc_beat_audit.py` (in the
+  all-audits gate) asserts every beat id is a real achievement, that all five
+  NPCs notice the watcher, and that no (NPC, beat) pair is duplicated.
 - guide.md notes the new app icon.
 - sprites/icon.png replaced: a real island-and-bottle crest replaces the
   Godot default engine logo the Android launcher was shipping.

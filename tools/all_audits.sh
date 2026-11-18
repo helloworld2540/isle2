@@ -26,6 +26,8 @@ for t in smoke_test slot_test migration_test slot_ui_test tide_test restore_test
   rm -rf "$SLOTS"
 done
 
+echo "== npc_beat_audit"
+python3 tools/npc_beat_audit.py || fail=1
 echo "== touch_audit"
 python3 tools/touch_audit.py || fail=1
 echo "== unique_id_audit"
