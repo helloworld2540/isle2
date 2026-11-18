@@ -109,6 +109,10 @@ All islands: %d days one keeper" % all_days
 		badges.append("★ Harbor Hero")
 	if GameState.island_patron:
 		badges.append("◆ Patron of the Isle")
+	if GameState.is_achievement_unlocked("pale_courier"):
+		badges.append("✳ The Pale Courier")
+	if GameState.is_achievement_unlocked("whole_sea"):
+		badges.append("✦ The Whole Sea")
 	if not badges.is_empty():
 		summary += "\n" + "  ·  ".join(badges)
 	return summary

@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- **The front door remembers** — the main-menu Continue summary badges
+  line gains ✳ The Pale Courier and ✦ The Whole Sea for keepers who earned
+  them; the island's bookends now greet you at the boot screen.
 - **The Courier's Lore** — guide.md gains the Silverfin's story under
   World map & dock ambience (the courier of the strait, the first
   keeper's margin note, Tom's word); quick-reference bottle count fixed
