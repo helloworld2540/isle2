@@ -189,6 +189,10 @@ var tidekeeper: bool = false
 ## the star is already found or the steward capstone is not yet earned.
 var keeper_star_found: bool = false
 const KEEPER_STAR_MONEY := 50
+## THE COURIER'S PASSAGE — how many times the Silverfin crossed paths with
+## the keeper. Pure ledger: no achievement hangs on it, just the island's
+## quiet memory of a rare fish. Bumped on every Silverfin graze.
+var courier_passes: int = 0
 
 # Most recent minigame run, handed to the world map for its recap card.
 # Shape: { "kind": String, "title": String, "lines": Array[String], "hint": String }
@@ -532,6 +536,13 @@ func mark_fish_met(species: String) -> bool:
 	fish_met.append(species)
 	_persist()
 	return true
+
+
+## The courier passed by — count it, quietly. No achievement reads this;
+## the stats page does, and the keeper's own ledger keeps the tally.
+func note_courier_pass() -> void:
+	courier_passes += 1
+	_persist()
 
 
 ## Marks a bottle read and persists. Achievement evaluation happens inside
@@ -929,6 +940,7 @@ const SAVE_SCHEMA: Array = [
 	["bottles_read", "bottles_read", [], "string_array"],
 	["starfish_found", "starfish_found", [], "string_array"],
 	["fish_met", "fish_met", [], "string_array"],
+	["courier_passes", "courier_passes", 0, "int"],
 	["tide_gift_granted", "tide_gift_granted", false, "bool"],
 	["tide_pool_granted", "tide_pool_granted", false, "bool"],
 	["tide_report_day", "tide_report_day", 0, "int"],

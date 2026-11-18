@@ -470,6 +470,7 @@ them — and a faint golden hush over the world.
 - **Night Drift** — half the distant cries become a low foghorn, far out on the water.
 
 ## Version history (as shipped)
+- **The Courier's Passage** — every Silverfin bump is counted (`courier_passes`, saved) and shows in the stats page's deeds column ("The courier passed by N times"). No achievement hangs on it — just the island's memory of the rare fish.
 - **The tide has a voice on the card** — the TIDE REPORT banner's swell now pitches with the day: bright on Glass Calm, quick on Eel Run, lowest on Slack Water and Night Drift.
 - **The courier is spoken of everywhere** — all five named islanders now notice THE PALE COURIER, each in their own register.
 - **The registry keeps count** — the Reef Registry overlay legend and button now show n/5 ("Reef Registry (n/5)"), gold at five, matching the Tide Ledger.

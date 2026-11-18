@@ -350,6 +350,11 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 				ap_gold.play("suck")
 			return
 		fish += 1
+		if species == "fish_silverfin":
+			# The courier passed. Count it in the ledger — the keeper's own
+			# tally, not an achievement.
+			GameState.note_courier_pass()
+			_popup("✳ the courier passed (%d)" % GameState.courier_passes, Color(0.75, 0.95, 1.0, 1.0))
 		if GameState.mark_fish_met(species):
 			_popup("New species: %s!" % FishCatalog.name_of(species), Color(0.6, 0.9, 1.0, 1.0))
 			if species == "fish_silverfin":

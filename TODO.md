@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- **The Courier's Passage** — every Silverfin bump increments courier_passes
+  (schema-persisted); the stats deeds column remembers how many times the
+  courier crossed paths with you. Deliberately no achievement.
 - **The tide has a voice on the card** — the TIDE REPORT banner's swell
   now pitches with the day (glass calm 1.05, eel run 1.2, slack 0.6, night drift 0.5).
 - **1.3.0 sealed** — version bumped in the Android preset (versionName=1.3.0 /
