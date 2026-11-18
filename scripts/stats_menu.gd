@@ -566,7 +566,12 @@ func _open_almanac() -> void:
 		var label: Label = _almanac_days[i]
 		var title := TideReport.title_case(String(condition.get("title", "Still tide")))
 		var summary := String(condition.get("summary", "A steady day"))
-		label.text = "%s — %s · %s" % [ALMANAC_DAY_LABELS[i], title, _trim_tide_blurb(summary)]
+		var line := "%s — %s · %s" % [ALMANAC_DAY_LABELS[i], title, _trim_tide_blurb(summary)]
+		# Eel Run doubles the Silverfin's spawn weight — the book quietly
+		# marks the courier's day, the one tide it keeps an appointment for.
+		if String(condition.get("key", "")) == "eel_run":
+			line += "  ·  ✳ courier's day"
+		label.text = line
 		label.visible = true
 		# Today keeps the sea-foam highlight; the rest reads quieter.
 		label.modulate = Color(0.92, 0.97, 1, 1) if i == 0 else Color(0.72, 0.8, 0.88, 1)

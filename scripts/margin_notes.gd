@@ -35,6 +35,16 @@ const WATER: Array[String] = [
 ]
 
 
+## On Eel Run — the courier's own day — the first keeper's hand turns to the
+## one thing it always watched for. Same page, different tide.
+const COURIER: Array[String] = [
+	"The courier runs with the eel today. Do not chase it — log it.",
+	"Fast water, pale fin. Today the strait shows off; let it.",
+	"On a day like this the courier makes the crossing twice. I never learned how.",
+	"Eel Run. If you see the silver, the day has already paid you.",
+]
+
+
 ## Pick a note by run/dive count so the page turns in order, then wraps.
 static func bench_note(runs: int) -> String:
 	return BENCH[absi(runs) % BENCH.size()]
@@ -42,3 +52,8 @@ static func bench_note(runs: int) -> String:
 
 static func water_note(dives: int) -> String:
 	return WATER[absi(dives) % WATER.size()]
+
+
+## The courier's-day margin note (Eel Run), rotated by the same count.
+static func courier_note(count: int) -> String:
+	return COURIER[absi(count) % COURIER.size()]

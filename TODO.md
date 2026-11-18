@@ -1,6 +1,16 @@
 # Current project todo:
 
 ## done this pass
+- **The courier's day appears in the almanac and the briefings** — the
+  Filled Almanac marks Eel Run rows with "✳ courier's day", and on Eel Run
+  the first keeper's margin note on both minigame briefings turns to a third
+  voice (`MarginNotes.COURIER`, four notes). margin_notes_test covers the new
+  voice (distinct, substantial, wraps).
+- **PITCH.md corrected** — capacity is 10 + 10×level (was 60 + 20×), saves
+  are per-slot `user://slots/<slug>/save.json` (not a single file), five
+  islanders (Oda included), and five tidepool starfish plus the hidden sixth.
+
+## done this pass
 - **The gratitude is legible in-game** — the stats page's deeds column now
   records "The courier keeps you company on Eel Run — the whole post is
   read." once THE LAST LETTER is earned, so the story change is visible

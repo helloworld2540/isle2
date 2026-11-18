@@ -1,4 +1,13 @@
 
+## 2026-11-18 — The courier's day, everywhere the keeper looks
+- `stats_menu.gd`: the Filled Almanac marks Eel Run rows with "✳ courier's
+  day" — the book notes the one tide the courier keeps an appointment for.
+- `margin_notes.gd`: a third voice, `COURIER`, four notes; `upcycle.gd` and
+  `reef_rescue.gd` use it on Eel Run instead of the bench/water note.
+  margin_notes_test covers distinctness, length and wrap.
+- PITCH.md corrected against the code: capacity 10 + 10×level, per-slot save
+  path, five islanders, five starfish + the hidden sixth.
+
 ## 2026-11-18 — The gratitude is legible in-game
 - Stats page deeds gain "The courier keeps you company on Eel Run — the whole
   post is read." once THE LAST LETTER is earned. The flyby change is now

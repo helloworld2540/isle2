@@ -242,7 +242,8 @@ checked against this yield — nothing changed, deliberately.*
   Runs finished: M" — so the ghost follows you into the room. Under it, the
   first keeper's margin note turns with every run ("Sort it twice, sort it
   right…"), the same hand that wrote the almanac. Reef Rescue carries the
-  water-side set.
+  water-side set. On Eel Run the hand turns to the courier's page — the one
+  tide it kept an appointment for.
 - Combo milestones (every five clean sorts) add +5 score and a "FIVE ON THE
   BELT!" banner; a burned or wrong item resets the streak.
 - When only 5 Reef Debris remain the bench warns you once; when the pile runs

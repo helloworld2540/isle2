@@ -71,7 +71,8 @@ func _ready() -> void:
 			intro.set_stat_line("Deepest: %d m  ·  Heaviest: %d kg  ·  Dives: %d" % [GameState.best_reef_depth, GameState.best_reef_haul, dives])
 		else:
 			intro.set_stat_line("First dive — nobody holds the record yet.")
-		intro.set_flavor_line("“%s” — the first keeper" % MarginNotes.water_note(dives))
+		var note := MarginNotes.courier_note(dives) if TideReport.today_key() == "eel_run" else MarginNotes.water_note(dives)
+		intro.set_flavor_line("“%s” — the first keeper" % note)
 	if return_btn:
 		return_btn.pressed.connect(_leave_to_map)
 	if go_return_btn:
