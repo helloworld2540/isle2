@@ -45,7 +45,7 @@ const STEPS := {
 	},
 	STEP_SELL: {
 		"title": "Cash in at the shop",
-		"body": "[font_size=20]The [color=#9fe2ff]shop[/color] (north) turns materials into money.\nSelling 5+ of one type pays a [color=#ffd27f]+25% bulk bonus[/color].[/font_size]",
+		"body": "[font_size=20]The [color=#9fe2ff]shop[/color] (north) turns materials into money.\nSelling 5+ of one type pays a [color=#ffd27f]+25% bulk bonus[/color] — [color=#ffd27f]+35%[/color] on Glass Calm days when the reef lets its litter go.[/font_size]",
 		"button": "Got it",
 	},
 	STEP_FINALE: {
