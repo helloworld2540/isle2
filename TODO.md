@@ -1,6 +1,15 @@
 # Current project todo:
 
 # done this pass
+- **1.3.0 sealed** — version bumped in the Android preset (versionName=1.3.0 /
+  versionCode=4), main-menu stamp, About page, README, RELEASE_NOTES,
+  RELEASE_CHECKLIST (verified values), guide.md version history. All three
+  platforms rebuilt at HEAD via `tools/export_gate.sh --re-export`; fresh-clone
+  proof re-run clean; APK badging dumped: versionName=1.3.0 / versionCode=4 /
+  minSdk=24 / targetSdk=36 / label Trash Island. Ships the Silverfin,
+  THE PALE COURIER (the 45th badge), weighted reef spawns, The Filled
+  Almanac, the quiet harbor, the front door remembering, the courier's
+  chime, the margin notes and the chorus closing together.
 - **The tide card names the courier** — Eel Run's summary reads "Eel run —
   the courier rides the current" on the HUD and the banner, and its blurb
   tells you the courier rides the fast water. tide_test green.

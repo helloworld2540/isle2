@@ -41,6 +41,23 @@
   plus the Silverfin/PALE COURIER work, verified consistent by a fresh
   ALL-AUDITS PASS.
 
+## 2026-11-18 — 1.3.0 sealed across all three platforms
+- Version bumped everywhere in lockstep: Android preset (versionName=1.3.0 /
+  versionCode=4), main-menu stamp ("v1.3.0"), About page ("Version 1.3.0"),
+  README, RELEASE_NOTES, RELEASE_CHECKLIST, guide.md version history.
+- `tools/export_gate.sh --re-export` green: Linux, Web and Android all
+  rebuilt at HEAD. Signed APK badging verified (versionName=1.3.0,
+  versionCode=4, minSdk=24, targetSdk=36, label `Trash Island`). Fresh-clone
+  proof re-run clean at HEAD (cold import → Linux export → headless boot with
+  an empty log).
+- Ships on top of 1.2.0: the Silverfin, THE PALE COURIER (the 45th badge),
+  weighted reef spawns (the shark a spice, the courier rare), The Filled
+  Almanac, the quiet harbor, the courier's chime, the Courier's Wake and
+  The Last Page cards, the front door remembering, the first keeper's margin
+  notes, and THE WHOLE SEA closing the chorus across every islander.
+- Concurrent loop kept working past the seal (the 1.3.0 tag is a HEAD seal,
+  not a frozen tree) — HEAD at the time of sealing is c1167f0.
+
 ## 2026-11-18 — 1.2.0 sealed across all three platforms
 - Version bumped everywhere in lockstep: Android preset (versionName=1.2.0 /
   versionCode=3), main-menu stamp ("v1.2.0"), About page ("Version 1.2.0"),
