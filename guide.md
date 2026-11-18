@@ -67,6 +67,7 @@ Welcome to Isle 2. Shared economy across world map, two minigames, shop, NPCs an
   trash-paid at the world menu (6 + 3*level), or money-paid at the shop (60 + 25*level).
 - Shop sells at rates: Polyethylene 2, Polypropylene 3, Glass 5, Nylon 4, Reef Debris 1.
 - Bulk bonus: selling 5+ of a type gives +25% — and +35% on **Glass Calm** days (the harbor pays over the odds for a full load while the reef emptied out overnight).
+- **Standing order:** every tide day the harbor wants one material and pays +1$/unit for it — Glass Calm asks for Glass, Eel Run for Nylon, Slack Water for Polyethylene, Night Drift for Polypropylene. The shop row already shows the boosted unit price; hiding the tide still pays the order, it just stops naming it. A full glass load on Glass Calm is the richest single sale on the calendar.
 - Sell controls: Sell 1, Sell 5, Sell All. Undo last sale is all-or-nothing — if the
   bag cannot fit the whole lot back in, the undo is refused (tooltip tells you how
   many kg you need free) rather than returning partial goods for the full price.

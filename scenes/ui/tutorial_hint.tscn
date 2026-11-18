@@ -50,7 +50,7 @@ theme_override_constants/separation = 6
 [node name="Title" type="Label" parent="Margin/Column/Panel/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1.0, 0.88, 0.5, 1)
-theme_override_font_sizes/font_size = 21
+theme_override_font_sizes/font_size = 24
 text = "Hint"
 horizontal_alignment = 1
 
@@ -65,7 +65,7 @@ scroll_active = false
 custom_minimum_size = Vector2(170, 46)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "Got it"
 
 [connection signal="pressed" from="Margin/Column/Panel/VBox/Button" to="." method="_on_dismiss_pressed"]

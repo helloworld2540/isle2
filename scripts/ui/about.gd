@@ -27,7 +27,7 @@ func _ready() -> void:
 ## The text, if nothing else was wired up. Kept short — it is a keeper's
 ## page, not a novel.
 func _default_credits() -> String:
-	return "[center][font_size=22][color=#ffd27f]Trash Island[/color][/font_size]\n\n" \
+	return "[center][font_size=24][color=#ffd27f]Trash Island[/color][/font_size]\n\n" \
 		+ "A cozy single-player trash-recycling adventure.\n\n" \
 		+ "[color=#9fd0e8]Built in Godot 4. GDScript. No engine plugins changed.[/color]\n" \
 		+ "[color=#9fd0e8]Art and world: Krita-drawn, hand-built, slightly wet.[/color]\n" \

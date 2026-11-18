@@ -15,6 +15,7 @@ Verifies, from source (not from docs):
      dial (glass_calm=garbage_bias, eel_run=fish_speed, slack=belt_speed,
      night_drift=golden_chance) and nothing else moves.
   7. Spawn weights cover every fish in the size table exactly once.
+  8. The standing order: +1$/unit, one distinct real material per tide.
 
 Exits non-zero if any invariant breaks. Run it whenever a price moves.
 Not wired into all_audits.sh on purpose: balance changes should be a
@@ -57,6 +58,17 @@ ok(min(spreads) >= 1 and max(spreads) <= 5, "price spread sits inside 1–5$")
 ledger = read("scripts/shop_ledger.gd")
 ok(one(r"const BULK_MULTIPLIER := ([\d.]+)", ledger) == "1.25", "BULK_MULTIPLIER is 1.25")
 ok(one(r"const GLASS_CALM_BULK_BONUS := ([\d.]+)", ledger) == "0.10", "GLASS_CALM bonus is 0.10 (i.e. 1.35 total)")
+
+# 2b) standing order: one material per tide day, +1$/unit, four distinct picks
+ok(one(r"const TIDE_ORDER_BONUS := (\d+)", ledger) == "1", "standing order pays 1$/unit")
+order_block = ledger.split("static func order_material()", 1)[1] if "static func order_material()" in ledger else ""
+order_pairs = re.findall(r'"(\w+)":\s*\n\t+return "([^"]+)"', order_block)
+order_map = dict(order_pairs)
+ok(set(order_map) == {"glass_calm", "eel_run", "slack_water", "night_drift"},
+   "standing order covers exactly the four tides (%s)" % sorted(order_map))
+ok(all(v in expected_prices and v != "Reef Debris" for v in order_map.values()),
+   "standing order names real, sellable materials (%s)" % order_map)
+ok(len(set(order_map.values())) == 4, "each tide orders a different material")
 
 # 3) money sinks
 ok(one(r"const HARBOR_HERO_CAPACITY_BONUS: int = (\d+)", gs) == "1", "Harbor Hero grants one capacity level")

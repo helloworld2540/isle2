@@ -13,7 +13,7 @@ theme_override_constants/separation = 8
 
 [node name="MasterLabel" type="Label" parent="MasterRow"]
 custom_minimum_size = Vector2(210, 0)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 layout_mode = 2
 text = "Master Volume: 100%"
 
@@ -29,7 +29,7 @@ theme_override_constants/separation = 8
 
 [node name="MusicLabel" type="Label" parent="MusicRow"]
 custom_minimum_size = Vector2(210, 0)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 layout_mode = 2
 text = "Music Volume: 65%"
 
@@ -45,7 +45,7 @@ theme_override_constants/separation = 8
 
 [node name="AmbienceLabel" type="Label" parent="AmbienceRow"]
 custom_minimum_size = Vector2(210, 0)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 layout_mode = 2
 text = "Ambience Volume: 70%"
 
@@ -61,7 +61,7 @@ theme_override_constants/separation = 8
 
 [node name="SfxLabel" type="Label" parent="SfxRow"]
 custom_minimum_size = Vector2(210, 0)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 layout_mode = 2
 text = "SFX Volume: 100%"
 
@@ -73,12 +73,12 @@ value = 100.0
 
 [node name="ReduceMotion" type="CheckBox" parent="." unique_id=710000001]
 custom_minimum_size = Vector2(0, 44)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 layout_mode = 2
 text = "Reduce motion (no shake or confetti)"
 
 [node name="HideTide" type="CheckBox" parent="." unique_id=710000002]
 custom_minimum_size = Vector2(0, 44)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 layout_mode = 2
 text = "Hide the tide (hard mode — read the water yourself)"

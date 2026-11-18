@@ -11,6 +11,31 @@ const BULK_MULTIPLIER := 1.25
 ## Extra bulk multiplier on Glass Calm days: the reef lets go of its litter,
 ## supply floods the market and the harbor pays over the odds for a full load.
 const GLASS_CALM_BULK_BONUS := 0.10
+## One material is in demand each tide day: the island's standing order pays
+## one extra dollar per unit for it. Reads the same deterministic tide, so the
+## row price and the payout can never disagree.
+const TIDE_ORDER_BONUS := 1
+
+
+## Which material the island needs most today. The matching is 1:1 with the
+## four tides — the sea's mood tells the harbor what to stock.
+static func order_material() -> String:
+	match TideReport.today_key():
+		"glass_calm":
+			return "Glass"
+		"eel_run":
+			return "Nylon"
+		"slack_water":
+			return "Polyethylene"
+		"night_drift":
+			return "Polypropylene"
+		_:
+			return "Polypropylene"
+
+
+## Extra dollars per unit for `mat` today (0 for everything but the order).
+static func order_bonus(mat: String) -> int:
+	return TIDE_ORDER_BONUS if mat == order_material() else 0
 
 
 ## Bulk multiplier for the sales happening today. Reads the deterministic
@@ -37,13 +62,14 @@ static func quote(mat: String, qty: int) -> Dictionary:
 	var price := int(GameState.SALE_PRICES.get(mat, 0))
 	var bulk: bool = units >= BULK_THRESHOLD
 	var multiplier: float = bulk_multiplier() if bulk else 1.0
-	var earnings := int(round(float(units) * float(price) * multiplier)) + units * GameState.get_market_bonus()
+	var earnings := int(round(float(units) * float(price) * multiplier)) + units * GameState.get_market_bonus() + units * order_bonus(mat)
 	return {
 		"material": mat,
 		"units": units,
 		"price": price,
 		"bulk": bulk,
 		"multiplier": multiplier,
+		"order_bonus": order_bonus(mat),
 		"earnings": earnings,
 	}
 

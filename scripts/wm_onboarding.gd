@@ -26,7 +26,7 @@ func _show_guide() -> void:
 	var guide := TUTORIAL_SCENE.instantiate()
 	guide.title_text = "Welcome to Isle 2"
 	guide.button_text = "Let's clean up"
-	guide.body_text = "[font_size=20]The island runs on a recycling loop:[/font_size]\n\n" \
+	guide.body_text = "[font_size=24]The island runs on a recycling loop:[/font_size]\n\n" \
 		+ "[color=#9fe2ff]1 · Reef Rescue[/color] (south)  Dive, grab junk, dodge fish. Hauls bank as Reef Debris.\n" \
 		+ "[color=#9fe2ff]2 · Upcycle bench[/color] (east)  Sort debris into matching bins. Correct sorts become material.\n" \
 		+ "[color=#9fe2ff]3 · Shop[/color] (north)  Sell material for money and buy a bigger bag.\n\n" \

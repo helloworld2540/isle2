@@ -39,25 +39,25 @@ theme_override_constants/separation = 2
 [node name="Title" type="Label" parent="Panel/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.65, 0.9, 1, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "Quests"
 
 [node name="Row1" type="Label" parent="Panel/VBox"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = ""
 
 [node name="Row2" type="Label" parent="Panel/VBox"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = ""
 
 [node name="Row3" type="Label" parent="Panel/VBox"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = ""
 
 [node name="Row4" type="Label" parent="Panel/VBox"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = ""

@@ -167,7 +167,7 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 - Upgrades stored directly as save keys: `upgrade_move`, `upgrade_range`, audio/volume keys.
 - Story-arc persisted state worth knowing about: `bottles_read`, `starfish_found`, `fish_met`, `keeper_star_found`, `courier_passes`, `courier_letter_day`, `courier_letters_bought`, `tides_logged`, `tide_almanac_granted`, `fifth_tide_granted`, `watcher_seen`, `harbor_tips_bought`, `harbor_tip_day` — every one of these feeds at least one achievement predicate. `tools/schema_audit.py` walks the table and flags relics that lost their external readers, which is the signature of a partially-reverted feature.
 
-## Economy Formulas (weighted inventory)
+## Inventory & material weight
 - Inventory capacity is in **kg**: `10 + 10 × inventory_capacity_level`.
 - Each item costs its material weight (e.g. Polyethylene 1, Propylene 2, Glass 3, Nylon 2, Reef Debris 1).
 - `GameState.get_inventory_weight()` reports the kg used (`trash_by_type` × weights).
@@ -176,7 +176,13 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 ## Economy Formulas
 - Trash types: Polyethylene, Polypropylene, Glass, Nylon, Reef Debris.
 - Shop sell rates: Polyethylene 2, Polypropylene 3, Glass 5, Nylon 4, Reef Debris 1.
-- Bulk bonus: stock ≥ 5 → ×1.25 earnings.
+- Bulk bonus: stock ≥ 5 → ×1.25 earnings (+1.35 on Glass Calm via `GLASS_CALM_BULK_BONUS`).
+- **Standing order** (`ShopLedger.order_material()`): one material pays
+  +1$/unit each tide day — Glass Calm → Glass, Eel Run → Nylon, Slack Water →
+  Polyethylene, Night Drift → Polypropylene. Deterministic off the same tide,
+  so the row price, the preview line and the payout always agree. The shop's
+  row shows the boosted unit price; Hide the tide still pays it but does not
+  name the order.
 - Inventory capacity: `10 + 10 × inventory_capacity_level` kg (weighted by material).
 - Purchase capacity cost: `6 + 3 × level` (paid from trash mix; deducted via `spend_trash`).
 - Move/Range cost: `8 + 4 × move_level` / `12 + 6 × range_level` (also paid from the trash mix).

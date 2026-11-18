@@ -13,6 +13,9 @@ const REGISTRY_BUTTONS: Array[String] = ["FishGoldButton", "FishGreyreefsharkBut
 const REGISTRY_IDS: Array[String] = ["fish_gold", "fish_greyreefshark", "fish_nemo", "fish_crab", "fish_silverfin"]
 ## Display order of the guide's station sections. Entries carry a "where" tag.
 const GUIDE_GROUPS: Array[String] = ["Reef Rescue", "Upcycle", "Shop", "Islanders", "Island", "Hidden"]
+## The banner owns the legendary set; the guide reads it so the gold rows and
+## the loud celebration cards can never drift apart.
+const AchievementBannerScript := preload("res://scripts/ui/achievement_banner.gd")
 
 @onready var _journal_label: Label = $"Margin/VBox/StatsScroll/Content/JournalBanner/JournalLabel"
 @onready var _saved_label: Label = $"Margin/VBox/Header/SavedLabel"

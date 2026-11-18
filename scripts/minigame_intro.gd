@@ -14,10 +14,10 @@ class_name MinigameIntro
 
 @onready var panel: PanelContainer = $Center/Panel
 @onready var title_label: Label = $Center/Panel/VBox/Title
-@onready var lines_label: RichTextLabel = $Center/Panel/VBox/Lines
+@onready var lines_label: RichTextLabel = $Center/Panel/VBox/BodyScroll/BodyBox/Lines
 @onready var got_it_button: Button = $Center/Panel/VBox/GotItButton
-@onready var stats_label: Label = $Center/Panel/VBox/Stats
-@onready var flavor_label: Label = $Center/Panel/VBox/Flavor
+@onready var stats_label: Label = $Center/Panel/VBox/BodyScroll/BodyBox/Stats
+@onready var flavor_label: Label = $Center/Panel/VBox/BodyScroll/BodyBox/Flavor
 
 
 func _ready() -> void:
@@ -69,7 +69,7 @@ func _apply_text() -> void:
 	var parts: PackedStringArray = []
 	for line in intro_lines:
 		parts.append("• " + str(line))
-	lines_label.text = "[font_size=20]%s[/font_size]" % "\n".join(parts)
+	lines_label.text = "[font_size=24]%s[/font_size]" % "\n".join(parts)
 
 
 func _on_got_it_pressed() -> void:

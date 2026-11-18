@@ -6,4 +6,4 @@ size_flags_horizontal = 3
 placeholder_text = "Island name"
 alignment = 1
 expire_on_enter = false
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24

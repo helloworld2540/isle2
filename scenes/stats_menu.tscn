@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://kamvcjhav8w5"]
+[gd_scene load_steps=20 format=3 uid="uid://kamvcjhav8w5"]
 
 [ext_resource type="Script" uid="uid://cno3w2hkaq50n" path="res://scripts/stats_menu.gd" id="1_menu"]
 [ext_resource type="PackedScene" path="res://scenes/ui/settings_panel.tscn" id="2_settings"]
@@ -203,6 +203,65 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
+[sub_resource type="StyleBoxFlat" id="StyleBox_guide_track"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.04, 0.07, 0.11, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.7, 0.9, 0.35)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_guide_fill"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(1, 0.84, 0.35, 1)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_guide_chip"]
+content_margin_left = 10.0
+content_margin_top = 8.0
+content_margin_right = 10.0
+content_margin_bottom = 8.0
+bg_color = Color(0.06, 0.10, 0.16, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4, 0.7, 0.9, 0.3)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_guide_chip_today"]
+content_margin_left = 10.0
+content_margin_top = 8.0
+content_margin_right = 10.0
+content_margin_bottom = 8.0
+bg_color = Color(0.10, 0.12, 0.14, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.84, 0.35, 0.85)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
 [node name="StatsMenu" type="Control" unique_id=300000001]
 layout_mode = 3
 anchors_preset = 15
@@ -257,7 +316,7 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_colors/font_color = Color(0.6, 0.78, 0.9, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = ""
 vertical_alignment = 1
 
@@ -280,7 +339,7 @@ theme_override_styles/panel = SubResource("StyleBox_banner")
 [node name="JournalLabel" type="Label" parent="Margin/VBox/StatsScroll/Content/JournalBanner"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.72, 0.93, 1, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = ""
 autowrap_mode = 2
 
@@ -304,14 +363,14 @@ theme_override_constants/separation = 6
 [node name="BenchHeader" type="Label" parent="Margin/VBox/StatsScroll/Content/SectionGrid/BenchPanel/BenchBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.84, 0.35, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "THE BENCH"
 
 [node name="BenchBody" type="Label" parent="Margin/VBox/StatsScroll/Content/SectionGrid/BenchPanel/BenchBox"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = ""
 autowrap_mode = 2
 
@@ -328,14 +387,14 @@ theme_override_constants/separation = 6
 [node name="TillHeader" type="Label" parent="Margin/VBox/StatsScroll/Content/SectionGrid/TillPanel/TillBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.84, 0.35, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "THE TILL"
 
 [node name="TillBody" type="Label" parent="Margin/VBox/StatsScroll/Content/SectionGrid/TillPanel/TillBox"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = ""
 autowrap_mode = 2
 
@@ -352,14 +411,14 @@ theme_override_constants/separation = 6
 [node name="ReefHeader" type="Label" parent="Margin/VBox/StatsScroll/Content/SectionGrid/ReefPanel/ReefBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.84, 0.35, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "THE REEF"
 
 [node name="ReefBody" type="Label" parent="Margin/VBox/StatsScroll/Content/SectionGrid/ReefPanel/ReefBox"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = ""
 autowrap_mode = 2
 
@@ -376,14 +435,14 @@ theme_override_constants/separation = 6
 [node name="BagHeader" type="Label" parent="Margin/VBox/StatsScroll/Content/SectionGrid/BagPanel/BagBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.84, 0.35, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "THE BAG"
 
 [node name="BagBody" type="Label" parent="Margin/VBox/StatsScroll/Content/SectionGrid/BagPanel/BagBox"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = ""
 autowrap_mode = 2
 
@@ -400,14 +459,14 @@ theme_override_constants/separation = 6
 [node name="CollectionsHeader" type="Label" parent="Margin/VBox/StatsScroll/Content/SectionGrid/CollectionsPanel/CollectionsBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.84, 0.35, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "COLLECTIONS"
 
 [node name="CollectionsBody" type="Label" parent="Margin/VBox/StatsScroll/Content/SectionGrid/CollectionsPanel/CollectionsBox"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = ""
 autowrap_mode = 2
 
@@ -424,14 +483,14 @@ theme_override_constants/separation = 6
 [node name="DeedsHeader" type="Label" parent="Margin/VBox/StatsScroll/Content/SectionGrid/DeedsPanel/DeedsBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.84, 0.35, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "DEEDS & TITLES"
 
 [node name="DeedsBody" type="Label" parent="Margin/VBox/StatsScroll/Content/SectionGrid/DeedsPanel/DeedsBox"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = ""
 autowrap_mode = 2
 
@@ -447,13 +506,13 @@ theme_override_constants/separation = 6
 [node name="AlmanacHeader" type="Label" parent="Margin/VBox/StatsScroll/Content/AlmanacBanner/AlmanacBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.84, 0.35, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "TIDE ALMANAC"
 
 [node name="AlmanacBody" type="Label" parent="Margin/VBox/StatsScroll/Content/AlmanacBanner/AlmanacBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = ""
 autowrap_mode = 2
 
@@ -469,14 +528,14 @@ theme_override_constants/separation = 6
 [node name="AchievementsHeader" type="Label" parent="Margin/VBox/StatsScroll/Content/AchievementsPanel/AchievementsBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.84, 0.35, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "ACHIEVEMENTS"
 
 [node name="AchievementsBody" type="Label" parent="Margin/VBox/StatsScroll/Content/AchievementsPanel/AchievementsBox"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = ""
 autowrap_mode = 2
 
@@ -496,7 +555,7 @@ theme_override_styles/normal = SubResource("StyleBox_ghost")
 theme_override_styles/hover = SubResource("StyleBox_ghost_hover")
 theme_override_styles/pressed = SubResource("StyleBox_ghost_pressed")
 theme_override_styles/focus = SubResource("StyleBox_ghost_hover")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.72, 0.93, 1, 0.95)
 theme_override_colors/font_hover_color = Color(0.9, 0.98, 1, 1)
 theme_override_colors/font_focus_color = Color(0.9, 0.98, 1, 1)
@@ -512,7 +571,7 @@ theme_override_styles/normal = SubResource("StyleBox_gold")
 theme_override_styles/hover = SubResource("StyleBox_gold_hover")
 theme_override_styles/pressed = SubResource("StyleBox_gold_pressed")
 theme_override_styles/focus = SubResource("StyleBox_gold_hover")
-theme_override_font_sizes/font_size = 21
+theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.28, 0.18, 0.04, 1)
 theme_override_colors/font_hover_color = Color(0.28, 0.18, 0.04, 1)
 theme_override_colors/font_focus_color = Color(0.28, 0.18, 0.04, 1)
@@ -527,7 +586,7 @@ theme_override_styles/normal = SubResource("StyleBox_ghost")
 theme_override_styles/hover = SubResource("StyleBox_ghost_hover")
 theme_override_styles/pressed = SubResource("StyleBox_ghost_pressed")
 theme_override_styles/focus = SubResource("StyleBox_ghost_hover")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.72, 0.93, 1, 0.95)
 theme_override_colors/font_hover_color = Color(0.9, 0.98, 1, 1)
 theme_override_colors/font_focus_color = Color(0.9, 0.98, 1, 1)
@@ -542,7 +601,7 @@ theme_override_styles/normal = SubResource("StyleBox_ghost")
 theme_override_styles/hover = SubResource("StyleBox_ghost_hover")
 theme_override_styles/pressed = SubResource("StyleBox_ghost_pressed")
 theme_override_styles/focus = SubResource("StyleBox_ghost_hover")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.72, 0.93, 1, 0.95)
 theme_override_colors/font_hover_color = Color(0.9, 0.98, 1, 1)
 theme_override_colors/font_focus_color = Color(0.9, 0.98, 1, 1)
@@ -557,7 +616,7 @@ theme_override_styles/normal = SubResource("StyleBox_gold")
 theme_override_styles/hover = SubResource("StyleBox_gold_hover")
 theme_override_styles/pressed = SubResource("StyleBox_gold_pressed")
 theme_override_styles/focus = SubResource("StyleBox_gold_hover")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.28, 0.18, 0.04, 1)
 theme_override_colors/font_hover_color = Color(0.28, 0.18, 0.04, 1)
 theme_override_colors/font_focus_color = Color(0.28, 0.18, 0.04, 1)
@@ -573,7 +632,7 @@ theme_override_styles/normal = SubResource("StyleBox_ghost")
 theme_override_styles/hover = SubResource("StyleBox_ghost_hover")
 theme_override_styles/pressed = SubResource("StyleBox_ghost_hover")
 theme_override_styles/focus = SubResource("StyleBox_ghost_hover")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.78, 0.9, 1, 0.95)
 theme_override_colors/font_hover_color = Color(0.9, 0.96, 1, 1)
 theme_override_colors/font_focus_color = Color(0.9, 0.96, 1, 1)
@@ -588,7 +647,7 @@ theme_override_styles/normal = SubResource("StyleBox_danger")
 theme_override_styles/hover = SubResource("StyleBox_danger_hover")
 theme_override_styles/pressed = SubResource("StyleBox_danger_pressed")
 theme_override_styles/focus = SubResource("StyleBox_danger_hover")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.95, 0.62, 0.58, 1)
 theme_override_colors/font_hover_color = Color(1, 0.72, 0.68, 1)
 theme_override_colors/font_focus_color = Color(1, 0.72, 0.68, 1)
@@ -639,14 +698,14 @@ theme_override_constants/separation = 10
 [node name="LedgerTitle" type="Label" parent="LedgerOverlay/Panel/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.62, 0.86, 1, 1)
-theme_override_font_sizes/font_size = 22
+theme_override_font_sizes/font_size = 24
 text = "Tide Ledger"
 horizontal_alignment = 1
 
 [node name="LedgerLegend" type="Label" parent="LedgerOverlay/Panel/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6, 0.72, 0.9, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "every note the tide ever left you — tap to read again"
 horizontal_alignment = 1
 
@@ -706,7 +765,7 @@ theme_override_styles/normal = SubResource("StyleBox_ghost")
 theme_override_styles/hover = SubResource("StyleBox_ghost_hover")
 theme_override_styles/pressed = SubResource("StyleBox_ghost_pressed")
 theme_override_styles/focus = SubResource("StyleBox_ghost_hover")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.72, 0.93, 1, 0.95)
 theme_override_colors/font_hover_color = Color(0.9, 0.98, 1, 1)
 theme_override_colors/font_focus_color = Color(0.9, 0.98, 1, 1)
@@ -755,14 +814,14 @@ theme_override_constants/separation = 10
 [node name="RegistryTitle" type="Label" parent="RegistryOverlay/Panel/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.62, 0.86, 1, 1)
-theme_override_font_sizes/font_size = 22
+theme_override_font_sizes/font_size = 24
 text = "Reef Registry"
 horizontal_alignment = 1
 
 [node name="RegistryLegend" type="Label" parent="RegistryOverlay/Panel/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6, 0.72, 0.9, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "every species you have bumped into — tap to read what you know"
 horizontal_alignment = 1
 
@@ -804,7 +863,7 @@ theme_override_styles/normal = SubResource("StyleBox_ghost")
 theme_override_styles/hover = SubResource("StyleBox_ghost_hover")
 theme_override_styles/pressed = SubResource("StyleBox_ghost_pressed")
 theme_override_styles/focus = SubResource("StyleBox_ghost_hover")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.72, 0.93, 1, 0.95)
 theme_override_colors/font_hover_color = Color(0.9, 0.98, 1, 1)
 theme_override_colors/font_focus_color = Color(0.9, 0.98, 1, 1)
@@ -853,14 +912,14 @@ theme_override_constants/separation = 10
 [node name="AlmanacTitle" type="Label" parent="AlmanacOverlay/Panel/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.84, 0.32, 1)
-theme_override_font_sizes/font_size = 22
+theme_override_font_sizes/font_size = 24
 text = "THE ALMANAC, FILLED"
 horizontal_alignment = 1
 
 [node name="AlmanacLegend" type="Label" parent="AlmanacOverlay/Panel/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.72, 0.8, 0.88, 1)
-theme_override_font_sizes/font_size = 17
+theme_override_font_sizes/font_size = 24
 text = "the order the sea keeps, spelled out for its keeper"
 horizontal_alignment = 1
 autowrap_mode = 2
@@ -868,56 +927,56 @@ autowrap_mode = 2
 [node name="Day0" type="Label" parent="AlmanacOverlay/Panel/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.92, 0.97, 1, 1)
-theme_override_font_sizes/font_size = 19
+theme_override_font_sizes/font_size = 24
 text = ""
 horizontal_alignment = 1
 
 [node name="Day1" type="Label" parent="AlmanacOverlay/Panel/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.72, 0.8, 0.88, 1)
-theme_override_font_sizes/font_size = 17
+theme_override_font_sizes/font_size = 24
 text = ""
 horizontal_alignment = 1
 
 [node name="Day2" type="Label" parent="AlmanacOverlay/Panel/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.72, 0.8, 0.88, 1)
-theme_override_font_sizes/font_size = 17
+theme_override_font_sizes/font_size = 24
 text = ""
 horizontal_alignment = 1
 
 [node name="Day3" type="Label" parent="AlmanacOverlay/Panel/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.72, 0.8, 0.88, 1)
-theme_override_font_sizes/font_size = 17
+theme_override_font_sizes/font_size = 24
 text = ""
 horizontal_alignment = 1
 
 [node name="Day4" type="Label" parent="AlmanacOverlay/Panel/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.72, 0.8, 0.88, 1)
-theme_override_font_sizes/font_size = 17
+theme_override_font_sizes/font_size = 24
 text = ""
 horizontal_alignment = 1
 
 [node name="Day5" type="Label" parent="AlmanacOverlay/Panel/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.72, 0.8, 0.88, 1)
-theme_override_font_sizes/font_size = 17
+theme_override_font_sizes/font_size = 24
 text = ""
 horizontal_alignment = 1
 
 [node name="Day6" type="Label" parent="AlmanacOverlay/Panel/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.72, 0.8, 0.88, 1)
-theme_override_font_sizes/font_size = 17
+theme_override_font_sizes/font_size = 24
 text = ""
 horizontal_alignment = 1
 
 [node name="AlmanacFooter" type="Label" parent="AlmanacOverlay/Panel/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.62, 0.68, 0.78, 1)
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 24
 text = "the rotation is four days — the sea never forgets its own book"
 horizontal_alignment = 1
 
@@ -929,7 +988,7 @@ theme_override_styles/normal = SubResource("StyleBox_ghost")
 theme_override_styles/hover = SubResource("StyleBox_ghost_hover")
 theme_override_styles/pressed = SubResource("StyleBox_ghost_pressed")
 theme_override_styles/focus = SubResource("StyleBox_ghost_hover")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.72, 0.93, 1, 0.95)
 theme_override_colors/font_hover_color = Color(0.9, 0.98, 1, 1)
 theme_override_colors/font_focus_color = Color(0.9, 0.98, 1, 1)
@@ -963,10 +1022,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -340.0
-offset_top = -280.0
-offset_right = 340.0
-offset_bottom = 280.0
+offset_left = -360.0
+offset_top = -300.0
+offset_right = 360.0
+offset_bottom = 300.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBox_guide")
@@ -977,16 +1036,38 @@ theme_override_constants/separation = 10
 
 [node name="GuideTitle" type="Label" parent="GuideOverlay/Panel/VBox"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.62, 0.86, 1, 1)
-theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(0.7, 0.92, 1, 1)
+theme_override_font_sizes/font_size = 26
 text = "Achievement guide"
 horizontal_alignment = 1
+
+[node name="GuideHeader" type="HBoxContainer" parent="GuideOverlay/Panel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="GuideCount" type="Label" parent="GuideOverlay/Panel/VBox/GuideHeader"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 0.84, 0.35, 1)
+theme_override_font_sizes/font_size = 22
+text = "0 of 0 earned"
+
+[node name="GuideProgress" type="ProgressBar" parent="GuideOverlay/Panel/VBox/GuideHeader"]
+custom_minimum_size = Vector2(240, 22)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBox_guide_track")
+theme_override_styles/fill = SubResource("StyleBox_guide_fill")
+show_percentage = false
+value = 0.0
 
 [node name="GuideLegend" type="Label" parent="GuideOverlay/Panel/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6, 0.72, 0.9, 1)
 theme_override_font_sizes/font_size = 20
-text = "✓ earned    ·    still to earn"
+text = "✓ earned    ○ still to earn    ✦ legend"
 horizontal_alignment = 1
 
 [node name="Scroll" type="ScrollContainer" parent="GuideOverlay/Panel/VBox"]
@@ -995,13 +1076,10 @@ layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
 
-[node name="GuideList" type="Label" parent="GuideOverlay/Panel/VBox/Scroll"]
+[node name="GuideList" type="VBoxContainer" parent="GuideOverlay/Panel/VBox/Scroll"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_font_sizes/font_size = 20
-text = ""
-autowrap_mode = 2
+theme_override_constants/separation = 12
 
 [node name="GuideClose" type="Button" parent="GuideOverlay/Panel/VBox"]
 custom_minimum_size = Vector2(180, 46)
@@ -1011,7 +1089,7 @@ theme_override_styles/normal = SubResource("StyleBox_ghost")
 theme_override_styles/hover = SubResource("StyleBox_ghost_hover")
 theme_override_styles/pressed = SubResource("StyleBox_ghost_pressed")
 theme_override_styles/focus = SubResource("StyleBox_ghost_hover")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.72, 0.93, 1, 0.95)
 theme_override_colors/font_hover_color = Color(0.9, 0.98, 1, 1)
 theme_override_colors/font_focus_color = Color(0.9, 0.98, 1, 1)

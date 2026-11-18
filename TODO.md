@@ -1,6 +1,18 @@
 # Current project todo:
 
 ## done this pass
+- **The standing order** — the shop pays +1$/unit for one material each tide
+  day (Glass Calm → Glass, Eel Run → Nylon, Slack Water → Polyethylene, Night
+  Drift → Polypropylene), deterministic off the same tide as everything else.
+  `ShopLedger.order_material()/order_bonus()`; `quote()` includes it; the shop
+  row and the preview line show the boosted price, and the tide note names the
+  order (Hide the tide pays it silently). economy_audit gains an order gate
+  (four tides, four distinct real materials, +1$/unit). Verified by a runtime
+  probe: Night Drift Polypropylene 10 units pays 48$ (30 base + 8 bulk + 10
+  order).
+- **README economy section de-duplicated** — the second "Economy Formulas"
+  heading is now "Inventory & material weight".
+
 - **The empty drawer's last note** — once all fourteen pages are read the shop
   note now closes the arc warmly ("...the courier still crosses the strait for
   you"), matching the Eel Run gratitude flyby. guide.md updated.
@@ -127,10 +139,10 @@
   have a fresh .import sidecar naming it. 86 assets checked, 0 failures.
   (.kra Krita sources are not Godot-importable and are excluded.)
 - **font_size_audit.py** — permanent mobile legibility gate: fails on any
-  explicit font_size under 17 px anywhere in scenes/ or scripts/. PASS.
+  explicit font_size under 24 px anywhere in scenes/ or scripts/. PASS.
 - **Almanac footer legibility** — the Filled Almanac's whisper footnote
-  was 14px (the only sub-17px font in the project); now 17px (fog-lifted
-  too). Touch floor holds everywhere.
+  was 14px (the only sub-17px font in the project); now 24px (fog-lifted
+  too). Every explicit font size in the project now clears 24 px.
 - **scene_boot_audit.sh** — permanent gate for the boot sweep: every
   interactive scene boots headless with an isolated profile, fails on any
   script error; smoke can't see parse errors or _ready crashes. PASS.

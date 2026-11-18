@@ -233,7 +233,7 @@ offset_left = 12.0
 offset_top = -30.0
 offset_right = 232.0
 offset_bottom = -8.0
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.72, 0.85, 0.92, 0.55)
 text = "v1.2.0"
 
@@ -255,7 +255,7 @@ theme_override_styles/normal = SubResource("StyleBox_ghost")
 theme_override_styles/hover = SubResource("StyleBox_ghost_hover")
 theme_override_styles/pressed = SubResource("StyleBox_ghost_pressed")
 theme_override_styles/focus = SubResource("StyleBox_ghost_hover")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.72, 0.93, 1, 0.95)
 theme_override_colors/font_hover_color = Color(0.9, 0.98, 1, 1)
 theme_override_colors/font_focus_color = Color(0.9, 0.98, 1, 1)
@@ -277,7 +277,7 @@ offset_left = 12.0
 offset_top = -64.0
 offset_right = 232.0
 offset_bottom = -36.0
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.72, 0.85, 0.92, 0.42)
 horizontal_alignment = 0
 text = "Keep the shore"
@@ -317,13 +317,13 @@ theme_override_constants/separation = 4
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 autowrap_mode = 3
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 
 [node name="TideLine" type="Label" parent="SaveSummaryPanel/VBoxContainer" unique_id=1000005]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.68, 0.9, 0.95, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = ""
 
 [node name="MoreStatsButton" type="Button" parent="SaveSummaryPanel/VBoxContainer" unique_id=1000004]
@@ -334,7 +334,7 @@ theme_override_styles/normal = SubResource("StyleBox_ghost")
 theme_override_styles/hover = SubResource("StyleBox_ghost_hover")
 theme_override_styles/pressed = SubResource("StyleBox_ghost_pressed")
 theme_override_styles/focus = SubResource("StyleBox_ghost_hover")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.72, 0.93, 1, 0.95)
 theme_override_colors/font_hover_color = Color(0.9, 0.98, 1, 1)
 theme_override_colors/font_focus_color = Color(0.9, 0.98, 1, 1)

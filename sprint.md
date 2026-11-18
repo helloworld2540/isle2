@@ -1,4 +1,18 @@
 
+## 2026-11-18 — The standing order (one market, four moods)
+- `shop_ledger.gd`: `TIDE_ORDER_BONUS` (+1$/unit), `order_material()` mapped
+  1:1 to the four tides, `order_bonus(mat)` folded into `quote()` (and reported
+  in the quote dict). The row price, the "if you sell it all" preview and the
+  payout all read it, so they cannot disagree.
+- `shop_menu.gd`: row unit price and preview include the order; the tide note
+  names it ("standing order: Nylon +1$") and Hide-the-tide keeps the name
+  quiet while still paying.
+- `economy_audit.py`: new gate — order is +1$/unit, covers exactly the four
+  tides, names four distinct real materials. 0 failures. Runtime probe: Night
+  Drift Polypropylene x10 → 48$.
+- README: new "Standing order" bullet and "Inventory & material weight"
+  heading (removed a duplicated "Economy Formulas"). guide: shop section.
+
 ## 2026-11-18 — The empty drawer's last note
 - shop_menu: after the fourteenth page the counter's note reads "Every page was
   read at this counter — the courier still crosses the strait for you", tying

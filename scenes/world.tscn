@@ -704,19 +704,19 @@ text = "Trash 0/10 kg"
 [node name="MoneyLabel" type="Label" parent="WorldProgress/Panel/VBox" unique_id=342528160]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.86, 0.4, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "Money: 0$"
 
 [node name="CircuitLabel" type="Label" parent="WorldProgress/Panel/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.72, 0.91, 1, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "Route ○○○ 0/3"
 
 [node name="NextStop" type="Label" parent="WorldProgress/Panel/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6, 0.94, 0.78, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "Next: 1 · Reef Rescue — gather a fresh haul"
 autowrap_mode = 2
 
@@ -724,26 +724,26 @@ autowrap_mode = 2
 visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.84, 0.32, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = ""
 
 [node name="BottleTitle" type="Label" parent="WorldProgress/Panel/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.72, 0.92, 1, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "◆ Bottles 0/3"
 
 [node name="StarfishTitle" type="Label" parent="WorldProgress/Panel/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1.0, 0.82, 0.55, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "★ Starfish 0/5"
 visible = false
 
 [node name="TideTitle" type="Label" parent="WorldProgress/Panel/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.68, 0.9, 0.95, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "≈ Glass calm — debris drifts loose"
 
 [node name="UpcycleBar" type="ProgressBar" parent="WorldProgress/Panel/VBox" unique_id=900000024]
@@ -761,7 +761,7 @@ show_percentage = false
 custom_minimum_size = Vector2(240, 0)
 custom_maximum_size = Vector2(240, -1)
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "(empty)"
 autowrap_mode = 3
 
@@ -856,19 +856,19 @@ text = "Island Menu"
 
 [node name="UpgradeStatus" type="Label" parent="Menu/MenuPanel/Center/Card/HBoxContainer/Infobox/Header/TitleCol" unique_id=410065436]
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.72, 0.93, 1, 0.9)
 text = "Move 0 | Range 0 | -"
 
 [node name="TideStatus" type="Label" parent="Menu/MenuPanel/Center/Card/HBoxContainer/Infobox/Header/TitleCol" unique_id=410065461]
 layout_mode = 2
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.68, 0.9, 0.95, 0.95)
 text = ""
 
 [node name="UpgradesLabel" type="Label" parent="Menu/MenuPanel/Center/Card/HBoxContainer/Infobox" unique_id=410065455]
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.72, 0.93, 1, 0.65)
 text = "U P G R A D E S"
 
@@ -890,7 +890,7 @@ theme_override_styles/hover = SubResource("StyleBox_upgrade_hover")
 theme_override_styles/pressed = SubResource("StyleBox_upgrade_pressed")
 theme_override_styles/disabled = SubResource("StyleBox_upgrade_disabled")
 theme_override_styles/focus = SubResource("StyleBox_upgrade_hover")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.92, 0.96, 1, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
@@ -909,7 +909,7 @@ theme_override_styles/hover = SubResource("StyleBox_upgrade_hover")
 theme_override_styles/pressed = SubResource("StyleBox_upgrade_pressed")
 theme_override_styles/disabled = SubResource("StyleBox_upgrade_disabled")
 theme_override_styles/focus = SubResource("StyleBox_upgrade_hover")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.92, 0.96, 1, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
@@ -928,7 +928,7 @@ theme_override_styles/hover = SubResource("StyleBox_upgrade_hover")
 theme_override_styles/pressed = SubResource("StyleBox_upgrade_pressed")
 theme_override_styles/disabled = SubResource("StyleBox_upgrade_disabled")
 theme_override_styles/focus = SubResource("StyleBox_upgrade_hover")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.92, 0.96, 1, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
@@ -948,7 +948,7 @@ theme_override_styles/hover = SubResource("StyleBox_upgrade_hover")
 theme_override_styles/pressed = SubResource("StyleBox_upgrade_pressed")
 theme_override_styles/disabled = SubResource("StyleBox_upgrade_disabled")
 theme_override_styles/focus = SubResource("StyleBox_upgrade_hover")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.92, 0.96, 1, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
@@ -967,7 +967,7 @@ theme_override_styles/hover = SubResource("StyleBox_upgrade_hover")
 theme_override_styles/pressed = SubResource("StyleBox_upgrade_pressed")
 theme_override_styles/disabled = SubResource("StyleBox_upgrade_disabled")
 theme_override_styles/focus = SubResource("StyleBox_upgrade_hover")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.92, 0.96, 1, 1)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
@@ -983,7 +983,7 @@ theme_override_constants/separation = 10
 [node name="UpcycleLbl" type="Label" parent="Menu/MenuPanel/Center/Card/HBoxContainer/Infobox/ProgressBox" unique_id=410065443]
 custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.72, 0.93, 1, 0.85)
 text = "UPCYCLE"
 vertical_alignment = 1
@@ -1003,7 +1003,7 @@ theme_override_constants/separation = 10
 [node name="ReefLbl" type="Label" parent="Menu/MenuPanel/Center/Card/HBoxContainer/Infobox/ReefProgressBox" unique_id=410065446]
 custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.72, 0.93, 1, 0.85)
 text = "REEF"
 vertical_alignment = 1
@@ -1025,7 +1025,7 @@ theme_override_styles/normal = SubResource("StyleBox_toggle")
 theme_override_styles/hover = SubResource("StyleBox_toggle_hover")
 theme_override_styles/pressed = SubResource("StyleBox_toggle_hover")
 theme_override_styles/focus = SubResource("StyleBox_toggle_hover")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.72, 0.93, 1, 0.95)
 theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
@@ -1050,7 +1050,7 @@ theme_override_constants/separation = 12
 
 [node name="ActionsLabel" type="Label" parent="Menu/MenuPanel/Center/Card/HBoxContainer/VBoxContainer" unique_id=410065457]
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.72, 0.93, 1, 0.65)
 text = "A C T I O N S"
 
@@ -1076,7 +1076,7 @@ theme_override_styles/normal = SubResource("StyleBox_ghost")
 theme_override_styles/hover = SubResource("StyleBox_ghost_hover")
 theme_override_styles/pressed = SubResource("StyleBox_ghost_pressed")
 theme_override_styles/focus = SubResource("StyleBox_ghost_hover")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.72, 0.93, 1, 0.95)
 theme_override_colors/font_hover_color = Color(0.9, 0.98, 1, 1)
 theme_override_colors/font_focus_color = Color(0.9, 0.98, 1, 1)
@@ -1091,7 +1091,7 @@ theme_override_styles/normal = SubResource("StyleBox_ghost")
 theme_override_styles/hover = SubResource("StyleBox_ghost_hover")
 theme_override_styles/pressed = SubResource("StyleBox_ghost_hover")
 theme_override_styles/focus = SubResource("StyleBox_ghost_hover")
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.66, 0.78, 0.88, 0.9)
 text = "About"
 
@@ -1105,7 +1105,7 @@ theme_override_styles/normal = SubResource("StyleBox_ghost")
 theme_override_styles/hover = SubResource("StyleBox_ghost_hover")
 theme_override_styles/pressed = SubResource("StyleBox_ghost_pressed")
 theme_override_styles/focus = SubResource("StyleBox_ghost_hover")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.72, 0.93, 1, 0.95)
 theme_override_colors/font_hover_color = Color(0.9, 0.98, 1, 1)
 theme_override_colors/font_focus_color = Color(0.9, 0.98, 1, 1)
@@ -1116,7 +1116,7 @@ text = "Journal"
 [node name="CapStatus" type="Label" parent="Menu/MenuPanel/Center/Card/HBoxContainer/VBoxContainer" unique_id=410065432]
 autowrap_mode = 2
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 modulate = Color(1, 0.9, 0.5, 0.95)
 
 [node name="Spacer" type="Control" parent="Menu/MenuPanel/Center/Card/HBoxContainer/VBoxContainer" unique_id=410065458]
@@ -1125,7 +1125,7 @@ size_flags_vertical = 3
 
 [node name="Hint" type="Label" parent="Menu/MenuPanel/Center/Card/HBoxContainer/VBoxContainer" unique_id=410065459]
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.72, 0.93, 1, 0.4)
 horizontal_alignment = 1
 text = "Esc / Tab — close"

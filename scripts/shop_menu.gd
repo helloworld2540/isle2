@@ -227,7 +227,13 @@ func _refresh_purchases() -> void:
 			buy_tidekeeper_button.disabled = not GameState.can_afford(GameState.TIDEKEEPER_COST)
 
 	if tide_note:
-		tide_note.text = "Today: the sea keeps its own counsel — and so do you." if GameSettings.hide_tide else "Today: %s" % TideReport.summary()
+		if GameSettings.hide_tide:
+			# The sea keeps its own counsel — and so does the counter. The order
+			# still pays; it simply is not named (the row price shows the total).
+			tide_note.text = "Today: the sea keeps its own counsel — and so do you."
+		else:
+			tide_note.text = "Today: %s  ·  standing order: %s +%d$" % [
+				TideReport.summary(), ShopLedger.order_material(), ShopLedger.TIDE_ORDER_BONUS]
 
 	if buy_courier_letter_button:
 		var letter_i: int = GameState.courier_letters_bought
@@ -437,7 +443,7 @@ func _refresh_row(mat: String) -> void:
 		return
 	var price: int = int(GameState.SALE_PRICES.get(mat, 0))
 	var count: int = int(GameState.trash_by_type.get(mat, 0))
-	var unit_value: int = price + GameState.get_market_bonus()
+	var unit_value: int = price + GameState.get_market_bonus() + ShopLedger.order_bonus(mat)
 	var value: int = count * unit_value
 	var bulk: bool = count >= ShopLedger.BULK_THRESHOLD
 	var name_lbl: Label = row_data.get("name", null)
@@ -487,7 +493,7 @@ func _inv_text() -> String:
 func _preview_text() -> String:
 	var total := 0
 	for mat in GameState.SALE_PRICES.keys():
-		total += int(GameState.trash_by_type.get(mat, 0)) * (int(GameState.SALE_PRICES.get(mat, 0)) + GameState.get_market_bonus())
+		total += int(GameState.trash_by_type.get(mat, 0)) * (int(GameState.SALE_PRICES.get(mat, 0)) + GameState.get_market_bonus() + ShopLedger.order_bonus(mat))
 	return "If you sell it all: %d$" % total
 
 func _sell_qty(mat: String, qty: int) -> void:

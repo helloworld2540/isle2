@@ -138,7 +138,7 @@ text = "COMBO ×2"
 [node name="TideLine" type="Label" parent="UI/HUDStats" unique_id=1678753935]
 layout_mode = 2
 theme_override_fonts/font = SubResource("SystemFont_aq0s6")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.68, 0.9, 0.95, 1)
 text = ""
 
@@ -164,7 +164,7 @@ offset_top = 24.0
 offset_right = -24.0
 offset_bottom = 72.0
 grow_horizontal = 0
-theme_override_font_sizes/font_size = 22
+theme_override_font_sizes/font_size = 24
 text = "Return to Map"
 
 [node name="GameOverCanvas" type="CanvasLayer" parent="." unique_id=2001]
@@ -207,7 +207,7 @@ horizontal_alignment = 1
 
 [node name="Body" type="Label" parent="GameOverCanvas/GameOverPanel/VBox" unique_id=2006]
 layout_mode = 2
-theme_override_font_sizes/font_size = 22
+theme_override_font_sizes/font_size = 24
 text = "Bumped into 0 fish
 Garbage collected: 0 kg
 Depth: 0 m

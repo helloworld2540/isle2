@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
 """Mobile legibility audit: every explicit font_size in scenes/ and scripts/
-must clear 17px unless the text is a decorative single-glyph mark (★ ◆ ✳ ✦).
+must clear 24px unless the text is a decorative single-glyph mark (★ ◆ ✳ ✦).
 
 The project promises legible, large type on a 1152x648-class phone screen
-(44 px touch floor, everything ≥ 17 px). This audit fails the gate when
-someone types a new 14 px label into a scene.
+(44 px touch floor, everything ≥ 24 px). This audit fails the gate when
+someone types a new small label into a scene.
 """
 import re
 import sys
 import pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-MIN_PX = 17
+MIN_PX = 24
 
 fail = 0
 

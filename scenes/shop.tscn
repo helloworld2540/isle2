@@ -70,7 +70,7 @@ text = "Shop"
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_colors/font_color = Color(0.6, 0.7, 0.8, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "sell material · spend money"
 
 [node name="Spacer" type="Control" parent="CanvasLayer/Scroll/Margin/Layout/Header"]
@@ -82,7 +82,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_colors/font_color = Color(1, 0.87, 0.5, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "Money: 0$"
 horizontal_alignment = 2
 
@@ -107,14 +107,14 @@ theme_override_constants/separation = 8
 [node name="SellTitle" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.65, 0.9, 1, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "Sell material"
 
 [node name="Inventory" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.75, 0.8, 0.88, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "Bag empty"
 
 [node name="Rows" type="VBoxContainer" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox"]
@@ -141,19 +141,19 @@ text = "x0"
 [node name="SellOne" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Polyethylene"]
 custom_minimum_size = Vector2(76, 44)
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "Sell 1"
 
 [node name="SellFive" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Polyethylene"]
 custom_minimum_size = Vector2(112, 44)
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "Sell 5"
 
 [node name="SellAll" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Polyethylene"]
 custom_minimum_size = Vector2(112, 44)
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "Sell All"
 
 [node name="Value" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Polyethylene"]
@@ -182,19 +182,19 @@ text = "x0"
 [node name="SellOne" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Polypropylene"]
 custom_minimum_size = Vector2(76, 44)
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "Sell 1"
 
 [node name="SellFive" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Polypropylene"]
 custom_minimum_size = Vector2(112, 44)
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "Sell 5"
 
 [node name="SellAll" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Polypropylene"]
 custom_minimum_size = Vector2(112, 44)
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "Sell All"
 
 [node name="Value" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Polypropylene"]
@@ -223,19 +223,19 @@ text = "x0"
 [node name="SellOne" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Glass"]
 custom_minimum_size = Vector2(76, 44)
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "Sell 1"
 
 [node name="SellFive" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Glass"]
 custom_minimum_size = Vector2(112, 44)
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "Sell 5"
 
 [node name="SellAll" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Glass"]
 custom_minimum_size = Vector2(112, 44)
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "Sell All"
 
 [node name="Value" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Glass"]
@@ -264,19 +264,19 @@ text = "x0"
 [node name="SellOne" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Nylon"]
 custom_minimum_size = Vector2(76, 44)
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "Sell 1"
 
 [node name="SellFive" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Nylon"]
 custom_minimum_size = Vector2(112, 44)
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "Sell 5"
 
 [node name="SellAll" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Nylon"]
 custom_minimum_size = Vector2(112, 44)
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "Sell All"
 
 [node name="Value" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_Nylon"]
@@ -305,19 +305,19 @@ text = "x0"
 [node name="SellOne" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_ReefDebris"]
 custom_minimum_size = Vector2(76, 44)
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "Sell 1"
 
 [node name="SellFive" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_ReefDebris"]
 custom_minimum_size = Vector2(112, 44)
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "Sell 5"
 
 [node name="SellAll" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_ReefDebris"]
 custom_minimum_size = Vector2(112, 44)
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "Sell All"
 
 [node name="Value" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/SellPanel/SellBox/Rows/Row_ReefDebris"]
@@ -337,13 +337,14 @@ theme_override_constants/separation = 5
 [node name="Preview" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/StatusPanel/StatusBox"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "If you sell it all: 0$"
 
 [node name="CapacityStatus" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/StatusPanel/StatusBox"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+autowrap_mode = 2
+theme_override_font_sizes/font_size = 24
 text = "Capacity 0/0 kg"
 
 [node name="Tip" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/StatusPanel/StatusBox"]
@@ -351,7 +352,7 @@ unique_name_in_owner = true
 layout_mode = 2
 autowrap_mode = 2
 theme_override_colors/font_color = Color(0.95, 0.9, 0.5, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "Tip: sort efficiently for combo bonuses."
 
 [node name="SpendColumn" type="VBoxContainer" parent="CanvasLayer/Scroll/Margin/Layout/Body"]
@@ -370,7 +371,7 @@ theme_override_constants/separation = 6
 [node name="SpendTitle" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SpendColumn/SpendPanel/SpendBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.65, 0.9, 1, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "Spend money"
 
 [node name="BuyCapButton" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SpendColumn/SpendPanel/SpendBox"]
@@ -406,7 +407,7 @@ unique_name_in_owner = true
 layout_mode = 2
 autowrap_mode = 2
 theme_override_colors/font_color = Color(0.68, 0.9, 0.95, 1)
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 24
 text = ""
 
 [node name="BuyTidekeeperButton" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SpendColumn/SpendPanel/SpendBox"]
@@ -428,7 +429,7 @@ unique_name_in_owner = true
 layout_mode = 2
 autowrap_mode = 2
 theme_override_colors/font_color = Color(0.7, 0.85, 0.95, 1)
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 24
 text = ""
 
 [node name="BuyCourierLetterButton" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SpendColumn/SpendPanel/SpendBox"]
@@ -443,7 +444,7 @@ unique_name_in_owner = true
 layout_mode = 2
 autowrap_mode = 2
 theme_override_colors/font_color = Color(0.78, 0.94, 1, 1)
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 24
 text = ""
 
 [node name="MoneyNote" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SpendColumn/SpendPanel/SpendBox"]
@@ -451,7 +452,7 @@ unique_name_in_owner = true
 layout_mode = 2
 autowrap_mode = 2
 theme_override_colors/font_color = Color(0.7, 0.78, 0.86, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = ""
 
 [node name="LogPanel" type="PanelContainer" parent="CanvasLayer/Scroll/Margin/Layout/Body/SpendColumn"]
@@ -465,7 +466,7 @@ theme_override_constants/separation = 5
 [node name="LogTitle" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SpendColumn/LogPanel/LogBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.65, 0.9, 1, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "Activity"
 
 [node name="TransactionLog" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SpendColumn/LogPanel/LogBox"]
@@ -474,7 +475,7 @@ custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 autowrap_mode = 2
 theme_override_colors/font_color = Color(0.78, 0.84, 0.9, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "(no sales this session)"
 
 [node name="Footer" type="HBoxContainer" parent="CanvasLayer/Scroll/Margin/Layout"]

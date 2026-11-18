@@ -58,26 +58,37 @@ theme_override_colors/font_color = Color(0.7, 0.92, 1, 1)
 theme_override_font_sizes/font_size = 26
 text = "Mini-game"
 
-[node name="Lines" type="RichTextLabel" parent="Center/Panel/VBox"]
+[node name="BodyScroll" type="ScrollContainer" parent="Center/Panel/VBox"]
+custom_minimum_size = Vector2(576, 380)
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="BodyBox" type="VBoxContainer" parent="Center/Panel/VBox/BodyScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="Lines" type="RichTextLabel" parent="Center/Panel/VBox/BodyScroll/BodyBox"]
 custom_minimum_size = Vector2(576, 0)
 layout_mode = 2
 bbcode_enabled = true
 fit_content = true
 scroll_active = false
 
-[node name="Stats" type="Label" parent="Center/Panel/VBox"]
+[node name="Stats" type="Label" parent="Center/Panel/VBox/BodyScroll/BodyBox"]
 visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.86, 0.4, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = ""
 horizontal_alignment = 1
 
-[node name="Flavor" type="Label" parent="Center/Panel/VBox"]
+[node name="Flavor" type="Label" parent="Center/Panel/VBox/BodyScroll/BodyBox"]
 visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0.62, 0.72, 0.9, 1)
-theme_override_font_sizes/font_size = 17
+theme_override_font_sizes/font_size = 24
 text = ""
 horizontal_alignment = 1
 autowrap_mode = 3
@@ -90,7 +101,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(180, 46)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "Got it!"
 
 [connection signal="pressed" from="Center/Panel/VBox/GotItButton" to="." method="_on_got_it_pressed"]

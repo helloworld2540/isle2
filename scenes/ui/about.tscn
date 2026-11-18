@@ -177,7 +177,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 bbcode_enabled = true
 fit_content = true
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 
 [node name="CloseBtn" type="Button" parent="Margin/Column/Panel/VBox"]
 custom_minimum_size = Vector2(190, 48)
@@ -187,7 +187,7 @@ theme_override_styles/normal = SubResource("StyleBox_gold")
 theme_override_styles/hover = SubResource("StyleBox_gold_hover")
 theme_override_styles/pressed = SubResource("StyleBox_gold_pressed")
 theme_override_styles/focus = SubResource("StyleBox_gold_hover")
-theme_override_font_sizes/font_size = 21
+theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.28, 0.18, 0.04, 1)
 theme_override_colors/font_hover_color = Color(0.28, 0.18, 0.04, 1)
 theme_override_colors/font_focus_color = Color(0.28, 0.18, 0.04, 1)
@@ -199,7 +199,7 @@ text = "Keep the shore"
 layout_mode = 2
 horizontal_alignment = 1
 theme_override_colors/font_color = Color(0.55, 0.65, 0.75, 0.9)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "The island is always watching."
 
 [connection signal="pressed" from="Margin/Column/Panel/VBox/CloseBtn" to="." method="_on_close_pressed"]

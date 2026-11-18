@@ -53,6 +53,9 @@ func _initialize() -> void:
 			continue
 		var scene: Node = packed.instantiate()
 		root.add_child(scene)
+		# Containers need a couple of layout passes (autowrap labels, flow rows)
+		# before their rects are meaningful; three frames has proven stable.
+		await process_frame
 		await process_frame
 		await process_frame
 		var bad: Array[String] = []
