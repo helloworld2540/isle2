@@ -471,6 +471,7 @@ them — and a faint golden hush over the world.
 - **Night Drift** — half the distant cries become a low foghorn, far out on the water.
 
 ## Version history (as shipped)
+- **Corl counts the pages** — the first letter earns him a quiet nod ("I do not ask about that one"), the tenth earns a ledger tap. The counter sees everything.
 - **THE REGULAR** — the 46th badge: read ten courier's letters at the counter. A grind for the devoted keeper.
 - **The courier's letter** — a $10 counter page, once per tide day: a line from the Silverfin itself, handed over in a drag-scroll dialogue card. Pure lore; the dockhand keeps tomorrow's secret.
 - **The courier's chime** — the first Silverfin logged plays its own two-note glass chime (synthesized in-repo); the Reef Registry has a voice.
