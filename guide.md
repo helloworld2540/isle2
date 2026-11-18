@@ -265,7 +265,9 @@ checked against this yield — nothing changed, deliberately.*
   wears a faint golden hush — a quiet victory the map never announces.
 - The stats page's Tide Ledger and Reef Registry tease locked rows
   instead of printing question marks — each bottle and fish has its own
-  spoiler-free hint; the page is the island's clue board.
+  spoiler-free hint; the page is the island's clue board. Both overlays carry
+  their own count in the legend and on the button ("Tide Ledger (n/8)",
+  "Reef Registry (n/5)"), and both turn gold when full.
 - The stats page opens with a single-line Keeper's Journal ledger: "Journal — bottles n/8 · starfish n/5 · tides n/4 · species n/5 · achievements n/45" — so you can see the whole completion board at a glance without scrolling.
 - Bottles you have already read can be re-read from the stats page via the Tide Ledger overlay (the game nudges you there once the third base bottle is read) (undiscovered notes stay locked).
 - Quest economics audit (SALE_PRICES-weighted): turn-ins are deliberately slightly under market value — that is the price of quest progress and the Harbor Hero +10 kg cap — but the old numbers were punitive (Tom 24$->12$, Nina 30$->15$, Kai 25$->10$, Mara t2 25$->18$). Buffed: Tom t1 4->6 PP (18$), Nina t1 5->6 PP (18$), Kai t1 now 6 PP (18$), Mara t2 6->8 PP (24$). Nina t2 (+8$) and Kai t2 (+4$) remain the profitable tiers.
@@ -465,6 +467,8 @@ them — and a faint golden hush over the world.
 - **Night Drift** — half the distant cries become a low foghorn, far out on the water.
 
 ## Version history (as shipped)
+- **The registry keeps count** — the Reef Registry overlay legend and button now show n/5 ("Reef Registry (n/5)"), gold at five, matching the Tide Ledger.
+- **1.3.0** — the Silverfin and THE PALE COURIER (the 45th badge), weighted reef spawns (the shark a spice, the courier rare — and twice as common on Eel Run), The Filled Almanac, the quiet harbor, the courier's chime, the Courier's Wake and the Last Page cards, the front door remembering, and every islander closing the chorus together.
 - **Every voice goes quiet at once** — all five named islanders now notice THE WHOLE SEA (Mara, Tom, Nina, Kai join Oda), each in their own register. The chorus closes together.
 - **The courier's chime** — the first Silverfin logged plays its own two-note glass chime (synthesized in-repo); the Reef Registry has a voice.
 - **The Courier's Wake** — earning THE PALE COURIER queues a one-time world-map card about the Silverfin; never overwrites a pending run recap.

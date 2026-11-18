@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- **The registry keeps count** — Reef Registry overlay legend and button
+  show n/5 (button reads "Reef Registry (n/5)", gold at five), matching
+  the Tide Ledger's self-advertising pattern.
 - **The courier glints** — a Silverfin spawn now sparks a small blue-white
   burst as it enters the reef (visual tell only, no SFX — the Registry
   sighting keeps the chime).

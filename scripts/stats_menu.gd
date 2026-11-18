@@ -38,6 +38,7 @@ var _pending_action := ""
 @onready var _ledger_overlay: Control = $"LedgerOverlay"
 @onready var _ledger_close: Button = $"LedgerOverlay/Panel/VBox/LedgerClose"
 @onready var _registry_button: Button = $"Margin/VBox/ButtonRow/RegistryButton"
+@onready var _registry_legend: Label = $"RegistryOverlay/Panel/VBox/RegistryLegend"
 @onready var _registry_overlay: Control = $"RegistryOverlay"
 @onready var _registry_close: Button = $"RegistryOverlay/Panel/VBox/RegistryClose"
 @onready var _almanac_button: Button = $"Margin/VBox/ButtonRow/AlmanacButton"
@@ -107,6 +108,7 @@ func _connect_signals() -> void:
 			button.pressed.connect(_on_ledger_bottle.bind(LEDGER_IDS[i]))
 	if _registry_button:
 		_registry_button.pressed.connect(_open_registry)
+		_refresh_registry_button()
 	if _registry_close:
 		_registry_close.pressed.connect(_close_registry)
 	for i in REGISTRY_BUTTONS.size():
@@ -400,6 +402,34 @@ func _refresh_ledger_button() -> void:
 		_ledger_button.modulate = Color(1.0, 1.0, 1.0, 1.0)
 
 
+## The registry's legend carries its own count, like the ledger's — no need
+## to open the page to know where the reef stands.
+func _refresh_registry_legend() -> void:
+	if not _registry_legend:
+		return
+	var found := 0
+	for id in REGISTRY_IDS:
+		if GameState.fish_met.has(id):
+			found += 1
+	_registry_legend.text = "every species you have bumped into — %d/%d — tap to read what you know" % [found, REGISTRY_IDS.size()]
+
+
+## The registry button advertises its own completion — five slots, five
+## notes; at five it turns gold like a finished chorus.
+func _refresh_registry_button() -> void:
+	if not _registry_button:
+		return
+	var found := 0
+	for id in REGISTRY_IDS:
+		if GameState.fish_met.has(id):
+			found += 1
+	_registry_button.text = "Reef Registry (%d/%d)" % [found, REGISTRY_IDS.size()]
+	if found >= REGISTRY_IDS.size():
+		_registry_button.modulate = Color(1.0, 0.85, 0.42, 1.0)
+	else:
+		_registry_button.modulate = Color(1.0, 1.0, 1.0, 1.0)
+
+
 ## Tide Ledger: re-read any bottle the player has already found. Undiscovered
 ## notes stay as locked rows so the page doubles as a collection tracker.
 func _open_ledger() -> void:
@@ -462,6 +492,7 @@ func _on_ledger_bottle(id: String) -> void:
 func _open_registry() -> void:
 	if _registry_overlay == null:
 		return
+	_refresh_registry_legend()
 	for i in REGISTRY_BUTTONS.size():
 		var id := REGISTRY_IDS[i]
 		var button := _registry_overlay.get_node_or_null("Panel/VBox/" + REGISTRY_BUTTONS[i]) as Button
