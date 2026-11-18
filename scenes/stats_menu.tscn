@@ -915,8 +915,8 @@ horizontal_alignment = 1
 
 [node name="AlmanacFooter" type="Label" parent="AlmanacOverlay/Panel/VBox"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.55, 0.62, 0.7, 1)
-theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.62, 0.68, 0.78, 1)
+theme_override_font_sizes/font_size = 18
 text = "the rotation is four days — the sea never forgets its own book"
 horizontal_alignment = 1
 

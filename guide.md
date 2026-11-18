@@ -473,6 +473,7 @@ them — and a faint golden hush over the world.
 - **Night Drift** — half the distant cries become a low foghorn, far out on the water.
 
 ## Version history (as shipped)
+- **The last whisper got loud enough** — the Filled Almanac's footnote went from a 14px whisper to a legible 18px line. The smallest font in the project is gone.
 - **Two boot fixes** — the world menu's About button now finds its canvas (it was dead by a wrong relative path), and the tide-nudge card defers its spawn until the banner's _ready unwinds instead of dying in the nursery.
 - **Corl counts the pages** — the first letter earns him a quiet nod ("I do not ask about that one"), the tenth earns a ledger tap. The counter sees everything.
 - **THE REGULAR** — the 46th badge: read ten courier's letters at the counter. A grind for the devoted keeper.

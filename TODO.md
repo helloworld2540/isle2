@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- **Almanac footer legibility** — the Filled Almanac's whisper footnote
+  was 14px (the only sub-17px font in the project); now 17px (fog-lifted
+  too). Touch floor holds everywhere.
 - **scene_boot_audit.sh** — permanent gate for the boot sweep: every
   interactive scene boots headless with an isolated profile, fails on any
   script error; smoke can't see parse errors or _ready crashes. PASS.
