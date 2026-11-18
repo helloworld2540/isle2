@@ -1,7 +1,7 @@
 extends RefCounted
 class_name FishCatalog
 
-## Canonical journal entries for the four reef species. The stats page's
+## Canonical journal entries for the six reef species. The stats page's
 ## "Fish spotted" line reads it so the journal shows names, not texture keys.
 ## Adding a species means one entry here and one FISH row in rr_fish.gd.
 
@@ -30,6 +30,11 @@ const ENTRIES: Array[Dictionary] = [
 		"id": "fish_silverfin",
 		"name": "Silverfin",
 		"blurb": "The strait's quiet courier — quick, pale, and gone by dawn. The counter sells its post by the page; the reef registry keeps its name. Nobody has ever kept up with it.",
+	},
+	{
+		"id": "fish_star",
+		"name": "Starfish",
+		"blurb": "A five-armed constellation, patient on the reef floor. It does not flee the drone — it simply is, and the drone learns to give it room.",
 	},
 ]
 

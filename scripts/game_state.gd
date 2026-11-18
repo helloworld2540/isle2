@@ -135,8 +135,8 @@ var reef_bonus_lives: int = 0
 var bottles_read: Array[String] = []
 ## Starfish ids found around the island (saved). Five exist.
 var starfish_found: Array[String] = []
-## Fish species the player has bumped into at least once (saved). Four exist;
-## meeting all four earns the REEF REGISTRY achievement.
+## Fish species the player has bumped into at least once (saved). Six exist;
+## meeting all six earns the REEF REGISTRY achievement.
 var fish_met: Array[String] = []
 ## The one-time reward for finding all three bottles (saved).
 var tide_gift_granted: bool = false

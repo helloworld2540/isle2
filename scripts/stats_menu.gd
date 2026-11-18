@@ -9,8 +9,8 @@ const FishCatalog := preload("res://scripts/fish_catalog.gd")
 const LEDGER_BUTTONS: Array[String] = ["BottleTideButton", "BottleGullButton", "BottleLightButton", "BottlePactButton", "BottleKeeperButton", "BottleCorlButton", "BottleWatcherButton", "BottleFarPointButton"]
 const LEDGER_IDS: Array[String] = ["bottle_tide", "bottle_gull", "bottle_light", "bottle_pact", "bottle_keeper", "bottle_corl", "bottle_watcher", "bottle_far_point"]
 ## Reef Registry rows, matched to the scene's button nodes and FishCatalog.
-const REGISTRY_BUTTONS: Array[String] = ["FishGoldButton", "FishGreyreefsharkButton", "FishNemoButton", "FishCrabButton", "FishSilverfinButton"]
-const REGISTRY_IDS: Array[String] = ["fish_gold", "fish_greyreefshark", "fish_nemo", "fish_crab", "fish_silverfin"]
+const REGISTRY_BUTTONS: Array[String] = ["FishGoldButton", "FishGreyreefsharkButton", "FishNemoButton", "FishCrabButton", "FishSilverfinButton", "FishStarButton"]
+const REGISTRY_IDS: Array[String] = ["fish_gold", "fish_greyreefshark", "fish_nemo", "fish_crab", "fish_silverfin", "fish_star"]
 ## Display order of the guide's station sections. Entries carry a "where" tag.
 const GUIDE_GROUPS: Array[String] = ["Reef Rescue", "Upcycle", "Shop", "Islanders", "Island", "Hidden"]
 ## The banner owns the legendary set; the guide reads it so the gold rows and
@@ -189,10 +189,11 @@ func _update_stats_display() -> void:
 	var fish_names: Array[String] = []
 	for id in GameState.fish_met:
 		fish_names.append(FishCatalog.name_of(id))
-	_collections_body.text = "Starfish found: %d / 5\nGolden scraps: %d\nFish spotted: %d / 5 species%s" % [
+	_collections_body.text = "Starfish found: %d / 5\nGolden scraps: %d\nFish spotted: %d / %d species%s" % [
 		GameState.starfish_found.size(),
 		GameState.golden_finds,
 		GameState.fish_met.size(),
+		REGISTRY_IDS.size(),
 		"  ·  " + ", ".join(fish_names) if not fish_names.is_empty() else "",
 	]
 
@@ -278,7 +279,7 @@ func _build_journal_line() -> String:
 	var almanac := " · tide almanac paid" if GameState.tide_almanac_granted else ""
 	var quiet := " · tide hidden" if GameSettings.hide_tide else ""
 	var tides := GameState.tides_logged.size()
-	return "Journal — bottles %d/8 · starfish %d/5%s · tides %d/4%s%s · species %d/5 · achievements %d/%d" % [bottles, starfish, paid_out, tides, almanac, quiet, fish, ach, total]
+	return "Journal — bottles %d/8 · starfish %d/5%s · tides %d/4%s%s · species %d/%d · achievements %d/%d" % [bottles, starfish, paid_out, tides, almanac, quiet, fish, REGISTRY_IDS.size(), ach, total]
 
 
 ## The keeper's almanac as a checklist: every tide in rotation order with a
@@ -711,8 +712,8 @@ func _refresh_registry_legend() -> void:
 	_registry_legend.text = "every species you have bumped into — %d/%d — tap to read what you know" % [found, REGISTRY_IDS.size()]
 
 
-## The registry button advertises its own completion — five slots, five
-## notes; at five it turns gold like a finished chorus.
+## The registry button advertises its own completion — one slot per species,
+## one note each; at full it turns gold like a finished chorus.
 func _refresh_registry_button() -> void:
 	if not _registry_button:
 		return
@@ -810,6 +811,8 @@ func _open_registry() -> void:
 					button.text = "·  Something wearing somebody else's name"
 				"fish_silverfin":
 					button.text = "·  Something pale and quick on the tide"
+				"fish_star":
+					button.text = "·  Something five-armed on the reef floor"
 				_:
 					button.text = "·  ? ? ?  —  still out there"
 			button.disabled = true

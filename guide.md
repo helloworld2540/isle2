@@ -279,14 +279,15 @@ checked against this yield — nothing changed, deliberately.*
 - The stats page's Tide Ledger and Reef Registry tease locked rows
   instead of printing question marks — each bottle and fish has its own
   spoiler-free hint; the page is the island's clue board.
-- The stats page opens with a single-line Keeper's Journal ledger: "Journal — bottles n/8 · starfish n/5 · tides n/4 · species n/5 · achievements n/47" — so you can see the whole completion board at a glance without scrolling.
+- The stats page opens with a single-line Keeper's Journal ledger: "Journal — bottles n/8 · starfish n/5 · tides n/4 · species n/6 · achievements n/47" — so you can see the whole completion board at a glance without scrolling.
 - Bottles you have already read can be re-read from the stats page via the Tide Ledger overlay (the game nudges you there once the third base bottle is read) (undiscovered notes stay locked).
 - Quest economics audit (SALE_PRICES-weighted): turn-ins are deliberately slightly under market value — that is the price of quest progress and the Harbor Hero +10 kg cap — but the old numbers were punitive (Tom 24$->12$, Nina 30$->15$, Kai 25$->10$, Mara t2 25$->18$). Buffed: Tom t1 4->6 PP (18$), Nina t1 5->6 PP (18$), Kai t1 now 6 PP (18$), Mara t2 6->8 PP (24$). Nina t2 (+8$) and Kai t2 (+4$) remain the profitable tiers.
 - Depth is tracked in the stats page and feeds two achievements: DEEP DIVE (400 m) and TO THE ABYSS (900 m). Ten finished dives earns REEF REGULAR; the stats page keeps a running "Field log" of dives and bench runs.
-- Species you bump into are logged in the stats page ("Fish spotted") and in the Reef Registry overlay (tap a note to re-read what you know about that fish); meeting all five earns REEF REGISTRY.
+- Species you bump into are logged in the stats page ("Fish spotted") and in the Reef Registry overlay (tap a note to re-read what you know about that fish); meeting all six earns REEF REGISTRY.
 - Five starfish hide around the island (the game nudges on your first and on your fourth) — walk over one to add it to the journal (stats page, "Starfish found"); collecting all five earns STARLIGHT; once you find your first starfish the world HUD keeps a running count (bottle-style line under the route tracker), flipping gold as STARLIGHT KEEPER at five; collecting every starfish also pays a one-time +$25 Tide Pool card.
 - Once ISLAND STEWARD is earned, one more star appears at the far point east of the watcher: **THE KEEPER'S STAR** — the sixth star the island held back for the keeper who kept everything. Walking over it delivers the island's last card, a low bell, +$50 and the 43rd badge. It is not counted toward STARLIGHT, it never appears before the capstone, and it fires exactly once. The stats page's deeds column records it when found.
 - A rare golden Goldie (10% of fish spawns, any species) pays +5 when bumped and costs no life — its edge marker shimmers gold, never red.
+- **The Starfish** — a sixth reef species joins the water: a slow, five-armed constellation that drifts at less than half a fish's pace across the lane. It is still a bump if you swim into it, but it is the easiest hazard on the reef to read and step around. First sighting pops "New species: Starfish!" and the Reef Registry keeps its note.
 - Rare golden debris in the reef (12% spawn) is worth +1 bonus score on top of the combo multiplier.
 - Rare golden belt items in Upcycle (12% spawn) are worth double score (+2) when sorted correctly.
 - Closing your first full island circuit earns ROUND THE ISLE; 25 closes earns LOOP MASTER. Lifetime golden scraps (belt + reef + Goldies) persist and feed the GOLDEN TOUCH achievement at 10.
@@ -525,6 +526,7 @@ them — and a faint golden hush over the world.
 - **Night Drift** — half the distant cries become a low foghorn, far out on the water.
 
 ## Version history (as shipped)
+- **The Starfish** — a sixth reef species drifts onto the reef floor: slow, patient, easy to read and easy to step around. First sighting pops "New species: Starfish!", the Reef Registry gains its row, and REEF REGISTRY now demands all six species (counts read n/6). The Starfish no longer counts as a "fish" in the achievement copy — it is a reef species like the rest.
 - **Corl closes the ledger** — after THE LAST LETTER lands, the shop now prints a one-liner: "Corl adds a note to the ledger: 'The courier's post is done. Thank you.'" No new state, no new badge; just a man who was always counting.
 - **The counter's drawer** — the courier's letter button shows its page number and the stash counts down; after the fourteenth, the drawer is empty and the counter refuses the sale. The note then says the courier still crosses the strait for you — and on Eel Run, it does. The sea does not spam its keeper.
 - **The last whisper got loud enough** — the Filled Almanac's footnote went from a 14px whisper to a legible 18px line. The smallest font in the project is gone.

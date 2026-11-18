@@ -25,21 +25,30 @@ const FISH := {
 	"fish_greyreefshark.png": 45,
 	"fish_nemo.png": 25,
 	"fish_crab.png": 15,
-	"fish_silverfin.png": 18
+	"fish_silverfin.png": 18,
+	"fish_star.png": 40
 }
 
 ## Relative spawn weights — tuned so the Grey Reef Shark is a spice, the Crab
 ## and Goldie are regulars, and the Silverfin is a deliberate, rare sighting.
-## Eel Run calls the courier up: the silver flash rides the fast water.
+## Eel Run calls the courier up: the silver flash rides the fast water. The
+## Starfish is a slow reef-floor dweller, uncommon but easy to spot.
 const SPAWN_WEIGHTS := {
 	"fish_gold.png": 20,
 	"fish_greyreefshark.png": 14,
 	"fish_nemo.png": 26,
 	"fish_crab.png": 22,
 	"fish_silverfin.png": 10,
+	"fish_star.png": 14,
 }
 ## Silverfin spawn weight while the tide is Eel Run (fish are keyed up).
 const EEL_RUN_SILVERFIN_WEIGHT := 20
+## Speed scale per species. The Starfish is a patient reef-floor dweller: it
+## drifts at a fraction of a fish's pace, so its lane can be read early and
+## stepped around — flavour and a fair hazard at once.
+const DRIFT_SPEED_SCALE := {
+	"fish_star.png": 0.42,
+}
 
 @onready var sprite: Sprite2D = $CharacterBody2D/Sprite2D
 
@@ -82,8 +91,10 @@ func init_fish() -> void:
 	var raw_size := randfn(float(FISH.get(texture, 10)), 10.0)
 	var clamped := clampf(raw_size, 1.0, 99.0)
 	size = log(clamped) / log(100.0)
-	# Eel Run speeds the whole school up.
-	speed = Vector2(randfn(0.0, 75.0), randfn(1.0, 0.4)) * TideReport.fish_speed_multiplier()
+	# Eel Run speeds the whole school up; the Starfish keeps its own slow pace.
+	speed = Vector2(randfn(0.0, 75.0), randfn(1.0, 0.4)) \
+		* TideReport.fish_speed_multiplier() \
+		* float(DRIFT_SPEED_SCALE.get(texture, 1.0))
 	if sprite:
 		var tex := _sprite(texture)
 		if tex:

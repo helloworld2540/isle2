@@ -1,6 +1,19 @@
 # Current project todo:
 
 ## done this pass
+- **The Starfish — a sixth reef species** — a hand-painted, five-armed
+  constellation drifts onto the reef floor. It spawns from the same weighted
+  table as the rest (weight 14, between the regulars and the Silverfin) and
+  moves at `0.42×` a fish's speed via `rr_fish.gd`'s new `DRIFT_SPEED_SCALE`,
+  so its lane reads early and steps aside cleanly. First sighting pops "New
+  species: Starfish!"; the Reef Registry overlay gains a sixth row and hint;
+  the stats page, journal line and REEF REGISTRY predicate all count `n/6`.
+  REEF REGISTRY's subtitle now says "six reef species" (a starfish is not a
+  fish). The RegistryOverlay panel grew 20 px top/bottom to hold the row and
+  still passes `layout_audit` at 1152×648. `sprites/bottle.png` and
+  `sprites/starfish.png` were repainted to match the new art. Smoke + layout +
+  docs + parity audits pass.
+
 - **AlmanacOverlay layout fix & extended layout audit** — Stats page's hidden Almanac card wrapped and constrained to fit 1152×648 at the 24px font floor. `tools/layout_audit.gd` extended to open and measure all four hidden stats overlays (guide, ledger, registry, almanac) with 3-frame layout settle delays, keeping 0 layout failures.
 
 - **The standing order** — the shop pays +1$/unit for one material each tide

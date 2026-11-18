@@ -153,7 +153,7 @@ const ENTRIES: Array[Dictionary] = [
 		"id": "reef_registry",
 		"short": "Registry",
 		"title": "REEF REGISTRY",
-		"subtitle": "Bumped into all five fish species.",
+		"subtitle": "Bumped into all six reef species.",
 		"where": "Reef Rescue",
 	},
 	{
@@ -403,7 +403,7 @@ static func is_met(id: String, state: Node) -> bool:
 		"golden_touch":
 			return state.golden_finds >= 10
 		"reef_registry":
-			return state.fish_met.size() >= 5
+			return state.fish_met.size() >= 6
 		"clean_sweep":
 			return state.clean_dives >= 5
 		"silk_touch":
