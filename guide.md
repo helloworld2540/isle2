@@ -470,6 +470,14 @@ Tom knows the courier exists and keeps to his fishing. Mara considers it
 in the almanac margin by hand, never reads it aloud, and answers the
 keeper's question with silence, every time.
 
+The courier, like every genuinely strange thing on the island, quietly
+shows up in the almanac. Once all four tides have been logged, the book
+is full and the island sends its keeper a private note: THE ALMANAC PAGE.
+That note is not written by the courier — but the courier was the reason
+you learned to count tides in the first place. The only way to catch the
+courier is to learn the sea's four moods, which is not how the first
+keepers learned. The courier taught you by example and never said so.
+
 
 Every named islander notices what you do once you do it. The game tracks no
 new flags for this — it reads the achievement catalogue, and once a badge is
