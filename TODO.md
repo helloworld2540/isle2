@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- **THE LAST LETTER** — the hidden 47th badge: read all fourteen pages of
+  the courier's post (courier_letters_bought >= 14). Legendary banner.
 - **A letter from above** — log the Silverfin once; the next world load
   surfaces a one-shot nudge from Nina (the pilot): "Something pale crossed
   beneath me on the way in…" Persisted, once per save, defers behind any

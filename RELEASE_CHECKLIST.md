@@ -36,7 +36,7 @@ Export presets: `Web`, `Android`, `Linux` (`export_presets.cfg`).
 
 Harnesses that own `user://slots` (slot_test, migration_test, slot_ui_test,
 tide_test) refuse to run against existing player data and wipe their slots
-afterwards. Catalogue counts (currently 46) come from the dynamic
+afterwards. Catalogue counts (currently 47) come from the dynamic
 AchievementCatalog, never hardcoded.
 
 ## Pre-flight

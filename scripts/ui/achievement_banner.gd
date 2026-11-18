@@ -47,6 +47,7 @@ const LEGENDARY_ACHIEVEMENTS := {
 	"island_steward": true,
 	"whole_sea": true,
 	"courier_regular": true,
+	"last_letter": true,
 }
 
 ## Two card flavours: gold for milestones/route celebrations, blue for the

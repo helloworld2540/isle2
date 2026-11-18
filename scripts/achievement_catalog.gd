@@ -331,6 +331,13 @@ const ENTRIES: Array[Dictionary] = [
 		"subtitle": "Ten pages from the courier, read at the counter.",
 		"where": "Island",
 	},
+	{
+		"id": "last_letter",
+		"short": "Letters",
+		"title": "THE LAST LETTER",
+		"subtitle": "Read all fourteen pages of the courier's post.",
+		"where": "Hidden",
+	},
 ]
 
 
@@ -459,4 +466,8 @@ static func is_met(id: String, state: Node) -> bool:
 			return state.fish_met.has("fish_silverfin")
 		"courier_regular":
 			return state.courier_letters_bought >= 10
+		"last_letter":
+			# Fourteen pages in the courier's post; each is one tide day's
+			# letter, no skipping — the rotation keeps order.
+			return state.courier_letters_bought >= 14
 	return false
