@@ -28,12 +28,42 @@ const FISH := {
 	"fish_silverfin.png": 18
 }
 
+## Relative spawn weights — tuned so the Grey Reef Shark is a spice, the Crab
+## and Goldie are regulars, and the Silverfin is a deliberate, rare sighting.
+## Eel Run calls the courier up: the silver flash rides the fast water.
+const SPAWN_WEIGHTS := {
+	"fish_gold.png": 20,
+	"fish_greyreefshark.png": 14,
+	"fish_nemo.png": 26,
+	"fish_crab.png": 22,
+	"fish_silverfin.png": 10,
+}
+## Silverfin spawn weight while the tide is Eel Run (fish are keyed up).
+const EEL_RUN_SILVERFIN_WEIGHT := 20
+
 @onready var sprite: Sprite2D = $CharacterBody2D/Sprite2D
 
 var speed := Vector2.ZERO
 var size := 1.0
 
 const WAKE_SCENE := preload("res://scenes/rr_fish_wake.tscn")
+
+## Weighted spawn pick. Reads the deterministic tide, so Eel Run days are the
+## courier's day on the water — preview and payout never disagree about the odds.
+static func _pick_fish_texture() -> String:
+	var weights := SPAWN_WEIGHTS.duplicate()
+	if TideReport.today_key() == "eel_run":
+		weights["fish_silverfin.png"] = EEL_RUN_SILVERFIN_WEIGHT
+	var total := 0.0
+	for w in weights.values():
+		total += float(w)
+	var roll := randf() * total
+	for key in weights:
+		roll -= float(weights[key])
+		if roll <= 0.0:
+			return str(key)
+	return "fish_nemo.png"
+
 
 func init_fish() -> void:
 	set_meta("is_fish", true)
@@ -42,10 +72,7 @@ func init_fish() -> void:
 	if wake and get_parent():
 		get_parent().add_child(wake)
 		wake.global_position = Vector2(global_position.x, vp.y - 24.0)
-	var texture_keys := FISH.keys()
-	if texture_keys.is_empty():
-		return
-	var texture: String = str(texture_keys.pick_random())
+	var texture := _pick_fish_texture()
 	set_meta("species", texture.get_basename())
 	# Rare golden Goldie: grazes are rewards, not penalties. Tinted bright gold.
 	# The daily Night Drift tide doubles this roll.
