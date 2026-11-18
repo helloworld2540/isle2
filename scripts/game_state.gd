@@ -890,6 +890,19 @@ func _evaluate_achievements(silent: bool = false) -> void:
 				],
 				"The island is finished talking — and you heard it all.",
 			)
+		if id == "last_letter" and not silent and last_run.is_empty():
+			# Fourteen pages read at the counter, in order — the drawer shuts
+			# for good. This is the courier's last word, given once.
+			record_run(
+				"story",
+				"The Drawer is Empty",
+				[
+					"Fourteen pages, sealed with a small fin, read at the counter.",
+					"The courier never writes again. Nobody promised it would stop swimming.",
+					"You have a thing the sea almost never gives: the complete works.",
+				],
+				"The Reef Registry keeps the courier's name. Now you keep its post.",
+			)
 		if not silent:
 			_pending_achievement_ids.append(id)
 			achievement_unlocked.emit(id, String(def.get("title", id)), String(def.get("subtitle", "")))

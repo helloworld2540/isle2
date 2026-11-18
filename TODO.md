@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- **The Drawer is Empty** — the final courier-arc recap card queued
+  when THE LAST LETTER fires: fourteen pages, the sea's complete works,
+  the drawer shuts for good. Never clobbers a pending run recap.
 - **courier_arc_test.gd** — arc-level harness: fresh profile → first
   letter purchase, counter increments, Silverfin logged, clean world
   re-entry, cost and contract intact. 0 failures.
