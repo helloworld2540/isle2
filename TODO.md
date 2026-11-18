@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- **scene_boot_audit.sh** — permanent gate for the boot sweep: every
+  interactive scene boots headless with an isolated profile, fails on any
+  script error; smoke can't see parse errors or _ready crashes. PASS.
 - **Two real boot bugs fixed** — caught by headless scene boots:
   (1) the world menu's About canvas pointed at `Menu/Menu/AboutCanvas`
   (always null — About button was silently dead); now `$AboutCanvas`.
