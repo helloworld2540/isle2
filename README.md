@@ -111,6 +111,7 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 - **The courier crosses the strait**: on Eel Run days a pale streak sweeps the world map (`scenes/wm_courier.tscn`, `scripts/wm_courier.gd`) — ambience only, no card, no prompt. Once THE LAST LETTER is read, the flyby comes sooner and more often: the sea keeps the keeper company.
 - **The front door remembers**: the main-menu Continue summary now badges ✳ The Pale Courier and ✦ The Whole Sea alongside Harbor Hero and Patron of the Isle.
 - **The Courier's Wake**: earning THE PALE COURIER queues a one-time world-map recap card (same path as The Last Page) — the Silverfin earns ink, not just a badge.
+- **The quiet harbor**: once THE WHOLE SEA is earned the dock's gull flock cries ~80% less often, the far-jetty calls stretch and never draw an answer — and the far-point watcher sets his lantern down (the pulse stops; a dim, steady ember remains). The sea is finished talking.
 - **The first keeper's margin notes**: every minigame briefing card carries a rotating handwritten line from the keeper who came before (`scripts/margin_notes.gd`, two voices — bench and water), surfaced through `MinigameIntro.set_flavor_line`.
 - **Run identity**: zero-miss bench shifts earn FLAWLESS SHIFT, zero-bump dives earn CLEAN DIVE — printed on the summary and world-map recap cards. Earning THE WHOLE SEA also queues a one-time "The Last Page" recap card — never overwriting a pending run recap.
 

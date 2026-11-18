@@ -1,4 +1,10 @@
 
+## 2026-11-18 — The watcher sets the lantern down
+- `scripts/wm_watcher.gd`: once THE WHOLE SEA is earned the far-point
+  watcher's lantern stops breathing — a dim, steady ember instead of the
+  pulse. The quiet-harbor pass silences the dock; now the watch itself is
+  over. No new flag (reads the achievement), reduced-motion path unchanged.
+
 ## 2026-11-18 — layout_audit: the mobile screen gate
 - New `tools/layout_audit.gd`: instantiates every screen at 1152×648 and fails
   on any visible screen-space Control past the window (skips ScrollContainer

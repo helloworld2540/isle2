@@ -1,6 +1,13 @@
 # Current project todo:
 
 ## done this pass
+- **The watcher sets the lantern down** — once THE WHOLE SEA is earned, the
+  far-point watcher's breathing lantern stops: no pulse, just a dim, steady
+  ember (0.72, 0.78, 0.9, 0.72). Nothing left to watch for. Reduced motion
+  already held it still, so the only state that changes is the completed one.
+  README + guide tell the story.
+
+## done this pass
 - **`tools/layout_audit.gd` — the mobile layout gate.** Instantiates every
   screen (menu, world, both minigames, shop, stats, tutorial, briefing, About,
   recap, hint, dialogue, settings) at 1152×648 and fails on any visible

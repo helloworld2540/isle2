@@ -11,8 +11,14 @@ func _ready() -> void:
 
 	# The lantern breathes — a slow warm swell you can spot across the water.
 	# Reduced motion holds it still; he was never about the light.
-	if not GameSettings.reduce_motion:
-		var sprite := get_node_or_null("Sprite2D") as Sprite2D
+	var sprite := get_node_or_null("Sprite2D") as Sprite2D
+	if GameState.is_achievement_unlocked("whole_sea"):
+		# Every page the sea ever wrote has been read. The watcher sets the
+		# lantern down: no pulse, just a dim, steady ember. Nothing left to
+		# watch for — and nothing left that needs watching.
+		if sprite:
+			sprite.modulate = Color(0.72, 0.78, 0.9, 0.72)
+	elif not GameSettings.reduce_motion:
 		if sprite:
 			var tw := create_tween().set_loops()
 			tw.tween_property(sprite, "modulate", Color(1.0, 0.95, 0.8, 1.0), 1.8).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
