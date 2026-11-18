@@ -128,6 +128,9 @@ checked against this yield — nothing changed, deliberately.*
   5. **You know the loop!** — celebratory card naming the $15 island-circuit bonus.
 - Cards are non-modal (they never pause or block play) and only appear in the scene
   where the current step can be acted on; they reappear on scene re-entry until done.
+- The finale card gestures at the long game — the tide, the NPCs, the bottles,
+  and now the courier's letter: "if the shop counter mentions a page the
+  courier left, that is not a rumour."
 - Progress saves as `tutorial_step`; the tour survives quitting mid-way and never
   re-arms on old saves.
 - Eight one-shot ambient nudges also live here: a **Bag almost full!** card the

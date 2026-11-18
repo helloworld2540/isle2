@@ -1,6 +1,8 @@
 # Current project todo:
 
 # done this pass
+- **The finale now names the courier** — the tutorial's last card gestures
+  at the courier's letter at the shop counter ("that is not a rumour").
 - **Weighted reef spawns** — fish spawns were uniform; now Goldie/Nemo are
   regulars, Crab common, Grey Reef Shark rare (14), Silverfin rare (10,
   doubled to 20 on Eel Run). TideReport drives the courier's day.
