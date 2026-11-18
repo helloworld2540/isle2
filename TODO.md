@@ -1,6 +1,11 @@
 # Current project todo:
 
 # done this pass
+- **The first keeper's margin notes** — every minigame briefing card
+  (Upcycle bench and Reef Rescue) now carries a quiet handwritten line
+  from the first keeper, rotating by run/dive count via new
+  `scripts/margin_notes.gd` (two voices: BENCH and WATER). New
+  `MinigameIntro.set_flavor_line` + `Flavor` row in minigame_intro.tscn.
 - **The quiet harbor** — once THE WHOLE SEA is earned, the world map's
   gull flock cries ~80% less often, the far-jetty calls stretch to
   1.6–1.8× their cadence and never draw an answer. The sea is finished

@@ -101,6 +101,7 @@ func _ready() -> void:
 			intro.set_stat_line("Best score: %d  ·  Runs finished: %d" % [GameState.best_upcycle_score, runs])
 		else:
 			intro.set_stat_line("First shift — nobody holds the record yet.")
+		intro.set_flavor_line("“%s” — the first keeper" % MarginNotes.bench_note(runs))
 	
 	if player:
 		player.global_position = _snap(player.global_position)

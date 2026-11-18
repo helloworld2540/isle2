@@ -216,7 +216,10 @@ checked against this yield — nothing changed, deliberately.*
 - Mid-run the score readout carries "(best N)" so the chase stays visible, and
   passing the record fires a one-shot gold "NEW BEST — N!" callout with a punch.
 - The pre-round briefing leads with your personal stake — "Best score: N ·
-  Runs finished: M" — so the ghost follows you into the room.
+  Runs finished: M" — so the ghost follows you into the room. Under it, the
+  first keeper's margin note turns with every run ("Sort it twice, sort it
+  right…"), the same hand that wrote the almanac. Reef Rescue carries the
+  water-side set.
 - Combo milestones (every five clean sorts) add +5 score and a "FIVE ON THE
   BELT!" banner; a burned or wrong item resets the streak.
 - When only 5 Reef Debris remain the bench warns you once; when the pile runs
@@ -441,6 +444,7 @@ them — and a faint golden hush over the world.
 - **Night Drift** — half the distant cries become a low foghorn, far out on the water.
 
 ## Version history (as shipped)
+- **The first keeper's margin notes** — every briefing card (bench and reef) now carries a quiet handwritten line from the keeper who came before, rotating with your run/dive count. Save some for the almanac; it deserves the company.
 - **1.2.0** — THE KEEPER'S STAR (the epilogue, his sixth star), THE WHOLE SEA (the hidden 44th badge: all eight bottles), the far point's reply bottle, and all five islanders noticing the watcher.
 - **The quiet harbor** — once THE WHOLE SEA is earned, the gull flock cries ~80% less often, the far-jetty calls stretch and never draw an answer. The dock keeps the silence for the keeper who heard it all.
 - **The Last Page** — earning THE WHOLE SEA queues a one-time world-map card: the keeper before you left the last page blank on purpose. Never overwrites a pending run recap and never fires on silent restore.

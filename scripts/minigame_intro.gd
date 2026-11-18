@@ -17,6 +17,7 @@ class_name MinigameIntro
 @onready var lines_label: RichTextLabel = $Center/Panel/VBox/Lines
 @onready var got_it_button: Button = $Center/Panel/VBox/GotItButton
 @onready var stats_label: Label = $Center/Panel/VBox/Stats
+@onready var flavor_label: Label = $Center/Panel/VBox/Flavor
 
 
 func _ready() -> void:
@@ -47,6 +48,16 @@ func set_stat_line(text: String) -> void:
 	var trimmed := text.strip_edges()
 	stats_label.text = trimmed
 	stats_label.visible = not trimmed.is_empty()
+
+
+## A quiet margin note under the stake line — the first keeper's handwriting.
+## Empty text hides the row entirely.
+func set_flavor_line(text: String) -> void:
+	if not flavor_label:
+		return
+	var trimmed := text.strip_edges()
+	flavor_label.text = trimmed
+	flavor_label.visible = not trimmed.is_empty()
 
 
 func _apply_text() -> void:
