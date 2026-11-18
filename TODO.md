@@ -1,6 +1,10 @@
 # Current project todo:
 
 ## done this pass
+- **The gratitude is legible in-game** — the stats page's deeds column now
+  records "The courier keeps you company on Eel Run — the whole post is
+  read." once THE LAST LETTER is earned, so the story change is visible
+  without reading the guide.
 - **The watcher sets the lantern down** — once THE WHOLE SEA is earned, the
   far-point watcher's breathing lantern stops: no pulse, just a dim, steady
   ember (0.72, 0.78, 0.9, 0.72). Nothing left to watch for. Reduced motion

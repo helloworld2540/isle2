@@ -1,4 +1,9 @@
 
+## 2026-11-18 — The gratitude is legible in-game
+- Stats page deeds gain "The courier keeps you company on Eel Run — the whole
+  post is read." once THE LAST LETTER is earned. The flyby change is now
+  something the keeper can read on their own island, not only in the guide.
+
 ## 2026-11-18 — The watcher sets the lantern down
 - `scripts/wm_watcher.gd`: once THE WHOLE SEA is earned the far-point
   watcher's lantern stops breathing — a dim, steady ember instead of the

@@ -199,6 +199,8 @@ func _update_stats_display() -> void:
 		deeds.append("The keeper's star: found.")
 	if GameState.courier_passes > 0:
 		deeds.append("The courier passed by %d time%s" % [GameState.courier_passes, "" if GameState.courier_passes == 1 else "s"])
+	if GameState.is_achievement_unlocked("last_letter"):
+		deeds.append("The courier keeps you company on Eel Run — the whole post is read.")
 	if GameState.is_achievement_unlocked("whole_sea"):
 		deeds.append("The whole sea: every note the tide ever sent, read.")
 	if GameState.fifth_tide_granted:
