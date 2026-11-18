@@ -229,10 +229,12 @@ func _refresh_purchases() -> void:
 	if buy_courier_letter_button:
 		var letter_i: int = GameState.courier_letters_bought
 		var drawer_empty := letter_i >= CourierLetters.count()
+		# Once the drawer is empty there's nothing left to buy — hide the
+		# button instead of greying it, so the counter lists only what can
+		# still happen.
+		buy_courier_letter_button.visible = not drawer_empty
 		if drawer_empty:
-			buy_courier_letter_button.text = "Courier's letter — the drawer is empty"
-			buy_courier_letter_button.tooltip_text = "All %d pages read. The courier wrote nothing after that." % CourierLetters.count()
-			buy_courier_letter_button.disabled = true
+			pass
 		elif GameState.courier_letter_bought_today():
 			buy_courier_letter_button.text = "Courier's letter %d of %d — read for today" % [letter_i + 1, CourierLetters.count()]
 			buy_courier_letter_button.tooltip_text = "One page a tide day. Come back on the next tide."
