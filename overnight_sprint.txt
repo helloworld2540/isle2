@@ -1154,3 +1154,16 @@ STATE
 ## 2026-11-18 — A real app icon at the launcher
 - sprites/icon.png repainted in-repo (PIL): midnight squircle, sand isle,
   bottle, sun. The stock Godot logo no longer ships at the launcher.
+
+## 2026-11-18 — The Starfish joins the reef
+- Sixth reef species: hand-painted sprite, spawn weight 14, drift speed 0.42×
+  a fish, spawns on-screen (no bottom wake), calm amber edge marker instead of
+  the red fish flare. First sighting pops "New species: Starfish!".
+- Reef Registry overlay gains a sixth row + hint; stats page, journal ledger
+  and REEF REGISTRY predicate read n/6. RegistryOverlay grew 20 px and still
+  fits 1152×648 under layout_audit.
+- New permanent gate: tools/reef_registry_test.gd keeps FishCatalog, FISH
+  sizes, spawn weights, registry rows and the achievement predicate in
+  agreement (incl. the Starfish drift row). Wired into all_audits.sh.
+- bottle.png and starfish.png repainted; smoke, layout, docs, parity, npc-beat,
+  touch, unique-id and the rest of ALL-AUDITS pass.

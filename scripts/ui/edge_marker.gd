@@ -11,15 +11,20 @@ const TRASH_COLOR := Color(1.0, 0.95, 0.35, 0.95)
 ## Golden Goldies look like fish but are gifts — mark them gold, never red,
 ## so a sharp-eyed player knows a graze is worth taking.
 const GOLDEN_COLOR := Color(1.0, 0.85, 0.3, 0.95)
+## The Starfish is a hazard, but a patient one: amber marks a slow drifter
+## easy to step around, never a red alarm.
+const PASSIVE_COLOR := Color(1.0, 0.7, 0.38, 0.95)
 
 func _ready() -> void:
 	pivot_offset = size * 0.5
 
 
-func set_kind(is_fish: bool, golden: bool = false) -> void:
+func set_kind(is_fish: bool, golden: bool = false, passive: bool = false) -> void:
 	var col := TRASH_COLOR
 	if golden:
 		col = GOLDEN_COLOR
+	elif passive:
+		col = PASSIVE_COLOR
 	elif is_fish:
 		col = FISH_COLOR
 	add_theme_color_override("font_color", col)

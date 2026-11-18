@@ -187,7 +187,7 @@ func _update_edge_markers() -> void:
 			marker = _EDGE_MARKER_SCENE.instantiate()
 			marker.set_direction(pos - vp * 0.5)
 			add_child(marker)
-			marker.set_kind(bool(next.get_meta("is_fish", false)), bool(next.get_meta("golden_fish", false)))
+			marker.set_kind(bool(next.get_meta("is_fish", false)), bool(next.get_meta("golden_fish", false)), str(next.get_meta("species", "")) == "fish_star")
 			_edge_markers[id] = marker
 		else:
 			marker = _edge_markers[id]
@@ -204,6 +204,10 @@ func _update_edge_markers() -> void:
 			# Golden shimmer, never the red flare — a graze is a gift.
 			var wave := 0.5 + 0.5 * sin(Time.get_ticks_msec() * 0.008)
 			marker.pulse(0.4 + 0.3 * wave)
+		elif str(next.get_meta("species", "")) == "fish_star":
+			# A slow drifter needs no alarm — a soft, steady breathe.
+			var wave := 0.5 + 0.5 * sin(Time.get_ticks_msec() * 0.0035)
+			marker.pulse(0.16 + 0.12 * wave)
 		elif bool(next.get_meta("is_fish", false)) and drone:
 			var dist := pos.distance_to(drone.global_position)
 			var proximity := clampf(1.0 - dist / 900.0, 0.0, 1.0)

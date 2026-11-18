@@ -260,7 +260,7 @@ checked against this yield — nothing changed, deliberately.*
   x3 milestone; depth milestones (100/250/400/700/900 m) fire a one-time banner
   each — 400 m is DEEP DIVE, 900 m is TO THE ABYSS.
 - Off-screen edge markers: fish markers flare red and swell/throb as they
-  close on the drone (proximity + depth-scaled shimmer); garbage markers stay calm yellow.
+  close on the drone (proximity + depth-scaled shimmer); garbage markers stay calm yellow; the Starfish's marker is a calm amber breathe (it is slow and easy to read).
 - Fish telegraph: a red wake blooms at the bottom edge in the fish's lane ~1.15s
   before it rises into view (swells and fades; skipped under reduced motion).
 - One bump left from the fish limit: the screen edges breathe a soft red
@@ -287,7 +287,7 @@ checked against this yield — nothing changed, deliberately.*
 - Five starfish hide around the island (the game nudges on your first and on your fourth) — walk over one to add it to the journal (stats page, "Starfish found"); collecting all five earns STARLIGHT; once you find your first starfish the world HUD keeps a running count (bottle-style line under the route tracker), flipping gold as STARLIGHT KEEPER at five; collecting every starfish also pays a one-time +$25 Tide Pool card.
 - Once ISLAND STEWARD is earned, one more star appears at the far point east of the watcher: **THE KEEPER'S STAR** — the sixth star the island held back for the keeper who kept everything. Walking over it delivers the island's last card, a low bell, +$50 and the 43rd badge. It is not counted toward STARLIGHT, it never appears before the capstone, and it fires exactly once. The stats page's deeds column records it when found.
 - A rare golden Goldie (10% of fish spawns, any species) pays +5 when bumped and costs no life — its edge marker shimmers gold, never red.
-- **The Starfish** — a sixth reef species joins the water: a slow, five-armed constellation that drifts at less than half a fish's pace across the lane. It is still a bump if you swim into it, but it is the easiest hazard on the reef to read and step around. First sighting pops "New species: Starfish!" and the Reef Registry keeps its note.
+- **The Starfish** — a sixth reef species joins the water: a slow, five-armed constellation that drifts at less than half a fish's pace across the lane. It is still a bump if you swim into it, but it is the easiest hazard on the reef to read and step around: it rises nowhere (it is simply already on the reef floor), it never draws a red wake, and its edge marker is a calm amber, not an alarm. First sighting pops "New species: Starfish!" and the Reef Registry keeps its note.
 - Rare golden debris in the reef (12% spawn) is worth +1 bonus score on top of the combo multiplier.
 - Rare golden belt items in Upcycle (12% spawn) are worth double score (+2) when sorted correctly.
 - Closing your first full island circuit earns ROUND THE ISLE; 25 closes earns LOOP MASTER. Lifetime golden scraps (belt + reef + Goldies) persist and feed the GOLDEN TOUCH achievement at 10.

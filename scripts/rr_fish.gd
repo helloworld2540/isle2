@@ -76,13 +76,19 @@ static func _pick_fish_texture() -> String:
 
 func init_fish() -> void:
 	set_meta("is_fish", true)
-	var wake := WAKE_SCENE.instantiate()
-	var vp := get_viewport_rect().size
-	if wake and get_parent():
-		get_parent().add_child(wake)
-		wake.global_position = Vector2(global_position.x, vp.y - 24.0)
 	var texture := _pick_fish_texture()
 	set_meta("species", texture.get_basename())
+	# The Starfish does not swim up from below — it is simply there on the
+	# reef floor. No red wake telegraph: its slow drift is its own warning.
+	if texture == "fish_star.png" and get_parent():
+		var vp := get_viewport_rect().size
+		global_position = Vector2(vp.x * randf_range(0.06, 0.94), vp.y * randf_range(0.25, 0.75))
+	else:
+		var wake := WAKE_SCENE.instantiate()
+		var vp := get_viewport_rect().size
+		if wake and get_parent():
+			get_parent().add_child(wake)
+			wake.global_position = Vector2(global_position.x, vp.y - 24.0)
 	# Rare golden Goldie: grazes are rewards, not penalties. Tinted bright gold.
 	# The daily Night Drift tide doubles this roll.
 	var golden_fish := randf() < 0.10 * TideReport.golden_chance_multiplier()
