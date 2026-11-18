@@ -32,8 +32,8 @@ const CONDITIONS: Array[Dictionary] = [
 	{
 		"key": "eel_run",
 		"title": "EEL RUN",
-		"summary": "Eel run — fish are quick today",
-		"blurb": "A warm current pushes through the reef. The fish dart faster, so aim a little ahead.",
+		"summary": "Eel run — the courier rides the current",
+		"blurb": "A warm current pushes through the reef. The fish dart faster — and the courier rides the fast water. Aim a little ahead.",
 		"garbage_bias": -0.06,
 		"fish_speed_mult": 1.28,
 		"belt_speed_mult": 1.0,

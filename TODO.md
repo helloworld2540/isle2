@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- **The tide card names the courier** — Eel Run's summary reads "Eel run —
+  the courier rides the current" on the HUD and the banner, and its blurb
+  tells you the courier rides the fast water. tide_test green.
 - **The courier is spoken of everywhere** — all five named islanders now
   notice THE PALE COURIER (Mara, Tom, Nina, Kai, Oda), each in register;
   npc_beat_audit covers them.
