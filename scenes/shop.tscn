@@ -46,6 +46,8 @@ offset_bottom = -16.0
 grow_horizontal = 2
 grow_vertical = 2
 horizontal_scroll_mode = 0
+overlay_scroll_horizontal = false
+overlay_scroll_vertical = false
 script = ExtResource("2_drag")
 
 [node name="Margin" type="MarginContainer" parent="CanvasLayer/Scroll"]

@@ -31,10 +31,30 @@ const AchievementBannerScript := preload("res://scripts/ui/achievement_banner.gd
 @onready var _reset_button: Button = $"Margin/VBox/ButtonRow/ResetButton"
 @onready var _restore_button: Button = $"Margin/VBox/ButtonRow/RestoreButton"
 var _pending_action := ""
+## Guide row/chip chrome, built once per state and reused across rebuilds.
+var _guide_row_styles: Dictionary = {}
+var _guide_chip_styles: Dictionary = {}
+## "" = every station; otherwise the group name (or "The Tide") in focus.
+var _guide_filter := ""
+## Compact chip labels — the full station names do not fit a filter row.
+const GUIDE_FILTER_LABELS: Dictionary = {
+	"": "All",
+	"Reef Rescue": "Reef",
+	"Upcycle": "Bench",
+	"Shop": "Shop",
+	"Islanders": "Folk",
+	"Island": "Island",
+	"Hidden": "Hidden",
+	"The Tide": "Tide",
+}
 @onready var _confirm_panel: CanvasLayer = $"ConfirmPanel"
 @onready var _guide_button: Button = $"Margin/VBox/ButtonRow/GuideButton"
 @onready var _guide_overlay: Control = $"GuideOverlay"
-@onready var _guide_list: Label = $"GuideOverlay/Panel/VBox/Scroll/GuideList"
+@onready var _guide_list: VBoxContainer = $"GuideOverlay/Panel/VBox/Scroll/GuideMargin/GuideList"
+@onready var _guide_scroll: ScrollContainer = $"GuideOverlay/Panel/VBox/Scroll"
+@onready var _guide_filters: HFlowContainer = $"GuideOverlay/Panel/VBox/GuideFilters"
+@onready var _guide_count: Label = $"GuideOverlay/Panel/VBox/GuideHeader/GuideCount"
+@onready var _guide_progress: ProgressBar = $"GuideOverlay/Panel/VBox/GuideHeader/GuideProgress"
 @onready var _guide_close: Button = $"GuideOverlay/Panel/VBox/GuideClose"
 @onready var _ledger_button: Button = $"Margin/VBox/ButtonRow/LedgerButton"
 @onready var _ledger_legend: Label = $"LedgerOverlay/Panel/VBox/LedgerLegend"
@@ -48,15 +68,15 @@ var _pending_action := ""
 @onready var _almanac_overlay: Control = $"AlmanacOverlay"
 @onready var _almanac_close: Button = $"AlmanacOverlay/Panel/VBox/AlmanacClose"
 @onready var _almanac_days: Array[Label] = [
-	$"AlmanacOverlay/Panel/VBox/Day0",
-	$"AlmanacOverlay/Panel/VBox/Day1",
-	$"AlmanacOverlay/Panel/VBox/Day2",
-	$"AlmanacOverlay/Panel/VBox/Day3",
-	$"AlmanacOverlay/Panel/VBox/Day4",
-	$"AlmanacOverlay/Panel/VBox/Day5",
-	$"AlmanacOverlay/Panel/VBox/Day6",
+	$"AlmanacOverlay/Panel/VBox/AlmanacScroll/AlmanacList/Day0",
+	$"AlmanacOverlay/Panel/VBox/AlmanacScroll/AlmanacList/Day1",
+	$"AlmanacOverlay/Panel/VBox/AlmanacScroll/AlmanacList/Day2",
+	$"AlmanacOverlay/Panel/VBox/AlmanacScroll/AlmanacList/Day3",
+	$"AlmanacOverlay/Panel/VBox/AlmanacScroll/AlmanacList/Day4",
+	$"AlmanacOverlay/Panel/VBox/AlmanacScroll/AlmanacList/Day5",
+	$"AlmanacOverlay/Panel/VBox/AlmanacScroll/AlmanacList/Day6",
 ]
-@onready var _almanac_footer: Label = $"AlmanacOverlay/Panel/VBox/AlmanacFooter"
+@onready var _almanac_footer: Label = $"AlmanacOverlay/Panel/VBox/AlmanacScroll/AlmanacList/AlmanacFooter"
 
 
 # ------------------------------------------------------------------------------
@@ -333,12 +353,12 @@ func _era_tag() -> String:
 # ------------------------------------------------------------------------------
 
 ## The compact roll in the stats text only shows short names; this page spells
-## out what each one actually means.
+## out what each one actually means. Two columns per station, earned rows lit,
+## so the guide reads as a route map of the island rather than a wall of text.
 func _open_guide() -> void:
 	if _guide_overlay == null:
 		return
-	if _guide_list:
-		_guide_list.text = _build_guide_text()
+	_rebuild_guide()
 	_guide_overlay.visible = true
 	AudioManager.play_sfx("pickup")
 
@@ -350,38 +370,306 @@ func _close_guide() -> void:
 	AudioManager.play_sfx("return")
 
 
-func _build_guide_text() -> String:
+func _rebuild_guide() -> void:
+	if _guide_list == null:
+		return
+	_clear_guide_list()
+	_rebuild_guide_filters()
+	
+	var earned := GameState.achievement_count()
+	var total := GameState.achievement_total()
+	if _guide_count:
+		_guide_count.text = "%d of %d earned" % [earned, total]
+	if _guide_progress:
+		_guide_progress.max_value = float(maxi(1, total))
+		_guide_progress.value = float(earned)
+	
 	var definitions := GameState.achievement_definitions()
-	var lines: Array[String] = []
-	
 	# Grouped by where the goal is earned, so the page doubles as a route map
-	# of the island. Unknown tags fall through to a trailing section.
+	# of the island. A filter narrows it to one station at a time.
+	var show_tide := _guide_filter.is_empty() or _guide_filter == "The Tide"
 	for group in GUIDE_GROUPS:
-		var section: Array[String] = []
-		for def in definitions:
-			if String(def.get("where", "")) != group:
-				continue
-			var id := String(def.get("id", ""))
-			var mark := "✓" if GameState.is_achievement_unlocked(id) else "·"
-			section.append("%s  %s\n     %s" % [mark, String(def.get("title", "")), String(def.get("subtitle", ""))])
-		if section.is_empty():
+		if not _guide_filter.is_empty() and _guide_filter != group:
 			continue
-		lines.append("— %s —" % group.to_upper())
-		lines.append_array(section)
-		lines.append("")
+		var members: Array[Dictionary] = []
+		for def in definitions:
+			if String(def.get("where", "")) == group:
+				members.append(def)
+		if members.is_empty():
+			continue
+		_guide_list.add_child(_build_guide_section(group, members))
 	
-	# The tide, spelled out for keepers who never read the harbour notice.
-	lines.append("— THE TIDE —")
-	lines.append("Glass Calm — more debris in the reef, fewer fish")
-	lines.append("The almanac logs each tide you witness (n/4)")
-	lines.append("Eel Run — reef fish dart about 28% faster")
-	lines.append("Slack Water — the belt runs about 18% slower")
-	lines.append("Night Drift — golden debris is twice as likely")
-	lines.append("The rotation is four days. The HUD shows today's reading;")
-	lines.append("for the price of a dockhand, tomorrow's too.")
-	lines.append("")
-	lines.append("%d of %d earned." % [GameState.achievement_count(), GameState.achievement_total()])
-	return "\n".join(lines)
+	if show_tide:
+		_guide_list.add_child(_build_tide_section())
+	_guide_list.add_child(_build_guide_footer())
+	if _guide_scroll:
+		_guide_scroll.scroll_vertical = 0
+
+
+## Remove immediately (not queue_free) so a filter change does not leave the
+## old list in the layout for a frame and make the scroll leap.
+func _clear_guide_list() -> void:
+	for child in _guide_list.get_children():
+		_guide_list.remove_child(child)
+		child.queue_free()
+
+
+## One chip per station plus All and the tide — the map at the top of the page.
+func _rebuild_guide_filters() -> void:
+	if _guide_filters == null:
+		return
+	for child in _guide_filters.get_children():
+		_guide_filters.remove_child(child)
+		child.queue_free()
+	var group := ButtonGroup.new()
+	_add_guide_filter_button("", group)
+	for station in GUIDE_GROUPS:
+		_add_guide_filter_button(station, group)
+	_add_guide_filter_button("The Tide", group)
+
+
+func _add_guide_filter_button(key: String, group: ButtonGroup) -> void:
+	var button := Button.new()
+	button.text = String(GUIDE_FILTER_LABELS.get(key, key))
+	button.toggle_mode = true
+	button.button_pressed = key == _guide_filter
+	button.button_group = group
+	button.custom_minimum_size = Vector2(0, 40)
+	button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	button.add_theme_font_size_override("font_size", 20)
+	button.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	button.pressed.connect(_on_guide_filter.bind(key))
+	_guide_filters.add_child(button)
+
+
+func _on_guide_filter(key: String) -> void:
+	if key == _guide_filter:
+		return
+	_guide_filter = key
+	AudioManager.play_sfx("open", 1.12)
+	_rebuild_guide()
+
+
+## One station: a gold header with its own tally, then the badges in two
+## columns so the page stays scannable at 20 px type.
+func _build_guide_section(group: String, members: Array[Dictionary]) -> VBoxContainer:
+	var earned := 0
+	for def in members:
+		if GameState.is_achievement_unlocked(String(def.get("id", ""))):
+			earned += 1
+	
+	var section := VBoxContainer.new()
+	section.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	section.add_theme_constant_override("separation", 6)
+	section.add_child(_build_guide_header(group.to_upper(), "%d/%d" % [earned, members.size()]))
+	
+	var columns := HBoxContainer.new()
+	columns.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	columns.add_theme_constant_override("separation", 10)
+	columns.add_child(_build_guide_column(members, 0))
+	columns.add_child(_build_guide_column(members, 1))
+	section.add_child(columns)
+	return section
+
+
+func _build_guide_header(title_text: String, count_text: String) -> HBoxContainer:
+	var row := HBoxContainer.new()
+	row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	var title := Label.new()
+	title.text = title_text
+	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	title.add_theme_font_size_override("font_size", 20)
+	title.add_theme_color_override("font_color", Color(1.0, 0.86, 0.35, 1.0))
+	row.add_child(title)
+	if not count_text.is_empty():
+		var count := Label.new()
+		count.text = count_text
+		count.add_theme_font_size_override("font_size", 20)
+		count.add_theme_color_override("font_color", Color(0.62, 0.86, 1.0, 0.8))
+		row.add_child(count)
+	return row
+
+
+## Even entries left, odd entries right: reading across a row continues the
+## list, which is how a page of text is read.
+func _build_guide_column(members: Array[Dictionary], parity: int) -> VBoxContainer:
+	var column := VBoxContainer.new()
+	column.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	column.add_theme_constant_override("separation", 8)
+	var i := parity
+	while i < members.size():
+		column.add_child(_build_guide_row(members[i]))
+		i += 2
+	return column
+
+
+func _build_guide_row(def: Dictionary) -> PanelContainer:
+	var id := String(def.get("id", ""))
+	var earned := GameState.is_achievement_unlocked(id)
+	var legendary: bool = AchievementBannerScript.LEGENDARY_ACHIEVEMENTS.has(id)
+	
+	var row := PanelContainer.new()
+	row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	row.add_theme_stylebox_override("panel", _guide_row_style(earned, legendary))
+	
+	var line := HBoxContainer.new()
+	line.add_theme_constant_override("separation", 8)
+	var glyph := Label.new()
+	glyph.text = "✓" if earned else "○"
+	glyph.custom_minimum_size.x = 24
+	glyph.add_theme_font_size_override("font_size", 20)
+	glyph.add_theme_color_override("font_color",
+		Color(1.0, 0.86, 0.35, 1.0) if earned else Color(0.5, 0.62, 0.8, 0.55))
+	line.add_child(glyph)
+	
+	var text := VBoxContainer.new()
+	text.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	text.add_theme_constant_override("separation", 0)
+	var title := Label.new()
+	title.text = String(def.get("title", ""))
+	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	title.add_theme_font_size_override("font_size", 20)
+	title.add_theme_color_override("font_color", _guide_title_colour(earned, legendary))
+	text.add_child(title)
+	var subtitle := Label.new()
+	subtitle.text = String(def.get("subtitle", ""))
+	subtitle.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	subtitle.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	subtitle.add_theme_font_size_override("font_size", 20)
+	subtitle.add_theme_color_override("font_color", _guide_subtitle_colour(earned, legendary))
+	text.add_child(subtitle)
+	
+	line.add_child(text)
+	row.add_child(line)
+	return row
+
+
+func _guide_title_colour(earned: bool, legendary: bool) -> Color:
+	if legendary and earned:
+		return Color(1.0, 0.93, 0.6, 1.0)
+	if earned:
+		return Color(0.7, 0.92, 1.0, 1.0)
+	if legendary:
+		return Color(0.75, 0.68, 0.48, 0.85)
+	return Color(0.58, 0.68, 0.84, 0.85)
+
+
+func _guide_subtitle_colour(earned: bool, legendary: bool) -> Color:
+	if legendary and earned:
+		return Color(0.92, 0.82, 0.58, 0.9)
+	if earned:
+		return Color(0.62, 0.75, 0.9, 0.9)
+	if legendary:
+		return Color(0.6, 0.53, 0.38, 0.55)
+	return Color(0.5, 0.6, 0.75, 0.5)
+
+
+## Row chrome, cached per state: plain for an open badge, gold-edged once it is
+## earned, and the banner's legendary dress for the island's last words.
+func _guide_row_style(earned: bool, legendary: bool) -> StyleBoxFlat:
+	var key := "%s%s" % [str(earned), str(legendary)]
+	if _guide_row_styles.has(key):
+		return _guide_row_styles[key]
+	
+	var box := StyleBoxFlat.new()
+	box.content_margin_left = 12.0
+	box.content_margin_right = 12.0
+	box.content_margin_top = 8.0
+	box.content_margin_bottom = 8.0
+	box.set_corner_radius_all(10)
+	box.set_border_width_all(2)
+	if legendary and earned:
+		box.bg_color = Color(0.13, 0.09, 0.02, 0.96)
+		box.border_color = Color(1.0, 0.88, 0.42, 1.0)
+		box.shadow_color = Color(1.0, 0.82, 0.3, 0.2)
+		box.shadow_size = 8
+	elif earned:
+		box.bg_color = Color(0.07, 0.10, 0.15, 0.95)
+		box.border_color = Color(1.0, 0.84, 0.35, 0.75)
+	elif legendary:
+		box.bg_color = Color(0.09, 0.07, 0.04, 0.8)
+		box.border_color = Color(0.9, 0.78, 0.4, 0.35)
+	else:
+		box.bg_color = Color(0.05, 0.08, 0.13, 0.75)
+		box.border_color = Color(0.4, 0.7, 0.9, 0.2)
+	_guide_row_styles[key] = box
+	return box
+
+
+## The tide, as four chips. Today's condition wears the gold edge, so the page
+## answers "what is the sea doing right now" before anything else on it.
+func _build_tide_section() -> VBoxContainer:
+	var section := VBoxContainer.new()
+	section.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	section.add_theme_constant_override("separation", 6)
+	section.add_child(_build_guide_header("THE TIDE", ""))
+	
+	var chips := HBoxContainer.new()
+	chips.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	chips.add_theme_constant_override("separation", 8)
+	var today := TideReport.today_key()
+	for condition in TideReport.CONDITIONS:
+		var key := String(condition.get("key", ""))
+		var chip := PanelContainer.new()
+		chip.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		chip.add_theme_stylebox_override("panel", _guide_chip_style(key == today))
+		var box := VBoxContainer.new()
+		box.add_theme_constant_override("separation", 2)
+		var title := Label.new()
+		title.text = String(condition.get("title", key))
+		if key == today:
+			title.text = "%s · today" % title.text
+		title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		title.add_theme_font_size_override("font_size", 20)
+		title.add_theme_color_override("font_color", Color(0.68, 0.95, 0.88, 1.0))
+		box.add_child(title)
+		var blurb := Label.new()
+		blurb.text = String(condition.get("summary", condition.get("blurb", "")))
+		blurb.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		blurb.add_theme_font_size_override("font_size", 20)
+		blurb.add_theme_color_override("font_color", Color(0.6, 0.72, 0.86, 0.85))
+		box.add_child(blurb)
+		chip.add_child(box)
+		chips.add_child(chip)
+	section.add_child(chips)
+	
+	var note := Label.new()
+	note.text = "Four days, one rotation. The HUD reads today — a dockhand sells tomorrow."
+	note.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	note.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	note.add_theme_font_size_override("font_size", 20)
+	note.add_theme_color_override("font_color", Color(0.62, 0.72, 0.85, 0.8))
+	section.add_child(note)
+	return section
+
+
+func _guide_chip_style(is_today: bool) -> StyleBoxFlat:
+	if _guide_chip_styles.has(is_today):
+		return _guide_chip_styles[is_today]
+	var box := StyleBoxFlat.new()
+	box.content_margin_left = 10.0
+	box.content_margin_right = 10.0
+	box.content_margin_top = 8.0
+	box.content_margin_bottom = 8.0
+	box.set_corner_radius_all(10)
+	box.set_border_width_all(2)
+	if is_today:
+		box.bg_color = Color(0.10, 0.12, 0.14, 1.0)
+		box.border_color = Color(1.0, 0.84, 0.35, 0.85)
+	else:
+		box.bg_color = Color(0.06, 0.10, 0.16, 0.95)
+		box.border_color = Color(0.4, 0.7, 0.9, 0.3)
+	_guide_chip_styles[is_today] = box
+	return box
+
+
+func _build_guide_footer() -> Label:
+	var footer := Label.new()
+	footer.text = "✦ Legends glow gold — the island's last words."
+	footer.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	footer.add_theme_font_size_override("font_size", 20)
+	footer.add_theme_color_override("font_color", Color(1.0, 0.86, 0.35, 0.7))
+	return footer
 
 
 ## The legend counts what remains behind the overlay.

@@ -324,6 +324,8 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
+overlay_scroll_horizontal = false
+overlay_scroll_vertical = false
 script = ExtResource("2_drag")
 
 [node name="Content" type="VBoxContainer" parent="Margin/VBox/StatsScroll" unique_id=300000030]
@@ -693,7 +695,8 @@ theme_override_styles/panel = SubResource("StyleBox_guide")
 
 [node name="VBox" type="VBoxContainer" parent="LedgerOverlay/Panel"]
 layout_mode = 2
-theme_override_constants/separation = 10
+# Tight gap: 24 px type across 12 rows must still fit a 648 px window.
+theme_override_constants/separation = 4
 
 [node name="LedgerTitle" type="Label" parent="LedgerOverlay/Panel/VBox"]
 layout_mode = 2
@@ -897,17 +900,20 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -340.0
-offset_top = -344.0
-offset_right = 340.0
-offset_bottom = 344.0
+# 600 x 620: a fixed card that fits a 648 px window at 24 px type. The day
+# lines wrap inside it rather than widening the panel past the screen edge.
+offset_left = -300.0
+offset_top = -310.0
+offset_right = 300.0
+offset_bottom = 310.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBox_guide")
 
 [node name="VBox" type="VBoxContainer" parent="AlmanacOverlay/Panel"]
 layout_mode = 2
-theme_override_constants/separation = 10
+# Tight gap: 24 px type across 12 rows must still fit a 648 px window.
+theme_override_constants/separation = 4
 
 [node name="AlmanacTitle" type="Label" parent="AlmanacOverlay/Panel/VBox"]
 layout_mode = 2
@@ -924,57 +930,78 @@ text = "the order the sea keeps, spelled out for its keeper"
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="Day0" type="Label" parent="AlmanacOverlay/Panel/VBox"]
+[node name="AlmanacScroll" type="ScrollContainer" parent="AlmanacOverlay/Panel/VBox"]
 layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+overlay_scroll_horizontal = false
+overlay_scroll_vertical = false
+script = ExtResource("2_drag")
+
+[node name="AlmanacList" type="VBoxContainer" parent="AlmanacOverlay/Panel/VBox/AlmanacScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+
+[node name="Day0" type="Label" parent="AlmanacOverlay/Panel/VBox/AlmanacScroll/AlmanacList"]
+layout_mode = 2
+autowrap_mode = 2
 theme_override_colors/font_color = Color(0.92, 0.97, 1, 1)
 theme_override_font_sizes/font_size = 24
 text = ""
 horizontal_alignment = 1
 
-[node name="Day1" type="Label" parent="AlmanacOverlay/Panel/VBox"]
+[node name="Day1" type="Label" parent="AlmanacOverlay/Panel/VBox/AlmanacScroll/AlmanacList"]
 layout_mode = 2
+autowrap_mode = 2
 theme_override_colors/font_color = Color(0.72, 0.8, 0.88, 1)
 theme_override_font_sizes/font_size = 24
 text = ""
 horizontal_alignment = 1
 
-[node name="Day2" type="Label" parent="AlmanacOverlay/Panel/VBox"]
+[node name="Day2" type="Label" parent="AlmanacOverlay/Panel/VBox/AlmanacScroll/AlmanacList"]
 layout_mode = 2
+autowrap_mode = 2
 theme_override_colors/font_color = Color(0.72, 0.8, 0.88, 1)
 theme_override_font_sizes/font_size = 24
 text = ""
 horizontal_alignment = 1
 
-[node name="Day3" type="Label" parent="AlmanacOverlay/Panel/VBox"]
+[node name="Day3" type="Label" parent="AlmanacOverlay/Panel/VBox/AlmanacScroll/AlmanacList"]
 layout_mode = 2
+autowrap_mode = 2
 theme_override_colors/font_color = Color(0.72, 0.8, 0.88, 1)
 theme_override_font_sizes/font_size = 24
 text = ""
 horizontal_alignment = 1
 
-[node name="Day4" type="Label" parent="AlmanacOverlay/Panel/VBox"]
+[node name="Day4" type="Label" parent="AlmanacOverlay/Panel/VBox/AlmanacScroll/AlmanacList"]
 layout_mode = 2
+autowrap_mode = 2
 theme_override_colors/font_color = Color(0.72, 0.8, 0.88, 1)
 theme_override_font_sizes/font_size = 24
 text = ""
 horizontal_alignment = 1
 
-[node name="Day5" type="Label" parent="AlmanacOverlay/Panel/VBox"]
+[node name="Day5" type="Label" parent="AlmanacOverlay/Panel/VBox/AlmanacScroll/AlmanacList"]
 layout_mode = 2
+autowrap_mode = 2
 theme_override_colors/font_color = Color(0.72, 0.8, 0.88, 1)
 theme_override_font_sizes/font_size = 24
 text = ""
 horizontal_alignment = 1
 
-[node name="Day6" type="Label" parent="AlmanacOverlay/Panel/VBox"]
+[node name="Day6" type="Label" parent="AlmanacOverlay/Panel/VBox/AlmanacScroll/AlmanacList"]
 layout_mode = 2
+autowrap_mode = 2
 theme_override_colors/font_color = Color(0.72, 0.8, 0.88, 1)
 theme_override_font_sizes/font_size = 24
 text = ""
 horizontal_alignment = 1
 
-[node name="AlmanacFooter" type="Label" parent="AlmanacOverlay/Panel/VBox"]
+[node name="AlmanacFooter" type="Label" parent="AlmanacOverlay/Panel/VBox/AlmanacScroll/AlmanacList"]
 layout_mode = 2
+autowrap_mode = 2
 theme_override_colors/font_color = Color(0.62, 0.68, 0.78, 1)
 theme_override_font_sizes/font_size = 24
 text = "the rotation is four days — the sea never forgets its own book"
@@ -1049,7 +1076,7 @@ theme_override_constants/separation = 12
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_colors/font_color = Color(1, 0.84, 0.35, 1)
-theme_override_font_sizes/font_size = 22
+theme_override_font_sizes/font_size = 24
 text = "0 of 0 earned"
 
 [node name="GuideProgress" type="ProgressBar" parent="GuideOverlay/Panel/VBox/GuideHeader"]
@@ -1066,17 +1093,29 @@ value = 0.0
 [node name="GuideLegend" type="Label" parent="GuideOverlay/Panel/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6, 0.72, 0.9, 1)
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 24
 text = "✓ earned    ○ still to earn    ✦ legend"
 horizontal_alignment = 1
+
+[node name="GuideFilters" type="HFlowContainer" parent="GuideOverlay/Panel/VBox"]
+layout_mode = 2
+theme_override_constants/h_separation = 6
+theme_override_constants/v_separation = 6
 
 [node name="Scroll" type="ScrollContainer" parent="GuideOverlay/Panel/VBox"]
 script = ExtResource("2_drag")
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
+overlay_scroll_horizontal = false
+overlay_scroll_vertical = false
 
-[node name="GuideList" type="VBoxContainer" parent="GuideOverlay/Panel/VBox/Scroll"]
+[node name="GuideMargin" type="MarginContainer" parent="GuideOverlay/Panel/VBox/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_right = 10
+
+[node name="GuideList" type="VBoxContainer" parent="GuideOverlay/Panel/VBox/Scroll/GuideMargin"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 12

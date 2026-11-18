@@ -62,6 +62,8 @@ text = "Welcome to Isle 2"
 custom_minimum_size = Vector2(576, 400)
 layout_mode = 2
 horizontal_scroll_mode = 0
+overlay_scroll_horizontal = false
+overlay_scroll_vertical = false
 script = ExtResource("2_drag")
 
 [node name="Body" type="RichTextLabel" parent="Center/Panel/VBox/BodyScroll"]

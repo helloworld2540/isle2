@@ -75,6 +75,8 @@ custom_minimum_size = Vector2(470, 200)
 layout_mode = 2
 size_flags_horizontal = 3
 horizontal_scroll_mode = 0
+overlay_scroll_horizontal = false
+overlay_scroll_vertical = false
 script = ExtResource("2_drag")
 
 [node name="Lines" type="RichTextLabel" parent="Center/Panel/VBox/LinesScroll"]

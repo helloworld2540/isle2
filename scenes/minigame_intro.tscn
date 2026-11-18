@@ -63,6 +63,8 @@ custom_minimum_size = Vector2(576, 380)
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
+overlay_scroll_horizontal = false
+overlay_scroll_vertical = false
 
 [node name="BodyBox" type="VBoxContainer" parent="Center/Panel/VBox/BodyScroll"]
 layout_mode = 2

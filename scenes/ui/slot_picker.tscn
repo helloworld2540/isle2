@@ -81,6 +81,8 @@ custom_minimum_size = Vector2(0, 320)
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
+overlay_scroll_horizontal = false
+overlay_scroll_vertical = false
 script = ExtResource("2_drag")
 
 [node name="SlotList" type="VBoxContainer" parent="Center/Panel/VBox/ListScroll"]

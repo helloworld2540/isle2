@@ -1,4 +1,9 @@
 
+## 2026-11-18 — Almanac layout fix and overlay layout audit
+- `scenes/stats_menu.tscn`: AlmanacOverlay panel narrowed to 600×620; day rows and footer enabled with `autowrap_mode = 2` so 24px text wraps instead of overflowing the screen.
+- `tools/layout_audit.gd`: extended with `OVERLAY_PASSES` to programmatically open, measure (with a 3-frame settle delay to let autowrap/flow containers compute rects), and close every hidden stats overlay (`guide`, `ledger`, `registry`, `almanac`).
+- All audits (layout, font size, economy, smoke test, scene boot, touch target) PASS clean.
+
 ## 2026-11-18 — The standing order (one market, four moods)
 - `shop_ledger.gd`: `TIDE_ORDER_BONUS` (+1$/unit), `order_material()` mapped
   1:1 to the four tides, `order_bonus(mat)` folded into `quote()` (and reported

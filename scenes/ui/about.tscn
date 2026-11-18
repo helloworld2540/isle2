@@ -168,6 +168,8 @@ text = "Trash Island"
 custom_minimum_size = Vector2(0, 240)
 layout_mode = 2
 horizontal_scroll_mode = 0
+overlay_scroll_horizontal = false
+overlay_scroll_vertical = false
 script = ExtResource("2_drag")
 
 [node name="Body" type="RichTextLabel" parent="Margin/Column/Panel/VBox/BodyScroll"]

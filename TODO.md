@@ -1,6 +1,8 @@
 # Current project todo:
 
 ## done this pass
+- **AlmanacOverlay layout fix & extended layout audit** — Stats page's hidden Almanac card wrapped and constrained to fit 1152×648 at the 24px font floor. `tools/layout_audit.gd` extended to open and measure all four hidden stats overlays (guide, ledger, registry, almanac) with 3-frame layout settle delays, keeping 0 layout failures.
+
 - **The standing order** — the shop pays +1$/unit for one material each tide
   day (Glass Calm → Glass, Eel Run → Nylon, Slack Water → Polyethylene, Night
   Drift → Polypropylene), deterministic off the same tide as everything else.

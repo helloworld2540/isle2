@@ -32,8 +32,8 @@ var _start_scroll := 0
 
 func _ready() -> void:
 	# Chunky scrollbars: a bigger grabber target for fingers and small
-	# windows. Height matters little — the bar fills the container — so the
-	# width/height is what we fatten up.
+	# windows. Bars are non-overlay (they take their own gutter in the
+	# ScrollContainer), so fattening them never covers the content.
 	var bar := get_v_scroll_bar()
 	if bar:
 		bar.custom_minimum_size.x = 26
