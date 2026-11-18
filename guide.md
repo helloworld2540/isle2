@@ -251,7 +251,7 @@ checked against this yield — nothing changed, deliberately.*
 - The stats page's Tide Ledger and Reef Registry tease locked rows
   instead of printing question marks — each bottle and fish has its own
   spoiler-free hint; the page is the island's clue board.
-- The stats page opens with a single-line Keeper's Journal ledger: "Journal — bottles n/8 · starfish n/5 · tides n/4 · species n/4 · achievements n/43" — so you can see the whole completion board at a glance without scrolling.
+- The stats page opens with a single-line Keeper's Journal ledger: "Journal — bottles n/8 · starfish n/5 · tides n/4 · species n/4 · achievements n/44" — so you can see the whole completion board at a glance without scrolling.
 - Bottles you have already read can be re-read from the stats page via the Tide Ledger overlay (the game nudges you there once the third base bottle is read) (undiscovered notes stay locked).
 - Quest economics audit (SALE_PRICES-weighted): turn-ins are deliberately slightly under market value — that is the price of quest progress and the Harbor Hero +10 kg cap — but the old numbers were punitive (Tom 24$->12$, Nina 30$->15$, Kai 25$->10$, Mara t2 25$->18$). Buffed: Tom t1 4->6 PP (18$), Nina t1 5->6 PP (18$), Kai t1 now 6 PP (18$), Mara t2 6->8 PP (24$). Nina t2 (+8$) and Kai t2 (+4$) remain the profitable tiers.
 - Depth is tracked in the stats page and feeds two achievements: DEEP DIVE (400 m) and TO THE ABYSS (900 m). Ten finished dives earns REEF REGULAR; the stats page keeps a running "Field log" of dives and bench runs.
@@ -426,7 +426,7 @@ earned the relevant NPC appends a line to every later conversation:
 - **Kai** — TIDEKEEPER's Pact funded, GOLDEN TOUCH (ten golden scraps),
   THE WHISPERER (Corl's seven days), THE SILENT CHORUS (six bottles; the seventh note is a blessing, not a requirement), THE
   FAR POINT (he will not restock it).
-- **Oda** — THE KEEPER'S LETTER, THE SILENT CHORUS, THE LONG KEEPER (ten
+- **Oda** — THE KEEPER'S LETTER, THE SILENT CHORUS, THE WHOLE SEA (all eight bottles, the hidden 44th badge), THE LONG KEEPER (ten
   days on the almanac), ISLAND STEWARD, THE STEADY KEEPER (three running),
   THE FAR POINT ("Some of us watch the water. Some of us are watched by it.").
 
@@ -441,6 +441,7 @@ them — and a faint golden hush over the world.
 - **Night Drift** — half the distant cries become a low foghorn, far out on the water.
 
 ## Version history (as shipped)
+- **THE WHOLE SEA** — the hidden 44th badge: all eight bottles read, including the far point's reply. Legendary banner, Oda notices ("The water talks, love — you listened to the very end."), excluded from the ISLAND STEWARD capstone like the star, and the world HUD bottle line flips to "✦ The Whole Sea".
 - **The Far Point's Reply** — an eighth and final bottle, shown only once THE KEEPER'S STAR is found; the Tide Ledger keeps it with the rest, and the journal counts bottles n/8.
 - **New app icon** — the sand isle and its bottle now greet the keeper at the launcher.
 - **1.1.0** — Hidden-tide mode, THE QUIET KEEPER, THE TIDE WALKER, THE QUIET ERA, About page speaks to the hidden keeper, the About page cites its license and its tooling.

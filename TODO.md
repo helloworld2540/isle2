@@ -1,6 +1,11 @@
 # Current project todo:
 
 # done this pass
+- **THE WHOLE SEA** — the hidden 44th badge: all eight bottles read.
+  Legendary banner, Oda milestone beat ("You listened to the very end."),
+  excluded from the ISLAND STEWARD capstone alongside keeper_star (else the
+  far-point bottle would deadlock the capstone), world HUD bottle line flips
+  to "✦ The Whole Sea", stats deeds column records it. Docs to 44.
 - **THE FAR POINT'S REPLY** — an eighth bottle, the epilogue's paper tail.
   Washes up at the island's tip only after THE KEEPER'S STAR is found; the
   Tide Ledger gains a row for it (panel grown to fit), the journal ledger

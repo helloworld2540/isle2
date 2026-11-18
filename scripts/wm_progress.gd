@@ -134,7 +134,12 @@ func _refresh_bottle_label(_count: int = -1) -> void:
 		bottle_label.visible = false
 		return
 	var chorus := GameState.is_achievement_unlocked("silent_chorus")
-	if chorus:
+	var whole := GameState.is_achievement_unlocked("whole_sea")
+	if whole:
+		# Every voice, including the far point's — the sea is finished talking.
+		bottle_label.text = "✦ The Whole Sea"
+		bottle_label.modulate = Color(1.0, 0.93, 0.6, 1.0)
+	elif chorus:
 		# The full chorus never needs counting — it is the weather now.
 		bottle_label.text = "✦ The Silent Chorus"
 		bottle_label.modulate = Color(1.0, 0.84, 0.32, 1.0)

@@ -1,5 +1,30 @@
 # Isle 2 — Trash Island, release notes
 
+**Version 1.2.0** (signed, Linux / Web / Android)
+
+## What's new since 1.1.0
+
+- **THE KEEPER'S STAR** — the island's epilogue, and the 43rd badge. After
+  ISLAND STEWARD is earned, a sixth starfish appears at the far point east of
+  the watcher. Walking over it delivers the island's last card, rings a low
+  harbor bell, pays +$50 and grants THE KEEPER'S STAR. It is deliberately
+  *not* counted toward the STARLIGHT set — the epilogue is a separate,
+  quieter beat for a keeper who proved they could keep everything else.
+  One per island, exactly once.
+- **The Far Point's Reply** — an eighth bottle washes up once the keeper's
+  star is found. The Tide Ledger grows a row, the journal reads bottles n/8,
+  and the chorus gains its paper tail.
+- **All five islanders now notice THE FAR POINT** — the guide promised every
+  named islander would speak of the one on the far point once seen; Mara, Tom
+  and Kai were silent. They each got a line in their own register.
+- **A permanent harness for the above**: `tools/keeper_star_test.gd` (scene
+  loads, catalogue entry is real and on the Hidden track, capstone does not
+  depend on the star, schema round-trip) and `tools/npc_beat_audit.py` (every
+  beat names a real achievement, all five notice the watcher, no duplicate
+  pairs), both wired into `tools/all_audits.sh`.
+
+## Prior releases
+
 **Version 1.1.0** (signed, Linux / Web / Android)
 
 ## What it is
@@ -24,10 +49,11 @@ saves, reduced motion, drag-to-scroll everywhere, fully touch-friendly.
 - **The keeper's almanac.** Four tides logged across real calendar days.
   Earning it unlocks THE FOUR TIDES, a lore page and a secret
   (`THE KEEPER'S LETTER`).
-- **Six shoreline bottles** plus a seventh that only washes up when you've
-  earned it. The Tide Ledger on the stats page keeps them re-readable.
+- **Eight shoreline bottles** (seven washes up when you've earned it; the
+  eighth washes up only for the keeper the island kept). The Tide Ledger on
+  the stats page keeps them re-readable.
 - **The far point.** A rumour nobody repeats all the way through. It ends.
-- **40 achievements**, a keeper's journal that records everything you did,
+- **43 achievements**, a keeper's journal that records everything you did,
   and a stats page that writes the ending.
 
 ## What the keeper should know before diving in

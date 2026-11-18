@@ -310,6 +310,13 @@ const ENTRIES: Array[Dictionary] = [
 		"subtitle": "Every other achievement earned. The island is yours.",
 		"where": "Island",
 	},
+	{
+		"id": "whole_sea",
+		"short": "Whole",
+		"title": "THE WHOLE SEA",
+		"subtitle": "Every note the sea ever sent — all eight bottles, read.",
+		"where": "Hidden",
+	},
 ]
 
 
@@ -420,16 +427,18 @@ static func is_met(id: String, state: Node) -> bool:
 			return state.tides_logged.size() >= 4
 		"island_steward":
 			# Capstone: every other goal in the catalogue is already earned.
-			# THE KEEPER'S STAR is excluded — it is the island's epilogue, not
-			# a prerequisite for the capstone. The star would deadlock the
-			# capstone if it counted.
+			# THE KEEPER'S STAR and THE WHOLE SEA are excluded — they are the
+			# island's epilogue, not prerequisites for the capstone. Either one
+			# would deadlock the capstone if it counted.
 			for def in ENTRIES:
 				var other := String(def.get("id", ""))
-				if other in ["island_steward", "keeper_star"]:
+				if other in ["island_steward", "keeper_star", "whole_sea"]:
 					continue
 				if not state.unlocked_achievements.has(other):
 					return false
 			return true
 		"keeper_star":
 			return state.keeper_star_found
+		"whole_sea":
+			return state.bottles_read.size() >= 8
 	return false
