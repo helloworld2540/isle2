@@ -816,6 +816,19 @@ func _evaluate_achievements(silent: bool = false) -> void:
 			continue
 		
 		unlocked_achievements.append(id)
+		if id == "pale_courier" and not silent and last_run.is_empty():
+			# The Silverfin is a rare, deliberate sighting — it earns the card
+			# the same way the Whole Sea did. Never clobbers a pending recap.
+			record_run(
+				"story",
+				"The Courier's Wake",
+				[
+					"Something pale crossed the reef ahead of you — quick as a rumor.",
+					"The courier outruns every keeper who ever counted it.",
+					"But it never once outran the one who learned the water.",
+				],
+				"The Reef Registry keeps its newest note — tap it at the stats page.",
+			)
 		if id == "whole_sea" and not silent and last_run.is_empty():
 			# The far point's reply deserves more than a banner: the world map
 			# gets one quiet card, once, the next time the keeper walks back in.

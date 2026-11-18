@@ -1,6 +1,9 @@
 # Current project todo:
 
 # done this pass
+- **The Courier's Wake** — earning THE PALE COURIER queues a one-time
+  world-map card (same run-recap path as The Last Page; never clobbers
+  a pending recap, never fires on silent restore).
 - **THE PALE COURIER** — the 45th badge: spotted the Silverfin at least
   once. Tom milestone beat ("Nobody's ever kept up with it."). Docs to 45.
 - **The Silverfin** — a fifth reef species (fish_silverfin.png, drawn

@@ -444,6 +444,7 @@ them — and a faint golden hush over the world.
 - **Night Drift** — half the distant cries become a low foghorn, far out on the water.
 
 ## Version history (as shipped)
+- **The Courier's Wake** — earning THE PALE COURIER queues a one-time world-map card about the Silverfin; never overwrites a pending run recap.
 - **THE PALE COURIER** — the 45th badge: spotted the Silverfin at least once. Tom the shorekeeper notices ("Nobody's ever kept up with it — but you saw it.").
 - **The Silverfin** — a fifth reef species joins the water: pale, quick, and gone by dawn. REEF REGISTRY now demands all five; the Reef Registry overlay covers it; species counts read n/5.
 - **The first keeper's margin notes** — every briefing card (bench and reef) now carries a quiet handwritten line from the keeper who came before, rotating with your run/dive count. Save some for the almanac; it deserves the company.

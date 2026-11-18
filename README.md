@@ -92,6 +92,7 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 - **Bottles**: `scripts/bottle_catalog.gd` — canonical title/lines for every message in a bottle; the world pickup and the stats page's Tide Ledger both read it.
 - **Fish journal**: `scripts/fish_catalog.gd` — canonical names/blurbs for the five reef species; the dive pops "New species!" on a first sighting and the stats page's Reef Registry re-shows every earned note.
 - **Collectibles & streaks**: golden belt scrap (+2 score) and golden reef debris (+1 bonus) spawn at 12%; lifetime trackers (clean dives, flawless shifts, golden finds, best combo/haul) feed achievements — REEF REGISTRY, CLEAN SWEEP, SILK TOUCH, GOLDEN TOUCH, RHYTHM OF THE REEF, HEAVY HARVEST, HOT STREAK.
+- **The Courier's Wake**: earning THE PALE COURIER queues a one-time world-map recap card (same path as The Last Page) — the Silverfin earns ink, not just a badge.
 - **The first keeper's margin notes**: every minigame briefing card carries a rotating handwritten line from the keeper who came before (`scripts/margin_notes.gd`, two voices — bench and water), surfaced through `MinigameIntro.set_flavor_line`.
 - **Run identity**: zero-miss bench shifts earn FLAWLESS SHIFT, zero-bump dives earn CLEAN DIVE — printed on the summary and world-map recap cards. Earning THE WHOLE SEA also queues a one-time "The Last Page" recap card — never overwriting a pending run recap.
 
