@@ -270,6 +270,11 @@ func _buy_courier_letter() -> void:
 	var letter := CourierLetters.letter_at(GameState.courier_letter_index())
 	_stack.sale("COURIER'S LETTER  -%d$\nA page, kept." % GameState.COURIER_LETTER_COST, Color(0.72, 0.94, 1.0, 1.0))
 	_log_sale("A page from the courier, read at the counter.")
+	# Corl keeps his own counsel — but he counts the letters.
+	if GameState.courier_letters_bought == 1:
+		_log_sale('Corl nods at the page: "From the courier? I do not ask about that one."')
+	elif GameState.courier_letters_bought == 10:
+		_log_sale('Corl taps the ledger: "Ten pages. You pay for paper like it is gospel."')
 	if DIALOGUE_SCENE:
 		var dialogue = DIALOGUE_SCENE.instantiate()
 		get_tree().current_scene.add_child(dialogue)
