@@ -150,6 +150,17 @@ func _spawn_item() -> void:
 		item.init_fish()
 	else:
 		item.init_garbage()
+	# The Starfish spawns already in the water, so it must never materialise on
+	# top of the drone — a free hit is not a fair hazard. Keep a wide berth.
+	if str(item.get_meta("species", "")) == "fish_star" and drone:
+		var vp := get_viewport_rect().size
+		var min_dist := 220.0
+		if item.global_position.distance_to(drone.global_position) < min_dist:
+			var away := item.global_position - drone.global_position
+			if away.length_squared() < 0.01:
+				away = Vector2.RIGHT
+			item.global_position = (drone.global_position + away.normalized() * min_dist).clamp(
+				Vector2(80.0, 80.0), vp - Vector2(80.0, 80.0))
 	# Golden variants sing out and shimmer once their spawn tween lands.
 	if bool(item.get_meta("golden", false)) or bool(item.get_meta("golden_fish", false)):
 		AudioManager.play_sfx("pickup", 1.6)
