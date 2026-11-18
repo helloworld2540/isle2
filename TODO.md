@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- **ship_audit.sh** — one command answering "is this tree releasable?":
+  all_audits + scene boot + font floor + import sidecars + schema +
+  docs parity + a clean-tree check. Correctly reports NOT READY today
+  (the in-flight rollback is uncommitted) — that is the tool working.
 - **import_audit.py** — release hygiene gate: every importable asset must
   have a fresh .import sidecar naming it. 86 assets checked, 0 failures.
   (.kra Krita sources are not Godot-importable and are excluded.)
