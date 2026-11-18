@@ -1,6 +1,10 @@
 # Current project todo:
 
 # done this pass
+- **The courier nudge** — buying your first letter fires a one-shot
+  TutorialDirector nudge ("The courier is real") pointing at the Reef
+  Registry and Eel Run; fires once per save, defers behind the letter's
+  dialogue card automatically.
 - **THE REGULAR** — the 46th badge: read ten courier's letters at the
   shop counter (courier_letters_bought, schema-persisted). Legendary
   banner; counted from the tide-day purchases.

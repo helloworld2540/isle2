@@ -87,6 +87,7 @@ const NUDGE_TIDE := "nudge_tide_shown"
 const NUDGE_TIP := "nudge_tip_shown"
 const NUDGE_WELCOME_BACK := "nudge_welcome_back_shown"
 const NUDGE_WATCHER_NOTE := "nudge_watcher_note_shown"
+const NUDGE_COURIER := "nudge_courier_shown"
 
 var _step: int = 0
 var _active_hint: CanvasLayer = null
@@ -312,6 +313,7 @@ func nudge(kind: String) -> void:
 		"tip": key = NUDGE_TIP
 		"welcome_back": key = NUDGE_WELCOME_BACK
 		"watcher_note": key = NUDGE_WATCHER_NOTE
+		"courier": key = NUDGE_COURIER
 		_: return
 	if not _nudge_state.has(key):
 		_nudge_state[key] = bool(SaveManager.load_game().get(key, false))
@@ -363,6 +365,10 @@ func nudge(kind: String) -> void:
 			_spawn_card("A page from the far point",
 				"[font_size=20]The note was waiting on the path to the lantern.\nThe island counts those the keeper keeps — so does whatever watches it.[/font_size]",
 				"I understand")
+		"courier":
+			_spawn_card("The courier is real",
+				"[font_size=20]The counter keeps a page from the Silverfin itself.\nThe reef knows this fish — the [color=#9fe2ff]Reef Registry[/color] keeps its name.\nDive on an [color=#9fe2ff]Eel Run[/color] tide: the courier rides the fast water.[/font_size]",
+				"I'll look")
 		"welcome_back":
 			_spawn_card("Welcome back, keeper",
 				"[font_size=20]The island held its breath while you were gone.\n				The tide kept its four days without you — here is where things stand, and who has been waiting.[/font_size]",

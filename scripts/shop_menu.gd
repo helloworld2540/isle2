@@ -274,6 +274,9 @@ func _buy_courier_letter() -> void:
 		var dialogue = DIALOGUE_SCENE.instantiate()
 		get_tree().current_scene.add_child(dialogue)
 		dialogue.present("The Courier's Letter", [letter])
+	# One gentle pointer at the reef, once per save — after the letter, the
+	# keeper should know the courier is a fish they can bump into.
+	TutorialDirector.nudge("courier")
 	_refresh()
 
 
