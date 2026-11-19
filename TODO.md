@@ -1,6 +1,16 @@
 # Current project todo:
 
 ## done this pass
+- **Live playthrough of the first loop, end to end, with zero errors.**
+  Reef Rescue → Dive Summary → world-map recap card → world: the briefing
+  card renders, the dive runs (depth label climbs to 78 m, pickup banks 1 kg),
+  the exit button fires the summary ("Dive ended early by operator return",
+  `NEW BEST DEPTH — 78 m!`), and "Return to Map" lands on the island with the
+  `Dive № 1 — Shallow Sweep` recap card ("Reef Debris +1 (1/10 kg carried)").
+  No script errors, no stuck states, no missing scenes. The tutorial card
+  now renders its updated copy live on the world map too.
+
+## done this pass
 - **World-map edge markers no longer drown each other out.** Live play at
   1152×648 showed four NPC markers and two portal pointers stacked on the top
   edge into an unreadable green smear ("▲!▲!▲!…"). `wm_portal_markers.gd`
