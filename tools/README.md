@@ -10,7 +10,7 @@ invocation, not the tool's size.
 | --- | --- | --- |
 | `tools/all_audits.sh` | Every harness + every Python audit, then exits 0/1 | Before cutting or publishing a build |
 | `tools/export_gate.sh` | The same audits, plus `--re-export` to rebuild Linux/Web/Android into `export/` | A full release re-cut |
-| `tools/fresh_clone.sh` | Cold import → Linux export → headless boot with empty log | Proving the repo alone is enough |
+| `tools/fresh_clone.sh` | Cold import → Linux export → headless boot with empty log, plus a Web-shell bootstrap check (fails on unreplaced `$GODOT_*` placeholders) | Proving the repo alone is enough |
 
 `all_audits.sh` cannot see real player slots — every harness it runs gets its
 own throwaway profile under `/tmp/isle2_audit_<pid>` (auto-removed on exit),
@@ -89,7 +89,7 @@ and re-arms after a pass.
 
 ```sh
 tools/export_gate.sh --re-export   # Linux + Web + Android into export/{linux,web,android}/
-tools/fresh_clone.sh               # proves the repo stands alone
+tools/fresh_clone.sh               # proves the repo stands alone (Linux boot + Web shell check)
 ```
 
 Export target directories must exist before exporting — the Linux export

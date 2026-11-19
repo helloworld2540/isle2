@@ -12,10 +12,9 @@
   (`<script src="build.js">`, `executable: "build"`, correct `fileSizes`), and
   `tools/fresh_clone.sh` now fails any cold clone whose web export still
   carries placeholders or never references `build.js` — the bug can never
-  silently ship again. The fresh-clone proof is running at this commit; its
-  result will be reported honestly.
+  silently ship again. The fresh-clone proof now passes at HEAD (Web shell
+  bootstrapped correctly — `build.js` referenced).
 
-## done this pass
 - **The release builds were shipping the MCP editor bridge — fixed and verified.** The
   packing log from the previous 1.3.0 re-export showed `res://addons/godot_mcp/…`
   files staged into the Android APK, and the Linux/Web builds carried the same

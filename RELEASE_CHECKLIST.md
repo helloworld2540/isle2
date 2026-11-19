@@ -90,15 +90,27 @@ outright when its output directory is missing.
 
 ## Known notes
 
-- `res://tools/` (debug harnesses) is excluded from release builds;
-  `res://addons/` is excluded by the `addons/` gitignore rule for source,
-  though the packed game is a build artifact anyway.
+- `res://tools/` (debug harnesses) and `res://addons/` (the godot-mcp editor
+  bridge) are both excluded from every release export; the fresh-clone gate
+  (`tools/fresh_clone.sh`) enforces this. The Web shell was historically a
+  gitignored export/ story (export/ is gitignored) — the required template
+  now lives at tracked `res://web_shell.html`, so cold clones produce a
+  booting Web build.
 - The editor writes `project.godot` on import/save; the [display] pin could
   not live there safely, so the desktop window is pinned in
   `GameSettings._ready` instead (see `TODO.md`).
 - The `export/` dir is gitignored; builds were written to
   `/tmp/opencode/isle2-smoke/` during verification, freeing the repo from
   binaries.
+
+## Fresh-clone build proof (2026-11-19, at 122ef21)
+
+`tools/fresh_clone.sh` extracted `git archive HEAD` to a clean directory,
+imported clean, exported Linux (boot.log empty), and exported Web. The script
+now hard-fails the proof when the generated page contains `$GODOT_*`
+placeholders or never references `build.js`; the run printed `== export Web
+shell ... (Web shell bootstrapped correctly — build.js referenced)` and
+`Fresh-clone proof PASS`. The repo alone builds a playable Web artifact.
 
 ## Fresh-clone build proof (2026-11-18)
 
