@@ -105,7 +105,7 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
   accessors (`garbage_bias`, `fish_speed_multiplier`, `belt_speed_multiplier`,
   `golden_chance_multiplier`) rather than raw keys, so there is no per-scene RNG. The shop sells a **dockhand's tide tip** ($25) that names tomorrow's tide — the only way to look ahead, bought one day at a time.
 - **Bottles**: `scripts/bottle_catalog.gd` — canonical title/lines for every message in a bottle; the world pickup and the stats page's Tide Ledger both read it.
-- **Fish journal**: `scripts/fish_catalog.gd` — canonical names/blurbs for the six reef species; the dive pops "New species!" on a first sighting and the stats page's Reef Registry re-shows every earned note.
+- **Fish journal**: `scripts/fish_catalog.gd` — canonical names/blurbs for the six reef species; the dive pops "New species!" on a first sighting and the stats page's Reef Registry re-shows every earned note. The registry button on the stats page keeps count of how many species you have met.
 - **Collectibles & streaks**: golden belt scrap (+2 score) and golden reef debris (+1 bonus) spawn at 12%; lifetime trackers (clean dives, flawless shifts, golden finds, best combo/haul) feed achievements — REEF REGISTRY, CLEAN SWEEP, SILK TOUCH, GOLDEN TOUCH, RHYTHM OF THE REEF, HEAVY HARVEST, HOT STREAK.
 - **The courier's chime**: first Silverfin sighting plays a synthesized two-note glass chime (`sound/sfx/silverfin.wav`) — the registry has its own voice.
 - **The courier crosses the strait**: on Eel Run days a pale streak sweeps the world map (`scenes/wm_courier.tscn`, `scripts/wm_courier.gd`) — ambience only, no card, no prompt. Once THE LAST LETTER is read, the flyby comes sooner and more often: the sea keeps the keeper company.
@@ -216,7 +216,7 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 - Collection radius 66.27 + 12×upgrade_range.
 - Combos: 3 garbage in 2s → multiplier `1 + floor(combo/3)`; bonus = weight × (mult-1).
 - Fish limit 3 ends run; spawns edge markers for off-screen items.
-- Spawns are weighted, not uniform: Goldie 20 / Nemo 26 / Crab 22 (regulars), Grey Reef Shark 14, Starfish 14, Silverfin 10 — doubled to 20 on Eel Run, the courier's day. The Starfish drifts at 0.42× a fish's speed, spawns already on the reef floor (no bottom wake), and carries a calm amber edge marker instead of the red fish flare.
+- Spawns are weighted, not uniform (weighted reef spawns): Goldie 20 / Nemo 26 / Crab 22 (regulars), Grey Reef Shark 14, Starfish 14, Silverfin 10 — doubled to 20 on Eel Run, the courier's day. The Starfish drifts at 0.42× a fish's speed, spawns already on the reef floor (no bottom wake), and carries a calm amber edge marker instead of the red fish flare.
 - A dive with no pickups and no fish bumps is not counted (no dive counter, depth best, recap card or haul).
 - Game over: camera shake + confetti, summary panel.
 
@@ -345,6 +345,9 @@ achievement and all five islanders notice THE FAR POINT; wired into
 simulator (4000 sims, fixed seed): replays dive → bench → shop with the
 shipped constants and prints the mean gross per loop (~$32 on a neutral tide,
 matching the guide's measured opening). A review tool, not a gate.
+
+`godot --headless --script tools/courier_flight_test.gd` — the courier's flyby:
+survives only on Eel Run, hides under reduced motion, re-arms after a pass.
 
 `bash tools/all_audits.sh` — the one-command gate: every runtime and static
 harness plus every Python audit, each under its own throwaway profile (no
