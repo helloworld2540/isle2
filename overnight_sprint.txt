@@ -179,3 +179,14 @@ OPEN / NICE-TO-HAVE (from backlogs, non-blocking)
   through AudioManager); starfish.png / sub.png / sky_blurred.png /
   wm_npc/npc*.png / player_walk000*.png / upcycle fire+pump are unreferenced
   and tracked. Logged in TODO.md for review instead of deleting user art.
+
+## 2026-11-19 (tutorial) — Restored the promised teaching beats in step cards
+
+- The in-flight visual pass had compressed the five tutorial step bodies so
+  far that guide.md's first-playthrough section no longer matched the cards:
+  1 kg/pickup (reef), the 30 px swipe + per-sort Reef Debris burn (bench),
+  the PE/PP/Glass/Nylon bag weights + Glass Calm bulk + Corl's $25 tip
+  (shop), and the courier-page gesture (finale) are all restored, kept terse
+  (2–4 short lines, 24 px type).
+- No behaviour changes; tutorial_tour_test (isolated) and layout/font/touch
+  audits all pass. Gate: ALL-AUDITS PASS.

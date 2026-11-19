@@ -35,22 +35,22 @@ const STEPS := {
 	},
 	STEP_REEF: {
 		"title": "Dive the reef",
-		"body": "[font_size=24]Head to the [color=#9fe2ff]south dock[/color] — Reef Rescue.\nDrag to steer. Grab junk, dodge fish — three bumps end the dive.[/font_size]",
+		"body": "[font_size=24]Head to the [color=#9fe2ff]south dock[/color] — Reef Rescue.\nDrag to steer. Junk banks [color=#ffd27f]1 kg a pickup[/color]; three fish bumps end the dive.[/font_size]",
 		"button": "Got it",
 	},
 	STEP_SORT: {
 		"title": "Sort at the bench",
-		"body": "[font_size=24]Ride the belt at the [color=#9fe2ff]Upcycle bench[/color] (east).\n[color=#9fe2ff]Swipe[/color] items into the matching bin. Wrong bins reset your streak.[/font_size]",
+		"body": "[font_size=24]Ride the belt at the [color=#9fe2ff]Upcycle bench[/color] (east).\n[color=#9fe2ff]Swipe 30+ px[/color] into the matching bin — each sort burns one [color=#ffd27f]Reef Debris[/color]. Wrong bins reset your streak.[/font_size]",
 		"button": "Got it",
 	},
 	STEP_SELL: {
 		"title": "Cash in at the shop",
-		"body": "[font_size=24]The [color=#9fe2ff]shop[/color] (north) turns materials into money.\nYour bag holds [color=#ffd27f]10 kg[/color].\nSell [color=#ffd27f]5+ of a type[/color] for a bulk bonus.[/font_size]",
+		"body": "[font_size=24]The [color=#9fe2ff]shop[/color] (north) turns materials into money.\nBag holds [color=#ffd27f]10 kg[/color] — PE 1 / PP 2 / glass 3 / nylon 2.\n[color=#ffd27f]5+ of a type[/color] pays bulk (+35% on Glass Calm). Corl sells tomorrow's tide, $25, once a day.[/font_size]",
 		"button": "Got it",
 	},
 	STEP_FINALE: {
 		"title": "You know the loop!",
-		"body": "[font_size=24][color=#8fd0a0]Reef → Upcycle → Shop[/color] — that's the circuit.\nFinish all three for a [color=#ffd27f]$15 bonus[/color].\nThe rest is yours to find.[/font_size]",
+		"body": "[font_size=24][color=#8fd0a0]Reef → Upcycle → Shop[/color] — that's the circuit.\nFinish all three for a [color=#ffd27f]$15 bonus[/color].\nIf the counter mentions a courier's page, that is not a rumour.\nThe rest is yours to find.[/font_size]",
 		"button": "Let's clean up",
 	},
 }
