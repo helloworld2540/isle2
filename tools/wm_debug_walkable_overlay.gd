@@ -25,8 +25,5 @@ func _print_walkable_cells() -> void:
 				get_parent().add_child(rect)
 
 func _input(event: InputEvent) -> void:
-func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
-	if event.is_action_pressed("ui_cancel"):
-		queue_free()
 		queue_free()
