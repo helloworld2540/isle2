@@ -4,6 +4,8 @@ Sorted by importance. The overnight loop pulls from the top.
 
 ## High
 - Keep `tools/all_audits.sh` green after every scene/script edit; fix harness drift (e.g. `uid=`-aware regexes) rather than weakening the checks.
+- Web export shell RESOLVED (2026-11-19): preset points at tracked res://web_shell.html; fresh_clone.sh now PASSES end-to-end. Any future custom_html_shell edit must reference a git-tracked file — export/ is gitignored by design.
+- Stretch aspect: `window/stretch/aspect="keep"` was tried and REVERTED — the running editor keeps its loaded copy and re-stamps project.godot on save, wiping the line. Re-attempt only via the editor's own settings UI (or after a restart), never by editing project.godot on disk while the editor is open.
 - Balance pass DONE (2026-11-19): `tools/pacing_sim.gd` measures the fresh-save loop at ~$32/loop, matching the guide's +$34/+$32/+$32 — no rebalance needed. Re-run the sim after any economy constant moves.
 
 ## Medium

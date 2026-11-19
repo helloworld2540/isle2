@@ -229,3 +229,12 @@ OPEN / NICE-TO-HAVE (from backlogs, non-blocking)
   the archive move; committed.
 - fresh_clone.sh re-run: import clean, Linux export boots silent, Web shell
   references build.js — PASS. Clone dir removed.
+
+## 2026-11-19 (mobile, reverted) — stretch aspect="keep" dropped
+
+- The running editor (godot-mcp session, world.tscn playing) holds its own
+  loaded project.godot and re-stamps the file on save — it wiped the
+  aspect="keep" line twice, 10 minutes apart. Disk now matches the editor
+  buffer; the display line is not in the repo. Letterbox scaling can be
+  re-applied from the editor UI or after a restart. The export_presets
+  Web-shell fix (the real regression this cycle) stands.
