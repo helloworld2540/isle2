@@ -130,6 +130,9 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
   `slot_created`, `slot_modified`). The **directory** is authoritative for
   `slot_id`: `GameState.restore()` forces it from `current_slot`, so a copied or
   hand-edited file cannot claim to be a different island.
+- Slot rows sign themselves: once the Silverfin is logged, the island that
+  saw it carries ✳ in the slot picker (and the front door recalls the same
+  mark), so the keeper can find the one with the story at a glance.
 - `list_slots()` scans the directory and returns newest-first header dicts
   (`id/name/created/modified` + the full save, so a row can show money/score in
   one line). `create_slot`, `rename_slot` (keeps the slug, changes only the
@@ -263,7 +266,7 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 - Blocks input while busy; handles paused tree.
 
 ## Stats & Settings
-- `stats_menu.tscn`: shows score, best, lifetime, inventory, reef stats, best streak, volume sliders (incl. ambience).
+- `stats_menu.tscn`: shows score, best, lifetime, inventory, reef stats, best streak, volume sliders (incl. ambience). The deeds column records the one-time tide gifts too (the bottle gift and the starfish tide pool each flip to "paid") alongside the almanac, the fish, the courier and the far point.
 - World menu: volume sliders (master/music/ambience/sfx), reduced motion checkbox, upgrade buttons, progress bars.
 - Main menu: painted vista backdrop, save summary, and a framed "THE ISLE" world-preview
   postcard (`scenes/ui/world_preview.tscn`) with ambient motes (`scenes/ui/mote.tscn`)

@@ -1,6 +1,25 @@
 # Current project todo:
 
 ## done this pass
+- **The tide gift is no longer a silent save key.** `tide_gift_granted` (the
+  +$25 payout for reading three bottles) was the last key in `SAVE_SCHEMA`
+  with no reader outside `game_state.gd` — `schema_audit` flagged it as a
+  possible rotting relic. It isn't a relic (the achievement banner plays it),
+  but the stats page kept no visible trace of it while its starfish and
+  almanac siblings both wrote "paid" into the journal. It does now: the
+  deeds column adds "✦ The tide makes a habit of the gift to its keeper."
+  and the journal line grows a `· tide gift paid` mark, matching `tide pool
+  paid`/`tide almanac paid`. `schema_audit` now reports 0 failures, 0
+  warnings.
+- **`parity_audit` reports zero silents.** The three informational gaps are
+  documented: Eel Run's HUD/report line naming the courier
+  ("the courier rides the current"), the courier glint in Reef Rescue (the
+  pale burst on Silverfin entry, never a chime), and the slot-row signatures
+  (✳ once the Silverfin is logged, ✦ once the sea is read) — see guide.md
+  (Tide conditions, Reef Rescue) and README.md (multi-slot islands).
+- **`ALL-AUDITS: PASS` end-to-end with real player slots present.**
+
+## done this pass
 - **`all_audits.sh` now actually runs on this machine — and runs everything.**
   The old gate exited 0 (`SKIP: …`) whenever player slots existed,
   silently skipping all verification; and when slots *were* absent it ran

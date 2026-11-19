@@ -246,6 +246,8 @@ func _update_stats_display() -> void:
 		deeds.append("Title: Harbor Hero — every quest tier cleared (+%d kg bag)." % bonus_kg)
 	if GameState.island_patron:
 		deeds.append("✦ Patron of the Isle — 1500$ given back.")
+	if GameState.tide_gift_granted:
+		deeds.append("✦ The tide makes a habit of the gift to its keeper.")
 	if GameState.tide_almanac_granted:
 		deeds.append("✦ The Almanac Is Kept — four tides, one patient keeper.")
 	if GameState.tidekeeper:
@@ -282,10 +284,11 @@ func _build_journal_line() -> String:
 	var ach := GameState.achievement_count()
 	var total := GameState.achievement_total()
 	var paid_out := " · tide pool paid" if GameState.tide_pool_granted else ""
+	var gift_paid := " · tide gift paid" if GameState.tide_gift_granted else ""
 	var almanac := " · tide almanac paid" if GameState.tide_almanac_granted else ""
 	var quiet := " · tide hidden" if GameSettings.hide_tide else ""
 	var tides := GameState.tides_logged.size()
-	return "Journal — bottles %d/8 · starfish %d/5%s · tides %d/4%s%s · species %d/%d · achievements %d/%d" % [bottles, starfish, paid_out, tides, almanac, quiet, fish, REGISTRY_IDS.size(), ach, total]
+	return "Journal — bottles %d/8%s · starfish %d/5%s · tides %d/4%s%s · species %d/%d · achievements %d/%d" % [bottles, gift_paid, starfish, paid_out, tides, almanac, quiet, fish, REGISTRY_IDS.size(), ach, total]
 
 
 ## The keeper's almanac as a checklist: every tide in rotation order with a

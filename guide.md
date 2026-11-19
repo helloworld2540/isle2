@@ -174,7 +174,9 @@ checked against this yield — nothing changed, deliberately.*
     and fewer fish in Reef Rescue, and the shop's bulk bonus rises to +35%.
   - **Eel Run** — a warm current: reef fish dart about 28% faster, and the
     Silverfin rides the fast water — the courier surfaces twice as often.
-    Lead your drag a little more.
+    Lead your drag a little more. Eel Run's HUD line and the tide report
+    name the courier plainly ("the courier rides the current") — the one
+    day of the week the sea admits the post runs through it.
   - **Slack Water** — the upcycle belt runs about 18% slower, which is the
     forgiving day to practise precise sorting.
   - **Night Drift** — golden debris and golden belt scrap are twice as likely,
@@ -279,7 +281,8 @@ checked against this yield — nothing changed, deliberately.*
 - The stats page's Tide Ledger and Reef Registry tease locked rows
   instead of printing question marks — each bottle and fish has its own
   spoiler-free hint; the page is the island's clue board.
-- The stats page opens with a single-line Keeper's Journal ledger: "Journal — bottles n/8 · starfish n/5 · tides n/4 · species n/6 · achievements n/47" — so you can see the whole completion board at a glance without scrolling.
+- The stats page opens with a single-line Keeper's Journal ledger: "Journal — bottles n/8 · starfish n/5 · tides n/4 · species n/6 · achievements n/47" — so you can see the whole completion board at a glance without scrolling. The journal flips a glyph when the one-time tides pay off (the bottle gift, the starfish tide pool and the almanac each add a "paid" mark once claimed).
+- The courier glints: the Silverfin always throws a small blue-white burst when it enters the water (a rumour on the tide, never a chime — the chime belongs to the registry). If you have Reduced motion on, the glint is still and silent, and the fish simply knows.
 - Bottles you have already read can be re-read from the stats page via the Tide Ledger overlay (the game nudges you there once the third base bottle is read) (undiscovered notes stay locked).
 - Quest economics audit (SALE_PRICES-weighted): turn-ins are deliberately slightly under market value — that is the price of quest progress and the Harbor Hero +10 kg cap — but the old numbers were punitive (Tom 24$->12$, Nina 30$->15$, Kai 25$->10$, Mara t2 25$->18$). Buffed: Tom t1 4->6 PP (18$), Nina t1 5->6 PP (18$), Kai t1 now 6 PP (18$), Mara t2 6->8 PP (24$). Nina t2 (+8$) and Kai t2 (+4$) remain the profitable tiers.
 - Depth is tracked in the stats page and feeds two achievements: DEEP DIVE (400 m) and TO THE ABYSS (900 m). Ten finished dives earns REEF REGULAR; the stats page keeps a running "Field log" of dives and bench runs.
