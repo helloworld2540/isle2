@@ -4,7 +4,7 @@ Sorted by importance. The overnight loop pulls from the top.
 
 ## High
 - Keep `tools/all_audits.sh` green after every scene/script edit; fix harness drift (e.g. `uid=`-aware regexes) rather than weakening the checks.
-- Balance pass: re-measure fresh-save loop pacing (reef → bench → shop) in an isolated profile and adjust spawn/economy constants if the opening drifted. Economy audit says the documented numbers still hold (0 failures); a real playthrough measurement is still pending.
+- Balance pass DONE (2026-11-19): `tools/pacing_sim.gd` measures the fresh-save loop at ~$32/loop, matching the guide's +$34/+$32/+$32 — no rebalance needed. Re-run the sim after any economy constant moves.
 
 ## Medium
 - Tutorial: the isolated `tutorial_tour_test` harness passes under `tools/all_audits.sh`; still walk the first-playthrough flow live via godot-mcp (isolated XDG_DATA_HOME) and tighten any step whose copy or trigger no longer matches the scene.
