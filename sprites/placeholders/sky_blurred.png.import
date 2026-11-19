@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cdpjlhinuw70k"
-path="res://.godot/imported/sky_blurred.png-423cd980af6df334ee1c323f7b553531.ctex"
+path="res://.godot/imported/sky_blurred.png-4ceba656396240f33db690b129efe658.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/sky_blurred.png"
-dest_files=["res://.godot/imported/sky_blurred.png-423cd980af6df334ee1c323f7b553531.ctex"]
+source_file="res://sprites/placeholders/sky_blurred.png"
+dest_files=["res://.godot/imported/sky_blurred.png-4ceba656396240f33db690b129efe658.ctex"]
 
 [params]
 

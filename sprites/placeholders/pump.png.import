@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b80gd1y1iny4m"
-path="res://.godot/imported/pump.png-0947dbc6fc4e0e950d0e03d18e8e1d6e.ctex"
+path="res://.godot/imported/pump.png-ea506d7d87127070914be8174136b71a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/upcycle/pump.png"
-dest_files=["res://.godot/imported/pump.png-0947dbc6fc4e0e950d0e03d18e8e1d6e.ctex"]
+source_file="res://sprites/placeholders/pump.png"
+dest_files=["res://.godot/imported/pump.png-ea506d7d87127070914be8174136b71a.ctex"]
 
 [params]
 
