@@ -31,4 +31,21 @@ else
   echo "   (boot.log empty — clean)"
 fi
 
+echo "== export Web shell"
+# A custom HTML shell that fails Godot's placeholder substitution ships a
+# blank page — the bug that present day Web builds carried. Verify the
+# generated page carries the substituted engine bootstrap, not placeholders.
+mkdir -p "$CLONE/export/web"
+timeout 560 godot --headless --export-release "Web" "$CLONE/export/web/build.html" \
+  2>&1 | tail -2
+if grep -qE '\$GODOT_(URL|CONFIG)' "$CLONE/export/web/build.html"; then
+  echo "   [FAIL] build.html still contains \$GODOT_* placeholders — custom shell is broken"
+  exit 1
+fi
+if ! grep -qE '<script src="build\.js"' "$CLONE/export/web/build.html"; then
+  echo "   [FAIL] build.html does not load build.js — Web boot would be a blank page"
+  exit 1
+fi
+echo "   (Web shell bootstrapped correctly — build.js referenced)"
+
 echo "Fresh-clone proof PASS at $CLONE (build kept for inspection; remove it manually)"
