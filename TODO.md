@@ -1,6 +1,17 @@
 # Current project todo:
 
 ## done this pass
+- **The first-playthrough tour now teaches the loop end to end.** The
+  dive card teaches drag-steer, 1 kg per pickup and the three-bump dive end;
+  the bench card teaches the 30 px swipe and that every correct sort burns a
+  Reef Debris (wrong bins cost the streak, never the score); and the sell
+  card doubles as the inventory lesson — the 10 kg bag budget, per-material
+  weights, the 5-of-a-kind bulk bonus (+35% on Glass Calm) and Corl's $25
+  tide tip. Also fixed a duplicated Nina/"A letter from above" bullet in
+  guide.md. `tutorial_tour_test` PASS (in-order, no re-arm), `layout_audit`
+  PASS (the sell card wraps at 524 px width with fit_content), smoke 59/59.
+
+## done this pass
 - **The drag-scroll mandate is now a build-time invariant.** Every
   ScrollContainer in every scene already carries `scripts/ui/drag_scroll.gd`
   (the wrapper adding finger-flick/drag scrolling on top of ScrollContainer's

@@ -127,14 +127,13 @@ checked against this yield — nothing changed, deliberately.*
 - On a fresh save, world map load shows the "Welcome to Isle 2" card (once per save).
 - The TutorialDirector then arms a five-step tour, one hint card at a time:
   1. **Take a stroll** — tap to walk; completes on your first step.
-  2. **Dive the reef** — head to the south dock; completes when the dive begins.
-  3. **Sort at the bench** — ride the belt east; completes on your first correct sort.
-  4. **Cash in at the shop** — north; completes on your first sale (5+ pays +25% bulk).
+  2. **Dive the reef** — head to the south dock; completes when the dive begins. Teaches drag-steer, 1 kg per pickup and the three-bump dive limit.
+  3. **Sort at the bench** — ride the belt east; completes on your first correct sort. Teaches the 30 px swipe and that each correct sort burns one Reef Debris.
+  4. **Cash in at the shop** — north; completes on your first sale. Doubles as the inventory lesson: the 10 kg bag budget (polyethylene 1 / polypropylene 2 / glass 3 / nylon 2, +10 kg per level), the 5-of-a-kind bulk bonus (+35% on Glass Calm), and Corl's $25 tide tip.
   5. **You know the loop!** — celebratory card naming the $15 island-circuit bonus.
 - Cards are non-modal (they never pause or block play) and only appear in the scene
   where the current step can be acted on; they reappear on scene re-entry until done.
 - After the first courier's letter, a one-shot "The courier is real" nudge points at the Reef Registry and Eel Run (saved per-island, never repeats).
-- Log the Silverfin once, and the next time you walk out onto the map a letter from Nina arrives — "A letter from above" — the courier's flight path crosses hers, and she knows you'd notice.
 - Log the Silverfin once, and the next time you walk out onto the map a letter from Nina arrives — "A letter from above" — the courier's flight path crosses hers, and she knows you'd notice.
 - The finale card gestures at the long game — the tide, the NPCs, the bottles,
   and now the courier's letter: "if the shop counter mentions a page the

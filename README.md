@@ -29,7 +29,7 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 | `AudioManager` | `scripts/audio_manager.gd` | SFX/BGM playback, buses, volumes, reduced motion |
 | `GameSettings` | `scripts/game_settings.gd` | Persisted per-player toggles (reduce motion) |
 | `SceneTransition` | `scripts/scene_transition.gd` | Fade overlay scene changes |
-| `TutorialDirector` | `scripts/tutorial_director.gd` | Step-by-step first-playthrough guide (walk → dive → sort → sell) | (plus one-shot nudges incl. the tide report and the dockhand's tip)
+| `TutorialDirector` | `scripts/tutorial_director.gd` | Step-by-step first-playthrough guide (walk → dive → sort → cash in) — teaches navigation, reef mechanics, the 30 px swipe and that sorts burn Reef Debris, plus the inventory lesson (10 kg bag, per-material weights, bulk bonus, tide tip) inline on the sell step | (plus one-shot nudges incl. the tide report and the dockhand's tip)
 
 ### Modules
 - **Tide** (`scripts/tide_report.gd`, global `TideReport`) — the deterministic

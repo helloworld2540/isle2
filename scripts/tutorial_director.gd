@@ -35,17 +35,17 @@ const STEPS := {
 	},
 	STEP_REEF: {
 		"title": "Dive the reef",
-		"body": "[font_size=24]Head to the [color=#9fe2ff]south dock[/color] — that is Reef Rescue.\nDodge fish, scoop up junk, and bank a deep haul as Reef Debris.[/font_size]",
+		"body": "[font_size=24]Head to the [color=#9fe2ff]south dock[/color] — that is Reef Rescue.\nDrag to steer; scoop junk for [color=#ffd27f]1 kg a pickup[/color], and dodge the fish — three bumps end the dive.[/font_size]",
 		"button": "Got it",
 	},
 	STEP_SORT: {
 		"title": "Sort at the bench",
-		"body": "[font_size=24]Now ride the belt at the [color=#9fe2ff]Upcycle bench[/color] (east).\nMatch each piece to its bin — correct sorts become material.[/font_size]",
+		"body": "[font_size=24]Now ride the belt at the [color=#9fe2ff]Upcycle bench[/color] (east).\n[color=#9fe2ff]Swipe 30+ px[/color] onto the matching bin — each correct sort burns one [color=#ffd27f]Reef Debris[/color]. Wrong bins reset your streak, not your score.[/font_size]",
 		"button": "Got it",
 	},
 	STEP_SELL: {
 		"title": "Cash in at the shop",
-		"body": "[font_size=24]The [color=#9fe2ff]shop[/color] (north) turns materials into money.\nSelling 5+ of one type pays a [color=#ffd27f]+25% bulk bonus[/color] — [color=#ffd27f]+35%[/color] on Glass Calm days when the reef lets its litter go.[/font_size]",
+		"body": "[font_size=24]The [color=#9fe2ff]shop[/color] (north) turns materials into money.\nYour bag holds [color=#ffd27f]10 kg[/color] — polyethylene 1, polypropylene 2, glass 3, nylon 2 (grows +10 kg per level).\nSelling [color=#ffd27f]5+ of one type[/color] pays +25% bulk (+35% on Glass Calm). Corl sells tomorrow's tide, $25, once a day.[/font_size]",
 		"button": "Got it",
 	},
 	STEP_FINALE: {
