@@ -320,3 +320,15 @@ OPEN / NICE-TO-HAVE (from backlogs, non-blocking)
 - scenes/ui/audio_stream_player.tscn was a bare, scriptless AudioStreamPlayer
   referenced by nothing. Removed from git; recoverable from history if ever
   needed. Gate: PASS.
+
+## 2026-11-20 (assets) — reference sweep: scripts, scenes, resources all reachable
+
+- Scripts: only dead entry was wm_debug_walkable_overlay.gd (moved to tools/).
+  tide_report / card_queue / margin_notes are class_name globals referenced by
+  name, not path — alive.
+- Scenes: only scenes/ui/audio_stream_player.tscn was unreferenced — an empty
+  scriptless AudioStreamPlayer, deleted (in history).
+- Resources: default.tres is the project theme (theme/custom uid in
+  project.godot), control_theme.tres and tileset.tres are uid/path references
+  from scenes — all alive. Fonts referenced via the two themes.
+- import_audit / unique_id_audit / docs_audit remain green.
