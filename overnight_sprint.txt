@@ -1183,3 +1183,15 @@ STATE
 - `tools/all_audits.sh` PASSES end-to-end; smoke_test 60/60 scenes clean;
   main menu boots clean in the editor (no new runtime errors).
 - Committed as 61c7b24.
+
+## 2026-11-19 (late) — Tutorial tour, economy numbers and sprite audit verified
+
+- `tutorial_tour_test` runs isolated inside all_audits.sh — PASS (fresh-save
+  walkthrough harness; the real player profile is never touched).
+- `economy_audit.py` — 0 failures; sale prices, bulk math, sinks, dockhand
+  tip, circuit bonus and tide single-axis modifiers all still match the guide.
+- Sprite audit: every refreshed .kra (bottle/star/watcher/boat/rr_bg) has its
+  PNG exported the same minute; *~ backups are untracked. No stale art.
+- `wm_flow_dots.gd` reduced-motion parity confirmed intact (chevrons static,
+  dots still). TODO.md updated accordingly.
+- Gate: ALL-AUDITS PASS.
