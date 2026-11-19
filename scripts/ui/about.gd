@@ -33,7 +33,7 @@ func _default_credits() -> String:
 		+ "[color=#9fd0e8]Art and world: Krita-drawn, hand-built.[/color]\n" \
 		+ "[color=#9fd0e8]Sound: music by Kevin Macleoud.[/color]\n" \
 		+ "[color=#8fa6b3]Built with heavy tooling assistance — AI in the loop for design and code.[/color]\n" \
-		+ "[color=#8fa6b3]Version 2.3  ·  Linux  ·  Web  ·  Android.[/color]\n" \
+		+ "[color=#8fa6b3]Version 1.3.0  ·  Linux  ·  Web  ·  Android.[/color]\n" \
 		+ "[/center]"
 
 

@@ -5,6 +5,7 @@ non-trivial content and carry the sections it advertises. Fails loudly;
 prints PASS otherwise."""
 
 import os
+import re
 import subprocess
 import sys
 
@@ -12,7 +13,7 @@ REQUIRED = {
     "README.md": ["Architecture", "Modules"],
     "guide.md": ["## Controls", "## Quick reference"],
     "TODO.md": ["# Current project todo:"],
-    "overnight_sprint.txt": ["## 2026-11-17"],
+    "overnight_sprint.txt": ["## 2026-11-19"],
 }
 
 failures = []
@@ -36,6 +37,27 @@ for path, anchors in REQUIRED.items():
     for anchor in anchors:
         if anchor not in text:
             failures.append(f"{path}: missing anchor {anchor!r}")
+
+# Version strings must agree: the main-menu stamp, the About page and the
+# README shipping line all name the same version. A loop that bumps one and
+# not the others prints a lie on the title screen.
+version_hits = []
+for path, pattern in (
+    ("scenes/main_menu.tscn", r'text = "(v[0-9]+\.[0-9]+(?:\.[0-9]+)?)"'),
+    ("scripts/ui/about.gd", r'Version ([0-9]+\.[0-9]+(?:\.[0-9]+)?)'),
+    ("README.md", r'[Ss]hipping version: ([0-9]+\.[0-9]+(?:\.[0-9]+)?)'),
+    ("guide.md", r'\*\*([0-9]+\.[0-9]+\.[0-9]+)\*\*'),
+):
+    m = re.search(pattern, open(path, encoding="utf-8").read())
+    if m is None:
+        failures.append(f"version stamp not found in {path}")
+        continue
+    v = m.group(1).lstrip("v")
+    version_hits.append((path, v))
+distinct = {v for _, v in version_hits}
+if len(distinct) > 1:
+    detail = ", ".join(f"{p}={v}" for p, v in version_hits)
+    failures.append(f"version mismatch across files: {detail}")
 
 if failures:
     print("docs_audit FAILED:")
