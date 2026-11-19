@@ -1,5 +1,8 @@
 extends CharacterBody2D
 
+## The islander on the world map: tap-to-move with BFS pathfinding on
+## walkable tiles, walk/idle animations and tide-aware movement.
+
 @export var MOVE_TIME := 0.3
 
 @onready var animated_sprite: AnimatedSprite2D = $"AnimatedSprite2D"

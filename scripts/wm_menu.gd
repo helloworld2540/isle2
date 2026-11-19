@@ -1,6 +1,9 @@
 extends CanvasLayer
 class_name WorldMenu
 
+## The island menu (☰): volume sliders, reduced motion, upgrades bought
+## with trash, and the settings/about entries for the world map.
+
 const NOTIFICATION_QUEUE := preload("res://scenes/ui/notification_queue.tscn")
 const FxSparkle := preload("res://scripts/fx_sparkle.gd")
 # World map pause/menu overlay.

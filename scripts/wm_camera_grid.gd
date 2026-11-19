@@ -1,5 +1,8 @@
 extends Camera2D
 
+## World-map camera: top-level, deadzoned follow with lerp so the map
+## scrolls smoothly behind the islander instead of snapping per cell.
+
 @export var deadzone_width: float = 128.0 * 8.0
 @export var deadzone_height: float = 128.0 * 5.0
 @export var lerp_speed: float = 6.0

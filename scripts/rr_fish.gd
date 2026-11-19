@@ -1,6 +1,9 @@
 extends Node2D
 class_name Fish
 
+## One drifting spawn in Reef Rescue — garbage or a fish — with its
+## sprite, weight and drift speed; owns its off-screen edge marker.
+
 const GARBAGE := {
 	"trash_net.png": 35,
 	"trash_bottle.png": 15,

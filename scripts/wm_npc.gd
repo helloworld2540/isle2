@@ -1,6 +1,10 @@
 extends Area2D
 class_name WorldNPC
 
+## A named islander on the world map: dialogue, first-visit gift and
+## two-tier material quests; optional milestone beats (achievement
+## id → line) for story awareness.
+
 @export_group("NPC Identity")
 @export var npc_id: String = "npc_1"
 @export var npc_name: String = "Friendly Cleaner"

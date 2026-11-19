@@ -1,6 +1,9 @@
 extends Control
 class_name StatsMenu
 
+## The stats/journal page: lifetime economy, reef and bench records,
+## the Reef Registry, bottle catalogue, tides almanac and achievements.
+
 const SCENE_MAIN_MENU: String = "res://scenes/main_menu.tscn"
 const DIALOGUE_SCENE: PackedScene = preload("res://scenes/ui/npc_dialogue.tscn")
 const BottleCatalog := preload("res://scripts/bottle_catalog.gd")

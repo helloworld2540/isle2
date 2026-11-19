@@ -1,6 +1,9 @@
 extends Node2D
 class_name Trash
 
+## One belt item on the Upcycle bench: carries a material (from the
+## sprite TRASH_MAP), its unit size, and an optional golden tint.
+
 const TRASH_MAP := {
 	# Grants are sized to ~25–50% of a fresh 10 kg bag so one sort never
 	# silently maxes the hold; a bag levels up roughly every 2–3 sorts early,

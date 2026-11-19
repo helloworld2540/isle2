@@ -24,9 +24,9 @@
 [ext_resource type="Texture2D" uid="uid://bi0q1xmnunxb7" path="res://sprites/npc/portrait_nina.png" id="22_nina"]
 [ext_resource type="Texture2D" uid="uid://c0e606rmfcqyv" path="res://sprites/npc/portrait_kai.png" id="23_kai"]
 [ext_resource type="PackedScene" path="res://scenes/wm_bottle.tscn" id="24_bottle"]
-[ext_resource type="PackedScene" path="res://scenes/wm_gull.tscn" id="24_gull"]
+[ext_resource type="PackedScene" uid="uid://j6gwcpc4drcv" path="res://scenes/wm_gull.tscn" id="24_gull"]
 [ext_resource type="PackedScene" uid="uid://rkgl5u1khu28" path="res://scenes/wm_sparkles.tscn" id="25_sparkles"]
-[ext_resource type="PackedScene" path="res://scenes/watcher.tscn" id="25_watcher"]
+[ext_resource type="PackedScene" uid="uid://n3spx7uptqmb" path="res://scenes/watcher.tscn" id="25_watcher"]
 [ext_resource type="PackedScene" path="res://scenes/wm_boat.tscn" id="26_boat"]
 [ext_resource type="PackedScene" uid="uid://bhjss4vm65hfn" path="res://scenes/wm_starfish.tscn" id="26_starfish"]
 [ext_resource type="PackedScene" path="res://scenes/wm_harbor_ambience.tscn" id="27_harbor"]
@@ -1182,26 +1182,26 @@ horizontal_alignment = 1
 
 [node name="Gull1" parent="." unique_id=1232501547 instance=ExtResource("24_gull")]
 z_index = 5
-position = Vector2(900, -400)
+position = Vector2(1743, 52)
 
 [node name="Gull2" parent="." unique_id=1438993691 instance=ExtResource("24_gull")]
 z_index = 5
-position = Vector2(1200, 100)
+position = Vector2(1318, 301)
 
 [node name="Gull3" parent="." unique_id=1340969153 instance=ExtResource("24_gull")]
 z_index = 5
-position = Vector2(1500, 700)
+position = Vector2(877, 1015)
 
 [node name="Gull4" parent="." unique_id=1050413098 instance=ExtResource("24_gull")]
 z_index = 5
-position = Vector2(1100, 1300)
+position = Vector2(1418, 750)
 
 [node name="SeaSparkles" parent="." unique_id=262372736 instance=ExtResource("25_sparkles")]
 amount = 200
 emission_rect_extents = Vector2(3500, 2800)
 
 [node name="SeaBoat" parent="." unique_id=340776037 instance=ExtResource("26_boat")]
-position = Vector2(-597, 1308)
+position = Vector2(-594, 1263)
 
 [node name="HarborAmbience" parent="." unique_id=2134128747 instance=ExtResource("27_harbor")]
 

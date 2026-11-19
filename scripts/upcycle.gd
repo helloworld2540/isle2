@@ -1,6 +1,9 @@
 extends Node2D
 class_name Upcycle
 
+## The Upcycle bench: a belt of items to sort into material bins by
+## swiping; each correct sort burns one Reef Debris and banks score.
+
 const NOTIFICATION_QUEUE := preload("res://scenes/ui/notification_queue.tscn")
 const PATH_FOLLOW := preload("res://scenes/ui/path_follow2_d.tscn")
 const FxSparkle := preload("res://scripts/fx_sparkle.gd")

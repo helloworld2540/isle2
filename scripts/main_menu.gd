@@ -1,6 +1,9 @@
 extends Control
 class_name MainMenu
 
+## The front door: New Save / Load Save / Quit, the island vista with
+## ambient motes, version stamp and the keeper's one-line motto.
+
 @onready var new_save_button: Button = $LeftColumn/Buttons/NewSaveButton
 @onready var load_save_button: Button = $LeftColumn/Buttons/LoadSaveButton
 @onready var quit_button: Button = $LeftColumn/Buttons/QuitButton

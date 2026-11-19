@@ -1,5 +1,8 @@
 extends CanvasLayer
 class_name HUDNotificationQueue
+
+## Bottom-centre toast queue: short-lived labels one at a time, lifted
+## above any bottom card (tutorial hints) and clear of corner panels.
 # Lightweight HUD notification queue utility. Add as child or autoload; shows
 # short-lived labels one at a time in a bottom-centre lane — 24 px off the
 # screen edge, clear of the corner HUD panels, and lifted above any

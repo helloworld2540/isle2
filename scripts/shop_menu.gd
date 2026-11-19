@@ -1,6 +1,10 @@
 extends Node2D
 class_name ShopMenu
 
+## The harbor shop counter: sell materials (Sell 1/5/All, bulk bonus),
+## buy sinks, undo the last sale atomically, and the tide tip for
+## tomorrow's foresight.
+
 const NOTIFICATION_QUEUE := preload("res://scenes/ui/notification_queue.tscn")
 const RECEIPT_STACK_SCENE := preload("res://scenes/ui/receipt_stack.tscn")
 const DIALOGUE_SCENE := preload("res://scenes/ui/npc_dialogue.tscn")

@@ -1,5 +1,8 @@
 extends Node2D
 class_name ReefRescue
+
+## Reef Rescue: steer the drone through the water column, suck up
+## debris, dodge fish — three bumps end the dive.
 const FxSparkle := preload("res://scripts/fx_sparkle.gd")
 const FishCatalog := preload("res://scripts/fish_catalog.gd")
 

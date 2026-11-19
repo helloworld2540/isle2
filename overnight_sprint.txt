@@ -141,3 +141,11 @@ OPEN / NICE-TO-HAVE (from backlogs, non-blocking)
 - Editor was live this cycle (world scene running); LoopPath instantiate
   warnings in the editor log are stale cached frames — headless smoke_test
   instantiates every scene including world.tscn cleanly.
+
+## 2026-11-19 (docs) — Docstring sweep of the 15 undocumented scripts
+
+- Every script under scripts/ now opens with a `##` summary (game_state,
+  u_trash, wm_camera_grid, wm_debug_walkable_overlay, rr_fish, shop_menu,
+  stats_menu, notification_queue, upcycle, wm_menu, wm_npc, wm_player,
+  wm_progress, main_menu, reef_rescue).
+- Comment-only additions; no logic touched. Gate: ALL-AUDITS PASS.

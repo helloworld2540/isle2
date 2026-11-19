@@ -1,6 +1,9 @@
 extends CanvasLayer
 class_name WorldProgress
 
+## The world HUD progress card: Deep Cache bar, circuit bonus tracker
+## and the ≈ tide line, plus route advice for the next stop.
+
 const RouteAdvisor := preload("res://scripts/route_advisor.gd")
 
 ## Trail dots highlight the leg that leads to the advised stop.

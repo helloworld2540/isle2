@@ -1,5 +1,8 @@
 extends Node
 
+## Autoload (GameState): shared cross-scene state — score, inventory,
+## upgrades, bests, achievements and the save codec (SAVE_SCHEMA).
+
 # Shared cross-scene progress. Lives as an autoload (GameState).
 const DEFAULT_TRASH_TYPES: Array[String] = ["Polyethylene", "Polypropylene", "Glass", "Nylon", "Reef Debris"]
 

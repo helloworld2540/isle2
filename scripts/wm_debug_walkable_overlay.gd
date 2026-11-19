@@ -1,5 +1,8 @@
 extends TileMapLayer
 
+## Debug-only overlay that prints the walkable TileMap cells for the
+## BFS pathfinder — not shown in normal play.
+
 func _ready() -> void:
 	await get_tree().process_frame
 	_print_walkable_cells()

@@ -4,5 +4,6 @@
 [ext_resource type="Script" uid="uid://e68l2in68ltc" path="res://scripts/wm_gull.gd" id="2_gull"]
 
 [node name="WorldGull" type="Sprite2D" unique_id=2014165673]
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_gull")
 script = ExtResource("2_gull")
