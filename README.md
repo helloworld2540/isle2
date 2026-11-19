@@ -8,7 +8,7 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 - Entry scenes: `main_menu.tscn` → `world.tscn`
 - Shipping version: 1.3.0 — see `overnight_sprint.txt`
 - Working directory: `/media/seethathuman/data/godotProjects/isle2`
-- Shipped builds: Linux (`export/linux/build.x86_64`), Web (`export/linux/` HTML5 set), Android (`export/android/` signed APK) — presets in `export_presets.cfg`, all three verified end-to-end (see `overnight_sprint.txt`).
+- Shipped builds: Linux (`export/linux/build.x86_64`), Web (`export/web/` HTML5 set), Android (`export/android/` signed APK) — presets in `export_presets.cfg`, all three verified end-to-end (see `overnight_sprint.txt`).
 
 ## Architecture
 
@@ -362,7 +362,7 @@ Export presets live in `export_presets.cfg` (Web, Android, Linux). Export templa
 Godot 4.7.2 are installed. All presets exclude `res://tools/*`, `res://addons/*`, `export/`, `opencode.json`
 and `scenes/world.tscn.bak` from the pack; the repo ships a tiny no-op autoload guard (`scripts/mcp_bridge_guard.gd`) that loads the
 addon only when it is on disk (the addon itself is gitignored and now excluded from every export) — the game runs with zero
-dependencies, and the editor bridge works only in the developer's checkout. Verified headless builds (Nov 2026):
+dependencies, and the editor bridge works only in the developer's checkout. Verified headless builds (Nov 2026, re-verified on the dev tree 2026-11-20; Web shell and `build.js` bootstrap confirmed, APK signs clean, pack contents inspected for addon leakage — none):
 - `godot --headless --export-debug "Linux" export/linux/build.x86_64` — builds and launches with no script errors.
 - `godot --headless --export-debug "Web" export/web/index.html` — builds clean; serve over HTTP(S) with cross-origin-isolation headers for threads.
 - `godot --headless --export-debug "Android" export/android/build.apk` — builds and signs cleanly (no device install from this machine).
