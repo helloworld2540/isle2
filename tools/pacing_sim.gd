@@ -16,6 +16,10 @@ extends SceneTree
 ##     (not applied on top of a hypothetical Glass Calm — this is the
 ##     neutral-tide baseline); plus the $15 circuit bonus.
 ##
+## Also prints the measured fish-share of reef spawns per depth band, the
+## curve guide.md promises (~16/27/43/57/72%% at 0/200/400/600/800 m),
+## computed with the same randfn the spawn code rolls.
+##
 ## Run: godot --headless --path . -s tools/pacing_sim.gd
 ## Exits 0 always; prints a table. Intended for balance review, not a gate.
 
@@ -96,9 +100,20 @@ func _sim_loop(rng: RandomNumberGenerator, garbage_lo: int, garbage_hi: int) -> 
 	gross += CIRCUIT_BONUS
 	return {"gross": gross, "sorted": sorted, "debris_banked": debris}
 
+func _fish_share_at(depth: float, n: int, rng: RandomNumberGenerator) -> float:
+	# rr_fish spawn roll: randfn(depth/1000, 0.5) > 0.5 means "fish".
+	var hits := 0
+	for i in n:
+		if rng.randfn(depth / 1000.0, 0.5) > 0.5:
+			hits += 1
+	return float(hits) / n
+
 func _initialize() -> void:
 	var rng := RandomNumberGenerator.new()
 	rng.seed = 20261119
+	for depth in [0.0, 200.0, 400.0, 600.0, 800.0]:
+		print("  fish share of spawns at %d m: %.0f%%" % [depth, 100.0 * _fish_share_at(depth, 20000, rng)])
+	print("  guide promises: 16 / 27 / 43 / 57 / 72 (%)")
 	var n := 4000
 	var total := 0.0
 	var sorted_total := 0

@@ -332,3 +332,10 @@ OPEN / NICE-TO-HAVE (from backlogs, non-blocking)
   project.godot), control_theme.tres and tileset.tres are uid/path references
   from scenes — all alive. Fonts referenced via the two themes.
 - import_audit / unique_id_audit / docs_audit remain green.
+
+## 2026-11-20 (balance) — Fish/spawn curve measured; pacing sim prints it now
+
+- tools/pacing_sim.gd now also prints the fish share of reef spawns per
+  depth band using the same randfn the spawn code rolls (0/200/400/600/800 m
+  -> 16/27/42/58/72%). Guide promises 16/27/43/57/72 — within rounding.
+  The fresh-save loop economy holds at $32.29 mean gross (4000 sims).
