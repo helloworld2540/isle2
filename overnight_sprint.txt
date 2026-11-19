@@ -276,3 +276,15 @@ OPEN / NICE-TO-HAVE (from backlogs, non-blocking)
   dev-tree-verified, fresh-clone PASS, export_preset_audit in the gate.
 - Doc-path cross-check: every tools/*.{gd,py,sh} and scenes/*.tscn named in
   README/tools README exists on disk (no dead references).
+
+## 2026-11-20 (status) — State of the island at the end of this cycle
+
+- Gate: ALL-AUDITS PASS (incl. export_preset_audit); ship_audit: READY;
+  fresh_clone.sh: PASS; dev-tree builds Linux/Android/Web verified; Linux
+  export boots; Android APK signs; Web shell references its engine bootstrap.
+- Code: all functions typed; scripts/ docstrings complete; parity/docs/economy
+  audits clean; economy measured (~$32/loop, no drift); tutorial copy aligned
+  with the guide (step cards + nudges); orphan art archived in placeholders/;
+  version strings unified at 1.3.0 with a docs_audit drift guard.
+- Live session: world scene still open (60 FPS, no errors) — the keeper's
+  island was never interrupted.
