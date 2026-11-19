@@ -147,11 +147,11 @@ animations = [{
 size = Vector2(102, 163)
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_progress"]
-content_margin_left = 14.0
+content_margin_left = 12.0
 content_margin_top = 10.0
-content_margin_right = 14.0
+content_margin_right = 12.0
 content_margin_bottom = 10.0
-bg_color = Color(0.05, 0.08, 0.12, 0.8)
+bg_color = Color(0.05, 0.08, 0.12, 0.78)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
@@ -687,9 +687,9 @@ visible = false
 
 [node name="Panel" type="PanelContainer" parent="WorldProgress" unique_id=900000021]
 modulate = Color(1, 1, 1, 0.85)
-offset_left = 24.0
+offset_left = 12.0
 offset_top = 24.0
-offset_right = 288.0
+offset_right = 240.0
 offset_bottom = 24.0
 theme_override_styles/panel = SubResource("StyleBox_progress")
 

@@ -322,7 +322,7 @@ vertical_alignment = 1
 
 [node name="StatsScroll" type="ScrollContainer" parent="Margin/VBox" unique_id=300000005]
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_vertical = 1
 horizontal_scroll_mode = 0
 overlay_scroll_horizontal = false
 overlay_scroll_vertical = false
@@ -551,7 +551,7 @@ theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 8
 
 [node name="BackButton" type="Button" parent="Margin/VBox/ButtonRow" unique_id=300000009]
-custom_minimum_size = Vector2(160, 48)
+custom_minimum_size = Vector2(190, 48)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBox_ghost")
 theme_override_styles/hover = SubResource("StyleBox_ghost_hover")
@@ -566,7 +566,7 @@ theme_override_colors/font_pressed_color = Color(0.9, 0.98, 1, 1)
 text = "Main Menu"
 
 [node name="GuideButton" type="Button" parent="Margin/VBox/ButtonRow" unique_id=300000010]
-custom_minimum_size = Vector2(250, 48)
+custom_minimum_size = Vector2(190, 48)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBox_gold")

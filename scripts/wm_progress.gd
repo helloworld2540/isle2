@@ -283,11 +283,13 @@ func _update_inventory_label(delta: float, ratio: float, cap: int, inv_amount: i
 		
 	# Smoothly transition the pulse state (replaces the old set_meta/get_meta usage)
 	_pulse_state = lerpf(_pulse_state, pulse_target, delta * 4.0)
-
+	
 	var inv_text := _get_inv_summary_text(inv_amount, cap)
 	if inv_text != _inv_text:
 		_inv_text = inv_text
 		inv_label.text = inv_text
+	if inv_label:
+		inv_label.visible = inv_text.is_empty()
 	_apply_capacity_pulse()
 
 
@@ -321,6 +323,6 @@ func _get_inv_summary_text(current_inv: int, max_cap: int) -> String:
 			lines.append("%s %d" % [str(key), qty])
 			
 	if lines.is_empty():
-		return " (empty)"
+		return ""
 		
 	return ", ".join(lines)
