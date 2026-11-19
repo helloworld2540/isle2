@@ -299,3 +299,11 @@ OPEN / NICE-TO-HAVE (from backlogs, non-blocking)
   No addon code or assets in the pack. Fresh clones boot clean; dev trees
   ship zero MCP surface.
 - Linux boot verified earlier; builds remain git-ignored.
+
+## 2026-11-20 (release) — ship_audit re-run at HEAD: READY
+
+- Fresh isolated-profile boot of the exported Linux build: clean (only the
+  engine banner; first-boot migration path silent).
+- tools/ship_audit.sh at HEAD: all 7 gates PASS (all_audits incl. the new
+  export_preset_audit, scene_boot, font_size, import, schema 0/0,
+  parity 0/0, clean tree). VERDICT: READY.
