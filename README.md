@@ -349,6 +349,9 @@ matching the guide's measured opening). A review tool, not a gate.
 `godot --headless --script tools/courier_flight_test.gd` — the courier's flyby:
 survives only on Eel Run, hides under reduced motion, re-arms after a pass.
 
+`python3 tools/achievement_audit.py` — the achievement catalogue, README's
+47-badge count, the guide and the stats page's filter groups all agree.
+
 `bash tools/all_audits.sh` — the one-command gate: every runtime and static
 harness plus every Python audit, each under its own throwaway profile (no
 player slots are touched, nothing collides, the suite never has to skip).
