@@ -1,6 +1,21 @@
 # Current project todo:
 
 ## done this pass
+- **Web export shipped a blank page — fixed and gated.** `export/web_shell.html`
+  (the custom HTML shell Godot used for the Web build) contained no
+  `$GODOT_URL`/`$GODOT_CONFIG` placeholders at all, so every Web export since
+  it landed produced `build.html` with no engine bootstrap: a blank page.
+  Worse, the file lived under gitignored `export/`, so fresh clones never
+  even had it. Now: a complete shell at tracked `res://web_shell.html`
+  (canvas + `$GODOT_URL` script + `new Engine($GODOT_CONFIG).startGame()`),
+  the preset points at it, the local export produced a real bootstrap
+  (`<script src="build.js">`, `executable: "build"`, correct `fileSizes`), and
+  `tools/fresh_clone.sh` now fails any cold clone whose web export still
+  carries placeholders or never references `build.js` — the bug can never
+  silently ship again. The fresh-clone proof is running at this commit; its
+  result will be reported honestly.
+
+## done this pass
 - **The release builds were shipping the MCP editor bridge — fixed and verified.** The
   packing log from the previous 1.3.0 re-export showed `res://addons/godot_mcp/…`
   files staged into the Android APK, and the Linux/Web builds carried the same
