@@ -20,3 +20,6 @@ Sorted by importance. The overnight loop pulls from the top.
 ## Release
 - `tools/ship_audit.sh` reports READY (all 7 gates green) as of 2026-11-19; since then the Web preset regression was fixed and all three platforms re-verified on the dev tree (Linux boots, Android APK signs, Web shell references index.js) plus a fresh-clone PASS (2026-11-20). 1.3.0 remains the shipping build; `tools/export_gate.sh --re-export` cuts fresh builds on demand.
 - `tools/export_preset_audit.py` guards presets (tracked references, tools/addons exclusions, Web shell markers) — keep it in all_audits.sh.
+
+## Display
+- `window/stretch/aspect="keep"` RE-APPLIED (2026-11-20): added to disk, then `godot_editor_edit restart save=false` — the editor reloaded project.godot from disk, so the line survives editor saves now (previously wiped twice by the running editor's autosave). Verified check_stale: clean; all_audits green.

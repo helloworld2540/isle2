@@ -415,3 +415,11 @@ OPEN / NICE-TO-HAVE (from backlogs, non-blocking)
   queued nudge; nothing advances except the finale -> DONE + one-time bottle
   nudge. Step cards re-arm on scene re-entry.
 - No save files observed or moved; the island is the keeper's own.
+
+## 2026-11-20 (mobile) — stretch aspect="keep" re-applied the supported way
+
+- Procedure that finally sticks: write the line to project.godot on disk,
+  then restart the editor with save=false (discards the editor's in-memory
+  buffer instead of saving it over the new file). Editor reloads from disk,
+  the line persists through future saves, check_stale clean, world scene
+  re-opened and playing. All-audits PASS.
