@@ -190,3 +190,11 @@ OPEN / NICE-TO-HAVE (from backlogs, non-blocking)
   (2–4 short lines, 24 px type).
 - No behaviour changes; tutorial_tour_test (isolated) and layout/font/touch
   audits all pass. Gate: ALL-AUDITS PASS.
+
+## 2026-11-19 (tutorial) — Nudge cards re-aligned with the guide
+
+- "Tune up the dock" names the live trash cost again AND restores the
+  "upgrades spend materials, not money" reminder the guide promises.
+- "The courier is real" points at the Reef Registry as well as Eel Run,
+  matching guide.md's nudge list. Step-card copy from the previous cycle
+  unchanged; tour triggers untouched. Gate: ALL-AUDITS PASS.

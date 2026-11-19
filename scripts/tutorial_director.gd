@@ -352,7 +352,7 @@ func nudge(kind: String) -> void:
 				"Got it")
 		"tune":
 			_spawn_card("Tune up the dock",
-				"[font_size=24]Upgrades are open.\n[color=#9fe2ff]Island menu[/color] (top-right): Move Speed costs [color=#ffd27f]%d trash[/color]. Range and Deep Cache beside it.[/font_size]" % GameState.get_move_speed_cost(),
+				"[font_size=24]Upgrades are open.\n[color=#9fe2ff]Island menu[/color] (top-right): Move Speed costs [color=#ffd27f]%d trash[/color]. Upgrades spend materials, not money.[/font_size]" % GameState.get_move_speed_cost(),
 				"Got it")
 		"deep_cache":
 			_spawn_card("Deep Cache",
@@ -376,7 +376,7 @@ func nudge(kind: String) -> void:
 				"I understand")
 		"courier":
 			_spawn_card("The courier is real",
-				"[font_size=24]The counter keeps a Silverfin page.\nDive an [color=#9fe2ff]Eel Run[/color] tide — the courier rides the fast water.[/font_size]",
+				"[font_size=24]The counter keeps a Silverfin page — the [color=#9fe2ff]Reef Registry[/color] keeps its name.\nDive an [color=#9fe2ff]Eel Run[/color] tide — the courier rides the fast water.[/font_size]",
 				"I'll look")
 		"nina_courier":
 			_spawn_card("A letter from above",
