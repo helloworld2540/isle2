@@ -163,3 +163,12 @@ OPEN / NICE-TO-HAVE (from backlogs, non-blocking)
   tablets and odd desktop ratios. No base-size change; 1152×648 stays the
   reference. godot_project check_stale: clean (display-only change).
 - guide.md Controls documents the behaviour. Gate: ALL-AUDITS PASS.
+
+## 2026-11-19 (typing) — Static-typing sweep: last untyped function annotated
+
+- scripts/wm_debug_walkable_overlay.gd::_input(event) -> _input(event: InputEvent) -> void.
+  Full-codebase grep confirms every `func` now carries a return type and
+  every parameter is annotated (scripts/ is clean).
+- Live read-only probe of the running game via godot_exec: autoloads
+  responsive (money/debris/score readable, no runtime errors).
+- Gate: ALL-AUDITS PASS.
