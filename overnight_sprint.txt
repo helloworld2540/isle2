@@ -259,3 +259,13 @@ OPEN / NICE-TO-HAVE (from backlogs, non-blocking)
   zero-dependency claim (fresh_clone proved the addon-absent half).
 - Stale doc references to the deleted RELEASE_CHECKLIST.md removed from
   tools/fresh_clone.sh and tools/ship_audit.sh.
+
+## 2026-11-20 — All three export presets verified on the dev tree
+
+- Linux: export-debug succeeds, boots headless with zero script errors.
+- Android: export-debug "build.apk" builds, verifies and signs cleanly.
+- Web: export-debug writes export/web/index.html (executable name "index"):
+  zero $GODOT_* placeholders; engine bootstraps index.js/index.wasm.
+  (fresh_clone.sh pins the build.html name for the clone gate; both spellings
+  verified good.) All three logs carry "[godot-mcp] Plugin disabled" with the
+  addon excluded from every pack.
