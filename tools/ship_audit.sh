@@ -11,7 +11,7 @@
 #   7. git status --porcelain (clean tree = no uncommitted work in a release)
 #
 # Exits 0 only when everything is green. Designed for the pre-flight column
-# of RELEASE_CHECKLIST.md, right before tools/export_gate.sh --re-export.
+# directly; run it before tools/export_gate.sh --re-export.
 #
 # Usage: tools/ship_audit.sh
 

@@ -15,7 +15,7 @@ echo "== import"
 timeout 400 godot --headless --import --path "$CLONE" 2>&1 \
   | grep -iE "SCRIPT ERROR|Parse Error|Failed|Cannot find|file not found" \
   | grep -vE "fontdata|CenturyGothic|default\.tres|godot_mcp" || true
-echo "   (no lines above means clean — cold-import warnings filtered; see RELEASE_CHECKLIST.md)"
+echo "   (no lines above means clean — cold-import warnings filtered; see tools/README.md)"
 
 echo "== export Linux"
 timeout 560 godot --headless --export-release "Linux" "$CLONE/export/linux/build.x86_64" \

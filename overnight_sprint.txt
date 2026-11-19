@@ -250,3 +250,12 @@ OPEN / NICE-TO-HAVE (from backlogs, non-blocking)
   exports. exclude_filter is now "res://tools/*,res://addons/*" everywhere.
 - fresh_clone.sh re-run end-to-end: import clean, Linux boots silent, Web
   shell references build.js — PASS.
+
+## 2026-11-20 — Dev-tree Linux export + boot re-verified after preset change
+
+- godot --headless --export-debug "Linux" with addons/ present on disk
+  succeeds ("[godot-mcp] Plugin disabled"); the exported build boots
+  headless with zero script errors. This is the dev-tree half of the
+  zero-dependency claim (fresh_clone proved the addon-absent half).
+- Stale doc references to the deleted RELEASE_CHECKLIST.md removed from
+  tools/fresh_clone.sh and tools/ship_audit.sh.
