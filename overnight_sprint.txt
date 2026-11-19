@@ -423,3 +423,14 @@ OPEN / NICE-TO-HAVE (from backlogs, non-blocking)
   buffer instead of saving it over the new file). Editor reloads from disk,
   the line persists through future saves, check_stale clean, world scene
   re-opened and playing. All-audits PASS.
+
+## 2026-11-20 (qa) — Tom un-stranded: NPC reachability gate
+
+- New portal_reach_test asserts every NPC (and every story bottle / starfish)
+  stands on or adjoins a walkable cell. First run FAILED Tom: he sat on
+  (-6,-10) — a fully walled pocket; the player could never reach him, so his
+  quests and first-visit gift were unobtainable (a silent content lock).
+- Moved WorldNPC_Tom one cell's worth of ground to the walkable cell at
+  (-5,-11) — world pos Vector2(-618, -1332), matching how the other islanders
+  hug their cells' centres. Audit now: PASS.
+- Gate green; tools/README documents the harness.

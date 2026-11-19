@@ -527,7 +527,7 @@ quest2_reward_mat = "Polypropylene"
 quest2_reward_amount = 8
 
 [node name="WorldNPC_Tom" parent="NPCs" unique_id=1692442811 instance=ExtResource("9_npc")]
-position = Vector2(-689, -1150)
+position = Vector2(-618, -1332)
 npc_id = "npc_tom"
 npc_name = "Tom"
 npc_sprite_index = 2

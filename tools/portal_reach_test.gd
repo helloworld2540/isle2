@@ -11,7 +11,11 @@ extends SceneTree
 ##   2. Every Portal* node stands on a walkable cell OR touches one of the
 ##      four walkable cells around it (a pad one cell off the path is still
 ##      fair — the player must be able to stand next to it to be detected).
-##   3. At least one full path exists from spawn to the reef portal via BFS.
+##   3. Every WorldNPC (under NPCs/) stands on or adjoins a walkable cell,
+##      so quests and gifts can never be stranded off the path.
+##   4. At least one full path exists from spawn to the reef portal via BFS.
+##   5. Hidden collectibles (story bottles, starfish) and the watcher flag
+##      the same on their cells — content can never be buried in rock.
 ##
 ## Run:  godot --headless --path . -s tools/portal_reach_test.gd
 ## Exits 0 on success, 1 on any failure. Wired into tools/all_audits.sh.
@@ -47,6 +51,35 @@ func _initialize() -> void:
 		else:
 			print("FAIL %s at %s has no walkable cell to stand on" % [child.name, cell])
 			fails += 1
+
+	# NPCs: quests/gifts must never be unreachable.
+	var npcs_node: Node = scene.get_node_or_null("NPCs")
+	if npcs_node == null:
+		print("FAIL NPCs group missing")
+		fails += 1
+	else:
+		for npc in npcs_node.get_children():
+			if not npc is Area2D:
+				continue
+			var cell: Vector2i = layer.local_to_map(layer.to_local((npc as Node2D).global_position))
+			if _walkable(layer, cell) or _has_walkable_neighbour(layer, cell):
+				print("ok  NPC %s reachable" % npc.name)
+			else:
+				print("FAIL NPC %s has no walkable cell to stand on" % npc.name)
+				fails += 1
+
+	# Collectibles and watchers flagged with gameplay groups: story_bottle,
+	# starfish — each must adjoin a walkable cell or it can never be claimed.
+	for group in ["story_bottle", "starfish"]:
+		for node in scene.get_tree().get_nodes_in_group(group):
+			if not node is Area2D:
+				continue
+			var cell: Vector2i = layer.local_to_map(layer.to_local((node as Node2D).global_position))
+			if _walkable(layer, cell) or _has_walkable_neighbour(layer, cell):
+				print("ok  %s reachable" % node.name)
+			else:
+				print("FAIL %s has no walkable cell to stand on" % node.name)
+				fails += 1
 
 	# BFS from spawn; must be able to reach the reef portal's neighbourhood.
 	var reef: Node2D = null
