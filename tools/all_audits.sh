@@ -51,7 +51,7 @@ iso() { # run a harness with a fresh isolated profile
 failed() { echo "[FAIL] $1"; FAIL=1; }
 
 # Runtime harnesses need the project autoload Nodes at runtime.
-for t in keeper_star_test card_queue_test layout_audit tutorial_tour_test courier_arc_test courier_flight_test courier_letter_test; do
+for t in keeper_star_test card_queue_test layout_audit tutorial_tour_test courier_arc_test courier_flight_test courier_letter_test portal_reach_test; do
 	echo "== $t"
 	if ! iso timeout 240 godot --headless --path . -s "tools/$t.gd"; then
 		failed "$t"
