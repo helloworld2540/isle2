@@ -1,15 +1,18 @@
 # Current project todo:
 
 ## done this pass
-- **The release builds were shipping the MCP editor bridge — fixed.** The
-  packing log from the 1.3.0 re-export shows `res://addons/godot_mcp/…`
-  files being staged into the Android APK, and the Linux/Web builds before
-  it carried the same bridge: `mcp_bridge_guard.gd` loads the live WebSocket
-  bridge whenever the addon is on disk, including inside shipped players.
+- **The release builds were shipping the MCP editor bridge — fixed and verified.** The
+  packing log from the previous 1.3.0 re-export showed `res://addons/godot_mcp/…`
+  files staged into the Android APK, and the Linux/Web builds carried the same
+  bridge: `mcp_bridge_guard.gd` loads the live WebSocket bridge whenever the
+  addon is on disk, including inside shipped players.
   All three export presets now exclude `res://addons/*` alongside
-  `res://tools/*`. A fresh `export_gate.sh --re-export` and the APK listing
-  are the verification; the guard stays a silent no-op everywhere now (the
-  repo never carried `addons/` in the first place).
+  `res://tools/*`. Re-verified end to end: gate printed `ALL-AUDITS: PASS`
+  then `EXPORT-GATE: PASS`; zero `Storing File: res://addons` lines in the
+  packing log; `unzip -l` on the APK finds no `addons`/`tools`/`godot_mcp`
+  entries at all; `versionName=1.3.0` / `versionCode=4` / `minSdk=24` /
+  `targetSdk=36`; signature v2+v3; Linux boots with a 0-byte log; Web artifact
+  rebuilt at 11:38. `RELEASE_CHECKLIST.md` documents the required check.
 
 ## done this pass
 - **Live playthrough of the first loop, end to end, with zero errors.**

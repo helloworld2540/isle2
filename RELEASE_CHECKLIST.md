@@ -18,8 +18,10 @@ Export presets: `Web`, `Android`, `Linux` (`export_presets.cfg`).
 - **Android** badging: `package=com.see.trashisland.two`, `versionCode=4`,
   `versionName=1.3.0`, `minSdk=24`, `targetSdk=36`, `compileSdk=36`,
   `application-label='Trash Island'`. Signature: **v2 + v3** (v1 absent, as
-  expected). `res://tools/` not present in the APK (`assets/project.binary`
-  contains no `res://tools/` references).
+  expected). `res://tools/` and `res://addons/` not present in the APK
+  (`unzip -l | grep -c addons\|tools\|godot_mcp` → 0; `assets/project.binary`
+  contains no `res://tools/` references). The Linux boot at this tree also
+  logs zero bytes (bridge absent).
 
 ## Verified (as of 2026-11-18)
 
