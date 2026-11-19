@@ -358,3 +358,13 @@ OPEN / NICE-TO-HAVE (from backlogs, non-blocking)
 - shop_ledger.gd and save_manager.gd reviewed line-by-line this cycle —
   correct (pure pricing with no preview/payout drift; per-slot bak/bak2
   rotation with intact legacy migration).
+
+## 2026-11-20 (qa) — Achievement catalogue cross-checked end to end
+
+- All 47 ENTRIES have a predicate in is_met and vice versa (programmatic
+  diff). Thresholds match the guide (DEEP DIVE 400, ABYSS 900, WELL OFF 300,
+  STEADY KEEPER 3-day streak, REEF REGISTRY 6 species...).
+- The stats-page guide renders the same six "where" sections the catalogue
+  uses (Reef Rescue/Upcycle/Shop/Islanders/Island/Hidden) plus the tide
+  section; GUIDE_GROUPS, GUIDE_FILTER_LABELS and the catalogue agree —
+  FilterButton scenes per chip, scene-first rows.
