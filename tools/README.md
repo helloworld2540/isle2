@@ -107,3 +107,13 @@ export (versionCode/versionName are in the sprint log).
    `all_audits.sh` gets its own isolated profile, and the suite is arranged
    so no harness sees another's `user://slots`.
 2. An exit code of 0 means green; anything else means the gate fails.
+
+## Editing project.godot while the editor is open
+Never edit `project.godot` on disk and rely on the editor keeping it — the
+editor holds its own copy and re-stamps it on save, silently dropping your
+line (observed twice with `window/stretch/aspect="keep"`). The supported
+path: write the file on disk, then `godot_editor_edit restart` with
+`save: false` (discard the editor's in-memory buffer; it reloads from disk).
+`godot_project check_stale` afterwards should report disk == loaded settings
+(display-only changes are not tracked, so a clean result is expected either
+way — the rule still holds: only `save: false` preserves disk edits).
