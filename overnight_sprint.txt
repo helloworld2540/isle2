@@ -206,3 +206,12 @@ OPEN / NICE-TO-HAVE (from backlogs, non-blocking)
   sprites/placeholders/ with a README note. Nothing in scenes/scripts/
   resources references them; import_audit and the full gate pass after the
   move. sprites/placeholders/README.txt is now the archive's index.
+
+## 2026-11-19 (release) — ship_audit: READY
+
+- Ran tools/ship_audit.sh: 1/7 all_audits PASS, 2/7 scene_boot_audit PASS,
+  3/7 font_size_audit PASS, 4/7 import_audit PASS, 5/7 schema_audit 0
+  failure(s) 0 warning(s), 6/7 parity_audit 0 overclaims/0 silents,
+  7/7 clean tree. Verdict: READY for export_gate.sh --re-export.
+- No builds cut; 1.3.0 remains the shipping version. Sprint log and TODO
+  record the readiness state.

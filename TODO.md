@@ -14,3 +14,6 @@ Sorted by importance. The overnight loop pulls from the top.
 - Sprites: .kra exports verified current (bottle/star/watcher/boat/rr_bg all exported same-minute as sources; `*~` backups untracked). Re-check after any future art pass.
 - Docs: keep README/guide/TODO in sync with shipped behaviour each iteration; update `overnight_sprint.txt` with a dated entry per cycle.
 - `wm_flow_dots.gd` reduced-motion parity verified OK (static chevrons remain, travelling dots stop) — no further work unless the trail rendering changes.
+
+## Release
+- `tools/ship_audit.sh` reports READY (all 7 gates green, clean tree) as of 2026-11-19 — a full `tools/export_gate.sh --re-export` would cut fresh Linux/Web/Android builds whenever a release is wanted. Not cut yet; 1.3.0 is the shipping build.
