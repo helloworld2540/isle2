@@ -1,74 +1,83 @@
 #!/bin/bash
 # All-audits gate: one command before cutting a build. Runs every harness and
-# every Python audit in tools/ and exits non-zero if anything fails.
+# every audit in tools/ and exits non-zero if anything fails.
+#
+# Isolation: every harness gets its own throwaway XDG_DATA_HOME under
+# $AUDIT_HOME (auto-removed on exit), so no test can see another test's
+# slots, none can see a real player's save, and the gate never has to skip.
+# Set ISLE2_AUDIT_REAL_SLOTS=1 to audit against the real default profile —
+# only allowed when no player slots are present there.
 set -u
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 
-ISA="user://slots"
-[ -n "${XDG_DATA_HOME:-}" ] && DATA="$XDG_DATA_HOME" || DATA="$HOME/.local/share"
-SLOTS="$DATA/godot/app_userdata/isle2/slots"
+FAIL=0
+AUDIT_HOME=""
+APP=0
 
-# Refuse to run against real player data.
-if [ -e "$SLOTS" ]; then
-  echo "SKIP: player slots present at $SLOTS — not running against real data"
-  exit 0
+if [ "${ISLE2_AUDIT_REAL_SLOTS:-0}" = "1" ]; then
+	[ -n "${XDG_DATA_HOME:-}" ] && DATA="$XDG_DATA_HOME" || DATA="$HOME/.local/share"
+	SLOTS="$DATA/godot/app_userdata/isle2/slots"
+	if [ -e "$SLOTS" ]; then
+		echo "SKIP: player slots present at $SLOTS — not running against real data"
+		exit 0
+	fi
+	echo "ALL-AUDITS: auditing the real default profile (no slots present)"
+	ISOLATE=0
+	SHARED_HOME="$DATA"
+else
+	AUDIT_HOME="/tmp/isle2_audit_$$"
+	rm -rf "$AUDIT_HOME"
+	mkdir -p "$AUDIT_HOME"
+	ISOLATE=1
+	echo "ALL-AUDITS: isolated profiles under $AUDIT_HOME (auto-cleaned)"
 fi
 
-fail=0
-# Keeper's Star runs with --path . and its own isolated user data dir: its
-# runtime checks need the project autoloads, which only resolve that way.
-# Both paths are cleaned up below regardless of the hull result.
-VERIFY_HOME="/tmp/isle2_verify_$$"
-rm -rf "$VERIFY_HOME"
-mkdir -p "$VERIFY_HOME"
-echo "== keeper_star_test"
-if ! timeout 240 env XDG_DATA_HOME="$VERIFY_HOME" godot --headless --path . -s tools/keeper_star_test.gd; then
-  echo "[FAIL] keeper_star_test"
-  fail=1
-fi
-rm -rf "$VERIFY_HOME"
+cleanup() { [ -n "$AUDIT_HOME" ] && rm -rf "$AUDIT_HOME"; }
+trap cleanup EXIT HUP INT TERM
 
-# CardQueue walks the island-wide card lane with inline probe cards — no
-# autoload globals, but it still runs with --path . like every SceneTree test.
-echo "== card_queue_test"
-if ! timeout 240 godot --headless --path . -s tools/card_queue_test.gd; then
-  echo "[FAIL] card_queue_test"
-  fail=1
-fi
+iso() { # run a harness with a fresh isolated profile
+	local home_dir="$AUDIT_HOME/app${APP}"
+	APP=$((APP + 1))
+	if [ "$ISOLATE" = "1" ]; then
+		rm -rf "$home_dir"; mkdir -p "$home_dir"
+		env XDG_DATA_HOME="$home_dir" "$@"
+	else
+		XDG_DATA_HOME="${XDG_DATA_HOME:-}" "$@"
+	fi
+}
 
-# Layout audit instantiates every screen against a fresh profile and measures
-# screen-space Controls; isolated so it never reads player saves.
-VERIFY_HOME="/tmp/isle2_layout_$$"
-rm -rf "$VERIFY_HOME"
-mkdir -p "$VERIFY_HOME"
-echo "== layout_audit"
-if ! timeout 240 env XDG_DATA_HOME="$VERIFY_HOME" godot --headless --path . -s tools/layout_audit.gd; then
-  echo "[FAIL] layout_audit"
-  fail=1
-fi
-rm -rf "$VERIFY_HOME"
+failed() { echo "[FAIL] $1"; FAIL=1; }
 
-for t in smoke_test slot_test migration_test slot_ui_test tide_test restore_test hide_tide_test reef_registry_test; do
-  echo "== $t"
-  if ! timeout 240 godot --headless --script tools/$t.gd; then
-    echo "[FAIL] $t"
-    fail=1
-  fi
-  rm -rf "$SLOTS"
+# Runtime harnesses need the project autoload Nodes at runtime.
+for t in keeper_star_test card_queue_test layout_audit tutorial_tour_test courier_arc_test courier_flight_test courier_letter_test; do
+	echo "== $t"
+	if ! iso timeout 240 godot --headless --path . -s "tools/$t.gd"; then
+		failed "$t"
+	fi
 done
 
-echo "== npc_beat_audit"
-python3 tools/npc_beat_audit.py || fail=1
-echo "== touch_audit"
-python3 tools/touch_audit.py || fail=1
-echo "== unique_id_audit"
-python3 tools/unique_id_audit.py || fail=1
-echo "== docs_audit"
-python3 tools/docs_audit.py || fail=1
+# Scene-boot audit always uses its own /tmp profile internally.
+echo "== scene_boot_audit"
+if ! bash tools/scene_boot_audit.sh; then
+	failed scene_boot_audit
+fi
 
-if [ "$fail" -ne 0 ]; then
+# Static harnesses are load-only.
+for t in smoke_test slot_test migration_test slot_ui_test tide_test restore_test hide_tide_test reef_registry_test margin_notes_test courier_letters_test; do
+	echo "== $t"
+	if ! iso timeout 240 godot --headless --script "tools/$t.gd"; then
+		failed "$t"
+	fi
+done
+
+for t in economy_audit parity_audit schema_audit font_size_audit import_audit npc_beat_audit touch_audit unique_id_audit docs_audit; do
+	echo "== $t"
+	python3 "tools/$t.py" || failed "$t"
+done
+
+if [ "$FAIL" -ne 0 ]; then
   echo "ALL-AUDITS: FAIL"
   exit 1
 fi

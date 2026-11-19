@@ -12,11 +12,12 @@ invocation, not the tool's size.
 | `tools/export_gate.sh` | The same audits, plus `--re-export` to rebuild Linux/Web/Android into `export/` | A full release re-cut |
 | `tools/fresh_clone.sh` | Cold import → Linux export → headless boot with empty log | Proving the repo alone is enough |
 
-`all_audits.sh` refuses to run against real player slots: if
-`$XDG_DATA_HOME/godot/app_userdata/isle2/slots` (or the default
-`~/.local/share/...`) exists it skips everything and exits 0. The .gd
-harnesses wipe `user://slots` themselves, so run them with an isolated
-profile anyway:
+`all_audits.sh` cannot see real player slots — every harness it runs gets its
+own throwaway profile under `/tmp/isle2_audit_<pid>` (auto-removed on exit),
+so tests never collide and real saves are never touched. It exits 0 only
+when every harness is green. Running the gate against the real default
+profile is opt-in via `ISLE2_AUDIT_REAL_SLOTS=1`, and refused while player
+slots are present there.
 
 ```sh
 XDG_DATA_HOME=/tmp/isle2_verify godot --headless --path . -s tools/keeper_star_test.gd
@@ -96,9 +97,7 @@ export (versionCode/versionName are in the sprint log).
 
 ## House rules for new harnesses
 
-1. Refuse to run against real player slots (check `user://slots` at the
-   top, `quit(0)` with a `SKIP:` line).
-2. Wipe `user://slots` when done — the gate depends on a clean slate.
-3. Prefer static (`--script`) over runtime (`--path . -s`) unless the
-   check genuinely needs live state.
-4. An exit code of 0 means green; anything else means the gate fails.
+1. Never touch a real player's slots or saves — every harness run inside
+   `all_audits.sh` gets its own isolated profile, and the suite is arranged
+   so no harness sees another's `user://slots`.
+2. An exit code of 0 means green; anything else means the gate fails.

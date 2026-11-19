@@ -338,6 +338,12 @@ capstone does not depend on the epilogue star (nor the other way round).
 achievement and all five islanders notice THE FAR POINT; wired into
 `tools/all_audits.sh`.
 
+`bash tools/all_audits.sh` — the one-command gate: every runtime and static
+harness plus every Python audit, each under its own throwaway profile (no
+player slots are touched, nothing collides, the suite never has to skip).
+It exits non-zero on any failure. `ISLE2_AUDIT_REAL_SLOTS=1` restores the
+old refuse-if-slots-present behaviour.
+
 `tools/` also holds the PIL sprite/ambience generation scripts.
 
 ## Exporting

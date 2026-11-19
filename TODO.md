@@ -1,6 +1,22 @@
 # Current project todo:
 
 ## done this pass
+- **`all_audits.sh` now actually runs on this machine — and runs everything.**
+  The old gate exited 0 (`SKIP: …`) whenever player slots existed,
+  silently skipping all verification; and when slots *were* absent it ran
+  one shared profile where harnesses collided (slot creation by one test
+  made the next refuse). Every harness now gets its own throwaway profile
+  under `/tmp/isle2_audit_<pid>` (auto-cleaned), so the suite exits 0 only
+  when 26 harnesses are genuinely green — verified locally: `ALL-AUDITS:
+  PASS`, zero skips. The gate also now runs the harnesses that had been
+  authored but never wired: `tutorial_tour_test`, `courier_arc_test`,
+  `courier_flight_test`, `courier_letter_test`, `courier_letters_test`,
+  `margin_notes_test`, `scene_boot_audit`, `economy_audit`, `parity_audit`,
+  `schema_audit`, `font_size_audit`, `import_audit`. Isolation is opt-out
+  (`ISLE2_AUDIT_REAL_SLOTS=1`, refused while player slots exist). README and
+  tools/README describe the new behaviour and house rules.
+
+## done this pass
 - **The guide overlay's authored scenes were silently scriptless — and are now gated.**
   The seven guide scenes from the scene-first refactor declared their script
   *inline on the `[node …]` header line* (`type="Button" script = ExtResource(...`)
