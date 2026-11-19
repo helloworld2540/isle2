@@ -1,6 +1,21 @@
 # Current project todo:
 
 ## done this pass
+- **The boot screen was watched live, and made more legible.** The redesigned
+  two-column menu (darkened left column, KEEPER'S LOG on the right) was run
+  and observed in the editor: the panel presents, the scroll thumb renders,
+  buttons/quit/tagline/version all land; one in-flight visual check (the
+  frozen first frames) confirmed the entrance animation, not a missing panel,
+  was the only reason buttons were absent early on. The disabled-state ghost
+  style on the menu buttons was lifted (background 0.55→0.62 alpha, border
+  0.18→0.38, font 0.34→0.55) so "Load Save" / "Quit" on a fresh save read as
+  quiet-not-invisible. `scene_boot_audit` and `layout_audit` clean.
+  `tools/export_gate.sh --re-export` re-ran at HEAD: `ALL-AUDITS: PASS`,
+  Linux build boots headless (12 s run, timeout exit, 0-byte log), Web files
+  rebuilt at 11:26. The Android export was still packing when this entry was
+  written — APK re-verification (badging, signing) is the one open item.
+
+## done this pass
 - **The tide gift is no longer a silent save key.** `tide_gift_granted` (the
   +$25 payout for reading three bottles) was the last key in `SAVE_SCHEMA`
   with no reader outside `game_state.gd` — `schema_audit` flagged it as a

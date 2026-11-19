@@ -128,12 +128,12 @@ content_margin_left = 16.0
 content_margin_top = 8.0
 content_margin_right = 16.0
 content_margin_bottom = 8.0
-bg_color = Color(0.05, 0.08, 0.12, 0.55)
+bg_color = Color(0.05, 0.08, 0.12, 0.62)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.4, 0.7, 0.9, 0.18)
+border_color = Color(0.4, 0.7, 0.9, 0.38)
 corner_radius_top_left = 12
 corner_radius_top_right = 12
 corner_radius_bottom_right = 12
@@ -265,7 +265,7 @@ theme_override_colors/font_hover_color = Color(0.9, 0.98, 1, 1)
 theme_override_colors/font_focus_color = Color(0.9, 0.98, 1, 1)
 theme_override_colors/font_hover_pressed_color = Color(0.9, 0.98, 1, 1)
 theme_override_colors/font_pressed_color = Color(0.9, 0.98, 1, 1)
-theme_override_colors/font_disabled_color = Color(0.72, 0.93, 1, 0.34)
+theme_override_colors/font_disabled_color = Color(0.72, 0.93, 1, 0.55)
 text = "New Save"
 
 [node name="LoadSaveButton" type="Button" parent="LeftColumn/Buttons" unique_id=875779409]
@@ -284,7 +284,7 @@ theme_override_colors/font_hover_color = Color(0.28, 0.18, 0.04, 1)
 theme_override_colors/font_focus_color = Color(0.28, 0.18, 0.04, 1)
 theme_override_colors/font_hover_pressed_color = Color(0.28, 0.18, 0.04, 1)
 theme_override_colors/font_pressed_color = Color(0.28, 0.18, 0.04, 1)
-theme_override_colors/font_disabled_color = Color(0.72, 0.93, 1, 0.34)
+theme_override_colors/font_disabled_color = Color(0.72, 0.93, 1, 0.55)
 text = "Load Save"
 
 [node name="QuitButton" type="Button" parent="LeftColumn/Buttons" unique_id=678783011]
@@ -303,7 +303,7 @@ theme_override_colors/font_hover_color = Color(0.9, 0.98, 1, 1)
 theme_override_colors/font_focus_color = Color(0.9, 0.98, 1, 1)
 theme_override_colors/font_hover_pressed_color = Color(0.9, 0.98, 1, 1)
 theme_override_colors/font_pressed_color = Color(0.9, 0.98, 1, 1)
-theme_override_colors/font_disabled_color = Color(0.72, 0.93, 1, 0.34)
+theme_override_colors/font_disabled_color = Color(0.72, 0.93, 1, 0.55)
 text = "Quit"
 
 [node name="BottomSpacer" type="Control" parent="LeftColumn" unique_id=7000013]
