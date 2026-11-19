@@ -314,3 +314,9 @@ OPEN / NICE-TO-HAVE (from backlogs, non-blocking)
   autoload or doc names it). Moved to tools/wm_debug_walkable_overlay.gd —
   still tracked, still runnable by hand, but no longer inside the game pack.
   tools/README.md documents it next to walkable_probe.gd. Gate: PASS.
+
+## 2026-11-20 (code) — Empty orphan scene removed
+
+- scenes/ui/audio_stream_player.tscn was a bare, scriptless AudioStreamPlayer
+  referenced by nothing. Removed from git; recoverable from history if ever
+  needed. Gate: PASS.
