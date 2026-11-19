@@ -339,3 +339,11 @@ OPEN / NICE-TO-HAVE (from backlogs, non-blocking)
   depth band using the same randfn the spawn code rolls (0/200/400/600/800 m
   -> 16/27/42/58/72%). Guide promises 16/27/43/57/72 — within rounding.
   The fresh-save loop economy holds at $32.29 mean gross (4000 sims).
+
+## 2026-11-20 (release) — Exported build soak-tested 30 s on a fresh profile
+
+- ./export/linux/build.x86_64 --headless with an empty XDG_DATA_HOME ran
+  30 s: engine banner only, zero script errors, zero save warnings — the
+  first-boot path (default-slot bind, no legacy save) runs silent in the
+  shipped binary.
+- Tree state: ALL-AUDITS PASS; ship_audit READY at HEAD; working tree clean.
