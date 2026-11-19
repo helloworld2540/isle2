@@ -347,3 +347,14 @@ OPEN / NICE-TO-HAVE (from backlogs, non-blocking)
   first-boot path (default-slot bind, no legacy save) runs silent in the
   shipped binary.
 - Tree state: ALL-AUDITS PASS; ship_audit READY at HEAD; working tree clean.
+
+## 2026-11-20 (qa) — Tide day-index verified against real TZ offsets
+
+- Ran tools/... a throwaway probe under TZ=UTC, Asia/Shanghai (+480),
+  America/New_York (-300), Australia/Sydney (+660), America/St_Johns (-150):
+  Godot's day_index (unix + bias*60, floor /86400) lands on the same local
+  calendar day as Python's date.today() in every zone. The tide flips at
+  local midnight as guide.md promises, bias sign convention correct.
+- shop_ledger.gd and save_manager.gd reviewed line-by-line this cycle —
+  correct (pure pricing with no preview/payout drift; per-slot bak/bak2
+  rotation with intact legacy migration).
