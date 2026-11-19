@@ -1,6 +1,17 @@
 # Current project todo:
 
 ## done this pass
+- **World-map edge markers no longer drown each other out.** Live play at
+  1152×648 showed four NPC markers and two portal pointers stacked on the top
+  edge into an unreadable green smear ("▲!▲!▲!…"). `wm_portal_markers.gd`
+  now resolves overlaps per edge: markers are clamped to the screen,
+  classified (top/bottom/left/right), sorted along the edge and pushed apart
+  with a 4 px gap (insertion sort; ≤10 markers), then the overflow tail is
+  pulled back from the far corner. Verified live: top-row markers now lay
+  out with clear spacing and no overlap; `smoke_test` 59/59, `layout_audit`
+  (world.tscn) 0 failures, `all_audits` PASS.
+
+## done this pass
 - **The first-playthrough tour now teaches the loop end to end.** The
   dive card teaches drag-steer, 1 kg per pickup and the three-bump dive end;
   the bench card teaches the 30 px swipe and that every correct sort burns a
