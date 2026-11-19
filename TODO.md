@@ -18,4 +18,5 @@ Sorted by importance. The overnight loop pulls from the top.
 - `wm_flow_dots.gd` reduced-motion parity verified OK (static chevrons remain, travelling dots stop) — no further work unless the trail rendering changes.
 
 ## Release
-- `tools/ship_audit.sh` reports READY (all 7 gates green, clean tree) as of 2026-11-19 — a full `tools/export_gate.sh --re-export` would cut fresh Linux/Web/Android builds whenever a release is wanted. Not cut yet; 1.3.0 is the shipping build.
+- `tools/ship_audit.sh` reports READY (all 7 gates green) as of 2026-11-19; since then the Web preset regression was fixed and all three platforms re-verified on the dev tree (Linux boots, Android APK signs, Web shell references index.js) plus a fresh-clone PASS (2026-11-20). 1.3.0 remains the shipping build; `tools/export_gate.sh --re-export` cuts fresh builds on demand.
+- `tools/export_preset_audit.py` guards presets (tracked references, tools/addons exclusions, Web shell markers) — keep it in all_audits.sh.

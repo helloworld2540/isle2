@@ -269,3 +269,10 @@ OPEN / NICE-TO-HAVE (from backlogs, non-blocking)
   (fresh_clone.sh pins the build.html name for the clone gate; both spellings
   verified good.) All three logs carry "[godot-mcp] Plugin disabled" with the
   addon excluded from every pack.
+
+## 2026-11-20 (docs) — TODO refreshed to current release state
+
+- Release section now reflects: Web preset fixed, all three platforms
+  dev-tree-verified, fresh-clone PASS, export_preset_audit in the gate.
+- Doc-path cross-check: every tools/*.{gd,py,sh} and scenes/*.tscn named in
+  README/tools README exists on disk (no dead references).
