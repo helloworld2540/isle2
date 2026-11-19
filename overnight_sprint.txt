@@ -396,3 +396,10 @@ OPEN / NICE-TO-HAVE (from backlogs, non-blocking)
 - Restyled world map verified live: tide HUD (≈ Eel Run · day 1), Bottles
   1/3, Starfish 2/5, route dots, portal markers, and the restored tutorial
   step-2 card render as designed. Menu → Load Save → world transition clean.
+
+## 2026-11-20 (live) — Post-restart state: clean
+
+- Editor restarted, project saved, game re-ran: fresh boot logs ZERO messages
+  (no LoopPath warnings, no debug-script parse error). Player resumed at the
+  world scene, tutorial step 2 armed ("Dive the reef"), Eel Run today,
+  money 0 — the same island the keeper left, now running the current build.
