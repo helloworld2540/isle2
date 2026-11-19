@@ -1167,3 +1167,19 @@ STATE
   agreement (incl. the Starfish drift row). Wired into all_audits.sh.
 - bottle.png and starfish.png repainted; smoke, layout, docs, parity, npc-beat,
   touch, unique-id and the rest of ALL-AUDITS pass.
+
+## 2026-11-19 — Loop maintenance: harness repair + in-flight pass landed
+
+- Working tree held an unverified visual polish pass (menu restyle, world-map
+  gradients, sprite refresh). Verified: `tools/all_audits.sh` initially FAILED
+  on two harness/doc drifts, not on game code.
+- Fixes: drag_scroll_audit and parity_audit now tolerate `uid="..."` on
+  ext_resource lines (Godot 4.4+ writes them; the old regexes read `uid=` as
+  the id and reported false "uses None"). docs_audit no longer demands
+  PITCH.md / RELEASE_NOTES.md / RELEASE_CHECKLIST.md, which were deliberately
+  removed in 5407f9b ("docs: clean outdated files"); it now requires
+  README.md / guide.md / TODO.md / overnight_sprint.txt. README references to
+  the deleted release docs removed. TODO.md refilled (was 0 bytes).
+- `tools/all_audits.sh` PASSES end-to-end; smoke_test 60/60 scenes clean;
+  main menu boots clean in the editor (no new runtime errors).
+- Committed as 61c7b24.
