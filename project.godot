@@ -30,6 +30,7 @@ MCPGameBridge="res://scripts/mcp_bridge_guard.gd"
 [display]
 
 window/stretch/mode="viewport"
+window/stretch/aspect="keep"
 
 [editor]
 

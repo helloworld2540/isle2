@@ -155,3 +155,11 @@ OPEN / NICE-TO-HAVE (from backlogs, non-blocking)
 - README now names weighted reef spawns, the stats-page registry button, and
   tools/courier_flight_test.gd — the last three "shipped but undocumented"
   markers. parity_audit --strict: 0 overclaims, 0 silents (was 3 silents).
+
+## 2026-11-19 (mobile) — Display stretch keeps aspect on every screen
+
+- project.godot: [display] now sets window/stretch/aspect="keep" alongside
+  mode="viewport" — the stage letterboxes instead of distorting on phones,
+  tablets and odd desktop ratios. No base-size change; 1152×648 stays the
+  reference. godot_project check_stale: clean (display-only change).
+- guide.md Controls documents the behaviour. Gate: ALL-AUDITS PASS.
