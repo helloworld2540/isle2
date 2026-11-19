@@ -238,3 +238,15 @@ OPEN / NICE-TO-HAVE (from backlogs, non-blocking)
   buffer; the display line is not in the repo. Letterbox scaling can be
   re-applied from the editor UI or after a restart. The export_presets
   Web-shell fix (the real regression this cycle) stands.
+
+## 2026-11-20 — Export presets audited; addons exclusion restored
+
+- New tools/export_preset_audit.py (wired into all_audits.sh): concrete
+  res:// references in export_presets.cfg must exist and be git-tracked;
+  every preset must exclude res://tools/* and res://addons/*; the Web custom
+  shell must be tracked and carry $GODOT_URL/$GODOT_CONFIG.
+- First run found all three presets missing res://addons/* despite README
+  promising the exclusion — the MCP bridge would have shipped in dev-machine
+  exports. exclude_filter is now "res://tools/*,res://addons/*" everywhere.
+- fresh_clone.sh re-run end-to-end: import clean, Linux boots silent, Web
+  shell references build.js — PASS.

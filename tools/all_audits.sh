@@ -72,7 +72,7 @@ for t in smoke_test slot_test migration_test slot_ui_test tide_test restore_test
 	fi
 done
 
-for t in economy_audit parity_audit schema_audit font_size_audit import_audit npc_beat_audit touch_audit unique_id_audit drag_scroll_audit docs_audit; do
+for t in economy_audit parity_audit schema_audit font_size_audit import_audit npc_beat_audit touch_audit unique_id_audit drag_scroll_audit docs_audit export_preset_audit; do
 	echo "== $t"
 	python3 "tools/$t.py" || failed "$t"
 done
