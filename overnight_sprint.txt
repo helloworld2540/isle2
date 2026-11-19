@@ -172,3 +172,10 @@ OPEN / NICE-TO-HAVE (from backlogs, non-blocking)
 - Live read-only probe of the running game via godot_exec: autoloads
   responsive (money/debris/score readable, no runtime errors).
 - Gate: ALL-AUDITS PASS.
+
+## 2026-11-19 (assets) — Orphan-sprite audit, nothing deleted yet
+
+- Full-tree reference scan: every BGM/SFX key resolves (reference-by-key
+  through AudioManager); starfish.png / sub.png / sky_blurred.png /
+  wm_npc/npc*.png / player_walk000*.png / upcycle fire+pump are unreferenced
+  and tracked. Logged in TODO.md for review instead of deleting user art.

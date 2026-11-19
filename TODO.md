@@ -14,3 +14,6 @@ Sorted by importance. The overnight loop pulls from the top.
 - Sprites: .kra exports verified current (bottle/star/watcher/boat/rr_bg all exported same-minute as sources; `*~` backups untracked). Re-check after any future art pass.
 - Docs: keep README/guide/TODO in sync with shipped behaviour each iteration; update `overnight_sprint.txt` with a dated entry per cycle.
 - `wm_flow_dots.gd` reduced-motion parity verified OK (static chevrons remain, travelling dots stop) — no further work unless the trail rendering changes.
+
+## Cleanup (asset hygiene, reviewed 2026-11-19)
+- Candidate orphan sprites (tracked in git, unreferenced by scenes/scripts; audio excluded — it is reference-by-key and all keys resolve): `sprites/starfish.png`, `sprites/sub.png`, `sprites/sky_blurred.png`, `sprites/wm_npc/npc1..4.png`, `sprites/player_anim/player_walk0000..0002.png`, `sprites/upcycle/fire.png`, `sprites/upcycle/pump.png`. Likely pre-refresh leftovers — confirm with a final in-game pass, then delete or move to `sprites/placeholders/` in one commit.
