@@ -1,6 +1,16 @@
 # Current project todo:
 
 ## done this pass
+- **PITCH.md brought back in lockstep with the shipped game.** Three stale
+  claims were fixed: the shop now pays the tide-day standing order (+1$/unit,
+  and +35% bulk on Glass Calm) alongside the base 1.25× bulk bonus; the audio
+  stack is a Master bus over Music + SFX + a dedicated **Ambience** bus
+  (harbor cries, foghorn, surf wash, minigame beds) with its own slider; and
+  the upgrade count reads honestly (five paths — move, range, capacity, Deep
+  Cache, Market Contact). Audits still green: parity 0 overclaim/0 silent,
+  docs PASS.
+
+## done this pass
 - **The boot screen was watched live, and made more legible.** The redesigned
   two-column menu (darkened left column, KEEPER'S LOG on the right) was run
   and observed in the editor: the panel presents, the scroll thumb renders,
