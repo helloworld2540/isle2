@@ -307,3 +307,10 @@ OPEN / NICE-TO-HAVE (from backlogs, non-blocking)
 - tools/ship_audit.sh at HEAD: all 7 gates PASS (all_audits incl. the new
   export_preset_audit, scene_boot, font_size, import, schema 0/0,
   parity 0/0, clean tree). VERDICT: READY.
+
+## 2026-11-20 (code) — Dead dev script relocated out of the game pack
+
+- scripts/wm_debug_walkable_overlay.gd was unreferenced anywhere (no scene,
+  autoload or doc names it). Moved to tools/wm_debug_walkable_overlay.gd —
+  still tracked, still runnable by hand, but no longer inside the game pack.
+  tools/README.md documents it next to walkable_probe.gd. Gate: PASS.
