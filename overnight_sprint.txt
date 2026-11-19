@@ -198,3 +198,11 @@ OPEN / NICE-TO-HAVE (from backlogs, non-blocking)
 - "The courier is real" points at the Reef Registry as well as Eel Run,
   matching guide.md's nudge list. Step-card copy from the previous cycle
   unchanged; tour triggers untouched. Gate: ALL-AUDITS PASS.
+
+## 2026-11-19 (assets) — Orphan sprites archived, not deleted
+
+- The nine unreferenced tracked sprites (starfish/sub/sky_blurred/wm_npc x4/
+  player_walk x3/upcycle fire+pump, plus their .import sidecars) moved to
+  sprites/placeholders/ with a README note. Nothing in scenes/scripts/
+  resources references them; import_audit and the full gate pass after the
+  move. sprites/placeholders/README.txt is now the archive's index.
