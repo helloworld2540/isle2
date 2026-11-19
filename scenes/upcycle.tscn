@@ -320,6 +320,6 @@ polygon = PackedVector2Array(0, 12, 6, 6, -6, 6)
 
 [node name="MinigameIntro" parent="." instance=ExtResource("13_intro")]
 intro_title = "Upcycle Sorting"
-intro_lines = PackedStringArray("Sort belt items into matching material bins.", "Carry one item at a time; place it in the right bin.", "Correct sorts build streak; burned/wrong sorts reset streak.", "Burned or mis-sorted trash earns nothing and adds no material.", "Rare golden scrap is worth +2 score when sorted right.", "Each correct sort grants its material to your inventory.", "Controls: swipe to move, tap to carry, tap a bin to drop.", "ESC or Return to Map leaves the bench.")
+intro_lines = PackedStringArray("Carry one item at a time.", "Swipe to move, tap to carry, tap a bin to drop.", "Correct sort = material + streak. Wrong bin = streak reset.", "Golden scrap: +2 score when sorted right.", "ESC or Return to Map leaves the bench.")
 
 [node name="BenchHum" parent="." instance=ExtResource("28_amb")]

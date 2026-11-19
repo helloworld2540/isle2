@@ -225,6 +225,6 @@ text = "Return to Map"
 
 [node name="MinigameIntro" parent="." instance=ExtResource("5_intro")]
 intro_title = "Reef Rescue"
-intro_lines = PackedStringArray("Dive with your drone to collect floating garbage.", "Avoid jellyfish and fish - three bumps end the run.", "Garbage becomes Reef Debris when you return.", "Rare golden debris is worth +1 bonus score.", "A rare golden Goldie is a gift: bumping it earns +5, no life lost.", "Sort Reef Debris at the Upcycle bench into materials.", "Controls: drag to steer, momentum matters. ESC or Return finishes early.")
+intro_lines = PackedStringArray("Drag to steer — scoop floating junk.", "Three bumps from fish or jellyfish end the run.", "Junk banks as Reef Debris when you return.", "Golden debris: +1 score. A golden Goldie: +5, no life lost.", "ESC or Return ends the dive early.")
 
 [node name="ReefSwell" parent="." instance=ExtResource("28_amb")]

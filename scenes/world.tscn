@@ -11,31 +11,31 @@
 [ext_resource type="Script" uid="uid://cosky4uwam3kw" path="res://scripts/wm_portal_markers.gd" id="10_markers"]
 [ext_resource type="PackedScene" path="res://scenes/wm_portal.tscn" id="11_portal"]
 [ext_resource type="PackedScene" path="res://scenes/ui/run_recap.tscn" id="12_recap"]
-[ext_resource type="Script" path="res://scripts/wm_onboarding.gd" id="13_onboarding"]
+[ext_resource type="Script" uid="uid://bdchtbi1aets" path="res://scripts/wm_onboarding.gd" id="13_onboarding"]
 [ext_resource type="PackedScene" path="res://scenes/wm_loop_path.tscn" id="14_loop"]
 [ext_resource type="PackedScene" path="res://scenes/ui/settings_panel.tscn" id="15_settings"]
-[ext_resource type="PackedScene" path="res://scenes/ui/about.tscn" id="16_about"]
+[ext_resource type="PackedScene" uid="uid://bbw7nw0gysrfc" path="res://scenes/ui/about.tscn" id="16_about"]
 [ext_resource type="PackedScene" path="res://scenes/ui/quest_tracker.tscn" id="16_tracker"]
 [ext_resource type="PackedScene" path="res://scenes/wm_flow_dots.tscn" id="17_flow"]
 [ext_resource type="PackedScene" path="res://scenes/ui/confirm_panel.tscn" id="18_confirm"]
 [ext_resource type="PackedScene" path="res://scenes/ui/achievement_banner.tscn" id="19_banner"]
-[ext_resource type="Texture2D" path="res://sprites/npc/portrait_mara.png" id="20_mara"]
-[ext_resource type="Texture2D" path="res://sprites/npc/portrait_tom.png" id="21_tom"]
-[ext_resource type="Texture2D" path="res://sprites/npc/portrait_nina.png" id="22_nina"]
-[ext_resource type="Texture2D" path="res://sprites/npc/portrait_kai.png" id="23_kai"]
+[ext_resource type="Texture2D" uid="uid://cnv52dlsw5e47" path="res://sprites/npc/portrait_mara.png" id="20_mara"]
+[ext_resource type="Texture2D" uid="uid://cx2jiwb38wo66" path="res://sprites/npc/portrait_tom.png" id="21_tom"]
+[ext_resource type="Texture2D" uid="uid://bi0q1xmnunxb7" path="res://sprites/npc/portrait_nina.png" id="22_nina"]
+[ext_resource type="Texture2D" uid="uid://c0e606rmfcqyv" path="res://sprites/npc/portrait_kai.png" id="23_kai"]
 [ext_resource type="PackedScene" path="res://scenes/wm_bottle.tscn" id="24_bottle"]
-[ext_resource type="Script" path="res://scripts/wm_tide_tint.gd" id="29_tidetint"]
-[ext_resource type="PackedScene" path="res://scenes/watcher.tscn" id="25_watcher"]
-
 [ext_resource type="PackedScene" path="res://scenes/wm_gull.tscn" id="24_gull"]
-[ext_resource type="PackedScene" path="res://scenes/wm_sparkles.tscn" id="25_sparkles"]
+[ext_resource type="PackedScene" uid="uid://rkgl5u1khu28" path="res://scenes/wm_sparkles.tscn" id="25_sparkles"]
+[ext_resource type="PackedScene" path="res://scenes/watcher.tscn" id="25_watcher"]
 [ext_resource type="PackedScene" path="res://scenes/wm_boat.tscn" id="26_boat"]
+[ext_resource type="PackedScene" uid="uid://bhjss4vm65hfn" path="res://scenes/wm_starfish.tscn" id="26_starfish"]
 [ext_resource type="PackedScene" path="res://scenes/wm_harbor_ambience.tscn" id="27_harbor"]
 [ext_resource type="PackedScene" path="res://scenes/wm_surf_bed.tscn" id="28_surf"]
-
-[ext_resource type="PackedScene" path="res://scenes/wm_starfish.tscn" id="26_starfish"]
+[ext_resource type="Script" uid="uid://dolk20ng6slxi" path="res://scripts/wm_tide_tint.gd" id="29_tidetint"]
 [ext_resource type="PackedScene" path="res://scenes/wm_keeper_star.tscn" id="30_keeperstar"]
 [ext_resource type="PackedScene" path="res://scenes/wm_courier.tscn" id="31_courier"]
+[ext_resource type="PackedScene" path="res://scenes/wm_next_stop_arrow.tscn" id="32_arrow"]
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_4wyf3"]
 atlas = ExtResource("1_rwgxs")
 region = Rect2(0, 0, 256, 384)
@@ -202,28 +202,12 @@ content_margin_left = 16.0
 content_margin_top = 0.0
 content_margin_right = 16.0
 content_margin_bottom = 0.0
-bg_color = Color(0.10, 0.15, 0.21, 0.85)
+bg_color = Color(0.1, 0.15, 0.21, 0.85)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0.4, 0.7, 0.9, 0.30)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
-[sub_resource type="StyleBoxFlat" id="StyleBox_upgrade_hover"]
-content_margin_left = 16.0
-content_margin_top = 0.0
-content_margin_right = 16.0
-content_margin_bottom = 0.0
-bg_color = Color(0.13, 0.20, 0.28, 0.95)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.55, 0.85, 1, 0.8)
+border_color = Color(0.4, 0.7, 0.9, 0.3)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
@@ -234,12 +218,28 @@ content_margin_left = 16.0
 content_margin_top = 0.0
 content_margin_right = 16.0
 content_margin_bottom = 0.0
-bg_color = Color(0.16, 0.24, 0.34, 1.0)
+bg_color = Color(0.16, 0.24, 0.34, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.72, 0.93, 1, 0.9)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_upgrade_hover"]
+content_margin_left = 16.0
+content_margin_top = 0.0
+content_margin_right = 16.0
+content_margin_bottom = 0.0
+bg_color = Color(0.13, 0.2, 0.28, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.55, 0.85, 1, 0.8)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
@@ -256,6 +256,76 @@ border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.35, 0.45, 0.55, 0.18)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_track"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.03, 0.05, 0.09, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.7, 0.9, 0.25)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_fill_upcycle"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 0.78, 0.3, 1)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_fill_reef"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.32, 0.85, 0.72, 1)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_toggle"]
+content_margin_left = 14.0
+content_margin_top = 0.0
+content_margin_right = 14.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.15, 0.21, 0.7)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.7, 0.9, 0.4)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_toggle_hover"]
+content_margin_left = 14.0
+content_margin_top = 0.0
+content_margin_right = 14.0
+content_margin_bottom = 0.0
+bg_color = Color(0.13, 0.2, 0.28, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.55, 0.85, 1, 0.75)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
@@ -280,6 +350,22 @@ shadow_color = Color(0, 0, 0, 0.35)
 shadow_size = 6
 shadow_offset = Vector2(0, 3)
 
+[sub_resource type="StyleBoxFlat" id="StyleBox_gold_pressed"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(0.82, 0.66, 0.2, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.95, 0.8, 0.4, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
 [sub_resource type="StyleBoxFlat" id="StyleBox_gold_hover"]
 content_margin_left = 16.0
 content_margin_top = 8.0
@@ -299,22 +385,6 @@ shadow_color = Color(0, 0, 0, 0.35)
 shadow_size = 6
 shadow_offset = Vector2(0, 3)
 
-[sub_resource type="StyleBoxFlat" id="StyleBox_gold_pressed"]
-content_margin_left = 16.0
-content_margin_top = 8.0
-content_margin_right = 16.0
-content_margin_bottom = 8.0
-bg_color = Color(0.82, 0.66, 0.2, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.95, 0.8, 0.4, 1)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-
 [sub_resource type="StyleBoxFlat" id="StyleBox_ghost"]
 content_margin_left = 16.0
 content_margin_top = 8.0
@@ -331,28 +401,12 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
-[sub_resource type="StyleBoxFlat" id="StyleBox_ghost_hover"]
-content_margin_left = 16.0
-content_margin_top = 8.0
-content_margin_right = 16.0
-content_margin_bottom = 8.0
-bg_color = Color(0.12, 0.20, 0.28, 0.85)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.6, 0.88, 1, 0.9)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-
 [sub_resource type="StyleBoxFlat" id="StyleBox_ghost_pressed"]
 content_margin_left = 16.0
 content_margin_top = 8.0
 content_margin_right = 16.0
 content_margin_bottom = 8.0
-bg_color = Color(0.10, 0.16, 0.23, 1.0)
+bg_color = Color(0.1, 0.16, 0.23, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -363,75 +417,21 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
-[sub_resource type="StyleBoxFlat" id="StyleBox_track"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(0.03, 0.05, 0.09, 0.9)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.4, 0.7, 0.9, 0.25)
-corner_radius_top_left = 7
-corner_radius_top_right = 7
-corner_radius_bottom_right = 7
-corner_radius_bottom_left = 7
-
-[sub_resource type="StyleBoxFlat" id="StyleBox_fill_upcycle"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(1, 0.78, 0.30, 1)
-corner_radius_top_left = 7
-corner_radius_top_right = 7
-corner_radius_bottom_right = 7
-corner_radius_bottom_left = 7
-
-[sub_resource type="StyleBoxFlat" id="StyleBox_fill_reef"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(0.32, 0.85, 0.72, 1)
-corner_radius_top_left = 7
-corner_radius_top_right = 7
-corner_radius_bottom_right = 7
-corner_radius_bottom_left = 7
-
-[sub_resource type="StyleBoxFlat" id="StyleBox_toggle"]
-content_margin_left = 14.0
-content_margin_top = 0.0
-content_margin_right = 14.0
-content_margin_bottom = 0.0
-bg_color = Color(0.10, 0.15, 0.21, 0.7)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.4, 0.7, 0.9, 0.4)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
-[sub_resource type="StyleBoxFlat" id="StyleBox_toggle_hover"]
-content_margin_left = 14.0
-content_margin_top = 0.0
-content_margin_right = 14.0
-content_margin_bottom = 0.0
-bg_color = Color(0.13, 0.20, 0.28, 0.9)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.55, 0.85, 1, 0.75)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+[sub_resource type="StyleBoxFlat" id="StyleBox_ghost_hover"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(0.12, 0.2, 0.28, 0.85)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.6, 0.88, 1, 0.9)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
 
 [node name="World" type="Node2D" unique_id=1506450269]
 
@@ -445,9 +445,10 @@ tile_set = ExtResource("1_e3hyu")
 tile_map_data = PackedByteArray("AAABAPn/AQAGAAYAAAABAPr/AQAGAAcAAAABAPv/AQAGAAgAAAACAPn/AQAHAAYAAAACAPr/AQAHAAcAAAACAPv/AQAHAAgAAAADAPn/AQAIAAYAAAADAPr/AQAIAAcAAAADAPv/AQAIAAgAAAAEAPn/AQAGAAYAAAAEAPr/AQAGAAcAAAAEAPv/AQAGAAgAAAAFAPn/AQAHAAYAAAAFAPr/AQAHAAcAAAAFAPv/AQAHAAgAAAAGAPn/AQAIAAYAAAAGAPr/AQAIAAcAAAAGAPv/AQAIAAgAAAD7//f/AQAGAAYAAAD7//j/AQAGAAcAAAD7//n/AQAGAAgAAAD8//f/AQAHAAYAAAD8//j/AQAHAAcAAAD8//n/AQAHAAgAAAD9//f/AQAIAAYAAAD9//j/AQAIAAcAAAD9//n/AQAIAAgAAAD7/wQAAQAGAAYAAAD7/wUAAQAGAAcAAAD7/wYAAQAGAAgAAAD8/wQAAQAHAAYAAAD8/wUAAQAHAAcAAAD8/wYAAQAHAAgAAAD9/wQAAQAIAAYAAAD9/wUAAQAIAAcAAAD9/wYAAQAIAAgAAAADAP3/AQALAA0AAAABAP3/AQALAA0AAAACAP3/AQALAA0AAAADAP//AQALAA0AAAADAP7/AQALAA0AAAAAAP7/AQALAA0AAAA=")
 tile_set = ExtResource("1_e3hyu")
 
-[node name="LoopPath" parent="." instance=ExtResource("14_loop")]
+[node name="LoopPath" parent="." unique_id=1262454071 instance=ExtResource("14_loop")]
+return_waypoints = []
 
-[node name="FlowDots" parent="." instance=ExtResource("17_flow")]
+[node name="FlowDots" parent="." unique_id=1304304388 instance=ExtResource("17_flow")]
 
 [node name="Player" type="CharacterBody2D" parent="." unique_id=1945129898]
 position = Vector2(-106, 80)
@@ -474,7 +475,9 @@ frame_progress = 0.3313893
 position = Vector2(1, -30.5)
 shape = SubResource("RectangleShape2D_nmirg")
 
-[node name="PortalUpcycle" parent="." instance=ExtResource("11_portal")]
+[node name="NextStopArrow" parent="Player" unique_id=909913294 instance=ExtResource("32_arrow")]
+
+[node name="PortalUpcycle" parent="." unique_id=1022691514 instance=ExtResource("11_portal")]
 position = Vector2(328, -143)
 target_scene = "res://scenes/upcycle.tscn"
 portal_title = "2 · Upcycle"
@@ -483,13 +486,13 @@ warn_if_empty = true
 required_material = "Reef Debris"
 empty_warning = "No Reef Debris yet - dive at Reef Rescue first."
 
-[node name="PortalReefRescue" parent="." instance=ExtResource("11_portal")]
+[node name="PortalReefRescue" parent="." unique_id=1334205682 instance=ExtResource("11_portal")]
 position = Vector2(74, 1413)
 target_scene = "res://scenes/reef_rescue.tscn"
 portal_title = "1 · Reef Rescue"
 station_id = "reef_rescue"
 
-[node name="PortalShop" parent="." instance=ExtResource("11_portal")]
+[node name="PortalShop" parent="." unique_id=1716743572 instance=ExtResource("11_portal")]
 position = Vector2(308, -550)
 target_scene = "res://scenes/shop.tscn"
 portal_title = "3 · Shop"
@@ -501,11 +504,19 @@ station_id = "shop"
 position = Vector2(-460, -765)
 npc_id = "npc_mara"
 portrait = ExtResource("20_mara")
-dialogue_lines = Array[String](["Hi! I'm Mara, island caretaker.", "Pick up trash and bring it back. I'll reward good work!", "Glass fetches the best price; I like tidy shores!"])
+dialogue_lines = Array[String](["Hi! I'm Mara, island caretaker.", "Pick up trash, bring it back — I'll reward it."])
 repeat_dialogue_lines = Array[String](["Welcome back! Got any Polyethylene to spare?", "Oda's clock story again? Wheels, tides, the whole almanac. It is a calendar, not a chronometer.", "They say someone watches from the far point. Nobody has caught them yet."])
 quest_complete_lines = Array[String](["You're a true island hero!"])
 tier2_lines = Array[String](["Tier 2: bring 5 Glass for a Polypropylene bounty."])
-milestone_beats = {"tide_keeper": "Two and a half thousand on the Pact — you really believe in this place. So do I. Always did.", "island_steward": "Every badge, every page. The island has never had a keeper like you, and it knows it.", "loop_master": "Twenty-five circuits. The island routes itself through you now.", "clean_sweep": "Five dives with not a fish bumped and not a gram wasted. The reef is lucky you are patient.", "year_keeper": "A whole year of mornings with the keeper. The island keeps you now.", "whole_sea": "Eight notes. Every single one. You did not collect them, keeper — you adopted them.", "far_point": "You caught the one I told you about. I raised you right, didn't I? Nobody has ever caught him before."}
+milestone_beats = {
+"clean_sweep": "Five dives with not a fish bumped and not a gram wasted. The reef is lucky you are patient.",
+"far_point": "You caught the one I told you about. I raised you right, didn't I? Nobody has ever caught him before.",
+"island_steward": "Every badge, every page. The island has never had a keeper like you, and it knows it.",
+"loop_master": "Twenty-five circuits. The island routes itself through you now.",
+"tide_keeper": "Two and a half thousand on the Pact — you really believe in this place. So do I. Always did.",
+"whole_sea": "Eight notes. Every single one. You did not collect them, keeper — you adopted them.",
+"year_keeper": "A whole year of mornings with the keeper. The island keeps you now."
+}
 quest_material = "Polyethylene"
 quest_amount = 8
 quest_reward_mat = "Glass"
@@ -518,16 +529,25 @@ quest2_reward_amount = 8
 [node name="WorldNPC_Tom" parent="NPCs" unique_id=1692442811 instance=ExtResource("9_npc")]
 position = Vector2(-689, -1150)
 npc_id = "npc_tom"
-portrait = ExtResource("21_tom")
 npc_name = "Tom"
 npc_sprite_index = 2
-dialogue_lines = Array[String](["The reef is full of drifting junk.", "Bring it back for recycling!"])
+portrait = ExtResource("21_tom")
+dialogue_lines = Array[String](["The reef is full of junk.", "Bring it back — I'll take it."])
 repeat_dialogue_lines = Array[String](["Any Nylon for the shop today?", "Wheels, tides, a brass heart. Fine. My grandfather said the island ticks, too. I never corrected him.", "They say someone watches from the far point — Oda sees him. I keep to my fishing."])
 quest_complete_lines = Array[String](["Sea life thanks you!"])
 tier2_lines = Array[String](["Tier 2: 6 Polypropylene for 8 Polyethylene."])
+milestone_beats = {
+"far_point": "Oda sees him. I keep to my fishing. But I saw the look on your face when you came back — you saw something too.",
+"heavy_haul": "Thirty kilos in one dive? The reef noticed that. Try not to rob it.",
+"island_steward": "Full journal, full tide, full heart. Whatever you came here to find — you found it.",
+"pale_courier": "Saw the pale one, did you? Courier of the strait. Nobody's ever kept up with it — but you saw it.",
+"reef_abyss": "Nine hundred metres down. The reef keeps its deepest secrets, and lets you walk right past.",
+"reef_veteran": "Twenty-five dives and you still come up smiling. Most of us stop smiling at the third.",
+"tide_messages": "You read my note? I never sign them properly — glad it helped. The fish came back; that is all that matters.",
+"whole_sea": "Eight bottles, and not one cracked. I would not have believed it if I had not seen your bag. The sea kept writing; you kept reading."
+}
 reward_trash = 4
 reward_mat = "Nylon"
-milestone_beats = {"tide_messages": "You read my note? I never sign them properly — glad it helped. The fish came back; that is all that matters.", "island_steward": "Full journal, full tide, full heart. Whatever you came here to find — you found it.", "heavy_haul": "Thirty kilos in one dive? The reef noticed that. Try not to rob it.", "reef_veteran": "Twenty-five dives and you still come up smiling. Most of us stop smiling at the third.", "reef_abyss": "Nine hundred metres down. The reef keeps its deepest secrets, and lets you walk right past.", "pale_courier": "Saw the pale one, did you? Courier of the strait. Nobody's ever kept up with it — but you saw it.", "whole_sea": "Eight bottles, and not one cracked. I would not have believed it if I had not seen your bag. The sea kept writing; you kept reading.", "far_point": "Oda sees him. I keep to my fishing. But I saw the look on your face when you came back — you saw something too."}
 quest_material = "Nylon"
 quest_amount = 6
 quest_reward_mat = "Polypropylene"
@@ -539,16 +559,23 @@ quest2_reward_amount = 8
 [node name="WorldNPC_Nina" parent="NPCs" unique_id=822166491 instance=ExtResource("9_npc")]
 position = Vector2(-292, 861)
 npc_id = "npc_nina"
-portrait = ExtResource("22_nina")
 npc_name = "Nina"
 npc_sprite_index = 3
-dialogue_lines = Array[String](["I run the recycling stand near the shop.", "Sell trash for coins; I'll pay a bonus!"])
+portrait = ExtResource("22_nina")
+dialogue_lines = Array[String](["I run the stand by the shop.", "Sell me trash — I pay a bonus."])
 repeat_dialogue_lines = Array[String](["Got stock for the store today?", "A clock you cannot sell shelf space in is just furniture, love. Although it does tick in four time signatures."])
 quest_complete_lines = Array[String](["Shop's stocked! Thanks."])
 tier2_lines = Array[String](["Tier 2: 8 Polyethylene for 8 Polypropylene."])
+milestone_beats = {
+"far_point": "Word travels that you saw the one on the far point. Nobody at the counter speaks of it. We count it as true anyway.",
+"island_steward": "They will tell stories about you at the stand. The ones with every badge do not come along often.",
+"pale_courier": "Something crossed my flight path that was not a bird and not a cloud. The courier route runs low and quick.",
+"silk_touch": "Five flawless shifts and not a bin missed. At the stand we have a word for that — we use it rarely, and the word is ‘yes’.",
+"tide_messages": "I heard you found the letters. Every single one. Somewhere up there the glass gardens are catching the light just for you.",
+"whole_sea": "Eight notes on file. My letters finally make sense in the sequence. Safe flying to you — you read the route like I never could."
+}
 reward_trash = 5
 reward_mat = "Nylon"
-milestone_beats = {"tide_messages": "I heard you found the letters. Every single one. Somewhere up there the glass gardens are catching the light just for you.", "island_steward": "They will tell stories about you at the stand. The ones with every badge do not come along often.", "silk_touch": "Five flawless shifts and not a bin missed. At the stand we have a word for that — we use it rarely, and the word is ‘yes’.", "whole_sea": "Eight notes on file. My letters finally make sense in the sequence. Safe flying to you — you read the route like I never could.", "pale_courier": "Something crossed my flight path that was not a bird and not a cloud. The courier route runs low and quick.", "far_point": "Word travels that you saw the one on the far point. Nobody at the counter speaks of it. We count it as true anyway."}
 quest_material = "Glass"
 quest_amount = 6
 quest_reward_mat = "Polypropylene"
@@ -561,14 +588,26 @@ quest2_reward_amount = 8
 [node name="WorldNPC_Kai" parent="NPCs" unique_id=200355740 instance=ExtResource("9_npc")]
 position = Vector2(1019, -1164)
 npc_id = "npc_kai"
-portrait = ExtResource("23_kai")
 npc_name = "Kai"
 npc_sprite_index = 4
-milestone_beats = {"tide_keeper": "The Pact. Two and a half grand. The tidekeeper pays attention to who does that — so do I. Shelves are always open to you.", "island_steward": "Every achievement in the book, and not one shelf left untouched. You are the best customer I have ever had.", "whispers": "Corl whispered you seven days of weather and you paid for every one. I have never understood him. The till never turns him down, though.", "silent_chorus": "Read every note the sea ever slipped you. I stock for people like you — and you are the only regular who buys nothing before reading everything first.", "whole_sea": "All eight in the book. Best customer the tide ever had. Tell the sea it can stop writing for a while — you have read it all.", "golden_touch": "Ten golden finds. The reef has never been this shiny in any ledger of mine.", "tide_almanac": "Booked every tide and never once argued with the water. Shelves never full enough for a keeper who reads the sea.", "quiet_keeper": "Three held without help. The sea makes keepers like you by way of the horizon.", "double_keeper": "The sea knows you twice: once for listening, once for not. Either way, you stayed.", "pale_courier": "Saw the pale one, did you? Shame it does not sit on a shelf. I would stock it.", "far_point": "I do not stock the far point — never a good day out there. But word travels, and the shelves have been lighter since you came back. You went there. You came back."}
-dialogue_lines = Array[String](["I run the shop across the way.", "Bring me Glass and I'll stock the shelves!"])
+portrait = ExtResource("23_kai")
+dialogue_lines = Array[String](["I run the shop.", "Bring me Glass — I'll stock the shelves."])
 repeat_dialogue_lines = Array[String](["Any Glass for the shop today?", "Oda claims the island is a disassembled clock. Marketing opportunity, if the sea ever wants shelf space.", "I do not stock the far point. Never a good day out there."])
 quest_complete_lines = Array[String](["Shelves fully stocked. Thank you!"])
 tier2_lines = Array[String](["Tier 2: 8 Polyethylene for 4 Glass."])
+milestone_beats = {
+"double_keeper": "The sea knows you twice: once for listening, once for not. Either way, you stayed.",
+"far_point": "I do not stock the far point — never a good day out there. But word travels, and the shelves have been lighter since you came back. You went there. You came back.",
+"golden_touch": "Ten golden finds. The reef has never been this shiny in any ledger of mine.",
+"island_steward": "Every achievement in the book, and not one shelf left untouched. You are the best customer I have ever had.",
+"pale_courier": "Saw the pale one, did you? Shame it does not sit on a shelf. I would stock it.",
+"quiet_keeper": "Three held without help. The sea makes keepers like you by way of the horizon.",
+"silent_chorus": "Read every note the sea ever slipped you. I stock for people like you — and you are the only regular who buys nothing before reading everything first.",
+"tide_almanac": "Booked every tide and never once argued with the water. Shelves never full enough for a keeper who reads the sea.",
+"tide_keeper": "The Pact. Two and a half grand. The tidekeeper pays attention to who does that — so do I. Shelves are always open to you.",
+"whispers": "Corl whispered you seven days of weather and you paid for every one. I have never understood him. The till never turns him down, though.",
+"whole_sea": "All eight in the book. Best customer the tide ever had. Tell the sea it can stop writing for a while — you have read it all."
+}
 reward_trash = 3
 reward_mat = "Polypropylene"
 quest_material = "Glass"
@@ -585,74 +624,87 @@ position = Vector2(-560, -725)
 npc_id = "npc_oda"
 npc_name = "Oda"
 npc_sprite_index = 2
-dialogue_lines = Array[String](["Name's Oda. I keep the island's almanac — every tide the sea has, I write it down.", "The sea turns through four moods over four days. Nobody knows the order until it arrives.", "Watch the water, keeper. It always tells the truth eventually."])
+dialogue_lines = Array[String](["Oda. I keep the tide almanac.", "Four moods, four days — the order shows up when it shows up.", "Watch the water; it always tells the truth. Eventually."])
 repeat_dialogue_lines = Array[String](["The almanac's a little fatter every week. Come see what today's sea has decided.", "Inside cover says the island was a brass clock once — four wheels, four tides. Kai calls it bad inventory timing. I call it history."])
 flavour_variants = Array[String](["Four tides, four warnings.", "The almanac's a little fatter every week.", "Slack water gifts the patient."])
 ambient_bubbles = Array[String](["*scribbling in a salt-stained book*", "*holds a hand up to the wind*"])
-reward_trash = 0
-reward_mat = "Polyethylene"
 tide_aware = true
-milestone_beats = {"keeper_letter": "Found his note, did you? He stood right about there. Watched the same water you do.", "island_steward": "Every page of the journal, every badge the island has. I have watched a lot of keepers pass through — you are the first I would write down.", "whispers": "Seven days of tomorrow from Corl, and he still will not take a compliment. The sea made him this way — I respect it. Mostly.", "silent_chorus": "Six voices the water ever had, and you heard every one. Half the keepers think the tide is weather. You know better now.", "whole_sea": "Every bottle the sea ever sent, and you kept them all. The water talks, love — most never listen. You listened to the very end.", "long_keeper": "Ten tides on one island. Staying is the whole job, love. You stayed.", "tide_almanac": "You have the four. Ancient news — and the only news I will ever need.", "steady_keeper": "Three tides running. You show up. That is the whole trick.", "pale_courier": "The courier. Nobody has ever kept up with it — and I wrote down every time somebody saw it. You made the page.", "courier_regular": "Ten pages, read at the counter. Corl counts them in the back of his ledger — I have seen him do it.", "last_letter": "Fourteen pages. He never signed one of them. You read the whole post anyway, and now the drawer is shut for good.", "far_point": "You saw him. I do not ask how you knew he was there. Some of us watch the water. Some of us are watched by it.", "year_keeper": "A full year of tides. There is no greater gift a keeper can give me."}
+milestone_beats = {
+"courier_regular": "Ten pages, read at the counter. Corl counts them in the back of his ledger — I have seen him do it.",
+"far_point": "You saw him. I do not ask how you knew he was there. Some of us watch the water. Some of us are watched by it.",
+"island_steward": "Every page of the journal, every badge the island has. I have watched a lot of keepers pass through — you are the first I would write down.",
+"keeper_letter": "Found his note, did you? He stood right about there. Watched the same water you do.",
+"last_letter": "Fourteen pages. He never signed one of them. You read the whole post anyway, and now the drawer is shut for good.",
+"long_keeper": "Ten tides on one island. Staying is the whole job, love. You stayed.",
+"pale_courier": "The courier. Nobody has ever kept up with it — and I wrote down every time somebody saw it. You made the page.",
+"silent_chorus": "Six voices the water ever had, and you heard every one. Half the keepers think the tide is weather. You know better now.",
+"steady_keeper": "Three tides running. You show up. That is the whole trick.",
+"tide_almanac": "You have the four. Ancient news — and the only news I will ever need.",
+"whispers": "Seven days of tomorrow from Corl, and he still will not take a compliment. The sea made him this way — I respect it. Mostly.",
+"whole_sea": "Every bottle the sea ever sent, and you kept them all. The water talks, love — most never listen. You listened to the very end.",
+"year_keeper": "A full year of tides. There is no greater gift a keeper can give me."
+}
+reward_trash = 0
 
-[node name="BottleTide" parent="." instance=ExtResource("24_bottle")]
-position = Vector2(280, 1180)
+[node name="BottleTide" parent="." unique_id=618507198 instance=ExtResource("24_bottle")]
+position = Vector2(-447, -1661)
 bottle_id = "bottle_tide"
 
-[node name="BottleGull" parent="." instance=ExtResource("24_bottle")]
-position = Vector2(120, -320)
+[node name="BottleGull" parent="." unique_id=135576834 instance=ExtResource("24_bottle")]
+position = Vector2(-1434, -941)
 bottle_id = "bottle_gull"
 
-[node name="BottleLight" parent="." instance=ExtResource("24_bottle")]
-position = Vector2(700, 600)
+[node name="BottleLight" parent="." unique_id=788930903 instance=ExtResource("24_bottle")]
+position = Vector2(1097, 238)
 bottle_id = "bottle_light"
 
-[node name="BottlePact" parent="." instance=ExtResource("24_bottle")]
-position = Vector2(360, 1180)
+[node name="BottlePact" parent="." unique_id=1476286278 instance=ExtResource("24_bottle")]
+position = Vector2(299, 887)
 bottle_id = "bottle_pact"
 
-[node name="BottleKeeper" parent="." instance=ExtResource("24_bottle")]
-position = Vector2(-448, -725)
+[node name="BottleKeeper" parent="." unique_id=1307851964 instance=ExtResource("24_bottle")]
+position = Vector2(1727, -718)
 bottle_id = "bottle_keeper"
 
-[node name="BottleCorl" parent="." instance=ExtResource("24_bottle")]
-position = Vector2(400, -600)
+[node name="BottleCorl" parent="." unique_id=333966607 instance=ExtResource("24_bottle")]
+position = Vector2(-958, 486)
 bottle_id = "bottle_corl"
 
-[node name="FarPointWatcher" parent="." instance=ExtResource("25_watcher")]
-position = Vector2(1536, -256)
+[node name="FarPointWatcher" parent="." unique_id=1340466937 instance=ExtResource("25_watcher")]
+position = Vector2(518, -1458)
 
-[node name="BottleWatcher" parent="." instance=ExtResource("24_bottle")]
-position = Vector2(1408, -256)
+[node name="BottleWatcher" parent="." unique_id=685542764 instance=ExtResource("24_bottle")]
+position = Vector2(331, -1607)
 bottle_id = "bottle_watcher"
 
-[node name="Starfish1" parent="." instance=ExtResource("26_starfish")]
-position = Vector2(240, -60)
+[node name="Starfish1" parent="." unique_id=1833525104 instance=ExtResource("26_starfish")]
+position = Vector2(-1028, -138)
 starfish_id = "sf_1"
 
-[node name="Starfish2" parent="." instance=ExtResource("26_starfish")]
-position = Vector2(160, 1310)
+[node name="Starfish2" parent="." unique_id=2089513694 instance=ExtResource("26_starfish")]
+position = Vector2(417, 877)
 starfish_id = "sf_2"
 
-[node name="Starfish3" parent="." instance=ExtResource("26_starfish")]
-position = Vector2(390, -630)
+[node name="Starfish3" parent="." unique_id=941799915 instance=ExtResource("26_starfish")]
+position = Vector2(1419, -1427)
 starfish_id = "sf_3"
 
-[node name="Starfish4" parent="." instance=ExtResource("26_starfish")]
-position = Vector2(-380, -700)
+[node name="Starfish4" parent="." unique_id=754674593 instance=ExtResource("26_starfish")]
+position = Vector2(-1227, -1418)
 starfish_id = "sf_4"
 
-[node name="Starfish5" parent="." instance=ExtResource("26_starfish")]
-position = Vector2(1100, -1080)
+[node name="Starfish5" parent="." unique_id=1438734850 instance=ExtResource("26_starfish")]
+position = Vector2(1456, 69)
 starfish_id = "sf_5"
 
-[node name="KeeperStar" parent="." instance=ExtResource("30_keeperstar")]
-position = Vector2(1704, -256)
+[node name="KeeperStar" parent="." unique_id=372420885 instance=ExtResource("30_keeperstar")]
+position = Vector2(1768, -280)
 
-[node name="BottleFarPoint" parent="." instance=ExtResource("24_bottle")]
-position = Vector2(1600, -180)
+[node name="BottleFarPoint" parent="." unique_id=1417731741 instance=ExtResource("24_bottle")]
+position = Vector2(1873, -340)
 bottle_id = "bottle_far_point"
 
-[node name="WorldCourier" parent="." instance=ExtResource("31_courier")]
+[node name="WorldCourier" parent="." unique_id=542968892 instance=ExtResource("31_courier")]
 position = Vector2(300, 1050)
 
 [node name="TideTint" type="CanvasLayer" parent="." unique_id=900000028]
@@ -676,14 +728,14 @@ layer = 35
 script = ExtResource("8_progress")
 
 [node name="StewardTint" type="ColorRect" parent="WorldProgress" unique_id=900000027]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(1.0, 0.85, 0.45, 0.12)
-visible = false
+color = Color(1, 0.85, 0.45, 0.12)
 
 [node name="Panel" type="PanelContainer" parent="WorldProgress" unique_id=900000021]
 modulate = Color(1, 1, 1, 0.85)
@@ -707,40 +759,39 @@ theme_override_colors/font_color = Color(1, 0.86, 0.4, 1)
 theme_override_font_sizes/font_size = 24
 text = "Money: 0$"
 
-[node name="CircuitLabel" type="Label" parent="WorldProgress/Panel/VBox"]
+[node name="CircuitLabel" type="Label" parent="WorldProgress/Panel/VBox" unique_id=1266252419]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.72, 0.91, 1, 1)
 theme_override_font_sizes/font_size = 24
 text = "Route ○○○ 0/3"
 
-[node name="NextStop" type="Label" parent="WorldProgress/Panel/VBox"]
+[node name="NextStop" type="Label" parent="WorldProgress/Panel/VBox" unique_id=826998690]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.6, 0.94, 0.78, 1)
 theme_override_font_sizes/font_size = 24
 text = "Next: 1 · Reef Rescue — gather a fresh haul"
 autowrap_mode = 2
 
-[node name="HeroTitle" type="Label" parent="WorldProgress/Panel/VBox"]
+[node name="HeroTitle" type="Label" parent="WorldProgress/Panel/VBox" unique_id=1461743274]
 visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.84, 0.32, 1)
 theme_override_font_sizes/font_size = 24
-text = ""
 
-[node name="BottleTitle" type="Label" parent="WorldProgress/Panel/VBox"]
+[node name="BottleTitle" type="Label" parent="WorldProgress/Panel/VBox" unique_id=1784290196]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.72, 0.92, 1, 1)
 theme_override_font_sizes/font_size = 24
 text = "◆ Bottles 0/3"
 
-[node name="StarfishTitle" type="Label" parent="WorldProgress/Panel/VBox"]
+[node name="StarfishTitle" type="Label" parent="WorldProgress/Panel/VBox" unique_id=787550000]
+visible = false
 layout_mode = 2
-theme_override_colors/font_color = Color(1.0, 0.82, 0.55, 1)
+theme_override_colors/font_color = Color(1, 0.82, 0.55, 1)
 theme_override_font_sizes/font_size = 24
 text = "★ Starfish 0/5"
-visible = false
 
-[node name="TideTitle" type="Label" parent="WorldProgress/Panel/VBox"]
+[node name="TideTitle" type="Label" parent="WorldProgress/Panel/VBox" unique_id=1147388359]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.68, 0.9, 0.95, 1)
 theme_override_font_sizes/font_size = 24
@@ -765,19 +816,19 @@ theme_override_font_sizes/font_size = 24
 text = "(empty)"
 autowrap_mode = 3
 
-[node name="RunRecap" parent="." instance=ExtResource("12_recap")]
+[node name="RunRecap" parent="." unique_id=1318130350 instance=ExtResource("12_recap")]
 
-[node name="AchievementBanner" parent="." instance=ExtResource("19_banner")]
+[node name="AchievementBanner" parent="." unique_id=2005905287 instance=ExtResource("19_banner")]
 
-[node name="QuestTracker" parent="." instance=ExtResource("16_tracker")]
+[node name="QuestTracker" parent="." unique_id=227464679 instance=ExtResource("16_tracker")]
 
-[node name="Onboarding" type="Node" parent="."]
+[node name="Onboarding" type="Node" parent="." unique_id=179069208]
 script = ExtResource("13_onboarding")
 
 [node name="Menu" type="CanvasLayer" parent="." unique_id=410065409]
 script = ExtResource("4_menu")
 
-[node name="ConfirmPanel" parent="Menu" instance=ExtResource("18_confirm")]
+[node name="ConfirmPanel" parent="Menu" unique_id=1133182661 instance=ExtResource("18_confirm")]
 
 [node name="BgmCycleTimer" type="Timer" parent="Menu" unique_id=410065501]
 wait_time = 18.0
@@ -850,26 +901,25 @@ theme_override_constants/separation = 2
 [node name="Title" type="Label" parent="Menu/MenuPanel/Center/Card/HBoxContainer/Infobox/Header/TitleCol" unique_id=410065454]
 layout_mode = 2
 theme = ExtResource("6_qfnet")
-theme_override_font_sizes/font_size = 30
 theme_override_colors/font_color = Color(1, 0.84, 0.35, 1)
+theme_override_font_sizes/font_size = 30
 text = "Island Menu"
 
 [node name="UpgradeStatus" type="Label" parent="Menu/MenuPanel/Center/Card/HBoxContainer/Infobox/Header/TitleCol" unique_id=410065436]
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.72, 0.93, 1, 0.9)
+theme_override_font_sizes/font_size = 24
 text = "Move 0 | Range 0 | -"
 
 [node name="TideStatus" type="Label" parent="Menu/MenuPanel/Center/Card/HBoxContainer/Infobox/Header/TitleCol" unique_id=410065461]
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.68, 0.9, 0.95, 0.95)
-text = ""
+theme_override_font_sizes/font_size = 24
 
 [node name="UpgradesLabel" type="Label" parent="Menu/MenuPanel/Center/Card/HBoxContainer/Infobox" unique_id=410065455]
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.72, 0.93, 1, 0.65)
+theme_override_font_sizes/font_size = 24
 text = "U P G R A D E S"
 
 [node name="UpgradesPanel" type="PanelContainer" parent="Menu/MenuPanel/Center/Card/HBoxContainer/Infobox" unique_id=410065433]
@@ -884,97 +934,97 @@ theme_override_constants/separation = 8
 custom_minimum_size = Vector2(0, 46)
 layout_mode = 2
 size_flags_horizontal = 3
-alignment = 0
+theme_override_colors/font_color = Color(0.92, 0.96, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.55, 0.62, 0.7, 0.85)
+theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBox_upgrade")
-theme_override_styles/hover = SubResource("StyleBox_upgrade_hover")
 theme_override_styles/pressed = SubResource("StyleBox_upgrade_pressed")
+theme_override_styles/hover = SubResource("StyleBox_upgrade_hover")
 theme_override_styles/disabled = SubResource("StyleBox_upgrade_disabled")
 theme_override_styles/focus = SubResource("StyleBox_upgrade_hover")
-theme_override_font_sizes/font_size = 24
-theme_override_colors/font_color = Color(0.92, 0.96, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_disabled_color = Color(0.55, 0.62, 0.7, 0.85)
 text = "Move Speed Lv.0 (+8%) — 8 trash"
+alignment = 0
 
 [node name="CollectionRangeBtn" type="Button" parent="Menu/MenuPanel/Center/Card/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel" unique_id=410065438]
 custom_minimum_size = Vector2(0, 46)
 layout_mode = 2
 size_flags_horizontal = 3
-alignment = 0
+theme_override_colors/font_color = Color(0.92, 0.96, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.55, 0.62, 0.7, 0.85)
+theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBox_upgrade")
-theme_override_styles/hover = SubResource("StyleBox_upgrade_hover")
 theme_override_styles/pressed = SubResource("StyleBox_upgrade_pressed")
+theme_override_styles/hover = SubResource("StyleBox_upgrade_hover")
 theme_override_styles/disabled = SubResource("StyleBox_upgrade_disabled")
 theme_override_styles/focus = SubResource("StyleBox_upgrade_hover")
-theme_override_font_sizes/font_size = 24
-theme_override_colors/font_color = Color(0.92, 0.96, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_disabled_color = Color(0.55, 0.62, 0.7, 0.85)
 text = "Range Lv.0 (+12px) — 12 trash"
+alignment = 0
 
 [node name="DeepCacheBtn" type="Button" parent="Menu/MenuPanel/Center/Card/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel" unique_id=410065439]
 custom_minimum_size = Vector2(0, 46)
 layout_mode = 2
 size_flags_horizontal = 3
-alignment = 0
+theme_override_colors/font_color = Color(0.92, 0.96, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.55, 0.62, 0.7, 0.85)
+theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBox_upgrade")
-theme_override_styles/hover = SubResource("StyleBox_upgrade_hover")
 theme_override_styles/pressed = SubResource("StyleBox_upgrade_pressed")
+theme_override_styles/hover = SubResource("StyleBox_upgrade_hover")
 theme_override_styles/disabled = SubResource("StyleBox_upgrade_disabled")
 theme_override_styles/focus = SubResource("StyleBox_upgrade_hover")
-theme_override_font_sizes/font_size = 24
-theme_override_colors/font_color = Color(0.92, 0.96, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_disabled_color = Color(0.55, 0.62, 0.7, 0.85)
 text = "Deep Cache (30 upcycle score) — bonus debris"
+alignment = 0
 
 [node name="DeepCacheUpgradeBtn" type="Button" parent="Menu/MenuPanel/Center/Card/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel" unique_id=410065440]
 custom_minimum_size = Vector2(0, 46)
 layout_mode = 2
 size_flags_horizontal = 3
-alignment = 0
-disabled = true
+theme_override_colors/font_color = Color(0.92, 0.96, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.55, 0.62, 0.7, 0.85)
+theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBox_upgrade")
-theme_override_styles/hover = SubResource("StyleBox_upgrade_hover")
 theme_override_styles/pressed = SubResource("StyleBox_upgrade_pressed")
+theme_override_styles/hover = SubResource("StyleBox_upgrade_hover")
 theme_override_styles/disabled = SubResource("StyleBox_upgrade_disabled")
 theme_override_styles/focus = SubResource("StyleBox_upgrade_hover")
-theme_override_font_sizes/font_size = 24
-theme_override_colors/font_color = Color(0.92, 0.96, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_disabled_color = Color(0.55, 0.62, 0.7, 0.85)
+disabled = true
 text = "Deep Cache Tier 1 — 15 score"
+alignment = 0
 
 [node name="InventoryCapBtn" type="Button" parent="Menu/MenuPanel/Center/Card/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel" unique_id=410065441]
 custom_minimum_size = Vector2(0, 46)
 layout_mode = 2
 size_flags_horizontal = 3
-alignment = 0
+theme_override_colors/font_color = Color(0.92, 0.96, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.55, 0.62, 0.7, 0.85)
+theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBox_upgrade")
-theme_override_styles/hover = SubResource("StyleBox_upgrade_hover")
 theme_override_styles/pressed = SubResource("StyleBox_upgrade_pressed")
+theme_override_styles/hover = SubResource("StyleBox_upgrade_hover")
 theme_override_styles/disabled = SubResource("StyleBox_upgrade_disabled")
 theme_override_styles/focus = SubResource("StyleBox_upgrade_hover")
-theme_override_font_sizes/font_size = 24
-theme_override_colors/font_color = Color(0.92, 0.96, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_disabled_color = Color(0.55, 0.62, 0.7, 0.85)
 text = "Inv Cap Lv.0 — 0/30 kg"
+alignment = 0
 
 [node name="ProgressBox" type="HBoxContainer" parent="Menu/MenuPanel/Center/Card/HBoxContainer/Infobox" unique_id=410065442]
 layout_mode = 2
@@ -983,8 +1033,8 @@ theme_override_constants/separation = 10
 [node name="UpcycleLbl" type="Label" parent="Menu/MenuPanel/Center/Card/HBoxContainer/Infobox/ProgressBox" unique_id=410065443]
 custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.72, 0.93, 1, 0.85)
+theme_override_font_sizes/font_size = 24
 text = "UPCYCLE"
 vertical_alignment = 1
 
@@ -1003,8 +1053,8 @@ theme_override_constants/separation = 10
 [node name="ReefLbl" type="Label" parent="Menu/MenuPanel/Center/Card/HBoxContainer/Infobox/ReefProgressBox" unique_id=410065446]
 custom_minimum_size = Vector2(104, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.72, 0.93, 1, 0.85)
+theme_override_font_sizes/font_size = 24
 text = "REEF"
 vertical_alignment = 1
 
@@ -1020,25 +1070,25 @@ max_value = 1.0
 custom_minimum_size = Vector2(0, 44)
 layout_mode = 2
 size_flags_horizontal = 3
-alignment = 0
-theme_override_styles/normal = SubResource("StyleBox_toggle")
-theme_override_styles/hover = SubResource("StyleBox_toggle_hover")
-theme_override_styles/pressed = SubResource("StyleBox_toggle_hover")
-theme_override_styles/focus = SubResource("StyleBox_toggle_hover")
-theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.72, 0.93, 1, 0.95)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
 theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBox_toggle")
+theme_override_styles/pressed = SubResource("StyleBox_toggle_hover")
+theme_override_styles/hover = SubResource("StyleBox_toggle_hover")
+theme_override_styles/focus = SubResource("StyleBox_toggle_hover")
 text = "Settings"
+alignment = 0
 
 [node name="SettingsView" type="PanelContainer" parent="Menu/MenuPanel/Center/Card/HBoxContainer/Infobox" unique_id=410065456]
-layout_mode = 2
 visible = false
+layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBox_section")
 
-[node name="SettingsPanel" parent="Menu/MenuPanel/Center/Card/HBoxContainer/Infobox/SettingsView" instance=ExtResource("15_settings")]
+[node name="SettingsPanel" parent="Menu/MenuPanel/Center/Card/HBoxContainer/Infobox/SettingsView" unique_id=524445497 instance=ExtResource("15_settings")]
 custom_minimum_size = Vector2(0, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1050,74 +1100,72 @@ theme_override_constants/separation = 12
 
 [node name="ActionsLabel" type="Label" parent="Menu/MenuPanel/Center/Card/HBoxContainer/VBoxContainer" unique_id=410065457]
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.72, 0.93, 1, 0.65)
+theme_override_font_sizes/font_size = 24
 text = "A C T I O N S"
 
 [node name="ResumeButton" type="Button" parent="Menu/MenuPanel/Center/Card/HBoxContainer/VBoxContainer" unique_id=410065413]
 custom_minimum_size = Vector2(232, 64)
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBox_gold")
-theme_override_styles/hover = SubResource("StyleBox_gold_hover")
-theme_override_styles/pressed = SubResource("StyleBox_gold_pressed")
-theme_override_styles/focus = SubResource("StyleBox_gold_hover")
-theme_override_font_sizes/font_size = 26
 theme_override_colors/font_color = Color(0.28, 0.18, 0.04, 1)
-theme_override_colors/font_hover_color = Color(0.28, 0.18, 0.04, 1)
 theme_override_colors/font_focus_color = Color(0.28, 0.18, 0.04, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.28, 0.18, 0.04, 1)
 theme_override_colors/font_pressed_color = Color(0.28, 0.18, 0.04, 1)
+theme_override_colors/font_hover_color = Color(0.28, 0.18, 0.04, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.28, 0.18, 0.04, 1)
+theme_override_font_sizes/font_size = 26
+theme_override_styles/normal = SubResource("StyleBox_gold")
+theme_override_styles/pressed = SubResource("StyleBox_gold_pressed")
+theme_override_styles/hover = SubResource("StyleBox_gold_hover")
+theme_override_styles/focus = SubResource("StyleBox_gold_hover")
 text = "Resume"
 
 [node name="SaveButton" type="Button" parent="Menu/MenuPanel/Center/Card/HBoxContainer/VBoxContainer" unique_id=410065415]
 custom_minimum_size = Vector2(232, 52)
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBox_ghost")
-theme_override_styles/hover = SubResource("StyleBox_ghost_hover")
-theme_override_styles/pressed = SubResource("StyleBox_ghost_pressed")
-theme_override_styles/focus = SubResource("StyleBox_ghost_hover")
-theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.72, 0.93, 1, 0.95)
-theme_override_colors/font_hover_color = Color(0.9, 0.98, 1, 1)
 theme_override_colors/font_focus_color = Color(0.9, 0.98, 1, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.9, 0.98, 1, 1)
 theme_override_colors/font_pressed_color = Color(0.9, 0.98, 1, 1)
+theme_override_colors/font_hover_color = Color(0.9, 0.98, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.9, 0.98, 1, 1)
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBox_ghost")
+theme_override_styles/pressed = SubResource("StyleBox_ghost_pressed")
+theme_override_styles/hover = SubResource("StyleBox_ghost_hover")
+theme_override_styles/focus = SubResource("StyleBox_ghost_hover")
 text = "Save & Quit"
 
 [node name="AboutButton" type="Button" parent="Menu/MenuPanel/Center/Card/HBoxContainer/VBoxContainer" unique_id=410065460]
 custom_minimum_size = Vector2(232, 44)
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBox_ghost")
-theme_override_styles/hover = SubResource("StyleBox_ghost_hover")
-theme_override_styles/pressed = SubResource("StyleBox_ghost_hover")
-theme_override_styles/focus = SubResource("StyleBox_ghost_hover")
-theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.66, 0.78, 0.88, 0.9)
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBox_ghost")
+theme_override_styles/pressed = SubResource("StyleBox_ghost_hover")
+theme_override_styles/hover = SubResource("StyleBox_ghost_hover")
+theme_override_styles/focus = SubResource("StyleBox_ghost_hover")
 text = "About"
-
-[node name="AboutCanvas" parent="Menu" instance=ExtResource("16_about")]
 
 [node name="JournalButton" type="Button" parent="Menu/MenuPanel/Center/Card/HBoxContainer/VBoxContainer" unique_id=410065470]
 custom_minimum_size = Vector2(232, 52)
 layout_mode = 2
 tooltip_text = "Open the stats page — bottles, starfish, species, achievements, and every stat on the island."
-theme_override_styles/normal = SubResource("StyleBox_ghost")
-theme_override_styles/hover = SubResource("StyleBox_ghost_hover")
-theme_override_styles/pressed = SubResource("StyleBox_ghost_pressed")
-theme_override_styles/focus = SubResource("StyleBox_ghost_hover")
-theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.72, 0.93, 1, 0.95)
-theme_override_colors/font_hover_color = Color(0.9, 0.98, 1, 1)
 theme_override_colors/font_focus_color = Color(0.9, 0.98, 1, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.9, 0.98, 1, 1)
 theme_override_colors/font_pressed_color = Color(0.9, 0.98, 1, 1)
+theme_override_colors/font_hover_color = Color(0.9, 0.98, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.9, 0.98, 1, 1)
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBox_ghost")
+theme_override_styles/pressed = SubResource("StyleBox_ghost_pressed")
+theme_override_styles/hover = SubResource("StyleBox_ghost_hover")
+theme_override_styles/focus = SubResource("StyleBox_ghost_hover")
 text = "Journal"
 
 [node name="CapStatus" type="Label" parent="Menu/MenuPanel/Center/Card/HBoxContainer/VBoxContainer" unique_id=410065432]
-autowrap_mode = 2
+modulate = Color(1, 0.9, 0.5, 0.95)
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-modulate = Color(1, 0.9, 0.5, 0.95)
+autowrap_mode = 2
 
 [node name="Spacer" type="Control" parent="Menu/MenuPanel/Center/Card/HBoxContainer/VBoxContainer" unique_id=410065458]
 layout_mode = 2
@@ -1125,42 +1173,45 @@ size_flags_vertical = 3
 
 [node name="Hint" type="Label" parent="Menu/MenuPanel/Center/Card/HBoxContainer/VBoxContainer" unique_id=410065459]
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.72, 0.93, 1, 0.4)
-horizontal_alignment = 1
+theme_override_font_sizes/font_size = 24
 text = "Esc / Tab — close"
+horizontal_alignment = 1
 
-[node name="Gull1" parent="." instance=ExtResource("24_gull")]
+[node name="AboutCanvas" parent="Menu" unique_id=538298368 instance=ExtResource("16_about")]
+
+[node name="Gull1" parent="." unique_id=1232501547 instance=ExtResource("24_gull")]
+z_index = 5
 position = Vector2(900, -400)
-z_index = 5
 
-[node name="Gull2" parent="." instance=ExtResource("24_gull")]
+[node name="Gull2" parent="." unique_id=1438993691 instance=ExtResource("24_gull")]
+z_index = 5
 position = Vector2(1200, 100)
-z_index = 5
 
-[node name="Gull3" parent="." instance=ExtResource("24_gull")]
+[node name="Gull3" parent="." unique_id=1340969153 instance=ExtResource("24_gull")]
+z_index = 5
 position = Vector2(1500, 700)
-z_index = 5
 
-[node name="Gull4" parent="." instance=ExtResource("24_gull")]
+[node name="Gull4" parent="." unique_id=1050413098 instance=ExtResource("24_gull")]
+z_index = 5
 position = Vector2(1100, 1300)
-z_index = 5
 
-[node name="SeaSparkles" parent="." instance=ExtResource("25_sparkles")]
-position = Vector2(-1200, 300)
+[node name="SeaSparkles" parent="." unique_id=262372736 instance=ExtResource("25_sparkles")]
+amount = 200
+emission_rect_extents = Vector2(3500, 2800)
 
-[node name="SeaBoat" parent="." instance=ExtResource("26_boat")]
-position = Vector2(700, 640)
+[node name="SeaBoat" parent="." unique_id=340776037 instance=ExtResource("26_boat")]
+position = Vector2(-597, 1308)
 
-[node name="HarborAmbience" parent="." instance=ExtResource("27_harbor")]
+[node name="HarborAmbience" parent="." unique_id=2134128747 instance=ExtResource("27_harbor")]
 
-[node name="WatcherMist" parent="." instance=ExtResource("25_sparkles")]
-position = Vector2(1536, -216)
-emission_rect_extents = Vector2(110, 150)
+[node name="WatcherMist" parent="." unique_id=319900736 instance=ExtResource("25_sparkles")]
+position = Vector2(518, -1418)
 amount = 14
 lifetime = 3.5
 preprocess = 3.5
+emission_rect_extents = Vector2(110, 150)
 initial_velocity_min = 2.0
 initial_velocity_max = 7.0
 
-[node name="SurfBed" parent="." instance=ExtResource("28_surf")]
+[node name="SurfBed" parent="." unique_id=1519664656 instance=ExtResource("28_surf")]

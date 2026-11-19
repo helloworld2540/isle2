@@ -12,9 +12,6 @@ REQUIRED = {
     "README.md": ["Architecture", "Modules"],
     "guide.md": ["## Controls", "## Quick reference"],
     "TODO.md": ["# Current project todo:"],
-    "PITCH.md": ["## Development", "## Future Development"],
-    "RELEASE_NOTES.md": ["## What it is", "## What's inside", "## Building it"],
-    "RELEASE_CHECKLIST.md": ["## Verified", "## Pre-flight", "## Pending"],
     "overnight_sprint.txt": ["## 2026-11-17"],
 }
 

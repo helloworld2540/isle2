@@ -27,16 +27,13 @@ func _ready() -> void:
 ## The text, if nothing else was wired up. Kept short — it is a keeper's
 ## page, not a novel.
 func _default_credits() -> String:
-	return "[center][font_size=24][color=#ffd27f]Trash Island[/color][/font_size]\n\n" \
+	return "[center]" \
 		+ "A cozy single-player trash-recycling adventure.\n\n" \
-		+ "[color=#9fd0e8]Built in Godot 4. GDScript. No engine plugins changed.[/color]\n" \
-		+ "[color=#9fd0e8]Art and world: Krita-drawn, hand-built, slightly wet.[/color]\n" \
-		+ "[color=#9fd0e8]Sound: placeholder library; ambience mixed in-game.[/color]\n" \
-		+ "[color=#9fd0e8]Writing: a keeper's tide, a dockhand, and a man on the far point.[/color]\n\n" \
-		+ "[color=#8fa6b3]All rights reserved — see LICENSE\n[/color]" \
-		+ "[color=#c9a86c]The far point is only the beginning.[/color]\n" \
-		+ "[color=#8fa6b3]Built with heavy tooling assistance — AI in the loop for design, code, art and words, defended by a green harness.[/color]\n" \
-		+ "[color=#8fa6b3]Version 1.3.0  ·  Linux  ·  Web  ·  Android\nAll three verified before the day the box opened.[/color]\n" \
+		+ "[color=#9fd0e8]Built in Godot 4.7 with GDScript.[/color]\n" \
+		+ "[color=#9fd0e8]Art and world: Krita-drawn, hand-built.[/color]\n" \
+		+ "[color=#9fd0e8]Sound: music by Kevin Macleoud.[/color]\n" \
+		+ "[color=#8fa6b3]Built with heavy tooling assistance — AI in the loop for design and code.[/color]\n" \
+		+ "[color=#8fa6b3]Version 2.3  ·  Linux  ·  Web  ·  Android.[/color]\n" \
 		+ "[/center]"
 
 

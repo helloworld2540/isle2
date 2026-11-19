@@ -6,7 +6,7 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 - Engine: Godot 4.x
 - Type: 2D game project (single-player, local save)
 - Entry scenes: `main_menu.tscn` → `world.tscn`
-- Shipping version: 1.3.0 — see RELEASE_NOTES.md
+- Shipping version: 1.3.0 — see `overnight_sprint.txt`
 - Working directory: `/media/seethathuman/data/godotProjects/isle2`
 - Shipped builds: Linux (`export/linux/build.x86_64`), Web (`export/linux/` HTML5 set), Android (`export/android/` signed APK) — presets in `export_presets.cfg`, all three verified end-to-end (see `overnight_sprint.txt`).
 
@@ -305,7 +305,7 @@ Open the project folder in Godot 4 and run from `main_menu.tscn`.
 Requirements: Godot **4.7.2 stable** and the matching export templates
 (`4.7.2.stable`) for your target platforms. The repo is fully self-contained:
 `git clone`, open in the editor, or run the harnesses headless. See
-`RELEASE_NOTES.md` and `RELEASE_CHECKLIST.md` for the full build path.
+the overnight sprint log for the full build path.
 
 ## Verifying
 `godot --headless --path . -s tools/smoke_test.gd` — the smoke test walks every

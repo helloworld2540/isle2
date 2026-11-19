@@ -22,7 +22,7 @@ func _ready() -> void:
 	# Gentle glint so the starfish reads as collectible, not decor.
 	if not GameSettings.reduce_motion and has_node("Sprite2D"):
 		var tw := create_tween().set_loops()
-		tw.tween_property($Sprite2D, "modulate", Color(1.3, 1.1, 0.75, 1.0), 0.9).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		tw.tween_property($Sprite2D, "modulate", Color(1.12, 1.04, 0.9, 1.0), 0.9).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 		tw.tween_property($Sprite2D, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.9).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
 

@@ -33,7 +33,7 @@ func _ready() -> void:
 	# the other starfish it does not tick — it waits.
 	if not GameSettings.reduce_motion and has_node("Sprite2D"):
 		var tw := create_tween().set_loops()
-		tw.tween_property($Sprite2D, "modulate", Color(1.35, 1.25, 2.1, 1.0), 1.6).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		tw.tween_property($Sprite2D, "modulate", Color(1.16, 1.1, 1.5, 1.0), 1.6).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 		tw.tween_property($Sprite2D, "modulate", Color(1.0, 1.0, 1.0, 1.0), 1.6).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
 

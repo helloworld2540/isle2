@@ -322,7 +322,7 @@ vertical_alignment = 1
 
 [node name="StatsScroll" type="ScrollContainer" parent="Margin/VBox" unique_id=300000005]
 layout_mode = 2
-size_flags_vertical = 1
+size_flags_vertical = 3
 horizontal_scroll_mode = 0
 overlay_scroll_horizontal = false
 overlay_scroll_vertical = false

@@ -76,7 +76,7 @@ func _apply_requirement_state() -> void:
 			warn_label.text = empty_warning
 	
 	if pad and not pad.scale.is_equal_approx(Vector2(1.12, 1.12)):
-		pad.color = Color(0.45, 0.52, 0.62, 0.32) if blocked else Color(0.4, 0.749, 1.0, 0.5)
+		pad.color = Color(0.45, 0.52, 0.62, 0.32) if blocked else Color(0.4, 0.749, 1.0, 0.35)
 
 
 # --- Presentation ---
@@ -85,14 +85,14 @@ func _start_idle_animation() -> void:
 	if GameSettings.reduce_motion:
 		# Portal stays readable, motion stays zero: fixed glow, no bob.
 		if pad:
-			pad.modulate.a = 0.62
+			pad.modulate.a = 0.45
 		return
 	
 	if pad:
-		pad.color = Color(0.4, 0.749, 1.0, 0.5)
+		pad.color = Color(0.4, 0.749, 1.0, 0.35)
 		var glow := create_tween().set_loops()
-		glow.tween_property(pad, "modulate:a", 0.85, 0.9).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-		glow.tween_property(pad, "modulate:a", 0.5, 0.9).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		glow.tween_property(pad, "modulate:a", 0.68, 0.9).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		glow.tween_property(pad, "modulate:a", 0.35, 0.9).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	
 	if label:
 		var bob := create_tween().set_loops()
@@ -102,7 +102,7 @@ func _start_idle_animation() -> void:
 
 func _set_hovered() -> void:
 	if pad:
-		pad.color = Color(0.6, 1.0, 0.6, 0.6)
+		pad.color = Color(0.6, 1.0, 0.6, 0.45)
 		var tw := create_tween()
 		tw.tween_property(pad, "scale", Vector2(1.12, 1.12), 0.18).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 

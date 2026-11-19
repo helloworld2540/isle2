@@ -6,8 +6,15 @@ extends Area2D
 
 const DIALOGUE_SCENE := preload("res://scenes/ui/npc_dialogue.tscn")
 
+var _lantern_tween: Tween = null
+
 
 func _ready() -> void:
+	if GameState.watcher_seen:
+		# He was never there twice. The save remembers him, so the island does
+		# not keep him either.
+		queue_free()
+		return
 
 	# The lantern breathes — a slow warm swell you can spot across the water.
 	# Reduced motion holds it still; he was never about the light.
@@ -20,14 +27,10 @@ func _ready() -> void:
 			sprite.modulate = Color(0.72, 0.78, 0.9, 0.72)
 	elif not GameSettings.reduce_motion:
 		if sprite:
-			var tw := create_tween().set_loops()
-			tw.tween_property(sprite, "modulate", Color(1.0, 0.95, 0.8, 1.0), 1.8).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-			tw.tween_property(sprite, "modulate", Color(0.85, 0.9, 1.0, 0.96), 1.8).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+			_lantern_tween = create_tween().set_loops()
+			_lantern_tween.tween_property(sprite, "modulate", Color(0.92, 0.9, 0.77, 1.0), 1.8).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+			_lantern_tween.tween_property(sprite, "modulate", Color(0.85, 0.9, 1.0, 0.96), 1.8).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
-	if GameState.watcher_seen:
-		# He is still there. He does not walk, does not announce, does not
-		# leave. He was never going to be caught twice.
-		return
 	body_entered.connect(_on_body_entered)
 
 func _on_body_entered(body: Node) -> void:
@@ -50,3 +53,19 @@ func _on_body_entered(body: Node) -> void:
 			"The lantern stays lit. That is all you can know, and all you should.",
 		]
 	)
+
+	# The keeper turned around fast enough — so the island lets him go. He
+	# dissolves into the water behind the card; the watcher never stands there
+	# twice, not even in the same sitting.
+	var sprite := get_node_or_null("Sprite2D") as Sprite2D
+	if _lantern_tween and _lantern_tween.is_valid():
+		_lantern_tween.kill()
+	if sprite:
+		var tw := create_tween()
+		if GameSettings.reduce_motion:
+			tw.tween_property(sprite, "modulate", Color(sprite.modulate.r, sprite.modulate.g, sprite.modulate.b, 0.0), 0.35).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		else:
+			tw.tween_property(sprite, "modulate", Color(sprite.modulate.r, sprite.modulate.g, sprite.modulate.b, 0.0), 2.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+		tw.tween_callback(queue_free)
+	else:
+		queue_free()

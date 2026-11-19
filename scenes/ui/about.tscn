@@ -1,8 +1,8 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene format=3 uid="uid://bbw7nw0gysrfc"]
 
-[ext_resource type="Script" path="res://scripts/ui/about.gd" id="1_about"]
-[ext_resource type="Script" path="res://scripts/ui/drag_scroll.gd" id="2_drag"]
-[ext_resource type="Texture2D" path="res://sprites/watcher.png" id="3_watcher"]
+[ext_resource type="Script" uid="uid://imgxwp7yeert" path="res://scripts/ui/about.gd" id="1_about"]
+[ext_resource type="Script" uid="uid://b5ia7es6lnjv0" path="res://scripts/ui/drag_scroll.gd" id="2_drag"]
+[ext_resource type="Texture2D" uid="uid://cndmneiir0d4r" path="res://sprites/icon.png" id="2_m186m"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_about"]
 content_margin_left = 24.0
@@ -42,17 +42,6 @@ shadow_color = Color(0, 0, 0, 0.35)
 shadow_size = 6
 shadow_offset = Vector2(0, 3)
 
-[sub_resource type="StyleBoxFlat" id="StyleBox_gold_hover"]
-content_margin_left = 16.0
-content_margin_top = 8.0
-content_margin_right = 16.0
-content_margin_bottom = 8.0
-bg_color = Color(1, 0.9, 0.5, 1)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-
 [sub_resource type="StyleBoxFlat" id="StyleBox_gold_pressed"]
 content_margin_left = 16.0
 content_margin_top = 8.0
@@ -64,59 +53,22 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
-[sub_resource type="StyleBoxFlat" id="StyleBox_ghost"]
+[sub_resource type="StyleBoxFlat" id="StyleBox_gold_hover"]
 content_margin_left = 16.0
 content_margin_top = 8.0
 content_margin_right = 16.0
 content_margin_bottom = 8.0
-bg_color = Color(0.08, 0.13, 0.19, 0.62)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.4, 0.7, 0.9, 0.6)
+bg_color = Color(1, 0.9, 0.5, 1)
 corner_radius_top_left = 12
 corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
-[sub_resource type="StyleBoxFlat" id="StyleBox_ghost_hover"]
-content_margin_left = 16.0
-content_margin_top = 8.0
-content_margin_right = 16.0
-content_margin_bottom = 8.0
-bg_color = Color(0.12, 0.20, 0.28, 0.9)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.6, 0.88, 1, 0.95)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-
-[sub_resource type="StyleBoxFlat" id="StyleBox_ghost_pressed"]
-content_margin_left = 16.0
-content_margin_top = 8.0
-content_margin_right = 16.0
-content_margin_bottom = 8.0
-bg_color = Color(0.10, 0.16, 0.23, 1.0)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.55, 0.85, 1, 1)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-
-[node name="About" type="CanvasLayer"]
+[node name="About" type="CanvasLayer" unique_id=226767442]
 layer = 170
 script = ExtResource("1_about")
 
-[node name="Dimmer" type="ColorRect" parent="."]
+[node name="Dimmer" type="ColorRect" parent="." unique_id=2025947322]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -124,7 +76,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.02, 0.04, 0.07, 0.6)
 
-[node name="Margin" type="MarginContainer" parent="."]
+[node name="Margin" type="MarginContainer" parent="." unique_id=692184826]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -135,73 +87,70 @@ theme_override_constants/margin_top = 24
 theme_override_constants/margin_right = 24
 theme_override_constants/margin_bottom = 24
 
-[node name="Column" type="VBoxContainer" parent="Margin"]
+[node name="Column" type="VBoxContainer" parent="Margin" unique_id=1312517166]
 layout_mode = 2
 alignment = 2
 
-[node name="Panel" type="PanelContainer" parent="Margin/Column"]
+[node name="Panel" type="PanelContainer" parent="Margin/Column" unique_id=88583693]
 custom_minimum_size = Vector2(540, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_styles/panel = SubResource("StyleBox_about")
 
-[node name="VBox" type="VBoxContainer" parent="Margin/Column/Panel"]
+[node name="VBox" type="VBoxContainer" parent="Margin/Column/Panel" unique_id=1468506072]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="Portrait" type="TextureRect" parent="Margin/Column/Panel/VBox"]
+[node name="Portrait" type="TextureRect" parent="Margin/Column/Panel/VBox" unique_id=1304822125]
 custom_minimum_size = Vector2(360, 120)
 layout_mode = 2
 size_flags_horizontal = 3
+texture = ExtResource("2_m186m")
 expand_mode = 1
 stretch_mode = 5
-texture = ExtResource("3_watcher")
 
-[node name="Title" type="Label" parent="Margin/Column/Panel/VBox"]
+[node name="Title" type="Label" parent="Margin/Column/Panel/VBox" unique_id=1103318227]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.84, 0.35, 1)
 theme_override_font_sizes/font_size = 28
-horizontal_alignment = 1
 text = "Trash Island"
+horizontal_alignment = 1
 
-[node name="BodyScroll" type="ScrollContainer" parent="Margin/Column/Panel/VBox"]
+[node name="BodyScroll" type="ScrollContainer" parent="Margin/Column/Panel/VBox" unique_id=1961561805]
 custom_minimum_size = Vector2(0, 240)
 layout_mode = 2
 horizontal_scroll_mode = 0
-overlay_scroll_horizontal = false
-overlay_scroll_vertical = false
 script = ExtResource("2_drag")
 
-[node name="Body" type="RichTextLabel" parent="Margin/Column/Panel/VBox/BodyScroll"]
-layout_mode = 2
+[node name="Body" type="RichTextLabel" parent="Margin/Column/Panel/VBox/BodyScroll" unique_id=214664731]
 custom_minimum_size = Vector2(440, 0)
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 bbcode_enabled = true
 fit_content = true
-theme_override_font_sizes/font_size = 24
 
-[node name="CloseBtn" type="Button" parent="Margin/Column/Panel/VBox"]
+[node name="CloseBtn" type="Button" parent="Margin/Column/Panel/VBox" unique_id=2029751666]
 custom_minimum_size = Vector2(190, 48)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_styles/normal = SubResource("StyleBox_gold")
-theme_override_styles/hover = SubResource("StyleBox_gold_hover")
-theme_override_styles/pressed = SubResource("StyleBox_gold_pressed")
-theme_override_styles/focus = SubResource("StyleBox_gold_hover")
-theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.28, 0.18, 0.04, 1)
-theme_override_colors/font_hover_color = Color(0.28, 0.18, 0.04, 1)
 theme_override_colors/font_focus_color = Color(0.28, 0.18, 0.04, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.28, 0.18, 0.04, 1)
 theme_override_colors/font_pressed_color = Color(0.28, 0.18, 0.04, 1)
+theme_override_colors/font_hover_color = Color(0.28, 0.18, 0.04, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.28, 0.18, 0.04, 1)
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBox_gold")
+theme_override_styles/pressed = SubResource("StyleBox_gold_pressed")
+theme_override_styles/hover = SubResource("StyleBox_gold_hover")
+theme_override_styles/focus = SubResource("StyleBox_gold_hover")
 text = "Keep the shore"
 
-[node name="FreeCredit" type="Label" parent="Margin/Column/Panel/VBox"]
+[node name="FreeCredit" type="Label" parent="Margin/Column/Panel/VBox" unique_id=1275319592]
 layout_mode = 2
-horizontal_alignment = 1
 theme_override_colors/font_color = Color(0.55, 0.65, 0.75, 0.9)
 theme_override_font_sizes/font_size = 24
 text = "The island is always watching."
+horizontal_alignment = 1
 
 [connection signal="pressed" from="Margin/Column/Panel/VBox/CloseBtn" to="." method="_on_close_pressed"]

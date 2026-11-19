@@ -41,8 +41,8 @@ for tscn in sorted(SCENES.rglob("*.tscn")):
     id_to_path = {}
     for m in re.finditer(r'ext_resource[^]]*', text):
         line = m.group(0)
-        pm = re.search(r'path="([^"]+)"', line)
-        im = re.search(r'id="([^"]+)"', line)
+        pm = re.search(r'(?:^|\s)path="([^"]+)"', line)
+        im = re.search(r'(?:^|\s)id="([^"]+)"', line)
         if pm and im:
             id_to_path[im.group(1)] = pm.group(1)
     for m in re.finditer(r'(?s)\[node name="([^"]+)"[^]]*type="ScrollContainer"[^]]*\](.*?)(?=\n\[|\Z)', text):

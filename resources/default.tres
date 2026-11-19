@@ -2,6 +2,39 @@
 
 [ext_resource type="FontFile" uid="uid://b1txvn4cteyse" path="res://fonts/CenturyGothic.ttf" id="1_i71n2"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBox_grabber"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.42, 0.72, 0.9, 0.95)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_grabber_highlight"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.55, 0.85, 1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_grabber_pressed"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.72, 0.93, 1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
 [sub_resource type="StyleBoxFlat" id="StyleBox_scroll_track"]
 content_margin_left = 4.0
 content_margin_top = 4.0
@@ -34,44 +67,11 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[sub_resource type="StyleBoxFlat" id="StyleBox_grabber"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(0.42, 0.72, 0.9, 0.95)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
-[sub_resource type="StyleBoxFlat" id="StyleBox_grabber_highlight"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(0.55, 0.85, 1.0, 1.0)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
-[sub_resource type="StyleBoxFlat" id="StyleBox_grabber_pressed"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(0.72, 0.93, 1.0, 1.0)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
 [resource]
 default_font = ExtResource("1_i71n2")
 default_font_size = 26
-ScrollBar/styles/scroll = SubResource("StyleBox_scroll_track")
-ScrollBar/styles/scroll_focus = SubResource("StyleBox_scroll_focus")
 ScrollBar/styles/grabber = SubResource("StyleBox_grabber")
 ScrollBar/styles/grabber_hover = SubResource("StyleBox_grabber_highlight")
 ScrollBar/styles/grabber_pressed = SubResource("StyleBox_grabber_pressed")
+ScrollBar/styles/scroll = SubResource("StyleBox_scroll_track")
+ScrollBar/styles/scroll_focus = SubResource("StyleBox_scroll_focus")

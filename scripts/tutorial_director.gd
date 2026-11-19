@@ -30,27 +30,27 @@ const STEP_FINALE := 5
 const STEPS := {
 	STEP_MOVE: {
 		"title": "Take a stroll",
-		"body": "[font_size=24][color=#9fe2ff]Tap anywhere[/color] and your islander will walk there.\nThe glowing trail and flow dots point to the next stop on the circuit.[/font_size]",
+		"body": "[font_size=24][color=#9fe2ff]Tap anywhere[/color] to walk there.\nTrail dots point to the next stop.[/font_size]",
 		"button": "On my way",
 	},
 	STEP_REEF: {
 		"title": "Dive the reef",
-		"body": "[font_size=24]Head to the [color=#9fe2ff]south dock[/color] — that is Reef Rescue.\nDrag to steer; scoop junk for [color=#ffd27f]1 kg a pickup[/color], and dodge the fish — three bumps end the dive.[/font_size]",
+		"body": "[font_size=24]Head to the [color=#9fe2ff]south dock[/color] — Reef Rescue.\nDrag to steer. Grab junk, dodge fish — three bumps end the dive.[/font_size]",
 		"button": "Got it",
 	},
 	STEP_SORT: {
 		"title": "Sort at the bench",
-		"body": "[font_size=24]Now ride the belt at the [color=#9fe2ff]Upcycle bench[/color] (east).\n[color=#9fe2ff]Swipe 30+ px[/color] onto the matching bin — each correct sort burns one [color=#ffd27f]Reef Debris[/color]. Wrong bins reset your streak, not your score.[/font_size]",
+		"body": "[font_size=24]Ride the belt at the [color=#9fe2ff]Upcycle bench[/color] (east).\n[color=#9fe2ff]Swipe[/color] items into the matching bin. Wrong bins reset your streak.[/font_size]",
 		"button": "Got it",
 	},
 	STEP_SELL: {
 		"title": "Cash in at the shop",
-		"body": "[font_size=24]The [color=#9fe2ff]shop[/color] (north) turns materials into money.\nYour bag holds [color=#ffd27f]10 kg[/color] — polyethylene 1, polypropylene 2, glass 3, nylon 2 (grows +10 kg per level).\nSelling [color=#ffd27f]5+ of one type[/color] pays +25% bulk (+35% on Glass Calm). Corl sells tomorrow's tide, $25, once a day.[/font_size]",
+		"body": "[font_size=24]The [color=#9fe2ff]shop[/color] (north) turns materials into money.\nYour bag holds [color=#ffd27f]10 kg[/color].\nSell [color=#ffd27f]5+ of a type[/color] for a bulk bonus.[/font_size]",
 		"button": "Got it",
 	},
 	STEP_FINALE: {
 		"title": "You know the loop!",
-		"body": "[font_size=24][color=#8fd0a0]Reef → Upcycle → Shop[/color] is the island circuit.\nClear all three stops for a [color=#ffd27f]$15 circuit bonus[/color] — then chase the locals, the bottles on the shore, and the tide itself; it keeps four days and never repeats in a hurry.\nAnd if the shop counter mentions a page the courier left, that is not a rumour.[/font_size]",
+		"body": "[font_size=24][color=#8fd0a0]Reef → Upcycle → Shop[/color] — that's the circuit.\nFinish all three for a [color=#ffd27f]$15 bonus[/color].\nThe rest is yours to find.[/font_size]",
 		"button": "Let's clean up",
 	},
 }
@@ -340,82 +340,75 @@ func nudge(kind: String) -> void:
 	match kind:
 		"bag":
 			_spawn_card("Bag almost full!",
-				"[font_size=24]Your hold is over [color=#ffd27f]85% capacity[/color].\nSell at the [color=#9fe2ff]shop[/color] (north) before the next run — bulk sales of 5+ pay a bonus.[/font_size]",
+				"[font_size=24]Hold over [color=#ffd27f]85%[/color].\nSell at the [color=#9fe2ff]shop[/color] (north) — 5+ of a type pays a bonus.[/font_size]",
 				"Got it")
 		"bottle":
 			_spawn_card("Bottles on the shore",
-				"[font_size=24]Keep an eye on the waterline — [color=#9fe2ff]message bottles[/color] wash up along the beach.\nRead the six notes for a secret. (They sparkle. Usually.)\nFive [color=#ffd27f]starfish[/color] also hide around the island — worth a poke while you are wandering.[/font_size]",
+				"[font_size=24][color=#9fe2ff]Message bottles[/color] wash up along the beach — they sparkle.\nFive [color=#ffd27f]starfish[/color] hide around the island too.[/font_size]",
 				"Nice")
 		"upgrade":
 			_spawn_card("Room for more?",
-				"[font_size=24]Your first sale — nice work.\nThe [color=#9fe2ff]shop[/color] sells a [color=#ffd27f]+10 kg bag[/color] for cash, and the terminal up on the [color=#9fe2ff]island map[/color] can grow it with trash instead.\nEither way, a bigger hold means fewer trips home.[/font_size]",
+				"[font_size=24]Nice first sale.\nThe [color=#9fe2ff]shop[/color] sells a [color=#ffd27f]+10 kg bag[/color] — or grow it with trash at the map terminal.[/font_size]",
 				"Got it")
 		"tune":
 			_spawn_card("Tune up the dock",
-				"[font_size=24]Your scrap can buy upgrades now.\nOpen the [color=#9fe2ff]island menu[/color] (top-right) — Move Speed costs [color=#ffd27f]%d trash[/color], with Collection Range and Deep Cache beside it.\nUpgrades spend materials, not money, so weigh them against a sale.[/font_size]" % GameState.get_move_speed_cost(),
+				"[font_size=24]Upgrades are open.\n[color=#9fe2ff]Island menu[/color] (top-right): Move Speed costs [color=#ffd27f]%d trash[/color]. Range and Deep Cache beside it.[/font_size]" % GameState.get_move_speed_cost(),
 				"Got it")
 		"deep_cache":
 			_spawn_card("Deep Cache",
-				"[font_size=24]Both [color=#9fe2ff]Reef Rescue[/color] (combo pickups) and the [color=#9fe2ff]Upcycle bench[/color] bank [color=#ffd27f]Upcycle score[/color].\nSpend it at the [color=#9fe2ff]island menu[/color] on the [color=#ffd27f]Deep Cache[/color] — it deepens every dive.\nDeep Cache upgrades spend the same score.[/font_size]",
+				"[font_size=24]Dives and sorts bank [color=#ffd27f]Upcycle score[/color].\nSpend it at the [color=#9fe2ff]island menu[/color] on [color=#ffd27f]Deep Cache[/color] — it deepens every dive.[/font_size]",
 				"Got it")
 		"undo":
 			_spawn_card("Oops — bulk sale?",
-				"[font_size=24]Sold the whole pile by accident?\nThe [color=#ffd27f]Undo last sale[/color] button at the bottom of the shop puts it all back — materials and cash — as long as your bag can fit the lot.[/font_size]",
+				"[font_size=24]Sold too much by accident?\n[color=#ffd27f]Undo last sale[/color] at the shop puts it all back — if your bag fits it.[/font_size]",
 				"Got it")
 		"quest":
 			_spawn_card("Someone needs a hand",
-				"[font_size=24]An islander is holding out for a trade.\nThe [color=#9fe2ff]quest tracker[/color] (left) shows who wants what, and a [color=#ffd27f]glowing sprite with a ★[/color] means you have enough to deliver right now.\nTalk to them on the map — the reward can go straight into your bag.[/font_size]",
+				"[font_size=24]An islander wants a trade.\nThe [color=#9fe2ff]quest tracker[/color] (left) shows who — a [color=#ffd27f]★ glow[/color] means you can deliver now.[/font_size]",
 				"Let's go")
 		"tide":
 			_spawn_card("The sea has moods",
-				"[font_size=24]The HUD line ([color=#9fe2ff]≈ …[/color]) is today's tide report.\nIt is the same for every keeper on that day — it bends the reef, the belt and the golden rolls.\nCheck the water before you work; it always tells the truth eventually.[/font_size]",
+				"[font_size=24]The [color=#9fe2ff]≈ …[/color] HUD line is today's tide.\nSame for everyone, all day — it bends the reef, the belt and the gold.[/font_size]",
 				"Good to know")
 		"watcher_note":
 			_spawn_card("A page from the far point",
-				"[font_size=24]The note was waiting on the path to the lantern.\nThe island counts those the keeper keeps — so does whatever watches it.[/font_size]",
+				"[font_size=24]A note waited on the path to the lantern.\nThe island counts its keepers. So does whatever watches it.[/font_size]",
 				"I understand")
 		"courier":
 			_spawn_card("The courier is real",
-				"[font_size=24]The counter keeps a page from the Silverfin itself.\nThe reef knows this fish — the [color=#9fe2ff]Reef Registry[/color] keeps its name.\nDive on an [color=#9fe2ff]Eel Run[/color] tide: the courier rides the fast water.[/font_size]",
+				"[font_size=24]The counter keeps a Silverfin page.\nDive an [color=#9fe2ff]Eel Run[/color] tide — the courier rides the fast water.[/font_size]",
 				"I'll look")
 		"nina_courier":
 			_spawn_card("A letter from above",
-				"[font_size=24]Something pale crossed beneath me on the way in.\nYou log it in your journal, don't you? The [color=#9fe2ff]Reef Registry[/color].\n— Nina[/font_size]",
+				"[font_size=24]Something pale crossed beneath me.\nYou log it in the [color=#9fe2ff]Reef Registry[/color], don't you?\n— Nina[/font_size]",
 				"That I do")
 		"welcome_back":
 			_spawn_card("Welcome back, keeper",
-				"[font_size=24]The island held its breath while you were gone.\n				The tide kept its four days without you — here is where things stand, and who has been waiting.[/font_size]",
+				"[font_size=24]The island held its breath while you were gone.\nHere is where things stand — and who waited.[/font_size]",
 				"Good to be home")
 		"tip":
 			_spawn_card("The dockhand knows the sea",
-				"[font_size=24]Look closely at the [color=#9fe2ff]Spend money[/color] column — a dockhand will tell you tomorrow's tide for [color=#ffd27f]25$[/color].\nOne day of foresight is all he sells. The HUD keeps it for the day, and the tide will make you rich or poor.[/font_size]",
+				"[font_size=24]A dockhand sells tomorrow's tide for [color=#ffd27f]$25[/color] — see the [color=#9fe2ff]Spend money[/color] column.\nOne day of foresight. HUD keeps it for the day.[/font_size]",
 				"Worth a listen")
 		"starfish_final":
 			_spawn_card("One more…",
-				"[font_size=24]Four starfish down. One still hides on the island.\n" +
-				"Walk the coast at low tide — the shelves along the rocks are where they lie closest.[/font_size]",
+				"[font_size=24]Four starfish down. One hides.\nWalk the coast at low tide — the rocky shelves.[/font_size]",
 				"Nearly there")
 		"starfish":
 			_spawn_card("A starfish!",
-				"[font_size=24]Starfish hide along the walkable coast.\n" +
-				"Five of them are out there — collect them all for a [color=#ffd27f]+$25 Tide Pool[/color] and a [color=#9fe2ff]STARLIGHT[/color] badge on your journal.\n" +
-				"The stats page keeps count next to the bottles.[/font_size]",
+				"[font_size=24]Starfish hide along the coast. Five in all.\nCollect them for a [color=#ffd27f]+$25 Tide Pool[/color] and a [color=#9fe2ff]STARLIGHT[/color] badge.[/font_size]",
 				"Got it")
 		"gold":
 			_spawn_card("A golden find",
-				"[font_size=24]Something on the belt shines different.\n" +
-				"[color=#ffd27f]Golden scrap[/color] is worth double for correct sorts — and a golden [color=#ffd27f]Goldie[/color] in the reef pays +5 when you graze it on purpose.\n" +
-				"The stats page keeps a running count of everything glinting on your route.[/font_size]",
+				"[font_size=24]Something on the belt shines different.\n[color=#ffd27f]Golden scrap[/color] pays double; a golden [color=#ffd27f]Goldie[/color] pays +5.[/font_size]",
 				"Shiny")
 		"ledger":
 			_spawn_card("Every note found",
-				"[font_size=24]You have read all three shoreline bottles.\n" +
-				"The [color=#9fe2ff]stats page[/color] (from the main menu) has a [color=#ffd27f]Tide Ledger[/color] — every note you found, re-readable any time.\n" +
-				"Something about the Pact might make a fourth note wash up…[/font_size]",
+				"[font_size=24]All three shoreline bottles read.\nThe [color=#9fe2ff]stats page[/color] has a [color=#ffd27f]Tide Ledger[/color] — re-read any note, any time.[/font_size]",
 				"Lovely")
 		"meet":
 			_spawn_card("Islanders about",
-				"[font_size=24]You have not met everyone yet.\nThe islanders walking the trail hand out a little [color=#9fe2ff]first-visit gift[/color] each — and the [color=#ffd27f]quest tracker[/color] glares when someone wants a trade.\nHave a wander.[/font_size]",
+				"[font_size=24]You have not met everyone.\nIslanders give a [color=#9fe2ff]first-visit gift[/color] — the [color=#ffd27f]quest tracker[/color] glows when someone wants a trade.[/font_size]",
 				"Let's say hi")
 
 

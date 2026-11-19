@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Doc-vs-code parity audit, tuned for reverts.
 
-Hard scans of README.md / guide.md / PITCH.md / RELEASE_NOTES.md / TODO.md
+Hard scans of README.md / guide.md / TODO.md / overnight_sprint.txt
 against the shipped code and scenes. The failure mode this hunts: docs that
 still describe a feature a revert removed (guide says X, code has nothing).
 Reported findings are advisory — exit 0 by default; --strict exits 1 when
@@ -20,7 +20,7 @@ import sys
 import pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-DOCS = ["README.md", "guide.md", "PITCH.md", "RELEASE_NOTES.md", "TODO.md", "sprint.md"]
+DOCS = ["README.md", "guide.md", "TODO.md", "overnight_sprint.txt"]
 
 PAIRS = [
     # (label, doc phrases, marker (kind, target[, substr]))
