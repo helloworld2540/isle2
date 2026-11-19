@@ -368,3 +368,13 @@ OPEN / NICE-TO-HAVE (from backlogs, non-blocking)
   uses (Reef Rescue/Upcycle/Shop/Islanders/Island/Hidden) plus the tide
   section; GUIDE_GROUPS, GUIDE_FILTER_LABELS and the catalogue agree —
   FilterButton scenes per chip, scene-first rows.
+
+## 2026-11-20 (safety) — Atomic save writes (temp file + rename)
+
+- SaveManager.save_game now writes to save.json.tmp and renames it over the
+  primary (atomic on POSIX), falling back to a direct write if the rename
+  fails. The .bak/.bak2 rotation covers the shared-fate case.
+- Fixed a type-inference parse error the first version introduced
+  (tmp_path now explicit String) — caught by the restore harness.
+- restore_test / slot_test / migration_test all PASS with the atomic path
+  (run isolated; the harnesses refuse the real player profile).

@@ -355,11 +355,26 @@ func save_game(data: Dictionary) -> void:
 	# can never silently claim the wrong name.
 	if not data.has("slot_id"):
 		data["slot_id"] = current_slot
+	var serialized := JSON.stringify(data, "\t")
+	# Write to a sibling temp file and rename over the primary: on POSIX a
+	# same-directory rename is atomic, so a crash mid-write can never leave a
+	# half-written save.json. The .bak/.bak2 rotation above covers the case
+	# where the rename happened but the new file is somehow unreadable too.
+	var tmp_path: String = String(paths[0]) + ".tmp"
+	var tmp := FileAccess.open(tmp_path, FileAccess.WRITE)
+	if tmp != null:
+		tmp.store_string(serialized)
+		tmp.close()
+		if DirAccess.rename_absolute(ProjectSettings.globalize_path(tmp_path), ProjectSettings.globalize_path(paths[0])) == OK:
+			return
+		# Rename failed (filesystem, permissions): fall back to a direct write,
+		# and do not leave the temp file behind.
+		DirAccess.remove_absolute(ProjectSettings.globalize_path(tmp_path))
 	var file := FileAccess.open(paths[0], FileAccess.WRITE)
 	if file == null:
 		push_error("SaveManager: could not open save file for writing")
 		return
-	file.store_string(JSON.stringify(data, "\t"))
+	file.store_string(serialized)
 	file.close()
 
 ## Load, merge `patch` over the stored dict, and write back in one pass.
