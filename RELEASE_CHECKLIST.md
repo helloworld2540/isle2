@@ -66,6 +66,13 @@ profile — player slots are never touched and the suite never has to skip.
 It exits 0 only when everything is green. To audit against the real default
 profile, set `ISLE2_AUDIT_REAL_SLOTS=1` (refused while player slots exist).
 
+**Release builds must exclude the `res://addons/godot_mcp/` bridge too** (it
+opened a WebSocket exec/eval port in earlier exports and ran on players'
+devices). All three presets now set
+`exclude_filter="res://tools/*,res://addons/*"`. After every export, confirm
+the pack carries no `res://addons/godot_mcp/` remaps (the APK listing and
+Linux boot log are the two checks used).
+
 `tools/export_gate.sh` wraps the same audits and, with `--re-export`,
 rebuilds all three platforms into `export/{linux,web,android}/`.
 

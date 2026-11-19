@@ -1,6 +1,17 @@
 # Current project todo:
 
 ## done this pass
+- **The release builds were shipping the MCP editor bridge — fixed.** The
+  packing log from the 1.3.0 re-export shows `res://addons/godot_mcp/…`
+  files being staged into the Android APK, and the Linux/Web builds before
+  it carried the same bridge: `mcp_bridge_guard.gd` loads the live WebSocket
+  bridge whenever the addon is on disk, including inside shipped players.
+  All three export presets now exclude `res://addons/*` alongside
+  `res://tools/*`. A fresh `export_gate.sh --re-export` and the APK listing
+  are the verification; the guard stays a silent no-op everywhere now (the
+  repo never carried `addons/` in the first place).
+
+## done this pass
 - **Live playthrough of the first loop, end to end, with zero errors.**
   Reef Rescue → Dive Summary → world-map recap card → world: the briefing
   card renders, the dive runs (depth label climbs to 78 m, pickup banks 1 kg),
