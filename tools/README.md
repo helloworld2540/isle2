@@ -73,6 +73,7 @@ This is why the harnesses use `get_node` rather than bare autoload names.
 | `parity_audit.py` | static | Doc-vs-code parity: every named-mechanic marker must have either docs+code or neither. Reports OVERCLAIM (documented but not in code) and informational silents, plus beat-coverage counts for the five islanders |
 | `touch_audit.py` | static | Every Button ≥ 44 px in both axes |
 | `unique_id_audit.py` | static | No repeated `unique_id=` in any `.tscn` |
+| `drag_scroll_audit.py` | static | Every ScrollContainer in scenes/ carries the pinned drag-scroll script (`scripts/ui/drag_scroll.gd`) — the finger-flick mandate is load-bearing |
 | `docs_audit.py` | static | Docs parse; no stale placeholders |
 | `walkable_probe.gd` | dev | Prints walkable-tile grid info for the camera/BFS audits |
 

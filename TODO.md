@@ -1,6 +1,15 @@
 # Current project todo:
 
 ## done this pass
+- **The drag-scroll mandate is now a build-time invariant.** Every
+  ScrollContainer in every scene already carries `scripts/ui/drag_scroll.gd`
+  (the wrapper adding finger-flick/drag scrolling on top of ScrollContainer's
+  native touch path — 10/10 scene scrollables). Added
+  `tools/drag_scroll_audit.py` to keep it that way: a plain new
+  ScrollContainer now fails the gate. Wired into `all_audits.sh` (28 harnesses
+  total) and catalogued in tools/README.md. Verified the gate catches an
+  unscripted scratch ScrollContainer before wiring it in.
+
 - **PITCH.md brought back in lockstep with the shipped game.** Three stale
   claims were fixed: the shop now pays the tide-day standing order (+1$/unit,
   and +35% bulk on Glass Calm) alongside the base 1.25× bulk bonus; the audio
