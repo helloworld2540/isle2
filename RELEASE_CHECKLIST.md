@@ -2,6 +2,25 @@
 
 Export presets: `Web`, `Android`, `Linux` (`export_presets.cfg`).
 
+## Verified (as of 2026-11-19, tree at 34b795a)
+
+- **`tools/all_audits.sh` re-verified end-to-end:** `ALL-AUDITS: PASS` — all 26
+  harnesses (runtime, static, Python) green in isolated per-harness profiles;
+  no real player slots touched, nothing skipped, while player slots exist at
+  the default path.
+- **`tools/export_gate.sh --re-export` re-ran at HEAD:** `ALL-AUDITS: PASS` then
+  Linux rebuilt (`export/linux/build.x86_64`, 11:25), Web rebuilt
+  (`export/web/build.html` + js/pck/wasm + worklets, 11:26), Android rebuilt
+  and signed (`export/android/build.apk` + `.idsig`, 11:27).
+- **Linux** headless boot: 12 s run killed by timeout (exit 124 expected),
+  0-byte log — zero script errors.
+- **Web**: artifact set rebuilt complete and consistent.
+- **Android** badging: `package=com.see.trashisland.two`, `versionCode=4`,
+  `versionName=1.3.0`, `minSdk=24`, `targetSdk=36`, `compileSdk=36`,
+  `application-label='Trash Island'`. Signature: **v2 + v3** (v1 absent, as
+  expected). `res://tools/` not present in the APK (`assets/project.binary`
+  contains no `res://tools/` references).
+
 ## Verified (as of 2026-11-18)
 
 - **Linux** x86_64 exports clean; headless boot reports zero script errors and
@@ -41,10 +60,11 @@ AchievementCatalog, never hardcoded.
 
 ## Pre-flight
 
-Run `tools/all_audits.sh` before cutting or publishing a build. It runs
-every harness (smoke, slot, migration, slot_ui, tide, restore) and three
-Python audits (touch, unique_id, docs); refuses to run against real player
-slots. Exits 0 only when everything is green.
+Run `tools/all_audits.sh` before cutting or publishing a build. It runs every
+harness in `tools/` (runtime, static and Python) under its own throwaway
+profile — player slots are never touched and the suite never has to skip.
+It exits 0 only when everything is green. To audit against the real default
+profile, set `ISLE2_AUDIT_REAL_SLOTS=1` (refused while player slots exist).
 
 `tools/export_gate.sh` wraps the same audits and, with `--re-export`,
 rebuilds all three platforms into `export/{linux,web,android}/`.

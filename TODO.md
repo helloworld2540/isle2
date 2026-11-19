@@ -12,8 +12,11 @@
   quiet-not-invisible. `scene_boot_audit` and `layout_audit` clean.
   `tools/export_gate.sh --re-export` re-ran at HEAD: `ALL-AUDITS: PASS`,
   Linux build boots headless (12 s run, timeout exit, 0-byte log), Web files
-  rebuilt at 11:26. The Android export was still packing when this entry was
-  written — APK re-verification (badging, signing) is the one open item.
+  rebuilt at 11:26, and the Android export finished at 11:27 — signed v2+v3,
+  badge dump `versionName=1.3.0` / `versionCode=4` / `minSdk=24` /
+  `targetSdk=36` / label `Trash Island` / signer `CN=seethathuman`; no
+  `res://tools/` references in the pack. `RELEASE_CHECKLIST.md` records the
+  full verification.
 
 ## done this pass
 - **The tide gift is no longer a silent save key.** `tide_gift_granted` (the
