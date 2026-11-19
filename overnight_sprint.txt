@@ -378,3 +378,21 @@ OPEN / NICE-TO-HAVE (from backlogs, non-blocking)
   (tmp_path now explicit String) — caught by the restore harness.
 - restore_test / slot_test / migration_test all PASS with the atomic path
   (run isolated; the harnesses refuse the real player profile).
+
+## 2026-11-20 (live) — Frozen session relaunched; a real regression found and fixed
+
+- The game had been sitting on one frame since Nov 19 (identical screenshots,
+  atomic=false inside the running process, 60 FPS, player's island at money 0).
+  Stopped and relaunched: same island, zero data loss (autosave + position
+  persist), atomic SaveManager confirmed live.
+- walkable_overlay regression: the scene-first cleanup commit had corrupted
+  tools/wm_debug_walkable_overlay.gd (duplicated function header, dead file)
+  which the editor then logged as a parse error. Restored from 58baf71 —
+  verified file is sane; gate green; log clean.
+- godot_editor_edit restart reloaded project.godot (editor no longer holds a
+  pre-fix buffer) and wiped the log: fresh boot shows ZERO messages — the
+  LoopPath instantiate warnings and the BadWindow X11 notice were session
+  artifacts, not current defects.
+- Restyled world map verified live: tide HUD (≈ Eel Run · day 1), Bottles
+  1/3, Starfish 2/5, route dots, portal markers, and the restored tutorial
+  step-2 card render as designed. Menu → Load Save → world transition clean.
