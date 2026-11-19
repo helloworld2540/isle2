@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/confirm_panel.tscn" id="4_confirm"]
 [ext_resource type="PackedScene" path="res://scenes/ui/slot_picker.tscn" id="5_picker"]
 [ext_resource type="PackedScene" path="res://scenes/ui/about.tscn" id="6_about"]
+[ext_resource type="Script" path="res://scripts/ui/drag_scroll.gd" id="7_drag"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_nmirg"]
 font_size = 64
@@ -122,6 +123,52 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
+[sub_resource type="StyleBoxFlat" id="StyleBox_ghost_disabled"]
+content_margin_left = 16.0
+content_margin_top = 8.0
+content_margin_right = 16.0
+content_margin_bottom = 8.0
+bg_color = Color(0.05, 0.08, 0.12, 0.55)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4, 0.7, 0.9, 0.18)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="Gradient" id="Gradient_left"]
+offsets = PackedFloat32Array(0, 0.55, 1)
+colors = PackedColorArray(0.02, 0.05, 0.09, 0.62, 0.02, 0.05, 0.09, 0.22, 0.02, 0.05, 0.09, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture_left"]
+gradient = SubResource("Gradient_left")
+width = 640
+height = 8
+fill_from = Vector2(0, 0)
+fill_to = Vector2(1, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_card"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.05, 0.08, 0.12, 0.52)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.7, 0.9, 0.22)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+shadow_color = Color(0, 0, 0, 0.35)
+shadow_size = 8
+shadow_offset = Vector2(0, 4)
+
 [node name="Control" type="Control" unique_id=772106938]
 layout_mode = 3
 anchors_preset = 15
@@ -136,41 +183,73 @@ position = Vector2(1, 1)
 texture = ExtResource("2_bqqt6")
 centered = false
 
-[node name="Title" type="Label" parent="." unique_id=1987671865]
+[node name="LeftShade" type="TextureRect" parent="." unique_id=7000030]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.0
-anchor_top = 0.16
-anchor_right = 0.0
-anchor_bottom = 0.16
+anchor_bottom = 1.0
+offset_right = 640.0
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture_left")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="LeftCard" type="Panel" parent="." unique_id=7000032]
+layout_mode = 1
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 16.0
+offset_right = 596.0
+offset_bottom = -8.0
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBox_card")
+
+[node name="LeftColumn" type="VBoxContainer" parent="." unique_id=7000010]
+layout_mode = 1
+anchor_bottom = 1.0
 offset_left = 24.0
-offset_top = -46.0
-offset_right = 770.0
-offset_bottom = 92.0
-grow_horizontal = 0
+offset_top = 24.0
+offset_right = 584.0
+offset_bottom = -16.0
+grow_vertical = 2
+theme = ExtResource("2_ekxnf")
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="LeftColumn" unique_id=1987671865]
+layout_mode = 2
 theme = ExtResource("2_ekxnf")
 text = "Trash Island 2"
 label_settings = SubResource("LabelSettings_nmirg")
 horizontal_alignment = 0
 vertical_alignment = 1
 
-[node name="Buttons" type="VBoxContainer" parent="." unique_id=7000001]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -200.0
-offset_top = -60.0
-offset_right = -200.0
-offset_bottom = 240.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Underline" type="ColorRect" parent="LeftColumn" unique_id=7000011]
+custom_minimum_size = Vector2(320, 2)
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 2
+color = Color(1, 0.84, 0.35, 0.42)
+
+[node name="Motto" type="Label" parent="LeftColumn" unique_id=7000004]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(0.72, 0.86, 0.95, 0.78)
+theme_override_colors/font_outline_color = Color(0.03, 0.06, 0.1, 0.8)
+theme_override_constants/outline_size = 3
+text = "Keep the shore"
+
+[node name="TopSpacer" type="Control" parent="LeftColumn" unique_id=7000012]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="Buttons" type="VBoxContainer" parent="LeftColumn" unique_id=7000001]
+layout_mode = 2
+size_flags_horizontal = 0
 theme = ExtResource("2_ekxnf")
 theme_override_constants/separation = 16
 
-[node name="NewSaveButton" type="Button" parent="Buttons" unique_id=875779408]
+[node name="NewSaveButton" type="Button" parent="LeftColumn/Buttons" unique_id=875779408]
 custom_minimum_size = Vector2(300, 58)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -179,15 +258,17 @@ theme_override_styles/normal = SubResource("StyleBox_ghost")
 theme_override_styles/hover = SubResource("StyleBox_ghost_hover")
 theme_override_styles/pressed = SubResource("StyleBox_ghost_pressed")
 theme_override_styles/focus = SubResource("StyleBox_ghost_hover")
+theme_override_styles/disabled = SubResource("StyleBox_ghost_disabled")
 theme_override_font_sizes/font_size = 27
 theme_override_colors/font_color = Color(0.72, 0.93, 1, 0.95)
 theme_override_colors/font_hover_color = Color(0.9, 0.98, 1, 1)
 theme_override_colors/font_focus_color = Color(0.9, 0.98, 1, 1)
 theme_override_colors/font_hover_pressed_color = Color(0.9, 0.98, 1, 1)
 theme_override_colors/font_pressed_color = Color(0.9, 0.98, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.72, 0.93, 1, 0.34)
 text = "New Save"
 
-[node name="LoadSaveButton" type="Button" parent="Buttons" unique_id=875779409]
+[node name="LoadSaveButton" type="Button" parent="LeftColumn/Buttons" unique_id=875779409]
 custom_minimum_size = Vector2(300, 58)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -196,15 +277,17 @@ theme_override_styles/normal = SubResource("StyleBox_gold")
 theme_override_styles/hover = SubResource("StyleBox_gold_hover")
 theme_override_styles/pressed = SubResource("StyleBox_gold_pressed")
 theme_override_styles/focus = SubResource("StyleBox_gold_hover")
+theme_override_styles/disabled = SubResource("StyleBox_ghost_disabled")
 theme_override_font_sizes/font_size = 27
 theme_override_colors/font_color = Color(0.28, 0.18, 0.04, 1)
 theme_override_colors/font_hover_color = Color(0.28, 0.18, 0.04, 1)
 theme_override_colors/font_focus_color = Color(0.28, 0.18, 0.04, 1)
 theme_override_colors/font_hover_pressed_color = Color(0.28, 0.18, 0.04, 1)
 theme_override_colors/font_pressed_color = Color(0.28, 0.18, 0.04, 1)
+theme_override_colors/font_disabled_color = Color(0.72, 0.93, 1, 0.34)
 text = "Load Save"
 
-[node name="QuitButton" type="Button" parent="Buttons" unique_id=678783011]
+[node name="QuitButton" type="Button" parent="LeftColumn/Buttons" unique_id=678783011]
 custom_minimum_size = Vector2(300, 58)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -213,29 +296,29 @@ theme_override_styles/normal = SubResource("StyleBox_ghost")
 theme_override_styles/hover = SubResource("StyleBox_ghost_hover")
 theme_override_styles/pressed = SubResource("StyleBox_ghost_pressed")
 theme_override_styles/focus = SubResource("StyleBox_ghost_hover")
+theme_override_styles/disabled = SubResource("StyleBox_ghost_disabled")
 theme_override_font_sizes/font_size = 27
 theme_override_colors/font_color = Color(0.72, 0.93, 1, 0.95)
 theme_override_colors/font_hover_color = Color(0.9, 0.98, 1, 1)
 theme_override_colors/font_focus_color = Color(0.9, 0.98, 1, 1)
 theme_override_colors/font_hover_pressed_color = Color(0.9, 0.98, 1, 1)
 theme_override_colors/font_pressed_color = Color(0.9, 0.98, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.72, 0.93, 1, 0.34)
 text = "Quit"
 
-[node name="VersionStamp" type="Label" parent="." unique_id=7000002]
-layout_mode = 1
-anchor_left = 0.0
-anchor_top = 1.0
-anchor_right = 0.0
-anchor_bottom = 1.0
-grow_horizontal = 1
-grow_vertical = 0
-offset_left = 12.0
-offset_top = -30.0
-offset_right = 232.0
-offset_bottom = -8.0
+[node name="BottomSpacer" type="Control" parent="LeftColumn" unique_id=7000013]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="VersionStamp" type="Label" parent="LeftColumn" unique_id=7000002]
+layout_mode = 2
+size_flags_horizontal = 0
 theme_override_font_sizes/font_size = 24
-theme_override_colors/font_color = Color(0.72, 0.85, 0.92, 0.55)
-text = "v1.2.0"
+theme_override_colors/font_color = Color(0.72, 0.85, 0.92, 0.62)
+theme_override_colors/font_outline_color = Color(0.03, 0.06, 0.1, 0.8)
+theme_override_constants/outline_size = 3
+text = "v1.3.0"
 
 [node name="AboutButton" type="Button" parent="." unique_id=7000003]
 layout_mode = 1
@@ -246,10 +329,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 0
 grow_vertical = 0
-offset_left = -232.0
-offset_top = -52.0
-offset_right = -12.0
-offset_bottom = -8.0
+offset_left = -244.0
+offset_top = -60.0
+offset_right = -24.0
+offset_bottom = -16.0
 custom_minimum_size = Vector2(220, 44)
 theme_override_styles/normal = SubResource("StyleBox_ghost")
 theme_override_styles/hover = SubResource("StyleBox_ghost_hover")
@@ -265,68 +348,71 @@ text = "About"
 
 [node name="AboutCanvas" parent="." instance=ExtResource("6_about")]
 
-[node name="Motto" type="Label" parent="." unique_id=7000004]
-layout_mode = 1
-anchor_left = 0.0
-anchor_top = 1.0
-anchor_right = 0.0
-anchor_bottom = 1.0
-grow_horizontal = 1
-grow_vertical = 0
-offset_left = 12.0
-offset_top = -64.0
-offset_right = 232.0
-offset_bottom = -36.0
-theme_override_font_sizes/font_size = 24
-theme_override_colors/font_color = Color(0.72, 0.85, 0.92, 0.42)
-horizontal_alignment = 0
-text = "Keep the shore"
-
-[node name="WorldPreviewPanel" parent="." instance=ExtResource("3_preview")]
+[node name="RightColumn" type="VBoxContainer" parent="." unique_id=7000020]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -208.0
+offset_left = -484.0
 offset_top = 24.0
 offset_right = -24.0
-offset_bottom = 184.0
+offset_bottom = 576.0
 grow_horizontal = 0
+theme = ExtResource("2_ekxnf")
+theme_override_constants/separation = 16
 
-[node name="SaveSummaryPanel" type="PanelContainer" parent="." unique_id=1000001]
-custom_minimum_size = Vector2(340, 0)
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_top = 0.37
-anchor_bottom = 1.0
-offset_left = -555.0
-offset_top = 204.0
-offset_right = -24.0
-offset_bottom = -72.0
-grow_horizontal = 0
-grow_vertical = 0
+[node name="WorldPreviewPanel" parent="RightColumn" instance=ExtResource("3_preview")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SaveSummaryPanel" type="PanelContainer" parent="RightColumn" unique_id=1000001]
+layout_mode = 2
+size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBox_summary")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="SaveSummaryPanel" unique_id=1000002]
+[node name="VBoxContainer" type="VBoxContainer" parent="RightColumn/SaveSummaryPanel" unique_id=1000002]
 layout_mode = 2
-theme_override_constants/separation = 4
+theme_override_constants/separation = 6
 
-[node name="SaveSummary" type="Label" parent="SaveSummaryPanel/VBoxContainer" unique_id=1000003]
-custom_minimum_size = Vector2(300, 0)
+[node name="LogHeader" type="Label" parent="RightColumn/SaveSummaryPanel/VBoxContainer" unique_id=7000023]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.86, 0.42, 0.9)
+theme_override_font_sizes/font_size = 24
+text = "✦ KEEPER'S LOG"
+horizontal_alignment = 1
+
+[node name="LogRule" type="ColorRect" parent="RightColumn/SaveSummaryPanel/VBoxContainer" unique_id=7000024]
+custom_minimum_size = Vector2(0, 2)
+layout_mode = 2
+mouse_filter = 2
+color = Color(1, 0.84, 0.35, 0.28)
+
+[node name="TideLine" type="Label" parent="RightColumn/SaveSummaryPanel/VBoxContainer" unique_id=1000005]
 layout_mode = 2
 autowrap_mode = 3
-theme_override_font_sizes/font_size = 24
-
-[node name="TideLine" type="Label" parent="SaveSummaryPanel/VBoxContainer" unique_id=1000005]
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
 theme_override_colors/font_color = Color(0.68, 0.9, 0.95, 1)
 theme_override_font_sizes/font_size = 24
 text = ""
 
-[node name="MoreStatsButton" type="Button" parent="SaveSummaryPanel/VBoxContainer" unique_id=1000004]
+[node name="Scroll" type="ScrollContainer" parent="RightColumn/SaveSummaryPanel/VBoxContainer" unique_id=7000021]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+overlay_scroll_horizontal = false
+overlay_scroll_vertical = false
+script = ExtResource("7_drag")
+
+[node name="Body" type="VBoxContainer" parent="RightColumn/SaveSummaryPanel/VBoxContainer/Scroll" unique_id=7000022]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SaveSummary" type="Label" parent="RightColumn/SaveSummaryPanel/VBoxContainer/Scroll/Body" unique_id=1000003]
+layout_mode = 2
+size_flags_horizontal = 3
+autowrap_mode = 3
+theme_override_font_sizes/font_size = 24
+
+[node name="MoreStatsButton" type="Button" parent="RightColumn/SaveSummaryPanel/VBoxContainer" unique_id=1000004]
 custom_minimum_size = Vector2(220, 46)
 layout_mode = 2
 size_flags_horizontal = 4

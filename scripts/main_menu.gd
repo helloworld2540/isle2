@@ -1,15 +1,15 @@
 extends Control
 class_name MainMenu
 
-@onready var new_save_button: Button = $Buttons/NewSaveButton
-@onready var load_save_button: Button = $Buttons/LoadSaveButton
-@onready var quit_button: Button = $Buttons/QuitButton
-@onready var save_summary: Label = $SaveSummaryPanel/VBoxContainer/SaveSummary
-@onready var tide_line: Label = $SaveSummaryPanel/VBoxContainer/TideLine
+@onready var new_save_button: Button = $LeftColumn/Buttons/NewSaveButton
+@onready var load_save_button: Button = $LeftColumn/Buttons/LoadSaveButton
+@onready var quit_button: Button = $LeftColumn/Buttons/QuitButton
+@onready var save_summary: Label = $RightColumn/SaveSummaryPanel/VBoxContainer/Scroll/Body/SaveSummary
+@onready var tide_line: Label = $RightColumn/SaveSummaryPanel/VBoxContainer/TideLine
 @onready var about_button: Button = $AboutButton
 @onready var about_canvas: CanvasLayer = $AboutCanvas
-@onready var save_summary_panel: PanelContainer = $SaveSummaryPanel
-@onready var more_stats_button: Button = $SaveSummaryPanel/VBoxContainer/MoreStatsButton
+@onready var save_summary_panel: PanelContainer = $RightColumn/SaveSummaryPanel
+@onready var more_stats_button: Button = $RightColumn/SaveSummaryPanel/VBoxContainer/MoreStatsButton
 @onready var confirm_panel: CanvasLayer = $ConfirmPanel
 @onready var slot_picker: CanvasLayer = $SlotPicker
 
@@ -224,6 +224,9 @@ func _spawn_ambient_motion() -> void:
 		dot.size = Vector2(w, h)
 		dot.position = Vector2(randf() * max(1.0, size.x - w), randf() * max(1.0, size.y - h))
 		add_child(dot)
+		# Keep the drifting glow behind the menu cards and buttons: dots are
+		# added after the authored UI, so without this they drift over text.
+		move_child(dot, 2)
 		if GameSettings.reduce_motion:
 			continue  # scattered glow stays, the drift stops
 		var tw := dot.create_tween().set_loops()

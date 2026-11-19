@@ -1,9 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://new-tide-section"]
+[gd_scene load_steps=2 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/tide_section.gd" id="1_section"]
 [ext_resource type="PackedScene" path="res://scenes/ui/guide_header.tscn" id="2_header"]
 
-[node name="TideSection" type="VBoxContainer" script = ExtResource("1_section")]
+[node name="TideSection" type="VBoxContainer"]
+script = ExtResource("1_section")
 size_flags_horizontal = 3
 theme_override_constants/separation = 6
 

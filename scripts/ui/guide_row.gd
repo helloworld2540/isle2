@@ -5,9 +5,12 @@ class_name GuideRow
 ## not earned), a title, and a subtitle, wrapped in a styled panel.
 ## Instanced once per achievement instead of building nodes with .new().
 
-@onready var _glyph: Label = $HBox/Glyph
-@onready var _title: Label = $HBox/TextColumn/Title
-@onready var _subtitle: Label = $HBox/TextColumn/Subtitle
+func _glyph_node() -> Label:
+	return get_node("HBox/Glyph")
+func _title_node() -> Label:
+	return get_node("HBox/TextColumn/Title")
+func _subtitle_node() -> Label:
+	return get_node("HBox/TextColumn/Subtitle")
 
 ## Fill the row from an achievement definition dict plus its earned state.
 ## `legendary` selects the gold banner dress used for the island's last words.
@@ -17,9 +20,9 @@ func configure(def: Dictionary, earned: bool, legendary: bool) -> void:
 	var id := String(def.get("id", ""))
 	var title := String(def.get("title", id))
 	var subtitle := String(def.get("subtitle", ""))
-	_glyph.text = "✓" if earned else "○"
-	_title.text = title
-	_subtitle.text = subtitle
+	_glyph_node().text = "✓" if earned else "○"
+	_title_node().text = title
+	_subtitle_node().text = subtitle
 	# Colours: earned rows read bright, legendary ones glow gold, locked
 	# legendary rows keep a muted bronze so they still whisper "not yet".
 	var title_col: Color
@@ -61,9 +64,9 @@ func configure(def: Dictionary, earned: bool, legendary: bool) -> void:
 		border = Color(0.4, 0.7, 0.9, 0.2)
 		shadow = Color(0, 0, 0, 0)
 		shadow_size = 0
-	_title.add_theme_color_override("font_color", title_col)
-	_subtitle.add_theme_color_override("font_color", sub_col)
-	_glyph.add_theme_color_override("font_color", glyph_col)
+	_title_node().add_theme_color_override("font_color", title_col)
+	_subtitle_node().add_theme_color_override("font_color", sub_col)
+	_glyph_node().add_theme_color_override("font_color", glyph_col)
 	var box := StyleBoxFlat.new()
 	box.content_margin_left = 12.0
 	box.content_margin_right = 12.0

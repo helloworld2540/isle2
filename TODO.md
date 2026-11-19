@@ -1,6 +1,40 @@
 # Current project todo:
 
 ## done this pass
+- **The guide overlay's authored scenes were silently scriptless — and are now gated.**
+  The seven guide scenes from the scene-first refactor declared their script
+  *inline on the `[node …]` header line* (`type="Button" script = ExtResource(...`)
+  which the scene deserializer silently drops; every guide row, section, header,
+  chip, filter and footer loaded as a plain container and the stats-page guide
+  threw `configure()` errors and rendered empty. Scripts now sit on their own
+  `script =` property lines, all seven scenes' bogus `uid://new-…` ids were
+  dropped, and the configure()/add_row()/add_chip() entry points resolve their
+  child nodes lazily (they are called before the section is re-parented into
+  the scroll, so `@onready` is never reliable there). `tools/smoke_test.gd`
+  gained a permanent gate: **every `script =` assignment declared in a scene
+  must be live on the instantiated node**, so this class of silent failure
+  fails the build. Verified by reintroducing the inline form and watching
+  smoke report `[FAIL] script`. `font_size_audit` (24 px floor) fixed for the
+  same files; `layout_audit` 0 failures, `scene_boot_audit` PASS, smoke 59/59.
+- **The keeper's log on the boot screen** — the main menu is restructured
+  into a mobile-friendly two-column board: left column (title / motto /
+  buttons / version stamp) on a darkened shade with a gold rule; right column
+  carries the postcard vista and a **scrollable KEEPER'S LOG** (the save
+  summary, wrapped in a DragScroll ScrollContainer) so long slots and long
+  deed lines can never overflow at 1152×648 or lower. Disabled buttons got a
+  ghost-disabled style; ambient drift motes now render behind the cards.
+  The briefing overlay (`minigame_intro.tscn`) gained the same DragScroll
+  script for finger-speed drag on its body. The postcard vista
+  (`world_preview.tscn`) got a framed panel stylebox and `DragScrollContainer`
+  now reserves its scrollbar gutter from the bar's theme minimum (transparent
+  stylebox, 13 px content margins), so the fattened bars no longer draw over
+  the content.
+- **Version lockstep restored to 1.3.0** — `export_presets.cfg`, the About
+  page and the main-menu stamp all read 1.2.0 (the 1.3.0 bump was dropped in
+  the rollback revert `a9cf6b1`); README/RELEASE_NOTES/RELEASE_CHECKLIST and
+  guide.md already ship 1.3.0. All three surfaces bumped to 1.3.0 / versionCode 4.
+
+## done this pass
 - **The Starfish — a sixth reef species** — a hand-painted, five-armed
   constellation drifts onto the reef floor. It spawns from the same weighted
   table as the rest (weight 14, between the regulars and the Silverfin) and

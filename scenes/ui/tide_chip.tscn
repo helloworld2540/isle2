@@ -1,8 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://new-tide-chip"]
+[gd_scene load_steps=2 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/tide_chip.gd" id="1_chip"]
 
-[node name="TideChip" type="PanelContainer" script = ExtResource("1_chip")]
+[node name="TideChip" type="PanelContainer"]
+script = ExtResource("1_chip")
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 

@@ -122,5 +122,80 @@ func _instantiate_check(p: String) -> void:
 		printerr("[FAIL] ready      ", p)
 		_failures += 1
 		return
+	# An inline `script =` on the [node ...] header line is silently dropped by
+	# the scene deserializer (it must sit on its own property line), which
+	# leaves a scriptless node. Catch that here: if the scene declares scripts,
+	# the root node must carry one when the scene has a script assigned.
+	var problems := _missing_scripts(p, inst)
+	for missing in problems:
+		printerr("[FAIL] script     ", missing)
+		_failures += 1
 	print("[PASS] ", p)
 	inst.free()
+
+
+## Walk a scene's declared script assignments against the instantiated tree.
+## Every `script =` line under a `[node ...]` section must resolve to a live
+## script on the matching node — otherwise the node loads scriptless and any
+## behaviour is missing with no error beyond a silent type mismatch at the
+## call site, which is exactly how a refactor shipped broken guide rows.
+func _missing_scripts(p: String, inst: Node) -> Array[String]:
+	var missing: Array[String] = []
+	var text := FileAccess.get_file_as_string(p)
+	var id_to_path: Dictionary = {}
+	var re_ext := RegEx.new()
+	re_ext.compile('ext_resource[^]]*')
+	for m in re_ext.search_all(text):
+		var line: String = m.get_string(0)
+		var re_path := RegEx.new()
+		var re_id := RegEx.new()
+		re_path.compile('path="([^"]+)"')
+		re_id.compile('id="([^"]+)"')
+		var pm := re_path.search(line)
+		var im := re_id.search(line)
+		if pm and im:
+			id_to_path[im.get_string(1)] = pm.get_string(1)
+	var node_scripts: Dictionary = {}   # tree path -> script path
+	for raw in text.split("[node "):
+		if raw.is_empty():
+			continue
+		var sec := "[node " + raw
+		var nm := RegEx.new()
+		nm.compile('name="([^"]+)"')
+		var name_m := nm.search(sec)
+		if name_m == null:
+			continue
+		var node_path := name_m.get_string(1)
+		var re_script := RegEx.new()
+		re_script.compile('script ?= ?ExtResource\\("([^"]+)"\\)')
+		var script_m := re_script.search(sec)
+		if script_m == null:
+			continue
+		var script_path: String = id_to_path.get(script_m.get_string(1), "")
+		if script_path.is_empty():
+			continue
+		var full_path := _node_path_from_header(sec, node_path)
+		node_scripts[full_path] = script_path
+	for np in node_scripts:
+		var node: Node = inst.get_node_or_null(np) if np != "." else inst
+		if node == null:
+			missing.append(p + ": missing node " + np)
+			continue
+		if node.get_script() == null:
+			missing.append(p + ": " + np + " lost " + node_scripts[np])
+	return missing
+
+
+## Build the scene tree path for a `[node name="..." ... parent="..."]` section.
+## The root has no parent attribute; `parent="."` is a direct child of root
+## and its tree path is just its own name.
+func _node_path_from_header(section: String, name: String) -> String:
+	var re_parent := RegEx.new()
+	re_parent.compile('parent="([^"]+)"')
+	var pm := re_parent.search(section)
+	if pm == null:
+		return "."   # root
+	var parent := pm.get_string(1)
+	if parent == "." or parent.is_empty():
+		return name
+	return parent + "/" + name

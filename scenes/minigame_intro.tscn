@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://d3jafoh6nal0n"]
+[gd_scene load_steps=4 format=3 uid="uid://d3jafoh6nal0n"]
 
 [ext_resource type="Script" uid="uid://ck57jnes3bm75" path="res://scripts/minigame_intro.gd" id="1_script"]
+[ext_resource type="Script" path="res://scripts/ui/drag_scroll.gd" id="2_drag"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_intro"]
 content_margin_left = 22.0
@@ -59,12 +60,14 @@ theme_override_font_sizes/font_size = 26
 text = "Mini-game"
 
 [node name="BodyScroll" type="ScrollContainer" parent="Center/Panel/VBox"]
-custom_minimum_size = Vector2(576, 380)
+custom_minimum_size = Vector2(0, 380)
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
 overlay_scroll_horizontal = false
 overlay_scroll_vertical = false
+script = ExtResource("2_drag")
 
 [node name="BodyBox" type="VBoxContainer" parent="Center/Panel/VBox/BodyScroll"]
 layout_mode = 2
@@ -72,8 +75,8 @@ size_flags_horizontal = 3
 theme_override_constants/separation = 10
 
 [node name="Lines" type="RichTextLabel" parent="Center/Panel/VBox/BodyScroll/BodyBox"]
-custom_minimum_size = Vector2(576, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 bbcode_enabled = true
 fit_content = true
 scroll_active = false

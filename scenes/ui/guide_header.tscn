@@ -1,8 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://new-guide-header"]
+[gd_scene load_steps=2 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/guide_header.gd" id="1_header"]
 
-[node name="GuideHeader" type="HBoxContainer" script = ExtResource("1_header")]
+[node name="GuideHeader" type="HBoxContainer"]
+script = ExtResource("1_header")
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 

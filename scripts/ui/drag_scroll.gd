@@ -32,14 +32,26 @@ var _start_scroll := 0
 
 func _ready() -> void:
 	# Chunky scrollbars: a bigger grabber target for fingers and small
-	# windows. Bars are non-overlay (they take their own gutter in the
-	# ScrollContainer), so fattening them never covers the content.
-	var bar := get_v_scroll_bar()
-	if bar:
-		bar.custom_minimum_size.x = 26
-	var hbar := get_h_scroll_bar()
-	if hbar:
-		hbar.custom_minimum_size.y = 26
+	# windows. The width has to come from the bar's theme minimum (its
+	# "scroll" stylebox), not `custom_minimum_size`: ScrollContainer reserves
+	# the gutter from `get_minimum_size()`, so a custom minimum left the bar
+	# drawn *over* the content by the extra width. A transparent stylebox
+	# with 13 px content margins reserves a real 26 px gutter instead.
+	_fatten_bar(get_v_scroll_bar(), true)
+	_fatten_bar(get_h_scroll_bar(), false)
+
+
+func _fatten_bar(bar: ScrollBar, vertical: bool) -> void:
+	if bar == null:
+		return
+	var pad := StyleBoxEmpty.new()
+	if vertical:
+		pad.content_margin_left = 13
+		pad.content_margin_right = 13
+	else:
+		pad.content_margin_top = 13
+		pad.content_margin_bottom = 13
+	bar.add_theme_stylebox_override("scroll", pad)
 
 
 func _input(event: InputEvent) -> void:

@@ -307,9 +307,12 @@ Requirements: Godot **4.7.2 stable** and the matching export templates
 ## Verifying
 `godot --headless --path . -s tools/smoke_test.gd` — the smoke test walks every
 scene under `scenes/`, link-checks every `ext_resource` path (scenes and
-referenced `.tres`) and instantiates each scene headlessly; the exit code is
-the failure count (0 = clean). Run it after large scene/script edits — it
-catches broken sub-resources and bad `@onready` paths in one shot.
+referenced `.tres`), instantiates each scene headlessly **and verifies that
+every `script =` assignment declared in the scene is live on the instantiated
+node** (the `[node …]` header-line `script` trap is silently dropped by the
+deserializer); the exit code is the failure count (0 = clean). Run it after
+large scene/script edits — it catches broken sub-resources, bad `@onready`
+paths and silently-scriptless nodes in one shot.
 
 Slot save regression harnesses (each owns the `user://slots` dir it creates and
 refuses to run if player data already exists):
