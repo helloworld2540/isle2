@@ -133,3 +133,11 @@ OPEN / NICE-TO-HAVE (from backlogs, non-blocking)
   page, README "Shipping version" and guide.md changelog must all agree, or
   the gate fails. Also re-anchored the sprint-log anchor to 2026-11-19 after
   the log was externally compacted.
+
+## 2026-11-19 (docs) — Pacing sim documented in README and tools/README
+
+- README "Verifying" and the tools/README harness table now list
+  tools/pacing_sim.gd (review tool, not a gate; ~$32 neutral-tide mean).
+- Editor was live this cycle (world scene running); LoopPath instantiate
+  warnings in the editor log are stale cached frames — headless smoke_test
+  instantiates every scene including world.tscn cleanly.

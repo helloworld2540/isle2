@@ -341,6 +341,11 @@ capstone does not depend on the epilogue star (nor the other way round).
 achievement and all five islanders notice THE FAR POINT; wired into
 `tools/all_audits.sh`.
 
+`godot --headless --path . -s tools/pacing_sim.gd` — headless fresh-save loop
+simulator (4000 sims, fixed seed): replays dive → bench → shop with the
+shipped constants and prints the mean gross per loop (~$32 on a neutral tide,
+matching the guide's measured opening). A review tool, not a gate.
+
 `bash tools/all_audits.sh` — the one-command gate: every runtime and static
 harness plus every Python audit, each under its own throwaway profile (no
 player slots are touched, nothing collides, the suite never has to skip).
