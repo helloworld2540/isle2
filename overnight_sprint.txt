@@ -403,3 +403,15 @@ OPEN / NICE-TO-HAVE (from backlogs, non-blocking)
   (no LoopPath warnings, no debug-script parse error). Player resumed at the
   world scene, tutorial step 2 armed ("Dive the reef"), Eel Run today,
   money 0 — the same island the keeper left, now running the current build.
+
+## 2026-11-20 (live) — Dismiss path reviewed; world state digest captured
+
+- Live digest of the running world: portals with requirement warnings intact,
+  NPCs idle-ambient (Nina/Kai mid-cleanup, Mara humming, Tom, Oda), bottles/
+  starfish systems populated, Eel Run courier flyby visible at (300, 1050),
+  tutorial step 2 ("Dive the reef") armed. HUD shows day 2 — tide flipped
+  midnight as documented.
+- Dismiss path reviewed: closing a step card only hides it and drains a
+  queued nudge; nothing advances except the finale -> DONE + one-time bottle
+  nudge. Step cards re-arm on scene re-entry.
+- No save files observed or moved; the island is the keeper's own.
