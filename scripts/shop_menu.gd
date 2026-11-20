@@ -11,6 +11,7 @@ const DIALOGUE_SCENE := preload("res://scenes/ui/npc_dialogue.tscn")
 
 const ShopLedger := preload("res://scripts/shop_ledger.gd")
 const CourierLetters := preload("res://scripts/courier_letters.gd")
+const FxSparkle := preload("res://scripts/fx_sparkle.gd")
 
 # Scene-unique names (the scene sets unique_name_in_owner) so this list no
 # longer has to track the layout tree.
@@ -27,7 +28,6 @@ const CourierLetters := preload("res://scripts/courier_letters.gd")
 @onready var row_nylon: HBoxContainer = %Row_Nylon
 @onready var row_reef_debris: HBoxContainer = %Row_ReefDebris
 
-@onready var buy_cap_button: Button = %BuyCapButton
 @onready var buy_market_button: Button = %BuyMarketButton
 @onready var buy_reef_button: Button = %BuyReefButton
 @onready var buy_patron_button: Button = %BuyPatronButton
@@ -41,6 +41,12 @@ const CourierLetters := preload("res://scripts/courier_letters.gd")
 
 @onready var back_button: Button = %BackButton
 @onready var undo_button: Button = %UndoButton
+
+# Upgrades (moved from the world pause menu).
+@onready var move_faster_btn: Button = %MoveFasterBtn
+@onready var collection_range_btn: Button = %CollectionRangeBtn
+@onready var deep_cache_btn: Button = %DeepCacheBtn
+@onready var inventory_cap_btn: Button = %InventoryCapBtn
 
 var _rows: Dictionary = {}
 var _last_sale: Dictionary = {}
@@ -97,8 +103,6 @@ func _wire_ui() -> void:
 		)
 	if undo_button:
 		undo_button.pressed.connect(_undo_last_sale)
-	if buy_cap_button:
-		buy_cap_button.pressed.connect(_buy_capacity)
 	if buy_market_button:
 		buy_market_button.pressed.connect(_buy_market)
 	if buy_reef_button:
@@ -111,6 +115,16 @@ func _wire_ui() -> void:
 		buy_tide_tip_button.pressed.connect(_buy_tide_tip)
 	if buy_courier_letter_button:
 		buy_courier_letter_button.pressed.connect(_buy_courier_letter)
+
+	# Upgrades (moved from the world pause menu).
+	if move_faster_btn:
+		move_faster_btn.pressed.connect(_buy_move)
+	if collection_range_btn:
+		collection_range_btn.pressed.connect(_buy_range)
+	if deep_cache_btn:
+		deep_cache_btn.pressed.connect(_buy_deep_cache)
+	if inventory_cap_btn:
+		inventory_cap_btn.pressed.connect(_buy_inv_cap)
 
 func _wire_row(row: HBoxContainer, mat: String, price: int) -> Dictionary:
 	var name_lbl: Label = row.get_node("Name")
@@ -142,6 +156,9 @@ func _refresh() -> void:
 	_refresh_purchases()
 	for mat in GameState.SALE_PRICES.keys():
 		_refresh_row(mat)
+
+	# Upgrades (moved from the world pause menu).
+	_refresh_upgrade_ui()
 
 ## Undo is only meaningful while a sale is remembered; show what it would do.
 func _refresh_undo_button() -> void:
@@ -180,12 +197,6 @@ func _update_shop_tip() -> void:
 		tip.modulate = Color(0.85, 1.0, 0.75, 1.0)
 
 func _refresh_purchases() -> void:
-	var cost := GameState.get_capacity_money_cost()
-	if buy_cap_button:
-		buy_cap_button.text = "Bag +10 kg — %d$" % cost
-		buy_cap_button.tooltip_text = "Expand your hold by 10 kg."
-		buy_cap_button.disabled = not GameState.can_afford(cost)
-
 	var market_cost := GameState.get_market_cost()
 	if buy_market_button:
 		if GameState.market_level >= GameState.MARKET_MAX_LEVEL:
@@ -414,19 +425,6 @@ func _buy_reef_lives() -> void:
 	_refresh()
 
 
-func _buy_capacity() -> void:
-	var cost := GameState.get_capacity_money_cost()
-	if not GameState.purchase_capacity_with_money():
-		_play_denied("Need %d$ for a bigger bag" % cost, "")
-		_shake_control(buy_cap_button)
-		return
-	
-	AudioManager.play_sfx("upgrade", 1.05)
-	_stack.sale("BAG +10 kg  -%d$" % cost, Color(0.7, 0.95, 1.0, 1.0))
-	_log_sale("Bag expanded to %d kg for %d$" % [GameState.get_inventory_capacity(), cost])
-	_refresh()
-
-
 func _update_capacity_status() -> void:
 	if not capacity_status:
 		return
@@ -438,7 +436,7 @@ func _update_capacity_status() -> void:
 		color = Color(1.0, 0.45, 0.45, 1.0)
 	elif ratio >= 0.8:
 		color = Color(1.0, 0.85, 0.35, 1.0)
-	capacity_status.text = "Capacity %d/%d kg (%d%%) · +10 kg: %d$ here, or trash on the map" % [used, cap, int(round(ratio * 100.0)), GameState.get_capacity_money_cost()]
+	capacity_status.text = "Capacity %d/%d kg (%d%%) · +10 kg: %d trash" % [used, cap, int(round(ratio * 100.0)), 6 + GameState.inventory_capacity_level * 3]
 	capacity_status.modulate = color
 
 func _refresh_row(mat: String) -> void:
@@ -653,3 +651,100 @@ func _play_undo_animation(mat: String, restored_qty: int, earnings: int, was_bul
 	var row_data: Dictionary = _rows.get(mat, {})
 	ReceiptStack.flash(row_data.get("count", null), Color(1.0, 0.6, 0.45, 1.0))
 	ReceiptStack.punch(row_data.get("count", null))
+
+
+# --- Upgrades (moved from the world pause menu) ---
+
+func _move_cost() -> int:
+	return GameState.get_move_speed_cost()
+
+func _range_cost() -> int:
+	return GameState.get_range_cost()
+
+func _move_cost_text() -> String:
+	return "Move Speed Lv.%d · +8%%/lvl · %d trash" % [GameState.upgrade_move, GameState.get_move_speed_cost()]
+
+func _range_cost_text() -> String:
+	return "Collection Range Lv.%d · +12 px/lvl · %d trash" % [GameState.upgrade_range, GameState.get_range_cost()]
+
+func _deep_cache_text() -> String:
+	if not GameState.deep_cache:
+		return "Deep Cache · +debris per run · 30 score"
+	var next_tier := GameState.deep_cache_tier + 1
+	var kg := 5 * next_tier + 3 * GameState.inventory_capacity_level
+	return "Deep Cache Lv.%d · +debris · next tier %d score (+%d kg)" % [GameState.deep_cache_tier, 15 * GameState.deep_cache_tier, kg]
+
+func _inv_cap_text() -> String:
+	var cost := 6 + GameState.inventory_capacity_level * 3
+	return "Bag Lv.%d · %d/%d kg · %d trash" % [GameState.inventory_capacity_level, GameState.get_inventory_weight(), GameState.get_inventory_capacity(), cost]
+
+func _process_upgrade(btn: Button, success: bool, failure_msg: String) -> void:
+	if not success:
+		_flash(btn)
+		_toast(failure_msg)
+		return
+	_refresh_player_upgrades()
+	AudioManager.play_sfx("upgrade", 1.05)
+	_flash_success(btn)
+	_spawn_upgrade_sparkle(btn)
+	_refresh_upgrade_ui()
+
+func _refresh_player_upgrades() -> void:
+	var player := get_tree().get_first_node_in_group("player")
+	if player and player.has_method("refresh_upgrades"):
+		player.refresh_upgrades()
+
+func _buy_move() -> void:
+	_process_upgrade(move_faster_btn, GameState.purchase_move_speed(), "Need more trash to upgrade Move Speed")
+
+func _buy_range() -> void:
+	_process_upgrade(collection_range_btn, GameState.purchase_range(), "Need more trash to upgrade Collection Range")
+
+func _buy_deep_cache() -> void:
+	if not GameState.deep_cache:
+		_process_upgrade(deep_cache_btn, GameState.purchase_deep_cache(), "Need 30 upcycle score to buy Deep Cache")
+		return
+	var cost := 15 * GameState.deep_cache_tier
+	_process_upgrade(deep_cache_btn, GameState.upgrade_deep_cache(), "Need %d upcycle score to upgrade Deep Cache" % cost)
+
+func _buy_inv_cap() -> void:
+	var cost := 6 + GameState.inventory_capacity_level * 3
+	_process_upgrade(inventory_cap_btn, GameState.purchase_inventory_capacity(), "Need %d trash to increase Inventory Cap" % cost)
+
+func _refresh_upgrade_ui() -> void:
+	if deep_cache_btn:
+		deep_cache_btn.text = _deep_cache_text()
+		deep_cache_btn.disabled = false
+	if inventory_cap_btn:
+		inventory_cap_btn.disabled = GameState.get_inventory_weight() < (6 + GameState.inventory_capacity_level * 3)
+		inventory_cap_btn.text = _inv_cap_text()
+	if move_faster_btn:
+		move_faster_btn.disabled = GameState.get_inventory_weight() < _move_cost()
+		move_faster_btn.text = _move_cost_text()
+	if collection_range_btn:
+		collection_range_btn.disabled = GameState.get_inventory_weight() < _range_cost()
+		collection_range_btn.text = _range_cost_text()
+
+func _flash(btn: Button) -> void:
+	if not btn:
+		return
+	var tw := btn.create_tween()
+	btn.modulate = Color(1.0, 0.4, 0.4, 1.0)
+	tw.tween_property(btn, "modulate", Color.WHITE, 0.5)
+
+func _flash_success(btn: Button) -> void:
+	if not btn:
+		return
+	var tw := btn.create_tween()
+	btn.modulate = Color(0.5, 1.0, 0.55, 1.0)
+	tw.tween_property(btn, "modulate", Color.WHITE, 0.6)
+
+func _spawn_upgrade_sparkle(anchor: Control) -> void:
+	if not anchor or GameSettings.reduce_motion:
+		return
+	var r := anchor.get_global_rect()
+	FxSparkle.burst(self, r.position + r.size * 0.5, Color(0.6, 1.0, 0.8, 1.0), {"amount": 24, "lifetime": 0.5, "vel_min": 40.0, "vel_max": 110.0, "gravity": 160.0})
+
+func _toast(text: String) -> void:
+	_ensure_hud_queue()
+	_hud_queue.push(text, Color(1.0, 0.85, 0.35, 1.0), 1.4)

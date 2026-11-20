@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://kamvcjhav8w5"]
+[gd_scene load_steps=24 format=3 uid="uid://kamvcjhav8w5"]
 
 [ext_resource type="Script" uid="uid://cno3w2hkaq50n" path="res://scripts/stats_menu.gd" id="1_menu"]
 [ext_resource type="PackedScene" path="res://scenes/ui/settings_panel.tscn" id="2_settings"]
@@ -10,28 +10,28 @@ content_margin_left = 22.0
 content_margin_top = 18.0
 content_margin_right = 22.0
 content_margin_bottom = 18.0
-bg_color = Color(0.05, 0.08, 0.14, 0.98)
+bg_color = Color(0.04, 0.065, 0.12, 0.99)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.4, 0.72, 1, 0.8)
+border_color = Color(0.5, 0.75, 0.95, 0.85)
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_section"]
-content_margin_left = 16.0
-content_margin_top = 12.0
-content_margin_right = 16.0
-content_margin_bottom = 12.0
-bg_color = Color(0.06, 0.10, 0.16, 0.92)
-border_width_left = 1
+content_margin_left = 18.0
+content_margin_top = 14.0
+content_margin_right = 18.0
+content_margin_bottom = 14.0
+bg_color = Color(0.07, 0.11, 0.17, 0.92)
+border_width_left = 3
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0.4, 0.7, 0.9, 0.4)
+border_color = Color(0.35, 0.6, 0.85, 0.45)
 corner_radius_top_left = 12
 corner_radius_top_right = 12
 corner_radius_bottom_right = 12
@@ -44,10 +44,10 @@ content_margin_right = 18.0
 content_margin_bottom = 12.0
 bg_color = Color(0.07, 0.14, 0.2, 0.95)
 border_width_left = 2
-border_width_top = 2
+border_width_top = 3
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.4, 0.75, 0.95, 0.7)
+border_color = Color(0.85, 0.7, 0.4, 0.85)
 corner_radius_top_left = 12
 corner_radius_top_right = 12
 corner_radius_bottom_right = 12
@@ -203,6 +203,70 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
+[sub_resource type="StyleBoxFlat" id="StyleBox_row"]
+content_margin_left = 18.0
+content_margin_top = 10.0
+content_margin_right = 18.0
+content_margin_bottom = 10.0
+bg_color = Color(0.055, 0.09, 0.15, 0.92)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3, 0.55, 0.8, 0.4)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_row_hover"]
+content_margin_left = 18.0
+content_margin_top = 10.0
+content_margin_right = 18.0
+content_margin_bottom = 10.0
+bg_color = Color(0.09, 0.16, 0.24, 0.98)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.45, 0.75, 1, 0.85)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_row_pressed"]
+content_margin_left = 18.0
+content_margin_top = 10.0
+content_margin_right = 18.0
+content_margin_bottom = 10.0
+bg_color = Color(0.07, 0.13, 0.2, 1.0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.55, 0.85, 1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_row_focus"]
+content_margin_left = 18.0
+content_margin_top = 10.0
+content_margin_right = 18.0
+content_margin_bottom = 10.0
+bg_color = Color(0.055, 0.09, 0.15, 0.92)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.45, 0.75, 1, 0.85)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
 [sub_resource type="StyleBoxFlat" id="StyleBox_guide_track"]
 content_margin_left = 2.0
 content_margin_top = 2.0
@@ -278,7 +342,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.07, 0.09, 0.14, 1)
+color = Color(0.035, 0.05, 0.09, 1)
 
 [node name="Margin" type="MarginContainer" parent="." unique_id=300000003]
 layout_mode = 1
@@ -287,10 +351,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 24
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 24
-theme_override_constants/margin_bottom = 20
+theme_override_constants/margin_left = 28
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 28
+theme_override_constants/margin_bottom = 24
 
 [node name="VBox" type="VBoxContainer" parent="Margin" unique_id=300000004]
 layout_mode = 2
@@ -320,6 +384,12 @@ theme_override_font_sizes/font_size = 24
 text = ""
 vertical_alignment = 1
 
+[node name="Subtitle" type="Label" parent="Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.68, 0.85, 1)
+theme_override_font_sizes/font_size = 24
+text = "the keeper's journal — every note the tide ever left you"
+
 [node name="StatsScroll" type="ScrollContainer" parent="Margin/VBox" unique_id=300000005]
 layout_mode = 2
 size_flags_vertical = 3
@@ -331,7 +401,7 @@ script = ExtResource("2_drag")
 [node name="Content" type="VBoxContainer" parent="Margin/VBox/StatsScroll" unique_id=300000030]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = 10
+theme_override_constants/separation = 12
 
 [node name="JournalBanner" type="PanelContainer" parent="Margin/VBox/StatsScroll/Content"]
 layout_mode = 2
@@ -489,6 +559,29 @@ theme_override_font_sizes/font_size = 24
 text = "DEEDS & TITLES"
 
 [node name="DeedsBody" type="Label" parent="Margin/VBox/StatsScroll/Content/SectionGrid/DeedsPanel/DeedsBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = ""
+autowrap_mode = 2
+
+[node name="BottlesPanel" type="PanelContainer" parent="Margin/VBox/StatsScroll/Content"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBox_section")
+
+[node name="BottlesBox" type="VBoxContainer" parent="Margin/VBox/StatsScroll/Content/BottlesPanel"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="BottlesHeader" type="Label" parent="Margin/VBox/StatsScroll/Content/BottlesPanel/BottlesBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0.35, 1)
+theme_override_font_sizes/font_size = 24
+text = "TIPS IN BOTTLES"
+
+[node name="BottlesBody" type="Label" parent="Margin/VBox/StatsScroll/Content/BottlesPanel/BottlesBox"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
@@ -685,9 +778,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -320.0
+offset_left = -360.0
 offset_top = -320.0
-offset_right = 320.0
+offset_right = 360.0
 offset_bottom = 320.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -716,49 +809,129 @@ horizontal_alignment = 1
 custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 size_flags_horizontal = 4
-text = "· The Shorekeeper's Note"
+theme_override_styles/normal = SubResource("StyleBox_row")
+theme_override_styles/hover = SubResource("StyleBox_row_hover")
+theme_override_styles/pressed = SubResource("StyleBox_row_pressed")
+theme_override_styles/focus = SubResource("StyleBox_row_focus")
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 0.96, 0.85, 1)
+theme_override_colors/font_focus_color = Color(1, 0.96, 0.85, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 0.96, 0.85, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.96, 0.85, 1)
+text = "· Tip: The Loop"
 
 [node name="BottleGullButton" type="Button" parent="LedgerOverlay/Panel/VBox"]
 custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 size_flags_horizontal = 4
-text = "· Nina's Third Letter"
+theme_override_styles/normal = SubResource("StyleBox_row")
+theme_override_styles/hover = SubResource("StyleBox_row_hover")
+theme_override_styles/pressed = SubResource("StyleBox_row_pressed")
+theme_override_styles/focus = SubResource("StyleBox_row_focus")
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 0.96, 0.85, 1)
+theme_override_colors/font_focus_color = Color(1, 0.96, 0.85, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 0.96, 0.85, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.96, 0.85, 1)
+text = "· Tip: The Tides"
 
 [node name="BottleLightButton" type="Button" parent="LedgerOverlay/Panel/VBox"]
 custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 size_flags_horizontal = 4
-text = "· Kai's Stock Tip"
+theme_override_styles/normal = SubResource("StyleBox_row")
+theme_override_styles/hover = SubResource("StyleBox_row_hover")
+theme_override_styles/pressed = SubResource("StyleBox_row_pressed")
+theme_override_styles/focus = SubResource("StyleBox_row_focus")
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 0.96, 0.85, 1)
+theme_override_colors/font_focus_color = Color(1, 0.96, 0.85, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 0.96, 0.85, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.96, 0.85, 1)
+text = "· Tip: The Market"
 
 [node name="BottlePactButton" type="Button" parent="LedgerOverlay/Panel/VBox"]
 custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 size_flags_horizontal = 4
-text = "· The Tidekeeper's Reply"
+theme_override_styles/normal = SubResource("StyleBox_row")
+theme_override_styles/hover = SubResource("StyleBox_row_hover")
+theme_override_styles/pressed = SubResource("StyleBox_row_pressed")
+theme_override_styles/focus = SubResource("StyleBox_row_focus")
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 0.96, 0.85, 1)
+theme_override_colors/font_focus_color = Color(1, 0.96, 0.85, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 0.96, 0.85, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.96, 0.85, 1)
+text = "· Tip: The Bag"
 
 [node name="BottleKeeperButton" type="Button" parent="LedgerOverlay/Panel/VBox"]
 custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 size_flags_horizontal = 4
-text = "· The Keeper's Own Note"
+theme_override_styles/normal = SubResource("StyleBox_row")
+theme_override_styles/hover = SubResource("StyleBox_row_hover")
+theme_override_styles/pressed = SubResource("StyleBox_row_pressed")
+theme_override_styles/focus = SubResource("StyleBox_row_focus")
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 0.96, 0.85, 1)
+theme_override_colors/font_focus_color = Color(1, 0.96, 0.85, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 0.96, 0.85, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.96, 0.85, 1)
+text = "· Tip: The Almanac"
 
 [node name="BottleCorlButton" type="Button" parent="LedgerOverlay/Panel/VBox"]
 custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 size_flags_horizontal = 4
-text = "· The Folded Paper"
+theme_override_styles/normal = SubResource("StyleBox_row")
+theme_override_styles/hover = SubResource("StyleBox_row_hover")
+theme_override_styles/pressed = SubResource("StyleBox_row_pressed")
+theme_override_styles/focus = SubResource("StyleBox_row_focus")
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 0.96, 0.85, 1)
+theme_override_colors/font_focus_color = Color(1, 0.96, 0.85, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 0.96, 0.85, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.96, 0.85, 1)
+text = "· Tip: The Counter"
 
 [node name="BottleWatcherButton" type="Button" parent="LedgerOverlay/Panel/VBox"]
 custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 size_flags_horizontal = 4
-text = "· The Watcher's Note"
+theme_override_styles/normal = SubResource("StyleBox_row")
+theme_override_styles/hover = SubResource("StyleBox_row_hover")
+theme_override_styles/pressed = SubResource("StyleBox_row_pressed")
+theme_override_styles/focus = SubResource("StyleBox_row_focus")
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 0.96, 0.85, 1)
+theme_override_colors/font_focus_color = Color(1, 0.96, 0.85, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 0.96, 0.85, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.96, 0.85, 1)
+text = "· Tip: The Watcher"
 
 [node name="BottleFarPointButton" type="Button" parent="LedgerOverlay/Panel/VBox"]
 custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 size_flags_horizontal = 4
-text = "· The Far Point's Reply"
+theme_override_styles/normal = SubResource("StyleBox_row")
+theme_override_styles/hover = SubResource("StyleBox_row_hover")
+theme_override_styles/pressed = SubResource("StyleBox_row_pressed")
+theme_override_styles/focus = SubResource("StyleBox_row_focus")
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 0.96, 0.85, 1)
+theme_override_colors/font_focus_color = Color(1, 0.96, 0.85, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 0.96, 0.85, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.96, 0.85, 1)
+text = "· Tip: The Star"
 
 [node name="LedgerClose" type="Button" parent="LedgerOverlay/Panel/VBox"]
 custom_minimum_size = Vector2(180, 46)
@@ -802,10 +975,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -320.0
-offset_top = -300.0
-offset_right = 320.0
-offset_bottom = 300.0
+offset_left = -360.0
+offset_top = -320.0
+offset_right = 360.0
+offset_bottom = 320.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBox_guide")
@@ -817,7 +990,7 @@ theme_override_constants/separation = 10
 [node name="RegistryTitle" type="Label" parent="RegistryOverlay/Panel/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.62, 0.86, 1, 1)
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 26
 text = "Reef Registry"
 horizontal_alignment = 1
 
@@ -832,36 +1005,96 @@ horizontal_alignment = 1
 custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBox_row")
+theme_override_styles/hover = SubResource("StyleBox_row_hover")
+theme_override_styles/pressed = SubResource("StyleBox_row_pressed")
+theme_override_styles/focus = SubResource("StyleBox_row_focus")
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 0.96, 0.85, 1)
+theme_override_colors/font_focus_color = Color(1, 0.96, 0.85, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 0.96, 0.85, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.96, 0.85, 1)
 text = "· Goldie"
 
 [node name="FishGreyreefsharkButton" type="Button" parent="RegistryOverlay/Panel/VBox"]
 custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBox_row")
+theme_override_styles/hover = SubResource("StyleBox_row_hover")
+theme_override_styles/pressed = SubResource("StyleBox_row_pressed")
+theme_override_styles/focus = SubResource("StyleBox_row_focus")
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 0.96, 0.85, 1)
+theme_override_colors/font_focus_color = Color(1, 0.96, 0.85, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 0.96, 0.85, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.96, 0.85, 1)
 text = "· Grey Reef Shark"
 
 [node name="FishNemoButton" type="Button" parent="RegistryOverlay/Panel/VBox"]
 custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBox_row")
+theme_override_styles/hover = SubResource("StyleBox_row_hover")
+theme_override_styles/pressed = SubResource("StyleBox_row_pressed")
+theme_override_styles/focus = SubResource("StyleBox_row_focus")
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 0.96, 0.85, 1)
+theme_override_colors/font_focus_color = Color(1, 0.96, 0.85, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 0.96, 0.85, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.96, 0.85, 1)
 text = "· Nemo"
 
 [node name="FishCrabButton" type="Button" parent="RegistryOverlay/Panel/VBox"]
 custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBox_row")
+theme_override_styles/hover = SubResource("StyleBox_row_hover")
+theme_override_styles/pressed = SubResource("StyleBox_row_pressed")
+theme_override_styles/focus = SubResource("StyleBox_row_focus")
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 0.96, 0.85, 1)
+theme_override_colors/font_focus_color = Color(1, 0.96, 0.85, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 0.96, 0.85, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.96, 0.85, 1)
 text = "· Crab"
 
 [node name="FishSilverfinButton" type="Button" parent="RegistryOverlay/Panel/VBox"]
 custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBox_row")
+theme_override_styles/hover = SubResource("StyleBox_row_hover")
+theme_override_styles/pressed = SubResource("StyleBox_row_pressed")
+theme_override_styles/focus = SubResource("StyleBox_row_focus")
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 0.96, 0.85, 1)
+theme_override_colors/font_focus_color = Color(1, 0.96, 0.85, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 0.96, 0.85, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.96, 0.85, 1)
 text = "· Silverfin"
 
 [node name="FishStarButton" type="Button" parent="RegistryOverlay/Panel/VBox"]
 custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBox_row")
+theme_override_styles/hover = SubResource("StyleBox_row_hover")
+theme_override_styles/pressed = SubResource("StyleBox_row_pressed")
+theme_override_styles/focus = SubResource("StyleBox_row_focus")
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(0.82, 0.9, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 0.96, 0.85, 1)
+theme_override_colors/font_focus_color = Color(1, 0.96, 0.85, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 0.96, 0.85, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.96, 0.85, 1)
 text = "· Starfish"
 
 [node name="RegistryClose" type="Button" parent="RegistryOverlay/Panel/VBox"]
@@ -908,10 +1141,10 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 # 600 x 620: a fixed card that fits a 648 px window at 24 px type. The day
 # lines wrap inside it rather than widening the panel past the screen edge.
-offset_left = -300.0
-offset_top = -310.0
-offset_right = 300.0
-offset_bottom = 310.0
+offset_left = -360.0
+offset_top = -320.0
+offset_right = 360.0
+offset_bottom = 320.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBox_guide")
@@ -924,7 +1157,7 @@ theme_override_constants/separation = 4
 [node name="AlmanacTitle" type="Label" parent="AlmanacOverlay/Panel/VBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.84, 0.32, 1)
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 26
 text = "THE ALMANAC, FILLED"
 horizontal_alignment = 1
 
@@ -1055,10 +1288,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -360.0
-offset_top = -300.0
-offset_right = 360.0
-offset_bottom = 300.0
+offset_left = -460.0
+offset_top = -320.0
+offset_right = 460.0
+offset_bottom = 320.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBox_guide")

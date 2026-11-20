@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=8 format=3]
 
 [ext_resource type="Script" path="res://scripts/shop_menu.gd" id="1_shop"]
 [ext_resource type="Script" path="res://scripts/ui/drag_scroll.gd" id="2_drag"]
@@ -14,6 +14,70 @@ border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.3, 0.45, 0.62, 0.5)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_upgrade"]
+content_margin_left = 16.0
+content_margin_top = 0.0
+content_margin_right = 16.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.15, 0.21, 0.85)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.7, 0.9, 0.3)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_upgrade_pressed"]
+content_margin_left = 16.0
+content_margin_top = 0.0
+content_margin_right = 16.0
+content_margin_bottom = 0.0
+bg_color = Color(0.16, 0.24, 0.34, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.72, 0.93, 1, 0.9)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_upgrade_hover"]
+content_margin_left = 16.0
+content_margin_top = 0.0
+content_margin_right = 16.0
+content_margin_bottom = 0.0
+bg_color = Color(0.13, 0.2, 0.28, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.55, 0.85, 1, 0.8)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_upgrade_disabled"]
+content_margin_left = 16.0
+content_margin_top = 0.0
+content_margin_right = 16.0
+content_margin_bottom = 0.0
+bg_color = Color(0.06, 0.08, 0.12, 0.5)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.35, 0.45, 0.55, 0.18)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
@@ -376,13 +440,6 @@ theme_override_colors/font_color = Color(0.65, 0.9, 1, 1)
 theme_override_font_sizes/font_size = 24
 text = "Spend money"
 
-[node name="BuyCapButton" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SpendColumn/SpendPanel/SpendBox"]
-custom_minimum_size = Vector2(0, 44)
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Bag +10 kg — 60$"
-
 [node name="BuyMarketButton" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SpendColumn/SpendPanel/SpendBox"]
 custom_minimum_size = Vector2(0, 44)
 unique_name_in_owner = true
@@ -479,6 +536,101 @@ autowrap_mode = 2
 theme_override_colors/font_color = Color(0.78, 0.84, 0.9, 1)
 theme_override_font_sizes/font_size = 24
 text = "(no sales this session)"
+
+[node name="UpgradesPanel" type="PanelContainer" parent="CanvasLayer/Scroll/Margin/Layout" unique_id=1000001]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBox_panel")
+
+[node name="UpgradesBox" type="VBoxContainer" parent="CanvasLayer/Scroll/Margin/Layout/UpgradesPanel"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="UpgradesLabel" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/UpgradesPanel/UpgradesBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.65, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "Upgrades (paid with trash)"
+
+[node name="MoveFasterBtn" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/UpgradesPanel/UpgradesBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.92, 0.96, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.55, 0.62, 0.7, 0.85)
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBox_upgrade")
+theme_override_styles/pressed = SubResource("StyleBox_upgrade_pressed")
+theme_override_styles/hover = SubResource("StyleBox_upgrade_hover")
+theme_override_styles/disabled = SubResource("StyleBox_upgrade_disabled")
+theme_override_styles/focus = SubResource("StyleBox_upgrade_hover")
+text = "Move Speed Lv.0 · +8%/lvl · 8 trash"
+alignment = 0
+
+[node name="CollectionRangeBtn" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/UpgradesPanel/UpgradesBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.92, 0.96, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.55, 0.62, 0.7, 0.85)
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBox_upgrade")
+theme_override_styles/pressed = SubResource("StyleBox_upgrade_pressed")
+theme_override_styles/hover = SubResource("StyleBox_upgrade_hover")
+theme_override_styles/disabled = SubResource("StyleBox_upgrade_disabled")
+theme_override_styles/focus = SubResource("StyleBox_upgrade_hover")
+text = "Collection Range Lv.0 · +12 px/lvl · 12 trash"
+alignment = 0
+
+[node name="DeepCacheBtn" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/UpgradesPanel/UpgradesBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.92, 0.96, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.55, 0.62, 0.7, 0.85)
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBox_upgrade")
+theme_override_styles/pressed = SubResource("StyleBox_upgrade_pressed")
+theme_override_styles/hover = SubResource("StyleBox_upgrade_hover")
+theme_override_styles/disabled = SubResource("StyleBox_upgrade_disabled")
+theme_override_styles/focus = SubResource("StyleBox_upgrade_hover")
+text = "Deep Cache · +debris per run · 30 score"
+alignment = 0
+
+[node name="InventoryCapBtn" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/UpgradesPanel/UpgradesBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.92, 0.96, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.55, 0.62, 0.7, 0.85)
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBox_upgrade")
+theme_override_styles/pressed = SubResource("StyleBox_upgrade_pressed")
+theme_override_styles/hover = SubResource("StyleBox_upgrade_hover")
+theme_override_styles/disabled = SubResource("StyleBox_upgrade_disabled")
+theme_override_styles/focus = SubResource("StyleBox_upgrade_hover")
+text = "Bag Lv.0 · 0/10 kg · 6 trash"
+alignment = 0
 
 [node name="Footer" type="HBoxContainer" parent="CanvasLayer/Scroll/Margin/Layout"]
 layout_mode = 2

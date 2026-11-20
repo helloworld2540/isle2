@@ -916,115 +916,6 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.68, 0.9, 0.95, 0.95)
 theme_override_font_sizes/font_size = 24
 
-[node name="UpgradesLabel" type="Label" parent="Menu/MenuPanel/Center/Card/HBoxContainer/Infobox" unique_id=410065455]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.72, 0.93, 1, 0.65)
-theme_override_font_sizes/font_size = 24
-text = "U P G R A D E S"
-
-[node name="UpgradesPanel" type="PanelContainer" parent="Menu/MenuPanel/Center/Card/HBoxContainer/Infobox" unique_id=410065433]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBox_section")
-
-[node name="UpgradePanel" type="VBoxContainer" parent="Menu/MenuPanel/Center/Card/HBoxContainer/Infobox/UpgradesPanel" unique_id=410065434]
-layout_mode = 2
-theme_override_constants/separation = 8
-
-[node name="MoveFasterBtn" type="Button" parent="Menu/MenuPanel/Center/Card/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel" unique_id=410065437]
-custom_minimum_size = Vector2(0, 46)
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.92, 0.96, 1, 1)
-theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_disabled_color = Color(0.55, 0.62, 0.7, 0.85)
-theme_override_font_sizes/font_size = 24
-theme_override_styles/normal = SubResource("StyleBox_upgrade")
-theme_override_styles/pressed = SubResource("StyleBox_upgrade_pressed")
-theme_override_styles/hover = SubResource("StyleBox_upgrade_hover")
-theme_override_styles/disabled = SubResource("StyleBox_upgrade_disabled")
-theme_override_styles/focus = SubResource("StyleBox_upgrade_hover")
-text = "Move Speed Lv.0 (+8%) — 8 trash"
-alignment = 0
-
-[node name="CollectionRangeBtn" type="Button" parent="Menu/MenuPanel/Center/Card/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel" unique_id=410065438]
-custom_minimum_size = Vector2(0, 46)
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.92, 0.96, 1, 1)
-theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_disabled_color = Color(0.55, 0.62, 0.7, 0.85)
-theme_override_font_sizes/font_size = 24
-theme_override_styles/normal = SubResource("StyleBox_upgrade")
-theme_override_styles/pressed = SubResource("StyleBox_upgrade_pressed")
-theme_override_styles/hover = SubResource("StyleBox_upgrade_hover")
-theme_override_styles/disabled = SubResource("StyleBox_upgrade_disabled")
-theme_override_styles/focus = SubResource("StyleBox_upgrade_hover")
-text = "Range Lv.0 (+12px) — 12 trash"
-alignment = 0
-
-[node name="DeepCacheBtn" type="Button" parent="Menu/MenuPanel/Center/Card/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel" unique_id=410065439]
-custom_minimum_size = Vector2(0, 46)
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.92, 0.96, 1, 1)
-theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_disabled_color = Color(0.55, 0.62, 0.7, 0.85)
-theme_override_font_sizes/font_size = 24
-theme_override_styles/normal = SubResource("StyleBox_upgrade")
-theme_override_styles/pressed = SubResource("StyleBox_upgrade_pressed")
-theme_override_styles/hover = SubResource("StyleBox_upgrade_hover")
-theme_override_styles/disabled = SubResource("StyleBox_upgrade_disabled")
-theme_override_styles/focus = SubResource("StyleBox_upgrade_hover")
-text = "Deep Cache (30 upcycle score) — bonus debris"
-alignment = 0
-
-[node name="DeepCacheUpgradeBtn" type="Button" parent="Menu/MenuPanel/Center/Card/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel" unique_id=410065440]
-custom_minimum_size = Vector2(0, 46)
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.92, 0.96, 1, 1)
-theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_disabled_color = Color(0.55, 0.62, 0.7, 0.85)
-theme_override_font_sizes/font_size = 24
-theme_override_styles/normal = SubResource("StyleBox_upgrade")
-theme_override_styles/pressed = SubResource("StyleBox_upgrade_pressed")
-theme_override_styles/hover = SubResource("StyleBox_upgrade_hover")
-theme_override_styles/disabled = SubResource("StyleBox_upgrade_disabled")
-theme_override_styles/focus = SubResource("StyleBox_upgrade_hover")
-disabled = true
-text = "Deep Cache Tier 1 — 15 score"
-alignment = 0
-
-[node name="InventoryCapBtn" type="Button" parent="Menu/MenuPanel/Center/Card/HBoxContainer/Infobox/UpgradesPanel/UpgradePanel" unique_id=410065441]
-custom_minimum_size = Vector2(0, 46)
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.92, 0.96, 1, 1)
-theme_override_colors/font_focus_color = Color(1, 1, 1, 1)
-theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/font_disabled_color = Color(0.55, 0.62, 0.7, 0.85)
-theme_override_font_sizes/font_size = 24
-theme_override_styles/normal = SubResource("StyleBox_upgrade")
-theme_override_styles/pressed = SubResource("StyleBox_upgrade_pressed")
-theme_override_styles/hover = SubResource("StyleBox_upgrade_hover")
-theme_override_styles/disabled = SubResource("StyleBox_upgrade_disabled")
-theme_override_styles/focus = SubResource("StyleBox_upgrade_hover")
-text = "Inv Cap Lv.0 — 0/30 kg"
-alignment = 0
 
 [node name="ProgressBox" type="HBoxContainer" parent="Menu/MenuPanel/Center/Card/HBoxContainer/Infobox" unique_id=410065442]
 layout_mode = 2
@@ -1201,7 +1092,9 @@ amount = 200
 emission_rect_extents = Vector2(3500, 2800)
 
 [node name="SeaBoat" parent="." unique_id=340776037 instance=ExtResource("26_boat")]
-position = Vector2(-594, 1263)
+position = Vector2(-1041, 1652)
+x_start = -1000.0
+base_y = 1652.0
 
 [node name="HarborAmbience" parent="." unique_id=2134128747 instance=ExtResource("27_harbor")]
 

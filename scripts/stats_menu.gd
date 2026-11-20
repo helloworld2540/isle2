@@ -16,6 +16,15 @@ const REGISTRY_BUTTONS: Array[String] = ["FishGoldButton", "FishGreyreefsharkBut
 const REGISTRY_IDS: Array[String] = ["fish_gold", "fish_greyreefshark", "fish_nemo", "fish_crab", "fish_silverfin", "fish_star"]
 ## Display order of the guide's station sections. Entries carry a "where" tag.
 const GUIDE_GROUPS: Array[String] = ["Reef Rescue", "Upcycle", "Shop", "Islanders", "Island", "Hidden"]
+
+## The four cards that own a subpage: tap the summary to open the ledger it
+## summarises. The other cards are read-only — no subpage behind them.
+const _CARD_OPENERS: Dictionary = {
+	"Margin/VBox/StatsScroll/Content/BottlesPanel": "_open_ledger",
+	"Margin/VBox/StatsScroll/Content/SectionGrid/CollectionsPanel": "_open_registry",
+	"Margin/VBox/StatsScroll/Content/AlmanacBanner": "_open_almanac",
+	"Margin/VBox/StatsScroll/Content/AchievementsPanel": "_open_guide",
+}
 ## The banner owns the legendary set; the guide reads it so the gold rows and
 ## the loud celebration cards can never drift apart.
 const AchievementBannerScript := preload("res://scripts/ui/achievement_banner.gd")
@@ -37,6 +46,7 @@ const GuideFooterScene := preload("res://scenes/ui/guide_footer.tscn")
 @onready var _bag_body: Label = $"Margin/VBox/StatsScroll/Content/SectionGrid/BagPanel/BagBox/BagBody"
 @onready var _collections_body: Label = $"Margin/VBox/StatsScroll/Content/SectionGrid/CollectionsPanel/CollectionsBox/CollectionsBody"
 @onready var _deeds_body: Label = $"Margin/VBox/StatsScroll/Content/SectionGrid/DeedsPanel/DeedsBox/DeedsBody"
+@onready var _bottles_body: Label = $"Margin/VBox/StatsScroll/Content/BottlesPanel/BottlesBox/BottlesBody"
 @onready var _almanac_body: Label = $"Margin/VBox/StatsScroll/Content/AlmanacBanner/AlmanacBox/AlmanacBody"
 @onready var _achievements_body: Label = $"Margin/VBox/StatsScroll/Content/AchievementsPanel/AchievementsBox/AchievementsBody"
 @onready var _back_button: Button = $"Margin/VBox/ButtonRow/BackButton"
@@ -152,6 +162,12 @@ func _connect_signals() -> void:
 		_refresh_almanac_button()
 	if _almanac_close:
 		_almanac_close.pressed.connect(_close_almanac)
+	# The four cards that own a subpage answer to a tap as well as the button
+	# row — the card is the summary, so the summary should open the ledger.
+	for path in _CARD_OPENERS:
+		var panel := get_node_or_null(path)
+		if panel:
+			panel.gui_input.connect(_on_card_gui_input.bind(_CARD_OPENERS[path]))
 
 
 # ------------------------------------------------------------------------------
@@ -260,6 +276,19 @@ func _update_stats_display() -> void:
 			GameState.HARBOR_HERO_TURNS, GameState.quests_completed, GameState.HARBOR_HERO_TURNS,
 		])
 	_deeds_body.text = "\n".join(deeds)
+
+	# Tips in Bottles: the eight notes as a checklist, so the page answers
+	# "which tip have I not read yet" without opening the Tide Ledger.
+	var bottle_lines: Array[String] = []
+	for id in LEDGER_IDS:
+		var title := BottleCatalog.title_of(id)
+		var mark := "✓" if GameState.is_story_read(id) else "·"
+		bottle_lines.append("%s %s" % [mark, title])
+	_bottles_body.text = "\n".join(bottle_lines)
+	if GameState.bottles_read.size() >= LEDGER_IDS.size():
+		_bottles_body.modulate = Color(1.0, 0.84, 0.32, 1.0)
+	else:
+		_bottles_body.modulate = Color(1.0, 1.0, 1.0, 1.0)
 
 	_almanac_body.text = _build_almanac_line().trim_prefix("Tide almanac ")
 	# Completed almanac glows gold — the journal acknowledges the book.
@@ -447,7 +476,7 @@ func _add_guide_filter_button(key: String, group: ButtonGroup) -> void:
 	var label := String(GUIDE_FILTER_LABELS.get(key, key))
 	button.configure(key, label, key == _guide_filter)
 	button.button_group = group
-	button.pressed_filter.connect(_on_guide_filter.bind(key))
+	button.pressed_filter.connect(_on_guide_filter)
 	_guide_filters.add_child(button)
 
 
@@ -587,21 +616,21 @@ func _open_ledger() -> void:
 			# A hint that spoils nothing — the page is a collection tracker.
 			match id:
 				"bottle_tide":
-					button.text = "·  A shore note — it talks back"
+					button.text = "·  Tip: The Loop — still out there"
 				"bottle_gull":
-					button.text = "·  A letter with three signings"
+					button.text = "·  Tip: The Tides — still out there"
 				"bottle_light":
-					button.text = "·  Something glinting off the shop"
+					button.text = "·  Tip: The Market — still out there"
 				"bottle_pact":
-					button.text = "·  The tide keeps your name"
+					button.text = "·  Tip: The Bag — still out there"
 				"bottle_keeper":
-					button.text = "·  The keeper before you"
+					button.text = "·  Tip: The Almanac — still out there"
 				"bottle_corl":
-					button.text = "·  A folded paper, cash up front"
+					button.text = "·  Tip: The Counter — still out there"
 				"bottle_watcher":
-					button.text = "·  Something on the far point"
+					button.text = "·  Tip: The Watcher — still out there"
 				"bottle_far_point":
-					button.text = "·  The far point's own hand"
+					button.text = "·  Tip: The Star — still out there"
 				_:
 					button.text = "·  ? ? ?  —  still out there"
 			button.disabled = true
@@ -799,3 +828,14 @@ func _on_back() -> void:
 		target = SCENE_MAIN_MENU
 	GameState.return_to_scene = ""
 	SceneTransition.change_scene(target)
+
+
+## A tap on a card that owns a subpage opens it. Mouse clicks are the only
+## input that counts — drags on the scroll container must not fire.
+func _on_card_gui_input(event: InputEvent, opener: String) -> void:
+	if not (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed):
+		return
+	var method := String(opener)
+	if method.is_empty():
+		return
+	call(method)

@@ -72,6 +72,17 @@ static func entry(npc) -> Dictionary:
 	}
 
 
+## Whether the NPC's first-visit gift of `amount` units of `mat` still fits in
+## the bag right now. A full bag means the gift is not given this visit; the
+## player is warned to sell at the shop instead, and the visit stays pending so
+## the gift can be offered again once the bag has room.
+static func gift_fits(mat: String, amount: int) -> bool:
+	if amount <= 0:
+		return true
+	var unit_weight: int = max(1, int(GameState.TRASH_WEIGHTS.get(mat, 1)))
+	return GameState.get_free_capacity() >= amount * unit_weight
+
+
 ## Everything the dialogue needs to decide whether the turn-in button is live:
 ## what is required, what is held, and whether the reward still fits after the
 ## quest items leave the bag.

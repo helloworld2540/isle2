@@ -313,18 +313,25 @@ func _show_dialogue(status: String = "", positive: bool = true) -> void:
 		_dialogue.show_status(status, positive)
 	
 	if first_visit:
-		if reward_trash > 0:
+		var gift_deferred := reward_trash > 0 and not NpcQuests.gift_fits(reward_mat, reward_trash)
+		if gift_deferred:
+			# The bag cannot hold the gift this visit, so it is not given at all;
+			# the player is warned to sell at the shop instead. The visit flag
+			# stays clear, so the gift is offered again once the bag has room.
+			_dialogue.show_status("Bag full - sell materials at the Shop!", false)
+		elif reward_trash > 0:
 			GameState.add_trash_type_weighted(reward_mat, reward_trash)
 			_dialogue.show_reward("You received %d %s!" % [reward_trash, reward_mat])
 			AudioManager.play_sfx("pickup")
 			# Sparks read as the reward being handed over, so they wait until
 			# the card is dismissed instead of bursting behind its dimmer.
 			_dialogue.closed.connect(_spawn_reward_sparks, CONNECT_ONE_SHOT)
-		# Visited is tracked for every NPC, not only reward-granting ones, so
-		# quests reveal themselves and repeat dialogue kicks in for all.
-		_save_flag("npc_visited", true)
-		_visited_flag = true
-		_update_ui_state()
+		if reward_trash <= 0 or not gift_deferred:
+			# Visited is tracked for every NPC, not only reward-granting ones, so
+			# quests reveal themselves and repeat dialogue kicks in for all.
+			_save_flag("npc_visited", true)
+			_visited_flag = true
+			_update_ui_state()
 	else:
 		var tier := NpcQuests.active_tier(self)
 		if tier > 0:
@@ -355,6 +362,13 @@ func _configure_quest(tier: int) -> void:
 func _on_turn_in_requested(tier: int) -> void:
 	var data := NpcQuests.turn_in(self, tier)
 	if data.is_empty():
+		return
+	
+	# The hand-in frees the quest weight before the reward lands, but the
+	# reward must still fit afterwards — a full bag must not swallow it. Bail
+	# out (with a nudge toward the shop) instead of accepting a partial reward.
+	if not bool(data.get("fits", false)):
+		_dialogue.show_status("Bag full - sell materials at the Shop!", false)
 		return
 	
 	var mat := String(data.get("material", ""))
