@@ -18,6 +18,12 @@ func _ready() -> void:
 	var data := SaveManager.load_game()
 	reduce_motion = bool(data.get(KEY_REDUCE_MOTION, false))
 	hide_tide = bool(data.get(KEY_HIDE_TIDE, false))
+	# Keep the designed aspect on every screen. `window/stretch/aspect` in
+	# project.godot is the authoritative setting, but the editor rewrites
+	# project.godot from its in-memory settings on quit, silently dropping
+	# keys it did not load — so the runtime re-asserts it here and the
+	# exported build can never ship stretched. Idempotent and free.
+	get_tree().root.content_scale_aspect = Window.CONTENT_SCALE_ASPECT_KEEP
 	# Desktop: pin the window to the designed resolution and never let it
 	# shrink below it. The game lays out for 1152x648; smaller windows clip
 	# single-line labels (the shop header used to shear at the right edge).

@@ -14,11 +14,18 @@ extends SceneTree
 ##   3. Every WorldNPC (under NPCs/) stands on or adjoins a walkable cell,
 ##      so quests and gifts can never be stranded off the path.
 ##   4. At least one full path exists from spawn to the reef portal via BFS.
-##   5. Hidden collectibles (story bottles, starfish) and the watcher flag
-##      the same on their cells — content can never be buried in rock.
+##   5. Every authored collectible (Bottle*, Starfish*, KeeperStar,
+##      FarPointWatcher) stands on or adjoins a walkable cell. These nodes
+##      are freed at runtime by their unlock logic, so their placement is
+##      read straight from world.tscn's text — the authored truth, not the
+##      post-lock scene tree.
 ##
 ## Run:  godot --headless --path . -s tools/portal_reach_test.gd
 ## Exits 0 on success, 1 on any failure. Wired into tools/all_audits.sh.
+
+## Node-name prefixes for authored world content whose placement must stay
+## reachable. Kept as a list so new collectibles are one word added here.
+const CONTENT_PREFIXES: Array[String] = ["Bottle", "Starfish", "KeeperStar", "FarPointWatcher"]
 
 func _initialize() -> void:
 	var scene: Node = load("res://scenes/world.tscn").instantiate()
@@ -68,18 +75,10 @@ func _initialize() -> void:
 				print("FAIL NPC %s has no walkable cell to stand on" % npc.name)
 				fails += 1
 
-	# Collectibles and watchers flagged with gameplay groups: story_bottle,
-	# starfish — each must adjoin a walkable cell or it can never be claimed.
-	for group in ["story_bottle", "starfish"]:
-		for node in scene.get_tree().get_nodes_in_group(group):
-			if not node is Area2D:
-				continue
-			var cell: Vector2i = layer.local_to_map(layer.to_local((node as Node2D).global_position))
-			if _walkable(layer, cell) or _has_walkable_neighbour(layer, cell):
-				print("ok  %s reachable" % node.name)
-			else:
-				print("FAIL %s has no walkable cell to stand on" % node.name)
-				fails += 1
+	# Collectibles: read authored placements from the scene file (their runtime
+	# nodes are freed by the unlock logic before this audit sees the tree).
+	var authored_fails: int = _authored_placement_audit(layer)
+	fails += authored_fails
 
 	# BFS from spawn; must be able to reach the reef portal's neighbourhood.
 	var reef: Node2D = null
@@ -99,6 +98,53 @@ func _initialize() -> void:
 
 	print("portal_reach_test: %s" % ("PASS" if fails == 0 else "%d failure(s)" % fails))
 	_quit(0 if fails == 0 else 1)
+
+## Scans world.tscn's source text for authored content nodes and verifies each
+## one's authored `position` lands on or beside a walkable cell. Returns the
+## number of failures. Positions are the values the level designer wrote, so
+## this gate catches a collectible dropped into rock regardless of the
+## runtime unlock logic having freed it.
+func _authored_placement_audit(layer: TileMapLayer) -> int:
+	var fails := 0
+	var text: String = FileAccess.get_file_as_string("res://scenes/world.tscn")
+	if text.is_empty():
+		print("FAIL could not read scenes/world.tscn for placement audit")
+		return 1
+	var name_re := RegEx.create_from_string('^\\[node name="([^"]+)"')
+	var pos_re := RegEx.create_from_string('^position = Vector2\\(([-0-9.]+), ([-0-9.]+)\\)')
+	var pending_name := ""
+	var checked := 0
+	for line in text.split("\n"):
+		var nm := name_re.search(line)
+		if nm != null:
+			pending_name = nm.get_string(1)
+			continue
+		if pending_name.is_empty():
+			continue
+		var pm := pos_re.search(line)
+		if pm == null:
+			continue
+		var node_name := pending_name
+		pending_name = ""
+		var matches := false
+		for prefix in CONTENT_PREFIXES:
+			if node_name.begins_with(prefix):
+				matches = true
+				break
+		if not matches:
+			continue
+		checked += 1
+		var world_pos := Vector2(float(pm.get_string(1)), float(pm.get_string(2)))
+		var cell: Vector2i = layer.local_to_map(layer.to_local(world_pos))
+		if _walkable(layer, cell) or _has_walkable_neighbour(layer, cell):
+			print("ok  %s authored at %s reachable" % [node_name, cell])
+		else:
+			print("FAIL %s authored at %s has no walkable cell to stand on" % [node_name, cell])
+			fails += 1
+	if checked == 0:
+		print("FAIL authored placement audit matched 0 content nodes — did the scene format change?")
+		fails += 1
+	return fails
 
 func _walkable(layer: TileMapLayer, cell: Vector2i) -> bool:
 	var td := layer.get_cell_tile_data(cell)

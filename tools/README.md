@@ -110,11 +110,17 @@ export (versionCode/versionName are in the sprint log).
 2. An exit code of 0 means green; anything else means the gate fails.
 
 ## Editing project.godot while the editor is open
-Never edit `project.godot` on disk and rely on the editor keeping it — the
-editor holds its own copy and re-stamps it on save, silently dropping your
-line (observed twice with `window/stretch/aspect="keep"`). The supported
-path: write the file on disk, then `godot_editor_edit restart` with
-`save: false` (discard the editor's in-memory buffer; it reloads from disk).
-`godot_project check_stale` afterwards should report disk == loaded settings
-(display-only changes are not tracked, so a clean result is expected either
-way — the rule still holds: only `save: false` preserves disk edits).
+Never edit `project.godot` on disk and expect it to survive: the editor loads
+the file once into `ProjectSettings` at startup, and on **shutdown/restart it
+rewrites the file from memory**, silently dropping any key it never loaded.
+`restart save=false` does not help for project settings (it only discards the
+open scene buffer) — the key was dropped three separate times this way,
+including with `window/stretch/aspect="keep"`.
+
+Therefore: **any project setting that must survive editor cycles needs a
+runtime re-assert in code** (the pattern used by `GameSettings` for the
+stretch aspect), or a manual set through the editor UI. Committing the key
+to `project.godot` alone is not durable while the editor is running.
+
+`godot_project check_stale` is still useful to detect what the editor did not
+load; treat a divergence as "the editor will erase this key on quit".

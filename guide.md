@@ -22,9 +22,11 @@ Welcome to Isle 2. Shared economy across world map, two minigames, shop, NPCs an
   blinks.
 
 ## Controls
-- The window scales with **aspect kept** (`window/stretch/aspect="keep"`):
-  on any screen — phone, tablet, desktop — the 1152×648 stage letterboxes
-  instead of stretching, so touch targets never distort.
+- The window scales with **aspect kept** (`window/stretch/aspect="keep"`,
+  re-asserted at boot by `GameSettings` so an editor rewrite of
+  `project.godot` cannot drop it): on any screen — phone, tablet, desktop —
+  the 1152×648 stage letterboxes instead of stretching, so touch targets
+  never distort.
 - The main menu carries the island's one-line motto under the buttons:
   "Keep the shore" — the keeper's whole job, one sentence.
 

@@ -434,3 +434,19 @@ OPEN / NICE-TO-HAVE (from backlogs, non-blocking)
   (-5,-11) — world pos Vector2(-618, -1332), matching how the other islanders
   hug their cells' centres. Audit now: PASS.
 - Gate green; tools/README documents the harness.
+
+## 2026-11-20 (fix) — aspect=keep can't live only in project.godot
+
+- Discovered the real mechanism: the editor loads project.godot once into
+  ProjectSettings and rewrites the file from memory on restart/shutdown,
+  dropping keys it never loaded. `restart save=false` does NOT preserve
+  project.godot edits (only scene buffers). The line vanished a third time.
+- Durable fix: GameSettings._ready() sets
+  root.content_scale_aspect = Window.CONTENT_SCALE_ASPECT_KEEP on every
+  platform, so exported builds cannot ship stretched even if the editor
+  erases the key. project.godot keeps the key too, for editor previews.
+- tools/README.md corrected to state the true rule (runtime re-assert or
+  editor UI; a disk edit alone is not durable).
+- portal_reach_test extended with an authored-placement audit that reads
+  world.tscn's text: all 15 collectibles (incl. locked bottles/starfish)
+  verified reachable regardless of runtime unlock freeing.
