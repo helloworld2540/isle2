@@ -57,6 +57,8 @@ func _retire_receipt(lbl: Control) -> void:
 
 
 func _reflow_receipts() -> void:
+	if not is_inside_tree():
+		return
 	var vp := _vp_size()
 	for i in range(_receipts.size()):
 		var lbl := _receipts[i]
@@ -130,4 +132,6 @@ static func flash(ctrl: Control, from_color: Color = Color(0.6, 1.0, 0.65, 1.0))
 
 
 func _vp_size() -> Vector2:
+	if not is_inside_tree():
+		return Vector2(1152, 648)
 	return get_tree().root.get_visible_rect().size

@@ -341,6 +341,11 @@ capstone does not depend on the epilogue star (nor the other way round).
 achievement and all five islanders notice THE FAR POINT; wired into
 `tools/all_audits.sh`.
 
+`godot --headless --path . -s tools/shop_sale_test.gd` — the money path end to
+end through the real shop scene: bulk and sub-threshold sales pay exactly
+`ShopLedger.quote()`, undo restores both the goods and the cash, and a completed
+sale survives a save/restore round trip.
+
 `godot --headless --path . -s tools/save_fuzz_test.gd` — corrupt-save resilience:
 twelve hostile payloads (word where a number belongs, an object, negative
 money, `1e30`, NaN, a bag that is an array, unknown materials, achievements as

@@ -488,3 +488,19 @@ OPEN / NICE-TO-HAVE (from backlogs, non-blocking)
   negatives except courier_letter_day's -1 sentinel, and only accepts the five
   real materials into trash_by_type.
 - Wired into all_audits.sh; ALL-AUDITS: PASS.
+
+## 2026-11-20 (economy) — the sale path, driven through the real shop
+
+- New tools/shop_sale_test.gd instantiates the real shop.tscn and drives its
+  handlers: a 6-unit bulk sale pays exactly ShopLedger.quote() and banks
+  lifetime earnings, the sub-threshold sale pays the plain unit price, Undo
+  claws back both money and goods, and the sale survives a save/restore round
+  trip (the persisted stock is the sold stock).
+- First run failed on all the undo assertions because the test picked 6 Glass
+  (3 kg each = 18 kg) — over the 10 kg starting bag, so Undo correctly refused
+  to restore. Switched to 1 kg Polyethylene; the bag rule held, which is the
+  rule working, not a bug.
+- Fixed a real shutdown defect the harness exposed: ReceiptStack._reflow_receipts
+  and _vp_size now guard on is_inside_tree(), so a scene change while receipts
+  are still animating no longer prints get_tree() null errors at teardown.
+- Wired into all_audits.sh; ALL-AUDITS: PASS.

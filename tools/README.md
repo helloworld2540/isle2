@@ -84,6 +84,7 @@ This is why the harnesses use `get_node` rather than bare autoload names.
 | `portal_reach_test.gd` | runtime | Spawn cell walkable; every portal stands on/adjoins a walkable cell; BFS reaches the reef portal from spawn — the no-softlock gate for tileset edits |
 | `loop_flow_test.gd` | runtime | Full island circuit on real scenes: reef portal → dive banks debris → return → upcycle portal → return → shop portal, asserting the $15 circuit bonus pays once |
 | `save_fuzz_test.gd` | runtime | Writes 12 hostile saves (wrong types, negatives, 1e30, unknown bag keys) and proves restore() completes with safe defaults instead of aborting halfway; also round-trips a valid save |
+| `shop_sale_test.gd` | runtime | Drives the real shop scene: bulk and sub-threshold sales pay exactly the ledger quote, undo returns both money and goods, and the sale survives a save/restore round trip |
 | `walkable_probe.gd` | dev | Prints walkable-tile grid info for the camera/BFS audits |
 
 `spawn_weight_test.gd` was wired into the gate while the weighted-spawn
