@@ -504,3 +504,18 @@ OPEN / NICE-TO-HAVE (from backlogs, non-blocking)
   and _vp_size now guard on is_inside_tree(), so a scene change while receipts
   are still animating no longer prints get_tree() null errors at teardown.
 - Wired into all_audits.sh; ALL-AUDITS: PASS.
+
+## 2026-11-20 (movement) — tap-to-walk on the real island
+
+- New tools/world_move_test.gd: boots world.tscn, plays the first-run card
+  queue like a player (dismiss the step-1 hint, then the pausing welcome
+  guide), taps a walkable cell and asserts a path is produced, the keeper
+  actually arrives, tutorial step 2 fires, the highlight clears, and a tap on
+  water falls back to the nearest walkable cell.
+- Two harness lessons: the first-run guide pauses the tree, so the test must
+  dismiss the cards before moving (a frozen keeper is the tutorial working);
+  and quitting while the world's tweens are live crashes the headless process,
+  so the harness frees the scene and lets the tree settle.
+- Added progress.md as the loop's running state file; restored TODO.md and
+  overnight_sprint.txt after they were emptied/removed in the working tree.
+- Wired into all_audits.sh; ALL-AUDITS: PASS.

@@ -341,6 +341,12 @@ capstone does not depend on the epilogue star (nor the other way round).
 achievement and all five islanders notice THE FAR POINT; wired into
 `tools/all_audits.sh`.
 
+`godot --headless --path . -s tools/world_move_test.gd` — tap-to-walk on the
+real island: the first-run card queue is dismissed the way a player does it,
+a tap on ground produces a path and the keeper actually reaches the cell,
+tutorial step 2 fires, and a tap on water falls back to the nearest walkable
+cell instead of routing nowhere.
+
 `godot --headless --path . -s tools/shop_sale_test.gd` — the money path end to
 end through the real shop scene: bulk and sub-threshold sales pay exactly
 `ShopLedger.quote()`, undo restores both the goods and the cash, and a completed

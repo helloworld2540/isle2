@@ -85,6 +85,7 @@ This is why the harnesses use `get_node` rather than bare autoload names.
 | `loop_flow_test.gd` | runtime | Full island circuit on real scenes: reef portal → dive banks debris → return → upcycle portal → return → shop portal, asserting the $15 circuit bonus pays once |
 | `save_fuzz_test.gd` | runtime | Writes 12 hostile saves (wrong types, negatives, 1e30, unknown bag keys) and proves restore() completes with safe defaults instead of aborting halfway; also round-trips a valid save |
 | `shop_sale_test.gd` | runtime | Drives the real shop scene: bulk and sub-threshold sales pay exactly the ledger quote, undo returns both money and goods, and the sale survives a save/restore round trip |
+| `world_move_test.gd` | runtime | Real world scene: tap-to-walk routes to a walkable cell, the keeper actually arrives, tutorial step 2 fires, and a water tap falls back to land instead of dead-routing |
 | `walkable_probe.gd` | dev | Prints walkable-tile grid info for the camera/BFS audits |
 
 `spawn_weight_test.gd` was wired into the gate while the weighted-spawn
