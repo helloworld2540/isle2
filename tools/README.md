@@ -65,6 +65,7 @@ This is why the harnesses use `get_node` rather than bare autoload names.
 | `scene_boot_audit.sh` | shell | Boots every interactive scene headless with an isolated profile; fails on script errors (parse errors, node-not-found, _ready errors). What smoke_test can't see |
 | `achievement_audit.py` | static | Catalogue vs docs vs stats page: every achievement has a predicate and vice versa, claimed counts match, and GUIDE_GROUPS covers every where-tag |
 | `orphan_audit.py` | static | Scripts/scenes nothing references are flagged (class_name-aware) — dead pack weight and half-finished features cannot accumulate |
+| `reference_audit.py` | static | Every literal `res://` path in scenes, scripts, shaders, project.godot and export_presets.cfg resolves on disk — catches a renamed asset that would only error on one rarely-reached branch |
 | `export_preset_audit.py` | static | Export presets: every concrete res:// reference must exist and be git-tracked (gitignored res://export/* paths break fresh clones), every preset excludes tools/addons, and the Web custom shell carries the Godot markers |
 | `economy_audit.py` | static | Release-time check that every number the guide promises (prices, sinks, tide modifiers, spawn weights) still matches the code — no silent rebalances |
 | `pacing_sim.gd` | runtime | Headless fresh-save loop simulator (4000 sims, fixed seed): replays dive → bench → shop with the shipped constants and prints the mean gross per loop. Review tool, not a gate — re-run after any economy constant moves |
