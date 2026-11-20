@@ -341,6 +341,13 @@ capstone does not depend on the epilogue star (nor the other way round).
 achievement and all five islanders notice THE FAR POINT; wired into
 `tools/all_audits.sh`.
 
+`godot --headless --path . -s tools/save_fuzz_test.gd` — corrupt-save resilience:
+twelve hostile payloads (word where a number belongs, an object, negative
+money, `1e30`, NaN, a bag that is an array, unknown materials, achievements as
+an object) are written into a throwaway slot and `restore()` must finish with
+safe defaults rather than abort halfway. A valid save is round-tripped in the
+same run so the sanitiser cannot silently round real values away.
+
 `godot --headless --path . -s tools/loop_flow_test.gd` — end-to-end island
 circuit on the real scenes: enters the reef through its portal, finishes a dive
 and checks the haul banks into `GameState`, returns to the world map, enters and

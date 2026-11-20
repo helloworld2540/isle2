@@ -1082,6 +1082,78 @@ func slot_identity() -> Dictionary:
 	}
 
 
+# --- Save coercion ---
+# Save files can be hand-edited, half-synced from a cloud backup, or written by
+# a different build. A wrong JSON type must degrade to a safe default instead
+# of aborting the whole restore (which used to leave the island half-loaded).
+
+## Largest value any counter may hold. Well inside float64's exact-integer
+## range (JSON numbers parse as floats), and far above any real total.
+const MAX_SAVED_INT := 9_000_000_000_000
+
+func _coerce_int(value: Variant, fallback: int = 0, minimum: int = -MAX_SAVED_INT) -> int:
+	match typeof(value):
+		TYPE_INT:
+			return clampi(int(value), minimum, MAX_SAVED_INT)
+		TYPE_FLOAT:
+			var f: float = value
+			if is_nan(f) or is_inf(f):
+				return fallback
+			return clampi(int(f), minimum, MAX_SAVED_INT)
+		TYPE_BOOL:
+			return 1 if value else 0
+		TYPE_STRING:
+			var text: String = value.strip_edges()
+			if not text.is_valid_int() and not text.is_valid_float():
+				return fallback
+			if is_nan(text.to_float()) or is_inf(text.to_float()):
+				return fallback
+			return clampi(int(text.to_float()), minimum, MAX_SAVED_INT)
+	return fallback
+
+func _coerce_float(value: Variant, fallback: float = 0.0) -> float:
+	var result := fallback
+	match typeof(value):
+		TYPE_INT:
+			result = float(value)
+		TYPE_FLOAT:
+			result = float(value)
+		TYPE_BOOL:
+			result = 1.0 if value else 0.0
+		TYPE_STRING:
+			result = value.to_float()
+	if is_nan(result) or is_inf(result):
+		return fallback
+	return clampf(result, -float(MAX_SAVED_INT), float(MAX_SAVED_INT))
+
+func _coerce_bool(value: Variant, fallback: bool = false) -> bool:
+	match typeof(value):
+		TYPE_BOOL:
+			return bool(value)
+		TYPE_INT, TYPE_FLOAT:
+			return float(value) != 0.0
+		TYPE_STRING:
+			return String(value).strip_edges().to_lower() in ["true", "1", "yes", "on"]
+	return fallback
+
+func _coerce_string(value: Variant, fallback: String = "") -> String:
+	match typeof(value):
+		TYPE_STRING:
+			return String(value)
+		TYPE_INT, TYPE_FLOAT, TYPE_BOOL:
+			return str(value)
+	return fallback
+
+func _coerce_string_array(value: Variant) -> Array[String]:
+	var out: Array[String] = []
+	if not value is Array:
+		return out
+	for item in value:
+		match typeof(item):
+			TYPE_STRING, TYPE_INT, TYPE_FLOAT, TYPE_BOOL:
+				out.append(str(item))
+	return out
+
 func restore() -> void:
 	var data: Dictionary = SaveManager.load_game()
 
@@ -1091,13 +1163,13 @@ func restore() -> void:
 		var default: Variant = e[2]
 		match String(e[3]):
 			"int":
-				set(prop, int(data.get(key, default)))
+				set(prop, _coerce_int(data.get(key, default), int(default)))
 			"float":
-				set(prop, float(data.get(key, default)))
+				set(prop, _coerce_float(data.get(key, default), float(default)))
 			"bool":
-				set(prop, bool(data.get(key, default)))
+				set(prop, _coerce_bool(data.get(key, default), bool(default)))
 			"string":
-				set(prop, str(data.get(key, default)))
+				set(prop, _coerce_string(data.get(key, default), str(default)))
 			"dict":
 				var d: Variant = data.get(key, default)
 				if d is Dictionary:
@@ -1107,8 +1179,18 @@ func restore() -> void:
 			"string_array":
 				var current: Array = get(prop)
 				current.clear()
-				for id in data.get(key, []):
-					current.append(str(id))
+				for id in _coerce_string_array(data.get(key, [])):
+					current.append(id)
+	# A hand-edited or half-synced save must not put a negative balance or a
+	# stuck day counter into the economy. Only `courier_letter_day` uses -1 as
+	# a real sentinel ("no page bought yet").
+	for e in SAVE_SCHEMA:
+		if String(e[3]) != "int":
+			continue
+		var prop := String(e[1])
+		var value := int(get(prop))
+		if prop != "courier_letter_day" and value < 0:
+			set(prop, 0)
 
 	# The slot directory is the source of truth for the id: a wiped, migrated
 	# or hand-copied file must never claim another slot's identity.
@@ -1132,9 +1214,15 @@ func restore() -> void:
 	for t in DEFAULT_TRASH_TYPES:
 		trash_by_type[t] = 0
 
-	var loaded_trash: Dictionary = data.get("trash_by_type", {})
-	for k in loaded_trash.keys():
-		trash_by_type[str(k)] = int(loaded_trash[k])
+	# Only the five real materials count: an unknown key would contribute to
+	# `trash_inventory` with weight 0 and desync the bag from its weight.
+	var loaded_trash: Variant = data.get("trash_by_type", {})
+	if loaded_trash is Dictionary:
+		for k in (loaded_trash as Dictionary).keys():
+			var mat := str(k)
+			if not DEFAULT_TRASH_TYPES.has(mat):
+				continue
+			trash_by_type[mat] = _coerce_int((loaded_trash as Dictionary)[k], 0, 0)
 
 	_recompute_inventory()
 

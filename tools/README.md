@@ -83,6 +83,7 @@ This is why the harnesses use `get_node` rather than bare autoload names.
 | `wm_debug_walkable_overlay.gd` | dev | TileMapLayer subclass that prints the walkable cells — attach by hand to the world map's TileMapLayer when probing BFS walkability |
 | `portal_reach_test.gd` | runtime | Spawn cell walkable; every portal stands on/adjoins a walkable cell; BFS reaches the reef portal from spawn — the no-softlock gate for tileset edits |
 | `loop_flow_test.gd` | runtime | Full island circuit on real scenes: reef portal → dive banks debris → return → upcycle portal → return → shop portal, asserting the $15 circuit bonus pays once |
+| `save_fuzz_test.gd` | runtime | Writes 12 hostile saves (wrong types, negatives, 1e30, unknown bag keys) and proves restore() completes with safe defaults instead of aborting halfway; also round-trips a valid save |
 | `walkable_probe.gd` | dev | Prints walkable-tile grid info for the camera/BFS audits |
 
 `spawn_weight_test.gd` was wired into the gate while the weighted-spawn

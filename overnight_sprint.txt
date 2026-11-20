@@ -472,3 +472,19 @@ OPEN / NICE-TO-HAVE (from backlogs, non-blocking)
   (0 → 15). First gate to exercise portals + transitions + payouts together.
 - Wired into all_audits.sh; ALL-AUDITS: PASS; README Verifying + tools/README
   updated.
+
+## 2026-11-20 (robustness) — corrupt saves can no longer eat an island
+
+- New tools/save_fuzz_test.gd writes 12 hostile save payloads into a throwaway
+  slot and asserts GameState.restore() always completes with safe defaults.
+  It primes marker values first, so an abort halfway is detected too.
+- Found and fixed three real abort paths in restore(): int(Dictionary) threw
+  and abandoned the rest of the file; a bag stored as an array threw on the
+  typed assignment; 1e30 overflowed to INT64_MIN. Also fixed two silent
+  corruptions: bottles_read as a string became one "bottle" per character, and
+  unknown bag materials entered the bag with zero weight.
+- restore() now uses _coerce_int/_coerce_float/_coerce_bool/_coerce_string/
+  _coerce_string_array, clamps counters to ±9e12 (safe for JSON floats), zeroes
+  negatives except courier_letter_day's -1 sentinel, and only accepts the five
+  real materials into trash_by_type.
+- Wired into all_audits.sh; ALL-AUDITS: PASS.
