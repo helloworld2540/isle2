@@ -460,3 +460,15 @@ OPEN / NICE-TO-HAVE (from backlogs, non-blocking)
 - Skips runtime-built paths: glob excludes (res://tools/*) and printf
   templates (sprites/wm_npc/npc%d.png) — those are not authored references.
 - Wired into all_audits.sh; ALL-AUDITS: PASS; tree clean.
+
+## 2026-11-20 (integration) — the circuit, end to end
+
+- New tools/loop_flow_test.gd: boots the real world.tscn as current_scene,
+  walks the player onto PortalReefRescue (real handler + SceneTransition),
+  proves the reef loads, finishes a 12 kg dive and checks the haul banks
+  (0 → 10 kg, bag-capped as designed), returns to the world map, enters and
+  leaves the upcycle bench through its own summary card, then takes the shop
+  portal and asserts circuits_completed == 1 and the $15 bonus pays once
+  (0 → 15). First gate to exercise portals + transitions + payouts together.
+- Wired into all_audits.sh; ALL-AUDITS: PASS; README Verifying + tools/README
+  updated.

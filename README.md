@@ -341,6 +341,15 @@ capstone does not depend on the epilogue star (nor the other way round).
 achievement and all five islanders notice THE FAR POINT; wired into
 `tools/all_audits.sh`.
 
+`godot --headless --path . -s tools/loop_flow_test.gd` — end-to-end island
+circuit on the real scenes: enters the reef through its portal, finishes a dive
+and checks the haul banks into `GameState`, returns to the world map, enters and
+leaves the upcycle bench, then enters the shop through its own portal and
+asserts the $15 circuit bonus is paid exactly once. It is the only gate that
+exercises `SceneTransition`, the portal handlers and the run-end payouts
+together — a broken portal target or a lost return trip fails here, not in a
+player's session.
+
 `godot --headless --path . -s tools/pacing_sim.gd` — headless fresh-save loop
 simulator (4000 sims, fixed seed): replays dive → bench → shop with the
 shipped constants and prints the mean gross per loop (~$32 on a neutral tide,

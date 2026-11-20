@@ -9,6 +9,7 @@ Sorted by importance. The overnight loop pulls from the top.
 - Balance pass DONE (2026-11-19): `tools/pacing_sim.gd` measures the fresh-save loop at ~$32/loop, matching the guide's +$34/+$32/+$32 — no rebalance needed. Re-run the sim after any economy constant moves.
 
 ## Medium
+- New `tools/loop_flow_test.gd` gate: the full circuit (reef → world → upcycle → world → shop) runs on real scenes and asserts the dive payout, both return trips and the $15 circuit bonus. Extend it if a fourth station or a new transition path ships.
 - New `tools/reference_audit.py` gate: all 279 literal `res://` references resolve (mutation-tested). Extend it if dynamic path building ever becomes common.
 - Tutorial: `tutorial_tour_test` (isolated) passes under `tools/all_audits.sh` and the step-2 card was verified live in the running game (2026-11-20). A full live tap-through remains impractical without corrupting the user's fresh island — covered by the harness; do not fake gameplay via exec on the player's save.
 - Mobile: re-run the 1152×648 layout audit and touch-target audit after the menu restyle; both currently PASS inside `tools/all_audits.sh` — keep them green.
