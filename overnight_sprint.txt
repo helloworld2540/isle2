@@ -450,3 +450,13 @@ OPEN / NICE-TO-HAVE (from backlogs, non-blocking)
 - portal_reach_test extended with an authored-placement audit that reads
   world.tscn's text: all 15 collectibles (incl. locked bottles/starfish)
   verified reachable regardless of runtime unlock freeing.
+
+## 2026-11-20 (gate) — dangling-reference audit
+
+- New tools/reference_audit.py: every literal res:// path in .tscn/.tres/
+  .gd/.godot/.cfg/.gdshader/project.godot/export_presets.cfg must exist.
+  279 references resolve; mutation test (fake path in a scratch script)
+  verifies it fails correctly.
+- Skips runtime-built paths: glob excludes (res://tools/*) and printf
+  templates (sprites/wm_npc/npc%d.png) — those are not authored references.
+- Wired into all_audits.sh; ALL-AUDITS: PASS; tree clean.
