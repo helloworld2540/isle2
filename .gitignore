@@ -14,3 +14,4 @@ export/
 
 # Editor scene backups
 *.tscn.bak
+.fuse_hidden*
