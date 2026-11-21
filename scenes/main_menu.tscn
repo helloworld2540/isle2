@@ -284,7 +284,7 @@ theme_override_styles/pressed = SubResource("StyleBox_gold_pressed")
 theme_override_styles/hover = SubResource("StyleBox_gold_hover")
 theme_override_styles/disabled = SubResource("StyleBox_ghost_disabled")
 theme_override_styles/focus = SubResource("StyleBox_gold_hover")
-text = "Load Save"
+text = "Load Island…"
 
 [node name="QuitButton" type="Button" parent="LeftColumn/Buttons" unique_id=678783011]
 custom_minimum_size = Vector2(300, 58)

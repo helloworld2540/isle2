@@ -92,7 +92,7 @@ layout_mode = 2
 alignment = 2
 
 [node name="Panel" type="PanelContainer" parent="Margin/Column" unique_id=88583693]
-custom_minimum_size = Vector2(540, 0)
+custom_minimum_size = Vector2(620, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_styles/panel = SubResource("StyleBox_about")
@@ -102,7 +102,7 @@ layout_mode = 2
 theme_override_constants/separation = 8
 
 [node name="Portrait" type="TextureRect" parent="Margin/Column/Panel/VBox" unique_id=1304822125]
-custom_minimum_size = Vector2(360, 120)
+custom_minimum_size = Vector2(420, 140)
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("2_m186m")
@@ -117,13 +117,13 @@ text = "Trash Island"
 horizontal_alignment = 1
 
 [node name="BodyScroll" type="ScrollContainer" parent="Margin/Column/Panel/VBox" unique_id=1961561805]
-custom_minimum_size = Vector2(0, 240)
+custom_minimum_size = Vector2(0, 280)
 layout_mode = 2
 horizontal_scroll_mode = 0
 script = ExtResource("2_drag")
 
 [node name="Body" type="RichTextLabel" parent="Margin/Column/Panel/VBox/BodyScroll" unique_id=214664731]
-custom_minimum_size = Vector2(440, 0)
+custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -131,7 +131,7 @@ bbcode_enabled = true
 fit_content = true
 
 [node name="CloseBtn" type="Button" parent="Margin/Column/Panel/VBox" unique_id=2029751666]
-custom_minimum_size = Vector2(190, 48)
+custom_minimum_size = Vector2(220, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_colors/font_color = Color(0.28, 0.18, 0.04, 1)

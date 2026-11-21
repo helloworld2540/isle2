@@ -45,7 +45,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Panel" type="PanelContainer" parent="Center"]
-custom_minimum_size = Vector2(620, 0)
+custom_minimum_size = Vector2(720, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBox_intro")
 
@@ -60,7 +60,7 @@ theme_override_font_sizes/font_size = 26
 text = "Mini-game"
 
 [node name="BodyScroll" type="ScrollContainer" parent="Center/Panel/VBox"]
-custom_minimum_size = Vector2(0, 380)
+custom_minimum_size = Vector2(0, 440)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -103,7 +103,7 @@ custom_minimum_size = Vector2(0, 6)
 layout_mode = 2
 
 [node name="GotItButton" type="Button" parent="Center/Panel/VBox"]
-custom_minimum_size = Vector2(180, 46)
+custom_minimum_size = Vector2(220, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 24

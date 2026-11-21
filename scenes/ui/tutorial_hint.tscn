@@ -38,7 +38,7 @@ layout_mode = 2
 alignment = 2
 
 [node name="Panel" type="PanelContainer" parent="Margin/Column"]
-custom_minimum_size = Vector2(560, 0)
+custom_minimum_size = Vector2(680, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_styles/panel = SubResource("StyleBox_hint")
@@ -55,14 +55,14 @@ text = "Hint"
 horizontal_alignment = 1
 
 [node name="Body" type="RichTextLabel" parent="Margin/Column/Panel/VBox"]
-custom_minimum_size = Vector2(524, 0)
+custom_minimum_size = Vector2(580, 0)
 layout_mode = 2
 bbcode_enabled = true
 fit_content = true
 scroll_active = false
 
 [node name="Button" type="Button" parent="Margin/Column/Panel/VBox"]
-custom_minimum_size = Vector2(170, 46)
+custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 24

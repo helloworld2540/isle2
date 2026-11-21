@@ -44,7 +44,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Panel" type="PanelContainer" parent="Center"]
-custom_minimum_size = Vector2(620, 0)
+custom_minimum_size = Vector2(720, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBox_tutorial")
 
@@ -59,7 +59,7 @@ theme_override_font_sizes/font_size = 26
 text = "Welcome to Isle 2"
 
 [node name="BodyScroll" type="ScrollContainer" parent="Center/Panel/VBox"]
-custom_minimum_size = Vector2(576, 400)
+custom_minimum_size = Vector2(660, 460)
 layout_mode = 2
 horizontal_scroll_mode = 0
 overlay_scroll_horizontal = false
@@ -75,7 +75,7 @@ scroll_active = false
 fit_content = true
 
 [node name="Button" type="Button" parent="Center/Panel/VBox"]
-custom_minimum_size = Vector2(210, 46)
+custom_minimum_size = Vector2(250, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 24

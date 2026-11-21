@@ -17,6 +17,7 @@ extends SceneTree
 ## Loaded at runtime: autoload globals (GameState, TideReport, …) are not
 ## resolvable at compile time inside a `-s` main-loop script, so preloading a
 ## scene or script that reads them fails the harness build.
+## However, we can instantiate them manually for the test context.
 const SHOP_SCENE_PATH := "res://scenes/shop.tscn"
 const LEDGER_PATH := "res://scripts/shop_ledger.gd"
 
@@ -31,8 +32,9 @@ func _initialize() -> void:
 		quit(0)
 		return
 
-	ShopLedger = load(LEDGER_PATH) as GDScript
-	var gs: Node = root.get_node("GameState")
+	## Access GameState autoload (registered in project.godot [autoload]).
+	## In -s mode, use Engine.get_singleton() if the name isn't auto-resolved.
+	var gs = Engine.get_singleton("GameState")
 	gs.call("reset")
 	gs.set("money", 0)
 	gs.set("lifetime_earnings", 0)

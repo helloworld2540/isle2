@@ -181,86 +181,6 @@ shadow_color = Color(0, 0, 0, 0.45)
 shadow_size = 12
 shadow_offset = Vector2(0, 4)
 
-[sub_resource type="StyleBoxFlat" id="StyleBox_section"]
-content_margin_left = 12.0
-content_margin_top = 12.0
-content_margin_right = 12.0
-content_margin_bottom = 12.0
-bg_color = Color(0.085, 0.12, 0.175, 0.55)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.4, 0.7, 0.9, 0.22)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-
-[sub_resource type="StyleBoxFlat" id="StyleBox_upgrade"]
-content_margin_left = 16.0
-content_margin_top = 0.0
-content_margin_right = 16.0
-content_margin_bottom = 0.0
-bg_color = Color(0.1, 0.15, 0.21, 0.85)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.4, 0.7, 0.9, 0.3)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
-[sub_resource type="StyleBoxFlat" id="StyleBox_upgrade_pressed"]
-content_margin_left = 16.0
-content_margin_top = 0.0
-content_margin_right = 16.0
-content_margin_bottom = 0.0
-bg_color = Color(0.16, 0.24, 0.34, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.72, 0.93, 1, 0.9)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
-[sub_resource type="StyleBoxFlat" id="StyleBox_upgrade_hover"]
-content_margin_left = 16.0
-content_margin_top = 0.0
-content_margin_right = 16.0
-content_margin_bottom = 0.0
-bg_color = Color(0.13, 0.2, 0.28, 0.95)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.55, 0.85, 1, 0.8)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
-[sub_resource type="StyleBoxFlat" id="StyleBox_upgrade_disabled"]
-content_margin_left = 16.0
-content_margin_top = 0.0
-content_margin_right = 16.0
-content_margin_bottom = 0.0
-bg_color = Color(0.06, 0.08, 0.12, 0.5)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.35, 0.45, 0.55, 0.18)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
 [sub_resource type="StyleBoxFlat" id="StyleBox_track"]
 content_margin_left = 4.0
 content_margin_top = 4.0
@@ -330,6 +250,22 @@ corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_section"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(0.085, 0.12, 0.175, 0.55)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.7, 0.9, 0.22)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_gold"]
 content_margin_left = 16.0
@@ -503,8 +439,8 @@ station_id = "shop"
 [node name="WorldNPC_Mara" parent="NPCs" unique_id=1021890887 instance=ExtResource("9_npc")]
 position = Vector2(-460, -765)
 npc_id = "npc_mara"
+dialogue_lines = ["Hi! I'm Mara, island caretaker.", "Pick up trash, bring it back — I'll reward it."]
 portrait = ExtResource("20_mara")
-dialogue_lines = Array[String](["Hi! I'm Mara, island caretaker.", "Pick up trash, bring it back — I'll reward it."])
 repeat_dialogue_lines = Array[String](["Welcome back! Got any Polyethylene to spare?", "Oda's clock story again? Wheels, tides, the whole almanac. It is a calendar, not a chronometer.", "They say someone watches from the far point. Nobody has caught them yet."])
 quest_complete_lines = Array[String](["You're a true island hero!"])
 tier2_lines = Array[String](["Tier 2: bring 5 Glass for a Polypropylene bounty."])
@@ -527,12 +463,14 @@ quest2_reward_mat = "Polypropylene"
 quest2_reward_amount = 8
 
 [node name="WorldNPC_Tom" parent="NPCs" unique_id=1692442811 instance=ExtResource("9_npc")]
-position = Vector2(-618, -1332)
+position = Vector2(-1320, -1253)
 npc_id = "npc_tom"
 npc_name = "Tom"
+dialogue_lines = ["The reef is full of junk.", "Bring it back — I'll take it."]
+reward_trash = 4
+reward_mat = "Nylon"
 npc_sprite_index = 2
 portrait = ExtResource("21_tom")
-dialogue_lines = Array[String](["The reef is full of junk.", "Bring it back — I'll take it."])
 repeat_dialogue_lines = Array[String](["Any Nylon for the shop today?", "Wheels, tides, a brass heart. Fine. My grandfather said the island ticks, too. I never corrected him.", "They say someone watches from the far point — Oda sees him. I keep to my fishing."])
 quest_complete_lines = Array[String](["Sea life thanks you!"])
 tier2_lines = Array[String](["Tier 2: 6 Polypropylene for 8 Polyethylene."])
@@ -546,8 +484,6 @@ milestone_beats = {
 "tide_messages": "You read my note? I never sign them properly — glad it helped. The fish came back; that is all that matters.",
 "whole_sea": "Eight bottles, and not one cracked. I would not have believed it if I had not seen your bag. The sea kept writing; you kept reading."
 }
-reward_trash = 4
-reward_mat = "Nylon"
 quest_material = "Nylon"
 quest_amount = 6
 quest_reward_mat = "Polypropylene"
@@ -560,9 +496,11 @@ quest2_reward_amount = 8
 position = Vector2(-292, 861)
 npc_id = "npc_nina"
 npc_name = "Nina"
+dialogue_lines = ["I run the stand by the shop.", "Sell me trash — I pay a bonus."]
+reward_trash = 5
+reward_mat = "Nylon"
 npc_sprite_index = 3
 portrait = ExtResource("22_nina")
-dialogue_lines = Array[String](["I run the stand by the shop.", "Sell me trash — I pay a bonus."])
 repeat_dialogue_lines = Array[String](["Got stock for the store today?", "A clock you cannot sell shelf space in is just furniture, love. Although it does tick in four time signatures."])
 quest_complete_lines = Array[String](["Shop's stocked! Thanks."])
 tier2_lines = Array[String](["Tier 2: 8 Polyethylene for 8 Polypropylene."])
@@ -574,8 +512,6 @@ milestone_beats = {
 "tide_messages": "I heard you found the letters. Every single one. Somewhere up there the glass gardens are catching the light just for you.",
 "whole_sea": "Eight notes on file. My letters finally make sense in the sequence. Safe flying to you — you read the route like I never could."
 }
-reward_trash = 5
-reward_mat = "Nylon"
 quest_material = "Glass"
 quest_amount = 6
 quest_reward_mat = "Polypropylene"
@@ -589,9 +525,11 @@ quest2_reward_amount = 8
 position = Vector2(1019, -1164)
 npc_id = "npc_kai"
 npc_name = "Kai"
+dialogue_lines = ["I run the shop.", "Bring me Glass — I'll stock the shelves."]
+reward_trash = 3
+reward_mat = "Polypropylene"
 npc_sprite_index = 4
 portrait = ExtResource("23_kai")
-dialogue_lines = Array[String](["I run the shop.", "Bring me Glass — I'll stock the shelves."])
 repeat_dialogue_lines = Array[String](["Any Glass for the shop today?", "Oda claims the island is a disassembled clock. Marketing opportunity, if the sea ever wants shelf space.", "I do not stock the far point. Never a good day out there."])
 quest_complete_lines = Array[String](["Shelves fully stocked. Thank you!"])
 tier2_lines = Array[String](["Tier 2: 8 Polyethylene for 4 Glass."])
@@ -608,8 +546,6 @@ milestone_beats = {
 "whispers": "Corl whispered you seven days of weather and you paid for every one. I have never understood him. The till never turns him down, though.",
 "whole_sea": "All eight in the book. Best customer the tide ever had. Tell the sea it can stop writing for a while — you have read it all."
 }
-reward_trash = 3
-reward_mat = "Polypropylene"
 quest_material = "Glass"
 quest_amount = 5
 quest_reward_mat = "Polypropylene"
@@ -620,11 +556,12 @@ quest2_reward_mat = "Glass"
 quest2_reward_amount = 4
 
 [node name="WorldNPC_Oda" parent="NPCs" unique_id=900000026 instance=ExtResource("9_npc")]
-position = Vector2(-560, -725)
+position = Vector2(-1025, -403)
 npc_id = "npc_oda"
 npc_name = "Oda"
+dialogue_lines = ["Oda. I keep the tide almanac.", "Four moods, four days — the order shows up when it shows up.", "Watch the water; it always tells the truth. Eventually."]
+reward_trash = 0
 npc_sprite_index = 2
-dialogue_lines = Array[String](["Oda. I keep the tide almanac.", "Four moods, four days — the order shows up when it shows up.", "Watch the water; it always tells the truth. Eventually."])
 repeat_dialogue_lines = Array[String](["The almanac's a little fatter every week. Come see what today's sea has decided.", "Inside cover says the island was a brass clock once — four wheels, four tides. Kai calls it bad inventory timing. I call it history."])
 flavour_variants = Array[String](["Four tides, four warnings.", "The almanac's a little fatter every week.", "Slack water gifts the patient."])
 ambient_bubbles = Array[String](["*scribbling in a salt-stained book*", "*holds a hand up to the wind*"])
@@ -644,7 +581,6 @@ milestone_beats = {
 "whole_sea": "Every bottle the sea ever sent, and you kept them all. The water talks, love — most never listen. You listened to the very end.",
 "year_keeper": "A full year of tides. There is no greater gift a keeper can give me."
 }
-reward_trash = 0
 
 [node name="BottleTide" parent="." unique_id=618507198 instance=ExtResource("24_bottle")]
 position = Vector2(-447, -1661)
@@ -876,7 +812,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Card" type="PanelContainer" parent="Menu/MenuPanel/Center" unique_id=410065451]
-custom_minimum_size = Vector2(880, 0)
+custom_minimum_size = Vector2(960, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBox_card")
 
@@ -915,7 +851,6 @@ text = "Move 0 | Range 0 | -"
 layout_mode = 2
 theme_override_colors/font_color = Color(0.68, 0.9, 0.95, 0.95)
 theme_override_font_sizes/font_size = 24
-
 
 [node name="ProgressBox" type="HBoxContainer" parent="Menu/MenuPanel/Center/Card/HBoxContainer/Infobox" unique_id=410065442]
 layout_mode = 2

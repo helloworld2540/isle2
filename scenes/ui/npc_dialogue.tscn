@@ -44,7 +44,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Panel" type="PanelContainer" parent="Center"]
-custom_minimum_size = Vector2(520, 0)
+custom_minimum_size = Vector2(620, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBox_dialogue")
 
@@ -71,7 +71,7 @@ theme_override_font_sizes/font_size = 26
 text = "NPC"
 
 [node name="LinesScroll" type="ScrollContainer" parent="Center/Panel/VBox"]
-custom_minimum_size = Vector2(470, 200)
+custom_minimum_size = Vector2(540, 240)
 layout_mode = 2
 size_flags_horizontal = 3
 horizontal_scroll_mode = 0
@@ -83,7 +83,7 @@ script = ExtResource("2_drag")
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_minimum_size = Vector2(452, 0)
+custom_minimum_size = Vector2(520, 0)
 # Grow to the full text height and let the outer DragScrollContainer own the
 # scroll. Without fit_content the label keeps the 200 px viewport height and
 # scrolls internally, so the container has zero range and dragging does
@@ -109,7 +109,7 @@ text = ""
 autowrap_mode = 3
 
 [node name="TurnIn" type="Button" parent="Center/Panel/VBox/QuestBox"]
-custom_minimum_size = Vector2(200, 44)
+custom_minimum_size = Vector2(240, 48)
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Turn in"
@@ -121,7 +121,7 @@ text = ""
 autowrap_mode = 3
 
 [node name="OkButton" type="Button" parent="Center/Panel/VBox"]
-custom_minimum_size = Vector2(120, 44)
+custom_minimum_size = Vector2(150, 48)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "OK"

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bkp8uucudicqi"
-path="res://.godot/imported/npc3.png-e8c33604235bd069a26e22d7190b8797.ctex"
+uid="uid://doa2i5n3nvyhv"
+path="res://.godot/imported/wm_tom.png-b45c063b5a34d11ed346aa411dbdba98.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/wm_npc/npc3.png"
-dest_files=["res://.godot/imported/npc3.png-e8c33604235bd069a26e22d7190b8797.ctex"]
+source_file="res://sprites/wm_npc/wm_tom.png"
+dest_files=["res://.godot/imported/wm_tom.png-b45c063b5a34d11ed346aa411dbdba98.ctex"]
 
 [params]
 

@@ -1,7 +1,7 @@
 extends Control
 class_name MainMenu
 
-## The front door: New Save / Load Save / Quit, the island vista with
+## The front door: New Save / Load Island / Quit, the island vista with
 ## ambient motes, version stamp and the keeper's one-line motto.
 
 @onready var new_save_button: Button = $LeftColumn/Buttons/NewSaveButton
@@ -168,7 +168,8 @@ func _start_fresh_save() -> void:
 func _on_load_save_pressed() -> void:
 	if not SaveManager.has_save():
 		return
-	# More than one island: open the picker so the player chooses which one.
+	# The island picker is also where the keeper picks between owned islands,
+	# so this one button both loads and selects. A single island loads directly.
 	if slot_picker and SaveManager.list_slots().size() > 1:
 		AudioManager.play_sfx("open")
 		slot_picker.present()

@@ -7,17 +7,24 @@ extends RefCounted
 ## implementation.
 ##
 ## `npc` is intentionally untyped: the callers pass a WorldNPC, and tests can
-## pass any object exposing the same fields. Bag facts come from GameState, the
-## same autoload the route advisor reads.
+## pass any object exposing the same fields. Bag facts come from GameState,
+## accessed via the `state` parameter when provided, or from the scene tree
+## root when running in a full game context.
+##
+## When running as a tool script (-s), callers should pass the GameState
+## instance via the `state` parameter, e.g.: NpcQuests.gift_fits(state, "Polyethylene", 5)
+
+
+const Inventory := preload("res://scripts/inventory.gd")
 
 
 ## The tier this NPC is currently offering, or 0 when the line is finished.
 static func active_tier(npc) -> int:
-	if npc == null or not npc._visited_flag:
+	if npc == null or not npc.get("_visited_flag", false):
 		return 0
-	if not npc._quest_done and npc.quest_amount > 0:
+	if not npc.get("_quest_done", false) and int(npc.get("quest_amount", 0)) > 0:
 		return 1
-	if npc._quest_done and not npc._quest2_done and npc.quest2_amount > 0:
+	if npc.get("_quest_done", false) and not npc.get("_quest2_done", false) and int(npc.get("quest2_amount", 0)) > 0:
 		return 2
 	return 0
 
@@ -29,41 +36,101 @@ static func config(npc, tier: int) -> Dictionary:
 		return {}
 	match tier:
 		1:
+			var mat = npc.get("quest_material")
+			if mat == null:
+				mat = ""
+			var amt = npc.get("quest_amount")
+			if amt == null:
+				amt = 0
+			var rw_mat = npc.get("quest_reward_mat")
+			if rw_mat == null:
+				rw_mat = ""
+			var rw_amt = npc.get("quest_reward_amount")
+			if rw_amt == null:
+				rw_amt = 0
 			return {
-				"material": npc.quest_material,
-				"amount": npc.quest_amount,
-				"reward_material": npc.quest_reward_mat,
-				"reward_amount": npc.quest_reward_amount,
+				"material": mat,
+				"amount": int(amt),
+				"reward_material": rw_mat,
+				"reward_amount": int(rw_amt),
 			}
 		2:
+			var mat = npc.get("quest2_material")
+			if mat == null:
+				mat = ""
+			var amt = npc.get("quest2_amount")
+			if amt == null:
+				amt = 0
+			var rw_mat = npc.get("quest2_reward_mat")
+			if rw_mat == null:
+				rw_mat = ""
+			var rw_amt = npc.get("quest2_reward_amount")
+			if rw_amt == null:
+				rw_amt = 0
 			return {
-				"material": npc.quest2_material,
-				"amount": npc.quest2_amount,
-				"reward_material": npc.quest2_reward_mat,
-				"reward_amount": npc.quest2_reward_amount,
+				"material": mat,
+				"amount": int(amt),
+				"reward_material": rw_mat,
+				"reward_amount": int(rw_amt),
 			}
 	return {}
 
 
-static func has_items(npc, tier: int) -> bool:
+static func has_items(npc, tier: int, state = null) -> bool:
 	var data := config(npc, tier)
 	if data.is_empty():
 		return false
-	var have := int(GameState.trash_by_type.get(data.get("material", ""), 0))
-	return have >= int(data.get("amount", 0))
+	
+	var gs = state
+	if gs == null:
+		gs = Engine.get_main_loop().root.get_node_or_null("GameState")
+	
+	if gs == null:
+		return false
+		
+	var mat = data.get("material")
+	var amount = data.get("amount")
+	
+	var trash = {}
+	if gs is Dictionary:
+		trash = gs.get("trash_by_type", {})
+	elif gs.has_method("get_trash_by_type"):
+		trash = gs.get_trash_by_type()
+	else:
+		trash = gs.get("trash_by_type")
+		
+	var have := int(trash.get(mat, 0))
+	return have >= amount
 
 
 ## Snapshot for the HUD quest tracker.
-static func entry(npc) -> Dictionary:
+static func entry(npc, state = null) -> Dictionary:
 	var tier := active_tier(npc)
 	if tier == 0:
 		return {}
 	var data := config(npc, tier)
-	var mat := String(data.get("material", ""))
-	var amount := int(data.get("amount", 0))
-	var have := int(GameState.trash_by_type.get(mat, 0))
+	var mat = data.get("material")
+	var amount = data.get("amount")
+	
+	var gs = state
+	if gs == null:
+		gs = Engine.get_main_loop().root.get_node_or_null("GameState")
+	
+	if gs == null:
+		return {}
+		
+	var trash = {}
+	if gs is Dictionary:
+		trash = gs.get("trash_by_type", {})
+	elif gs.has_method("get_trash_by_type"):
+		trash = gs.get_trash_by_type()
+	else:
+		trash = gs.get("trash_by_type")
+		
+	var have := int(trash.get(mat, 0))
+	
 	return {
-		"npc": npc.npc_name,
+		"npc": npc.get("npc_name"),
 		"tier": tier,
 		"material": mat,
 		"amount": amount,
@@ -76,29 +143,74 @@ static func entry(npc) -> Dictionary:
 ## the bag right now. A full bag means the gift is not given this visit; the
 ## player is warned to sell at the shop instead, and the visit stays pending so
 ## the gift can be offered again once the bag has room.
-static func gift_fits(mat: String, amount: int) -> bool:
+static func gift_fits(mat: String, amount: int, state = null) -> bool:
 	if amount <= 0:
 		return true
-	var unit_weight: int = max(1, int(GameState.TRASH_WEIGHTS.get(mat, 1)))
-	return GameState.get_free_capacity() >= amount * unit_weight
+	
+	var gs = state
+	if gs == null:
+		gs = Engine.get_main_loop().root.get_node_or_null("GameState")
+	
+	if gs == null:
+		return true
+		
+	var weights = {}
+	if gs is Dictionary:
+		weights = gs.get("TRASH_WEIGHTS", {})
+	elif gs.has_method("get_trash_weights"):
+		weights = gs.get_trash_weights()
+	else:
+		weights = gs.get("TRASH_WEIGHTS")
+		
+	var unit_weight: int = max(1, int(weights.get(mat, 1)))
+	var free := Inventory.free_space(gs)
+		
+	return free >= amount * unit_weight
 
 
 ## Everything the dialogue needs to decide whether the turn-in button is live:
 ## what is required, what is held, and whether the reward still fits after the
 ## quest items leave the bag.
-static func turn_in(npc, tier: int) -> Dictionary:
+static func turn_in(npc, tier: int, state = null) -> Dictionary:
 	var data := config(npc, tier)
 	if data.is_empty():
 		return {}
 	
-	var mat := String(data.get("material", ""))
-	var amount := int(data.get("amount", 0))
-	var rw_mat := String(data.get("reward_material", ""))
-	var rw_amt := int(data.get("reward_amount", 0))
-	var have := int(GameState.trash_by_type.get(mat, 0))
-	var freed_weight: int = amount * int(GameState.TRASH_WEIGHTS.get(mat, 1))
-	var reward_weight: int = rw_amt * int(GameState.TRASH_WEIGHTS.get(rw_mat, 1))
-	var room_after: int = GameState.get_free_capacity() + freed_weight
+	var gs = state
+	if gs == null:
+		gs = Engine.get_main_loop().root.get_node_or_null("GameState")
+	
+	if gs == null:
+		return {}
+	
+	var mat = data.get("material")
+	var amount = data.get("amount")
+	var rw_mat = data.get("reward_material")
+	var rw_amt = data.get("reward_amount")
+	
+	var weights = {}
+	if gs is Dictionary:
+		weights = gs.get("TRASH_WEIGHTS", {})
+	elif gs.has_method("get_trash_weights"):
+		weights = gs.get_trash_weights()
+	else:
+		weights = gs.get("TRASH_WEIGHTS")
+		
+	var trash = {}
+	if gs is Dictionary:
+		trash = gs.get("trash_by_type", {})
+	elif gs.has_method("get_trash_by_type"):
+		trash = gs.get_trash_by_type()
+	else:
+		trash = gs.get("trash_by_type")
+		
+	var have := int(trash.get(mat, 0))
+	var freed_weight: int = amount * int(weights.get(mat, 1))
+	var reward_weight: int = rw_amt * int(weights.get(rw_mat, 1))
+	var free := Inventory.free_space(gs)
+	
+	var room_after: int = free + freed_weight
+	
 	return {
 		"material": mat,
 		"amount": amount,

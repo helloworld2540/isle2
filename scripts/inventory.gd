@@ -11,17 +11,58 @@ extends RefCounted
 ## fail when a cheap 1 kg unit blocked matching the remaining cost exactly.
 
 static func capacity(state) -> int:
+	if state is Dictionary:
+		var level = state.get("inventory_capacity_level")
+		if level == null:
+			level = 0
+		return 10 + (int(level) * 10)
 	return 10 + (state.inventory_capacity_level * 10)
 
 
 static func weight(state) -> int:
 	var total: int = 0
-	for k in state.trash_by_type.keys():
-		total += int(state.trash_by_type[k]) * int(state.TRASH_WEIGHTS.get(k, 1))
+	var trash = {}
+	var weights = {}
+	if state is Dictionary:
+		trash = state.get("trash_by_type")
+		if trash == null:
+			trash = {}
+		weights = state.get("TRASH_WEIGHTS")
+		if weights == null:
+			weights = {}
+	else:
+		trash = state.get("trash_by_type")
+		if trash == null:
+			trash = {}
+		weights = state.get("TRASH_WEIGHTS")
+		if weights == null:
+			weights = {}
+	for k in trash.keys():
+		var w = weights.get(k)
+		if w == null:
+			w = 1
+		total += int(trash[k]) * int(w)
 	return total
 
 
 static func free_space(state) -> int:
+	if state is Dictionary:
+		var trash = state.get("trash_by_type")
+		if trash == null:
+			trash = {}
+		var weights = state.get("TRASH_WEIGHTS")
+		if weights == null:
+			weights = {}
+		var used := 0
+		for k in trash.keys():
+			var w = weights.get(k)
+			if w == null:
+				w = 1
+			used += int(trash[k]) * int(w)
+		var level = state.get("inventory_capacity_level")
+		if level == null:
+			level = 0
+		return 10 + (int(level) * 10) - used
 	return max(0, capacity(state) - weight(state))
 
 

@@ -152,9 +152,17 @@ func _start_idle_animations() -> void:
 		sp_tween.tween_property(sprite, "position:y", sprite.position.y, 1.05).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
 func _apply_npc_sprite() -> void:
-	var idx := clampi(npc_sprite_index, 1, 4)
-	var path := "res://sprites/wm_npc/npc%d.png" % idx
+	# World-map sprites live in sprites/wm_npc/ and are named after the
+	# islander they depict (wm_mara.png, wm_tom.png, ...), the same naming
+	# language as the dialogue portraits in sprites/npc/ (portrait_mara.png).
+	var path := "res://sprites/wm_npc/wm_%s.png" % npc_id.trim_prefix("npc_")
 	
+	if not ResourceLoader.exists(path) and sprite:
+		# Fallback for the un-named template instance: numeric sprite index
+		# (1 = Mara, 2 = Tom, 3 = Nina, 4 = Kai).
+		var names: Array[String] = ["", "mara", "tom", "nina", "kai"]
+		path = "res://sprites/wm_npc/wm_%s.png" % names[clampi(npc_sprite_index, 1, 4)]
+
 	if ResourceLoader.exists(path) and sprite:
 		sprite.texture = load(path)
 		sprite.centered = true

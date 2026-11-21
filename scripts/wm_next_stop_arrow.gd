@@ -13,7 +13,9 @@ class_name NextStopArrow
 ##
 ## Reduced motion: no bob, no sway — the arrow just points.
 
-@export var y_offset: float = -140.0 ## height above the player (children draw at local origin)
+@export var y_offset: float = -140.0 ## fallback height above the player when motion is reduced
+@export var orbit_radius: float = 110.0
+@export var orbit_speed: float = 1.6 ## radians per second (one lap in ~4s)
 @export var bob_amplitude: float = 4.0
 @export var bob_time: float = 1.15
 @export var arrival_radius: float = 150.0 ## hide the arrow once the keeper is basically at the stop
@@ -33,12 +35,17 @@ const STATION_TO_NAME: Dictionary = {
 var _advice_tick: float = 0.0
 var _station: String = ""
 var _target: Node2D = null
+var _orbit_angle: float = -PI * 0.5
+var _reduce_motion: bool = false
 
 
 func _ready() -> void:
-	position = Vector2(position.x, y_offset)
-	if GameSettings.reduce_motion:
+	_reduce_motion = GameSettings.reduce_motion
+	if _reduce_motion:
+		position = Vector2(0.0, y_offset)
 		return
+	
+	position = Vector2.from_angle(_orbit_angle) * orbit_radius
 	var tw := create_tween().set_loops()
 	tw.tween_property(bob, "position:y", -bob_amplitude, bob_time).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	tw.tween_property(bob, "position:y", bob_amplitude, bob_time).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
@@ -53,6 +60,10 @@ func _process(delta: float) -> void:
 	if _target == null or not is_instance_valid(_target):
 		visible = false
 		return
+
+	if not _reduce_motion:
+		_orbit_angle += orbit_speed * delta
+		position = Vector2.from_angle(_orbit_angle) * orbit_radius
 
 	var to_target := _target.global_position - global_position
 	var distance := to_target.length()

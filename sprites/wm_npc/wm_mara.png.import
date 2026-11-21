@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b6pwda4kyv6rc"
-path="res://.godot/imported/npc4.png-a05b3c72c3a5801edfb06173c70bc542.ctex"
+uid="uid://da2fdawoweoi6"
+path="res://.godot/imported/wm_mara.png-3ef9331fce6428a56b9e8db4c7c7bcf9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/wm_npc/npc4.png"
-dest_files=["res://.godot/imported/npc4.png-a05b3c72c3a5801edfb06173c70bc542.ctex"]
+source_file="res://sprites/wm_npc/wm_mara.png"
+dest_files=["res://.godot/imported/wm_mara.png-3ef9331fce6428a56b9e8db4c7c7bcf9.ctex"]
 
 [params]
 
