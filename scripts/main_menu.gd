@@ -168,13 +168,10 @@ func _start_fresh_save() -> void:
 func _on_load_save_pressed() -> void:
 	if not SaveManager.has_save():
 		return
-	# The island picker is also where the keeper picks between owned islands,
-	# so this one button both loads and selects. A single island loads directly.
-	if slot_picker and SaveManager.list_slots().size() > 1:
+	# Always open the island picker so the keeper can choose or confirm their island.
+	if slot_picker:
 		AudioManager.play_sfx("open")
 		slot_picker.present()
-		return
-	_load_current()
 
 
 func _load_current() -> void:

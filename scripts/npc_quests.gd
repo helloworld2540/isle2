@@ -20,11 +20,13 @@ const Inventory := preload("res://scripts/inventory.gd")
 
 ## The tier this NPC is currently offering, or 0 when the line is finished.
 static func active_tier(npc) -> int:
-	if npc == null or not npc.get("_visited_flag", false):
+	if npc == null or not npc.get("_visited_flag"):
 		return 0
-	if not npc.get("_quest_done", false) and int(npc.get("quest_amount", 0)) > 0:
+	var qd := bool(npc.get("_quest_done") or false)
+	if not qd and int(npc.get("quest_amount") or 0) > 0:
 		return 1
-	if npc.get("_quest_done", false) and not npc.get("_quest2_done", false) and int(npc.get("quest2_amount", 0)) > 0:
+	var qd2 := bool(npc.get("_quest2_done") or false)
+	if qd and not qd2 and int(npc.get("quest2_amount") or 0) > 0:
 		return 2
 	return 0
 

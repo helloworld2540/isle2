@@ -321,7 +321,7 @@ func _show_dialogue(status: String = "", positive: bool = true) -> void:
 		_dialogue.show_status(status, positive)
 	
 	if first_visit:
-		var gift_deferred := reward_trash > 0 and not NpcQuests.gift_fits(reward_mat, reward_trash)
+		var gift_deferred := reward_trash > 0 and not NpcQuests.gift_fits(reward_mat, reward_trash, GameState)
 		if gift_deferred:
 			# The bag cannot hold the gift this visit, so it is not given at all;
 			# the player is warned to sell at the shop instead. The visit flag
