@@ -41,11 +41,14 @@ var _reduce_motion: bool = false
 
 func _ready() -> void:
 	_reduce_motion = GameSettings.reduce_motion
-	position = Vector2(0.0, y_offset)
-	if not _reduce_motion:
-		var tw := create_tween().set_loops()
-		tw.tween_property(bob, "position:y", -bob_amplitude, bob_time).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-		tw.tween_property(bob, "position:y", bob_amplitude, bob_time).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	if _reduce_motion:
+		position = Vector2(0.0, y_offset)
+		return
+	
+	position = Vector2.from_angle(_orbit_angle) * orbit_radius
+	var tw := create_tween().set_loops()
+	tw.tween_property(bob, "position:y", -bob_amplitude, bob_time).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tw.tween_property(bob, "position:y", bob_amplitude, bob_time).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
 
 func _process(delta: float) -> void:
@@ -60,6 +63,12 @@ func _process(delta: float) -> void:
 
 	var to_target := _target.global_position - global_position
 	var distance := to_target.length()
+
+	if not _reduce_motion:
+		# Place the arrow on the side of the player that faces the target,
+		# so a target to the right puts the arrow on the right, etc.
+		var dir := to_target.normalized()
+		position = dir * orbit_radius
 	# Standing at the stop: nothing to point at.
 	visible = distance > arrival_radius
 	if not visible:
