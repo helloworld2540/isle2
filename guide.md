@@ -1,5 +1,7 @@
 # Isle 2 — How to Play
 
+*Guide for version **1.3.0**.*
+
 Welcome to Isle 2. You are the keeper of a small island. Dive the reef, sort the
 haul, sell it at the shop, and keep the shore.
 
@@ -27,6 +29,17 @@ circuit is the reliable earner; bulk sales reward a focused haul over a mixed on
 | Reef Rescue | Drag to steer the drone (momentum matters); ESC or **Return to Map** ends the dive |
 | Shop | **Sell 1 / Sell 5 / Sell All**; **Undo** rewinds a whole sale |
 | Anywhere | ESC closes the current card; ☰ opens the island menu |
+
+## Quick reference
+
+| Question | Answer |
+| --- | --- |
+| Where do I start? | The south dock (Reef Rescue). Follow the trail dots. |
+| What pays best? | A single-material bulk sale (5+ units) on the day that tide's standing order is active. |
+| How big is my bag? | 10 kg, +10 kg per capacity upgrade. |
+| Where do I save? | The island autosaves and saves on **Save & quit**; two rolling backups are kept. |
+| How do I stop the motion? | ☰ → **Reduce motion**. |
+| Where are my badges? | The stats page: compact roll, grouped guide, and the Reef Registry. |
 
 ## Materials
 
@@ -141,6 +154,9 @@ affordable step right after the tour.
 
 The stats page opens with a one-line **Keeper's Journal** — bottles, starfish,
 tides, species, and achievements at a glance.
+
+The catalogue carries achievements n/47 at this version; every badge is browsable
+in the stats page's grouped guide, and the README keeps the full list.
 
 ## The courier (hidden arc)
 

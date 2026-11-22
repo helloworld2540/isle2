@@ -27,7 +27,23 @@ extends SceneTree
 ## reachable. Kept as a list so new collectibles are one word added here.
 const CONTENT_PREFIXES: Array[String] = ["Bottle", "Starfish", "KeeperStar", "FarPointWatcher"]
 
+# ANSI color codes
+const C_RESET := "\u001b[0m"
+const C_BOLD := "\u001b[1m"
+const C_RED := "\u001b[31m"
+const C_GREEN := "\u001b[32m"
+const C_YELLOW := "\u001b[33m"
+const C_BLUE := "\u001b[34m"
+const C_CYAN := "\u001b[36m"
+
+var _fails := 0
+var _passes := 0
+var _skipped := 0
+var _start_time: int = 0
+
 func _initialize() -> void:
+	_start_time = Time.get_ticks_msec()
+	_print_header("Portal Reachability Tests")
 	var scene: Node = load("res://scenes/world.tscn").instantiate()
 	root.add_child(scene)
 	await process_frame
@@ -35,17 +51,15 @@ func _initialize() -> void:
 	var layer: TileMapLayer = scene.get_node_or_null("WorldMap") as TileMapLayer
 	var player: Node2D = scene.get_node_or_null("Player") as Node2D
 	if layer == null or player == null:
-		print("FAIL: WorldMap layer or Player missing")
+		_fail("WorldMap layer or Player missing")
 		_quit(1)
 		return
 
-	var fails := 0
 	var spawn_cell: Vector2i = layer.local_to_map(layer.to_local(player.global_position))
 	if _walkable(layer, spawn_cell):
-		print("ok  spawn cell %s walkable" % spawn_cell)
+		_ok("spawn cell %s walkable" % spawn_cell)
 	else:
-		print("FAIL spawn cell %s NOT walkable" % spawn_cell)
-		fails += 1
+		_fail("spawn cell %s NOT walkable" % spawn_cell)
 
 	for child in scene.get_children():
 		if not String(child.name).begins_with("Portal"):
@@ -54,31 +68,27 @@ func _initialize() -> void:
 			continue
 		var cell: Vector2i = layer.local_to_map(layer.to_local((child as Node2D).global_position))
 		if _walkable(layer, cell) or _has_walkable_neighbour(layer, cell):
-			print("ok  %s at %s reachable" % [child.name, cell])
+			_ok("%s at %s reachable" % [child.name, cell])
 		else:
-			print("FAIL %s at %s has no walkable cell to stand on" % [child.name, cell])
-			fails += 1
+			_fail("%s at %s has no walkable cell to stand on" % [child.name, cell])
 
 	# NPCs: quests/gifts must never be unreachable.
 	var npcs_node: Node = scene.get_node_or_null("NPCs")
 	if npcs_node == null:
-		print("FAIL NPCs group missing")
-		fails += 1
+		_fail("NPCs group missing")
 	else:
 		for npc in npcs_node.get_children():
 			if not npc is Area2D:
 				continue
 			var cell: Vector2i = layer.local_to_map(layer.to_local((npc as Node2D).global_position))
 			if _walkable(layer, cell) or _has_walkable_neighbour(layer, cell):
-				print("ok  NPC %s reachable" % npc.name)
+				_ok("NPC %s reachable" % npc.name)
 			else:
-				print("FAIL NPC %s has no walkable cell to stand on" % npc.name)
-				fails += 1
+				_fail("NPC %s has no walkable cell to stand on" % npc.name)
 
 	# Collectibles: read authored placements from the scene file (their runtime
 	# nodes are freed by the unlock logic before this audit sees the tree).
-	var authored_fails: int = _authored_placement_audit(layer)
-	fails += authored_fails
+	_fails += _authored_placement_audit(layer)
 
 	# BFS from spawn; must be able to reach the reef portal's neighbourhood.
 	var reef: Node2D = null
@@ -86,18 +96,16 @@ func _initialize() -> void:
 		if String(child.name) == "PortalReefRescue":
 			reef = child as Node2D
 	if reef == null:
-		print("FAIL PortalReefRescue missing (children: %s)" % [scene.get_children().map(func(c): return str(c.name))])
-		fails += 1
+		_fail("PortalReefRescue missing (children: %s)" % [scene.get_children().map(func(c): return str(c.name))])
 	else:
 		var reef_cell: Vector2i = layer.local_to_map(layer.to_local(reef.global_position))
 		if _bfs_reaches(layer, spawn_cell, reef_cell):
-			print("ok  BFS path spawn -> reef portal")
+			_ok("BFS path spawn -> reef portal")
 		else:
-			print("FAIL no BFS path from spawn %s to reef cell %s" % [spawn_cell, reef_cell])
-			fails += 1
+			_fail("no BFS path from spawn %s to reef cell %s" % [spawn_cell, reef_cell])
 
-	print("portal_reach_test: %s" % ("PASS" if fails == 0 else "%d failure(s)" % fails))
-	_quit(0 if fails == 0 else 1)
+	_print_summary()
+	_quit(0 if _fails == 0 else 1)
 
 ## Scans world.tscn's source text for authored content nodes and verifies each
 ## one's authored `position` lands on or beside a walkable cell. Returns the
@@ -108,7 +116,7 @@ func _authored_placement_audit(layer: TileMapLayer) -> int:
 	var fails := 0
 	var text: String = FileAccess.get_file_as_string("res://scenes/world.tscn")
 	if text.is_empty():
-		print("FAIL could not read scenes/world.tscn for placement audit")
+		print(C_RED + "✗" + C_RESET + " could not read scenes/world.tscn for placement audit")
 		return 1
 	var name_re := RegEx.create_from_string('^\\[node name="([^"]+)"')
 	var pos_re := RegEx.create_from_string('^position = Vector2\\(([-0-9.]+), ([-0-9.]+)\\)')
@@ -137,12 +145,12 @@ func _authored_placement_audit(layer: TileMapLayer) -> int:
 		var world_pos := Vector2(float(pm.get_string(1)), float(pm.get_string(2)))
 		var cell: Vector2i = layer.local_to_map(layer.to_local(world_pos))
 		if _walkable(layer, cell) or _has_walkable_neighbour(layer, cell):
-			print("ok  %s authored at %s reachable" % [node_name, cell])
+			_ok("%s authored at %s reachable" % [node_name, cell])
 		else:
-			print("FAIL %s authored at %s has no walkable cell to stand on" % [node_name, cell])
+			print(C_RED + "✗" + C_RESET + " " + "%s authored at %s has no walkable cell to stand on" % [node_name, cell])
 			fails += 1
 	if checked == 0:
-		print("FAIL authored placement audit matched 0 content nodes — did the scene format change?")
+		print(C_RED + "✗" + C_RESET + " authored placement audit matched 0 content nodes — did the scene format change?")
 		fails += 1
 	return fails
 
@@ -179,6 +187,36 @@ func _bfs_reaches(layer: TileMapLayer, start: Vector2i, goal: Vector2i) -> bool:
 			if visited.has(goal + dir):
 				return true
 	return found
+
+func _ok(label: String) -> void:
+	_passes += 1
+	print(C_GREEN + "✓" + C_RESET + " " + label)
+
+func _fail(label: String) -> void:
+	_fails += 1
+	print(C_RED + "✗" + C_RESET + " " + label)
+
+func _print_header(title: String) -> void:
+	var line := "═".repeat(title.length() + 4)
+	print(C_CYAN + line + C_RESET)
+	print(C_CYAN + "  " + title + "  " + C_RESET)
+	print(C_CYAN + line + C_RESET)
+	print("")
+
+func _print_summary() -> void:
+	var elapsed := (Time.get_ticks_msec() - _start_time) / 1000.0
+	var total := _passes + _fails + _skipped
+	var line := "─".repeat(50)
+	print("")
+	print(C_CYAN + line + C_RESET)
+	print(C_BOLD + "RESULTS:" + C_RESET + " " + C_GREEN + str(_passes) + C_RESET + "  " + C_RED + "FAILED:" + C_RESET + " " + str(_fails) + "  " + C_YELLOW + "SKIPPED:" + C_RESET + " " + str(_skipped))
+	var time_str := "%0.2f" % elapsed
+	print(C_BOLD + "TOTAL:" + C_RESET + " " + str(total) + "  " + C_BLUE + "TIME:" + C_RESET + " " + time_str + "s")
+	if _fails == 0:
+		print(C_BOLD + "STATUS:" + C_RESET + " " + C_GREEN + "✓ ALL TESTS PASSED" + C_RESET)
+	else:
+		print(C_BOLD + "STATUS:" + C_RESET + " " + C_RED + "✗ " + str(_fails) + " TEST(S) FAILED" + C_RESET)
+	print(C_CYAN + line + C_RESET)
 
 func _quit(code: int) -> void:
 	await process_frame

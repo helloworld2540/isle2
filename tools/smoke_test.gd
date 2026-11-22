@@ -22,8 +22,22 @@ extends SceneTree
 var _paths: Array[String] = []
 var _checked_resources: Dictionary = {}
 var _failures := 0
+var _passes := 0
+var _skipped := 0
+var _start_time: int = 0
+
+# ANSI color codes
+const C_RESET := "\u001b[0m"
+const C_BOLD := "\u001b[1m"
+const C_RED := "\u001b[31m"
+const C_GREEN := "\u001b[32m"
+const C_YELLOW := "\u001b[33m"
+const C_BLUE := "\u001b[34m"
+const C_CYAN := "\u001b[36m"
 
 func _initialize() -> void:
+	_start_time = Time.get_ticks_msec()
+	_print_header("Scene Smoke Tests")
 	_collect("res://scenes")
 	_paths.sort()
 	for p in _paths:
@@ -32,7 +46,7 @@ func _initialize() -> void:
 		_script_check(p)
 	for p in _paths:
 		_instantiate_check(p)
-	print("smoke: %d scene(s), %d failure(s)" % [_paths.size(), _failures])
+	_print_summary()
 	quit(_failures)
 
 func _collect(dir: String) -> void:
@@ -57,7 +71,7 @@ func _link_check(path: String) -> void:
 	_checked_resources[path] = true
 	var text := FileAccess.get_file_as_string(path)
 	if text.is_empty():
-		printerr("[FAIL] unreadable     ", path)
+		printerr(C_RED + "[FAIL] unreadable     " + path + C_RESET)
 		_failures += 1
 		return
 	var re := RegEx.new()
@@ -67,7 +81,7 @@ func _link_check(path: String) -> void:
 		var ref := m.get_string(1)
 		if ref.begins_with("res://"):
 			if not FileAccess.file_exists(ref):
-				printerr("[FAIL] missing      ", ref, " (referenced by ", path, ")")
+				printerr(C_RED + "[FAIL] missing      " + ref + " (referenced by " + path + ")" + C_RESET)
 				_failures += 1
 			elif ref.ends_with(".tres") or ref.ends_with(".res"):
 				_link_check(ref)
@@ -103,23 +117,23 @@ func _script_check(p: String) -> void:
 		# Bypass the .godot compile cache: a stale cached binary can mask an on-disk parse error.
 		var script: Script = ResourceLoader.load(path, "Script", ResourceLoader.CACHE_MODE_IGNORE) as Script
 		if script == null:
-			printerr("[FAIL] script     ", path, " (referenced by ", p, ")")
+			printerr(C_RED + "[FAIL] script     " + path + " (referenced by " + p + ")" + C_RESET)
 			_failures += 1
 
 func _instantiate_check(p: String) -> void:
 	var res = ResourceLoader.load(p, "", ResourceLoader.CACHE_MODE_IGNORE)
 	if res == null:
-		printerr("[FAIL] load       ", p)
+		printerr(C_RED + "[FAIL] load       " + p + C_RESET)
 		_failures += 1
 		return
 	var inst = res.instantiate()
 	if inst == null:
-		printerr("[FAIL] instantiate ", p)
+		printerr(C_RED + "[FAIL] instantiate " + p + C_RESET)
 		_failures += 1
 		return
 	root.add_child(inst)
 	if not is_instance_valid(inst):
-		printerr("[FAIL] ready      ", p)
+		printerr(C_RED + "[FAIL] ready      " + p + C_RESET)
 		_failures += 1
 		return
 	# An inline `script =` on the [node ...] header line is silently dropped by
@@ -128,9 +142,10 @@ func _instantiate_check(p: String) -> void:
 	# the root node must carry one when the scene has a script assigned.
 	var problems := _missing_scripts(p, inst)
 	for missing in problems:
-		printerr("[FAIL] script     ", missing)
+		printerr(C_RED + "[FAIL] script     " + missing + C_RESET)
 		_failures += 1
-	print("[PASS] ", p)
+	print(C_GREEN + "[PASS]" + C_RESET + " " + p)
+	_passes += 1
 	inst.free()
 
 
@@ -199,3 +214,27 @@ func _node_path_from_header(section: String, name: String) -> String:
 	if parent == "." or parent.is_empty():
 		return name
 	return parent + "/" + name
+
+
+func _print_header(title: String) -> void:
+	var line := "═".repeat(title.length() + 4)
+	print(C_CYAN + line + C_RESET)
+	print(C_CYAN + "  " + title + "  " + C_RESET)
+	print(C_CYAN + line + C_RESET)
+	print("")
+
+
+func _print_summary() -> void:
+	var elapsed := (Time.get_ticks_msec() - _start_time) / 1000.0
+	var total := _passes + _failures + _skipped
+	var line := "─".repeat(50)
+	print("")
+	print(C_CYAN + line + C_RESET)
+	print(C_BOLD + "RESULTS:" + C_RESET + " " + C_GREEN + str(_passes) + C_RESET + "  " + C_RED + "FAILED:" + C_RESET + " " + str(_failures) + "  " + C_YELLOW + "SKIPPED:" + C_RESET + " " + str(_skipped))
+	var time_str := "%0.2f" % elapsed
+	print(C_BOLD + "TOTAL:" + C_RESET + " " + str(total) + "  " + C_BLUE + "TIME:" + C_RESET + " " + time_str + "s")
+	if _failures == 0:
+		print(C_BOLD + "STATUS:" + C_RESET + " " + C_GREEN + "✓ ALL TESTS PASSED" + C_RESET)
+	else:
+		print(C_BOLD + "STATUS:" + C_RESET + " " + C_RED + "✗ " + str(_failures) + " TEST(S) FAILED" + C_RESET)
+	print(C_CYAN + line + C_RESET)

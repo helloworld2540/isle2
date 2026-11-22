@@ -4,7 +4,7 @@ Sorted by importance. The overnight loop pulls from the top.
 
 ## High
 - Keep `tools/all_audits.sh` green after every scene/script edit; fix harness drift (e.g. `uid=`-aware regexes) rather than weakening the checks.
-- Web export shell RESOLVED (2026-11-19): preset points at tracked res://web_shell.html; fresh_clone.sh now PASSES end-to-end. Any future custom_html_shell edit must reference a git-tracked file — export/ is gitignored by design.
+- Web export shell RESOLVED (2026-11-22): the preset uses Godot's default HTML shell; the old custom `res://web_shell.html` was removed, along with its fresh-clone checks.
 - Stretch aspect RESOLVED (2026-11-20): the editor rewrites project.godot from its in-memory ProjectSettings on restart/shutdown, so a disk edit alone is never durable. `GameSettings._ready()` now re-asserts `content_scale_aspect = KEEP` at runtime on every platform; the project.godot key stays for editor previews. Covered by tools/README.md's corrected rule.
 - Balance pass DONE (2026-11-19): `tools/pacing_sim.gd` measures the fresh-save loop at ~$32/loop, matching the guide's +$34/+$32/+$32 — no rebalance needed. Re-run the sim after any economy constant moves.
 

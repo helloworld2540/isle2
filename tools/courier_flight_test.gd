@@ -8,15 +8,31 @@ extends SceneTree
 
 const CourierScene := preload("res://scenes/wm_courier.tscn")
 
+# ANSI color codes
+const C_RESET := "\u001b[0m"
+const C_BOLD := "\u001b[1m"
+const C_RED := "\u001b[31m"
+const C_GREEN := "\u001b[32m"
+const C_YELLOW := "\u001b[33m"
+const C_BLUE := "\u001b[34m"
+const C_CYAN := "\u001b[36m"
+
 var _fails := 0
+var _passes := 0
+var _skipped := 0
+var _start_time: int = 0
 var _gs: Node = null
 
 func _initialize() -> void:
+	_start_time = Time.get_ticks_msec()
+	_print_header("Courier Flight Tests")
+
 	# The GameSettings autoload loads with --path . — grab the real one
 	# (fresh XDG profile) and toggle in memory only; never persisted.
 	_gs = get_root().get_node_or_null("GameSettings")
 	if _gs == null:
-		print("courier_flight_test: GameSettings autoload not found — skipping reduced-motion case")
+		print(C_YELLOW + "SKIP:" + C_RESET + " GameSettings autoload not found — skipping reduced-motion case")
+		_skipped += 1
 	elif _gs.get("reduce_motion") == true:
 		_gs.set("reduce_motion", false)
 
@@ -50,13 +66,14 @@ func _initialize() -> void:
 	_check(timer1 >= 30.0 and timer1 <= 65.0, "pass re-arms on the long timer (%.1f)" % timer1)
 
 	# 4) Reduced motion skips the flyby entirely.
-	_gs.set("reduce_motion", true)
-	var still := CourierScene.instantiate()
-	still.set("force_tide_key", "eel_run")
-	get_root().add_child(still)
-	await process_frame
-	_check(not is_instance_valid(still), "courier frees itself under reduced motion")
-	_gs.set("reduce_motion", false)
+	if _gs != null:
+		_gs.set("reduce_motion", true)
+		var still := CourierScene.instantiate()
+		still.set("force_tide_key", "eel_run")
+		get_root().add_child(still)
+		await process_frame
+		_check(not is_instance_valid(still), "courier frees itself under reduced motion")
+		_gs.set("reduce_motion", false)
 
 	# 5) Gratitude: once the whole post is read, the courier comes nearer.
 	var gifted := CourierScene.instantiate()
@@ -74,11 +91,37 @@ func _initialize() -> void:
 	_check(short_timer >= 16.0 and short_timer <= 34.0,
 		"grateful courier re-arms on the short interval (%.1f)" % short_timer)
 
-	print("courier_flight_test: %d failure(s)" % _fails)
+	_print_summary()
 	quit(_fails)
 
 
 func _check(ok: bool, what: String) -> void:
-	print(("  ok  " if ok else "[FAIL] ") + what)
-	if not ok:
+	if ok:
+		_passes += 1
+		print(C_GREEN + "✓" + C_RESET + " " + what)
+	else:
 		_fails += 1
+		print(C_RED + "✗" + C_RESET + " " + what)
+
+func _print_header(title: String) -> void:
+	var line := "═".repeat(title.length() + 4)
+	print(C_CYAN + line + C_RESET)
+	print(C_CYAN + "  " + title + "  " + C_RESET)
+	print(C_CYAN + line + C_RESET)
+	print("")
+
+func _print_summary() -> void:
+	var elapsed := (Time.get_ticks_msec() - _start_time) / 1000.0
+	var total := _passes + _fails + _skipped
+	var line := "─".repeat(50)
+	
+	print("")
+	print(C_CYAN + line + C_RESET)
+	print(C_BOLD + "RESULTS:" + C_RESET + " " + C_GREEN + str(_passes) + C_RESET + "  " + C_RED + "FAILED:" + C_RESET + " " + str(_fails) + "  " + C_YELLOW + "SKIPPED:" + C_RESET + " " + str(_skipped))
+	var time_str := "%0.2f" % elapsed
+	print(C_BOLD + "TOTAL:" + C_RESET + " " + str(total) + "  " + C_BLUE + "TIME:" + C_RESET + " " + time_str + "s")
+	if _fails == 0:
+		print(C_BOLD + "STATUS:" + C_RESET + " " + C_GREEN + "✓ ALL TESTS PASSED" + C_RESET)
+	else:
+		print(C_BOLD + "STATUS:" + C_RESET + " " + C_RED + "✗ " + str(_fails) + " TEST(S) FAILED" + C_RESET)
+	print(C_CYAN + line + C_RESET)

@@ -392,7 +392,7 @@ Export presets live in `export_presets.cfg` (Web, Android, Linux). Export templa
 Godot 4.7.2 are installed. All presets exclude `res://tools/*`, `res://addons/*`, `export/`, `opencode.json`
 and `scenes/world.tscn.bak` from the pack; the repo ships a tiny no-op autoload guard (`scripts/mcp_bridge_guard.gd`) that loads the
 addon only when it is on disk (the addon itself is gitignored and now excluded from every export) — the game runs with zero
-dependencies, and the editor bridge works only in the developer's checkout. Verified headless builds (Nov 2026, re-verified on the dev tree 2026-11-20; Web shell and `build.js` bootstrap confirmed, APK signs clean, pack contents inspected for addon leakage — none):
+dependencies, and the editor bridge works only in the developer's checkout. Verified headless builds (Nov 2026, re-verified on the dev tree 2026-11-22; default Godot HTML shell and `index.js` bootstrap confirmed, APK signs clean, pack contents inspected for addon leakage — none):
 - `godot --headless --export-debug "Linux" export/linux/build.x86_64` — builds and launches with no script errors.
 - `godot --headless --export-debug "Web" export/web/index.html` — builds clean; serve over HTTP(S) with cross-origin-isolation headers for threads.
 - `godot --headless --export-debug "Android" export/android/build.apk` — builds and signs cleanly (no device install from this machine).

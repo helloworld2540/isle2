@@ -12,15 +12,38 @@ extends SceneTree
 ## Run: godot --headless --script tools/reef_registry_test.gd
 
 const FishCatalogScript := preload("res://scripts/fish_catalog.gd")
-const FishScript := preload("res://scripts/rr_fish.gd")
-const StatsMenuScript := preload("res://scripts/stats_menu.gd")
 const AchievementCatalogScript := preload("res://scripts/achievement_catalog.gd")
-const StatsScene := preload("res://scenes/stats_menu.tscn")
+
+# Loaded at runtime, not preload: in a `--script` main loop, scripts (or scenes
+# they preload) that read autoload singletons (SaveManager, GameSettings,
+# AudioManager) fail to compile while the main script is still being parsed.
+# Once the tree has booted the autoload globals resolve, so defer these loads.
+var FishScript: GDScript
+var StatsMenuScript: GDScript
+var StatsScene: PackedScene
+
+# ANSI color codes
+const C_RESET := "\u001b[0m"
+const C_BOLD := "\u001b[1m"
+const C_RED := "\u001b[31m"
+const C_GREEN := "\u001b[32m"
+const C_YELLOW := "\u001b[33m"
+const C_BLUE := "\u001b[34m"
+const C_CYAN := "\u001b[36m"
 
 var _fails := 0
+var _passes := 0
+var _skipped := 0
+var _start_time: int = 0
 
 
 func _initialize() -> void:
+	_start_time = Time.get_ticks_msec()
+	_print_header("Reef Registry Tests")
+	await process_frame
+	FishScript = load("res://scripts/rr_fish.gd")
+	StatsMenuScript = load("res://scripts/stats_menu.gd")
+	StatsScene = load("res://scenes/stats_menu.tscn")
 	var catalog := FishCatalogScript.ENTRIES
 	_check(catalog.size() >= 6, "catalogue carries at least six species (%d)" % catalog.size())
 
@@ -107,11 +130,38 @@ func _initialize() -> void:
 		_check(AchievementCatalogScript.is_met("reef_registry", gs), "REEF REGISTRY accepts %d/%d species" % [ids.size(), ids.size()])
 		gs.fish_met.assign(saved)
 
-	print("reef_registry_test: %d failure(s)" % _fails)
+	_print_summary()
 	quit(_fails)
 
 
 func _check(ok: bool, what: String) -> void:
-	print(("  ok  " if ok else "[FAIL] ") + what)
-	if not ok:
+	if ok:
+		_passes += 1
+		print(C_GREEN + "✓" + C_RESET + " " + what)
+	else:
 		_fails += 1
+		print(C_RED + "✗" + C_RESET + " " + what)
+
+
+func _print_header(title: String) -> void:
+	var line := "═".repeat(title.length() + 4)
+	print(C_CYAN + line + C_RESET)
+	print(C_CYAN + "  " + title + "  " + C_RESET)
+	print(C_CYAN + line + C_RESET)
+	print("")
+
+
+func _print_summary() -> void:
+	var elapsed := (Time.get_ticks_msec() - _start_time) / 1000.0
+	var total := _passes + _fails + _skipped
+	var line := "─".repeat(50)
+	print("")
+	print(C_CYAN + line + C_RESET)
+	print(C_BOLD + "RESULTS:" + C_RESET + " " + C_GREEN + str(_passes) + C_RESET + "  " + C_RED + "FAILED:" + C_RESET + " " + str(_fails) + "  " + C_YELLOW + "SKIPPED:" + C_RESET + " " + str(_skipped))
+	var time_str := "%0.2f" % elapsed
+	print(C_BOLD + "TOTAL:" + C_RESET + " " + str(total) + "  " + C_BLUE + "TIME:" + C_RESET + " " + time_str + "s")
+	if _fails == 0:
+		print(C_BOLD + "STATUS:" + C_RESET + " " + C_GREEN + "✓ ALL TESTS PASSED" + C_RESET)
+	else:
+		print(C_BOLD + "STATUS:" + C_RESET + " " + C_RED + "✗ " + str(_fails) + " TEST(S) FAILED" + C_RESET)
+	print(C_CYAN + line + C_RESET)

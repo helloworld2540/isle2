@@ -28,7 +28,7 @@ unfinished TODO, build, test through real scenes, update the docs, commit.
 
 ## Completed
 - [x] Created progress.md.
-- [x] Web export shell points at git-tracked res://web_shell.html (fresh_clone PASS).
+- [x] Web export uses Godot's default HTML shell (custom `res://web_shell.html` removed).
 - [x] `tools/all_audits.sh` extended with export_preset/orphan/reference/achievement gates.
 - [x] Save writes atomic (temp + rename) with .bak/.bak2 rotation; multi-slot isolation.
 - [x] Stretch aspect durable at runtime via GameSettings (editor cannot strip it).

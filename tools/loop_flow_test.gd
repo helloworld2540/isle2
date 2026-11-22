@@ -17,16 +17,33 @@ extends SceneTree
 const WORLD := "res://scenes/world.tscn"
 const REEF := "res://scenes/reef_rescue.tscn"
 const UPCYCLE := "res://scenes/upcycle.tscn"
+const SaveManagerScript := preload("res://scripts/save_manager.gd")
+
+# ANSI color codes
+const C_RESET := "\u001b[0m"
+const C_BOLD := "\u001b[1m"
+const C_RED := "\u001b[31m"
+const C_GREEN := "\u001b[32m"
+const C_YELLOW := "\u001b[33m"
+const C_BLUE := "\u001b[34m"
+const C_CYAN := "\u001b[36m"
 
 var _fails := 0
+var _passes := 0
+var _skipped := 0
+var _start_time: int = 0
 
 func _initialize() -> void:
+	_start_time = Time.get_ticks_msec()
+	_print_header("Island Loop Flow Tests")
+
 	await process_frame
-	var slot_dir := ProjectSettings.globalize_path("user://slots")
-	if DirAccess.dir_exists_absolute(slot_dir) and not DirAccess.get_files_at(slot_dir).is_empty():
-		print("SKIP: player slots present at %s, not touching them" % slot_dir)
-		quit(0)
-		return
+	_wipe_slots()
+	
+	# Reset GameState to ensure clean in-memory state
+	var gs_reset: Node = root.get_node("GameState")
+	if gs_reset and gs_reset.has_method("reset"):
+		gs_reset.call("reset")
 
 	# --- World boots as the managed current scene (not a side-attached node),
 	# so SceneTransition's change_scene_to_file has a real scene to replace.
@@ -160,19 +177,57 @@ func _find_child_named(parent: Node, wanted: String) -> Node:
 
 func _check(condition: bool, label: String) -> void:
 	if condition:
-		print("ok  %s" % label)
+		_passes += 1
+		print(C_GREEN + "✓" + C_RESET + " " + label)
 	else:
-		print("FAIL %s" % label)
 		_fails += 1
+		print(C_RED + "✗" + C_RESET + " " + label)
 
 func _ok(label: String) -> void:
-	print("ok  %s" % label)
+	_passes += 1
+	print(C_GREEN + "✓" + C_RESET + " " + label)
 
 func _fail(label: String) -> void:
-	print("FAIL %s" % label)
 	_fails += 1
+	print(C_RED + "✗" + C_RESET + " " + label)
 
 func _finish() -> void:
-	print("loop_flow_test: %s" % ("PASS" if _fails == 0 else "%d failure(s)" % _fails))
+	_print_summary()
 	await process_frame
 	quit(0 if _fails == 0 else 1)
+
+func _print_header(title: String) -> void:
+	var line := "═".repeat(title.length() + 4)
+	print(C_CYAN + line + C_RESET)
+	print(C_CYAN + "  " + title + "  " + C_RESET)
+	print(C_CYAN + line + C_RESET)
+	print("")
+
+func _print_summary() -> void:
+	var elapsed := (Time.get_ticks_msec() - _start_time) / 1000.0
+	var total := _passes + _fails + _skipped
+	var line := "─".repeat(50)
+	
+	print("")
+	print(C_CYAN + line + C_RESET)
+	print(C_BOLD + "RESULTS:" + C_RESET + " " + C_GREEN + str(_passes) + C_RESET + "  " + C_RED + "FAILED:" + C_RESET + " " + str(_fails) + "  " + C_YELLOW + "SKIPPED:" + C_RESET + " " + str(_skipped))
+	var time_str := "%0.2f" % elapsed
+	print(C_BOLD + "TOTAL:" + C_RESET + " " + str(total) + "  " + C_BLUE + "TIME:" + C_RESET + " " + time_str + "s")
+	if _fails == 0:
+		print(C_BOLD + "STATUS:" + C_RESET + " " + C_GREEN + "✓ ALL TESTS PASSED" + C_RESET)
+	else:
+		print(C_BOLD + "STATUS:" + C_RESET + " " + C_RED + "✗ " + str(_fails) + " TEST(S) FAILED" + C_RESET)
+	print(C_CYAN + line + C_RESET)
+
+func _wipe_slots() -> void:
+	var slot_dir_abs := ProjectSettings.globalize_path(SaveManagerScript.SLOT_DIR)
+	var root_dir := DirAccess.open(slot_dir_abs)
+	if root_dir:
+		for sub in root_dir.get_directories():
+			var path := "%s/%s" % [slot_dir_abs, sub]
+			var d := DirAccess.open(path)
+			if d:
+				for f in d.get_files():
+					DirAccess.remove_absolute("%s/%s" % [path, f])
+			DirAccess.remove_absolute(path)
+	DirAccess.remove_absolute(slot_dir_abs)
