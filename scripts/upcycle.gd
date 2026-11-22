@@ -362,7 +362,7 @@ func _pick_up_item(target: Node2D) -> void:
 	var parent := target.get_parent()
 	if parent is PathFollow2D:
 		var old_gpos := target.global_position
-		target.reparent(player if player else self)
+		target.reparent(self)
 		target.global_position = old_gpos
 		parent.queue_free()
 		
@@ -465,7 +465,7 @@ func _get_valid_interaction_target() -> Node2D:
 				
 				var item_grid := _snap(item.global_position)
 				var diff := (item_grid - player_grid).abs()
-				if diff.x <= grid_size and diff.y <= grid_size:
+				if diff.x <= grid_size or diff.y <= grid_size:
 					var d := item.global_position.distance_to(player.global_position)
 					if d < best_dist:
 						best_dist = d
@@ -475,7 +475,7 @@ func _get_valid_interaction_target() -> Node2D:
 			for bin in bins.get_children():
 				var bin_grid := _snap(bin.global_position)
 				var diff := (bin_grid - player_grid).abs()
-				if diff.x <= grid_size and diff.y <= grid_size:
+				if diff.x <= grid_size or diff.y <= grid_size:
 					var d: float = bin.global_position.distance_to(player.global_position)
 					if d < best_dist:
 						best_dist = d
@@ -497,7 +497,7 @@ func _find_deposit_bin(item: Node2D) -> Node2D:
 		# Only target the bin when the player is grid-adjacent to it
 		var bin_grid := _snap(bin.global_position)
 		var diff := (bin_grid - player_grid).abs()
-		if diff.x <= grid_size and diff.y <= grid_size:
+		if diff.x <= grid_size or diff.y <= grid_size:
 			var d: float = bin.global_position.distance_to(player.global_position)
 			if d < best_dist:
 				best_dist = d
