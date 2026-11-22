@@ -304,17 +304,23 @@ func burn_item(item: Node2D) -> void:
 
 # --- Input & Interaction ---
 
+var _input_handled_frame: int = -1
+
 func _input(event: InputEvent) -> void:
 	if not (event is InputEventScreenTouch or event is InputEventMouseButton): return
-	
+	# Mobile can emit both a touch and an emulated mouse event for one tap;
+	# only process the first one per frame to avoid double-interact.
+	if Engine.get_process_frames() == _input_handled_frame:
+		return
 	if event.pressed:
 		drag_start_pos = event.position
+		return
+	_input_handled_frame = Engine.get_process_frames()
+	var drag_vector: Vector2 = event.position - drag_start_pos
+	if drag_vector.length() < min_swipe_distance:
+		_interact()
 	else:
-		var drag_vector: Vector2 = event.position - drag_start_pos
-		if drag_vector.length() < min_swipe_distance:
-			_interact()
-		else:
-			_handle_swipe_movement(drag_vector)
+		_handle_swipe_movement(drag_vector)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
@@ -356,7 +362,7 @@ func _pick_up_item(target: Node2D) -> void:
 	var parent := target.get_parent()
 	if parent is PathFollow2D:
 		var old_gpos := target.global_position
-		target.reparent(self)
+		target.reparent(player if player else self)
 		target.global_position = old_gpos
 		parent.queue_free()
 		
@@ -563,7 +569,7 @@ func _update_arrow(item: Node2D, bin: Node2D) -> void:
 	var to_pos: Vector2 = bin.global_position
 	
 	arrow.global_position = from_pos + (to_pos - from_pos).normalized() * min(grid_size * 1.5, from_pos.distance_to(to_pos) * 0.6)
-	arrow.rotation = (to_pos - from_pos).angle() - PI / 2.0
+	arrow.rotation = (to_pos - from_pos).angle() + PI / 2.0
 
 func _hide_arrow() -> void:
 	if arrow: arrow.visible = false

@@ -315,8 +315,8 @@ text = "Return to Map"
 [node name="Arrow" type="Polygon2D" parent="." unique_id=2131461370]
 visible = false
 z_index = 20
-color = Color(1, 0.85, 0.3, 0.9)
-polygon = PackedVector2Array(0, 12, 6, 6, -6, 6)
+color = Color(1, 0.84, 0.35, 0.95)
+polygon = PackedVector2Array(-19, 17, 0, -17, 19, 17, 0, 8)
 
 [node name="MinigameIntro" parent="." instance=ExtResource("13_intro")]
 intro_title = "Upcycle Sorting"
