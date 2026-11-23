@@ -38,9 +38,6 @@ animations = [{
 radius = 29.73007
 height = 147.9086
 
-[sub_resource type="SystemFont" id="SystemFont_aq0s6"]
-subpixel_positioning = 0
-
 [sub_resource type="StyleBoxFlat" id="StyleBox_gameover"]
 content_margin_left = 24.0
 content_margin_top = 22.0
@@ -112,33 +109,28 @@ theme_override_constants/separation = 2
 
 [node name="GarbageLabel" type="Label" parent="UI/HUDStats" unique_id=1010]
 layout_mode = 2
-theme_override_fonts/font = SubResource("SystemFont_aq0s6")
 theme_override_font_sizes/font_size = 24
 text = "Garbage collected (kg): 0"
 
 [node name="FishLabel" type="Label" parent="UI/HUDStats" unique_id=1012]
 layout_mode = 2
-theme_override_fonts/font = SubResource("SystemFont_aq0s6")
 theme_override_font_sizes/font_size = 24
 text = "Fish released: 3"
 
 [node name="DepthLabel" type="Label" parent="UI/HUDStats" unique_id=1678753925]
 layout_mode = 2
-theme_override_fonts/font = SubResource("SystemFont_aq0s6")
 theme_override_font_sizes/font_size = 24
 text = "Depth: 10 m"
 
 [node name="ComboLabel" type="Label" parent="UI/HUDStats" unique_id=1678753930]
 visible = false
 layout_mode = 2
-theme_override_fonts/font = SubResource("SystemFont_aq0s6")
 theme_override_font_sizes/font_size = 26
 theme_override_colors/font_color = Color(1.0, 0.84, 0.35, 1.0)
 text = "COMBO ×2"
 
 [node name="TideLine" type="Label" parent="UI/HUDStats" unique_id=1678753935]
 layout_mode = 2
-theme_override_fonts/font = SubResource("SystemFont_aq0s6")
 theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.68, 0.9, 0.95, 1)
 text = ""

@@ -57,12 +57,28 @@ func _ready() -> void:
 	add_to_group("story_bottle")
 	body_entered.connect(_on_body_entered)
 	
+	# Washed-up bottles don't lie at the same angle. Seed from the bottle's id
+	# and position so the tilt looks random but stays put across world reloads —
+	# the shore shouldn't rearrange itself each visit.
+	if has_node("Sprite2D"):
+		var rng := _tilt_rng()
+		$Sprite2D.rotation = rng.randf_range(0.0, TAU)
+	
 	# Gentle bob so the bottle reads as "something to pick up".
 	if not GameSettings.reduce_motion and has_node("Sprite2D"):
 		var tw := create_tween().set_loops()
 		$Sprite2D.position = Vector2.ZERO
-		tw.tween_property($Sprite2D, "position:y", -6.0, 1.6).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		tw.tween_property($Sprite2D, "position:y", -12.0, 1.6).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 		tw.tween_property($Sprite2D, "position:y", 0.0, 1.6).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+
+
+## A per-bottle RNG seeded from its id and world position, so the resting tilt
+## is varied but deterministic — identical props read as separate finds, yet
+## the shore looks the same every time the keeper returns.
+func _tilt_rng() -> RandomNumberGenerator:
+	var rng := RandomNumberGenerator.new()
+	rng.seed = hash(bottle_id) ^ (int(global_position.x) * 73856093) ^ (int(global_position.y) * 19349663)
+	return rng
 
 
 func _on_body_entered(body: Node) -> void:

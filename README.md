@@ -378,6 +378,13 @@ survives only on Eel Run, hides under reduced motion, re-arms after a pass.
 `python3 tools/achievement_audit.py` — the achievement catalogue, README's
 47-badge count, the guide and the stats page's filter groups all agree.
 
+`python3 tools/unicode_audit.py` — every non-ASCII character authored into a
+scene, script or resource is covered by a bundled fallback font. The desktop
+build masks missing glyphs by borrowing system fonts; the web export has none,
+so a stray ★, ✓, → or ≈ ships as a blank box. This reads the bundled fonts'
+cmaps and fails on anything outside them, and is the regression guard for
+`scripts/emoji_font.gd`'s fallback chain.
+
 `bash tools/all_audits.sh` — the one-command gate: every runtime and static
 harness plus every Python audit, each under its own throwaway profile (no
 player slots are touched, nothing collides, the suite never has to skip).

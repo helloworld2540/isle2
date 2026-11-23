@@ -19,11 +19,30 @@ func _ready() -> void:
 		return
 	add_to_group("starfish")
 	body_entered.connect(_on_body_entered)
-	# Gentle glint so the starfish reads as collectible, not decor.
+	# Gentle idle so the starfish reads as alive in the pool, not a decal: a
+	# soft glint plus a slow rock that carries the light across its arms.
 	if not GameSettings.reduce_motion and has_node("Sprite2D"):
-		var tw := create_tween().set_loops()
-		tw.tween_property($Sprite2D, "modulate", Color(1.12, 1.04, 0.9, 1.0), 0.9).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-		tw.tween_property($Sprite2D, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.9).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		var sprite := $Sprite2D
+		# Rest each starfish at its own angle so the five don't look stamped
+		# from the same mould. Seeded from the id and position so the rock is
+		# varied but the pool looks the same every visit.
+		var rest_angle := _idle_rng().randf_range(-0.35, 0.35)
+		sprite.rotation = rest_angle
+		var glint := create_tween().set_loops()
+		glint.tween_property(sprite, "modulate", Color(0.885, 0.854, 0.854, 1.0), 1.3).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		glint.tween_property(sprite, "modulate", Color(1.0, 1.0, 1.0, 1.0), 1.3).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		var sway := create_tween().set_loops()
+		sway.tween_property(sprite, "rotation", rest_angle + 0.15, 2.6).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		sway.tween_property(sprite, "rotation", rest_angle - 0.15, 2.6).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+
+
+## A per-starfish RNG seeded from its id and world position, so the idle rock is
+## varied but deterministic — the pool looks the same every time the keeper
+## walks past.
+func _idle_rng() -> RandomNumberGenerator:
+	var rng := RandomNumberGenerator.new()
+	rng.seed = hash(starfish_id) ^ (int(global_position.x) * 73856093) ^ (int(global_position.y) * 19349663)
+	return rng
 
 
 func _on_body_entered(body: Node) -> void:

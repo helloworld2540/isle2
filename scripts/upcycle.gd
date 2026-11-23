@@ -89,7 +89,7 @@ var _hud_queue: Node = null
 
 func _ready() -> void:
 	if tide_label:
-		tide_label.text = "≈ Tide hidden — read the water yourself." if GameSettings.hide_tide else "≈ %s" % TideReport.summary()
+		tide_label.text = "≈ The sea keeps its own counsel — and so do you." if GameSettings.hide_tide else "≈ %s" % TideReport.summary()
 	TutorialDirector.scene_started("upcycle")
 	if go_return_btn:
 		go_return_btn.pressed.connect(_game_over_leave)
@@ -97,7 +97,7 @@ func _ready() -> void:
 	_setup_audio()
 	_prev_best = GameState.best_upcycle_score
 	# Stamp the personal stake onto the briefing card while the player is reading it.
-	var intro := get_node("MinigameIntro")
+	var intro := get_node_or_null("MinigameIntro")
 	if intro:
 		var runs := GameState.upcycle_runs
 		if runs > 0 or GameState.best_upcycle_score > 0:
@@ -197,16 +197,30 @@ func _process_carried_item() -> void:
 		return
 		
 	var deposit_bin := _find_deposit_bin(carried_item)
-	carried_item.z_index = 30
+	var target_bin := _find_target_bin(carried_item)
 	
 	var bob := sin(Time.get_ticks_msec() * 0.005) * 2.0
 	if deposit_bin:
-		carried_item.global_position = deposit_bin.global_position + Vector2(0, -34 + bob)
+		_hold_item_on(deposit_bin, Vector2(0, -34 + bob))
 	else:
-		var base_pos = player.global_position if player else carried_item.global_position
-		carried_item.global_position = base_pos + Vector2(0, -22 + bob)
+		_hold_item_on(player if player else self, Vector2(0, -22 + bob))
 		
-	_update_arrow(carried_item, deposit_bin)
+	_update_arrow(carried_item, target_bin)
+
+## Parents the carried item to `anchor` — the player while carrying, or the bin
+## it is being sorted into — and pins it to `anchor`'s top edge, upright in world
+## space. `top_level` decouples the item from the anchor's transform so the bin's
+## rotation (or any player rotation) never tips the item over.
+func _hold_item_on(anchor: Node2D, offset: Vector2) -> void:
+	if not carried_item or not anchor:
+		return
+	if carried_item.get_parent() != anchor:
+		carried_item.reparent(anchor)
+	carried_item.top_level = true
+	carried_item.z_as_relative = false
+	carried_item.z_index = 100
+	carried_item.global_rotation = 0.0
+	carried_item.global_position = anchor.global_position + offset
 
 func _process_highlight() -> void:
 	if not highlight_node: return
@@ -229,7 +243,7 @@ func _setup_bins() -> void:
 			continue
 		
 		bin.set_meta("material", MATERIALS[i])
-		var label: Label = bin.get_node("MaterialLabel")
+		var label: Label = bin.get_node_or_null("MaterialLabel")
 		if label:
 			label.text = str(bin.name)
 			label.modulate = bin.modulate
@@ -287,13 +301,16 @@ func spawn_item() -> void:
 	var bob := item.create_tween().set_loops()
 	bob.tween_property(item, "position:y", item.position.y - 6.0, 0.6).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	bob.tween_property(item, "position:y", item.position.y + 6.0, 0.6).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	# Remembered so the belt bob can be stopped the moment the item is carried;
+	# otherwise it keeps fighting the hand-placed position.
+	item.set_meta("belt_bob_tween", bob)
 
 func burn_item(item: Node2D) -> void:
 	_misses += 1
 	sort_streak = 0
 	AudioManager.play_sfx("sort_bad", 0.88)
 	
-	var ap: AnimationPlayer = item.get_node("AnimationPlayer")
+	var ap: AnimationPlayer = item.get_node_or_null("AnimationPlayer")
 	if ap:
 		ap.play("suck")
 		if not ap.animation_finished.is_connected(item.queue_free):
@@ -304,23 +321,17 @@ func burn_item(item: Node2D) -> void:
 
 # --- Input & Interaction ---
 
-var _input_handled_frame: int = -1
-
 func _input(event: InputEvent) -> void:
 	if not (event is InputEventScreenTouch or event is InputEventMouseButton): return
-	# Mobile can emit both a touch and an emulated mouse event for one tap;
-	# only process the first one per frame to avoid double-interact.
-	if Engine.get_process_frames() == _input_handled_frame:
-		return
+	
 	if event.pressed:
 		drag_start_pos = event.position
-		return
-	_input_handled_frame = Engine.get_process_frames()
-	var drag_vector: Vector2 = event.position - drag_start_pos
-	if drag_vector.length() < min_swipe_distance:
-		_interact()
 	else:
-		_handle_swipe_movement(drag_vector)
+		var drag_vector: Vector2 = event.position - drag_start_pos
+		if drag_vector.length() < min_swipe_distance:
+			_interact()
+		else:
+			_handle_swipe_movement(drag_vector)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
@@ -359,6 +370,7 @@ func _interact() -> void:
 		_drop_off_item(target)
 
 func _pick_up_item(target: Node2D) -> void:
+	_kill_item_tweens(target)
 	var parent := target.get_parent()
 	if parent is PathFollow2D:
 		var old_gpos := target.global_position
@@ -368,7 +380,22 @@ func _pick_up_item(target: Node2D) -> void:
 		
 	carried_item = target
 	target.set_meta("on_belt", false)
+	# The belt's PathFollow2D rotates along the curve; drop that inherited spin
+	# so the item sits upright the instant it is picked up.
+	target.top_level = true
+	target.z_as_relative = false
+	target.z_index = 100
+	target.global_rotation = 0.0
 	AudioManager.play_sfx("pickup")
+
+## Belt items ride a looping bob tween that writes to `position`; stop it on
+## pickup so it stops dragging the carried item away from where we place it.
+func _kill_item_tweens(item: Node2D) -> void:
+	if item.has_meta("belt_bob_tween"):
+		var tween := item.get_meta("belt_bob_tween") as Tween
+		if tween and tween.is_valid():
+			tween.kill()
+		item.remove_meta("belt_bob_tween")
 
 func _drop_off_item(target: Node2D) -> void:
 	var mat: String = str(carried_item.get_meta("material"))
@@ -482,6 +509,26 @@ func _get_valid_interaction_target() -> Node2D:
 						nearest = bin
 						
 	return nearest
+
+## The bin a carried item belongs in, regardless of how far away the player is.
+## Used to drive the pointer arrow so it always shows the correct destination,
+## while _find_deposit_bin keeps the "close enough to drop" rule for the sort.
+func _find_target_bin(item: Node2D) -> Node2D:
+	if not bins or not item: return null
+	
+	var mat: String = str(item.get_meta("material"))
+	var nearest: Node2D = null
+	var best_dist: float = INF
+	
+	for bin in bins.get_children():
+		if str(bin.get_meta("material")) != mat: continue
+		var d: float = bin.global_position.distance_to(item.global_position)
+		if d < best_dist:
+			best_dist = d
+			nearest = bin
+			
+	return nearest
+
 
 func _find_deposit_bin(item: Node2D) -> Node2D:
 	if not bins or not player: return null
