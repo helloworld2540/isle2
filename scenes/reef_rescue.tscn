@@ -1,14 +1,14 @@
 [gd_scene format=3 uid="uid://bcx24d56s64oq"]
 
 [ext_resource type="Script" uid="uid://cvsq0ssl6il4b" path="res://scripts/reef_rescue.gd" id="1_script"]
-[ext_resource type="PackedScene" path="res://scenes/minigame_intro.tscn" id="5_intro"]
 [ext_resource type="Texture2D" uid="uid://bkpw6kp688eb3" path="res://sprites/rr_bg.png" id="2_bg"]
 [ext_resource type="Texture2D" uid="uid://bcjs57177ah7s" path="res://sprites/sub/sub0000.png" id="3_c7240"]
 [ext_resource type="Texture2D" uid="uid://b6kahajhmn7wm" path="res://sprites/sub/sub0001.png" id="4_jq4cv"]
+[ext_resource type="PackedScene" uid="uid://d3jafoh6nal0n" path="res://scenes/minigame_intro.tscn" id="5_intro"]
 [ext_resource type="Texture2D" uid="uid://de8ngchrr1lfc" path="res://sprites/sub/sub0002.png" id="5_m0osg"]
 [ext_resource type="Texture2D" uid="uid://fnckux3mp74w" path="res://sprites/sub/sub0003.png" id="6_nkrut"]
 [ext_resource type="Texture2D" uid="uid://d2loyhabvn7nx" path="res://sprites/sub/sub0004.png" id="7_yhndv"]
-[ext_resource type="Texture2D" path="res://sprites/vignette.png" id="8_vignette"]
+[ext_resource type="Texture2D" uid="uid://xmc2xi68qvt7" path="res://sprites/vignette.png" id="8_vignette"]
 [ext_resource type="PackedScene" path="res://scenes/amb_reef_swell.tscn" id="28_amb"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_nmirg"]
@@ -48,7 +48,7 @@ border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(1.0, 0.45, 0.5, 0.7)
+border_color = Color(1, 0.45, 0.5, 0.7)
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
@@ -58,9 +58,6 @@ shadow_size = 12
 
 [node name="ReefRescue" type="Node2D" unique_id=1000]
 script = ExtResource("1_script")
-MIN_BG_SPEED = null
-MAX_BG_SPEED = null
-SPAWN_INTERVAL = null
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="." unique_id=1001]
 
@@ -125,16 +122,14 @@ text = "Depth: 10 m"
 [node name="ComboLabel" type="Label" parent="UI/HUDStats" unique_id=1678753930]
 visible = false
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84, 0.35, 1)
 theme_override_font_sizes/font_size = 26
-theme_override_colors/font_color = Color(1.0, 0.84, 0.35, 1.0)
 text = "COMBO ×2"
 
 [node name="TideLine" type="Label" parent="UI/HUDStats" unique_id=1678753935]
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.68, 0.9, 0.95, 1)
-text = ""
-
+theme_override_font_sizes/font_size = 24
 
 [node name="LowHealthVignette" type="TextureRect" parent="UI" unique_id=1678753931]
 visible = false
@@ -144,9 +139,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+texture = ExtResource("8_vignette")
 expand_mode = 1
 stretch_mode = 6
-texture = ExtResource("8_vignette")
 
 [node name="ReturnToMapButton" type="Button" parent="UI" unique_id=1020]
 anchors_preset = 1
@@ -214,10 +209,10 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "Return to Map"
 
-[connection signal="body_entered" from="Drone/Area2D" to="." method="_on_area_2d_body_entered"]
-
-[node name="MinigameIntro" parent="." instance=ExtResource("5_intro")]
+[node name="MinigameIntro" parent="." unique_id=1842267532 instance=ExtResource("5_intro")]
 intro_title = "Reef Rescue"
 intro_lines = PackedStringArray("Drag to steer — scoop floating junk.", "Three bumps from fish or jellyfish end the run.", "Junk banks as Reef Debris when you return.", "Golden debris: +1 score. A golden Goldie: +5, no life lost.", "ESC or Return ends the dive early.")
 
-[node name="ReefSwell" parent="." instance=ExtResource("28_amb")]
+[node name="ReefSwell" parent="." unique_id=2009753630 instance=ExtResource("28_amb")]
+
+[connection signal="body_entered" from="Drone/Area2D" to="." method="_on_area_2d_body_entered"]

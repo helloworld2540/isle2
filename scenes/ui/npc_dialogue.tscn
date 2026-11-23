@@ -70,6 +70,14 @@ theme_override_colors/font_color = Color(0.7, 0.92, 1, 1)
 theme_override_font_sizes/font_size = 26
 text = "NPC"
 
+[node name="CloseButton" type="Button" parent="Center/Panel/VBox/Header"]
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 28
+theme_override_colors/font_color = Color(0.9, 0.97, 1, 1)
+text = "X"
+
 [node name="LinesScroll" type="ScrollContainer" parent="Center/Panel/VBox"]
 custom_minimum_size = Vector2(540, 240)
 layout_mode = 2
@@ -127,4 +135,5 @@ size_flags_horizontal = 4
 text = "OK"
 
 [connection signal="pressed" from="Center/Panel/VBox/OkButton" to="." method="_on_ok_pressed"]
+[connection signal="pressed" from="Center/Panel/VBox/Header/CloseButton" to="." method="_on_close_pressed"]
 [connection signal="pressed" from="Center/Panel/VBox/QuestBox/TurnIn" to="." method="_on_turn_in_pressed"]

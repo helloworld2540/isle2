@@ -68,9 +68,11 @@ func _hit_radius(texture_path: String) -> float:
 ## the authored shape when no ink could be measured for the texture.
 func _apply_hitbox(texture_path: String) -> void:
 	if collision_shape and collision_shape.shape is CircleShape2D:
-		var radius := _hit_radius(texture_path)
+		var radius := _hit_radius(texture_path) * 0.6
 		if radius > 0.0:
 			(collision_shape.shape as CircleShape2D).radius = radius
+		else:
+			print("crap could not get size for", texture_path)
 
 const FISH := {
 	"fish_gold.png": 20,
@@ -78,29 +80,23 @@ const FISH := {
 	"fish_nemo.png": 25,
 	"fish_crab.png": 15,
 	"fish_silverfin.png": 18,
-	"fish_star.png": 15
+	"fish_star.png": 8
 }
 
 ## Relative spawn weights — tuned so the Grey Reef Shark is a spice, the Crab
 ## and Goldie are regulars, and the Silverfin is a deliberate, rare sighting.
-## Eel Run calls the courier up: the silver flash rides the fast water. The
-## Starfish is a slow reef-floor dweller, uncommon but easy to spot.
+## Eel Run calls the courier up: the silver flash rides the fast water.
+
 const SPAWN_WEIGHTS := {
 	"fish_gold.png": 20,
 	"fish_greyreefshark.png": 14,
 	"fish_nemo.png": 26,
 	"fish_crab.png": 22,
 	"fish_silverfin.png": 10,
-	"fish_star.png": 14,
+	"fish_star.png": 16,
 }
 ## Silverfin spawn weight while the tide is Eel Run (fish are keyed up).
 const EEL_RUN_SILVERFIN_WEIGHT := 20
-## Speed scale per species. The Starfish is a patient reef-floor dweller: it
-## drifts at a fraction of a fish's pace, so its lane can be read early and
-## stepped around — flavour and a fair hazard at once.
-const DRIFT_SPEED_SCALE := {
-	"fish_star.png": 0.42,
-}
 
 @onready var sprite: Sprite2D = $CharacterBody2D/Sprite2D
 @onready var collision_shape: CollisionShape2D = $CharacterBody2D/CollisionShape2D
@@ -131,12 +127,7 @@ func init_fish() -> void:
 	set_meta("is_fish", true)
 	var texture := _pick_fish_texture()
 	set_meta("species", texture.get_basename())
-	# The Starfish does not swim up from below — it is simply there on the
-	# reef floor. No red wake telegraph: its slow drift is its own warning.
-	if texture == "fish_star.png" and get_parent():
-		var vp := get_viewport_rect().size
-		global_position = Vector2(vp.x * randf_range(0.06, 0.94), vp.y * randf_range(0.25, 0.75))
-	else:
+	if get_parent():
 		var wake := WAKE_SCENE.instantiate()
 		var vp := get_viewport_rect().size
 		if wake and get_parent():
@@ -150,10 +141,9 @@ func init_fish() -> void:
 	var raw_size := randfn(float(FISH.get(texture, 10)), 10.0)
 	var clamped := clampf(raw_size, 1.0, 99.0)
 	size = log(clamped) / log(100.0)
-	# Eel Run speeds the whole school up; the Starfish keeps its own slow pace.
+	# Eel Run speeds the whole school up
 	speed = Vector2(randfn(0.0, 75.0), randfn(1.0, 0.4)) \
-		* TideReport.fish_speed_multiplier() \
-		* float(DRIFT_SPEED_SCALE.get(texture, 1.0))
+		* TideReport.fish_speed_multiplier()
 	if sprite:
 		var tex := _sprite(texture)
 		if tex:

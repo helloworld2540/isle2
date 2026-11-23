@@ -141,7 +141,6 @@ func advance() -> void:
 		if _reveal and _reveal.is_valid():
 			_reveal.kill()
 		_finish_line()
-		return
 	if _line_index < _lines.size() - 1:
 		_line_index += 1
 		_show_line()
@@ -211,6 +210,12 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _on_ok_pressed() -> void:
 	advance()
+
+
+## The X in the panel header closes the conversation outright (same path as the
+## final "OK" press, just sooner).
+func _on_close_pressed() -> void:
+	dismiss()
 
 
 func _on_turn_in_pressed() -> void:

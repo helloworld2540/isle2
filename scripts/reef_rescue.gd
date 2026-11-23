@@ -163,17 +163,6 @@ func _spawn_item() -> void:
 		item.init_fish()
 	else:
 		item.init_garbage()
-	# The Starfish spawns already in the water, so it must never materialise on
-	# top of the drone — a free hit is not a fair hazard. Keep a wide berth.
-	if str(item.get_meta("species", "")) == "fish_star" and drone:
-		var vp := get_viewport_rect().size
-		var min_dist := 220.0
-		if item.global_position.distance_to(drone.global_position) < min_dist:
-			var away := item.global_position - drone.global_position
-			if away.length_squared() < 0.01:
-				away = Vector2.RIGHT
-			item.global_position = (drone.global_position + away.normalized() * min_dist).clamp(
-				Vector2(80.0, 80.0), vp - Vector2(80.0, 80.0))
 	# Golden variants sing out and shimmer once their spawn tween lands.
 	if bool(item.get_meta("golden", false)) or bool(item.get_meta("golden_fish", false)):
 		AudioManager.play_sfx("pickup", 1.6)
@@ -211,7 +200,10 @@ func _update_edge_markers() -> void:
 			marker = _EDGE_MARKER_SCENE.instantiate()
 			marker.set_direction(pos - vp * 0.5)
 			add_child(marker)
-			marker.set_kind(bool(next.get_meta("is_fish", false)), bool(next.get_meta("golden_fish", false)), str(next.get_meta("species", "")) == "fish_star")
+			marker.set_kind(
+				bool(next.get_meta("is_fish", false)), 
+				bool(next.get_meta("golden_fish", false)), 
+			)
 			_edge_markers[id] = marker
 		else:
 			marker = _edge_markers[id]
@@ -228,10 +220,6 @@ func _update_edge_markers() -> void:
 			# Golden shimmer, never the red flare — a graze is a gift.
 			var wave := 0.5 + 0.5 * sin(Time.get_ticks_msec() * 0.008)
 			marker.pulse(0.4 + 0.3 * wave)
-		elif str(next.get_meta("species", "")) == "fish_star":
-			# A slow drifter needs no alarm — a soft, steady breathe.
-			var wave := 0.5 + 0.5 * sin(Time.get_ticks_msec() * 0.0035)
-			marker.pulse(0.16 + 0.12 * wave)
 		elif bool(next.get_meta("is_fish", false)) and drone:
 			var dist := pos.distance_to(drone.global_position)
 			var proximity := clampf(1.0 - dist / 900.0, 0.0, 1.0)

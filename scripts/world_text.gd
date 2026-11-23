@@ -21,7 +21,7 @@ extends Node
 ## The knob: on-screen size, in pixels, of the largest world-map text (the
 ## "title" role). The other roles scale down from it (see ROLE_SCALE). Assigning
 ## re-stamps the live tree, so it can be tuned at runtime.
-var base_px: float = 24.0:
+var base_px: float = 18.0:
 	set(value):
 		base_px = value
 		if is_inside_tree():
