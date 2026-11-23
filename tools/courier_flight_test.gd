@@ -29,7 +29,7 @@ func _initialize() -> void:
 
 	# The GameSettings autoload loads with --path . — grab the real one
 	# (fresh XDG profile) and toggle in memory only; never persisted.
-	_gs = get_root().get_node_or_null("GameSettings")
+	_gs = get_root().get_node("GameSettings")
 	if _gs == null:
 		print(C_YELLOW + "SKIP:" + C_RESET + " GameSettings autoload not found — skipping reduced-motion case")
 		_skipped += 1

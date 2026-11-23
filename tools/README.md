@@ -38,7 +38,7 @@ resources relative to cwd, so run from the repo root.
 Note: autoload **identifiers are not compile-time globals in `-s`
 mode**, even with `--path .`. Scripts that name `GameSettings` or
 `AudioManager` fail to compile there — reference them at runtime
-(`get_tree().root.get_node_or_null("…")`) or preload the script by path.
+(`get_tree().root.get_node("…")`) or preload the script by path.
 This is why the harnesses use `get_node` rather than bare autoload names.
 
 ## The harness catalogue

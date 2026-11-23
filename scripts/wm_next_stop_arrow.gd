@@ -25,9 +25,9 @@ const ADVICE_TICK_SECONDS := 0.35
 const RouteAdvisor := preload("res://scripts/route_advisor.gd")
 ## Station ids from RouteAdvisor map to top-level scene nodes of the world map.
 const STATION_TO_NAME: Dictionary = {
-	"reef_rescue": &"PortalReefRescue",
-	"upcycle": &"PortalUpcycle",
-	"shop": &"PortalShop",
+	"reef_rescue": &"Stations/PortalReefRescue",
+	"upcycle": &"Stations/PortalUpcycle",
+	"shop": &"Stations/PortalShop",
 }
 
 @onready var bob: Node2D = $Bob
@@ -107,4 +107,4 @@ func _find_target(station: String) -> Node2D:
 	var station_node := StringName(STATION_TO_NAME.get(station, ""))
 	if String(station_node).is_empty():
 		return null
-	return scene.get_node_or_null(NodePath(station_node)) as Node2D
+	return scene.get_node(NodePath(station_node)) as Node2D

@@ -18,7 +18,7 @@ func _ready() -> void:
 
 	# The lantern breathes — a slow warm swell you can spot across the water.
 	# Reduced motion holds it still; he was never about the light.
-	var sprite := get_node_or_null("Sprite2D") as Sprite2D
+	var sprite := get_node("Sprite2D") as Sprite2D
 	if GameState.is_achievement_unlocked("whole_sea"):
 		# Every page the sea ever wrote has been read. The watcher sets the
 		# lantern down: no pulse, just a dim, steady ember. Nothing left to
@@ -47,17 +47,17 @@ func _on_body_entered(body: Node) -> void:
 	dialogue.present(
 		"THE FAR POINT",
 		[
-			"You turned around fast enough to catch him. Nobody ever does.",
-			"He watches the water because he has to. The island shows you four tides; it keeps the fifth to itself.",
-			"He does not ask you to leave. He never wanted anything moved — only kept.",
-			"The lantern stays lit. That is all you can know, and all you should.",
+			"You turned in time to catch him watching. No one else ever has.",
+			"He watches the water because that is his job. The island shows you four tides and hides the fifth.",
+			"He doesn't ask you to leave. He never wanted anything changed — only looked after.",
+			"The lantern stays lit. That is all you can know.",
 		]
 	)
 
 	# The keeper turned around fast enough — so the island lets him go. He
 	# dissolves into the water behind the card; the watcher never stands there
 	# twice, not even in the same sitting.
-	var sprite := get_node_or_null("Sprite2D") as Sprite2D
+	var sprite := get_node("Sprite2D") as Sprite2D
 	if _lantern_tween and _lantern_tween.is_valid():
 		_lantern_tween.kill()
 	if sprite:

@@ -62,12 +62,14 @@ func _ready() -> void:
 	if collect_shape and collect_shape.shape is CircleShape2D:
 		(collect_shape.shape as CircleShape2D).radius = 66.27 + GameState.get_collection_radius_bonus()
 	if tide_label:
-		tide_label.text = "≈ The sea keeps its own counsel — and so do you." if GameSettings.hide_tide else "≈ %s" % TideReport.summary()
+		tide_label.text = "≈ Tide hidden — read the water yourself." if GameSettings.hide_tide else "≈ %s" % TideReport.summary()
 	AudioManager.play_bgm("reef")
+	if drone:
+		drone.position = get_viewport_rect().size * 0.5
 	_update_ui()
 	_update_low_health()
 	# Stamp the personal stake onto the briefing card while the player reads it.
-	var intro := get_node_or_null("MinigameIntro")
+	var intro := get_node("MinigameIntro")
 	if intro:
 		var dives := GameState.reef_dives
 		if dives > 0 or GameState.best_reef_depth > 0:
@@ -364,7 +366,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			TutorialDirector.nudge("gold")
 			_popup("GOLDIE! +5", Color(1.0, 0.9, 0.35, 1.0))
 			_sparkle(root.global_position, Color(1.0, 0.9, 0.4, 1.0))
-			var ap_gold := root.get_node_or_null("AnimationPlayer")
+			var ap_gold := root.get_node("AnimationPlayer")
 			if ap_gold:
 				ap_gold.play("suck")
 			return

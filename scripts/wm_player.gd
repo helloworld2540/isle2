@@ -6,7 +6,7 @@ extends CharacterBody2D
 @export var MOVE_TIME := 0.3
 
 @onready var animated_sprite: AnimatedSprite2D = $"AnimatedSprite2D"
-@onready var world_map: TileMapLayer = $"../WorldMap"
+@onready var world_map: TileMapLayer = $"../../Geography/WorldMap"
 
 var is_moving := false
 var path: PackedVector2Array = []

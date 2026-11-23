@@ -48,7 +48,7 @@ func _initialize() -> void:
 
 	## Access the GameState autoload. Autoloads are root Node children, not
 	## engine singletons, so Engine.get_singleton() never finds them here.
-	var gs: Node = root.get_node_or_null("GameState")
+	var gs: Node = root.get_node("GameState")
 	if gs == null:
 		# Fallback: build one from the script if the autoload did not register.
 		gs = (load("res://scripts/game_state.gd") as GDScript).new()

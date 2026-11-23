@@ -104,12 +104,12 @@ func _initialize() -> void:
 	root.add_child(stats)
 	for button_name in registry_buttons:
 		var path := "RegistryOverlay/Panel/VBox/%s" % String(button_name)
-		_check(stats.get_node_or_null(path) != null, "scene has %s" % button_name)
+		_check(stats.get_node(path) != null, "scene has %s" % button_name)
 	# The locked/found text builder must have a hint for every species, or a
 	# locked row falls back to the generic "? ? ?" line.
 	var known_hints := 0
 	for id in registry_ids:
-		var button := stats.get_node_or_null("RegistryOverlay/Panel/VBox/%s" % String(registry_buttons[registry_ids.find(id)])) as Button
+		var button := stats.get_node("RegistryOverlay/Panel/VBox/%s" % String(registry_buttons[registry_ids.find(id)])) as Button
 		if button and (not button.text.is_empty()):
 			known_hints += 1
 	_check(known_hints == registry_ids.size(), "every registry row carries a hint label (%d/%d)" % [known_hints, registry_ids.size()])
@@ -117,7 +117,7 @@ func _initialize() -> void:
 
 	# The achievement predicate must demand the whole catalogue, not a stale
 	# five-of-six constant. Seed GameState directly and restore afterwards.
-	var gs = root.get_node_or_null("GameState")
+	var gs = root.get_node("GameState")
 	_check(gs != null, "GameState autoload present")
 	if gs:
 		var saved: Array = gs.fish_met.duplicate()

@@ -29,7 +29,7 @@ func _initialize() -> void:
 		quit(0)
 		return
 
-	var gs = root.get_node_or_null("GameSettings")
+	var gs = root.get_node("GameSettings")
 	if gs == null:
 		printerr(C_RED + "no GameSettings — did the project lose an autoload?" + C_RESET)
 		quit(2)
@@ -42,7 +42,7 @@ func _initialize() -> void:
 	_check(gs.hide_tide == (not before), "set_hide_tide flips the in-memory flag")
 
 	# The flag must survive an autoload read of the freshly-saved settings.
-	var reloaded = root.get_node_or_null("GameSettings")
+	var reloaded = root.get_node("GameSettings")
 	_check(reloaded.hide_tide == (not before), "flag persists in memory alongside the fresh save")
 
 	# Restore the original.

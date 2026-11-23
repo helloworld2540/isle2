@@ -25,7 +25,7 @@ const WATER: Array[String] = [
 	"Go down slow. The reef forgives patience before anything else.",
 	"The fish were here before the trash. Mind which is which.",
 	"A haul is not a victory. A clean dive is.",
-	"Deep water keeps its own counsel. Take only what it offers.",
+	"Deep water is dangerous. Take only what you can carry.",
 	"The current lies about distance. Your lungs do not.",
 	"Come up with less than you brought down. That is the whole job.",
 	"The reef is not a warehouse. It is a neighbour.",
@@ -41,7 +41,7 @@ const COURIER: Array[String] = [
 	"The courier runs with the eel today. Do not chase it — log it.",
 	"Fast water, pale fin. Today the strait shows off; let it.",
 	"On a day like this the courier makes the crossing twice. I never learned how.",
-	"Eel Run. If you see the silver, the day has already paid you.",
+	"Eel Run: if you spot the Silverfin, the day has already rewarded you.",
 ]
 
 

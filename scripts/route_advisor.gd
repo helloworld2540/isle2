@@ -63,6 +63,14 @@ static func next_stop(tree: SceneTree) -> Dictionary:
 	if float(weight) / float(capacity) >= HEAVY_RATIO:
 		return _station("shop", "bag nearly full, sell soon")
 	
+	# The bag still holds material that has not been cleared yet — selling or
+	# sorting it comes before another dive. A held haul is never a reason to
+	# gather a fresh one (the banked/sorted material lives under its own
+	# material key, so the debris branch above can already read zero while the
+	# bag is anything but empty).
+	if weight > 0:
+		return _station("shop", "sell the haul")
+	
 	if _market_maxed():
 		return _station("reef_rescue", "prices maxed — dive deeper")
 	

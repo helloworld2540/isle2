@@ -55,7 +55,7 @@ func _ready() -> void:
 
 ## Fetch the revealed legs from the LoopPath and recompute cumlength tables.
 func _rebuild_segments(_visited: Variant = null) -> void:
-	var loop := get_node_or_null(source)
+	var loop := get_node(source)
 	var segments: Array[PackedVector2Array] = []
 	if loop != null and loop.has_method("revealed_segments"):
 		segments = loop.revealed_segments()

@@ -89,7 +89,7 @@ var _hud_queue: Node = null
 
 func _ready() -> void:
 	if tide_label:
-		tide_label.text = "≈ The sea keeps its own counsel — and so do you." if GameSettings.hide_tide else "≈ %s" % TideReport.summary()
+		tide_label.text = "≈ Tide hidden — read the water yourself." if GameSettings.hide_tide else "≈ %s" % TideReport.summary()
 	TutorialDirector.scene_started("upcycle")
 	if go_return_btn:
 		go_return_btn.pressed.connect(_game_over_leave)
@@ -97,7 +97,7 @@ func _ready() -> void:
 	_setup_audio()
 	_prev_best = GameState.best_upcycle_score
 	# Stamp the personal stake onto the briefing card while the player is reading it.
-	var intro := get_node_or_null("MinigameIntro")
+	var intro := get_node("MinigameIntro")
 	if intro:
 		var runs := GameState.upcycle_runs
 		if runs > 0 or GameState.best_upcycle_score > 0:
@@ -229,7 +229,7 @@ func _setup_bins() -> void:
 			continue
 		
 		bin.set_meta("material", MATERIALS[i])
-		var label: Label = bin.get_node_or_null("MaterialLabel")
+		var label: Label = bin.get_node("MaterialLabel")
 		if label:
 			label.text = str(bin.name)
 			label.modulate = bin.modulate
@@ -293,7 +293,7 @@ func burn_item(item: Node2D) -> void:
 	sort_streak = 0
 	AudioManager.play_sfx("sort_bad", 0.88)
 	
-	var ap: AnimationPlayer = item.get_node_or_null("AnimationPlayer")
+	var ap: AnimationPlayer = item.get_node("AnimationPlayer")
 	if ap:
 		ap.play("suck")
 		if not ap.animation_finished.is_connected(item.queue_free):
@@ -362,7 +362,7 @@ func _pick_up_item(target: Node2D) -> void:
 	var parent := target.get_parent()
 	if parent is PathFollow2D:
 		var old_gpos := target.global_position
-		target.reparent(self)
+		target.reparent(player if player else self)
 		target.global_position = old_gpos
 		parent.queue_free()
 		
@@ -465,7 +465,7 @@ func _get_valid_interaction_target() -> Node2D:
 				
 				var item_grid := _snap(item.global_position)
 				var diff := (item_grid - player_grid).abs()
-				if diff.x <= grid_size or diff.y <= grid_size:
+				if diff.x <= grid_size and diff.y <= grid_size:
 					var d := item.global_position.distance_to(player.global_position)
 					if d < best_dist:
 						best_dist = d
@@ -475,7 +475,7 @@ func _get_valid_interaction_target() -> Node2D:
 			for bin in bins.get_children():
 				var bin_grid := _snap(bin.global_position)
 				var diff := (bin_grid - player_grid).abs()
-				if diff.x <= grid_size or diff.y <= grid_size:
+				if diff.x <= grid_size and diff.y <= grid_size:
 					var d: float = bin.global_position.distance_to(player.global_position)
 					if d < best_dist:
 						best_dist = d
@@ -497,7 +497,7 @@ func _find_deposit_bin(item: Node2D) -> Node2D:
 		# Only target the bin when the player is grid-adjacent to it
 		var bin_grid := _snap(bin.global_position)
 		var diff := (bin_grid - player_grid).abs()
-		if diff.x <= grid_size or diff.y <= grid_size:
+		if diff.x <= grid_size and diff.y <= grid_size:
 			var d: float = bin.global_position.distance_to(player.global_position)
 			if d < best_dist:
 				best_dist = d

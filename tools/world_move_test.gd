@@ -49,7 +49,7 @@ func _initialize() -> void:
 
 	var world: Node = current_scene
 	var player: Node = _find_player(world)
-	var layer: TileMapLayer = world.get_node("WorldMap") as TileMapLayer
+	var layer: TileMapLayer = world.get_node("Geography/WorldMap") as TileMapLayer
 	if player == null or layer == null:
 		_fail("player or WorldMap missing")
 		_finish()
@@ -117,6 +117,10 @@ func _find_player(world: Node) -> Node:
 	for child in world.get_children():
 		if child is Node2D and (child as Node2D).is_in_group("player"):
 			return child
+		if child.get_child_count() > 0:
+			var nested := _find_player(child)
+			if nested != null:
+				return nested
 	return null
 
 func _find_walkable_near(layer: TileMapLayer, centre: Vector2i, radius: int) -> Vector2i:

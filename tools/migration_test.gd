@@ -47,7 +47,7 @@ func _initialize() -> void:
 
 	# The legacy save lacks every modern key: restore() must backfill with
 	# defaults without crashing (old saves are load-bearing fixtures).
-	var gs = root.get_node_or_null("GameState")
+	var gs = root.get_node("GameState")
 	if gs != null:
 		gs.restore()
 		ok = _check(ok, int(gs.harbor_tips_bought) == 0, "new key defaults to 0")

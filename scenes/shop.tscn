@@ -419,7 +419,7 @@ layout_mode = 2
 autowrap_mode = 2
 theme_override_colors/font_color = Color(0.95, 0.9, 0.5, 1)
 theme_override_font_sizes/font_size = 24
-text = "Tip: sort efficiently for combo bonuses."
+text = "Sort efficiently for combo bonuses."
 
 [node name="SpendColumn" type="VBoxContainer" parent="CanvasLayer/Scroll/Margin/Layout/Body"]
 custom_minimum_size = Vector2(360, 0)

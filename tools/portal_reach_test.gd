@@ -48,8 +48,8 @@ func _initialize() -> void:
 	root.add_child(scene)
 	await process_frame
 
-	var layer: TileMapLayer = scene.get_node_or_null("WorldMap") as TileMapLayer
-	var player: Node2D = scene.get_node_or_null("Player") as Node2D
+	var layer: TileMapLayer = scene.get_node("Geography/WorldMap") as TileMapLayer
+	var player: Node2D = scene.get_node("Gameplay/Player") as Node2D
 	if layer == null or player == null:
 		_fail("WorldMap layer or Player missing")
 		_quit(1)
@@ -62,18 +62,22 @@ func _initialize() -> void:
 		_fail("spawn cell %s NOT walkable" % spawn_cell)
 
 	for child in scene.get_children():
-		if not String(child.name).begins_with("Portal"):
-			continue
-		if not child is Area2D:
-			continue
-		var cell: Vector2i = layer.local_to_map(layer.to_local((child as Node2D).global_position))
-		if _walkable(layer, cell) or _has_walkable_neighbour(layer, cell):
-			_ok("%s at %s reachable" % [child.name, cell])
-		else:
-			_fail("%s at %s has no walkable cell to stand on" % [child.name, cell])
+		var portal_roots: Array = [child]
+		if String(child.name) == "Stations":
+			portal_roots = child.get_children()
+		for child2 in portal_roots:
+			if not String(child2.name).begins_with("Portal"):
+				continue
+			if not child2 is Area2D:
+				continue
+			var cell: Vector2i = layer.local_to_map(layer.to_local((child2 as Node2D).global_position))
+			if _walkable(layer, cell) or _has_walkable_neighbour(layer, cell):
+				_ok("%s at %s reachable" % [child2.name, cell])
+			else:
+				_fail("%s at %s has no walkable cell to stand on" % [child2.name, cell])
 
 	# NPCs: quests/gifts must never be unreachable.
-	var npcs_node: Node = scene.get_node_or_null("NPCs")
+	var npcs_node: Node = scene.get_node("NPCs")
 	if npcs_node == null:
 		_fail("NPCs group missing")
 	else:
@@ -93,8 +97,11 @@ func _initialize() -> void:
 	# BFS from spawn; must be able to reach the reef portal's neighbourhood.
 	var reef: Node2D = null
 	for child in scene.get_children():
-		if String(child.name) == "PortalReefRescue":
-			reef = child as Node2D
+		if String(child.name) == "Stations":
+			for station in child.get_children():
+				if String(station.name) == "PortalReefRescue":
+					reef = station as Node2D
+			break
 	if reef == null:
 		_fail("PortalReefRescue missing (children: %s)" % [scene.get_children().map(func(c): return str(c.name))])
 	else:

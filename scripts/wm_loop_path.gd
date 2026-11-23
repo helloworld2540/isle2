@@ -39,7 +39,7 @@ func _ready() -> void:
 func _layout_legs() -> void:
 	var portals: PackedVector2Array = []
 	for path: NodePath in portal_paths:
-		var portal := get_node_or_null(path)
+		var portal := get_node(path)
 		if portal is Node2D:
 			portals.append((portal as Node2D).global_position)
 	if portals.size() < 3:

@@ -41,7 +41,7 @@ func _ready() -> void:
 	# Runtime lookup, not the bare autoload identifier: tool harnesses
 	# compile without autoloads as globals, but the /root node always
 	# exists in a real run — and harnesses can add their own stand-in.
-	var gs := get_tree().root.get_node_or_null("GameSettings")
+	var gs := get_tree().root.get_node("GameSettings")
 	if gs != null and bool(gs.get("reduce_motion")):
 		queue_free()
 		return
@@ -59,7 +59,7 @@ func _ready() -> void:
 func _read_gratitude() -> bool:
 	if force_gratitude:
 		return true
-	var state := get_tree().root.get_node_or_null("GameState")
+	var state := get_tree().root.get_node("GameState")
 	if state == null or not state.has_method("is_achievement_unlocked"):
 		return false
 	return bool(state.call("is_achievement_unlocked", "last_letter"))
@@ -89,7 +89,7 @@ func _pass() -> void:
 	tw.tween_property(self, "modulate:a", 0.85, 0.25)
 	# Runtime lookup: tool harnesses compile without autoload identifiers,
 	# but /root/AudioManager always exists in a real run.
-	var am := get_tree().root.get_node_or_null("AudioManager")
+	var am := get_tree().root.get_node("AudioManager")
 	if am != null:
 		am.play_sfx("silverfin", 1.5)
 	tw.parallel().tween_property(self, "position", end, SWEEP_SECONDS)

@@ -55,8 +55,8 @@ func _on_body_entered(body: Node) -> void:
 		"THE KEEPER'S STAR",
 		[
 			"You walked all the way to the far point and the island was waiting.",
-			"One last star, keeper — the one it held back. Not for the reef, not for the tide. For you, for staying.",
-			"Keep the shore and keep the ledger. The rest of the sky is yours now.",
+			"One last star, keeper — the one the island saved. Not for reef or tide, but for you, for staying.",
+			"Keep the shore and keep the ledger. The rest is up to you.",
 			"— the island",
 		]
 	)

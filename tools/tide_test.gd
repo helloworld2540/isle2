@@ -66,7 +66,7 @@ func _initialize() -> void:
 	# Claim semantics: first world load today claims, the second does not.
 	# Autoload globals are not compile-time symbols for a --script main loop,
 	# so resolve the singleton through the tree at runtime.
-	var gs = root.get_node_or_null("GameState")
+	var gs = root.get_node("GameState")
 	_check(gs != null, "GameState autoload present")
 	if gs:
 		# Seed a two-streak ending yesterday: claiming today extends it to

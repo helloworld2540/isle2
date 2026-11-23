@@ -9,32 +9,32 @@ const ENTRIES: Array[Dictionary] = [
 	{
 		"id": "fish_gold",
 		"name": "Goldie",
-		"blurb": "A sunlit scrap of brass and scales. The reef sheds its coins; the keeper spends them.",
+		"blurb": "A bright gold fish with brass-coloured scales. The reef's small reward for a careful dive.",
 	},
 	{
 		"id": "fish_greyreefshark",
 		"name": "Grey Reef Shark",
-		"blurb": "The bump you feel through the hull. Broader than the shelf, older than the buoy.",
+		"blurb": "The heavy bump you feel through the drone's hull. Big, wide, and older than the buoys.",
 	},
 	{
 		"id": "fish_nemo",
 		"name": "Nemo",
-		"blurb": "Small, orange, faster than he looks. He knows the current by name; you'll notice by the third night.",
+		"blurb": "Small, orange, and faster than he looks. You'll learn his route by your third dive.",
 	},
 	{
 		"id": "fish_crab",
 		"name": "Crab",
-		"blurb": "Not a fish. The reef doesn't care. Neither, after a few dives, do you.",
+		"blurb": "Not a fish, but the reef counts it anyway — and so will you after a few dives.",
 	},
 	{
 		"id": "fish_silverfin",
 		"name": "Silverfin",
-		"blurb": "The strait's quiet courier — quick, pale, and gone by dawn. The counter sells its post by the page; the reef registry keeps its name. Nobody has ever kept up with it.",
+		"blurb": "The strait's pale courier: quick and gone by dawn. The shop sells its letters one page at a time, and the Reef Registry records its name. No one has ever caught up with it.",
 	},
 	{
 		"id": "fish_star",
 		"name": "Starfish",
-		"blurb": "A five-armed constellation, patient on the reef floor. It does not flee the drone — it simply is, and the drone learns to give it room.",
+		"blurb": "A five-armed starfish resting calmly on the reef floor. It doesn't flee the drone; the drone is the one that has to steer around it.",
 	},
 ]
 

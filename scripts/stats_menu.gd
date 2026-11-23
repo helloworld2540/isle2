@@ -145,7 +145,7 @@ func _connect_signals() -> void:
 	if _ledger_close:
 		_ledger_close.pressed.connect(_close_ledger)
 	for i in LEDGER_BUTTONS.size():
-		var button := _ledger_overlay.get_node_or_null("Panel/VBox/" + LEDGER_BUTTONS[i]) as Button
+		var button := _ledger_overlay.get_node("Panel/VBox/" + LEDGER_BUTTONS[i]) as Button
 		if button:
 			button.pressed.connect(_on_ledger_bottle.bind(LEDGER_IDS[i]))
 	if _registry_button:
@@ -154,7 +154,7 @@ func _connect_signals() -> void:
 	if _registry_close:
 		_registry_close.pressed.connect(_close_registry)
 	for i in REGISTRY_BUTTONS.size():
-		var button := _registry_overlay.get_node_or_null("Panel/VBox/" + REGISTRY_BUTTONS[i]) as Button
+		var button := _registry_overlay.get_node("Panel/VBox/" + REGISTRY_BUTTONS[i]) as Button
 		if button:
 			button.pressed.connect(_on_registry_fish.bind(REGISTRY_IDS[i]))
 	if _almanac_button:
@@ -165,7 +165,7 @@ func _connect_signals() -> void:
 	# The four cards that own a subpage answer to a tap as well as the button
 	# row — the card is the summary, so the summary should open the ledger.
 	for path in _CARD_OPENERS:
-		var panel := get_node_or_null(path)
+		var panel := get_node(path)
 		if panel:
 			panel.gui_input.connect(_on_card_gui_input.bind(_CARD_OPENERS[path]))
 
@@ -237,8 +237,8 @@ func _update_stats_display() -> void:
 	# All six voices agree on one thing; the page says so, quietly.
 	if GameState.is_achievement_unlocked("silent_chorus"):
 		deeds.append("")
-		deeds.append("Six voices, one shoreline — and every one of them said the tide is not a clock.")
-		deeds.append("It is a heart, and it beats in four, and you learned the rhythm.")
+		deeds.append("All six shore notes read — every one says the tide is not a clock.")
+		deeds.append("The four tides repeat like a heartbeat, and you know the pattern.")
 	# Corl keeps his own ledger; the page notices regulars.
 	if not SaveManager.last_recovery.is_empty():
 		deeds.append("Recovered from the %s this session" % SaveManager.last_recovery)
@@ -249,16 +249,16 @@ func _update_stats_display() -> void:
 	if GameState.courier_passes > 0:
 		deeds.append("The courier passed by %d time%s" % [GameState.courier_passes, "" if GameState.courier_passes == 1 else "s"])
 	if GameState.is_achievement_unlocked("last_letter"):
-		deeds.append("The courier keeps you company on Eel Run — the whole post is read.")
+		deeds.append("The whole courier post is read — the Silverfin visits on Eel Run.")
 	if GameState.is_achievement_unlocked("whole_sea"):
-		deeds.append("The whole sea: every note the tide ever sent, read.")
+		deeds.append("All eight shore bottles read.")
 	if GameState.fifth_tide_granted:
 		deeds.append("The fifth tide: seen.")
 	if GameState.harbor_tips_bought > 0:
 		if GameState.is_achievement_unlocked("whispers"):
-			deeds.append("Corl's ledger: 7/7 whispers — you are known at the counter")
+			deeds.append("Corl's ledger: 7/7 tide tips — he knows you now.")
 		else:
-			deeds.append("Corl's ledger: %d/7 whispers" % GameState.harbor_tips_bought)
+			deeds.append("Corl's ledger: %d/7 tide tips bought" % GameState.harbor_tips_bought)
 	deeds.append("Reef Charter: %d dive bumps" % (3 + GameState.get_reef_bonus_lives()))
 	if GameState.is_harbor_hero():
 		var bonus_kg: int = GameState.HARBOR_HERO_CAPACITY_BONUS * 10
@@ -266,9 +266,9 @@ func _update_stats_display() -> void:
 	if GameState.island_patron:
 		deeds.append("✦ Patron of the Isle — 1500$ given back.")
 	if GameState.tide_gift_granted:
-		deeds.append("✦ The tide makes a habit of the gift to its keeper.")
+		deeds.append("✦ The daily tide gift has been claimed.")
 	if GameState.tide_almanac_granted:
-		deeds.append("✦ The Almanac Is Kept — four tides, one patient keeper.")
+		deeds.append("✦ Almanac complete — all four tides logged.")
 	if GameState.tidekeeper:
 		deeds.append("✦ Tidekeeper of the Isle — 2500$ pact funded (+10 kg bag).")
 	elif GameState.quests_completed > 0:
@@ -344,14 +344,14 @@ func _build_almanac_line() -> String:
 func _era_name() -> String:
 	if GameState.is_achievement_unlocked("island_steward"):
 		if GameState.is_achievement_unlocked("quiet_keeper"):
-			return "The Quiet Steward Era"
+			return "The Steward Era (quiet)"
 		return "The Steward Era"
 	if GameState.is_achievement_unlocked("quiet_keeper"):
-		return "The Quiet Era"
+		return "The Quiet Keeper Era"
 	if GameState.is_achievement_unlocked("silent_chorus"):
-		return "The Chorus Era"
+		return "The Silent Chorus Era"
 	if GameState.tidekeeper:
-		return "The Pact Era"
+		return "The Tidekeeper Era"
 	if GameState.market_level >= GameState.MARKET_MAX_LEVEL:
 		return "The Trading Era"
 	if GameState.circuits_completed >= 3:
@@ -362,32 +362,32 @@ func _era_name() -> String:
 		return "The Bench Era"
 	if GameState.lifetime_earnings > 0:
 		return "The First-Coin Era"
-	return "The Fresh Shore"
+	return "The Fresh Shore (new keeper)"
 
 
 ## One line of what the name means for the bench, the reef and the till.
 func _era_tag() -> String:
 	if GameState.is_achievement_unlocked("island_steward"):
 		if GameState.is_achievement_unlocked("quiet_keeper"):
-			return "the keeper is unwitnessed by the tide, and stays unwitnessed"
-		return "every page of the journal is blank except yours"
+			return "you kept the island without the tide's help"
+		return "every journal page is yours to fill"
 	if GameState.is_achievement_unlocked("quiet_keeper"):
-		return "the sea does not say where it is going; you follow anyway"
+		return "you kept the island without seeing the tide"
 	if GameState.is_achievement_unlocked("silent_chorus"):
-		return "six voices, one shoreline"
+		return "all six shore notes read"
 	if GameState.tidekeeper:
-		return "the tide answers its keeper"
+		return "your tide tips paid off"
 	if GameState.market_level >= GameState.MARKET_MAX_LEVEL:
-		return "peak prices, peak dives"
+		return "market prices maxed, dives deep"
 	if GameState.circuits_completed >= 3:
-		return "the loop runs itself when you do"
+		return "your reef-shop circuit is steady"
 	if GameState.reef_dives >= 10:
-		return "the waterline knows your wake"
+		return "you dive the reef regularly"
 	if GameState.upcycle_runs >= 10:
-		return "the bench is a reflex now"
+		return "you sort the belt quickly"
 	if GameState.lifetime_earnings > 0:
-		return "the till has its first song"
-	return "every page still blank"
+		return "you made your first sale"
+	return "your journal is just starting"
 
 
 # ------------------------------------------------------------------------------
@@ -551,7 +551,7 @@ func _refresh_ledger_legend() -> void:
 	for id in LEDGER_IDS:
 		if GameState.is_story_read(id):
 			found += 1
-	_ledger_legend.text = "every note the tide ever left you — %d/%d — tap to read again" % [found, LEDGER_IDS.size()]
+	_ledger_legend.text = "All shore notes from the tide — %d/%d — tap to read again" % [found, LEDGER_IDS.size()]
 
 
 ## The ledger button advertises its own completion state — six slots, six
@@ -606,7 +606,7 @@ func _open_ledger() -> void:
 	_refresh_ledger_legend()
 	for i in LEDGER_BUTTONS.size():
 		var id := LEDGER_IDS[i]
-		var button := _ledger_overlay.get_node_or_null("Panel/VBox/" + LEDGER_BUTTONS[i]) as Button
+		var button := _ledger_overlay.get_node("Panel/VBox/" + LEDGER_BUTTONS[i]) as Button
 		if button == null:
 			continue
 		if GameState.is_story_read(id):
@@ -663,7 +663,7 @@ func _open_registry() -> void:
 	_refresh_registry_legend()
 	for i in REGISTRY_BUTTONS.size():
 		var id := REGISTRY_IDS[i]
-		var button := _registry_overlay.get_node_or_null("Panel/VBox/" + REGISTRY_BUTTONS[i]) as Button
+		var button := _registry_overlay.get_node("Panel/VBox/" + REGISTRY_BUTTONS[i]) as Button
 		if button == null:
 			continue
 		if GameState.fish_met.has(id):
@@ -717,10 +717,10 @@ func _open_almanac() -> void:
 		for day_label in _almanac_days:
 			day_label.text = ""
 			day_label.visible = false
-		_almanac_days[0].text = "≈ The sea keeps its own counsel — even for its keeper."
+		_almanac_days[0].text = "≈ The tide is hidden, even from its keeper."
 		_almanac_days[0].visible = true
 		_almanac_days[0].modulate = Color(0.72, 0.8, 0.88, 1)
-		_almanac_footer.text = "hide-the-tide holds: even the almanac's own writer goes unread."
+		_almanac_footer.text = "Hide the tide is on — the almanac stays closed."
 		_almanac_overlay.visible = true
 		AudioManager.play_sfx("pickup")
 		return
@@ -739,7 +739,7 @@ func _open_almanac() -> void:
 		label.visible = true
 		# Today keeps the sea-foam highlight; the rest reads quieter.
 		label.modulate = Color(0.92, 0.97, 1, 1) if i == 0 else Color(0.72, 0.8, 0.88, 1)
-	_almanac_footer.text = "the rotation is four days — every page here comes round on its own tide."
+	_almanac_footer.text = "The rotation is four days, so every tide returns within four days."
 	_almanac_overlay.visible = true
 	AudioManager.play_sfx("pickup")
 

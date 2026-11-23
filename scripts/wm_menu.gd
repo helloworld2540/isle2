@@ -99,7 +99,7 @@ func _toggle() -> void:
 			panel.remove_from_group("ui_modal_card")
 		
 		# hide world progress while paused
-		var prog := get_node_or_null("../WorldProgress")
+		var prog := get_node("../WorldProgress")
 		if prog: prog.visible = not panel.visible
 		
 		if panel.visible:

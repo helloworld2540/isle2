@@ -5,7 +5,7 @@
 [node name="LoopPath" type="Node2D"]
 z_index = 2
 script = ExtResource("1_loop")
-portal_paths = Array[NodePath]([NodePath("../PortalReefRescue"), NodePath("../PortalUpcycle"), NodePath("../PortalShop")])
+portal_paths = Array[NodePath]([NodePath("../../Stations/PortalReefRescue"), NodePath("../../Stations/PortalUpcycle"), NodePath("../../Stations/PortalShop")])
 return_waypoints = PackedVector2Array(620, -420, 780, -120, 800, 420, 620, 860, 300, 1200)
 
 [node name="LegReefUpcycle" type="Line2D" parent="."]

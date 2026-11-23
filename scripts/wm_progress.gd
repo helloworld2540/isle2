@@ -7,10 +7,10 @@ class_name WorldProgress
 const RouteAdvisor := preload("res://scripts/route_advisor.gd")
 
 ## Trail dots highlight the leg that leads to the advised stop.
-@export var flow_dots_path: NodePath = ^"../FlowDots"
+@export var flow_dots_path: NodePath = ^"../../Navigation/FlowDots"
 
 # --- Node References ---
-@onready var flow_dots: Node2D = get_node_or_null(flow_dots_path) as Node2D
+@onready var flow_dots: Node2D = get_node(flow_dots_path) as Node2D
 @onready var panel: PanelContainer = $"Panel"
 @onready var vbox: VBoxContainer = $"Panel/VBox"
 @onready var uc_bar: ProgressBar = $"Panel/VBox/UpcycleBar"
@@ -40,7 +40,7 @@ func _ready() -> void:
 	# GameState restores the save itself on boot; the HUD only reads it.
 	# The Steward Era earns a golden hush over the world — subtle, alpha 0.12,
 	# no motion, reduced-motion safe (it is not motion at all).
-	var tint := get_node_or_null("StewardTint") as ColorRect
+	var tint := get_node("StewardTint") as ColorRect
 	if tint:
 		tint.visible = GameState.is_achievement_unlocked("island_steward")
 	if main_label:
@@ -191,8 +191,8 @@ func _refresh_tide_label() -> void:
 	# Hidden tide: the sea keeps its own counsel. Same rules, same rumors —
 	# just no cheating.
 	if GameSettings.hide_tide:
-		tide_label.text = "≈ The sea keeps its own counsel — and so do you."
-		tide_label.tooltip_text = "Hide the tide is on. Earn it with your eyes."
+		tide_label.text = "≈ Tide hidden — read the water yourself."
+		tide_label.tooltip_text = "Hide the tide is on. Read the water yourself."
 		return
 	# After the island shows its keeper the fifth tide, the HUD simply keeps it.
 	if GameState.fifth_tide_granted:

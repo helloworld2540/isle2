@@ -69,8 +69,8 @@ func _refresh_summary() -> void:
 	if save_summary:
 		save_summary.text = _summary_text()
 	if tide_line and GameSettings.hide_tide:
-		tide_line.text = "≈ The sea keeps its own counsel — and so do you."
-		tide_line.tooltip_text = "Hide the tide is on. Earn it with your eyes."
+		tide_line.text = "≈ Tide hidden — read the water yourself."
+		tide_line.tooltip_text = "Hide the tide is on. Read the water yourself."
 	elif tide_line:
 		tide_line.text = "≈ %s · day %d" % [TideReport.hud_line(), GameState.island_day()]
 		tide_line.tooltip_text = "Today's tide. The stats page almanac lists all four — the rotation is four days, and every one comes round."
@@ -92,7 +92,7 @@ func _summary_text() -> String:
 	summary += "\nInventory: %s" % _format_inventory_totals()
 	var all_days := SaveManager.total_tide_days()
 	if all_days > GameState.tide_days_visited:
-		summary += "\nAll islands: %d days one keeper" % all_days
+		summary += "\nAll islands: %d days kept in total" % all_days
 
 	# Which island is this? A one-line identity above the stats.
 	summary = "Slot: %s\n%s" % [GameState.slot_name, summary]

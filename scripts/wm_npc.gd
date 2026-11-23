@@ -63,9 +63,9 @@ const NpcQuests := preload("res://scripts/npc_quests.gd")
 const PACT_GOSSIP := [
 	"Saw the pact keeper pass by — good folk.",
 	"That's THE one. The one who kept the reef.",
-	"Money talks; on this island, it also keeps the tide.",
+	"Money talks — and here, it also keeps the reef going.",
 	"They rebuild whole reefs where others see trash.",
-	"Word is the tide itself answers them now.",
+	"Word is, even the tide answers to them now.",
 ]
 
 # Nodes
@@ -283,13 +283,13 @@ func _flavour_lines() -> Array:
 	if tide_aware:
 		if GameSettings.hide_tide:
 			# The sea keeps its own counsel — and so does every watcher on it.
-			out.append("(She does not say the tide. She does not say where the light comes from.)")
+			out.append("(She won't say anything about the tide — or about where the light comes from.)")
 		else:
 			out.append(TideReport.ambient_line())
 		# If the keeper paid the dockhand for tomorrow's tide, the watcher
 		# notices — foresight is the one thing she respects.
 		if GameState.harbor_tip_purchased():
-			out.append("Paid the dockhand for tomorrow, did you? Sly. Tomorrow keeps its own hours — but tell me, what did the water whisper?")
+			out.append("Paid the dockhand for tomorrow's tide, did you? Clever. So — what did the water say?")
 		# A century of tides earns a single line in her private book.
 		if GameState.tide_days_visited == 100:
 			out.append("A hundred tides. I put you in the book — there is room for very few names.")

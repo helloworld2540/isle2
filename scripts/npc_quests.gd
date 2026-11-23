@@ -85,7 +85,7 @@ static func has_items(npc, tier: int, state = null) -> bool:
 	
 	var gs = state
 	if gs == null:
-		gs = Engine.get_main_loop().root.get_node_or_null("GameState")
+		gs = Engine.get_main_loop().root.get_node("GameState")
 	
 	if gs == null:
 		return false
@@ -116,7 +116,7 @@ static func entry(npc, state = null) -> Dictionary:
 	
 	var gs = state
 	if gs == null:
-		gs = Engine.get_main_loop().root.get_node_or_null("GameState")
+		gs = Engine.get_main_loop().root.get_node("GameState")
 	
 	if gs == null:
 		return {}
@@ -151,7 +151,7 @@ static func gift_fits(mat: String, amount: int, state = null) -> bool:
 	
 	var gs = state
 	if gs == null:
-		gs = Engine.get_main_loop().root.get_node_or_null("GameState")
+		gs = Engine.get_main_loop().root.get_node("GameState")
 	
 	if gs == null:
 		return true
@@ -180,7 +180,7 @@ static func turn_in(npc, tier: int, state = null) -> Dictionary:
 	
 	var gs = state
 	if gs == null:
-		gs = Engine.get_main_loop().root.get_node_or_null("GameState")
+		gs = Engine.get_main_loop().root.get_node("GameState")
 	
 	if gs == null:
 		return {}

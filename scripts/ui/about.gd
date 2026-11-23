@@ -16,12 +16,12 @@ func _ready() -> void:
 		body.text = _default_credits()
 		if GameSettings.hide_tide:
 			body.text += "
-[color=#9fd0e8]— The sea keeps its own counsel —[/color]
-[color=#8fb6c9]And so do you. The keeper this island never hears is the one that listens hardest.[/color]"
+[color=#9fd0e8]— The tide is hidden —[/color]
+[color=#8fb6c9]You chose to read the water without its labels.[/color]"
 		if GameState.is_achievement_unlocked("island_steward"):
 			body.text += "
-[color=#ffd27f]— The keeper who kept it all —[/color]
-[color=#c9a86c]The island is tidy because you made it so. Walk proud.[/color]"
+[color=#ffd27f]— Every achievement earned —[/color]
+[color=#c9a86c]The island is clean because you cleaned it. Well done.[/color]"
 
 
 ## The text, if nothing else was wired up. Kept short — it is a keeper's

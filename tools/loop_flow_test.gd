@@ -173,6 +173,10 @@ func _find_child_named(parent: Node, wanted: String) -> Node:
 	for child in parent.get_children():
 		if String(child.name) == wanted:
 			return child
+		if child.get_child_count() > 0:
+			var nested: Node = _find_child_named(child, wanted)
+			if nested != null:
+				return nested
 	return null
 
 func _check(condition: bool, label: String) -> void:

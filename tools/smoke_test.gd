@@ -192,7 +192,7 @@ func _missing_scripts(p: String, inst: Node) -> Array[String]:
 		var full_path := _node_path_from_header(sec, node_path)
 		node_scripts[full_path] = script_path
 	for np in node_scripts:
-		var node: Node = inst.get_node_or_null(np) if np != "." else inst
+		var node: Node = inst.get_node(np) if np != "." else inst
 		if node == null:
 			missing.append(p + ": missing node " + np)
 			continue

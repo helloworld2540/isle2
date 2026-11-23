@@ -59,7 +59,7 @@ func _ready() -> void:
 	TutorialDirector.scene_started("shop")
 	# Flavor for the night shift: Night Drift nights smell different at the till.
 	if TideReport.today_key() == "night_drift":
-		_log_sale("The till smells of salt and moonlight tonight. Corl is humming something with too many verses.")
+		_log_sale("Night Drift tonight: the till smells of salt and moonlight, and Corl is humming an old tune.")
 	# The island notices its keepers' centennials.
 	if GameState.tide_days_visited == 100:
 		_log_sale("The island marks its 100th tide today. Corl polishes the counter without being asked.")
@@ -187,13 +187,13 @@ func _update_shop_tip() -> void:
 		return
 	var cap := GameState.get_inventory_capacity()
 	if GameState.get_inventory_weight() >= cap:
-		tip.text = "Tip: inventory full — sell or upgrade cap before another run."
+		tip.text = "Inventory full: sell or upgrade cap."
 		tip.modulate = Color(1.0, 0.45, 0.45, 1.0)
 	elif float(GameState.get_inventory_weight()) / float(max(1, cap)) >= 0.8:
-		tip.text = "Tip: inventory heavy — consider selling bulk for bonus."
+		tip.text = "Inventory heavy: sell in bulk (5+) for bonus."
 		tip.modulate = Color(1.0, 0.85, 0.35, 1.0)
 	else:
-		tip.text = "Tip: sort efficiently for combo bonuses."
+		tip.text = "Sort efficiently for combo bonuses."
 		tip.modulate = Color(0.85, 1.0, 0.75, 1.0)
 
 func _refresh_purchases() -> void:
@@ -245,7 +245,7 @@ func _refresh_purchases() -> void:
 		if GameSettings.hide_tide:
 			# The sea keeps its own counsel — and so does the counter. The order
 			# still pays; it simply is not named (the row price shows the total).
-			tide_note.text = "Today: the sea keeps its own counsel — and so do you."
+			tide_note.text = "Today: tide hidden."
 		else:
 			tide_note.text = "Today: %s  ·  standing order: %s +%d$" % [
 				TideReport.summary(), ShopLedger.order_material(), ShopLedger.TIDE_ORDER_BONUS]
@@ -265,36 +265,36 @@ func _refresh_purchases() -> void:
 			buy_courier_letter_button.disabled = true
 		else:
 			buy_courier_letter_button.text = "Courier's letter %d of %d — %d$" % [letter_i + 1, CourierLetters.count(), GameState.COURIER_LETTER_COST]
-			buy_courier_letter_button.tooltip_text = "One page a tide day, from the fin that passes by."
+			buy_courier_letter_button.tooltip_text = "One page per tide day, delivered by the Silverfin."
 			buy_courier_letter_button.disabled = not GameState.can_afford(GameState.COURIER_LETTER_COST)
 	if courier_letter_note:
 		var letter_i: int = GameState.courier_letters_bought
 		if letter_i >= CourierLetters.count():
-			courier_letter_note.text = "The drawer is empty. Every page was read at this counter — the courier still crosses the strait for you."
+			courier_letter_note.text = "The drawer is empty. You've read every page — the courier still swims the strait."
 		elif GameState.courier_letter_bought_today():
-			courier_letter_note.text = "You read today's page at the counter. It did not keep."
+			courier_letter_note.text = "You already read today's page. Come back on the next tide."
 		else:
 			var remaining: int = CourierLetters.count() - GameState.courier_letters_bought
-			courier_letter_note.text = "%d page%s left in the counter's stash. The counter keeps them for %d$." % [
+			courier_letter_note.text = "%d page%s left at the counter, %d$ each." % [
 				remaining, "s" if remaining != 1 else "", GameState.COURIER_LETTER_COST]
 
 	if buy_tide_tip_button:
 		var quiet := GameSettings.hide_tide
 		if GameState.harbor_tip_purchased():
-			buy_tide_tip_button.text = "Dockhand's secret — taken today" if quiet else "Dockhand's tip — bought today"
+			buy_tide_tip_button.text = "Tide tip — bought today (hidden)" if quiet else "Dockhand's tip — bought today"
 			buy_tide_tip_button.disabled = true
 		else:
-			buy_tide_tip_button.text = "Dockhand's quiet — %d$" % GameState.tip_cost() if quiet else "Dockhand's tide tip — %d$" % GameState.tip_cost()
-			buy_tide_tip_button.tooltip_text = "Corl tells you tomorrow's tide without naming it aloud." if quiet else "Pay a dockhand to read tomorrow's tide to you."
+			buy_tide_tip_button.text = "Tide tip — hidden — %d$" % GameState.tip_cost() if quiet else "Dockhand's tide tip — %d$" % GameState.tip_cost()
+			buy_tide_tip_button.tooltip_text = "Bought, but the tide stays hidden by your settings." if quiet else "Pay a dockhand to tell you tomorrow's tide."
 			buy_tide_tip_button.disabled = not GameState.can_afford(GameState.tip_cost())
-	if tide_tip_note and GameSettings.hide_tide:
-		tide_tip_note.text = "Tomorrow's a secret, keeper. Corl's ledger: %d/7 whispers." % mini(GameState.harbor_tips_bought, 7) if not GameState.harbor_tip_purchased() else "Tomorrow's a secret. Corl's ledger: %d/7 whispers." % mini(GameState.harbor_tips_bought, 7)
-	elif tide_tip_note:
-		if GameState.harbor_tip_purchased():
-			tide_tip_note.text = "Tomorrow: %s — plan the dive and the belt accordingly. His ledger: %d/7 whispers." % [GameState.tomorrow_tide_title(), mini(GameState.harbor_tips_bought, 7)]
+	if tide_tip_note:
+		if GameSettings.hide_tide:
+			# No spoilers: the keeper pays for tomorrow's tide and keeps it.
+			tide_tip_note.text = "Tide hidden. Tips bought: %d/7." % mini(GameState.harbor_tips_bought, 7)
+		elif GameState.harbor_tip_purchased():
+			tide_tip_note.text = "Tomorrow: %s — plan the dive accordingly." % GameState.tomorrow_tide_title()
 		else:
-			var streak_hint := " Regulars (3-day streak) pay $15." if GameState.tide_streak < GameState.HARBOR_TIP_DISCOUNT_STREAK else " You are a regular — $15 today."
-			tide_tip_note.text = "A dockhand can tell you tomorrow's tide — for a price. His ledger: %d/7 whispers.%s" % [mini(GameState.harbor_tips_bought, 7), streak_hint]
+			tide_tip_note.text = "Tide tips bought: %d/7. Tomorrow's tide costs %d$." % [mini(GameState.harbor_tips_bought, 7), GameState.tip_cost()]
 
 
 func _buy_courier_letter() -> void:
@@ -308,13 +308,13 @@ func _buy_courier_letter() -> void:
 		return
 	AudioManager.play_sfx("pickup", 1.5)
 	var letter := CourierLetters.letter_at(GameState.courier_letter_index())
-	_stack.sale("COURIER'S LETTER  -%d$\nA page, kept." % GameState.COURIER_LETTER_COST, Color(0.72, 0.94, 1.0, 1.0))
+	_stack.sale("COURIER'S LETTER  -%d$\nA page from the courier." % GameState.COURIER_LETTER_COST, Color(0.72, 0.94, 1.0, 1.0))
 	_log_sale("A page from the courier, read at the counter.")
 	# Corl keeps his own counsel — but he counts the letters.
 	if GameState.courier_letters_bought == 1:
 		_log_sale('Corl nods at the page: "From the courier? I do not ask about that one."')
 	elif GameState.courier_letters_bought == 10:
-		_log_sale('Corl taps the ledger: "Ten pages. You pay for paper like it is gospel."')
+		_log_sale('Corl taps the ledger: "Ten pages. You really do love that courier\'s post."')
 	if DIALOGUE_SCENE:
 		var dialogue = DIALOGUE_SCENE.instantiate()
 		get_tree().current_scene.add_child(dialogue)
@@ -334,10 +334,9 @@ func _buy_tide_tip() -> void:
 	if GameSettings.hide_tide:
 		# No spoilers: the keeper pays a dockhand for a tide they cannot see.
 		# The receipt gives them the fare and hands over nothing.
-		_stack.sale("DOCKHAND'S QUIET  -%d$\nA secret, kept." % GameState.tip_cost(), Color(0.6, 0.85, 0.95, 1.0))
+		_stack.sale("DOCKHAND'S TIP  -%d$\nTide stays hidden." % GameState.tip_cost(), Color(0.6, 0.85, 0.95, 1.0))
 	else:
-		var tip_text := "Tomorrow: %s" % GameState.tomorrow_tide_title()
-		_stack.sale("DOCKHAND'S TIP  -%d$\n%s" % [GameState.tip_cost(), tip_text], Color(0.6, 0.9, 1.0, 1.0))
+		_stack.sale("DOCKHAND'S TIP  -%d$\nTomorrow: %s" % [GameState.tip_cost(), GameState.tomorrow_tide_title()], Color(0.6, 0.9, 1.0, 1.0))
 	_log_sale(_corl_line())
 	# Corl marks the keeper's milestones — he counts days, and he counts you.
 	var day := GameState.tide_days_visited
@@ -359,19 +358,19 @@ func _corl_line() -> String:
 	var tomorrow := GameState.tomorrow_tide_title()
 	match n:
 		1:
-			return "Corl slides a folded paper across the counter: %s tomorrow. \"First one's on the house. It isn't.\"" % tomorrow
+			return "Corl slides a folded paper across the counter: %s tomorrow. \"First one's on the house — today only.\"" % tomorrow
 		2:
 			return "Corl nods once: %s tomorrow. \"Small talk costs extra. The weather doesn't.\"" % tomorrow
 		3:
-			return "Corl taps the ledger: %s tomorrow. \"You keep coming back. The tide talks, I listen, everybody eats.\"" % tomorrow
+			return "Corl taps the ledger: %s tomorrow. \"You keep coming back. I listen to the tide, and everybody eats.\"" % tomorrow
 		4:
-			return "Corl without looking up: %s tomorrow. \"You're drinking tomorrow's weather like it's fresh fish. It is.\"" % tomorrow
+			return "Corl without looking up: %s tomorrow. \"You're buying tomorrow's weather like fresh fish. Fair enough.\"" % tomorrow
 		5:
-			return "Corl, pencil behind his ear: %s tomorrow. \"Five mornings I sold you. You've never once asked my name.\"" % tomorrow
+			return "Corl, pencil behind his ear: %s tomorrow. \"Five tips sold. You've never once asked my name.\"" % tomorrow
 		6:
-			return "Corl exhales at the ledger: %s tomorrow. \"Six. You're buying what I charge for the wind. Partly.\"" % tomorrow
+			return "Corl exhales at the ledger: %s tomorrow. \"Six tips. You keep paying me for the wind — partly.\"" % tomorrow
 		7:
-			return "Corl finally looks at you: %s tomorrow. \"Seven days of tomorrow. You're the most patient fool I know. Tomorrow's free — 25$ anyway.\"" % tomorrow
+			return "Corl finally looks at you: %s tomorrow. \"Seven days of tomorrow. You're my most loyal customer. Tomorrow's on me — still 25$.\"" % tomorrow
 		_:
 			return "Corl folds the day away without a word: %s tomorrow." % tomorrow
 
@@ -398,7 +397,7 @@ func _buy_tidekeeper() -> void:
 	# chord so it lands like a tide coming in, not a receipt.
 	AudioManager.play_sfx("harbor_bell", 0.8)
 	_stack.sale("TIDEKEEPER'S PACT  -%d$" % GameState.TIDEKEEPER_COST, Color(0.55, 0.95, 0.85, 1.0))
-	_log_sale("Tidekeeper's Pact: +10 kg bag for good — the reef is yours to keep")
+	_log_sale("Tidekeeper's Pact: +10 kg bag permanently. The reef is yours.")
 	_refresh()
 
 
@@ -409,7 +408,7 @@ func _buy_patron() -> void:
 		return
 	AudioManager.play_sfx("upgrade", 0.85)
 	_stack.sale("PATRON OF THE ISLE  -%d$" % GameState.ISLAND_PATRON_COST, Color(1.0, 0.75, 0.35, 1.0))
-	_log_sale("Became Patron of the Isle — 1500$ gift")
+	_log_sale("Became Patron of the Isle — donated 1500$")
 	_refresh()
 
 

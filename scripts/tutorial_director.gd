@@ -50,7 +50,7 @@ const STEPS := {
 	},
 	STEP_FINALE: {
 		"title": "You know the loop!",
-		"body": "[font_size=24][color=#8fd0a0]Reef → Upcycle → Shop[/color] — that's the circuit.\nFinish all three for a [color=#ffd27f]$15 bonus[/color].\nIf the counter mentions a courier's page, that is not a rumour.\nThe rest is yours to find.[/font_size]",
+		"body": "[font_size=24][color=#8fd0a0]Reef → Upcycle → Shop[/color] — that's the circuit.\nFinish all three for a [color=#ffd27f]$15 bonus[/color].\nIf the shop counter shows a courier's page, it's real — not a rumour.\nThe rest you'll discover.[/font_size]",
 		"button": "Let's clean up",
 	},
 }
@@ -372,11 +372,11 @@ func nudge(kind: String) -> void:
 				"Good to know")
 		"watcher_note":
 			_spawn_card("A page from the far point",
-				"[font_size=24]A note waited on the path to the lantern.\nThe island counts its keepers. So does whatever watches it.[/font_size]",
+				"[font_size=24]A note waited on the path to the lantern.\nThe island counts its keepers — and something else is counting too.[/font_size]",
 				"I understand")
 		"courier":
 			_spawn_card("The courier is real",
-				"[font_size=24]The counter keeps a Silverfin page — the [color=#9fe2ff]Reef Registry[/color] keeps its name.\nDive an [color=#9fe2ff]Eel Run[/color] tide — the courier rides the fast water.[/font_size]",
+				"[font_size=24]The shop counter holds a Silverfin page — the [color=#9fe2ff]Reef Registry[/color] keeps its name.\nDive on an [color=#9fe2ff]Eel Run[/color] tide — the courier rides the fast water.[/font_size]",
 				"I'll look")
 		"nina_courier":
 			_spawn_card("A letter from above",
@@ -384,7 +384,7 @@ func nudge(kind: String) -> void:
 				"That I do")
 		"welcome_back":
 			_spawn_card("Welcome back, keeper",
-				"[font_size=24]The island held its breath while you were gone.\nHere is where things stand — and who waited.[/font_size]",
+				"[font_size=24]The island missed you while you were away.\nHere's how things stand — and who waited for you.[/font_size]",
 				"Good to be home")
 		"tip":
 			_spawn_card("The dockhand knows the sea",
@@ -400,7 +400,7 @@ func nudge(kind: String) -> void:
 				"Got it")
 		"gold":
 			_spawn_card("A golden find",
-				"[font_size=24]Something on the belt shines different.\n[color=#ffd27f]Golden scrap[/color] pays double; a golden [color=#ffd27f]Goldie[/color] pays +5.[/font_size]",
+				"[font_size=24]Golden items on the belt pay double.\n[color=#ffd27f]Golden scrap[/color] pays 2×; a golden [color=#ffd27f]Goldie[/color] pays +5.[/font_size]",
 				"Shiny")
 		"ledger":
 			_spawn_card("Every note found",

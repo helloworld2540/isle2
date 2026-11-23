@@ -605,7 +605,7 @@ func try_grant_tide_almanac() -> Dictionary:
 	add_earnings(TIDE_ALMANAC_MONEY)
 	return {
 		"title": "THE ALMANAC PAGE",
-		"subtitle": "The last entry in the keeper's book:\n“The tide is not a clock, it is a heart.\nTend the reef that tends you.”\n+$%d" % TIDE_ALMANAC_MONEY,
+		"subtitle": "The last entry in the keeper's book:\n“The tide is not a clock — it is a heartbeat.\nCare for the reef, and it cares for you.”\n+$%d" % TIDE_ALMANAC_MONEY,
 	}
 
 
@@ -623,7 +623,7 @@ func try_grant_fifth_tide() -> Dictionary:
 	add_earnings(FIFTH_TIDE_MONEY)
 	return {
 		"title": "THE FIFTH TIDE",
-		"subtitle": "The one the island kept to itself.\nYou kept everything else.\nWalk proud, keeper.\n+$%d" % FIFTH_TIDE_MONEY,
+		"subtitle": "The tide the island never showed anyone.\nYou found everything else.\nWell done, keeper.\n+$%d" % FIFTH_TIDE_MONEY,
 	}
 
 
@@ -872,11 +872,11 @@ func _evaluate_achievements(silent: bool = false) -> void:
 				"story",
 				"The Courier's Wake",
 				[
-					"Something pale crossed the reef ahead of you — quick as a rumor.",
+					"Something pale crossed the reef ahead of you — quick as a flash.",
 					"The courier outruns every keeper who ever counted it.",
-					"But it never once outran the one who learned the water.",
+					"But it never outran you — you learned the water.",
 				],
-				"The Reef Registry keeps its newest note — tap it at the stats page.",
+				"The Reef Registry has the courier's name — see it on the stats page.",
 			)
 		if id == "whole_sea" and not silent and last_run.is_empty():
 			# The far point's reply deserves more than a banner: the world map
@@ -889,9 +889,9 @@ func _evaluate_achievements(silent: bool = false) -> void:
 				[
 					"Every bottle the sea ever sent — read, kept, and shelved in one ledger.",
 					"The keeper before you left the last page blank on purpose.",
-					"You may keep it that way too. Nobody is counting anymore.",
+					"You can leave it blank too — no one is counting now.",
 				],
-				"The island is finished talking — and you heard it all.",
+				"The island has said everything — and you heard it all.",
 			)
 		if id == "last_letter" and not silent and last_run.is_empty():
 			# Fourteen pages read at the counter, in order — the drawer shuts
@@ -901,10 +901,10 @@ func _evaluate_achievements(silent: bool = false) -> void:
 				"The Drawer is Empty",
 				[
 					"Fourteen pages, sealed with a small fin, read at the counter.",
-					"The courier never writes again. Nobody promised it would stop swimming.",
-					"You have a thing the sea almost never gives: the complete works.",
+					"The courier never writes again — but no one said it would stop swimming.",
+					"You have something the sea rarely gives: the complete set.",
 				],
-				"The Reef Registry keeps the courier's name. Now you keep its post.",
+				"The Reef Registry has the courier's name. Now you have its complete post.",
 			)
 		if not silent:
 			_pending_achievement_ids.append(id)

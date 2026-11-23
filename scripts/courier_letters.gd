@@ -10,20 +10,20 @@ class_name CourierLetters
 ## occasionally about the bench.
 
 const LETTERS: Array[String] = [
-	"Counted the tides habitually, in case anyone was waiting for a reply.",
-	"I do not stop for the bumps. If one of you stops me, I will know exactly who.",
-	"The bench upcycle smells like patience when it is done right.",
+	"Counted the tides habitually, in case someone was waiting for a reply.",
+	"I don't stop for bumps. If you stop me, I'll know exactly who did it.",
+	"The upcycle bench smells like patience when it's done right.",
 	"A jellyfish drifted by at dawn pretending it had somewhere to be. Relatable.",
 	"The reef keeps a tidy ledger. You would too, if you lived here.",
-	"I swam the strait at slack water. It felt like walking down a held breath.",
+	"I swam the strait at slack water. It was the calmest water I've swum.",
 	"If the tide report sounded certain, it was because the almanac is certain.",
 	"The sun through the bottles in the tide pool is underrated. Tell the dockhand I said so.",
-	"This post may never reach its recipient. That is between the current and me.",
-	"I rest in the eel grass on the calmest of glass days. Do not tell it I said that.",
+	"This letter may never reach you. That is between the current and me.",
+	"I rest in the eel grass on Glass Calm days. Don't tell the tide I said that.",
 	"Glass Calm is when the rubbish comes to the surface; Eel Run is when the reef gets busy.",
-	"News for the keeper at the bench: a sorting streak is not a streak, it is a conversation.",
+	"News for the keeper at the bench: a sorting streak is more than a number — it's a rhythm.",
 	"I was asked to deliver a message of some importance once. It was a receipt.",
-	"The first keeper fed me through the glass. I remember the hand. Not that hand — a different one.",
+	"The first keeper fed me through the glass. I remember the hand — not that one, a different one.",
 ]
 
 
