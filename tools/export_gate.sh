@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Export gate: runs every audit and, on a green board, (optionally) re-exports
 # all three platforms to ./export/. With no arguments it only runs the audits.
 # The Web build exports to index.html and its files are packaged as

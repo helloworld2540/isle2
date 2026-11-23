@@ -20,6 +20,9 @@ func _ready() -> void:
 	if keep_playing_when_paused:
 		process_mode = Node.PROCESS_MODE_ALWAYS
 	bus = bus_name
+	# Web exports need Stream playback; Sample/Default fall silent there
+	# (godotengine forum: "No audio in web export").
+	playback_type = 1
 	
 	if stream_path.is_empty():
 		push_warning("AmbienceLoop (%s): no stream_path set" % name)

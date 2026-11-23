@@ -143,11 +143,7 @@ func _initialize() -> void:
 ## Wait until the player's pad grace period has passed, move the player onto the
 ## pad and fire the portal's real entry handler.
 func _enter_portal(world: Node, portal: Node) -> void:
-	var player: Node2D = null
-	for child in world.get_children():
-		if child is Node2D and (child as Node2D).is_in_group("player"):
-			player = child as Node2D
-			break
+	var player: Node2D = _find_player(world) as Node2D
 	if player == null:
 		_fail("no player node in the world scene")
 		return
@@ -175,6 +171,19 @@ func _find_child_named(parent: Node, wanted: String) -> Node:
 			return child
 		if child.get_child_count() > 0:
 			var nested: Node = _find_child_named(child, wanted)
+			if nested != null:
+				return nested
+	return null
+
+## The keeper now lives under the world's `Gameplay` branch (refactor: the
+## player node was nested), so the group scan has to descend the tree — the
+## same shape world_move_test.gd uses to find the keeper on the new map.
+func _find_player(world: Node) -> Node:
+	for child in world.get_children():
+		if child is Node2D and (child as Node2D).is_in_group("player"):
+			return child
+		if child.get_child_count() > 0:
+			var nested := _find_player(child)
 			if nested != null:
 				return nested
 	return null

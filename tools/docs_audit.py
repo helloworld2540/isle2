@@ -11,7 +11,10 @@ import sys
 
 REQUIRED = {
     "README.md": ["Architecture", "Modules"],
-    "guide.md": ["## Controls", "## Quick reference"],
+    # The gameplay guide was restructured (Dive → Sort → Sell rewrite): the
+    # old "## Quick reference" section is now the "## Frequently Asked
+    # Questions" section. The anchor list follows the new document structure.
+    "guide.md": ["## Controls", "## Frequently Asked Questions", "## The Four Tides", "## Technical Settings"],
     "TODO.md": ["# Current project todo:"],
     "overnight_sprint.txt": ["## 2026-11-19"],
 }

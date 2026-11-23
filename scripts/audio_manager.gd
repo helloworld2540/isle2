@@ -16,6 +16,11 @@ const KEY_AMBIENCE := "ambience_volume"
 
 const SAVE_DEBOUNCE_SECONDS := 0.6
 
+## AudioServer.PlaybackType: Default=0, Stream=1, Sample=2. Web exports must use
+## Stream — Sample/Default render silent there (godotengine forum: "No audio in
+## web export").
+const PLAYBACK_TYPE_STREAM := 1
+
 var sfx_path := "res://sound/sfx/"
 var bgm_path := "res://sound/bgm/"
 var sound_path := "res://sound/"
@@ -58,10 +63,14 @@ func _ready() -> void:
 func _assign_player_buses() -> void:
 	if bgm_player:
 		bgm_player.bus = MUSIC_BUS
+		# Web exports need Stream playback; Sample/Default fall silent there
+		# (godotengine forum: "No audio in web export").
+		bgm_player.playback_type = PLAYBACK_TYPE_STREAM
 	if sfx_pool:
 		for player in sfx_pool.get_children():
 			if player is AudioStreamPlayer:
 				player.bus = SFX_BUS
+				player.playback_type = PLAYBACK_TYPE_STREAM
 
 
 # --- Buses ---

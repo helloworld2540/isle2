@@ -52,14 +52,15 @@ elif int(m.group(1)) != len(ids):
     fail("README claims %s achievements; catalogue has %d" % (m.group(1), len(ids)))
 else:
     ok("README achievement count matches (%d)" % len(ids))
-for mm in re.finditer(r"achievements n/(\d+)", guide):
-    if int(mm.group(1)) != len(ids):
-        fail("guide.md claims %s; catalogue has %d" % (mm.group(1), len(ids)))
-    else:
-        ok("guide.md achievement count matches (%d)" % len(ids))
-        break
-else:
+# The restructured guide states the catalogue size inline ("Earning all 47
+# achievements grants …"); accept that phrasing and still check the number.
+guide_count = re.search(r"(\d+)\s+achievements", guide)
+if guide_count is None:
     fail("guide.md does not name the achievement count")
+elif int(guide_count.group(1)) != len(ids):
+    fail("guide.md claims %s; catalogue has %d" % (guide_count.group(1), len(ids)))
+else:
+    ok("guide.md achievement count matches (%d)" % len(ids))
 
 # --- stats-page guide covers every where-tag ----------------------------------
 stats = open("scripts/stats_menu.gd", encoding="utf-8").read()

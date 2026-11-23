@@ -1,49 +1,44 @@
-# Isle 2 — How to Play
+# Isle 2 — Gameplay Guide
 
-*Guide for version **1.3.0**.*
+*Guide for version **1.3.0***
 
-Welcome to Isle 2. You are the keeper of a small island. Dive the reef, sort the
-haul, sell it at the shop, and keep the shore.
+Welcome to Isle 2. You manage a small island by diving for debris, sorting your haul, and selling materials at the shop to fund upgrades.
 
-## The loop
+## Core Gameplay Loop
 
-**Reef → Upcycle → Shop**, running north → south → east. The trail and flow dots
-on the world map point at the recommended next stop. Finish all three stations in
-one lap to bank the **$15 island-circuit bonus**.
+The game follows a three-step cycle: **Dive → Sort → Sell**. 
+Follow the trail dots on the world map to find your next destination. Complete all three steps in order to earn a **$15 island-circuit bonus**.
 
-| Step | Where | What you do |
+| Step | Location | Activity |
 | --- | --- | --- |
-| 1. Dive | South dock | Steer the drone, scoop debris, dodge fish |
-| 2. Upcycle | East belt | Sort the debris into matching bins |
-| 3. Sell | North shop | Sell materials, buy upgrades |
+| 1. Dive | South Dock | Control a drone to collect debris while avoiding fish. |
+| 2. Sort | East Belt | Sort collected debris into matching bins. |
+| 3. Sell | North Shop | Sell materials for money and buy upgrades. |
 
-A first loop (dive → sort → sell) pays out in about 3–6 minutes. The island
-circuit is the reliable earner; bulk sales reward a focused haul over a mixed one.
+A full loop typically takes 3–6 minutes. Focusing on one type of material is often more profitable than a mixed haul due to bulk bonuses.
 
 ## Controls
 
-| Where | Control |
+| Mode | Control |
 | --- | --- |
-| World map | Tap anywhere to walk there; glowing pads enter the bench, reef, and shop |
-| Upcycle bench | Swipe between bins; tap the carried item to inspect it; drop it in the matching bin |
-| Reef Rescue | Drag to steer the drone (momentum matters); ESC or **Return to Map** ends the dive |
-| Shop | **Sell 1 / Sell 5 / Sell All**; **Undo** rewinds a whole sale |
-| Anywhere | ESC closes the current card; ☰ opens the island menu |
+| **World Map** | Tap to walk; glowing pads enter the dive site, sorting bench, or shop. |
+| **Sorting Bench** | Swipe to switch bins; tap the item to inspect; drop it in the matching bin. |
+| **Reef Rescue** | Drag to steer the drone (it has momentum); **ESC** or **Return to Map** ends the dive. |
+| **Shop** | Use buttons to **Sell 1**, **Sell 5**, or **Sell All**. **Undo** reverts the last sale. |
+| **General** | **ESC** closes menus; **☰** opens the island menu. |
 
-## Quick reference
+## Frequently Asked Questions
 
-| Question | Answer |
-| --- | --- |
-| Where do I start? | The south dock (Reef Rescue). Follow the trail dots. |
-| What pays best? | A single-material bulk sale (5+ units) on the day that tide's standing order is active. |
-| How big is my bag? | 10 kg, +10 kg per capacity upgrade. |
-| Where do I save? | The island autosaves and saves on **Save & quit**; two rolling backups are kept. |
-| How do I stop the motion? | ☰ → **Reduce motion**. |
-| Where are my badges? | The stats page: compact roll, grouped guide, and the Reef Registry. |
+- **Where do I start?** Go to the South Dock (Reef Rescue).
+- **How do I make the most money?** Sell 5 or more of the same material on the day its "standing order" is active.
+- **How much can I carry?** You start with 10 kg capacity. Each upgrade adds +10 kg.
+- **How do I save?** The game autosaves frequently and when you select **Save & Quit**. Two rolling backups are maintained.
+- **Can I disable screen shake/fast movement?** Yes, go to **☰ → Settings → Reduce Motion**.
+- **Where are my achievements?** Check the Stats page for your badges, Reef Registry, and progress.
 
-## Materials
+## Materials & Economy
 
-| Material | Weight | Base price |
+| Material | Weight | Base Price |
 | --- | --- | --- |
 | Polyethylene | 1 kg | $2 |
 | Polypropylene | 2 kg | $3 |
@@ -51,145 +46,79 @@ circuit is the reliable earner; bulk sales reward a focused haul over a mixed on
 | Nylon | 2 kg | $4 |
 | Reef Debris | 1 kg | $1 |
 
-Your bag holds **10 kg** to start and grows **+10 kg per level**.
+### Bonuses
+- **Bulk Bonus:** Selling 5+ units of the same material gives a **+25% price bonus** (+35% during Glass Calm).
+- **Standing Order:** Each day, one material sells for **+$1 extra per unit**.
+    - **Glass Calm:** Glass
+    - **Eel Run:** Nylon
+    - **Slack Water:** Polyethylene
+    - **Night Drift:** Polypropylene
 
-- **Bulk bonus:** selling 5 or more of one material pays **+25%** — **+35% on
-  Glass Calm**.
-- **Standing order:** each tide day the harbor pays **+$1 per unit** for one
-  material — Glass Calm → Glass, Eel Run → Nylon, Slack Water → Polyethylene,
-  Night Drift → Polypropylene. A full glass load on Glass Calm is the richest
-  single sale on the calendar.
+## The Four Tides
 
-## The four tides
+Tides change every real-world day and rotate in a fixed order.
 
-Every local calendar day has a tide. The same tide applies to every player that
-day, and the four rotate in order — so each one is guaranteed to come round.
+| Tide | Gameplay Effects | Atmosphere |
+| --- | --- | --- |
+| **Glass Calm** | More debris, fewer fish. Glass bulk bonus increased to +35%. | Frequent seagull cries. |
+| **Eel Run** | Fish move 28% faster. The Courier (Silverfin) appears more often. | Constant seagull sounds. |
+| **Slack Water** | The sorting belt moves 18% slower. | No seagull sounds. |
+| **Night Drift** | Golden debris, golden fish, and golden belt scrap are 2x more likely. | Foghorn sounds in the distance. |
 
-| Tide | Reef Rescue | Upcycle | Shop | Ambience |
-| --- | --- | --- | --- | --- |
-| **Glass Calm** | More debris, fewer fish | — | Bulk bonus +35%; standing order wants Glass | Gulls cry twice as often |
-| **Eel Run** | Fish ~28% faster; the courier surfaces twice as often | — | Standing order wants Nylon | Every gull runs hot |
-| **Slack Water** | — | Belt ~18% slower | Standing order wants Polyethylene | The answering gull never returns your call |
-| **Night Drift** | Golden debris and golden fish twice as likely | Golden belt scrap twice as likely | Standing order wants Polypropylene | Distant cries become a low foghorn |
+### Almanac & Tips
+- The current tide is shown on the HUD (e.g., `≈ Glass Calm`).
+- **Almanac:** Log all four tides to receive a one-time **$30 bonus**. Once complete, the Stats page will show the tide schedule for the next 7 days.
+- **Tide Tips:** Corl at the shop sells a "Tide Tip" for **$25** ($15 if you've bought it several days in a row) which reveals tomorrow's tide.
 
-- The tide is shown on the world HUD (for example, `≈ Glass Calm`) and announced
-  by a **TIDE REPORT** card each day.
-- Each tide you witness is ticked into the **keeper's almanac** (`almanac n/4`).
-  Log all four for **THE FOUR TIDES**, the **ALMANAC PAGE** note, and a one-time
-  **+$30**.
-- Once the almanac is full, the stats page shows **The Almanac**: the next seven
-  days of the rotation laid out in one place.
-- Corl at the shop sells a **dockhand's tide tip** — **$25** ($15 on a 3-day
-  streak) — naming tomorrow's tide.
-- **Hide the tide** (settings) silences every tide label without changing any
-  rule, the rotation, or the almanac.
+## Gameplay Details
 
-## Your first visit
+### Reef Rescue (Diving)
+- **Movement:** Drag to steer. The drone has momentum and takes time to slow down.
+- **Collection:** Bump debris to pick it up (1 kg per item).
+- **Health:** Hitting fish ends the dive. You have 3 "lives" by default.
+- **Combos:** Picking up debris in quick succession increases your bonus score.
+- **Milestones:** Reaching 400m counts as a "Deep Dive"; 900m is "The Abyss".
+- **Rare Finds:** 
+    - **Goldie (Fish):** Worth $5 and doesn't hurt you if hit.
+    - **Golden Debris:** Provides a +1 bonus score.
+    - **Starfish:** A slow-moving creature that is easy to avoid.
 
-A five-step tour walks you through the loop, one hint card at a time: take a
-stroll, dive the reef, sort at the bench, cash in at the shop, and learn the
-island-circuit bonus. The cards never pause the game, and the tour survives
-quitting mid-way.
+### Upcycle (Sorting)
+- **Sorting:** Place items in the correct bins. Mistakes reset your scoring streak.
+- **Streaks:** Every 5 correct sorts grants **+5 bonus score**.
+- **Golden Items:** Worth double points (+2).
+- **Completion:** The session ends when all collected Reef Debris is sorted.
 
-## Reef Rescue
+## Upgrades
 
-- Drag to steer the drone; momentum matters.
-- Bump garbage to collect it: **1 kg per pickup**.
-- **Fish bumps end the dive** — three by default. ESC or **Return to Map** ends
-  it safe.
-- Combos multiply your debris bonus; the counter appears from ×2 and punches at
-  every ×3.
-- Depth milestones: 100 / 250 / 400 / 700 / 900 m. **400 m = DEEP DIVE**,
-  **900 m = TO THE ABYSS**.
-- Rare finds: a golden **Goldie** (10% of fish) pays +5 and costs no life;
-  golden debris (12%) adds +1 bonus score.
-- The **Starfish** is a slow, calm sixth species — easy to read and step around.
-
-## Upcycle
-
-- Sort belt trash into matching bins. Correct sorts gain the material; a wrong
-  or burned item resets your streak.
-- Every five clean sorts: **+5 score** and a "FIVE ON THE BELT!" banner.
-- Golden belt items (12%) score double (+2) when sorted correctly.
-- When the Reef Debris pile runs out, the belt stops feeding and the run closes
-  on **SHIFT COMPLETE**.
-
-## Shop
-
+### Shop Upgrades (Costs Money)
 | Item | Cost | Effect |
 | --- | --- | --- |
-| Bag +10 kg | 60 + 25 per level | Money-purchased capacity |
-| Market Contact | 80 / 140 / 200 | +$1 to every unit sold |
-| Reef Charter | 100 / 180 | +1 fish bump per dive |
-| Patron of the Isle | 1500 (once) | Prestige title + badge |
-| Tidekeeper's Pact | 2500 (once) | Permanent +10 kg bag, badge, and a hidden reply bottle |
-| Dockhand's tide tip | 25 (15 on streak) | Tomorrow's tide |
-| Courier's letter | 10 per tide day | A lore page from the Silverfin |
+| **Bag Capacity** | $60 + $25/level | Increases inventory space. |
+| **Market Contact** | $80 / $140 / $200 | Adds +$1 to the price of every unit sold. |
+| **Reef Charter** | $100 / $180 | Adds +1 hit point (fish bump) per dive. |
+| **Patron of the Isle** | $1500 | One-time prestige title and badge. |
+| **Tidekeeper's Pact** | $2500 | Permanent +10 kg bag, badge, and lore item. |
 
-Money comes from sales and the $15 island-circuit bonus.
+### Equipment Upgrades (Costs Material Weight)
+Purchased in the Island Menu (☰) using materials you have in your bag.
 
-## Trash upgrades
-
-Paid in kg of held material at the world menu.
-
-| Upgrade | First cost | Effect |
+| Upgrade | Initial Cost | Effect |
 | --- | --- | --- |
-| Move speed | 8 kg | +8% per level |
-| Collection range | 12 kg | +12 px per level |
-| Inventory capacity | 6 kg | +10 kg bag per level |
-| Deep Cache | 30 score | +debris per dive; 15×tier score to raise it further |
+| **Move Speed** | 8 kg | Increases walking speed by 8% per level. |
+| **Collection Range**| 12 kg | Increases drone pickup radius by 12px per level. |
+| **Deep Cache** | 30 Score | Increases debris density in dives. Costs Score instead of weight. |
 
-Later tiers cost fewer loops than the one before. The first upgrade is a modest,
-affordable step right after the tour.
+## Collections & Secrets
 
-## Collections & achievements
+- **The Courier (Silverfin):** A rare pale fish seen during **Eel Run**. After seeing it, you can buy "Courier Letters" ($10 each) at the shop to learn the island's lore. There are 14 letters in total.
+- **Starfish:** Collect 5 to earn the "Starlight" badge and $25.
+- **Bottles:** There are 8 collectible bottles hidden around the island.
+- **Island Residents:** As you earn badges and complete milestones, characters like Mara, Tom, Nina, Kai, and Oda will acknowledge your progress in dialogue.
+- **Completion:** Earning all 47 achievements grants the "Island Steward" title and changes the world's lighting slightly.
 
-| Collection | Count | Reward |
-| --- | --- | --- |
-| Tides logged | 4 | THE FOUR TIDES |
-| Starfish | 5 | STARLIGHT + $25 |
-| Bottles | 8 | THE WHOLE SEA |
-| Reef species | 6 | REEF REGISTRY |
-| Achievements | 47 | ISLAND STEWARD |
+## Technical Settings
 
-The stats page opens with a one-line **Keeper's Journal** — bottles, starfish,
-tides, species, and achievements at a glance.
-
-The catalogue carries achievements n/47 at this version; every badge is browsable
-in the stats page's grouped guide, and the README keeps the full list.
-
-## The courier (hidden arc)
-
-The **Silverfin** is the island's courier — a pale fish that rides Eel Run. Spot
-it once and the Reef Registry remembers. Its post arrives at the shop counter:
-one **$10** page per tide day, fourteen in order. Read ten for **THE REGULAR**;
-read all fourteen for **THE LAST LETTER**. Ignoring it is noticed too, once.
-
-## Island folk notice you
-
-Once you earn a badge, the islanders mention it in later conversation.
-
-| Islander | Notices |
-| --- | --- |
-| Mara | Pact funded, 25 circuits, five perfect dives, the far point |
-| Tom | Shore notes read, 30 kg in one dive, 25 dives, 900 m, the far point |
-| Nina | Shore notes read, flawless shifts, the far point |
-| Kai | Pact funded, ten golden scraps, Corl's seven days, six bottles, the far point |
-| Oda | The keeper's letter, six bottles, all eight bottles, ten almanac days, ISLAND STEWARD, the far point |
-
-Complete the whole catalogue (**ISLAND STEWARD**) and every islander sends you
-off — and the world wears a faint golden hush.
-
-## Saving & multiple islands
-
-- The island saves automatically and on **Save & quit**, with two rolling
-  backups.
-- With two or more islands, **Load Save** opens a picker: load, rename, or
-  delete.
-- **+ New island** starts a fresh shore without touching your others.
-
-## Settings
-
-The island menu (☰) holds **Master / Music / Ambience / SFX** sliders and
-**Reduce motion**. The stats page has **Restore backup**. **Hide the tide**
-silences the tide labels.
+- **Multiple Saves:** You can start a "New Island" without deleting your current one.
+- **Backups:** If a save is corrupted, use **Restore Backup** on the Stats page.
+- **Tide Display:** "Hide the Tide" in settings removes tide labels from the HUD if you prefer to play without knowing the current bonuses.
