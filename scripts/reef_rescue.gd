@@ -10,6 +10,9 @@ const FishCatalog := preload("res://scripts/fish_catalog.gd")
 @export var MAX_BG_SPEED := 120.0
 @export var SPAWN_INTERVAL := 0.8
 
+## Drone pickup/bump reach, in px — widened by the Collection Range upgrades.
+const COLLECTION_RADIUS := 66.27
+
 var depth := 0.0
 var running := true
 var drag_velocity := Vector2.ZERO
@@ -60,7 +63,12 @@ func _ready() -> void:
 		timer.start()
 	var collect_shape: CollisionShape2D = $"Drone/Area2D/CollisionShape2D"
 	if collect_shape and collect_shape.shape is CircleShape2D:
-		(collect_shape.shape as CircleShape2D).radius = 66.27 + GameState.get_collection_radius_bonus()
+		(collect_shape.shape as CircleShape2D).radius = COLLECTION_RADIUS + GameState.get_collection_radius_bonus()
+	elif collect_shape and collect_shape.shape is CapsuleShape2D:
+		var capsule := collect_shape.shape as CapsuleShape2D
+		var radius := COLLECTION_RADIUS + GameState.get_collection_radius_bonus()
+		capsule.radius = radius
+		capsule.height = radius * 2.0
 	if tide_label:
 		tide_label.text = "≈ Tide hidden — read the water yourself." if GameSettings.hide_tide else "≈ %s" % TideReport.summary()
 	AudioManager.play_bgm("reef")

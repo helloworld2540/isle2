@@ -211,6 +211,7 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 - Background speed 75..120 based on drone Y; depth `+= bg_speed/10`.
 - Drone inertia; wall bounce × -0.3; clamped 60 px inset.
 - Collection radius 66.27 + 12×upgrade_range.
+- Hitboxes: the drone's pickup/bump shape is the capsule; fish and trash bump hitboxes are measured off each sprite's ink bounds, so every species (and trash) sizes its own hitbox to the art instead of sharing one hard-coded circle.
 - Combos: 3 garbage in 2s → multiplier `1 + floor(combo/3)`; bonus = weight × (mult-1).
 - Fish limit 3 ends run; spawns edge markers for off-screen items.
 - Spawns are weighted, not uniform (weighted reef spawns): Goldie 20 / Nemo 26 / Crab 22 (regulars), Grey Reef Shark 14, Starfish 14, Silverfin 10 — doubled to 20 on Eel Run, the courier's day. The Starfish drifts at 0.42× a fish's speed, spawns already on the reef floor (no bottom wake), and carries a calm amber edge marker instead of the red fish flare.

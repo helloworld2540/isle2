@@ -23,13 +23,62 @@ func _sprite(path: String) -> Texture2D:
 		_sprite_cache[path] = tex
 	return tex
 
+## Bump hit radius per spawn texture, in sprite pixels, measured off the art's
+## ink bounds so each species — and each trash — gets a hitbox that fits its
+## picture instead of one hard-coded circle every spawn shared. Cached per
+## texture path; each owning instance still applies its own drift scale.
+var _hit_radius_cache: Dictionary = {}
+
+## Half the diagonal of the sprite's ink bounding box — a circle broad enough to
+## never miss a bump the player could not see and never stop short of one they
+## could. Scaled by the instance's drift size upstream (the shape is parented
+## under the size-driven body).
+func _hit_radius(texture_path: String) -> float:
+	var cached: float = _hit_radius_cache.get(texture_path, 0.0) as float
+	if cached > 0.0:
+		return cached
+	var radius := 0.0
+	var tex := _sprite(texture_path)
+	if tex:
+		var img := tex.get_image()
+		var tex_w := img.get_width()
+		var tex_h := img.get_height()
+		var min_x := tex_w
+		var min_y := tex_h
+		var max_x := -1
+		var max_y := -1
+		for py in range(tex_h):
+			for px in range(tex_w):
+				if img.get_pixel(px, py).a > 0.0:
+					if px < min_x:
+						min_x = px
+					if px > max_x:
+						max_x = px
+					if py < min_y:
+						min_y = py
+					if py > max_y:
+						max_y = py
+		if max_x >= 0:
+			var ink_size := Vector2(max_x - min_x + 1, max_y - min_y + 1)
+			radius = 0.5 * ink_size.length()
+	_hit_radius_cache[texture_path] = radius
+	return radius
+
+## Points the spawn's bump hitbox at the freshly assigned sprite. Falls back to
+## the authored shape when no ink could be measured for the texture.
+func _apply_hitbox(texture_path: String) -> void:
+	if collision_shape and collision_shape.shape is CircleShape2D:
+		var radius := _hit_radius(texture_path)
+		if radius > 0.0:
+			(collision_shape.shape as CircleShape2D).radius = radius
+
 const FISH := {
 	"fish_gold.png": 20,
 	"fish_greyreefshark.png": 45,
 	"fish_nemo.png": 25,
 	"fish_crab.png": 15,
 	"fish_silverfin.png": 18,
-	"fish_star.png": 40
+	"fish_star.png": 15
 }
 
 ## Relative spawn weights — tuned so the Grey Reef Shark is a spice, the Crab
@@ -54,6 +103,7 @@ const DRIFT_SPEED_SCALE := {
 }
 
 @onready var sprite: Sprite2D = $CharacterBody2D/Sprite2D
+@onready var collision_shape: CollisionShape2D = $CharacterBody2D/CollisionShape2D
 
 var speed := Vector2.ZERO
 var size := 1.0
@@ -110,6 +160,7 @@ func init_fish() -> void:
 			sprite.texture = tex
 		if golden_fish:
 			sprite.modulate = Color(1.18, 1.08, 0.5, 1.0)
+		_apply_hitbox(texture)
 
 func init_garbage() -> void:
 	set_meta("is_fish", false)
@@ -133,6 +184,7 @@ func init_garbage() -> void:
 			sprite.texture = tex
 			if bool(get_meta("golden", false)):
 				sprite.modulate = Color(1.15, 1.05, 0.55, 1.0)
+	_apply_hitbox(texture)
 	rotation_degrees = randi_range(0, 360)
 	if sprite:
 		sprite.flip_h = randf() > 0.5

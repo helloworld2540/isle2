@@ -41,22 +41,38 @@ for path, anchors in REQUIRED.items():
         if anchor not in text:
             failures.append(f"{path}: missing anchor {anchor!r}")
 
-# Version strings must agree: the main-menu stamp, the About page and the
-# README shipping line all name the same version. A loop that bumps one and
-# not the others prints a lie on the title screen.
+# Version strings must agree, and the single source of truth is the VERSION
+# constant in scripts/version.gd. The main-menu stamp, the About page, the
+# README shipping line and the guide changelog all name that same version.
+version_source = open("scripts/version.gd", encoding="utf-8").read()
+version_m = re.search(r'const VERSION := "([0-9]+\.[0-9]+(?:\.[0-9]+)?)"', version_source)
+version = version_m.group(1) if version_m else None
 version_hits = []
-for path, pattern in (
-    ("scenes/main_menu.tscn", r'text = "(v[0-9]+\.[0-9]+(?:\.[0-9]+)?)"'),
-    ("scripts/ui/about.gd", r'Version ([0-9]+\.[0-9]+(?:\.[0-9]+)?)'),
-    ("README.md", r'[Ss]hipping version: ([0-9]+\.[0-9]+(?:\.[0-9]+)?)'),
-    ("guide.md", r'\*\*([0-9]+\.[0-9]+\.[0-9]+)\*\*'),
-):
-    m = re.search(pattern, open(path, encoding="utf-8").read())
-    if m is None:
-        failures.append(f"version stamp not found in {path}")
-        continue
-    v = m.group(1).lstrip("v")
-    version_hits.append((path, v))
+if version is None:
+    failures.append("version source scripts/version.gd lacks a VERSION constant")
+
+m = re.search(r'text = "v([0-9]+\.[0-9]+(?:\.[0-9]+)?)"', open("scenes/main_menu.tscn", encoding="utf-8").read())
+if m is None or m.group(1) != version:
+    failures.append(f"scenes/main_menu.tscn: version stamp does not match scripts/version.gd ({version})")
+else:
+    version_hits.append(("scenes/main_menu.tscn", m.group(1)))
+
+about_text = open("scripts/ui/about.gd", encoding="utf-8").read()
+if version is None or "Version.VERSION" not in about_text:
+    failures.append(f"scripts/ui/about.gd: About page does not read Version {version} from scripts/version.gd")
+
+m = re.search(r'[Ss]hipping version: ([0-9]+\.[0-9]+(?:\.[0-9]+)?)', open("README.md", encoding="utf-8").read())
+if m is None or m.group(1) != version:
+    failures.append(f"README.md: shipping version does not match scripts/version.gd ({version})")
+else:
+    version_hits.append(("README.md", m.group(1)))
+
+m = re.search(r'\*\*([0-9]+\.[0-9]+\.[0-9]+)\*\*', open("guide.md", encoding="utf-8").read())
+if m is None or m.group(1) != version:
+    failures.append(f"guide.md: changelog version does not match scripts/version.gd ({version})")
+else:
+    version_hits.append(("guide.md", m.group(1)))
+
 distinct = {v for _, v in version_hits}
 if len(distinct) > 1:
     detail = ", ".join(f"{p}={v}" for p, v in version_hits)

@@ -12,6 +12,7 @@ class_name MainMenu
 @onready var about_button: Button = $AboutButton
 @onready var about_canvas: CanvasLayer = $AboutCanvas
 @onready var save_summary_panel: PanelContainer = $RightColumn/SaveSummaryPanel
+@onready var version_stamp: Label = $LeftColumn/VersionStamp
 @onready var more_stats_button: Button = $RightColumn/SaveSummaryPanel/VBoxContainer/MoreStatsButton
 @onready var confirm_panel: CanvasLayer = $ConfirmPanel
 @onready var slot_picker: CanvasLayer = $SlotPicker
@@ -29,6 +30,7 @@ func _ready() -> void:
 	_play_entrance_animation()
 	_spawn_ambient_motion()
 	AudioManager.play_bgm("menu")
+	version_stamp.text = "v" + Version.VERSION
 	_pulse_both_titles()
 
 
