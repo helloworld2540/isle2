@@ -5,6 +5,12 @@ extends CharacterBody2D
 
 @export var MOVE_TIME := 0.3
 
+## Emitted when a tap-to-move walk finishes — one "movement cycle" (a single
+## BFS run). Portals listen for it so a pad the keeper spawned beside can stay
+## inert through that first walk instead of bouncing them back into the scene
+## they just left.
+signal move_cycle_finished
+
 @onready var animated_sprite: AnimatedSprite2D = $"AnimatedSprite2D"
 @onready var world_map: TileMapLayer = $"../../Geography/WorldMap"
 
@@ -104,6 +110,10 @@ func _move_to_target() -> void:
 func _on_move_finished() -> void:
 	is_moving = false
 	_refresh_highlight()
+	# Only the end of the whole run counts as a cycle; _on_move_finished also
+	# fires between tiles.
+	if path.is_empty():
+		move_cycle_finished.emit()
 
 func _update_animation(dir: Vector2) -> void:
 	if not animated_sprite:

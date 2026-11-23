@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/run_recap.tscn" id="12_recap"]
 [ext_resource type="Script" uid="uid://bdchtbi1aets" path="res://scripts/wm_onboarding.gd" id="13_onboarding"]
 [ext_resource type="PackedScene" uid="uid://bqw8n0p7yirq0" path="res://scenes/wm_loop_path.tscn" id="14_loop"]
+[ext_resource type="Texture2D" uid="uid://dee1chp0akme7" path="res://sprites/npc/portrait_oda.png" id="14_x2olw"]
 [ext_resource type="PackedScene" path="res://scenes/ui/settings_panel.tscn" id="15_settings"]
 [ext_resource type="PackedScene" uid="uid://bbw7nw0gysrfc" path="res://scenes/ui/about.tscn" id="16_about"]
 [ext_resource type="PackedScene" path="res://scenes/ui/quest_tracker.tscn" id="16_tracker"]
@@ -448,18 +449,20 @@ station_id = "shop"
 position = Vector2(-460, -765)
 npc_id = "npc_mara"
 portrait = ExtResource("20_mara")
-dialogue_lines = Array[String](["Hi! I'm Mara, island caretaker.", "Pick up trash, bring it back — I'll reward it."])
-repeat_dialogue_lines = Array[String](["Welcome back! Got any Polyethylene to spare?", "Oda's clock story again? Wheels, tides, the whole almanac. It's a calendar, not a clock.", "They say someone watches from the far point. Nobody has caught them yet."])
-quest_complete_lines = Array[String](["You're a true island hero!"])
-tier2_lines = Array[String](["Tier 2: bring 5 Glass for a Polypropylene bounty."])
+dialogue_lines = Array[String](["You're the new keeper, then. Good — this shore's been short one.", "I'm Mara. I run the work here: bring me what you drag up and I'll see you paid for it."])
+repeat_dialogue_lines = Array[String](["Polyethylene, if you've got it — the benches eat it faster than we can sort it.", "No rush. Nobody works this island alone."])
+quest_complete_lines = Array[String](["You've done right by this shore, both rounds. I won't forget it."])
+tier2_lines = Array[String](["Glass this time. Don't make me come find you."])
+flavour_variants = Array[String](["Kai counts everything, including people. He counted me once. I'm still not sure I passed.", "Tom's out past the jetty again. Tell him his Nylon order's late — he'll pretend not to hear.", "Nina would sell you the tide itself if the tide stood still long enough.", "Oda's on about her clock again. It's a calendar, love. Calendars don't need winding.", "I'd stay off the east shore if I were you. That's all I'll say on it."])
+ambient_bubbles = Array[String](["*sorting a crate by hand*", "*squinting at the horizon*", "Mind the tide line — it bites."])
 milestone_beats = {
-"clean_sweep": "Five dives with not a fish bumped and not a gram wasted. The reef is lucky you are patient.",
-"far_point": "You caught the one I told you about. I raised you right, didn't I? Nobody has ever caught him before.",
-"island_steward": "Every badge, every page. The island has never had a keeper like you, and it knows it.",
-"loop_master": "Twenty-five circuits. The island routes itself through you now.",
-"tide_keeper": "Two and a half thousand on the Pact — you really believe in this place. So do I. Always did.",
-"whole_sea": "Eight notes. Every single one. You did not collect them, keeper — you adopted them.",
-"year_keeper": "A whole year of mornings with the keeper. The island keeps you now."
+"clean_sweep": "Not one fish bumped in five dives. Tom would call that luck. I call it care.",
+"far_point": "So you went east after all — and you came back. I won't ask what you saw. I'm only glad of the last part.",
+"island_steward": "Every badge on this island and you're still asking what needs doing. That's the whole of it, that.",
+"loop_master": "Twenty-five circuits. You could run this shore without me now. Don't get ideas.",
+"tide_keeper": "Two and a half thousand for the Pact. You didn't buy a bigger bag, keeper — you bought into the place.",
+"whole_sea": "Eight notes, and you kept every one. I stopped reading them years ago. That's the difference between us.",
+"year_keeper": "A year of mornings. The island's as much yours as mine now. Sit down — you've earned that much."
 }
 quest_material = "Polyethylene"
 quest_amount = 8
@@ -476,19 +479,21 @@ npc_id = "npc_tom"
 npc_name = "Tom"
 npc_sprite_index = 2
 portrait = ExtResource("21_tom")
-dialogue_lines = Array[String](["The reef is full of junk.", "Bring it back — I'll take it."])
-repeat_dialogue_lines = Array[String](["Any Nylon for the shop today?", "Wheels, tides, a brass heart. Sure. My grandfather said the island ticks like a clock. I never corrected him.", "They say someone watches from the far point — Oda sees him. I keep to my fishing."])
-quest_complete_lines = Array[String](["Sea life thanks you!"])
-tier2_lines = Array[String](["Tier 2: 6 Polypropylene for 8 Polyethylene."])
+dialogue_lines = Array[String](["The reef's full of junk. Someone's got to pull it out.", "Bring it to me and I'll weigh it fair. That's the whole arrangement — no fuss, no forms."])
+repeat_dialogue_lines = Array[String](["Any Nylon on you? The nets go through it something awful.", "Mara sets the rules and I keep the scales. Between us it works out."])
+quest_complete_lines = Array[String](["Sea life thanks you. So do I — not that it's fashionable to say so."])
+tier2_lines = Array[String](["Polypropylene next. Don't ask what for — you wouldn't like the answer."])
+flavour_variants = Array[String](["Kai says I smell of the water. I sleep next to it, so — yes. He's not wrong.", "Nina pays well and talks better. Mind you don't spend it all on the talk.", "My grandfather swore this island ticked. Said you could hear it at slack water. I never told him otherwise. Some things you let a man keep.", "There's a light past the east point that never goes out. My grandfather saw it. Neither of us ever went to look. Some lights you leave alone.", "Forty years on this water. The floor keeps changing and the current keeps lying. You learn to trust neither."])
+ambient_bubbles = Array[String](["*mending a net, slowly*", "*watching the water, not you*", "Calm enough to dive. Calm enough to think."])
 milestone_beats = {
-"far_point": "Oda sees him. I keep to my fishing. But I saw the look on your face when you came back — you saw something too.",
-"heavy_haul": "Thirty kilos in one dive? The reef noticed that. Try not to rob it.",
-"island_steward": "Full journal, full tide, full heart. Whatever you came here to find — you found it.",
-"pale_courier": "Saw the pale one, did you? Courier of the strait. Nobody's ever kept up with it — but you saw it.",
-"reef_abyss": "Nine hundred metres down. The reef keeps its deepest secrets, and lets you walk right past.",
-"reef_veteran": "Twenty-five dives and you still come up smiling. Most of us stop smiling at the third.",
-"tide_messages": "You read my note? I never sign them properly — glad it helped. The fish came back; that is all that matters.",
-"whole_sea": "Eight bottles, and not one cracked. I would not have believed it if I had not seen your bag. The sea kept writing; you kept reading."
+"far_point": "So you went and looked at the light. Forty years and I never once did. Whatever you saw — keep it. That's how it stays real.",
+"heavy_haul": "Thirty kilos out of one dive. The floor gives and gives. One day it won't, so take the good tides while they're offered.",
+"island_steward": "Every page, every badge. I've known keepers quit at the first hard week. You stayed — that's rarer than anything that ever came out of your bag.",
+"pale_courier": "You saw the courier. I've felt it pass under the boat and never once laid eyes on it. You've got the better eyes — use them kindly.",
+"reef_abyss": "Nine hundred metres down. The deep's quiet and cold and keeps its own accounts. You came back up. Good.",
+"reef_veteran": "Twenty-five dives and you still come up grinning. Most of us stop grinning around the third.",
+"tide_messages": "You read my note, then. I never sign them — Mara calls it cowardice. I call it fishing.",
+"whole_sea": "Every bottle the water ever left and you kept the lot. I've thrown most of mine back. You didn't."
 }
 reward_trash = 4
 reward_mat = "Nylon"
@@ -506,17 +511,19 @@ npc_id = "npc_nina"
 npc_name = "Nina"
 npc_sprite_index = 3
 portrait = ExtResource("22_nina")
-dialogue_lines = Array[String](["I run the stand by the shop.", "Sell me trash — I pay a bonus."])
-repeat_dialogue_lines = Array[String](["Got stock for the store today?", "A clock you can't sell shelf space in is just furniture, love. Though it does tick in four tides."])
-quest_complete_lines = Array[String](["Shop's stocked! Thanks."])
-tier2_lines = Array[String](["Tier 2: 8 Polyethylene for 8 Polypropylene."])
+dialogue_lines = Array[String](["Nina. I run the stand by the shop — best prices and worst jokes on the island.", "Bring me your stock. I pay the bonus, not the rumour."])
+repeat_dialogue_lines = Array[String](["Got anything for the stand today? I'm always buying.", "Glass turns into money around here. Took me years to trust that. Took Kai longer."])
+quest_complete_lines = Array[String](["Stocked to the rafters. You're a treasure — and I'd know, I price them."])
+tier2_lines = Array[String](["More Polyethylene, love. Bring it and I'll make it worth the walk."])
+flavour_variants = Array[String](["Kai buys to stock, I buy to sell. That's the whole difference between a shop and a market.", "Tom won't trade with me anymore. Says I talk his catch up. I do — that's the job.", "Mara runs the shore and I run what runs off it. She pretends not to notice. I pretend not to mind.", "Oda reckons this island was a clock once. A clock you can't sell shelf space in is just furniture that judges you.", "Two divers came back from the east point this month and neither would say a word. I'd pay real money for that story."])
+ambient_bubbles = Array[String](["*counting coins twice*", "*haggling with nobody in particular*", "Come back when it's not low tide."])
 milestone_beats = {
-"far_point": "Word travels that you saw the one on the far point. Nobody at the counter speaks of it. We count it as true anyway.",
-"island_steward": "They will tell stories about you at the stand. The ones with every badge do not come along often.",
-"pale_courier": "Something crossed my flight path that was not a bird and not a cloud. The courier route runs low and quick.",
-"silk_touch": "Five flawless shifts and not a bin missed. At the stand we rarely say it, but the word is ‘yes’.",
-"tide_messages": "I heard you found the letters. Every single one. Somewhere up there, the glass gardens are catching the light for you.",
-"whole_sea": "Eight notes on file. My letters finally make sense in the sequence. Safe flying to you — you read the route like I never could."
+"far_point": "So you're one of them, then. The divers who came back from the east point with nothing to say. I'll buy the story off you — name your price.",
+"island_steward": "Every badge in the book. I'll be telling the ones about you for years, and embellishing. That's not a threat — it's a service.",
+"pale_courier": "Something crossed my line that wasn't a bird. Pale, quick, gone by the time I looked up. You've seen it too — I can always tell.",
+"silk_touch": "Five shifts and not a bin missed. I've muddled my own stock more often than that, and I only have the one stand.",
+"tide_messages": "You found my letters. I write them half to hear myself, I'll admit it. But you read every one. I'll take that.",
+"whole_sea": "All eight notes. I used to think the sea was just weather. Keep that to yourself — I've a reputation to protect."
 }
 reward_trash = 5
 reward_mat = "Nylon"
@@ -535,22 +542,24 @@ npc_id = "npc_kai"
 npc_name = "Kai"
 npc_sprite_index = 4
 portrait = ExtResource("23_kai")
-dialogue_lines = Array[String](["I run the shop.", "Bring me Glass — I'll stock the shelves."])
-repeat_dialogue_lines = Array[String](["Any Glass for the shop today?", "Oda says the island was once a giant clock. If so, the sea has terrible shelf space.", "I do not stock the far point. Never a good day out there."])
-quest_complete_lines = Array[String](["Shelves fully stocked. Thank you!"])
-tier2_lines = Array[String](["Tier 2: 8 Polyethylene for 4 Glass."])
+dialogue_lines = Array[String](["Kai. I run the shop. If it can be counted, weighed or stacked, I'll buy it.", "Glass, mostly. The shelves are always hungry and I'm not sentimental about it."])
+repeat_dialogue_lines = Array[String](["Any glass for the shop today? I'm down to the last crate.", "I pay what it's worth. Not a coin more, not a coin less."])
+quest_complete_lines = Array[String](["Shelves stocked for the month. If you ever want a job — no. You're better as a supplier."])
+tier2_lines = Array[String](["More Polyethylene. Plain, dull, sells every time. Bring it."])
+flavour_variants = Array[String](["Mara sets the work, Oda sets the weather, and I set the price. One of us has to be boring.", "Nina undercuts me by a dollar and calls it charm. Charm doesn't stock shelves.", "Tom tells me the sea's talking. Tom also tells me his nets are full. I check.", "Oda reckons this island was one big clock once. I've counted the parts. Best I can tell it was a fish market.", "I don't stock the far point. Nothing comes back from there worth a shelf, and I don't order what I can't move."])
+ambient_bubbles = Array[String](["*dusting a shelf no one sees*", "*tapping the till, counting*", "Everything's for sale. Not everything's in stock."])
 milestone_beats = {
-"double_keeper": "The sea knows you twice: once for listening, once for not. Either way, you stayed.",
-"far_point": "I do not stock the far point — never a good day out there. But word travels, and the shelves have been lighter since you came back. You went there. You came back.",
-"golden_touch": "Ten golden finds. The reef has never been this shiny in any ledger of mine.",
-"island_steward": "Every achievement in the book, and not one shelf left untouched. You are the best customer I have ever had.",
-"pale_courier": "Saw the pale one, did you? Shame it does not sit on a shelf. I would stock it.",
-"quiet_keeper": "Three days kept without the tide's help. Keepers like you are rare.",
-"silent_chorus": "Read every note the sea ever left you. I stock for people like you — and you are the only regular who buys nothing before reading everything first.",
-"tide_almanac": "Booked every tide and never once argued with the water. Shelves are never full enough for a keeper who reads the sea.",
-"tide_keeper": "The Pact. Two and a half grand. The tidekeeper pays attention to who does that — so do I. Shelves are always open to you.",
-"whispers": "Corl sold you seven days of weather and you paid for every one. I've never understood him — but the till never turns him down.",
-"whole_sea": "All eight in the book. Best customer the tide ever had. Tell the sea it can stop writing for a while — you have read it all."
+"double_keeper": "Two badges for staying — one with the tide, one without. I'd tell you to pick a lane, but you made both work. Shows what I know.",
+"far_point": "I don't stock the far point — never a good day out there. But the shelves have been lighter since you went east and came back. I noticed. I don't say that often.",
+"golden_touch": "Ten golden finds. In forty years I've had three through this till. Explain the trick, or at least buy something.",
+"island_steward": "Every achievement there is, and you still pay full price. Best customer I've ever had, and the only mystery.",
+"pale_courier": "The pale one. I'd stock it in a heartbeat if it ever sat still long enough. It doesn't. You saw it anyway.",
+"quiet_keeper": "Three days kept with the tide turned off. Most keepers lean on the sea. You didn't. Noted — and priced at nothing.",
+"silent_chorus": "Read every note the water left you. I've customers who won't even read a price tag. You are not one of them.",
+"tide_almanac": "All four tides booked. Oda will be insufferable about it. Rightly, for once.",
+"tide_keeper": "The Pact. Two and a half thousand, paid clean. I've sold a great many things. That's the first one that meant anything.",
+"whispers": "Corl sold you seven days of weather and you paid for every one. He's never given me a straight answer — but he gives you the weather. Make of that what you will.",
+"whole_sea": "All eight notes. Best customer the tide ever had. Tell the water it can stop writing — you've read it dry."
 }
 reward_trash = 3
 reward_mat = "Polypropylene"
@@ -568,25 +577,26 @@ position = Vector2(-1025, -403)
 npc_id = "npc_oda"
 npc_name = "Oda"
 npc_sprite_index = 2
-dialogue_lines = Array[String](["Oda. I keep the tide almanac.", "Four tides, four days — the standing order changes with each one.", "Watch the water; it always tells the truth, eventually."])
-repeat_dialogue_lines = Array[String](["The almanac's a little fatter every week. Come see what today's sea has decided.", "The inside cover says the island was once a brass clock — four wheels for four tides. Kai calls that bad inventory timing. I call it history."])
-flavour_variants = Array[String](["Four tides, four warnings.", "The almanac's a little fatter every week.", "Slack Water rewards patience."])
-ambient_bubbles = Array[String](["*scribbling in a salt-stained book*", "*holds a hand up to the wind*"])
+portrait = ExtResource("14_x2olw")
+dialogue_lines = Array[String](["Oda. I keep the tide almanac — four tides, four moods, one book.", "When the sea says something, I write it down. Then I wait to see if it meant it.", "Watch the water, keeper. It always tells the truth, eventually."])
+repeat_dialogue_lines = Array[String](["The sea's in a mood again. Sit — I'll tell you what it settled on.", "The almanac's a little fatter every week. There's no end to the watching."])
+flavour_variants = Array[String](["Four tides, four warnings. I've never known one of them to be wrong.", "The inside cover says this island was a brass clock — four wheels for four tides. Kai calls it bad inventory. I call it a family story.", "Mara thinks I'm superstitious. She counts the days the same as I do, only louder and with fewer notes.", "The one before you kept a book too. I have a page of it, somewhere. Earn the rest and I might show you."])
+ambient_bubbles = Array[String](["*writing, stopping, writing again*", "*holds a hand up to the wind*", "The tide doesn't lie. People do."])
 tide_aware = true
 milestone_beats = {
-"courier_regular": "Ten pages, read at the counter. Corl counts them in the back of his ledger — I have seen him do it.",
-"far_point": "You saw him. I won't ask how you knew he was there. Some of us watch the water — some of us are watched by it.",
-"island_steward": "Every page of the journal, every badge the island has. I have watched a lot of keepers pass through — you are the first I would write down.",
-"keeper_letter": "Found his note, did you? He stood right about there. Watched the same water you do.",
-"last_letter": "Fourteen pages. He never signed one of them. You read the whole post anyway, and now the drawer is shut for good.",
-"long_keeper": "Ten tides on one island. Staying is the whole job, love. You stayed.",
-"pale_courier": "The courier. Nobody has ever kept up with it — and I wrote down every time somebody saw it. You made the page.",
-"silent_chorus": "Every note the water ever left, and you read all six. Half the keepers think the tide is just weather. You know better now.",
-"steady_keeper": "Three tides running. You show up. That is the whole trick.",
-"tide_almanac": "You have the four. Ancient news — and the only news I will ever need.",
-"whispers": "Seven days of tomorrow from Corl, and he still will not take a compliment. The sea made him this way — I respect it. Mostly.",
-"whole_sea": "Every bottle the sea ever sent, and you kept them all. The water talks, love — most never listen. You listened to the very end.",
-"year_keeper": "A full year of tides. There is no greater gift a keeper can give me."
+"courier_regular": "Ten pages off the courier, read at the counter. Corl counts them in the back of his ledger. He thinks I haven't noticed. I notice everything worth noticing.",
+"far_point": "You saw him, then. I won't ask how you knew where to stand — some of us watch the water, and some of us are watched by it.",
+"island_steward": "Every page of every book this island keeps. I've watched keepers pass through for thirty years. You're the first I'd write down.",
+"keeper_letter": "You found his note. He stood about there and watched the same water you do. He'd have liked that you stayed — I know I do.",
+"last_letter": "Fourteen pages, not one of them built to be kept. You kept them anyway. The drawer's shut for good now. He'd have wanted that.",
+"long_keeper": "Ten tides on one shore. Staying is the whole job, love. Everyone else is just visiting.",
+"pale_courier": "The courier. I've written down every soul who ever saw it — and a fair few who only claimed to. Your name's on the page now.",
+"silent_chorus": "All six notes, read to the end. Half the keepers think the tide is just weather. You know better than that now.",
+"steady_keeper": "Three tides running without missing a day. That's it. That's the whole trick — and almost nobody manages it.",
+"tide_almanac": "You have all four. Ancient news to the world, and the only news I'll ever need.",
+"whispers": "Seven days of tomorrow from Corl, and he still won't take a compliment. The sea made him like that. I respect it — mostly.",
+"whole_sea": "Every bottle the sea ever sent, and you kept them all. The water talks, love. Most never listen. You listened to the very end.",
+"year_keeper": "A full year of tides. There's no greater gift a keeper can give an old woman with a book and a shoreline."
 }
 reward_trash = 0
 

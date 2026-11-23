@@ -819,7 +819,7 @@ theme_override_colors/font_hover_color = Color(1, 0.96, 0.85, 1)
 theme_override_colors/font_focus_color = Color(1, 0.96, 0.85, 1)
 theme_override_colors/font_hover_pressed_color = Color(1, 0.96, 0.85, 1)
 theme_override_colors/font_pressed_color = Color(1, 0.96, 0.85, 1)
-text = "· Tip: The Loop"
+text = "· The Loop"
 
 [node name="BottleGullButton" type="Button" parent="LedgerOverlay/Panel/VBox"]
 custom_minimum_size = Vector2(0, 52)
@@ -835,7 +835,7 @@ theme_override_colors/font_hover_color = Color(1, 0.96, 0.85, 1)
 theme_override_colors/font_focus_color = Color(1, 0.96, 0.85, 1)
 theme_override_colors/font_hover_pressed_color = Color(1, 0.96, 0.85, 1)
 theme_override_colors/font_pressed_color = Color(1, 0.96, 0.85, 1)
-text = "· Tip: The Tides"
+text = "· The Tides"
 
 [node name="BottleLightButton" type="Button" parent="LedgerOverlay/Panel/VBox"]
 custom_minimum_size = Vector2(0, 52)
@@ -851,7 +851,7 @@ theme_override_colors/font_hover_color = Color(1, 0.96, 0.85, 1)
 theme_override_colors/font_focus_color = Color(1, 0.96, 0.85, 1)
 theme_override_colors/font_hover_pressed_color = Color(1, 0.96, 0.85, 1)
 theme_override_colors/font_pressed_color = Color(1, 0.96, 0.85, 1)
-text = "· Tip: The Market"
+text = "· The Market"
 
 [node name="BottlePactButton" type="Button" parent="LedgerOverlay/Panel/VBox"]
 custom_minimum_size = Vector2(0, 52)
@@ -867,7 +867,7 @@ theme_override_colors/font_hover_color = Color(1, 0.96, 0.85, 1)
 theme_override_colors/font_focus_color = Color(1, 0.96, 0.85, 1)
 theme_override_colors/font_hover_pressed_color = Color(1, 0.96, 0.85, 1)
 theme_override_colors/font_pressed_color = Color(1, 0.96, 0.85, 1)
-text = "· Tip: The Bag"
+text = "· The Bag"
 
 [node name="BottleKeeperButton" type="Button" parent="LedgerOverlay/Panel/VBox"]
 custom_minimum_size = Vector2(0, 52)
@@ -883,7 +883,7 @@ theme_override_colors/font_hover_color = Color(1, 0.96, 0.85, 1)
 theme_override_colors/font_focus_color = Color(1, 0.96, 0.85, 1)
 theme_override_colors/font_hover_pressed_color = Color(1, 0.96, 0.85, 1)
 theme_override_colors/font_pressed_color = Color(1, 0.96, 0.85, 1)
-text = "· Tip: The Almanac"
+text = "· The Almanac"
 
 [node name="BottleCorlButton" type="Button" parent="LedgerOverlay/Panel/VBox"]
 custom_minimum_size = Vector2(0, 52)
@@ -899,7 +899,7 @@ theme_override_colors/font_hover_color = Color(1, 0.96, 0.85, 1)
 theme_override_colors/font_focus_color = Color(1, 0.96, 0.85, 1)
 theme_override_colors/font_hover_pressed_color = Color(1, 0.96, 0.85, 1)
 theme_override_colors/font_pressed_color = Color(1, 0.96, 0.85, 1)
-text = "· Tip: The Counter"
+text = "· The Counter"
 
 [node name="BottleWatcherButton" type="Button" parent="LedgerOverlay/Panel/VBox"]
 custom_minimum_size = Vector2(0, 52)
@@ -915,7 +915,7 @@ theme_override_colors/font_hover_color = Color(1, 0.96, 0.85, 1)
 theme_override_colors/font_focus_color = Color(1, 0.96, 0.85, 1)
 theme_override_colors/font_hover_pressed_color = Color(1, 0.96, 0.85, 1)
 theme_override_colors/font_pressed_color = Color(1, 0.96, 0.85, 1)
-text = "· Tip: The Watcher"
+text = "· The Page"
 
 [node name="BottleFarPointButton" type="Button" parent="LedgerOverlay/Panel/VBox"]
 custom_minimum_size = Vector2(0, 52)
@@ -931,7 +931,7 @@ theme_override_colors/font_hover_color = Color(1, 0.96, 0.85, 1)
 theme_override_colors/font_focus_color = Color(1, 0.96, 0.85, 1)
 theme_override_colors/font_hover_pressed_color = Color(1, 0.96, 0.85, 1)
 theme_override_colors/font_pressed_color = Color(1, 0.96, 0.85, 1)
-text = "· Tip: The Star"
+text = "· The Star"
 
 [node name="LedgerClose" type="Button" parent="LedgerOverlay/Panel/VBox"]
 custom_minimum_size = Vector2(180, 46)

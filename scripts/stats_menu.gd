@@ -616,21 +616,21 @@ func _open_ledger() -> void:
 			# A hint that spoils nothing — the page is a collection tracker.
 			match id:
 				"bottle_tide":
-					button.text = "·  Tip: The Loop — still out there"
+					button.text = "·  The Loop — still out there"
 				"bottle_gull":
-					button.text = "·  Tip: The Tides — still out there"
+					button.text = "·  The Tides — still out there"
 				"bottle_light":
-					button.text = "·  Tip: The Market — still out there"
+					button.text = "·  The Market — still out there"
 				"bottle_pact":
-					button.text = "·  Tip: The Bag — still out there"
+					button.text = "·  The Bag — still out there"
 				"bottle_keeper":
-					button.text = "·  Tip: The Almanac — still out there"
+					button.text = "·  The Almanac — still out there"
 				"bottle_corl":
-					button.text = "·  Tip: The Counter — still out there"
+					button.text = "·  The Counter — still out there"
 				"bottle_watcher":
-					button.text = "·  Tip: The Watcher — still out there"
+					button.text = "·  The Page — still out there"
 				"bottle_far_point":
-					button.text = "·  Tip: The Star — still out there"
+					button.text = "·  The Star — still out there"
 				_:
 					button.text = "·  ? ? ?  —  still out there"
 			button.disabled = true

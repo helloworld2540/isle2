@@ -66,8 +66,9 @@ func _on_body_entered(body: Node) -> void:
 	lbl.rise_distance = 34.0
 	lbl.hold_time = 1.4
 	lbl.z_index = 40
+	lbl.make_world_legible()
 	get_tree().current_scene.add_child(lbl)
-	lbl.present("The Keeper's Star  +$%d" % GameState.KEEPER_STAR_MONEY, Color(1.0, 0.84, 0.4, 1.0), 20)
+	lbl.present("The Keeper's Star  +$%d" % GameState.KEEPER_STAR_MONEY, Color(1.0, 0.84, 0.4, 1.0), WorldText.font_size("popup"))
 	# Let the pop play before the node leaves the tree.
 	await get_tree().create_timer(0.6).timeout
 	queue_free()

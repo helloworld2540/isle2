@@ -24,7 +24,7 @@ A full loop typically takes 3–6 minutes. Focusing on one type of material is o
 | **World Map** | Tap to walk; glowing pads enter the dive site, sorting bench, or shop. |
 | **Sorting Bench** | Swipe to switch bins; tap the item to inspect; drop it in the matching bin. |
 | **Reef Rescue** | Drag to steer the drone (it has momentum); **ESC** or **Return to Map** ends the dive. |
-| **Shop** | Use buttons to **Sell 1**, **Sell 5**, or **Sell All**. **Undo** reverts the last sale. |
+| **Shop** | Use buttons to **Sell 1**, **Sell 5**, **Sell All** (one material), or **Sell everything** (the whole bag at once). **Undo** reverts the last sale. |
 | **General** | **ESC** closes menus; **☰** opens the island menu. |
 
 ## Frequently Asked Questions

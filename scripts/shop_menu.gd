@@ -18,6 +18,7 @@ const FxSparkle := preload("res://scripts/fx_sparkle.gd")
 @onready var coins: Label = %Coins
 @onready var inv: Label = %Inventory
 @onready var preview: Label = %Preview
+@onready var sell_everything_button: Button = %SellEverythingButton
 @onready var tip: Label = %Tip
 @onready var capacity_status: Label = %CapacityStatus
 @onready var transaction_log: Label = %TransactionLog
@@ -103,6 +104,8 @@ func _wire_ui() -> void:
 		)
 	if undo_button:
 		undo_button.pressed.connect(_undo_last_sale)
+	if sell_everything_button:
+		sell_everything_button.pressed.connect(_sell_everything)
 	if buy_market_button:
 		buy_market_button.pressed.connect(_buy_market)
 	if buy_reef_button:
@@ -150,6 +153,10 @@ func _refresh() -> void:
 		inv.text = _inv_text()
 	if preview:
 		preview.text = _preview_text()
+	if sell_everything_button:
+		var everything := _sell_everything_quote()
+		sell_everything_button.text = "Sell everything +%d$" % everything
+		sell_everything_button.disabled = everything <= 0
 	_refresh_undo_button()
 	_update_shop_tip()
 	_update_capacity_status()
@@ -161,23 +168,30 @@ func _refresh() -> void:
 	_refresh_upgrade_ui()
 
 ## Undo is only meaningful while a sale is remembered; show what it would do.
+## A sale may be one material or a whole-bag "Sell everything" batch.
 func _refresh_undo_button() -> void:
 	if not undo_button:
 		return
-	if _last_sale.is_empty():
+	var items: Array = _last_sale.get("items", [])
+	if items.is_empty():
 		undo_button.text = "Undo last sale"
 		undo_button.disabled = true
 		return
-	undo_button.text = "Undo %s x%d (+%d$)" % [
-		String(_last_sale.get("mat", "")),
-		int(_last_sale.get("qty", 0)),
-		int(_last_sale.get("earnings", 0)),
-	]
+	var earnings := int(_last_sale.get("earnings", 0))
+	if items.size() == 1:
+		undo_button.text = "Undo %s x%d (+%d$)" % [
+			String(_last_sale.get("mat", "")),
+			int(_last_sale.get("qty", 0)),
+			earnings,
+		]
+	else:
+		undo_button.text = "Undo everything (%d items, +%d$)" % [items.size(), earnings]
 	undo_button.disabled = _undo_in_progress
 	# Surface the all-or-nothing rule before the press: if the lot cannot
 	# fit back in the bag, say so on the tooltip instead of after a denial.
-	var _mat := String(_last_sale.get("mat", ""))
-	var _need := int(_last_sale.get("qty", 0)) * int(GameState.TRASH_WEIGHTS.get(_mat, 1))
+	var _need := 0
+	for it in items:
+		_need += int(it.get("qty", 0)) * int(GameState.TRASH_WEIGHTS.get(String(it.get("mat", "")), 1))
 	var _free := GameState.get_inventory_capacity() - GameState.get_inventory_weight()
 	undo_button.tooltip_text = "Take the sale back" if _need <= _free else "Bag can't fit the lot back (needs %d kg free)" % (_need - _free)
 
@@ -492,10 +506,22 @@ func _inv_text() -> String:
 
 
 func _preview_text() -> String:
+	return "If you sell it all: %d$" % _sell_everything_quote()
+
+
+## Sum of the ledger's own per-material quotes, so the preview line and the
+## Sell Everything button always agree with what a full-bag sale would pay
+## (bulk multipliers and the tide order included).
+func _sell_everything_quote() -> int:
 	var total := 0
 	for mat in GameState.SALE_PRICES.keys():
-		total += int(GameState.trash_by_type.get(mat, 0)) * (int(GameState.SALE_PRICES.get(mat, 0)) + GameState.get_market_bonus() + ShopLedger.order_bonus(mat))
-	return "If you sell it all: %d$" % total
+		var available := int(GameState.trash_by_type.get(mat, 0))
+		if available <= 0:
+			continue
+		var sale := ShopLedger.quote(mat, available)
+		if not sale.is_empty():
+			total += int(sale.get("earnings", 0))
+	return total
 
 func _sell_qty(mat: String, qty: int) -> void:
 	if qty < 1:
@@ -504,23 +530,7 @@ func _sell_qty(mat: String, qty: int) -> void:
 	if sale.is_empty():
 		_play_denied("No %s left" % mat, mat)
 		return
-	
-	var units := int(sale.get("units", 0))
-	var earnings := int(sale.get("earnings", 0))
-	var bulk := bool(sale.get("bulk", false))
-	var tag := " (bulk %s)" % ShopLedger.bulk_label() if bulk else ""
-	_last_sale = {"mat": mat, "price": int(sale.get("price", 0)), "qty": units, "earnings": earnings, "bulk": bulk}
-	_log_sale("%s x%d%s → %d$" % [mat, units, tag, earnings])
-	AudioManager.play_sfx("sale", 1.03)
-	_feedback("Sold %d %s%s +%d$" % [units, mat, tag, earnings])
-
-	_stack.sale("SOLD %s x%d%s  +%d$" % [mat, units, tag, earnings], Color(1.0, 0.85, 0.35, 1.0) if bulk else Color(0.7, 1.0, 0.6, 1.0), 1.35 if bulk else 1.0)
-	TutorialDirector.notify("sold")
-	TutorialDirector.nudge("upgrade")
-	if bulk:
-		TutorialDirector.nudge("undo")
-	GameState._persist()
-	_refresh()
+	_finish_sale([_sale_item(sale)])
 
 
 func _sell_all(mat: String) -> void:
@@ -532,19 +542,73 @@ func _sell_all(mat: String) -> void:
 	if sale.is_empty():
 		_play_denied("No %s left" % mat, mat)
 		return
-	
-	var units := int(sale.get("units", 0))
-	var earnings := int(sale.get("earnings", 0))
-	var bulk := bool(sale.get("bulk", false))
-	var tag := " (bulk %s)" % ShopLedger.bulk_label() if bulk else ""
-	_last_sale = {"mat": mat, "price": int(sale.get("price", 0)), "qty": units, "earnings": earnings, "bulk": bulk}
-	_log_sale("%s x%d%s → %d$" % [mat, units, tag, earnings])
+	_finish_sale([_sale_item(sale)])
+
+
+## Sells the whole bag in one press — every material at its own bulk rate — as
+## a single batch, so Undo can hand the entire load back at once.
+func _sell_everything() -> void:
+	var items: Array = []
+	for mat in GameState.SALE_PRICES.keys():
+		var available := int(GameState.trash_by_type.get(mat, 0))
+		if available <= 0:
+			continue
+		var sale := ShopLedger.apply(mat, available)
+		if sale.is_empty():
+			continue
+		items.append(_sale_item(sale))
+	if items.is_empty():
+		_feedback("Nothing to sell")
+		_shake_control(sell_everything_button)
+		return
+	_finish_sale(items)
+
+
+func _sale_item(sale: Dictionary) -> Dictionary:
+	return {
+		"mat": String(sale.get("material", "")),
+		"price": int(sale.get("price", 0)),
+		"qty": int(sale.get("units", 0)),
+		"earnings": int(sale.get("earnings", 0)),
+		"bulk": bool(sale.get("bulk", false)),
+	}
+
+
+## Records a batch of one or more priced sales as _last_sale, logs and
+## animates it, then refreshes. Single-material buttons pass a one-item batch;
+## Sell Everything passes one item per material in the bag.
+func _finish_sale(items: Array) -> void:
+	var total_units := 0
+	var total_earnings := 0
+	var any_bulk := false
+	for it in items:
+		total_units += int(it.get("qty", 0))
+		total_earnings += int(it.get("earnings", 0))
+		any_bulk = any_bulk or bool(it.get("bulk", false))
+	_last_sale = {
+		"items": items,
+		"mat": String(items[0].get("mat", "")) if items.size() == 1 else "",
+		"price": int(items[0].get("price", 0)),
+		"qty": total_units,
+		"earnings": total_earnings,
+		"bulk": any_bulk,
+	}
+	if items.size() == 1:
+		var it: Dictionary = items[0]
+		var mat := String(it.get("mat", ""))
+		var tag := " (bulk %s)" % ShopLedger.bulk_label() if bool(it.get("bulk", false)) else ""
+		_log_sale("%s x%d%s → %d$" % [mat, int(it.get("qty", 0)), tag, int(it.get("earnings", 0))])
+		_feedback("Sold %d %s%s +%d$" % [int(it.get("qty", 0)), mat, tag, int(it.get("earnings", 0))])
+		_stack.sale("SOLD %s x%d%s  +%d$" % [mat, int(it.get("qty", 0)), tag, int(it.get("earnings", 0))], Color(1.0, 0.85, 0.35, 1.0) if bool(it.get("bulk", false)) else Color(0.7, 1.0, 0.6, 1.0), 1.35 if bool(it.get("bulk", false)) else 1.0)
+	else:
+		var bulk_tag := " (bulk %s)" % ShopLedger.bulk_label() if any_bulk else ""
+		_log_sale("Sold everything%s: %d units → %d$" % [bulk_tag, total_units, total_earnings])
+		_feedback("Sold everything: %d units%s +%d$" % [total_units, bulk_tag, total_earnings])
+		_stack.sale("SOLD EVERYTHING x%d%s  +%d$" % [total_units, bulk_tag, total_earnings], Color(1.0, 0.85, 0.35, 1.0) if any_bulk else Color(0.7, 1.0, 0.6, 1.0), 1.45 if any_bulk else 1.15)
 	AudioManager.play_sfx("sale", 1.03)
-	_feedback("Sold %d %s%s for %d$" % [units, mat, tag, earnings])
-	_stack.sale("SOLD %s x%d%s  +%d$" % [mat, units, tag, earnings], Color(1.0, 0.85, 0.35, 1.0) if bulk else Color(0.7, 1.0, 0.6, 1.0), 1.35 if bulk else 1.0)
 	TutorialDirector.notify("sold")
 	TutorialDirector.nudge("upgrade")
-	if bulk:
+	if any_bulk:
 		TutorialDirector.nudge("undo")
 	GameState._persist()
 	_refresh()
@@ -560,21 +624,18 @@ func _log_sale(text: String) -> void:
 func _undo_last_sale() -> void:
 	if _undo_in_progress:
 		return
-	if _last_sale.is_empty():
-		_feedback("Nothing to undo")
-		return
-	var mat := String(_last_sale.get("mat", ""))
-	var qty := int(_last_sale.get("qty", 0))
-	var earnings := int(_last_sale.get("earnings", 0))
-	var was_bulk := bool(_last_sale.get("bulk", false))
-	if mat == "" or qty <= 0:
+	var items: Array = _last_sale.get("items", [])
+	if items.is_empty():
 		_feedback("Nothing to undo")
 		return
 	_undo_in_progress = true
+	var needed := 0
+	var earnings_total := 0
+	for it in items:
+		needed += int(it.get("qty", 0)) * int(GameState.TRASH_WEIGHTS.get(String(it.get("mat", "")), 1))
+		earnings_total += int(it.get("earnings", 0))
 	var cap: int = GameState.get_inventory_capacity()
 	var used := GameState.get_inventory_weight()
-	var weight_each := int(GameState.TRASH_WEIGHTS.get(mat, 1))
-	var needed := qty * weight_each
 	var free := cap - used
 	# All-or-nothing: a partial restore would claw back the full earnings while
 	# returning only some of the goods — a silent loss for the player. Deny the
@@ -585,10 +646,11 @@ func _undo_last_sale() -> void:
 		_shake_control(undo_button)
 		AudioManager.play_sfx("sort_bad", 0.9)
 		return
-	var actual_units := qty
-	GameState.trash_by_type[mat] = int(GameState.trash_by_type.get(mat, 0)) + actual_units
-	GameState.money = max(0, GameState.money - earnings)
-	GameState.lifetime_earnings = max(0, GameState.lifetime_earnings - earnings)
+	for it in items:
+		var mat := String(it.get("mat", ""))
+		GameState.trash_by_type[mat] = int(GameState.trash_by_type.get(mat, 0)) + int(it.get("qty", 0))
+	GameState.money = max(0, GameState.money - earnings_total)
+	GameState.lifetime_earnings = max(0, GameState.lifetime_earnings - earnings_total)
 	_last_sale.clear()
 	GameState._recompute_inventory()
 	GameState._persist()
@@ -596,8 +658,12 @@ func _undo_last_sale() -> void:
 	# instead of staying locked until the next sale.
 	_undo_in_progress = false
 	_refresh()
-	_feedback("Undo restored %d/%d %s" % [actual_units, qty, mat])
-	_play_undo_animation(mat, actual_units, earnings, was_bulk)
+	if items.size() == 1:
+		var it: Dictionary = items[0]
+		_feedback("Undo restored %d/%d %s" % [int(it.get("qty", 0)), int(it.get("qty", 0)), String(it.get("mat", ""))])
+	else:
+		_feedback("Undo restored the whole bag (-%d$)" % earnings_total)
+	_play_undo_animation(items, earnings_total)
 	AudioManager.play_sfx("return", 0.95)
 
 func _play_denied(feedback_text: String, mat: String) -> void:
@@ -640,16 +706,23 @@ func _feedback(text: String) -> void:
 ## Sale receipts, undo receipts, the REVERSED stamp and the punch/flash
 ## effects live in scenes/ui/receipt_stack.tscn (ReceiptStack) — instantiated
 ## once in _ready and reused for every sale and undo.
-func _play_undo_animation(mat: String, restored_qty: int, earnings: int, was_bulk: bool) -> void:
-	var bulk_tag := " (bulk %s)" % ShopLedger.bulk_label() if was_bulk else ""
+func _play_undo_animation(items: Array, earnings: int) -> void:
 	_stack.stamp("REVERSED", Color(1.0, 0.42, 0.38, 1.0))
-	_stack.undo("UNDO %s x%d%s  -%d$" % [mat, restored_qty, bulk_tag, earnings], Color(1.0, 0.55, 0.4, 1.0))
+	var label: String
+	if items.size() == 1:
+		var it: Dictionary = items[0]
+		var bulk_tag := " (bulk %s)" % ShopLedger.bulk_label() if bool(it.get("bulk", false)) else ""
+		label = "UNDO %s x%d%s  -%d$" % [String(it.get("mat", "")), int(it.get("qty", 0)), bulk_tag, earnings]
+	else:
+		label = "UNDO EVERYTHING x%d  -%d$" % [items.size(), earnings]
+	_stack.undo(label, Color(1.0, 0.55, 0.4, 1.0))
 	ReceiptStack.punch(undo_button)
 	ReceiptStack.flash(transaction_log, Color(1.0, 0.55, 0.45, 1.0))
 	ReceiptStack.flash(coins, Color(1.0, 0.5, 0.4, 1.0))
-	var row_data: Dictionary = _rows.get(mat, {})
-	ReceiptStack.flash(row_data.get("count", null), Color(1.0, 0.6, 0.45, 1.0))
-	ReceiptStack.punch(row_data.get("count", null))
+	for it in items:
+		var row_data: Dictionary = _rows.get(String(it.get("mat", "")), {})
+		ReceiptStack.flash(row_data.get("count", null), Color(1.0, 0.6, 0.45, 1.0))
+		ReceiptStack.punch(row_data.get("count", null))
 
 
 # --- Upgrades (moved from the world pause menu) ---

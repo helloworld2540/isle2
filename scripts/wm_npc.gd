@@ -61,11 +61,11 @@ const NpcQuests := preload("res://scripts/npc_quests.gd")
 ## After the Tidekeeper's Pact is funded the island talks about it. Loose
 ## harbor gossip, rarely gold-mint — the tide's crew keeps score.
 const PACT_GOSSIP := [
-	"Saw the pact keeper pass by — good folk.",
-	"That's THE one. The one who kept the reef.",
-	"Money talks — and here, it also keeps the reef going.",
-	"They rebuild whole reefs where others see trash.",
-	"Word is, even the tide answers to them now.",
+	"Saw the pact keeper pass. That's the one who paid to keep us here.",
+	"Mara's stopped calling them a visitor. She doesn't do that lightly.",
+	"Oda's written them into the book. There's room for very few names.",
+	"Kai says they still pay full price. Kai respects that. Sort of.",
+	"Word is they've been out to the east shore. Word travels fast here.",
 ]
 
 # Nodes
@@ -109,15 +109,10 @@ func _process(delta: float) -> void:
 		if not _visited_flag and TutorialDirector.is_tour_complete():
 			TutorialDirector.nudge("meet")
 
-func _unhandled_input(event: InputEvent) -> void:
-	# A queued card (waiting behind another popup) is not on screen yet; keys
-	# must not close a conversation the player has not seen.
-	if not _dialogue or not _dialogue.visible: return
-	
-	if event.is_action_pressed("ui_cancel") or \
-		(event is InputEventKey and event.pressed and not event.echo and event.keycode in [KEY_ENTER, KEY_KP_ENTER, KEY_SPACE]):
-		get_viewport().set_input_as_handled()
-		_close()
+## NOTE: conversation pacing lives here, not on the NPC — the dialogue card
+## owns the keyboard (one line at a time, Enter/Space to advance, ESC to bail),
+## so the NPC node never sees unhandled input and can never fight the card for
+## the accept/cancel actions mid-conversation.
 
 func _on_body_entered(body: Node) -> void:
 	if not _dialogue and body is Node2D and body.is_in_group("player"):
@@ -171,13 +166,14 @@ func _apply_npc_sprite() -> void:
 		
 		var sprite_height: float = sprite.get_rect().size.y * sprite.scale.y
 		var top: float = sprite.position.y - sprite_height * 0.5
+		var bottom: float = sprite.position.y + sprite_height * 0.5
 		
 		if name_label:
-			name_label.offset_top = top - 28.0
-			name_label.offset_bottom = top - 4.0
+			name_label.offset_top = top - 74.0
+			name_label.offset_bottom = top - 2.0
 		if quest_progress_label:
-			quest_progress_label.offset_top = top + 2.0
-			quest_progress_label.offset_bottom = top + 26.0
+			quest_progress_label.offset_top = bottom + 6.0
+			quest_progress_label.offset_bottom = bottom + 74.0
 			
 	if has_node("Body"):
 		$Body.visible = false

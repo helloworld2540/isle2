@@ -5,6 +5,8 @@ extends Label
 
 class_name FloatingText
 
+const WORLD_FONT := preload("res://resources/world_bold.tres")
+
 @export var rise_distance := 42.0
 @export var fade_in_time := 0.16
 @export var hold_time := 0.9
@@ -19,7 +21,19 @@ func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 
-func present(text_value: String, color: Color = Color.WHITE, font_size: int = 20) -> void:
+## A world-map callout sits under the 0.45 camera zoom, so it renders at less
+## than half size. Embolden it and give it an outline (pair with a large
+## font_size) so it stays legible over the busy tile map. Screen-space callers
+## leave this alone — their text is already full size.
+func make_world_legible() -> void:
+	add_theme_font_override("font", WORLD_FONT)
+	add_theme_color_override("font_outline_color", Color(0, 0, 0, 1))
+	add_theme_constant_override("outline_size", 10)
+
+
+## Font size is interpreted as on-screen pixels; world-space callers must pass a
+## larger value to compensate for the camera zoom (see make_world_legible).
+func present(text_value: String, color: Color = Color.WHITE, font_size: int = 18) -> void:
 	text = text_value
 	modulate = color
 	modulate.a = 0.0

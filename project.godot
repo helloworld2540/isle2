@@ -28,6 +28,7 @@ SceneTransition="*res://scripts/scene_transition.gd"
 TutorialDirector="*res://scripts/tutorial_director.gd"
 MCPGameBridge="res://scripts/mcp_bridge_guard.gd"
 EmojiFont="*res://scripts/emoji_font.gd"
+WorldText="*res://scripts/world_text.gd"
 
 [display]
 

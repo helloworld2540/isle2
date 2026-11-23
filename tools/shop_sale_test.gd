@@ -5,9 +5,10 @@ extends SceneTree
 ## `economy_audit.py` checks the price constants; this drives the real shop
 ## scene's handlers so the wiring cannot drift: Sell All must pay exactly the
 ## ledger quote, bank lifetime earnings, empty the stock, and Undo must return
-## both the goods and the money with no residual profit. Both the bulk and the
-## sub-threshold path is exercised, and the sale must survive a save/restore
-## round trip (the stock is gone from disk too).
+## both the goods and the money with no residual profit. Sell Everything must
+## pay every material's own quote in one press and Undo the whole batch. Both
+## the bulk and sub-threshold paths are exercised, and the sale must survive a
+## save/restore round trip (the stock is gone from disk too).
 ##
 ## Run with autoloads:
 ##   XDG_DATA_HOME=/tmp/isle2_verify godot --headless --path . -s tools/shop_sale_test.gd
@@ -109,6 +110,23 @@ func _initialize() -> void:
 	gs.call("restore")
 	_check(int(gs.get("money")) == expected_small, "sale survives a save/restore round trip (money)")
 	_check(int((gs.get("trash_by_type") as Dictionary).get("Polyethylene", -1)) == 3, "sale survives a save/restore round trip (stock)")
+
+	# --- Sell Everything: one press empties the whole bag, each material at
+	# its own bulk rate, and Undo hands the entire load back atomically.
+	# Two bulk lots, light enough (10 kg) that the undo fits back in the bag.
+	(gs.get("trash_by_type") as Dictionary)["Polyethylene"] = 5
+	(gs.get("trash_by_type") as Dictionary)["Reef Debris"] = 5
+	gs.call("_recompute_inventory")
+	var expected_all := int(ShopLedger.quote("Polyethylene", 5).get("earnings", 0)) + int(ShopLedger.quote("Reef Debris", 5).get("earnings", 0))
+	var money_before_all := int(gs.get("money"))
+	var weight_before_all := int(gs.call("get_inventory_weight"))
+	shop.call("_sell_everything")
+	_check(int(gs.get("money")) == money_before_all + expected_all, "Sell Everything paid every material's own quote (%d$)" % expected_all)
+	_check(int(gs.call("get_inventory_weight")) == 0, "Sell Everything emptied the whole bag")
+	shop.call("_undo_last_sale")
+	_check(int(gs.get("money")) == money_before_all, "batch undo clawed the money back")
+	_check(int(gs.call("get_inventory_weight")) == weight_before_all, "batch undo restored the whole bag")
+	_check(int((gs.get("trash_by_type") as Dictionary).get("Polyethylene", -1)) == 5 and int((gs.get("trash_by_type") as Dictionary).get("Reef Debris", -1)) == 5, "batch undo restored each material")
 
 	_print_summary()
 	# Let the receipt/undo animations finish and retire before the tree exits;

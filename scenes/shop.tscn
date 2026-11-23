@@ -406,6 +406,14 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "If you sell it all: 0$"
 
+[node name="SellEverythingButton" type="Button" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/StatusPanel/StatusBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 24
+text = "Sell everything +0$"
+
 [node name="CapacityStatus" type="Label" parent="CanvasLayer/Scroll/Margin/Layout/Body/SellColumn/StatusPanel/StatusBox"]
 unique_name_in_owner = true
 layout_mode = 2

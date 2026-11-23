@@ -33,6 +33,13 @@ const FONT_TYPES: Array[String] = [
 	"RichTextLabel",
 ]
 
+## Font resources referenced by nodes directly (theme overrides), so they never
+## pass through a theme and would otherwise miss the chain. The world map's bold
+## font is applied per-label under the zoomed-in camera.
+const NODE_FONTS: Array[String] = [
+	"res://resources/world_bold.tres",
+]
+
 var _coverage: Array[Font] = []
 
 
@@ -67,11 +74,21 @@ func _apply_fallbacks() -> void:
 	if project_font is String:
 		project_font = load(project_font as String) if not (project_font as String).is_empty() else null
 	_apply_chain(project_font as Font)
+	# Fonts set as per-node overrides never see a theme, so chain them by hand.
+	for font_path in NODE_FONTS:
+		_apply_chain(load(font_path) as Font)
 
 
 func _apply_chain(font: Font) -> void:
 	if font == null:
 		return
+	# A FontVariation wraps a base font (the bold resource wraps CenturyGothic);
+	# anchor the chain there so we never append a font before/equal to the base —
+	# appending the base itself would let the variation fall back into its own
+	# face and form a cycle.
+	var anchor := font
+	if font is FontVariation and (font as FontVariation).base_font != null:
+		anchor = (font as FontVariation).base_font
 	# Rebuild from the font's own fallbacks so re-runs stay idempotent and any
 	# fallbacks authored elsewhere (import settings, other scripts) survive.
 	var merged: Array[Font] = []
@@ -79,7 +96,7 @@ func _apply_chain(font: Font) -> void:
 		merged.append(existing)
 	# Only append coverage fonts after this one in the list, so chains stay
 	# acyclic; a font that is not itself a coverage font gets all of them.
-	var first := _coverage.find(font) + 1
+	var first := _coverage.find(anchor) + 1
 	for i in range(first, _coverage.size()):
 		var fallback := _coverage[i]
 		if not merged.has(fallback):

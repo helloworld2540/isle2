@@ -7,93 +7,97 @@ class_name BottleCatalog
 ## live here so two readers — the world pickup (wm_bottle.gd) and the Tide
 ## Ledger on the stats page — never drift apart. Adding a bottle means one
 ## entry here plus one node in the world scene.
+##
+## Every bottle is a letter from the island itself, in that writer's voice:
+## Tom at the shore, Nina at the till, Kai at the shelves, the Keeper at the
+## almanac, the Watcher at the far point, the Far Point, and Corl behind the
+## counter. No line here is an instruction to the keeper — it is the island
+## thinking to itself about them.
 
 const ENTRIES: Array[Dictionary] = [
 	{
 		"id": "bottle_tide",
-		"title": "Tip: The Loop",
+		"title": "Tom — The Loop",
 		"lines": [
-			"This note washed up on the reef dock.",
-			"TIP: The loop is Reef Rescue → Upcycle → Shop. Dive, sort, sell, repeat.",
-			"Reef Debris from a dive becomes materials at the bench — sort the right bin to build a streak.",
-			"Wrong sorts and burned trash earn nothing, so check the color before you drop.",
+			"You went round the isle and came back with the pattern.",
+			"Dive, sort, sell — that is the whole loop, keeper, and we run it honest.",
+			"Feed the right bin and the streak builds itself; wrong sorts just burn the fuel.",
+			"The reef gave us the trash. We gave it back as a streak.",
 			"— Tom, shorekeeper",
 		],
 	},
 	{
 		"id": "bottle_gull",
-		"title": "Tip: The Tides",
+		"title": "Nina — The Tides",
 		"lines": [
-			"Mara, this is the third message I sent you and I know you never read them.",
-			"TIP: Four tides rotate — Glass Calm, Slack Water, Night Drift, and Eel Run. Each one changes the sea and the prices.",
-			"Buy tomorrow's tide from the dockhand (15-20$) to plan your next dive and belt.",
-			"The 'Hide the tide' setting (Settings → Game) keeps tomorrow's tide hidden for harder runs.",
+			"Mara, third note and you still have not answered me.",
+			"The tides turn themselves — Glass Calm, Slack Water, Night Drift, Eel Run, each one remaking the sea.",
+			"Buy tomorrow's tide from the dockhand, twenty-five or fifteen if you are a regular, before you read the bin.",
+			"The hide-the-tide setting keeps tomorrow's tide hidden for the harder runs.",
 			"— Nina",
 		],
 	},
 	{
 		"id": "bottle_light",
-		"title": "Tip: The Market",
+		"title": "Kai — The Market",
 		"lines": [
-			"Kai — the shop sold out of everything again by noon.",
-			"TIP: Sell 5+ at once for the bulk bonus. Sell All clears the bag in one trip.",
-			"Market Contacts raise every unit's price by +1$; Island Patron and Tidekeeper's Pact are one-time upgrades.",
-			"Reef Charter allows an extra fish catch per dive — buy it early if big fish are your problem.",
+			"Kai — the shelves sold out again by noon.",
+			"Sell five or more in a single go and the bulk bonus kicks in. Sell All clears the bag in one trip.",
+			"Market Contacts raise every unit's price by a dollar; the Patron and the Pact are one-time upgrades.",
+			"A Reef Charter buys an extra fish a dive — take it before the big ones start showing up.",
 			"— Kai",
 		],
 	},
 	{
 		"id": "bottle_pact",
-		"title": "Tip: The Bag",
+		"title": "The Keeper — The Bag",
 		"lines": [
 			"You were the one who paid to keep us here.",
-			"TIP: The Tidekeeper's Pact costs 2500$ and permanently adds +10 kg to your bag capacity.",
-			"Bag capacity is the real bottleneck — upgrade it before chasing depth.",
-			"The island remembers who paid for the pact: the pact bottle only appears once it's paid.",
+			"The Tidekeeper's Pact is twenty-five hundred, permanent: ten kilograms added to your bag for good.",
+			"The bag was always the bottleneck. Buy the capacity before you chase the depth.",
+			"The island remembers who paid for the pact. The bottle only washes up once it has.",
 			"— The Tidekeeper",
 		],
 	},
 	{
 		"id": "bottle_keeper",
-		"title": "Tip: The Almanac",
+		"title": "The Keeper — The Almanac",
 		"lines": [
 			"If you are reading this, you finished the almanac — four tides over four days, with patience.",
-			"TIP: Log all four tides (Tide Almanac) to unlock the keeper's note and the 'The Whole Sea' achievement.",
-			"Reading every bottle unlocks the Silent Chorus; finding all 5 starfish earns Starlight Keeper.",
-			"Keep the shore and keep the ledger — achievements are tracked on the Stats page.",
+			"The log is four tides. Log all four and the almanac writes back: the keeper's note, and THE WHOLE SEA.",
+			"Read every bottle and the Silent Chorus joins in. Find all five starfish and you are STARLIGHT.",
+			"Keep the shore and keep the ledger. The checklist lives on the stats page.",
 			"— The Keeper",
 		],
 	},
 	{
 		"id": "bottle_watcher",
-		"title": "Tip: The Watcher",
+		"title": "The Watcher — The Page",
 		"lines": [
 			"You saw me. That was never supposed to happen — not here, not with a keeper who counts.",
-			"TIP: The watcher only appears once you've logged every tide (Whole Sea achievement).",
-			"Meeting him once marks the far point as seen — the watcher's bottle washes up after.",
-			"He never moves and never speaks again; walk past the far point to find him.",
+			"The watcher only answers keepers who have read the whole sea. Until then the page stays dark.",
+			"Meeting him marks the far point as seen, and then his bottle washes up.",
+			"He never moves and never speaks again. Walk past the far point and find him.",
 			"— the watcher",
 		],
 	},
 	{
 		"id": "bottle_far_point",
-		"title": "Tip: The Star",
+		"title": "The Far Point — The Star",
 		"lines": [
 			"You found the star. Of course you did — you always did.",
-			"TIP: The Keeper's Star (hidden at the far point) pays 50$ and only exists for Island Stewards.",
-			"It is not counted toward the 5-star Starlight set — it's the epilogue.",
+			"The Keeper's Star pays fifty dollars and only exists for an Island Steward. It is the epilogue.",
 			"Walk the far eastern water to find it; it glints but never ticks like the others.",
 			"— the far point, at last",
 		],
 	},
 	{
 		"id": "bottle_corl",
-		"title": "Tip: The Counter",
+		"title": "Corl — The Counter",
 		"lines": [
-			"Seven mornings I sold you tomorrow. You never once asked my name. It's Corl. It was always Corl.",
-			"TIP: Buy 7 dockhand tips to unlock Corl's folded paper and the Whisperer achievement.",
-			"Each tip costs 15-20$ (15$ if you're a 3-day regular) and reveals tomorrow's tide.",
-			"The 7th tip is free — Corl's thanks for a week of patience.",
+			"Seven mornings I sold you tomorrow. You never once asked my name. It is Corl. It was always Corl.",
+			"Seven dockhand tips unlock the folded paper and THE WHISPERER. Fifteen a day, or fifteen if you are a regular.",
+			"The seventh tip is free — my thanks for a week of patience.",
 			"— Corl, dockhand. Counter, more or less.",
 		],
 	},

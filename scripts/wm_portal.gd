@@ -12,6 +12,13 @@ const RETURN_DISTANCE := 120.0
 ## pad is not bounced straight back into the scene they just left.
 const SPAWN_GRACE_MSEC := 900
 
+## When the keeper loads in beside the pad — returning from a save, a station
+## or a minigame — the shortest way out can cross the pad itself (a keeper
+## dropped 100 px to the right who taps somewhere on the left walks straight
+## over it). Hold the pad inert through the keeper's next walk so leaving never
+## bounces them back in. Wide enough to cover the 120 px return drop plus slack.
+const SPAWN_GUARD_RADIUS := 200.0
+
 @export var target_scene: String = ""
 @export var portal_title: String = "Enter"
 ## Station id for the island-circuit tracker ("reef_rescue", "upcycle", "shop").
@@ -26,6 +33,9 @@ const SPAWN_GRACE_MSEC := 900
 @onready var warn_label: Label = $WarnLabel
 
 var _ignore_entries_until := 0
+## True while the keeper has spawned beside this pad and has not yet walked
+## clear: entries are ignored so the leaving walk can cross the pad safely.
+var _spawn_guard_armed := false
 var _hint_tick := 0.0
 ## Re-derived a few times a second while the world map is open.
 const RECOMMENDATION_TICK_SECONDS := 0.5
@@ -39,6 +49,54 @@ func _ready() -> void:
 		label.text = portal_title
 	_start_idle_animation()
 	_apply_requirement_state()
+	# Deferred: the keeper's _ready (and its restored spawn position) has not
+	# necessarily run yet when the portal wakes up.
+	call_deferred("_arm_spawn_guard")
+
+
+## If the world dropped the keeper in next to this pad, hold the pad inert
+## until their next walk is done, then re-read whether that walk left them on
+## the pad (enter) or clear of it (pad behaves normally again).
+func _arm_spawn_guard() -> void:
+	if not is_inside_tree():
+		return
+	var player := _spawn_player()
+	if player == null:
+		return
+	if player.global_position.distance_to(global_position) > SPAWN_GUARD_RADIUS:
+		return
+	_spawn_guard_armed = true
+	if player.has_signal("move_cycle_finished") and not player.is_connected("move_cycle_finished", _on_move_cycle_finished):
+		player.connect("move_cycle_finished", _on_move_cycle_finished)
+
+
+func _spawn_player() -> Node2D:
+	return get_tree().get_first_node_in_group("player") as Node2D
+
+
+## Fires at the end of each tap-to-move walk while the guard is up.
+func _on_move_cycle_finished() -> void:
+	if not _spawn_guard_armed:
+		return
+	var player := _spawn_player()
+	if player == null:
+		return
+	# The keeper moves on a tween (idle tick) while Area2D overlaps refresh on
+	# the physics tick, so wait one tick before deciding where the walk ended.
+	await get_tree().physics_frame
+	if not _spawn_guard_armed or not is_inside_tree():
+		return
+	if not is_instance_valid(player) or not player.is_inside_tree():
+		return
+	if overlaps_body(player):
+		# The walk ended on the pad on purpose — they mean to come back in.
+		_spawn_guard_armed = false
+		_ignore_entries_until = 0
+		_on_body_entered(player)
+		return
+	if player.global_position.distance_to(global_position) > SPAWN_GUARD_RADIUS:
+		# Walked clear; the pad is live again from here.
+		_spawn_guard_armed = false
 
 
 # Keeps the pad honest about what it needs before the player steps on it.
@@ -140,6 +198,10 @@ func _on_body_entered(body: Node2D) -> void:
 	
 	_set_hovered()
 	
+	# A keeper who spawned beside this pad may be walking straight over it on
+	# their way out; let that first walk pass instead of warping them back.
+	if _spawn_guard_armed:
+		return
 	if Time.get_ticks_msec() < _ignore_entries_until:
 		return
 	if target_scene.is_empty():

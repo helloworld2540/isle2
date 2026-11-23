@@ -1,7 +1,7 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene format=3 uid="uid://d1gj5wmxohhf8"]
 
-[ext_resource type="Script" path="res://scripts/ui/floating_text.gd" id="1_text"]
+[ext_resource type="Script" uid="uid://ekmao2nw25q" path="res://scripts/ui/floating_text.gd" id="1_text"]
 
-[node name="FloatingText" type="Label"]
+[node name="FloatingText" type="Label" unique_id=1945401022]
 horizontal_alignment = 1
 script = ExtResource("1_text")
