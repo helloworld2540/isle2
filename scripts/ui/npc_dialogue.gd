@@ -18,7 +18,6 @@ signal turn_in_requested(tier: int)
 ## Characters revealed per second by the typewriter reveal.
 const TYPE_SPEED := 60.0
 
-@onready var dimmer: ColorRect = $Dimmer
 @onready var panel: PanelContainer = $Center/Panel
 @onready var portrait: TextureRect = $Center/Panel/VBox/Header/Portrait
 @onready var title_label: Label = $Center/Panel/VBox/Header/Title

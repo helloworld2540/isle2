@@ -57,7 +57,7 @@ const LEGENDARY_ACHIEVEMENTS := {
 @export var legendary_style: StyleBox
 
 @onready var _panel: PanelContainer = $Center/Panel
-@onready var _title: Label = $Center/Panel/VBox/Title
+@onready var _title: Label = $"Center/Panel/VBox/TitleRow/Title"
 @onready var _subtitle: Label = $Center/Panel/VBox/Subtitle
 @onready var _hide_timer: Timer = $HideTimer
 
@@ -368,6 +368,12 @@ func _apply_accent(accent: String) -> void:
 		elif achievement:
 			title_color = TITLE_BLUE
 		_title.add_theme_color_override("font_color", title_color)
+
+
+## The small "X" in the card's top-right corner dismisses early (the auto-hide
+## timer is the fallback). Same fade-out path as the timer.
+func _on_close_pressed() -> void:
+	_dismiss()
 
 
 func _dismiss() -> void:

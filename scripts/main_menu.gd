@@ -12,7 +12,6 @@ class_name MainMenu
 @onready var about_button: Button = $AboutButton
 @onready var about_canvas: CanvasLayer = $AboutCanvas
 @onready var save_summary_panel: PanelContainer = $RightColumn/SaveSummaryPanel
-@onready var version_stamp: Label = $LeftColumn/VersionStamp
 @onready var more_stats_button: Button = $RightColumn/SaveSummaryPanel/VBoxContainer/MoreStatsButton
 @onready var confirm_panel: CanvasLayer = $ConfirmPanel
 @onready var slot_picker: CanvasLayer = $SlotPicker
@@ -30,7 +29,6 @@ func _ready() -> void:
 	_play_entrance_animation()
 	_spawn_ambient_motion()
 	AudioManager.play_bgm("menu")
-	version_stamp.text = "v" + Version.VERSION
 	_pulse_both_titles()
 
 
@@ -71,8 +69,8 @@ func _refresh_summary() -> void:
 	if save_summary:
 		save_summary.text = _summary_text()
 	if tide_line and GameSettings.hide_tide:
-		tide_line.text = "≈ Tide hidden — read the water yourself."
-		tide_line.tooltip_text = "Hide the tide is on. Read the water yourself."
+		tide_line.text = "≈ The sea keeps its own counsel — and so do you."
+		tide_line.tooltip_text = "Hide the tide is on. Earn it with your eyes."
 	elif tide_line:
 		tide_line.text = "≈ %s · day %d" % [TideReport.hud_line(), GameState.island_day()]
 		tide_line.tooltip_text = "Today's tide. The stats page almanac lists all four — the rotation is four days, and every one comes round."
@@ -94,7 +92,7 @@ func _summary_text() -> String:
 	summary += "\nInventory: %s" % _format_inventory_totals()
 	var all_days := SaveManager.total_tide_days()
 	if all_days > GameState.tide_days_visited:
-		summary += "\nAll islands: %d days kept in total" % all_days
+		summary += "\nAll islands: %d days one keeper" % all_days
 
 	# Which island is this? A one-line identity above the stats.
 	summary = "Slot: %s\n%s" % [GameState.slot_name, summary]
@@ -170,19 +168,12 @@ func _start_fresh_save() -> void:
 func _on_load_save_pressed() -> void:
 	if not SaveManager.has_save():
 		return
-	# Always open the island picker so the keeper can choose or confirm their island.
-	if slot_picker:
-		AudioManager.play_sfx("open")
-		slot_picker.present()
-
-
-func _load_current() -> void:
-	GameState.restore()
-	SceneTransition.change_scene(WORLD_SCENE)
-
+	AudioManager.play_sfx("open")
+	slot_picker.present()
 
 ## Picks a slot from the picker and loads its island.
 func _on_slot_picked(slot_id: String) -> void:
+	print("pickled")
 	if slot_id.is_empty():
 		return
 	if not SaveManager.switch_slot(slot_id):

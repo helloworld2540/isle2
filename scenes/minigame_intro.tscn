@@ -1,7 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://d3jafoh6nal0n"]
+[gd_scene format=3 uid="uid://d3jafoh6nal0n"]
 
 [ext_resource type="Script" uid="uid://ck57jnes3bm75" path="res://scripts/minigame_intro.gd" id="1_script"]
-[ext_resource type="Script" path="res://scripts/ui/drag_scroll.gd" id="2_drag"]
+[ext_resource type="Script" uid="uid://b5ia7es6lnjv0" path="res://scripts/ui/drag_scroll.gd" id="2_drag"]
 [ext_resource type="Texture2D" uid="uid://dphew4opoa5yg" path="res://res/dock.png" id="9_dock"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_intro"]
@@ -20,23 +20,23 @@ corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
-[node name="MinigameIntro" type="CanvasLayer"]
+[node name="MinigameIntro" type="CanvasLayer" unique_id=1567850613]
 process_mode = 3
 layer = 99
 script = ExtResource("1_script")
-intro_title = "Mini-game"
 
-[node name="Dimmer" type="TextureRect" parent="."]
+[node name="Dimmer" type="TextureRect" parent="." unique_id=126944704]
+modulate = Color(0, 0, 0, 0.6)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("9_dock")
-modulate = Color(0, 0, 0, 0.6)
-stretch_mode = 2
+expand_mode = 3
+stretch_mode = 3
 
-[node name="Center" type="CenterContainer" parent="."]
+[node name="Center" type="CenterContainer" parent="." unique_id=1262601936]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -47,65 +47,61 @@ offset_bottom = -24.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Panel" type="PanelContainer" parent="Center"]
+[node name="Panel" type="PanelContainer" parent="Center" unique_id=282042093]
 custom_minimum_size = Vector2(720, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBox_intro")
 
-[node name="VBox" type="VBoxContainer" parent="Center/Panel"]
+[node name="VBox" type="VBoxContainer" parent="Center/Panel" unique_id=1152171102]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Title" type="Label" parent="Center/Panel/VBox"]
+[node name="Title" type="Label" parent="Center/Panel/VBox" unique_id=516366199]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.7, 0.92, 1, 1)
 theme_override_font_sizes/font_size = 26
 text = "Mini-game"
 
-[node name="BodyScroll" type="ScrollContainer" parent="Center/Panel/VBox"]
+[node name="BodyScroll" type="ScrollContainer" parent="Center/Panel/VBox" unique_id=2113481673]
 custom_minimum_size = Vector2(0, 440)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
-overlay_scroll_horizontal = false
-overlay_scroll_vertical = false
 script = ExtResource("2_drag")
 
-[node name="BodyBox" type="VBoxContainer" parent="Center/Panel/VBox/BodyScroll"]
+[node name="BodyBox" type="VBoxContainer" parent="Center/Panel/VBox/BodyScroll" unique_id=822918114]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 10
 
-[node name="Lines" type="RichTextLabel" parent="Center/Panel/VBox/BodyScroll/BodyBox"]
+[node name="Lines" type="RichTextLabel" parent="Center/Panel/VBox/BodyScroll/BodyBox" unique_id=997635370]
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
 fit_content = true
 scroll_active = false
 
-[node name="Stats" type="Label" parent="Center/Panel/VBox/BodyScroll/BodyBox"]
+[node name="Stats" type="Label" parent="Center/Panel/VBox/BodyScroll/BodyBox" unique_id=611645522]
 visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.86, 0.4, 1)
 theme_override_font_sizes/font_size = 24
-text = ""
 horizontal_alignment = 1
 
-[node name="Flavor" type="Label" parent="Center/Panel/VBox/BodyScroll/BodyBox"]
+[node name="Flavor" type="Label" parent="Center/Panel/VBox/BodyScroll/BodyBox" unique_id=1659464856]
 visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0.62, 0.72, 0.9, 1)
 theme_override_font_sizes/font_size = 24
-text = ""
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="Spacer" type="Control" parent="Center/Panel/VBox"]
+[node name="Spacer" type="Control" parent="Center/Panel/VBox" unique_id=1140966908]
 custom_minimum_size = Vector2(0, 6)
 layout_mode = 2
 
-[node name="GotItButton" type="Button" parent="Center/Panel/VBox"]
+[node name="GotItButton" type="Button" parent="Center/Panel/VBox" unique_id=1897181033]
 custom_minimum_size = Vector2(220, 50)
 layout_mode = 2
 size_flags_horizontal = 4

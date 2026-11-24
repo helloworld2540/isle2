@@ -85,7 +85,7 @@ static func has_items(npc, tier: int, state = null) -> bool:
 	
 	var gs = state
 	if gs == null:
-		gs = Engine.get_main_loop().root.get_node("GameState")
+		gs = Engine.get_main_loop().root.get_node_or_null("GameState")
 	
 	if gs == null:
 		return false
@@ -116,7 +116,7 @@ static func entry(npc, state = null) -> Dictionary:
 	
 	var gs = state
 	if gs == null:
-		gs = Engine.get_main_loop().root.get_node("GameState")
+		gs = Engine.get_main_loop().root.get_node_or_null("GameState")
 	
 	if gs == null:
 		return {}
@@ -151,7 +151,7 @@ static func gift_fits(mat: String, amount: int, state = null) -> bool:
 	
 	var gs = state
 	if gs == null:
-		gs = Engine.get_main_loop().root.get_node("GameState")
+		gs = Engine.get_main_loop().root.get_node_or_null("GameState")
 	
 	if gs == null:
 		return true
@@ -180,7 +180,7 @@ static func turn_in(npc, tier: int, state = null) -> Dictionary:
 	
 	var gs = state
 	if gs == null:
-		gs = Engine.get_main_loop().root.get_node("GameState")
+		gs = Engine.get_main_loop().root.get_node_or_null("GameState")
 	
 	if gs == null:
 		return {}
@@ -228,12 +228,12 @@ static func turn_in(npc, tier: int, state = null) -> Dictionary:
 static func banter(npc_id: String) -> Array:
 	match npc_id:
 		"npc_mara":
-			return ["Tom's late with his Nylon again. You're better company.", "Oda's had her nose in that book since dawn. Don't disturb her.", "If Kai short-changes you, tell me. I'll have words."]
+			return ["The garden looks greener when you recycle.", "I swept the beach twice this morning!", "Ever notice glass sparkles in the tide?"]
 		"npc_tom":
-			return ["Mara'll tell you what's proper. I'll tell you what the water's actually doing.", "Nina pays well and talks better. Mind you don't spend it all on the talk.", "Calm enough to dive today. Calm enough to think, if you're the type."]
+			return ["The sea is calm — perfect diving weather.", "Don't let the fish stare you down!", "Nylon and coffee keep me going."]
 		"npc_nina":
-			return ["Kai pretends he doesn't like me. He buys my Polypropylene every week.", "Mara runs a tight shore, I run a looser one. We balance out.", "Bring me a full bag and I'll talk numbers all afternoon."]
+			return ["Shop's freshly stocked today!", "Bulk sales mean bonus days.", "I love the clink of glass rewards."]
 		"npc_kai":
-			return ["Oda says the sea's in a mood. The sea's always in a mood — it's the till that matters.", "Nina sells the same stock I do and calls it charming. Mine's cheaper.", "Bring me glass, I'll bring you money. Simplest sentence on the island."]
+			return ["Shelves empty; bring me Glass!", "A clean shop is a happy shop.", "Polypropylene pays the rent around here."]
 		_:
 			return []

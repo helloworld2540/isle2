@@ -10,7 +10,7 @@ extends CanvasLayer
 const SHOW_SECONDS := 7.0
 
 @onready var panel: PanelContainer = $"Panel"
-@onready var title_label: Label = $"Panel/VBox/Title"
+@onready var title_label: Label = $"Panel/VBox/TitleRow/Title"
 @onready var body_label: Label = $"Panel/VBox/Body"
 @onready var hint_label: Label = $"Panel/VBox/Hint"
 @onready var hide_timer: Timer = $"HideTimer"
@@ -70,6 +70,12 @@ func _show(recap: Dictionary) -> void:
 		tw.parallel().tween_property(panel, "position:y", resting_y, 0.24).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 	hide_timer.start(SHOW_SECONDS)
+
+
+## The small "X" in the card's top-right corner dismisses early (the auto-hide
+## timer is the fallback). Same fade-out path as the timer.
+func _on_close_pressed() -> void:
+	_dismiss()
 
 
 func _dismiss() -> void:

@@ -381,7 +381,7 @@ tile_map_data = PackedByteArray("AADq/+7/AQAKAAoAAADq/+//AQAKAAoAAADq//D/AQAKAAo
 tile_set = ExtResource("1_e3hyu")
 
 [node name="Overlays" type="TileMapLayer" parent="Geography" unique_id=1834974250]
-tile_map_data = PackedByteArray("AAABAPn/AQAGAAYAAAABAPr/AQAGAAcAAAABAPv/AQAGAAgAAAACAPn/AQAHAAYAAAACAPr/AQAHAAcAAAACAPv/AQAHAAgAAAADAPn/AQAIAAYAAAADAPr/AQAIAAcAAAADAPv/AQAIAAgAAAAEAPn/AQAGAAYAAAAEAPr/AQAGAAcAAAAEAPv/AQAGAAgAAAAFAPn/AQAHAAYAAAAFAPr/AQAHAAcAAAAFAPv/AQAHAAgAAAAGAPn/AQAIAAYAAAAGAPr/AQAIAAcAAAAGAPv/AQAIAAgAAAD7//f/AQAGAAYAAAD7//j/AQAGAAcAAAD7//n/AQAGAAgAAAD8//f/AQAHAAYAAAD8//j/AQAHAAcAAAD8//n/AQAHAAgAAAD9//f/AQAIAAYAAAD9//j/AQAIAAcAAAD9//n/AQAIAAgAAAD7/wQAAQAGAAYAAAD7/wUAAQAGAAcAAAD7/wYAAQAGAAgAAAD8/wQAAQAHAAYAAAD8/wUAAQAHAAcAAAD8/wYAAQAHAAgAAAD9/wQAAQAIAAYAAAD9/wUAAQAIAAcAAAD9/wYAAQAIAAgAAAADAP3/AQALAA0AAAABAP3/AQALAA0AAAACAP3/AQALAA0AAAADAP//AQALAA0AAAADAP7/AQALAA0AAAAAAP7/AQALAA0AAAA=")
+tile_map_data = PackedByteArray("AAADAP3/AQALAA0AAAABAP3/AQALAA0AAAACAP3/AQALAA0AAAADAP//AQALAA0AAAAAAP7/AQALAA0AAAADAP7/AQALAA0AAAACAPr/AQAGAAwAAAD8//j/AQAGAAYAAAD9/wQAAQAGAAYAAAAFAPr/AQAGAAYAAAA=")
 tile_set = ExtResource("1_e3hyu")
 
 [node name="Navigation" type="Node2D" parent="." unique_id=1678984330]
@@ -759,8 +759,8 @@ color = Color(1, 0.85, 0.45, 0.12)
 modulate = Color(1, 1, 1, 0.85)
 offset_left = 12.0
 offset_top = 24.0
-offset_right = 240.0
-offset_bottom = 24.0
+offset_right = 417.0
+offset_bottom = 335.0
 theme_override_styles/panel = SubResource("StyleBox_progress")
 
 [node name="VBox" type="VBoxContainer" parent="UI/WorldProgress/Panel" unique_id=2052490686]
@@ -923,17 +923,6 @@ theme_override_colors/font_color = Color(1, 0.84, 0.35, 1)
 theme_override_font_sizes/font_size = 30
 text = "Island Menu"
 
-[node name="UpgradeStatus" type="Label" parent="UI/Menu/MenuPanel/Center/Card/HBoxContainer/Infobox/Header/TitleCol" unique_id=1201569252]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.72, 0.93, 1, 0.9)
-theme_override_font_sizes/font_size = 24
-text = "Move 0 | Range 0 | -"
-
-[node name="TideStatus" type="Label" parent="UI/Menu/MenuPanel/Center/Card/HBoxContainer/Infobox/Header/TitleCol" unique_id=1269341494]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.68, 0.9, 0.95, 0.95)
-theme_override_font_sizes/font_size = 24
-
 [node name="ProgressBox" type="HBoxContainer" parent="UI/Menu/MenuPanel/Center/Card/HBoxContainer/Infobox" unique_id=560701604]
 layout_mode = 2
 theme_override_constants/separation = 10
@@ -1006,12 +995,6 @@ custom_minimum_size = Vector2(232, 0)
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="ActionsLabel" type="Label" parent="UI/Menu/MenuPanel/Center/Card/HBoxContainer/VBoxContainer" unique_id=1770462336]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.72, 0.93, 1, 0.65)
-theme_override_font_sizes/font_size = 24
-text = "A C T I O N S"
-
 [node name="ResumeButton" type="Button" parent="UI/Menu/MenuPanel/Center/Card/HBoxContainer/VBoxContainer" unique_id=378862581]
 custom_minimum_size = Vector2(232, 64)
 layout_mode = 2
@@ -1074,16 +1057,5 @@ modulate = Color(1, 0.9, 0.5, 0.95)
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 autowrap_mode = 2
-
-[node name="Spacer" type="Control" parent="UI/Menu/MenuPanel/Center/Card/HBoxContainer/VBoxContainer" unique_id=173711691]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="Hint" type="Label" parent="UI/Menu/MenuPanel/Center/Card/HBoxContainer/VBoxContainer" unique_id=735288432]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.72, 0.93, 1, 0.4)
-theme_override_font_sizes/font_size = 24
-text = "Esc / Tab — close"
-horizontal_alignment = 1
 
 [node name="AboutCanvas" parent="UI/Menu" unique_id=226767442 instance=ExtResource("16_about")]

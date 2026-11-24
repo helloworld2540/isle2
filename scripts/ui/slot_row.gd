@@ -23,8 +23,6 @@ var selected: bool = false
 @onready var name_label: Label = $HBox/VBox/NameRow/Name
 @onready var meta_label: Label = $HBox/VBox/Meta
 @onready var pick_btn: Button = $HBox/PickBtn
-@onready var edit_btn: Button = $HBox/VBox/NameRow/EditBtn
-@onready var del_btn: Button = $HBox/VBox/NameRow/DelBtn
 
 var _edit_field: LineEdit = null
 

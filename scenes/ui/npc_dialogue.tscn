@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=4 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/npc_dialogue.gd" id="1_dialogue"]
 [ext_resource type="Script" path="res://scripts/ui/drag_scroll.gd" id="2_drag"]
+[ext_resource type="PackedScene" path="res://scenes/ui/close_button.tscn" id="3_close"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_dialogue"]
 content_margin_left = 24.0
@@ -70,13 +71,9 @@ theme_override_colors/font_color = Color(0.7, 0.92, 1, 1)
 theme_override_font_sizes/font_size = 26
 text = "NPC"
 
-[node name="CloseButton" type="Button" parent="Center/Panel/VBox/Header"]
-custom_minimum_size = Vector2(44, 44)
+[node name="CloseButton" parent="Center/Panel/VBox/Header" instance=ExtResource("3_close")]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 28
-theme_override_colors/font_color = Color(0.9, 0.97, 1, 1)
-text = "X"
 
 [node name="LinesScroll" type="ScrollContainer" parent="Center/Panel/VBox"]
 custom_minimum_size = Vector2(540, 240)

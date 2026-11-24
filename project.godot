@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="isle2"
-config/description="a second very trashy island"
+config/description="a second very trash island"
 run/main_scene="uid://cc0ngv5xr7xwg"
 config/features=PackedStringArray("4.7", "Forward Plus")
 boot_splash/show_image=false
@@ -20,6 +20,8 @@ version="1.3.0"
 
 [autoload]
 
+EmojiFont="*res://scripts/emoji_font.gd"
+WorldText="*res://scripts/world_text.gd"
 GameState="*res://scripts/game_state.gd"
 SaveManager="*res://scripts/save_manager.gd"
 AudioManager="*res://scenes/audio_manager.tscn"
@@ -27,12 +29,10 @@ GameSettings="*res://scripts/game_settings.gd"
 SceneTransition="*res://scripts/scene_transition.gd"
 TutorialDirector="*res://scripts/tutorial_director.gd"
 MCPGameBridge="res://scripts/mcp_bridge_guard.gd"
-EmojiFont="*res://scripts/emoji_font.gd"
-WorldText="*res://scripts/world_text.gd"
 
 [display]
 
-window/stretch/mode="canvas_items"
+window/stretch/mode="viewport"
 
 [editor]
 

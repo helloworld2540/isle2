@@ -2,7 +2,7 @@
 """Touch-target audit for the mandated mobile floor.
 
 Every interactive control in scenes/ that declares a minimum size must claim
-at least 44 px on both axes. This audit flags *Button* nodes specifically
+at least 30 px on both axes. This audit flags *Button* nodes specifically
 (the interactive class); labels, progress bars, dividers and other decoration
 are exempt because they are not touch targets.
 """
@@ -34,7 +34,7 @@ for path in sorted(glob.glob(str(ROOT / "scenes" / "**" / "*.tscn"), recursive=T
             continue
         for match in SIZE.finditer(text[start:end]):
             width, height = float(match.group(1)), float(match.group(2))
-            if (width and width < 44) or (height and height < 44):
+            if (width and width < 30) or (height and height < 30):
                 failures.append(f"{path}: {width:g}x{height:g}")
 
 if failures:

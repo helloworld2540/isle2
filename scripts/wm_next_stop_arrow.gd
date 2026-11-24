@@ -14,8 +14,6 @@ class_name NextStopArrow
 ## Reduced motion: no bob, no sway — the arrow just points.
 
 @export var y_offset: float = -140.0 ## fallback height above the player when motion is reduced
-@export var orbit_radius: float = 110.0
-@export var orbit_speed: float = 1.6 ## radians per second (one lap in ~4s)
 @export var bob_amplitude: float = 4.0
 @export var bob_time: float = 1.15
 @export var arrival_radius: float = 150.0 ## hide the arrow once the keeper is basically at the stop
@@ -25,9 +23,9 @@ const ADVICE_TICK_SECONDS := 0.35
 const RouteAdvisor := preload("res://scripts/route_advisor.gd")
 ## Station ids from RouteAdvisor map to top-level scene nodes of the world map.
 const STATION_TO_NAME: Dictionary = {
-	"reef_rescue": &"Stations/PortalReefRescue",
-	"upcycle": &"Stations/PortalUpcycle",
-	"shop": &"Stations/PortalShop",
+	"reef_rescue": &"PortalReefRescue",
+	"upcycle": &"PortalUpcycle",
+	"shop": &"PortalShop",
 }
 
 @onready var bob: Node2D = $Bob
@@ -41,14 +39,11 @@ var _reduce_motion: bool = false
 
 func _ready() -> void:
 	_reduce_motion = GameSettings.reduce_motion
-	if _reduce_motion:
-		position = Vector2(0.0, y_offset)
-		return
-	
-	position = Vector2.from_angle(_orbit_angle) * orbit_radius
-	var tw := create_tween().set_loops()
-	tw.tween_property(bob, "position:y", -bob_amplitude, bob_time).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-	tw.tween_property(bob, "position:y", bob_amplitude, bob_time).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	position = Vector2(0.0, y_offset)
+	if not _reduce_motion:
+		var tw := create_tween().set_loops()
+		tw.tween_property(bob, "position:y", -bob_amplitude, bob_time).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		tw.tween_property(bob, "position:y", bob_amplitude, bob_time).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 
 
 func _process(delta: float) -> void:
@@ -63,12 +58,6 @@ func _process(delta: float) -> void:
 
 	var to_target := _target.global_position - global_position
 	var distance := to_target.length()
-
-	if not _reduce_motion:
-		# Place the arrow on the side of the player that faces the target,
-		# so a target to the right puts the arrow on the right, etc.
-		var dir := to_target.normalized()
-		position = dir * orbit_radius
 	# Standing at the stop: nothing to point at.
 	visible = distance > arrival_radius
 	if not visible:
@@ -107,4 +96,4 @@ func _find_target(station: String) -> Node2D:
 	var station_node := StringName(STATION_TO_NAME.get(station, ""))
 	if String(station_node).is_empty():
 		return null
-	return scene.get_node(NodePath(station_node)) as Node2D
+	return scene.get_node_or_null(NodePath(station_node)) as Node2D

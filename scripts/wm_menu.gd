@@ -4,8 +4,6 @@ class_name WorldMenu
 ## The island menu (☰): volume sliders, reduced motion, upgrades bought
 ## with trash, and the settings/about entries for the world map.
 
-const NOTIFICATION_QUEUE := preload("res://scenes/ui/notification_queue.tscn")
-const FxSparkle := preload("res://scripts/fx_sparkle.gd")
 # World map pause/menu overlay.
 
 @onready var panel: Control = $MenuPanel
@@ -18,11 +16,9 @@ const FxSparkle := preload("res://scripts/fx_sparkle.gd")
 
 @onready var card: PanelContainer = $MenuPanel/Center/Card
 @onready var upcycle_progress_box: HBoxContainer = $MenuPanel/Center/Card/HBoxContainer/Infobox/ProgressBox
-@onready var upcycle_label: Label = $MenuPanel/Center/Card/HBoxContainer/Infobox/ProgressBox/UpcycleLbl
 @onready var upcycle_progress: ProgressBar = $MenuPanel/Center/Card/HBoxContainer/Infobox/ProgressBox/UpcycleProgress
 
 @onready var reef_progress_box: HBoxContainer = $MenuPanel/Center/Card/HBoxContainer/Infobox/ReefProgressBox
-@onready var reef_label: Label = $MenuPanel/Center/Card/HBoxContainer/Infobox/ReefProgressBox/ReefLbl
 @onready var reef_progress: ProgressBar = $MenuPanel/Center/Card/HBoxContainer/Infobox/ReefProgressBox/ReefProgress
 
 @onready var settings_button: Button = $MenuPanel/Center/Card/HBoxContainer/Infobox/SettingsButton
@@ -35,7 +31,6 @@ const FxSparkle := preload("res://scripts/fx_sparkle.gd")
 var _toggling := false
 var _bgm_cycle_index := 0
 var _bgm_cycle_tracks: Array[String] = ["world", "ambience", "world", "reef"]
-var _hud_queue: Node = null
 
 func _ready() -> void:
 	if panel:
@@ -43,7 +38,6 @@ func _ready() -> void:
 
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_wire_signals()
-	_setup_settings_ui()
 	_update_progress_bars()
 	_prepare_overlay()
 
@@ -67,19 +61,6 @@ func _wire_signals() -> void:
 	if confirm_panel: confirm_panel.confirmed.connect(_do_save_and_leave)
 	if hud_menu_button: hud_menu_button.pressed.connect(_toggle)
 	if settings_button: settings_button.pressed.connect(_toggle_settings)
-
-func _setup_settings_ui() -> void:
-	pass
-
-
-func _format_inventory() -> String:
-	var lines: PackedStringArray = []
-	for key in GameState.trash_by_type.keys():
-		var qty: int = GameState.trash_by_type.get(key, 0)
-		if qty > 0:
-			lines.append("  %s x%d" % [str(key), qty])
-	
-	return "Inventory: empty" if lines.is_empty() else "Inventory:\n" + "\n".join(lines)
 
 func _on_resume_pressed() -> void:
 	_toggle()

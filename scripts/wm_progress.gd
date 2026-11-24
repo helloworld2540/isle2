@@ -12,7 +12,6 @@ const RouteAdvisor := preload("res://scripts/route_advisor.gd")
 # --- Node References ---
 @onready var flow_dots: Node2D = get_node(flow_dots_path) as Node2D
 @onready var panel: PanelContainer = $"Panel"
-@onready var vbox: VBoxContainer = $"Panel/VBox"
 @onready var uc_bar: ProgressBar = $"Panel/VBox/UpcycleBar"
 @onready var reef_bar: ProgressBar = $"Panel/VBox/ReefBar"
 @onready var main_label: Label = $"Panel/VBox/Label"

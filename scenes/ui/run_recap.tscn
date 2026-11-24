@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=4 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/run_recap.gd" id="1_recap"]
+[ext_resource type="PackedScene" path="res://scenes/ui/close_button.tscn" id="3_close"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_recap"]
 content_margin_left = 18.0
@@ -29,7 +30,7 @@ anchor_right = 0.5
 offset_left = -340.0
 offset_top = 204.0
 offset_right = 340.0
-offset_bottom = 344.0
+offset_bottom = 396.0
 grow_horizontal = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBox_recap")
@@ -39,12 +40,21 @@ layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 4
 
-[node name="Title" type="Label" parent="Panel/VBox"]
+[node name="TitleRow" type="HBoxContainer" parent="Panel/VBox"]
 layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="Panel/VBox/TitleRow"]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.65, 0.9, 1, 1)
 theme_override_font_sizes/font_size = 24
 text = "Run complete"
 horizontal_alignment = 1
+
+[node name="CloseButton" parent="Panel/VBox/TitleRow" instance=ExtResource("3_close")]
+layout_mode = 2
+size_flags_horizontal = 4
 
 [node name="Body" type="Label" parent="Panel/VBox"]
 layout_mode = 2
@@ -62,3 +72,5 @@ horizontal_alignment = 1
 [node name="HideTimer" type="Timer" parent="."]
 wait_time = 7.0
 one_shot = true
+
+[connection signal="pressed" from="Panel/VBox/TitleRow/CloseButton" to="." method="_on_close_pressed"]
