@@ -7,7 +7,7 @@ signal closed
 
 @export_multiline var credits: String = ""
 
-@onready var body: RichTextLabel = $Margin/Column/Panel/VBox/BodyScroll/Body
+@onready var body: RichTextLabel = $Margin/Panel/Column/BodyScroll/VBox/Body
 
 
 func _ready() -> void:

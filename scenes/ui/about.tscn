@@ -3,6 +3,9 @@
 [ext_resource type="Script" uid="uid://imgxwp7yeert" path="res://scripts/ui/about.gd" id="1_about"]
 [ext_resource type="Script" uid="uid://b5ia7es6lnjv0" path="res://scripts/ui/drag_scroll.gd" id="2_drag"]
 [ext_resource type="Texture2D" uid="uid://cndmneiir0d4r" path="res://sprites/icon.png" id="2_m186m"]
+[ext_resource type="Texture2D" uid="uid://dphew4opoa5yg" path="res://res/dock.png" id="4_w0w83"]
+[ext_resource type="Texture2D" uid="uid://is1ik2f66nh0" path="res://sprites/sky.png" id="5_tyqy7"]
+[ext_resource type="Texture2D" uid="uid://d15q31mm1tnjw" path="res://res/full.png" id="6_tyqy7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_about"]
 content_margin_left = 24.0
@@ -87,21 +90,25 @@ theme_override_constants/margin_top = 24
 theme_override_constants/margin_right = 24
 theme_override_constants/margin_bottom = 24
 
-[node name="Column" type="VBoxContainer" parent="Margin" unique_id=1312517166]
-layout_mode = 2
-alignment = 2
-
-[node name="Panel" type="PanelContainer" parent="Margin/Column" unique_id=88583693]
-custom_minimum_size = Vector2(620, 0)
+[node name="Panel" type="PanelContainer" parent="Margin" unique_id=88583693]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_styles/panel = SubResource("StyleBox_about")
 
-[node name="VBox" type="VBoxContainer" parent="Margin/Column/Panel" unique_id=1468506072]
+[node name="Column" type="VBoxContainer" parent="Margin/Panel" unique_id=1312517166]
 layout_mode = 2
-theme_override_constants/separation = 8
 
-[node name="Portrait" type="TextureRect" parent="Margin/Column/Panel/VBox" unique_id=1304822125]
+[node name="BodyScroll" type="ScrollContainer" parent="Margin/Panel/Column" unique_id=1961561805]
+custom_minimum_size = Vector2(0, 500)
+layout_mode = 2
+horizontal_scroll_mode = 0
+script = ExtResource("2_drag")
+
+[node name="VBox" type="VBoxContainer" parent="Margin/Panel/Column/BodyScroll" unique_id=1468506072]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Portrait" type="TextureRect" parent="Margin/Panel/Column/BodyScroll/VBox" unique_id=1304822125]
 custom_minimum_size = Vector2(420, 140)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -109,28 +116,57 @@ texture = ExtResource("2_m186m")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Title" type="Label" parent="Margin/Column/Panel/VBox" unique_id=1103318227]
+[node name="Title" type="Label" parent="Margin/Panel/Column/BodyScroll/VBox" unique_id=1103318227]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.84, 0.35, 1)
 theme_override_font_sizes/font_size = 28
 text = "Trash Island"
 horizontal_alignment = 1
 
-[node name="BodyScroll" type="ScrollContainer" parent="Margin/Column/Panel/VBox" unique_id=1961561805]
-custom_minimum_size = Vector2(0, 280)
-layout_mode = 2
-horizontal_scroll_mode = 0
-script = ExtResource("2_drag")
-
-[node name="Body" type="RichTextLabel" parent="Margin/Column/Panel/VBox/BodyScroll" unique_id=214664731]
-custom_minimum_size = Vector2(500, 0)
+[node name="Body" type="RichTextLabel" parent="Margin/Panel/Column/BodyScroll/VBox" unique_id=214664731]
+custom_minimum_size = Vector2(700, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 bbcode_enabled = true
+text = "lorem ipsum dolore sit amet
+the quick brown fox jumped over the extremely lazy dog for some reason
+test 123
+"
 fit_content = true
 
-[node name="CloseBtn" type="Button" parent="Margin/Column/Panel/VBox" unique_id=2029751666]
+[node name="HBoxContainer" type="HBoxContainer" parent="Margin/Panel/Column/BodyScroll/VBox" unique_id=217072808]
+layout_mode = 2
+
+[node name="1" type="TextureRect" parent="Margin/Panel/Column/BodyScroll/VBox/HBoxContainer" unique_id=17917592]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("5_tyqy7")
+expand_mode = 5
+stretch_mode = 4
+
+[node name="2" type="TextureRect" parent="Margin/Panel/Column/BodyScroll/VBox/HBoxContainer" unique_id=146882905]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("4_w0w83")
+expand_mode = 5
+stretch_mode = 4
+
+[node name="3" type="TextureRect" parent="Margin/Panel/Column/BodyScroll/VBox/HBoxContainer" unique_id=998679246]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("6_tyqy7")
+expand_mode = 5
+stretch_mode = 4
+
+[node name="FreeCredit" type="Label" parent="Margin/Panel/Column/BodyScroll/VBox" unique_id=1275319592]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.65, 0.75, 0.9)
+theme_override_font_sizes/font_size = 24
+text = "The island is always watching."
+horizontal_alignment = 1
+
+[node name="CloseBtn" type="Button" parent="Margin/Panel/Column" unique_id=2029751666]
 custom_minimum_size = Vector2(220, 50)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -146,11 +182,4 @@ theme_override_styles/hover = SubResource("StyleBox_gold_hover")
 theme_override_styles/focus = SubResource("StyleBox_gold_hover")
 text = "Keep the shore"
 
-[node name="FreeCredit" type="Label" parent="Margin/Column/Panel/VBox" unique_id=1275319592]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.55, 0.65, 0.75, 0.9)
-theme_override_font_sizes/font_size = 24
-text = "The island is always watching."
-horizontal_alignment = 1
-
-[connection signal="pressed" from="Margin/Column/Panel/VBox/CloseBtn" to="." method="_on_close_pressed"]
+[connection signal="pressed" from="Margin/Panel/Column/CloseBtn" to="." method="_on_close_pressed"]

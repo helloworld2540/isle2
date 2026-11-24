@@ -83,6 +83,9 @@ func _toggle() -> void:
 		var prog := get_node("../WorldProgress")
 		if prog: prog.visible = not panel.visible
 		
+		var tracker := get_node("../QuestTracker")
+		if tracker: tracker.visible = not panel.visible
+		
 		if panel.visible:
 			if settings_panel and settings_panel.has_method("sync_from_settings"):
 				settings_panel.sync_from_settings()

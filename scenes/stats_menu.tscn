@@ -327,7 +327,6 @@ theme_override_constants/margin_bottom = 24
 
 [node name="VBox" type="VBoxContainer" parent="Margin" unique_id=300000004]
 layout_mode = 2
-theme_override_constants/separation = 12
 
 [node name="Header" type="HBoxContainer" parent="Margin/VBox" unique_id=941324599]
 layout_mode = 2
@@ -700,6 +699,7 @@ theme_override_styles/focus = SubResource("StyleBox_danger_hover")
 text = "Reset island…"
 
 [node name="ConfirmPanel" parent="." unique_id=416723744 instance=ExtResource("5_confirm")]
+visible = false
 
 [node name="LedgerOverlay" type="Control" parent="." unique_id=300000013]
 visible = false
@@ -930,7 +930,6 @@ theme_override_styles/panel = SubResource("StyleBox_guide")
 
 [node name="VBox" type="VBoxContainer" parent="RegistryOverlay/Panel" unique_id=739278915]
 layout_mode = 2
-theme_override_constants/separation = 10
 
 [node name="RegistryTitle" type="Label" parent="RegistryOverlay/Panel/VBox" unique_id=2095346444]
 layout_mode = 2
@@ -1084,9 +1083,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -500.0
-offset_top = -250.0
+offset_top = -320.0
 offset_right = 500.0
-offset_bottom = 250.0
+offset_bottom = 320.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBox_guide")
@@ -1098,7 +1097,7 @@ layout_mode = 2
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.84, 0.32, 1)
 theme_override_font_sizes/font_size = 26
-text = "THE ALMANAC, FILLED"
+text = "THE TIDE ALMANAC"
 horizontal_alignment = 1
 
 [node name="AlmanacLegend" type="Label" parent="AlmanacOverlay/Panel/VBox" unique_id=1274178109]
@@ -1203,6 +1202,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Dimmer" type="ColorRect" parent="GuideOverlay" unique_id=455448056]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1218,9 +1218,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -460.0
+offset_left = -525.0
 offset_top = -320.0
-offset_right = 460.0
+offset_right = 525.0
 offset_bottom = 320.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -1228,7 +1228,7 @@ theme_override_styles/panel = SubResource("StyleBox_guide")
 
 [node name="VBox" type="VBoxContainer" parent="GuideOverlay/Panel" unique_id=1876849114]
 layout_mode = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 2
 
 [node name="GuideTitle" type="Label" parent="GuideOverlay/Panel/VBox" unique_id=2027784327]
 layout_mode = 2

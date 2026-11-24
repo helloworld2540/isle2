@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene format=3 uid="uid://bdqdn6gbird6f"]
 
-[ext_resource type="Script" path="res://scripts/ui/quest_tracker.gd" id="1_tracker"]
+[ext_resource type="Script" uid="uid://d3ivny0235oji" path="res://scripts/ui/quest_tracker.gd" id="1_tracker"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_tracker"]
 content_margin_left = 12.0
@@ -18,46 +18,44 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[node name="QuestTracker" type="CanvasLayer"]
+[node name="QuestTracker" type="CanvasLayer" unique_id=437849498]
 layer = 36
 script = ExtResource("1_tracker")
 
-[node name="Panel" type="PanelContainer" parent="."]
-offset_left = 24.0
-offset_top = -188.0
+[node name="Panel" type="PanelContainer" parent="." unique_id=1857716399]
+anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = -188.0
 offset_right = 352.0
 offset_bottom = -24.0
 grow_vertical = 0
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBox_tracker")
 
-[node name="VBox" type="VBoxContainer" parent="Panel"]
+[node name="VBox" type="VBoxContainer" parent="Panel" unique_id=52830863]
 layout_mode = 2
 theme_override_constants/separation = 2
 
-[node name="Title" type="Label" parent="Panel/VBox"]
+[node name="Title" type="Label" parent="Panel/VBox" unique_id=1547152757]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.65, 0.9, 1, 1)
 theme_override_font_sizes/font_size = 24
 text = "Quests"
 
-[node name="Row1" type="Label" parent="Panel/VBox"]
+[node name="Row1" type="Label" parent="Panel/VBox" unique_id=1030317800]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-text = ""
 
-[node name="Row2" type="Label" parent="Panel/VBox"]
+[node name="Row2" type="Label" parent="Panel/VBox" unique_id=213751479]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-text = ""
 
-[node name="Row3" type="Label" parent="Panel/VBox"]
+[node name="Row3" type="Label" parent="Panel/VBox" unique_id=1276528345]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-text = ""
 
-[node name="Row4" type="Label" parent="Panel/VBox"]
+[node name="Row4" type="Label" parent="Panel/VBox" unique_id=670610006]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-text = ""

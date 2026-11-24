@@ -16,7 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://dee1chp0akme7" path="res://sprites/npc/portrait_oda.png" id="14_x2olw"]
 [ext_resource type="PackedScene" path="res://scenes/ui/settings_panel.tscn" id="15_settings"]
 [ext_resource type="PackedScene" uid="uid://bbw7nw0gysrfc" path="res://scenes/ui/about.tscn" id="16_about"]
-[ext_resource type="PackedScene" path="res://scenes/ui/quest_tracker.tscn" id="16_tracker"]
+[ext_resource type="PackedScene" uid="uid://bdqdn6gbird6f" path="res://scenes/ui/quest_tracker.tscn" id="16_tracker"]
 [ext_resource type="PackedScene" path="res://scenes/wm_flow_dots.tscn" id="17_flow"]
 [ext_resource type="PackedScene" path="res://scenes/ui/confirm_panel.tscn" id="18_confirm"]
 [ext_resource type="PackedScene" path="res://scenes/ui/achievement_banner.tscn" id="19_banner"]
@@ -761,6 +761,7 @@ offset_left = 12.0
 offset_top = 24.0
 offset_right = 417.0
 offset_bottom = 335.0
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBox_progress")
 
 [node name="VBox" type="VBoxContainer" parent="UI/WorldProgress/Panel" unique_id=2052490686]
