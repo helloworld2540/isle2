@@ -20,7 +20,7 @@ extends SceneTree
 ## scene or script that reads them fails the harness build.
 ## However, we can instantiate them manually for the test context.
 const SHOP_SCENE_PATH := "res://scenes/shop.tscn"
-const LEDGER_PATH := "res://scripts/shop_ledger.gd"
+var GameStateScript: GDScript
 
 # ANSI color codes
 const C_RESET := "\u001b[0m"
@@ -40,6 +40,7 @@ var ShopLedger: GDScript
 func _initialize() -> void:
 	_start_time = Time.get_ticks_msec()
 	await process_frame
+	GameStateScript = load("res://scripts/game_state.gd") as GDScript
 	var slot_dir := ProjectSettings.globalize_path("user://slots")
 	if DirAccess.dir_exists_absolute(slot_dir) and not DirAccess.get_files_at(slot_dir).is_empty():
 		print(C_YELLOW + "SKIP:" + C_RESET + " player slots present at " + slot_dir + ", not touching them")
@@ -55,7 +56,7 @@ func _initialize() -> void:
 		gs = (load("res://scripts/game_state.gd") as GDScript).new()
 		gs.name = "GameState"
 		root.add_child(gs)
-	ShopLedger = load(LEDGER_PATH)
+	ShopLedger = load("res://scripts/shop_ledger.gd")
 	gs.call("reset")
 	gs.set("money", 0)
 	gs.set("lifetime_earnings", 0)
@@ -64,8 +65,8 @@ func _initialize() -> void:
 	# and light enough that the 10 kg starting bag can take an undo back.
 	var bag: Dictionary = gs.get("trash_by_type")
 	bag.clear()
-	for mat in ["Polyethylene", "Polypropylene", "Glass", "Nylon", "Reef Debris"]:
-		bag[mat] = 0
+	for mat in GameStateScript.DEFAULT_TRASH_TYPES:
+		bag[String(mat)] = 0
 	bag["Polyethylene"] = 6
 	gs.call("_recompute_inventory")
 	var weight_before := int(gs.call("get_inventory_weight"))
@@ -112,12 +113,26 @@ func _initialize() -> void:
 	_check(int((gs.get("trash_by_type") as Dictionary).get("Polyethylene", -1)) == 3, "sale survives a save/restore round trip (stock)")
 
 	# --- Sell Everything: one press empties the whole bag, each material at
-	# its own bulk rate, and Undo hands the entire load back atomically.
-	# Two bulk lots, light enough (10 kg) that the undo fits back in the bag.
-	(gs.get("trash_by_type") as Dictionary)["Polyethylene"] = 5
-	(gs.get("trash_by_type") as Dictionary)["Reef Debris"] = 5
+	# its own bulk rate, and Undo hands the entire load back atomically. The
+	# batch composition is derived from the production sale table keys rather
+	# than a hand-picked subset of materials.
+	var batch: Dictionary = {}
+	var batch_weight := 0
+	for mat in GameStateScript.SALE_PRICES.keys():
+		var mat_key: String = String(mat)
+		var unit_w: int = int((gs.get("TRASH_WEIGHTS") as Dictionary).get(mat_key, 1))
+		if batch_weight + ShopLedger.BULK_THRESHOLD * unit_w > int(gs.call("get_inventory_capacity")):
+			continue
+		batch[mat_key] = ShopLedger.BULK_THRESHOLD
+		batch_weight += ShopLedger.BULK_THRESHOLD * unit_w
+	for mat in batch.keys():
+		(gs.get("trash_by_type") as Dictionary)[mat] = batch[mat]
 	gs.call("_recompute_inventory")
-	var expected_all := int(ShopLedger.quote("Polyethylene", 5).get("earnings", 0)) + int(ShopLedger.quote("Reef Debris", 5).get("earnings", 0))
+	var expected_all := 0
+	for mat in batch.keys():
+		var sale: Dictionary = ShopLedger.quote(mat, int(batch[mat]))
+		if not sale.is_empty():
+			expected_all += int(sale.get("earnings", 0))
 	var money_before_all := int(gs.get("money"))
 	var weight_before_all := int(gs.call("get_inventory_weight"))
 	shop.call("_sell_everything")
@@ -126,7 +141,8 @@ func _initialize() -> void:
 	shop.call("_undo_last_sale")
 	_check(int(gs.get("money")) == money_before_all, "batch undo clawed the money back")
 	_check(int(gs.call("get_inventory_weight")) == weight_before_all, "batch undo restored the whole bag")
-	_check(int((gs.get("trash_by_type") as Dictionary).get("Polyethylene", -1)) == 5 and int((gs.get("trash_by_type") as Dictionary).get("Reef Debris", -1)) == 5, "batch undo restored each material")
+	for mat in batch.keys():
+		_check(int((gs.get("trash_by_type") as Dictionary).get(mat, -1)) == int(batch[mat]), "batch undo restored each material (%s)" % mat)
 
 	_print_summary()
 	# Let the receipt/undo animations finish and retire before the tree exits;

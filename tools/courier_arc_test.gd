@@ -60,8 +60,11 @@ func _initialize() -> void:
 
 	# A second world-scene entry should NOT re-arm the tour or the nudge
 	# (the nudge persists its own flag; the tour has its own).
+	var sm: Node = root.get_node("SaveManager")
+	var step_before := int((sm.call("load_game") as Dictionary).get("tutorial_step", 0))
 	td.scene_started("world")
-	_check(int(gs.get_inventory_weight()) >= 0, "world scene entered cleanly")
+	_check(int((sm.call("load_game") as Dictionary).get("tutorial_step", 0)) == step_before,
+		"world scene entry did not re-arm the tour")
 
 	_print_summary()
 	quit(_fails)

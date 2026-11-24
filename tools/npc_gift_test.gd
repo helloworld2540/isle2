@@ -14,6 +14,7 @@ extends SceneTree
 ## Wired into tools/all_audits.sh.
 
 const NpcQuests := preload("res://scripts/npc_quests.gd")
+var GameStateScript: GDScript
 
 # ANSI color codes
 const C_RESET := "\u001b[0m"
@@ -35,6 +36,7 @@ var _start_time: int = 0
 func _initialize() -> void:
 	_start_time = Time.get_ticks_msec()
 	await process_frame
+	GameStateScript = load("res://scripts/game_state.gd") as GDScript
 	var slot_dir := ProjectSettings.globalize_path("user://slots")
 	if DirAccess.dir_exists_absolute(slot_dir) and not DirAccess.get_files_at(slot_dir).is_empty():
 		print("%sSKIP:%s player slots present at %s, not touching them" % [C_YELLOW, C_RESET, slot_dir])
@@ -44,8 +46,14 @@ func _initialize() -> void:
 	_print_header("NPC Gift & Turn-in Tests")
 
 	## Access GameState for the test: create a minimal instance used by NpcQuests.
-	## The NpcQuests functions access gs.trash_by_type, gs.TRASH_WEIGHTS, gs.get_free_capacity().
-	var gs: Dictionary = {"trash_by_type": {}, "TRASH_WEIGHTS": {"Polyethylene": 1, "Polypropylene": 2, "Glass": 3, "Nylon": 2, "Reef Debris": 1}, "free_capacity": 10}
+	## The NpcQuests functions read the Inventory state off this mock through the
+	## same fields GameState carries: trash_by_type plus the production TRASH_WEIGHTS
+	## table and the inventory capacity level (the bag is 10 kg at level 0).
+	var gs: Dictionary = {
+		"trash_by_type": {},
+		"TRASH_WEIGHTS": GameStateScript.TRASH_WEIGHTS,
+		"inventory_capacity_level": 0,
+	}
 
 	# --- First-visit gift: fits when the bag has the weight, not when it has
 	# the units. 5 PET = 5 kg against a fresh 10 kg bag -> fits.
@@ -69,7 +77,6 @@ func _initialize() -> void:
 	# --- Turn-in: the hand-in frees the quest weight before the reward lands,
 	# so a reward that only fits post-consumption is accepted.
 	gs.trash_by_type = {"Nylon": 2}
-	gs.trash_inventory = 4
 	var ok_npc := _make_npc("npc_harbor", "Harbor Hero", "Nylon", 2, "Glass", 2)
 	var ok_turn: Dictionary = NpcQuests.turn_in(ok_npc, 1, gs)
 	_check(bool(ok_turn.get("fits", false)), "turn-in accepted: quest goods freed room for the reward")
@@ -80,7 +87,6 @@ func _initialize() -> void:
 	# with base 10 kg capacity.
 	gs.inventory_capacity_level = 0
 	gs.trash_by_type = {"Nylon": 5}
-	gs.trash_inventory = 10
 	var full_npc := _make_npc("npc_full", "Full Hand", "Nylon", 5, "Glass", 4)
 	var full_turn: Dictionary = NpcQuests.turn_in(full_npc, 1, gs)
 	_check(not bool(full_turn.get("fits", false)), "turn-in denied when reward cannot fit after consuming the quest")

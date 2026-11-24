@@ -33,7 +33,7 @@ func make_world_legible() -> void:
 
 ## Font size is interpreted as on-screen pixels; world-space callers must pass a
 ## larger value to compensate for the camera zoom (see make_world_legible).
-func present(text_value: String, color: Color = Color.WHITE, font_size: int = 18) -> void:
+func present(text_value: String, color: Color = Color.WHITE, font_size: int = 24) -> void:
 	text = text_value
 	modulate = color
 	modulate.a = 0.0

@@ -5,6 +5,11 @@ extends CharacterBody2D
 
 @export var MOVE_TIME := 0.3
 
+## Design-time fallback: how far (in world tiles) the keeper searches out from
+## an unwalkable or off-map tap target before snapping to the nearest walkable
+## cell. One tuned constant instead of a per-call magic number.
+const FALLBACK_RADIUS := 8
+
 ## Emitted when a tap-to-move walk finishes — one "movement cycle" (a single
 ## BFS run). Portals listen for it so a pad the keeper spawned beside can stay
 ## inert through that first walk instead of bouncing them back into the scene
@@ -82,7 +87,7 @@ func _calculate_path_to(world_pos: Vector2) -> void:
 		start_cell = world_map.local_to_map(world_map.to_local(starting_pos))
 		end_cell = world_map.local_to_map(world_map.to_local(world_pos))
 	if world_map and not _is_walkable(end_cell):
-		end_cell = _nearest_walkable_cell(end_cell, 8)
+		end_cell = _nearest_walkable_cell(end_cell, FALLBACK_RADIUS)
 	var route := _bfs(start_cell, end_cell)
 	for cell in route:
 		if world_map:
@@ -170,7 +175,7 @@ func _bfs(start: Vector2i, goal: Vector2i) -> Array[Vector2i]:
 	route.reverse()
 	return route
 
-func _nearest_walkable_cell(target: Vector2i, max_radius: int) -> Vector2i:
+func _nearest_walkable_cell(target: Vector2i, max_radius: int = FALLBACK_RADIUS) -> Vector2i:
 	for r in range(1, max_radius + 1):
 		for sx in range(-r, r + 1):
 			for sy in range(-r, r + 1):

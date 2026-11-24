@@ -18,8 +18,8 @@ Verifies, from source (not from docs):
   8. The standing order: +1$/unit, one distinct real material per tide.
 
 Exits non-zero if any invariant breaks. Run it whenever a price moves.
-Not wired into all_audits.sh on purpose: balance changes should be a
-decision, not a red gate — but the numbers must agree or the guide lies.
+Wired into all_audits.sh: the numbers must agree with the guide or the
+guide lies.
 """
 import re
 import sys

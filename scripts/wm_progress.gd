@@ -35,6 +35,9 @@ var _inv_text := ""
 ## Route advice only needs to be re-derived a few times a second.
 const ADVICE_TICK_SECONDS := 0.35
 var _advice_tick := 0.0
+## World-map HUD slim policy: essentials on screen, rich detail parked behind
+## the pause menu / stats.
+var _hud_slim: bool = true
 
 func _ready() -> void:
 	# GameState restores the save itself on boot; the HUD only reads it.
@@ -45,6 +48,7 @@ func _ready() -> void:
 		tint.visible = GameState.is_achievement_unlocked("island_steward")
 	if main_label:
 		main_label.modulate = Color(0.9, 0.95, 1.0, 0.9)
+	_apply_slim_layout()
 	if uc_bar:
 		# The bar fills toward the score price of the next Deep Cache purchase.
 		uc_bar.tooltip_text = "Progress toward the Deep Cache (score banks at the bench and on dives)"
@@ -67,6 +71,7 @@ func _ready() -> void:
 		tw.tween_property(tide_label, "scale", Vector2.ONE, 0.45).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 func _process(delta: float) -> void:
+	_apply_slim_layout()
 	# Calculate shared variables once per frame
 	var cap: int = max(1, GameState.get_inventory_capacity())
 	var inv_amount: int = GameState.get_inventory_weight()
@@ -101,6 +106,37 @@ func _process(delta: float) -> void:
 			TutorialDirector.nudge("deep_cache")
 
 # --- Initialization ---
+
+
+## Slim the world-map HUD: keep the two essentials (trash carried, next stop) on
+## screen while the map is live, and park the rich detail (money, route, hero,
+## bottles, starfish, tide, bars, bag) behind the pause menu / stats. The menu
+## hides this whole card when open (see WorldMenu._toggle), so this only trims
+## the always-on view while the map is live.
+func _apply_slim_layout() -> void:
+	if main_label:
+		main_label.visible = true
+	if next_label:
+		next_label.visible = true
+	if money_label:
+		money_label.visible = false
+	if circuit_label:
+		circuit_label.visible = false
+	if hero_label:
+		hero_label.visible = false
+	if bottle_label:
+		bottle_label.visible = false
+	if starfish_label:
+		starfish_label.visible = false
+	if tide_label:
+		tide_label.visible = false
+	if uc_bar:
+		uc_bar.visible = false
+	if reef_bar:
+		reef_bar.visible = false
+	if inv_label:
+		inv_label.visible = false
+
 
 # --- Update Methods ---
 
@@ -155,7 +191,7 @@ func _refresh_bottle_label(_count: int = -1) -> void:
 	else:
 		bottle_label.text = "◆ Bottles %d/3" % base_count
 		bottle_label.modulate = Color(0.72, 0.92, 1.0, 0.95)
-	bottle_label.visible = true
+	bottle_label.visible = _hud_slim and (base_count > 0 or pact_read)
 
 
 ## Starfish found so far — hidden until the first one is collected, like the
@@ -173,7 +209,7 @@ func _refresh_starfish_label(_id: String = "") -> void:
 	else:
 		starfish_label.text = "★ Starfish %d/5" % found
 		starfish_label.modulate = Color(1.0, 0.82, 0.55, 1.0)
-	starfish_label.visible = true
+	starfish_label.visible = _hud_slim and found > 0
 
 
 ## Today's sea conditions, always visible: the player should know why the belt
@@ -216,7 +252,7 @@ func _refresh_tide_label() -> void:
 func _refresh_hero_title() -> void:
 	if not hero_label:
 		return
-	hero_label.visible = GameState.is_harbor_hero()
+	hero_label.visible = _hud_slim and GameState.is_harbor_hero()
 	if hero_label.visible:
 		var bonus_kg: int = GameState.HARBOR_HERO_CAPACITY_BONUS * 10
 		hero_label.text = "★ Harbor Hero · +%d kg bag" % bonus_kg
@@ -292,7 +328,7 @@ func _update_inventory_label(delta: float, ratio: float, cap: int, inv_amount: i
 		_inv_text = inv_text
 		inv_label.text = inv_text
 	if inv_label:
-		inv_label.visible = inv_text.is_empty()
+		inv_label.visible = _hud_slim and inv_text.is_empty()
 	_apply_capacity_pulse()
 
 

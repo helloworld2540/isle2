@@ -85,8 +85,12 @@ func _initialize() -> void:
 
 		# Almanac reward gates on the full four-tide set and pays only once.
 		gs.tides_logged.clear()
-		for k in ["glass_calm", "eel_run", "slack_water"]:
-			gs.tides_logged.append(k)
+		var logged_count := 0
+		for c in TideReport.CONDITIONS:
+			if logged_count >= 3:
+				break
+			gs.tides_logged.append(String(c.get("key", "")))
+			logged_count += 1
 		gs.tide_almanac_granted = false
 		_check(gs.try_grant_tide_almanac().is_empty(), "no almanac reward at 3/4")
 		gs.tides_logged.append("night_drift")

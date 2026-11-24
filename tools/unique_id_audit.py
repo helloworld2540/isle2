@@ -7,12 +7,14 @@ import glob
 import re
 import sys
 from collections import Counter
+from pathlib import Path
 
+ROOT = Path(__file__).resolve().parent.parent
 
 PATTERN = re.compile(r"unique_id=(\d+)")
 
 failures = []
-for path in sorted(glob.glob("scenes/**/*.tscn", recursive=True)):
+for path in sorted(glob.glob(str(ROOT / "scenes" / "**" / "*.tscn"), recursive=True)):
     text = open(path, encoding="utf-8").read()
     ids = PATTERN.findall(text)
     counts = Counter(int(i) for i in ids)

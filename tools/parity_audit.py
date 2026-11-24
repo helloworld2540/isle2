@@ -4,8 +4,9 @@
 Hard scans of README.md / guide.md / TODO.md / overnight_sprint.txt
 against the shipped code and scenes. The failure mode this hunts: docs that
 still describe a feature a revert removed (guide says X, code has nothing).
-Reported findings are advisory — exit 0 by default; --strict exits 1 when
-any overclaim is found, so it can be wired into a gate once docs are clean.
+Reported findings are advisory — any OVERCLAIM fails the gate by default
+(exit 1); --strict is accepted and kept harmless (it used to be the only
+strict mode, but the default is now strict too).
 
 Marker styles:
   file:<path>              — file exists (may be an empty string check too)
@@ -85,6 +86,8 @@ for beat in ["whole_sea", "pale_courier", "far_point", "island_steward"]:
     print("  beat %-16s x%d in world.tscn" % (beat, world.count('"%s"' % beat)))
 
 print("\nparity_audit: %d overclaim(s), %d silent(s)" % (total_over, total_under))
-if total_over and "--strict" in sys.argv:
+if total_over:
+    # Any overclaim fails the gate by default; --strict is accepted and kept
+    # harmless on top of that.
     sys.exit(1)
 sys.exit(0)

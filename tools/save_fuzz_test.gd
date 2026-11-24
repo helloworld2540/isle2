@@ -18,8 +18,11 @@ extends SceneTree
 ## Refuses to run if real player slots exist. Exits 0 on success, 1 otherwise.
 ## Wired into tools/all_audits.sh.
 
-## Real materials — the bag must never hold anything else.
-const MATERIALS: Array[String] = ["Polyethylene", "Polypropylene", "Glass", "Nylon", "Reef Debris"]
+## Real materials — the bag must never hold anything else. Derived from the
+## production trash table so the gate cannot drift from the game.
+var GameStateScript: GDScript
+var SaveManagerScript: GDScript
+var MATERIALS: Array[String] = []
 
 # ANSI color codes
 const C_RESET := "\u001b[0m"
@@ -38,6 +41,10 @@ var _start_time: int = 0
 func _initialize() -> void:
 	_start_time = Time.get_ticks_msec()
 	await process_frame
+	GameStateScript = load("res://scripts/game_state.gd") as GDScript
+	SaveManagerScript = load("res://scripts/save_manager.gd") as GDScript
+	for t in GameStateScript.DEFAULT_TRASH_TYPES:
+		MATERIALS.append(String(t))
 	var slot_dir := ProjectSettings.globalize_path("user://slots")
 	if DirAccess.dir_exists_absolute(slot_dir) and not DirAccess.get_files_at(slot_dir).is_empty():
 		print(C_YELLOW + "SKIP:" + C_RESET + " player slots present at " + slot_dir + ", not touching them")
@@ -84,16 +91,14 @@ func _hostile_cases(gs: Node, save_path: String) -> void:
 func _positive_case(gs: Node, save_path: String) -> void:
 	# A valid save must still restore exactly — the sanitising must not round
 	# real values away, and courier_letter_day's -1 sentinel must survive.
-	var payload := {
-		"save_version": 1,
-		"money": 4242,
-		"lifetime_earnings": 9999,
-		"best_reef_depth": 742,
-		"deep_cache": true,
-		"courier_letter_day": -1,
-		"bottles_read": ["bottle_tide", "bottle_gull"],
-		"trash_by_type": {"Glass": 3, "Reef Debris": 5},
-	}
+	var payload := _valid_save_payload()
+	payload["money"] = 4242
+	payload["lifetime_earnings"] = 9999
+	payload["best_reef_depth"] = 742
+	payload["deep_cache"] = true
+	payload["courier_letter_day"] = -1
+	payload["bottles_read"] = ["bottle_tide", "bottle_gull"]
+	payload["trash_by_type"] = {"Glass": 3, "Reef Debris": 5}
 	_write_payload(save_path, payload)
 	_prime_markers(gs)
 	gs.call("restore")
@@ -139,6 +144,31 @@ func _check_invariants(gs: Node, label: String) -> void:
 			bottles_ok = false
 	_check(bottles_ok, "%s: bottles_read is a string list" % label)
 	_check(gs.get("last_run") is Dictionary, "%s: last_run is a dictionary" % label)
+
+## A structurally valid save: one entry per GameState.SAVE_SCHEMA key (with the
+## production defaults), plus the slot-file identity SaveManager stamps on write.
+## The positive case then overrides the fields it wants to pin, so the valid-save
+## key set is derived from the schema rather than hand-copied.
+func _valid_save_payload() -> Dictionary:
+	var payload: Dictionary = {"save_version": SaveManagerScript.SAVE_VERSION}
+	for e in GameStateScript.SAVE_SCHEMA:
+		var key: String = String(e[0])
+		var codec: String = String(e[3])
+		var def: Variant = e[2]
+		match codec:
+			"int":
+				payload[key] = int(def)
+			"float":
+				payload[key] = float(def)
+			"bool":
+				payload[key] = bool(def)
+			"string":
+				payload[key] = String(def)
+			"string_array":
+				payload[key] = []
+			"dict":
+				payload[key] = {}
+	return payload
 
 func _write_payload(save_path: String, payload: Dictionary) -> void:
 	var file := FileAccess.open(save_path, FileAccess.WRITE)

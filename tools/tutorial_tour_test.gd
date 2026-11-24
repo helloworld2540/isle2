@@ -66,7 +66,6 @@ func _initialize() -> void:
 	_check(int(sm.load_game().get("tutorial_step", 0)) == step_after, "tour does not re-arm from scene_started")
 
 	# --- Clean up without touching player slots (isolated XDG dir).
-	sm.call_deferred("wipe_slots") if sm.has_method("wipe_slots") else null
 
 	_print_summary()
 	quit(_fails)

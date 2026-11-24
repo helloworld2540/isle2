@@ -214,7 +214,7 @@ A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC 
 - Hitboxes: the drone's pickup/bump shape is the capsule; fish and trash bump hitboxes are measured off each sprite's ink bounds, so every species (and trash) sizes its own hitbox to the art instead of sharing one hard-coded circle.
 - Combos: 3 garbage in 2s → multiplier `1 + floor(combo/3)`; bonus = weight × (mult-1).
 - Fish limit 3 ends run; spawns edge markers for off-screen items.
-- Spawns are weighted, not uniform (weighted reef spawns): Goldie 20 / Nemo 26 / Crab 22 (regulars), Grey Reef Shark 14, Starfish 14, Silverfin 10 — doubled to 20 on Eel Run, the courier's day. The Starfish drifts at 0.42× a fish's speed, spawns already on the reef floor (no bottom wake), and carries a calm amber edge marker instead of the red fish flare.
+- Spawns are weighted, not uniform (weighted reef spawns): Goldie 20 / Nemo 26 / Crab 22 (regulars), Grey Reef Shark 14, Starfish 16, Silverfin 10 — doubled to 20 on Eel Run, the courier's day. The Starfish spawns already on the reef floor (no bottom wake), carries a calm amber edge marker instead of the red fish flare, and drifts with the school rather than at a fixed fraction of a fish's pace.
 - A dive with no pickups and no fish bumps is not counted (no dive counter, depth best, recap card or haul).
 - Game over: camera shake + confetti, summary panel.
 
@@ -331,9 +331,9 @@ modifier bounds, and the once-per-day claim.
 `godot --headless --script tools/reef_registry_test.gd` — the Reef Registry's
 four tables agree: every catalogue species has a size row, a spawn weight, a
 stats-page registry row and a scene button, and REEF REGISTRY demands the full
-six (including the Starfish's slower drift).
+six.
 
-`godot --headless --script tools/keeper_star_test.gd` — THE KEEPER'S STAR's
+`godot --headless --path . -s tools/keeper_star_test.gd` — THE KEEPER'S STAR's
 scene loads, the Hidden-track catalogue entry is real, and the ISLAND STEWARD
 capstone does not depend on the epilogue star (nor the other way round).
 `python3 tools/npc_beat_audit.py` — every NPC milestone beat names a real
@@ -372,7 +372,7 @@ simulator (4000 sims, fixed seed): replays dive → bench → shop with the
 shipped constants and prints the mean gross per loop (~$32 on a neutral tide,
 matching the guide's measured opening). A review tool, not a gate.
 
-`godot --headless --script tools/courier_flight_test.gd` — the courier's flyby:
+`godot --headless --path . -s tools/courier_flight_test.gd` — the courier's flyby:
 survives only on Eel Run, hides under reduced motion, re-arms after a pass.
 
 `python3 tools/achievement_audit.py` — the achievement catalogue, README's

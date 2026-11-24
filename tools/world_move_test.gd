@@ -73,7 +73,7 @@ func _initialize() -> void:
 	_check((player as Node).get("path").size() > 0, "tap produced a path")
 	_check(_step_number() == 2, "tap lit tutorial step 2 (move)")
 	_ok("walking from %s to cell %s…" % [start_cell, target_cell])
-	var arrived := await _wait_arrival(player, target_cell, layer, 8.0)
+	var arrived := await _wait_arrival(player, target_cell, layer, _arrival_timeout(player))
 	_check(arrived, "keeper reached the tapped cell")
 	_check((player as Node).get("path").is_empty(), "path cleared after arrival")
 	_check(_step_number() == 2, "tour did not regress after moving")
@@ -148,6 +148,13 @@ func _find_unwalkable_near(layer: TileMapLayer, centre: Vector2i, radius: int) -
 func _walkable(layer: TileMapLayer, cell: Vector2i) -> bool:
 	var td := layer.get_cell_tile_data(cell)
 	return td != null and td.get_custom_data("Walkable") == true
+
+## Arrival budget for a tap-to-move walk, derived from production tuning rather
+## than a hard-coded window: the design-time fallback radius (world tiles) priced
+## at the production move time per tile.
+func _arrival_timeout(player: Node) -> float:
+	var world_player_script := load("res://scripts/wm_player.gd") as GDScript
+	return float(world_player_script.FALLBACK_RADIUS) * float(player.get("MOVE_TIME"))
 
 func _wait_arrival(player: Node, cell: Vector2i, layer: TileMapLayer, timeout: float) -> bool:
 	var waited := 0.0

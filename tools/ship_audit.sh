@@ -2,9 +2,9 @@
 # ship_audit: one command to decide whether the tree is releasable.
 #
 # Runs every hygiene gate this project has, in the order that fails fastest:
-#   1. all_audits.sh (13 harnesses + 3 python audits; self-skips against real slots)
+#   1. all_audits.sh (all harnesses + all Python audits; self-skips against real slots)
 #   2. scene_boot_audit.sh (every interactive scene boots with zero script errors)
-#   3. font_size_audit.py (17 px mobile legibility floor)
+#   3. font_size_audit.py (24 px mobile legibility floor)
 #   4. import_audit.py (every importable asset's .import sidecar is fresh)
 #   5. schema_audit.py (save schema: duplicates, codecs, defaults, relics — warn-only on relics)
 #   6. parity_audit.py (docs describe only what ships; beat coverage per NPC)

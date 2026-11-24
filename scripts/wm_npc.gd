@@ -268,11 +268,11 @@ func _prepare_lines() -> Array:
 func _flavour_lines() -> Array:
 	var out: Array = []
 	if not flavour_variants.is_empty():
-		out.append(str(flavour_variants[_visit_count % flavour_variants.size()]))
+		out.append(str(flavour_variants.pick_random()))
 
 	var banter := _personality_banter()
 	if not banter.is_empty():
-		out.append(str(banter[_visit_count % banter.size()]))
+		out.append(str(banter.pick_random()))
 
 	# Tide-aware islanders sprinkle the day's sea into the conversation, as
 	# almanac Oda would; it costs no extra state and flips with the calendar.
@@ -294,14 +294,20 @@ func _flavour_lines() -> Array:
 		if GameState.tide_streak >= 7:
 			out.append("A whole week of tides. You are the reason my almanac has a spine.")
 
-	# Milestones the island noticed — one line per earned badge, appended once
-	# the unlock lands, so each beat needs no bespoke state machine.
+	# Milestones the island noticed — one line per earned badge, collected into
+	# the flavour pool so the single line rolled below can pick from them all.
 	for beat_id in milestone_beats:
 		if GameState.unlocked_achievements.has(String(beat_id)):
 			var line := String(milestone_beats[beat_id])
 			if not line.is_empty():
 				out.append(line)
-	return out
+
+	# A conversation carries a single flavour line, rolled at random from the
+	# island's flavour sources — one opinion, not a menu of candidates.
+	if out.is_empty():
+		return []
+
+	return [str(out.pick_random())]
 
 func _show_dialogue(status: String = "", positive: bool = true) -> void:
 	var first_visit := not _visited_flag
@@ -342,8 +348,10 @@ func _show_dialogue(status: String = "", positive: bool = true) -> void:
 			_configure_quest(tier)
 
 
-# The turn-in button only lights up when the player has the goods and the
-# reward will actually fit in the bag.
+# The turn-in button lights up as soon as the player has the goods. Whether the
+# reward fits is explained when the button is pressed, not pre-emptively greyed
+# out: a disabled button reads as "you did something wrong" even though the
+# player has done the work the quest asked for.
 func _configure_quest(tier: int) -> void:
 	if not _dialogue:
 		return
@@ -359,7 +367,7 @@ func _configure_quest(tier: int) -> void:
 		tier,
 		"Quest: bring %d %s (you have %d)." % [amount, mat, have],
 		"Turn in %d %s" % [amount, mat],
-		have >= amount and bool(data.get("fits", false))
+		have >= amount
 	)
 
 
@@ -369,10 +377,11 @@ func _on_turn_in_requested(tier: int) -> void:
 		return
 	
 	# The hand-in frees the quest weight before the reward lands, but the
-	# reward must still fit afterwards — a full bag must not swallow it. Bail
-	# out (with a nudge toward the shop) instead of accepting a partial reward.
+	# reward must still fit afterwards — a full bag must not swallow it. Say so
+	# in the conversation (the button stayed live on purpose) instead of
+	# accepting a partial reward or silently doing nothing.
 	if not bool(data.get("fits", false)):
-		_dialogue.show_status("Bag full - sell materials at the Shop!", false)
+		_dialogue.show_status("Bag's full — not enough room for the reward. Sell something at the Shop first.", false)
 		return
 	
 	var mat := String(data.get("material", ""))

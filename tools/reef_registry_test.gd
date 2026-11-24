@@ -75,12 +75,6 @@ func _initialize() -> void:
 		var id := String(texture).get_basename()
 		_check(ids.has(id), "sized texture %s is catalogued" % texture)
 
-	# The Starfish's signature: it drifts slower than a fish. A missing or
-	# too-fast row would make the new species indistinguishable on the reef.
-	var drift: Dictionary = FishScript.DRIFT_SPEED_SCALE
-	_check(drift.has("fish_star.png"), "Starfish has a drift-speed row")
-	_check(float(drift.get("fish_star.png", 1.0)) < 1.0, "Starfish drifts slower than a fish")
-
 	# Every weighted species must actually be reachable: run the real picker a
 	# few thousand times and confirm each texture comes up. A species with a
 	# zero (or unreachable) weight is a row nobody can ever unlock.

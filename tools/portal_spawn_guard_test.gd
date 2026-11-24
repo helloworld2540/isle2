@@ -23,7 +23,8 @@ extends SceneTree
 const WORLD := "res://scenes/world.tscn"
 const UPCYCLE := "res://scenes/upcycle.tscn"
 const PORTAL := "PortalUpcycle"
-const SaveManagerScript := preload("res://scripts/save_manager.gd")
+var SaveManagerScript: GDScript
+var WorldPortalScript: GDScript
 
 # ANSI color codes
 const C_RESET := "\u001b[0m"
@@ -44,6 +45,8 @@ func _initialize() -> void:
 	_start_time = Time.get_ticks_msec()
 	_print_header("Portal Spawn Guard Tests")
 	await process_frame
+	SaveManagerScript = load("res://scripts/save_manager.gd") as GDScript
+	WorldPortalScript = load("res://scripts/wm_portal.gd") as GDScript
 	_wipe_slots()
 
 	var gs: Node = root.get_node("GameState")
@@ -68,7 +71,7 @@ func _initialize() -> void:
 		_finish()
 		return
 	_check(not bool(portal.get("_spawn_guard_armed")), "pad unguarded when the keeper spawns far away")
-	var spawn: Vector2 = (portal as Node2D).global_position + Vector2(100.0, 0.0)
+	var spawn: Vector2 = (portal as Node2D).global_position + Vector2(WorldPortalScript.RETURN_DISTANCE, 0.0)
 
 	# --- Load 2: as if just out of the station — the keeper spawns 100 px beside
 	# the pad, then taps a spot on the far side.

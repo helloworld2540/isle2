@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://d3jafoh6nal0n"]
+[gd_scene load_steps=5 format=3 uid="uid://d3jafoh6nal0n"]
 
 [ext_resource type="Script" uid="uid://ck57jnes3bm75" path="res://scripts/minigame_intro.gd" id="1_script"]
 [ext_resource type="Script" path="res://scripts/ui/drag_scroll.gd" id="2_drag"]
+[ext_resource type="Texture2D" uid="uid://dphew4opoa5yg" path="res://res/dock.png" id="9_dock"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_intro"]
 content_margin_left = 22.0
@@ -25,13 +26,15 @@ layer = 99
 script = ExtResource("1_script")
 intro_title = "Mini-game"
 
-[node name="Dimmer" type="ColorRect" parent="."]
+[node name="Dimmer" type="TextureRect" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.6)
+texture = ExtResource("9_dock")
+modulate = Color(0, 0, 0, 0.6)
+stretch_mode = 2
 
 [node name="Center" type="CenterContainer" parent="."]
 anchors_preset = 15

@@ -17,7 +17,9 @@ extends SceneTree
 ## Exit code = number of failing checks (0 = clean), so CI/the loop can gate on it.
 ##
 ## Note: scenes whose _ready touches the save file or audio will still run here;
-## back up user://save.json around the run if you care about its contents.
+## the save now lives behind the slot system — SaveManager.SLOT_DIR is
+## "user://slots", the slot file is <dir>/save.json, and a legacy user://save.json
+## is migrated into the default slot at scripts/save_manager.gd.
 
 var _paths: Array[String] = []
 var _checked_resources: Dictionary = {}

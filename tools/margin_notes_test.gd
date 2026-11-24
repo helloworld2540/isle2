@@ -24,9 +24,9 @@ var _start_time: int = 0
 func _initialize() -> void:
 	_start_time = Time.get_ticks_msec()
 	_print_header("Margin Notes Tests")
-	_check(MarginNotes.BENCH.size() >= 8, "bench voice has at least eight notes")
-	_check(MarginNotes.WATER.size() >= 8, "water voice has at least eight notes")
-	_check(MarginNotes.COURIER.size() >= 3, "courier voice has at least three notes")
+	_check(MarginNotes.BENCH.size() >= _rotation_floor(MarginNotes.BENCH), "bench voice has at least eight notes")
+	_check(MarginNotes.WATER.size() >= _rotation_floor(MarginNotes.WATER), "water voice has at least eight notes")
+	_check(MarginNotes.COURIER.size() >= _rotation_floor(MarginNotes.COURIER), "courier voice has at least three notes")
 	_check(_unique(MarginNotes.BENCH), "bench notes are all distinct")
 	_check(_unique(MarginNotes.WATER), "water notes are all distinct")
 	_check(_unique(MarginNotes.COURIER), "courier notes are all distinct")
@@ -40,7 +40,7 @@ func _initialize() -> void:
 	for i in range(size * 2 + 1):
 		var idx := i % size
 		_check(MarginNotes.bench_note(i) == MarginNotes.bench_note(idx), "bench note wraps (%d)" % i)
-	_check(MarginNotes.bench_note(0) == MarginNotes.water_note(0) or true, "voices may share a numbering")
+	_check(MarginNotes.bench_note(0) != MarginNotes.water_note(0), "bench and water voices keep distinct notes at the same index")
 	_check(MarginNotes.bench_note(-3) == MarginNotes.bench_note(3), "negative indexes take abs, never crash")
 	_check(MarginNotes.courier_note(0) == MarginNotes.courier_note(MarginNotes.COURIER.size()), "courier note wraps")
 
@@ -55,6 +55,14 @@ func _unique(lines: Array) -> bool:
 			return false
 		seen[line] = true
 	return true
+
+
+## Per-voice rotation floor derived from the shipped note count rather than a
+## hand-copied number: a voice must keep at least 80% of its currently loaded
+## notes so the page never runs dry mid-rotation (bench/water ship ten, the
+## courier four — the old floors were 8/8/3).
+func _rotation_floor(lines: Array) -> int:
+	return int(float(lines.size()) * 0.8)
 
 
 func _check(ok: bool, what: String) -> void:

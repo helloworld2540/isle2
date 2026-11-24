@@ -7,6 +7,7 @@ extends SceneTree
 ## XDG_DATA_HOME isolates the user data dir; the test refuses to run if player
 ## slots already exist there, and cleans up after itself either way.
 const AchievementCatalog := preload("res://scripts/achievement_catalog.gd")
+var GameStateScript: GDScript
 
 # ANSI color codes
 const C_RESET := "\u001b[0m"
@@ -24,6 +25,7 @@ var _start_time: int = 0
 
 func _initialize() -> void:
 	_start_time = Time.get_ticks_msec()
+	GameStateScript = load("res://scripts/game_state.gd") as GDScript
 	var slot_dir := ProjectSettings.globalize_path("user://slots")
 	if DirAccess.dir_exists_absolute(slot_dir):
 		print(C_YELLOW + "SKIP:" + C_RESET + " slots present at " + slot_dir + ", not touching them")
@@ -64,9 +66,9 @@ func _initialize() -> void:
 	var money_before: int = gs.money
 	gs.mark_keeper_star_found()
 	_check(gs.keeper_star_found, "keeper_star_found flips on find")
-	_check(gs.money == money_before + 50, "one-time +$50 payout (%d)" % (gs.money - money_before))
+	_check(gs.money == money_before + GameStateScript.KEEPER_STAR_MONEY, "one-time +$50 payout (%d)" % (gs.money - money_before))
 	gs.mark_keeper_star_found()
-	_check(gs.money == money_before + 50, "second call does not pay twice")
+	_check(gs.money == money_before + GameStateScript.KEEPER_STAR_MONEY, "second call does not pay twice")
 	_check(gs.is_achievement_unlocked("keeper_star"), "THE KEEPER'S STAR achievement fires")
 
 	# --- 5. Schema round-trip: save → restore keeps the flag and the payout.
@@ -75,7 +77,7 @@ func _initialize() -> void:
 	gs.money = 0
 	gs.restore()
 	_check(gs.keeper_star_found, "keeper_star_found survives the schema round-trip")
-	_check(gs.money == money_before + 50, "money survives the round-trip (%d)" % gs.money)
+	_check(gs.money == money_before + GameStateScript.KEEPER_STAR_MONEY, "money survives the round-trip (%d)" % gs.money)
 
 	# --- 6. Capstone does not depend on the star (no circular unlock).
 	gs.unlocked_achievements.erase("keeper_star")

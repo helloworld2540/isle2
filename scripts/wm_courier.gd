@@ -18,6 +18,13 @@ const MAX_INTERVAL := 65.0      ## seconds between passes (max)
 ## Intervals once THE LAST LETTER is read — the courier shows off a little.
 const GRATITUDE_MIN_INTERVAL := 16.0
 const GRATITUDE_MAX_INTERVAL := 34.0
+## First-pass arrival window after a fresh spawn: how soon the Silverfin crosses
+## after the keeper starts the run, grateful or not.
+const FIRST_PASS_MIN_INTERVAL := 8.0
+const FIRST_PASS_MAX_INTERVAL := 20.0
+## First re-arm after a grateful pass (the post has been read in full).
+const GRATEFUL_FIRST_MIN_INTERVAL := 4.0
+const GRATEFUL_FIRST_MAX_INTERVAL := 9.0
 
 ## Debug/test hook: pretend the tide is this key (empty = real tide). Lets a
 ## harness exercise the eel-run path without changing the calendar.
@@ -51,7 +58,7 @@ func _ready() -> void:
 	scale = Vector2(0.5, 0.5)
 	modulate.a = 0.0
 	_center = position
-	_timer = randf_range(4.0, 9.0) if _grateful else randf_range(8.0, 20.0)
+	_timer = randf_range(GRATEFUL_FIRST_MIN_INTERVAL, GRATEFUL_FIRST_MAX_INTERVAL) if _grateful else randf_range(FIRST_PASS_MIN_INTERVAL, FIRST_PASS_MAX_INTERVAL)
 
 
 ## True once the keeper has read all fourteen pages. Everything is looked up at

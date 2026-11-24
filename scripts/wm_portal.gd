@@ -1,6 +1,7 @@
 extends Area2D
 
 const RouteAdvisor := preload("res://scripts/route_advisor.gd")
+const WorldPlayerScript := preload("res://scripts/wm_player.gd")
 
 ## Glowing world-map pad. Standing on it transitions into a scene and remembers
 ## a safe spot to drop the player back onto when they return.
@@ -247,7 +248,7 @@ func _save_return_position(player: Node2D) -> void:
 	if wm and is_instance_valid(wm) and player.has_method("_is_walkable"):
 		var cell: Vector2i = wm.local_to_map(wm.to_local(candidate))
 		if not bool(player.call("_is_walkable", cell)):
-			cell = player.call("_nearest_walkable_cell", cell, 8) as Vector2i
+			cell = player.call("_nearest_walkable_cell", cell, WorldPlayerScript.FALLBACK_RADIUS) as Vector2i
 			candidate = wm.to_global(wm.map_to_local(cell))
 	
 	SaveManager.save_player_position(candidate)

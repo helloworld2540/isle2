@@ -10,6 +10,9 @@ are exempt because they are not touch targets.
 import glob
 import re
 import sys
+import pathlib
+
+ROOT = pathlib.Path(__file__).resolve().parent.parent
 
 HEADER = re.compile(r"^\[node name=\"[^\"]+\" type=\"([^\"]+)\"", re.MULTILINE)
 SIZE = re.compile(r"custom_minimum_size = Vector2\(\s*([0-9.]+)\s*,\s*([0-9.]+)\s*\)")
@@ -24,7 +27,7 @@ def block_ranges(text):
 
 
 failures = []
-for path in sorted(glob.glob("scenes/**/*.tscn", recursive=True)):
+for path in sorted(glob.glob(str(ROOT / "scenes" / "**" / "*.tscn"), recursive=True)):
     text = open(path, encoding="utf-8").read()
     for node_type, start, end in block_ranges(text):
         if node_type != "Button":

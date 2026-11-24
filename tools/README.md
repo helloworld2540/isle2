@@ -52,7 +52,7 @@ This is why the harnesses use `get_node` rather than bare autoload names.
 | `courier_flight_test.gd` | runtime | WorldCourier survives only on Eel Run, hidden under reduced motion, re-arms after a pass |
 | `migration_test.gd` | runtime | Legacy-save restore backfills every modern key; money survives the schema round-trip |
 | `tide_test.gd` | static | Tide rotation is deterministic, modifiers in bounds, tip purchase applies/lapses |
-| `reef_registry_test.gd` | static | The Reef Registry's four-way agreement: FishCatalog, FISH sizes + spawn weights, stats registry rows/buttons, and the REEF REGISTRY predicate all name the same species set (incl. the Starfish's drift speed) |
+| `reef_registry_test.gd` | static | The Reef Registry's four-way agreement: FishCatalog, FISH sizes + spawn weights, stats registry rows/buttons, and the REEF REGISTRY predicate all name the same species set |
 | `slot_test.gd` | runtime | Slot create/delete/re-bind, multi-island save independence |
 | `slot_ui_test.gd` | runtime | Slot picker rows render from headers; rename keeps id, changes label |
 | `restore_test.gd` | runtime | Backup rotation (`save.json` → `.bak` → `.bak2`) and corrupt-primary recovery |
@@ -86,6 +86,9 @@ This is why the harnesses use `get_node` rather than bare autoload names.
 | `save_fuzz_test.gd` | runtime | Writes 12 hostile saves (wrong types, negatives, 1e30, unknown bag keys) and proves restore() completes with safe defaults instead of aborting halfway; also round-trips a valid save |
 | `shop_sale_test.gd` | runtime | Drives the real shop scene: bulk and sub-threshold sales pay exactly the ledger quote, undo returns both money and goods, and the sale survives a save/restore round trip |
 | `world_move_test.gd` | runtime | Real world scene: tap-to-walk routes to a walkable cell, the keeper actually arrives, tutorial step 2 fires, and a water tap falls back to land instead of dead-routing |
+| `npc_dialogue_test.gd` | runtime | NPC dialogue card pacing: reduced-motion typewriter, OK-button arm/final line, dismiss on final advance, card freed and queue idle after |
+| `stats_ledger_test.gd` | runtime | Tide Ledger overlay: read notes mark ✓ and stay tappable, unread notes lock, open/close round trip |
+| `bottle_catalog_test.gd` | static | Bottle catalogue: ≥8 well-formed unique entries, known story ids resolve, story-arc ids catalogued, Tide Ledger id/button sets align 1:1 |
 | `walkable_probe.gd` | dev | Prints walkable-tile grid info for the camera/BFS audits |
 
 `spawn_weight_test.gd` was wired into the gate while the weighted-spawn

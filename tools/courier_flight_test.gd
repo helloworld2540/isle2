@@ -7,6 +7,7 @@ extends SceneTree
 ## node — no calendar changes, no saves, no slots.
 
 const CourierScene := preload("res://scenes/wm_courier.tscn")
+const WorldCourierScript := preload("res://scripts/wm_courier.gd")
 
 # ANSI color codes
 const C_RESET := "\u001b[0m"
@@ -52,7 +53,7 @@ func _initialize() -> void:
 	_check(not live.is_queued_for_deletion(), "courier survives on Eel Run")
 	_check(live.modulate.a == 0.0, "courier starts hidden")
 	var timer0: float = live.get("_timer")
-	_check(timer0 > 0.0 and timer0 <= 20.0, "first pass arrives within 20 s")
+	_check(timer0 > 0.0 and timer0 <= WorldCourierScript.FIRST_PASS_MAX_INTERVAL, "first pass arrives within %.0f s" % WorldCourierScript.FIRST_PASS_MAX_INTERVAL)
 
 	# 3) One pass: becomes passing, fades in, sweeps, re-arms.
 	live.call("_pass")
@@ -63,7 +64,7 @@ func _initialize() -> void:
 	_check(not bool(live.get("_passing")), "pass completes")
 	_check(live.modulate.a == 0.0, "pass cleans up the alpha")
 	var timer1: float = live.get("_timer")
-	_check(timer1 >= 30.0 and timer1 <= 65.0, "pass re-arms on the long timer (%.1f)" % timer1)
+	_check(timer1 >= WorldCourierScript.MIN_INTERVAL and timer1 <= WorldCourierScript.MAX_INTERVAL, "pass re-arms on the long timer (%.1f)" % timer1)
 
 	# 4) Reduced motion skips the flyby entirely.
 	if _gs != null:
@@ -84,11 +85,11 @@ func _initialize() -> void:
 	await process_frame
 	_check(not gifted.is_queued_for_deletion(), "grateful courier survives on Eel Run")
 	var first := float(gifted.get("_timer"))
-	_check(first >= 4.0 and first <= 9.0, "grateful courier arrives sooner (%.1f)" % first)
+	_check(first >= WorldCourierScript.GRATEFUL_FIRST_MIN_INTERVAL and first <= WorldCourierScript.GRATEFUL_FIRST_MAX_INTERVAL, "grateful courier arrives sooner (%.1f)" % first)
 	gifted.call("_pass")
 	gifted.call("_end_pass")
 	var short_timer := float(gifted.get("_timer"))
-	_check(short_timer >= 16.0 and short_timer <= 34.0,
+	_check(short_timer >= WorldCourierScript.GRATITUDE_MIN_INTERVAL and short_timer <= WorldCourierScript.GRATITUDE_MAX_INTERVAL,
 		"grateful courier re-arms on the short interval (%.1f)" % short_timer)
 
 	_print_summary()

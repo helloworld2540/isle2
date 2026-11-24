@@ -11,6 +11,9 @@ import sys
 
 REQUIRED = {
     "README.md": ["Architecture", "Modules"],
+    # The tools/ README is the gate-facing doc: it must carry the section
+    # anchors the audit promises (title + gate commands) and stay substantive.
+    "tools/README.md": ["# tools/ — build & release gates", "## Gate commands"],
     # The gameplay guide was restructured (Dive → Sort → Sell rewrite): the
     # old "## Quick reference" section is now the "## Frequently Asked
     # Questions" section. The anchor list follows the new document structure.
