@@ -1,5 +1,9 @@
 # Isle 2
 
+This project was written by ~seethathuman~ OpenCode. Please visit my other not vibe coded projects, thx
+
+Itch.io: https://seethathuman.itch.io/isle2
+
 A Godot 4 2D project: a world-map hub with two minigames, an economy, shop, NPC quests, upgrades, and progression.
 
 ## Project Info
